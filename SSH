@@ -1,0 +1,2 @@
+
+ssh ec2-user@54.237.220.77 -i /home/mufazzal/.ssh/id_rsa
