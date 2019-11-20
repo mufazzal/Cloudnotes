@@ -1,2 +1,18 @@
+Shell, cms, cli hell lot of term. lets dive.
+
+What is Shell -
+This is the program that facilitate the interaction of user with OS via commands.
+Everything you do with GUI (e.g copy, search, paste, zip, play, stop), you can do it with Shell commands.
+
+Type of Shell ->
+There are many shell avaialable today for veraity of feature and for veriety of OS.
+Most used are -
+  bash:       globally pre-installed in Linux and MAC
+  window CMD: globally pre-installed in Window
+  sh:         legacy luinux
+  
+When you open terminal in ubuntu or cmd in window, corrosponding Shel activated automatically.
+
+
 
 ssh ec2-user@54.237.220.77 -i /home/mufazzal/.ssh/id_rsa
