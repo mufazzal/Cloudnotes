@@ -11,7 +11,25 @@ Most used are -
   window CMD: globally pre-installed in Window
   sh:         legacy luinux
   
-When you open terminal in ubuntu or cmd in window, corrosponding Shel activated automatically.
+When you open terminal in ubuntu or cmd in window, corrosponding Shell activated automatically.
+
+Connecting Remote Linux Machine (or linux server) with shell :-
+There is many way to do it. like telnet, ftp etc.
+The most famous and recomended one is SSH. 
+Why? becoz of its safty
+
+--------> SSH  <-------------
+
+What is SSH:
+SSH is a way to connect a linux machine with any remote shell. 
+This provide you a secure way to communicate with linux sever over the unsecure network.
+IMP: SSH provide you the way to connect the linux machine by any client-shell. 
+Now its depend on the shell what kind of operation it can perform.
+
+Shell VS SSH :-
+Shell - A large set of commands(copy, cut, ls, cat) that perform operation on Linux
+SSH - A specific set of command that help you to connect to remote linux machine.
+
 
 
 
