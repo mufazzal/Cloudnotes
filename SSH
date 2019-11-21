@@ -53,7 +53,7 @@ How to generate public-private key value pair using SSH:-
 
 
 The Mechanics of connection establishment with key pair :-
-Lets say 3 client (muf, mur arw) wants to connect a remote linux machine (bar)
+Lets say 3 client (muf, fat arw) wants to connect a remote linux machine (bar), and bar have user 'sha'/'ras'
 prerequisite : get the address and user of remote linux machine and A client machine (window/linux/mac) but must have SSH installed in it
 Setting up key pair: 
   1. Each one will generate their key pair with SSH (ssh-keygen command)
@@ -63,10 +63,21 @@ Setting up key pair:
   So finally muf, mur and arw has their private key with then and there public key shared to bar
   
   muf[pk1]   
-  mur[pk2]    -------------   bar [pbk1, pbk2, pbk3]       
+  fat[pk2]    -------------   bar [pbk1, pbk2, pbk3] {sha, ras}      
   arw[pk3]
   
-  
+ Finally Requesting 'bar' for connection:
+  lets say 'muf' wants to login on 'bar' with user 'sha'
+  for this 'muf' will use this command
+      
+      ssh <remoteServerUser>@<remoteServerAddress> -p <remotServerListingPort> -i <localPrivateKeyFile>
+      ssh       sha         @     bar.com          -p         22               -i  C:/....
+      <-><------A----------><-------B------------><-----------C----------------><---------D----------->
+      
+      A: the remote user [Must]
+      B: adress, either IP or DNS [must]
+      C: Port: [optinal] default 22
+      D: private key file of 'muf': [optianl] default location is 'C:/user/muf/.ssh/id_rsa'
   
   
 
