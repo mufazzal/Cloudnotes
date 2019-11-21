@@ -15,7 +15,7 @@ When you open terminal in ubuntu or cmd in window, corrosponding Shell activated
 
 Connecting Remote Linux Machine (or linux server) with shell :-
 There is many way to do it. like telnet, ftp etc.
-The most famous and recomended one is SSH. 
+The most famous and recomended one is SSH. telnet is so unsafe that it carry password as plain text over unsecure network
 Why? becoz of its safty
 
 --------> SSH  <-------------
@@ -30,7 +30,59 @@ Shell VS SSH :-
 Shell - A large set of commands(copy, cut, ls, cat) that perform operation on Linux
 SSH - A specific set of command that help you to connect to remote linux machine.
 
+Note ->
+To connect a Remote linux machine you must have below things
+  1.  address of that machine (IP or DNS name).
+  2.  At least one user-account of that machine. 
+  3.  SSH communicate using TCP, and by default SSH listen over port 22. so port 22 must be open (if not customized for other port)
+  4.  Most IMP: a  key value pair.
+  
+First three things are technical detail you must knew but key value pair is you also can generate and set-up.
+
+Ways connect with SSH ->
+There is 2 way
+  1. With password  [rarely and unsafe]
+  2. With key pair   [widely and safe]
+
+How to generate public-private key value pair using SSH:-
+  open cmd/terminal/poweshell and use command
+    ssh-keygen -C myofficekey -f C:\Mufazzal\cloud\keys\myofficekey
+               <-----A------> <-------------B--------------------->
+    A: This is the commnet, it will be appended in the end of public key to make it recognizable, optinal
+    B: The path/filename: 2 file (one public, one private) wil be generated at this location
 
 
+The Mechanics of connection establishment with key pair :-
+Lets say 3 client (muf, mur arw) wants to connect a remote linux machine (bar)
+prerequisite : get the address and user of remote linux machine and A client machine (window/linux/mac) but must have SSH installed in it
+Setting up key pair: 
+  1. Each one will generate their key pair with SSH (ssh-keygen command)
+  2. Each one will store their privaate key in safe location of his/her local client machine
+  3. Each one will MANUALLY send the their public key to bar
+  4. Now bar will also store all the public key at some safe place.
+  So finally muf, mur and arw has their private key with then and there public key shared to bar
+  
+  muf[pk1]   
+  mur[pk2]    -------------   bar [pbk1, pbk2, pbk3]       
+  arw[pk3]
+  
+  
+  
+  
+
+
+
+SSH and linux-
+  SSH is globally preinstalled in any linux machine so you never need ti install it. its implemented usin OpenSSH library 
+SSH and window-
+  SSH in preinstalled in window 10+ so no need to install. it is also implemented usin OpenSSH library. 
+  For older window you can use Putty Client 
+  
+SSH vs openSSH -
+  SSH is the protocol.
+  OpenSSH is an implementation client & server of that protocol.
+
+
+?????check port 22 after and before conn
 
 ssh ec2-user@54.237.220.77 -i /home/mufazzal/.ssh/id_rsa
