@@ -41,6 +41,7 @@ cp -R file folder
   MAke no sense. work same as in 'cp file folder'
   
   
-  
+  cp folder/ folder 
+  cp fol1/ fol2  : this will copy the content not folder.
   
   
