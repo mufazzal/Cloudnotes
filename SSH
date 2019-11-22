@@ -78,10 +78,16 @@ Setting up key pair:
       B: adress, either IP or DNS [must]
       C: Port: [optinal] default 22
       D: private key file of 'muf': [optianl] default location is 'C:/user/muf/.ssh/id_rsa'
-  
+  How this connection handshakw happen ->
+  in very high level just remember
+    client send ID of its key pair (not private key)
+    server now goes in its trust store and look for matching public key
+    if he fouds then server acknowladge it
+    and finaly a connection establish.
   
 
-
+authorized_keys 
+known_host
 
 SSH and linux-
   SSH is globally preinstalled in any linux machine so you never need ti install it. its implemented usin OpenSSH library 
