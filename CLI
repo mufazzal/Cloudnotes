@@ -54,4 +54,23 @@ from system in the end
 
 
 
+Removing: 
+
+rm <empty directory>            : work
+rm <file>                       : work
+rm <non empty directory>        : error
+rm -R <non empty directory>     : work and delete directory with all its content
+
+ 
+Removing with force 
+  use -f for this, It will forcefully remove the file. But you should have permission for this.
+  rm -r -f <file or folder> 
+  OR
+  rm -rf <file or folder> 
+  
+  
+
+
+
+
 
