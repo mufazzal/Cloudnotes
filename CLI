@@ -45,3 +45,13 @@ cp -R file folder
   cp fol1/ fol2  : this will copy the content not folder.
   
   
+
+move: >
+mv  <file/foler to be moved> <destination folder>
+
+All rule remain same as cp. It never need -R because it move all thing entirly including content. and of course it delete the <file/foler to be moved> 
+from system in the end
+
+
+
+
