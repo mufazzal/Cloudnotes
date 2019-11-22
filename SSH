@@ -73,7 +73,7 @@ Setting up key pair:
       ssh <remoteServerUser>@<remoteServerAddress> -p <remotServerListingPort> -i <localPrivateKeyFile>
       ssh       sha         @     bar.com          -p         22               -i  C:/....
       <-><------A----------><-------B------------><-----------C----------------><---------D----------->
-      
+     
       A: the remote user [Must]
       B: adress, either IP or DNS [must]
       C: Port: [optinal] default 22
@@ -85,7 +85,23 @@ Setting up key pair:
     if he fouds then server acknowladge it
     and finaly a connection establish.
   
-
+ A grant rule:- 
+ In any Asymetric cryptography, Public key will encrypt the data and only its private couterpart will decrypt it. 
+ 
+  
+  
+After connection establishment how comm will occure:-
+  suppose 'muf' has established the connection with 'bar', and their server(bar) ready with public key and client(bar) with private
+  lets say 'muf' ran a command '-ls' in CLI
+  This command will go to remote linux 'bar'
+  He will execute it and generate result as list of directory ['home', 'image', 'data']
+  Now server(bar) will be encrypt this result with corresponding public key 
+      so  ['home', 'image', 'data'] + "...public key of muf...."  -> [......encrypted.......]
+  Now it will be sent to 'muf'
+  Now client 'muf' will decrypt it with its private key
+       [......encrypted.......] + Private key --> ['home', 'image', 'data']
+     
+            
 Q: Where the client keep the private key file
 A: Whereever you wants, jmust pass the correct path in ssh command
 
@@ -93,8 +109,7 @@ Q: Where the remote linux server keep all the public keys
 A  by default in './ssh/authorized_keys' file by default. you can also change it.
 
 
-authorized_keys 
-known_host
+
 
 SSH and linux-
   SSH is globally preinstalled in any linux machine so you never need ti install it. its implemented usin OpenSSH library 
@@ -107,6 +122,10 @@ SSH vs openSSH -
   OpenSSH is an implementation client & server of that protocol.
 
 
-?????check port 22 after and before conn
+?????
+check port 22 after and before conn
+authorized_keys 
+known_host
+find where is authorized_keys in server
 
 ssh ec2-user@54.237.220.77 -i /home/mufazzal/.ssh/id_rsa
