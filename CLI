@@ -5,6 +5,7 @@ IMP Commads
   ls:         list out all the file and folder
       -l      more detail
       -a      all file including hidden
+      x/y/z   Items inside current_working_dir/x/y/z
   cd:         you know
       ~       go to home directory
       -       go to previous location
@@ -12,3 +13,34 @@ IMP Commads
       
 WHat id there is space in directory name?
 A: USe quote->  cd "C:/user/Mufzzal Hussain"
+
+
+Making directory:
+  mkdir muf
+MAking the herarchy too if not exist
+  mkdir -P x/y/muf
+  
+  cp :>
+  
+  This is use for doing copy
+  
+  cp <file/foler to be copied> <destination file/folder>
+  
+  
+cp folder folder ->  
+  cp fo1 fo2              :   fo1 will copied in fo2, but not it content so C:/cwd/fo2/fo1 remian emprty
+cp file folder ->
+  cp fo1/fo11/f1.txt fo2  :   the file f1.txt will be copied in fo2 so C:/cwd/fo2/f1.txt [NOT C:/cwd/fo2/fo1/fo11/f1.txt]  
+cp folder file ->
+  Impossible
+
+Copy recurssivly ->
+cp -R folder folder ->  
+  cp -R fo1 fo2              :   fo1 will copied in fo2 fully, and all content of fo1 will be in C:/cwd/fo2/fo1 also
+cp -R file folder  
+  MAke no sense. work same as in 'cp file folder'
+  
+  
+  
+  
+  
