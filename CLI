@@ -1,0 +1,14 @@
+
+
+IMP Commads
+  pwd:        Print current working directory
+  ls:         list out all the file and folder
+      -l      more detail
+      -a      all file including hidden
+  cd:         you know
+      ~       go to home directory
+      -       go to previous location
+      
+      
+WHat id there is space in directory name?
+A: USe quote->  cd "C:/user/Mufzzal Hussain"
