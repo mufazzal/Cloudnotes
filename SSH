@@ -101,6 +101,13 @@ After connection establishment how comm will occure:-
   Now client 'muf' will decrypt it with its private key
        [......encrypted.......] + Private key --> ['home', 'image', 'data']
      
+     
+     
+     muf  |muf private key|    --------------   |muf public key|            
+     arw  |arw private key|    --------------   |muf public key|     bar  
+     fat  |fat private key|    --------------   |muf public key|
+     
+     
             
 Q: Where the client keep the private key file
 A: Whereever you wants, jmust pass the correct path in ssh command
