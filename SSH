@@ -104,8 +104,8 @@ After connection establishment how comm will occure:-
      
      
      muf  |muf private key|    --------------   |muf public key|            
-     arw  |arw private key|    --------------   |muf public key|     bar  
-     fat  |fat private key|    --------------   |muf public key|
+     arw  |arw private key|    --------------   |arw public key|     bar  
+     fat  |fat private key|    --------------   |fat public key|
      
      
             
