@@ -84,6 +84,20 @@ Setting up key pair:
     server now goes in its trust store and look for matching public key
     if he fouds then server acknowladge it
     and finaly a connection establish.
+    
+    Also note ->
+    If useer is connecting the remote server and client first time, then it(client) will also ask to remeber ECDSA fingerpring of server.
+    if you tell them to save it, then it will be stored in 'C:\Users\hussaimu\.ssh\known_host' file and do not ask for next time.
+    
+ What is ECDSA fingerpring of server and why its saved?
+ ??????
+    
+ 
+ How to make sure all run fine on client :-
+  run->     netstat -na | find ":22"
+  Output->  TCP    192.168.43.173:51692   34.227.83.213:22       ESTABLISHED
+                                          <-----A--------->
+ A: this is  addresssOfRemoteServer@port  
   
  A grant rule:- 
  In any Asymetric cryptography, Public key will encrypt the data and only its private couterpart will decrypt it. 
