@@ -131,6 +131,7 @@ A  by default in './ssh/authorized_keys' file by default. you can also change it
 
 
 
+  
 
 SSH and linux-
   SSH is globally preinstalled in any linux machine so you never need ti install it. its implemented usin OpenSSH library 
@@ -141,6 +142,23 @@ SSH and window-
 SSH vs openSSH -
   SSH is the protocol.
   OpenSSH is an implementation client & server of that protocol.
+
+
+
+Special Analysis:>
+Loging in to ec2 linux instance [think of ec2 as bar]
+  1. Generate key pair locally
+  2. go ro aws consoel > ec2 > key-pair > import : select public key file 
+  3. open CLI and type  sss ec2-user@<IP or DNS> -i <private key file path>
+  4. Now u r connected.
+Q: Where does public stored in ec2 linux instanse
+A: of course at ~/.ssh/authorized_keys, to see that simply 
+    ls ~/.ssh
+    cat authorized_keys
+    <######## your public key which you set up is step 2 is here##########>
+
+  
+  
 
 
 ?????
