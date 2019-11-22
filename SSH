@@ -86,6 +86,13 @@ Setting up key pair:
     and finaly a connection establish.
   
 
+Q: Where the client keep the private key file
+A: Whereever you wants, jmust pass the correct path in ssh command
+
+Q: Where the remote linux server keep all the public keys
+A  by default in './ssh/authorized_keys' file by default. you can also change it.
+
+
 authorized_keys 
 known_host
 
