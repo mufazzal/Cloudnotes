@@ -27,4 +27,33 @@ How to create such user (Prerequisite#2) :
     This user do not have password, because this user do no have access type 'AWS Management Console access'
     
     
+  How to configure aws-cli on local PC :-
+    once user is ready and local machine has aws-cli installed
+    open cmd/poweshell/terminal
+    aws <command> 
+    
+  How to use :>
+  As like any other CLI tool aws also provide lot of (1000+) commands to perform operation on aws items.
   
+  Aws provide so much command that we can not dive in it in single doc. But for purpose of this doc u can use 'aws help'
+  'aws ec2 describe' etc,
+  
+  All AWS tool like ec2, glacier, s3, codedeploy has set of their own commands. so see them in their respective chapter.
+ 
+  if you wants to get help for commands of EC2, type  aws ec2 help
+  --      --        --        --           S3   --    aws S3 help   
+ 
+ 
+ IMP:
+  SSH on EC2  VS  aws-cli :
+  When you connect to EC2 instaance via SSH, you are actully performong operation on EC2 instance and 
+  you working directory is the remote linux server, in you command window you see something like this
+    ec2-use@12.44.45.23 $_
+  But aws-cli is completely on your local PC, your working directory is also in your  PC
+  in you command window you see something like this
+  C:/user/mufazzal:> _
+  
+   
+  
+  
+ 
