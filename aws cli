@@ -1,0 +1,29 @@
+If you login to 'https://console.aws.amazon.com', you see 100s of operaion you can do here like sart/stop ec2, load s3,
+operate on glacier. Basically all very high level operations on all aws features.
+
+But this all done via UI.
+
+What if you wants to do it via automation or via remote access.
+For this comes 'aws-cli'
+
+In very few word ->
+  CLI + https://console.aws.amazon.com   =   aws-cli
+aws-cli provide you the bunch of commands to perform many aws operation. 
+The most imp use case of this is to write the shell script, that will allocate, invoke and terminate the aws resourses via 
+automation at many level.
+
+So how to use it :-
+  Prerequisite:  
+    1. You should have a aws accout.
+    2. A user with 'AdministratorAccess' permission and and acceess type 'Programmatic'
+    3.
+    4.
+    
+How to create such user (Prerequisite#2) : 
+  This will be illustrated deeply in IAM topic but for now 
+  login to aws console site -> IAM -> create user group with 'AdministratorAccess' permission
+    -> create user -> select access type 'Programmatic access' -> select group created 
+    -> IMP save the user-csv file becoz this to imp keys for this user to login via aws-cli.
+    
+    This user do not have password, because this used do no have access type ''
+  
