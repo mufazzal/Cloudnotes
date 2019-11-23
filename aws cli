@@ -53,7 +53,12 @@ How to create such user (Prerequisite#2) :
   in you command window you see something like this
   C:/user/mufazzal:> _
   
+  EC2 user  VS  aws-cli user
+  ec2-user is assosiated with SSH-EC2  , and he can play around only with its EC2 instance (like copy/delet/read file).
+  But aws-cli user have lot more to do like pal with EC2, s3, codeploy etc.
    
-  
+  ec2-user can read file on ec2 instance but aws-cli user can not.
+  aws-cli can terminate the EC2 instance but ec2-user can not.
+
   
  
