@@ -1,3 +1,5 @@
 shell commands ->
   ls
   cat
+See how if we chose diffrent geographical location, the latancy impact by
+  tracert <IP>  command
