@@ -45,3 +45,33 @@ In IAM you should know the tuening between following things to uderstand it comp
   Finally Create user and assign them in group.
   
    
+   Policies:-
+   In whole IAM this one is a most complcated or pain in a ***. Lets en in it 
+   Can user UUUUU perform the operation OOOO on the resource RRRRR
+   This is described in the form of JSON and u must master its interpetation
+    
+    So in very very generic form it goes like this ->
+    
+    User UUUU have policy PPP
+    PPP =
+      ...
+      Statement": [
+            {
+                "Effect": Allow/Deny, L1
+                "Action": OOOO,       L2
+                "Resource" RRRR:      L3
+            }, {...}, {...}
+         ] 
+    ...
+    
+    L1: tell you should he be able to do it or not
+    L2: List of action(add, edit, delete) we are talking about. Mostly its a array.
+    L3: List of resources (EC2, S3, Codedeploy) we are talking about.
+    
+    
+    
+
+   
+   
+   
+   
