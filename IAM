@@ -1,0 +1,47 @@
+The IAM is of course a core of any system.
+This give u a way to create and authorize the user for ceertain user
+
+IAM is region independent, it means that if you create and nay user/group in the account then ir will be available to all 
+region, not specific to the one you may have selected.
+
+Root Account: This is the most parent account, basucally the owner one. like h.mufazzal@gmail.com in my case.
+This account/user neither can be deleted nor modified for less permission. This user have all the permissions.
+
+In the IAM module you create the user and its group. 
+
+In the company generally we create group like Admin, HR, Developer, Manageer etc. 
+This group will have specific set of permissions to perform operation on aws console.
+
+In IAM you should know the tuening between following things to uderstand it completely 
+(For now lets go in drief)
+  1.  User: An entity that will access the aws console/cli and perform operation on it.
+  2.  Policies: A set of permissions that are clubbed together for creating a profile.
+  3.  Role: ??????????????????
+  4.  Group: A group has a number of policy assign to it. and all the user in this group will have those policy assigned to them 
+              automatucally.
+              
+              
+ Lets see User-Policies-Group tuening -
+ 
+ You have many people in team lets box them all in proper place
+ 
+ You have - 
+  Mufazzal, Abhishek, 
+  Anand, Dhaval
+  Abhijit, Jigitha, 
+  Ravi, poorty, Sourabh, pavvan
+  
+  For Developer -> 
+  
+  First idetify the accessablity of those guys, whart kind of operation they can do and so enlist the policies for them
+  E.G. A developer should have policies like 
+  AWSCodeBuildDeveloperAccess, AWSCodeDeployFullAccess etc. 
+  
+  Then create the group "Developers", This group will have all the policies we enlisted above. 
+  
+  So Group-Developer will have [AWSCodeBuildDeveloperAccess, AWSCodeDeployFullAccess] policies.
+  
+      Group = f(policies) and C(User) >> Group is a function of policies and collecion of users.
+  Finally Create user and assign them in group.
+  
+   
