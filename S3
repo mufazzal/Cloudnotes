@@ -1,7 +1,87 @@
-In very Simple word S3 is STATIC STORAGE. A bucket that is best place to put static HTML, css, video, image, static JS  etc.
+In very Simple word S3 (Simple Storage Service) is STATIC STORAGE. 
+A bucket that is best place to put static HTML, css, video, image, static JS  etc.
 
-S3 is avilable globally. ????????
-But bucket created inside S3 may or may not ???????????????
+Things that should be stored in S3 :-
+  Any kind of flat file like image, .html. video etc
+Wich should not:-
+  Any dynamic/processable/database/OS file
+  
+ 
+Bucket:-
+  In very simple word, This is a kind of UNIQUE folder in the ENTIRE S3 UNIVERSE
+  So when you create it, its name must be quique (not relative to the buckets in your S3 account but in an entire S3 unviverse)
+  So you can not take name like test, test123 etc as they may have taken centuries ago. 
+
+Region of S3:-
+  S3 is region independent, when you open S3 in aws console you will see region selected as 'Global' and other rigion remian unselectable.
+  It means that S3 service remain same in entire aws system.
+Region of bucket:
+  Though S3 is region independent, but the bucket created in S3 by you will must lie in a selected region 
+  
+Q:  Can i access the bucket on region A in Region B
+  ????????
+ 
+
+How To create Bucket :-
+  1. aws > S3 > Create Bucket
+  2. Fill Name: Mut be unique in all S3 universe 
+  3. Select Region: You should select nearest one (VVIMP: Though you select region here but still the name should ne unique to entire S3 universe )
+  4. Couple of more thing (will be covered later)
+
+
+S3 and Data Consistency :-
+1: Read after Write: its consistent, mns you will be able to read the file immdietly after writing it.
+2: Read after Delete/Change: This may take some time to reflect, so if you read immedietly after then you may get the previouse version
+
+
+
+
+S3 Storage Classes:-
+  1. S3 - Standard : general-purpose storage of frequently accessed data
+      Low Latancy - High Throughput -  >= 3 AZ  -
+      Storage Fee:  0 till 50TB
+      Retrival Fee: NA
+  2. S3 IA (infrequently Access) : long-lived, but less frequently accessed data
+      Low Latancy - High Throughput -  >= 3 AZ  -  
+      Storage Fee:  Yes
+      Retrival Fee: Yes
+  3. S3 IA - one zone (infrequently Access) : long-lived, but less frequently accessed data
+      Best for lessfrequently access data   - Low Latancy - High Throughput -   1 AZ  -  
+      This is same as S3-IA except data lies in only one AZ. So risk if AZ goes down and cost lower
+  4. S3 Inteligent Tiering: Use AI to move data b\w diffrent tiers without your intervention
+  5. S3 Glacier and S3 Glacier deep Archive: for long-term archive and digital preservation
+      Take minute and Hours for retrival
+    
+      
+Charges:
+  For Storage
+  For Request
+  For Storage Management
+  Data Transfer
+  Transfer Acceleration
+  Cross border replication
+  
+Transfer Acceleration: 
+  First if you wants to use it then pay for it.
+  If you wnants to accelerate the speed of UPLOADing of file on S3 bucket then use it.
+  This feature actully uses the heavyweight network of edge-location and cloudFront(instead of typical internet) 
+  to maximize the upload speed of the file.
+When to use this -
+  You have customers that upload to a centralized bucket from all over the world.
+  You transfer gigabytes to terabytes of data on a regular basis across continents.
+  You are unable to utilize all of your available bandwidth over the Internet when uploading to Amazon S3.
+
+Cross Region replication:-
+    First if you wants to use it then pay for it.
+    It simply allow the bucket to automatically copy to another bucket in diffrent region. So give you kind of data security
+
+
+
+
+
+
+
+
 
 
 
