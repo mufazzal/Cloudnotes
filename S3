@@ -78,6 +78,13 @@ Cross Region replication:-
 
 
 
+URL of the cucket:-
+A url of the bucket is unique for each indivisual bucket in entire S3 universe
+
+And it pattern is :-
+
+https://s3-<region Name>.amazonaws.com/<Bucket Name>
+https://s3-eu-west1     .amazonaws.com/Mufazzalbucket
 
 
 
