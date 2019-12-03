@@ -88,6 +88,9 @@ https://s3-eu-west1     .amazonaws.com/Mufazzalbucket
 
 
 
+Note:
+S3 is Object based storage so you can store file but not OS or database. ?????????
+Also data store in form of <key> <value> pair in somewhere ???????
 
 
 
