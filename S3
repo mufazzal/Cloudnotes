@@ -151,6 +151,10 @@ There is three way to do it
   The url for website be :-
   http://mufazzalbio.s3-website.ap-south-1.amazonaws.com
   
+  page/image/file created in folder of bucket will be accessible via same relative path e.g.
+    http://mufazzalbio.s3-website.ap-south-1.amazonaws.com/photo/germanyPic.png
+
+  
   
  #VVIMP: Anything you put intially in S3 in any bucket by default never be public, you have to go and set it after upload.
 
