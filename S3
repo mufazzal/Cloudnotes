@@ -15,6 +15,7 @@ Bucket:-
 Region of S3:-
   S3 is region independent, when you open S3 in aws console you will see region selected as 'Global' and other rigion remian unselectable.
   It means that S3 service remain same in entire aws system.
+  If "Test" bucket in created in region "Asia" then "Test" cant be created again by anyone in any region ever.
 Region of bucket:
   Though S3 is region independent, but the bucket created in S3 by you will must lie in a selected region 
   
@@ -79,20 +80,76 @@ Cross Region replication:-
 
 
 URL of the cucket:-
-A url of the bucket is unique for each indivisual bucket in entire S3 universe
-
+  A url of the bucket is unique for each indivisual bucket in entire S3 universe
 And it pattern is :-
-
-https://s3-<region Name>.amazonaws.com/<Bucket Name>
-https://s3-eu-west1     .amazonaws.com/Mufazzalbucket
-
-
+  https://<Bucket Name>.s3.<region Name>.amazonaws.com/<NAme of Item in Bucket>
+  https://  muftests3  .s3.  eu-west1   .amazonaws.com/    MufazzalPhoto
 
 Note:
 S3 is Object based storage so you can store file but not OS or database. ?????????
 Also data store in form of <key> <value> pair in somewhere ???????
 
 
+How to craete S3 Bucket and and upload file in it by aws portal:-
+  Such Spoonfeeding! really
 
+Folder in Bucket:-
+  You can create a folder in it and its url path will in in respective of its directory path.
 
+Once a Bucket is created, These are the operation we can do (Over the bucket not indivisual file)
+  1. Enable Versioning
+  2. Enable static website hosting
+  3. Transfer Acceleration
+  4. Create event to emit in case of any opration occure on bucket
+  5. Set/Unset permission of IAM user/Group
+  6. Set Bucket Policy Json
+  7. Set Lifecycle (like moving to glacier after certain time or prvius verion archiving)
+  8. Replication to another/same region
+  ...etc
+  [detail will come later]
+  
+  
+Once a file uploaded on Bucket possible operation on File (not Bucket)
+  1. Changing storage class
+  2. Changing permission
+  ...etc
+  
+  
+  
+Access of Bucket and its Content:-
+There is three way to do it
+  1. resource-based policies
+      1.1 Bucket Policy
+      1.2 ACL (Access control list)
+  2. User Policy
+    [Detail will come later] 
+  
+  
+ Static website in S3:- 
+  1. Create a bucket, mark it public access, place index.html in it
+  2. myWebSiteBucket > properties > Static ebsite hosting --> Enable it and select error and index html page
+  3. Though bucket is public but content in it is not so now add bucket policy like this to make all the content in the bucket public
+      myWebSiteBucket > Permission > Bucket policy
+      
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "PublicReadGetObject",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": [
+                "s3:GetObject"
+              ],
+              "Resource": [
+                "arn:aws:s3:::BUCKET_NAME/*"
+              ]
+            }
+          ]
+        }      
+        
+  
+  
+  
+ #VVIMP: Anything you put intially in S3 in any bucket by default never be public, you have to go and set it after upload.
 
