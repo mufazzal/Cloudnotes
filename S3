@@ -126,7 +126,7 @@ There is three way to do it
   
   
  Static website in S3:- 
-  1. Create a bucket, mark it public access, place index.html in it
+  1. Create a bucket [mufazzalbio], mark it public access, place index.html in it
   2. myWebSiteBucket > properties > Static ebsite hosting --> Enable it and select error and index html page
   3. Though bucket is public but content in it is not so now add bucket policy like this to make all the content in the bucket public
       myWebSiteBucket > Permission > Bucket policy
@@ -148,7 +148,8 @@ There is three way to do it
           ]
         }      
         
-  
+  The url for website be :-
+  http://mufazzalbio.s3-website.ap-south-1.amazonaws.com
   
   
  #VVIMP: Anything you put intially in S3 in any bucket by default never be public, you have to go and set it after upload.
