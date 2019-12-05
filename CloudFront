@@ -1,0 +1,60 @@
+Before jump first you should know what is CDN?
+
+CDN means content delivery networ, This are the collection of data center/server spread across the earth (to cache the content)
+to deliver the content as fast as possible. 
+
+Suppose your origin server lie at london and you call the file from Austrelia.
+
+Now CDN first go to london and get the file to user who asked for but latter it will cache the file to nearest server.
+So next time someone ask in austrelia then it may not go to london but get it from neareast cache-server
+
+So CDN is strong if there is great network of server/center are their to cache. 
+
+
+CDN of AWS : CloudFront :-
+Clodfront is a tool that enable to use the CDN for many aws servoces. It core is a great network of EDGE-LOCATIONs spread 
+across the entire earth. there are total ??? edge location currently.
+
+Egde-location: this is diffrent from Region and AZ, This are the servers which use to cache the resource and expedite its delivery
+
+What edge-location can cache :-
+  .html, .css, .js,
+  video
+  images
+  many thing
+  
+  
+How to set it up:-
+For now brief it up and later go in detail-
+  1.  First set up the origin server, it could be a S3 bucket or your own web server 
+  2.  You upload the file(.html. .js, .mkv) to origin server 
+  3.  You create a CloudFront distribution by aws console of aws-CLI, which tells CloudFront which origin servers to get your files from 
+        when users request the files through your web site or application. aws anutomatically spread this info to entire edge-location network.
+  4.  CloundFront give you a alternative domain to you files, now you should us
+
+now if you access the file by the given cloudfrong domain name then the edge network become active
+get the information of origin server from 'cloudfrong domain name' and cache the file if requied.
+
+
+
+Alternative of AWS-CloudFront :  Akamai 
+
+Cloudfront With S3 Bucket :-
+Suppose you have files in S3 and wants it delivery to be super fast via Cloud front. Stweps-
+  1. Open CloudFront
+  2. Origin Domain Name : The domain name of origin, it could be a S3 bucket(in our case), a web server etc.
+  3. Origin Path: the sub path after Orignal domain name
+  4. ........Hell lot of other ......
+  ....long wait to enable.....
+  Done
+
+
+
+
+
+
+
+
+
+
+
