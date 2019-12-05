@@ -3,3 +3,7 @@ shell commands ->
   cat
 See how if we chose diffrent geographical location, the latancy impact by
   tracert <IP>  command
+  
+  
+AWS :-
+  AWS SSO
