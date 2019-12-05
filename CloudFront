@@ -46,11 +46,21 @@ Suppose you have files in S3 and wants it delivery to be super fast via Cloud fr
   3. Origin Path: the sub path after Orignal domain name
   4. ........Hell lot of other ......
   ....long wait to enable.....
-  Done
+  Done and you got a cloufront domain url 
 
 
 
-
+YOu have a S3 bucket:- 
+  'mufbio' and you have 'mypic.png' in it.
+  You set up cloudfront for this bucket
+  Now finally :-
+  
+  http://d29u64au9dl7cv.cloudfront.net/mypic.png  
+      : will use cloudfront distribustion 
+  And
+  https://mufbio.s3.ap-south-1.amazonaws.com/mypic.png
+      : Will use normal internet
+  
 
 
 
