@@ -154,7 +154,43 @@ There is three way to do it
   page/image/file created in folder of bucket will be accessible via same relative path e.g.
     http://mufazzalbio.s3-website.ap-south-1.amazonaws.com/photo/germanyPic.png
 
+#VVIMP: Anything you put intially in S3 in any bucket by default never be public, you have to go and set it after upload.
+
+
+Alternative to AWS-S3 :-
   
   
- #VVIMP: Anything you put intially in S3 in any bucket by default never be public, you have to go and set it after upload.
+S3 VS EBS VS EFS :-
+
+S3: This is the Object-based storage. Each file stored in S3 has a own unique identifier or key, for access through web requests from 
+      anywhere from internet or cloufrount. Also S3 support the Static Website Hosting.
+      S3 is not at all the traditional file system. 
+      Scalability: very high
+      Latency: Low
+      Its best to use for:-
+      storing media content for distribution
+      static website
+      Archiving
+ EBS: Elastic Block Syatem
+      This is the Block-Storage 
+      In very simple term, EBS is the drive of your EC2 instance. Every EC2 instance must have a EBS attached to it.
+      Thing of this as a C or D drive of your vitual EC2 machine.
+      Its fastest among all but its scalability is very dificult and required manully attachment/dettachment of EBS (Volume)
+      Think of it like a local linux server with EBS as its SSD drive. If load goes up you have to stop server, add more SSD and restrat it.
+      Scalability: Poor
+      Latency: Lowest
+      Its best for 
+        Database: sql, nosql etc.
+ EFS: Elastic File Syatem
+      At a moment just remeber that EFS is same as EBS, But EFS can be attch to multiple EC2 instace and sevices.
+      Its biggest advantage over EBS is it is auto scalable whel load fluculated ove attached EC2's.
+      Scalability: b/w both
+      Latency: b/w both
+      
+      
+  
+  
+  
+
+
 
