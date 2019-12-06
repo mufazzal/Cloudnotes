@@ -37,8 +37,6 @@ get the information of origin server from 'cloudfrong domain name' and cache the
 
 
 
-Alternative of AWS-CloudFront :  Akamai 
-
 Cloudfront With S3 Bucket :-
 Suppose you have files in S3 and wants it delivery to be super fast via Cloud front. Stweps-
   1. Open CloudFront
@@ -63,8 +61,15 @@ YOu have a S3 bucket:-
   
 
 
+Alternative of AWS-CloudFront :  Akamai, And its a absolute leader here. Akamai rule the CDN word because its server prsensse of more than 216000
+  Other: azure CDN, clodfate, cdnjs, UNPKG
 
 
+As we are talking about CDN, You may have uset cdn link of many js libs already 
+like:-
+  cdnjs/cloudflare for jquery :         https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js
+  google cdn for jquery:                https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js 
+  Microsoft CDN for Jquery:             https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js
 
 
 
