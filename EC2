@@ -1,3 +1,79 @@
-
-
 What is rackspace
+
+
+Why EC2: because purchasing a server and maintaining them is a hell.
+          Now with EC2 you buy a machine and ready to go.
+          
+          
+
+Pricing-
+  On Demand:
+    You pay by usage/hour or per second
+    Best For -
+      If you do not need any long term contract
+      Low Cost
+      Short live application
+  Reserved:
+    You reserve the capasity for a certain time (for a 1 yera to 100s of year).
+    You are locked in a contract. AWS generally provide yuo discount if you contract for longer time. You also need to pay some amount upfront.
+    Best For -
+      App that need steady and predictable usages (So you calculate the computing power well in advance, 
+                                                        so pay upfront in advance and get good discount from AWS)
+      Type of Reserved :-
+        1. Standard:    You cant change the EC2 instance type
+        2. Convertible: You can change the EC2 instance type      
+        2. Schedule
+  Spot:
+      This work like a biding in stock market, you bid for a any instacne with many others. 
+      The best one get the deal, and if sombody again ready to pay more then you lose (after some agreed time) this instance.
+      Best For:-
+         Me: Hey! i want to do this task its kind of R and D, but it will take fair computing power so buy some Ec2. no specific strat or end time required
+         Finance: We do not have much money for R and D. 
+         Me: Ok! lets go to Spot pricing, when it cost low buy some, work on it, release if it get costly, and  keep doing it at very low cost.
+         Finance: smart guy.
+  Dedicated Host:
+    Generally if you need to follow soome regulatory protocols.
+    
+    
+Type of Ec2 instances-
+  There are couple of EC2 instances which are design to achive a specific goal
+  EG
+    T3    Low Cost-Genral purpose     web server/small DB
+    G3    Graphics intensive          video
+    I3    High speed storage          NoSql, DBs
+    R5    Memory optimized            Memory intensive
+    M5    General Purpose             App Server
+    ...
+    ...
+    
+    
+    
+    EBS:-
+    As like any normal PC/Server the virtual PC/Server also need a hard disk, EBS play this role
+    EBS is virtual Hard Disk Drive of you EC2 instance.
+    You can use this drive to 
+      install OS, mounting File System, DB etc.
+    Type of EBS :-
+      1. SSD
+          1.1 GP2 : General Purpos SSD- 
+              balanced price, good performance
+              Best for : general purpose
+          1.2 IO1 : Provisioned IOPS SSD - 
+              Highest performance, High price
+              Best for: mission-critical, low latancy and high throuput work. best for main DB's of your app
+       2. Megnetic
+          2.1  ST1 :  Throughput optimize 
+                 Low cost - frequently accessed
+         2.2   SC1 :  Cold HDD  
+                Lowest cost - less frequently accessed 
+                Best for file server.
+            
+      
+    
+    Geography of EBS and EC2 :- A EBS attached to EC2 does lie in the same AZ as of EC2.
+    
+    
+    
+    
+
+
