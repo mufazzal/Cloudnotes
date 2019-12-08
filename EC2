@@ -46,6 +46,25 @@ Type of Ec2 instances-
     ...
     ...
     
+Subtype of instances:-
+   Each above type of instance is design to support and handle specific type of requirment. Like one is best for
+   DB and other is optimized for game. 
+   After selecting a type nest thing is how intensive you wants to use your system.
+   EG: you say i need a DB optimized Or web-server optimized instance, But how intensive your workload going to be.
+   Depending on this you select the subcategory.
+   
+   Lets say i wants a general purpose T3 instance.
+   Now    if my workload is moderate then i will go for t3.small
+          if my workload is significant then i will go for t3.large
+          if my workload is bulky then i will go for t3.xlarge
+   Whats diffrence in between this instances :-
+          diffrence comes in Memory-size (RAM not EBS), vCPU count, Storage type (EBS or other).
+      
+  
+  >> Type and SubType is two most fundamental decesion you must take before selecting an instance.
+  
+  Setting instance configuration:-
+   
     
     
     EBS:-
@@ -68,7 +87,9 @@ Type of Ec2 instances-
                 Lowest cost - less frequently accessed 
                 Best for file server.
             
-      
+    
+    
+    
     
     Geography of EBS and EC2 :- A EBS attached to EC2 does lie in the same AZ as of EC2.
     
