@@ -127,8 +127,13 @@ Security Of EC2 instance:-
     This is most critical part of EC2, Security of EC2 is implemented via Security group attached to EC2 
     Security group is nothing but a kind of firewall around EC2, that decide who can communicate to EC2 and who cannnot.
     
+    ## Read Network Traffic Protocol ### in notes.txt
     
-
+    Over the network there is multiple way to connect the EC2 with external system
+    1. If EC2 is linux based instance then we can use SSH (at port 22 of EC2)
+    2. If EC2 is window based instance then we can use RDP (at port 22 of 3892)
+    3. Connect EC2 (any based) with internet traffic with HTTP and HTTPS ( on port 80 or 443)
+    4. POP, SMTP ....etc.       
 
 
 
