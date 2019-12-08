@@ -64,9 +64,22 @@ Subtype of instances:-
   >> Type and SubType is two most fundamental decesion you must take before selecting an instance.
   
   Setting instance configuration:-
+   Once you decided waht type and subtype you wants, next comes the configuration
+   This are the peramter you set before launcing, Some example are
+   1. No of instances
+   2. Autoscalling
+   3. spot price config if needed
+   4. network and VPC ???
+   5. subnet: decide in which AZ the instance will lie
+   6. assign public IP: aws has a pool of public IP avialable to use. If you need one then it will be assign to your EC2.
+                        With Public IP you can access the Ec2 instance over public internet
+   7. Capacity reservation if needed
+   .....etc.
    
-    
-    
+
+
+The next IMP thing comes in EC2 is Hard Disk Drive, You need to devide how much storage you need for any EC2 instance
+The storage in EC2 is EBS    
     EBS:-
     As like any normal PC/Server the virtual PC/Server also need a hard disk, EBS play this role
     EBS is virtual Hard Disk Drive of you EC2 instance.
@@ -88,12 +101,50 @@ Subtype of instances:-
                 Best for file server.
             
     
+Depending on your requirment you select the storage type, But as like computing power here also you need to decide on
+capasity of your storage.
+Seting the congiguration for EBS:-
+    When you set up the EC2 and EBS for that EC2. First decide how many drive you need. (at least one is must)
+    The first drive is always the default one and called Root. You can chnage its type, size but cant delete it.
+    Its root path is also fixed (eg. : '/dev/xvda' for linux).
+    Only GP2 and IO1 can be used as Root
+You can create more than one drive, the non-root drive can be one of type GP2, IO1, SC1, ST1. you can chose its size, drive-path
+Also you should note down the IOPS(input output per second) of selected device for performance tuning.
+          
+     So Following thing you Set for EBS -
+          1. Type
+          2. device path
+          3. snapshot ?????
+          4. Size
+          5. Note down IOPS
+          6. Delete on termination ????
+          7. Encryption
+
+Geography of EBS and EC2 :- A EBS attached to EC2 does lie in the same AZ as of EC2.
+    
+
+Security Of EC2 instance:-
+    This is most critical part of EC2, Security of EC2 is implemented via Security group attached to EC2 
+    Security group is nothing but a kind of firewall around EC2, that decide who can communicate to EC2 and who cannnot.
     
     
-    
-    Geography of EBS and EC2 :- A EBS attached to EC2 does lie in the same AZ as of EC2.
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
 
