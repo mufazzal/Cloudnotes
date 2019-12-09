@@ -156,8 +156,23 @@ Security Of EC2 instance:-
               113.*.*.*/32       :   will allow all matching IPs to connect to EC2 via selected protocol
         This is CIDR notation of IP. Will study it later
 
-
-
+Securing the connection: 
+   Once the connection is established with EC2(linux, window any type) with another system (window based, linux based etc..) via any 
+   protocol (SSH, RDP, HTTP etc..)
+   The next thing comes is to make the communication safe and non penetrable.
+   Whatever you both talking, nobody in the network should be able to decode it.
+   
+   For this we will study diffrent cases
+   1.     Securing SSH for EC2 linux-instance and any remote client
+   2.     Securing RDP for EC2 window-instance and any remote client
+   3.     Securing HTTP and HTTPS
+   ...etc
+   
+   Securing SSH: For this aws provide PPK based encryption. The EC2-linux-instance will encode all the thing via public key
+   and the peer we be able to decode it with its private key (correct one).
+      For detail: read ssh.txt
+   
+          
 
 
 
