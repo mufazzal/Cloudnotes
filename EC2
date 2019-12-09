@@ -168,12 +168,11 @@ Securing the connection:
    3.     Securing HTTP and HTTPS
    ...etc
    
-   Securing SSH: For this aws provide PPK based encryption. The EC2-linux-instance will encode all the thing via public key
+   Securing SSH and RDP: For this aws provide PPK based encryption. The EC2-instance will encode all the thing via public key
    and the peer we be able to decode it with its private key (correct one).
-      For detail: read ssh.txt
+      For detail on SSH: read ssh.txt
+      For detail on RDP: Study later
    
-          
-
 
 
 
