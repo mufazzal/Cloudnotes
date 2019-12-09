@@ -154,7 +154,7 @@ Security Of EC2 instance:-
               0.0.0.0/0, ::/0    :   will allow all the IP address to connect to EC2 via selected protocol
               113.193.134.22/32  :   will allow all the 113.193.134.22 to connect to EC2 via selected protocol
               113.*.*.*/32       :   will allow all matching IPs to connect to EC2 via selected protocol
-  
+        This is CIDR notation of IP. Will study it later
 
 
 
