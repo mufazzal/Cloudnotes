@@ -6,3 +6,15 @@ Linux:        Talk via SSH on port 22
 Window:       Talk via RDP on port 3389
 HTTP:         Talk via HTTP on port 80
 HTTPS:        Talk via HTTPS on port 443
+
+
+FYI
+
+Type        Protocol
+SSH         TCP
+RDP         TCP
+HTTP        TCP
+HTTPS       TCP
+IMPS        TCP
+POP         TCP
+...
