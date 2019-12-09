@@ -177,6 +177,44 @@ Outbound rule of security group: it will tell to whome the EC2 can iniate the co
 
 
 
+EC2 and Other AWS services -> 
+    EC2 can perform operation over diffrent aws service (E.G S3, cloudfront etc)
+    But before performing the operation the EC2 instance should have proper autorization
+    There is two way to Authorize the EC2-instance for other AWS operation
+    1. By loging in to AWS-CLI in EC2 instance with authorized user of AWS account, For this you must have a authorized user
+    2. By assigning the role itself to EC2 instance. (No IAM user required)
+    
+    Lets say you wants to create a S3 bucket wirh EC2
+    
+    First way:
+          1. Strat EC2 instance
+          2. Create user with proper permission to access and manage S3 
+          3. From SSH-terminal connect local pc ('muf') with EC2 ('bar') via proper private key
+          4. One you are in terminal of EC2 (Not you local PC)
+                    at   ec-user@1.1.1.1 >_
+                    not  MufazzalPC: >_
+             do the login to aws-cli via command 'aws configuration' with proper access key and ID of user created in step 2
+          5 Once login is successful, You can use the comands to create S3 bucket 
+                    ???????????
+          Security flaw in here :-
+                    The EC2 instance actully save the access key and ID at './aws' directory of EC2 honme drive
+                    So sombody may be able to see it if he has access to EC2 via SSH. So second aproach is recommended
+     Second Way:
+          
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
 
 
     
