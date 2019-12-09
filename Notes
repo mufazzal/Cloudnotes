@@ -1,8 +1,8 @@
 
 
-How diffrent syatem talk/listen:-
+Network Traffic Protocol : How diffrent syatem talk/listen:-
 
-Linux:        Talk via SSH on port 22
+Linux:        Talk via SSH on port 22     
 Window:       Talk via RDP on port 3389
 HTTP:         Talk via HTTP on port 80
 HTTPS:        Talk via HTTPS on port 443
