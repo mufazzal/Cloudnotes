@@ -200,7 +200,11 @@ EC2 and Other AWS services ->
                     The EC2 instance actully save the access key and ID at './aws' directory of EC2 honme drive
                     So sombody may be able to see it if he has access to EC2 via SSH. So second aproach is recommended
      Second Way:
-          
+          1. Crate ar Role in IAM (for EC2) with proper permissions [seAdminFullAccess in our case]
+          2. right click on EC2 > action > instance setting > add/remove Role
+          3. From SSH-terminal connect local pc ('muf') with EC2 ('bar') via proper private key
+          4. Once connected, You can use the comands to create S3 bucket 
+                    >  'aws s3 mb s3://muf12decbuck'
     
     
     
