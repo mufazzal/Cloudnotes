@@ -195,7 +195,7 @@ EC2 and Other AWS services ->
                     not  MufazzalPC: >_
              do the login to aws-cli via command 'aws configuration' with proper access key and ID of user created in step 2
           5 Once login is successful, You can use the comands to create S3 bucket 
-                    ???????????
+                    >  'aws s3 mb s3://muf12decbuck'
           Security flaw in here :-
                     The EC2 instance actully save the access key and ID at './aws' directory of EC2 honme drive
                     So sombody may be able to see it if he has access to EC2 via SSH. So second aproach is recommended
