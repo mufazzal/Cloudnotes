@@ -178,13 +178,21 @@ A: of course at ~/.ssh/authorized_keys, to see that simply
       
   
   If you wants to connect with EC2-linux by Putty :>
+      With .pem: putty will give error
+      with .ppk: work fineexit
+      
   
-  If you wants to connect the EC2-window by putty:>  
   
   If you wants to connect with EC2-linux by openSSH :>
-  
+      With .pem: work fine
+      with .ppk: Invalid Formate
+      
   If you wants to connect the EC2-window by openSSH:>
-  
+  If you wants to connect the EC2-window by putty:>  
+    HAHAHA! You cannot connet the EC2-window instance with SSH at all. You have to use RDP for this.
+    
+    
+How to connect EC2-witndoe with RDP??????????    
   
   
   
