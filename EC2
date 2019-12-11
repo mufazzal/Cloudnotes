@@ -209,6 +209,29 @@ EC2 and Other AWS services ->
     
     
     
+    ------------------
+    
+    Using EC2 As Web Server :-
+          Till now we have seen that how we can configure the EC2 instance to listen the SSH traffic on Port 22, We see hoe we create the 
+          Security group with inbound rule of (SSH-22-0.0.0.0) setup.
+          Now when we wants to creat a webserver also out of this EC2, The first thing we need to do is to 
+          let the HTTP traffic to be listened at port 80 so first step to create a web server is to creat a security group with 
+          inboud : 
+                    SSH  22   0.0.0.0/0   -> because you may also need it to access by SSH
+                    HTTP 80   0.0.0.0/0
+     
+    nest thing you require to use EC2 as web server 
+    1. A proper webserver to be installed like Apache, websphere etc.
+    2. A proper war or html deplo on it    
+    
+    Lets create one vert tiny web server from EC2 :-
+    create EC2 with proper security group 
+    Connect to EC2 by SSH
+    > yum update : to update ec2 libs
+    > yum install httpd -y : install the appache server
+    > service httpd start : strat the servert
+    > cd /var/www/html : go to the server directory which will be visible to internet
+    > Create a file 'index.html' [how> CLI.txt #CreatFile]
     
     
     
