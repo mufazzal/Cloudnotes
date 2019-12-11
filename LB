@@ -24,7 +24,7 @@ Creating A LB for EC2-webserver:-
       which lies in this zone only. 
   7. Security Group:
     A SCG which has inboud open as   HTTP   80   0.0.0.0/0, ::/0
- 8. Routing Group: 
+  8. Routing Group: 
     Slect the routing group of you choice 
       8.1  select routing group name 'MufWebServerRoutingGroup'
       8.2  Target Type: instance.  Because we wants to rote to EC2 for now ???????????
@@ -33,7 +33,7 @@ Creating A LB for EC2-webserver:-
       8.5 Register Target:
           8.5.1 Here you will register the targest for LB ports chosen in step 8.3
                 This targets are instances of running EC2s, you can select multiple of them here.
- 10 press Create and you are done   
+  9 press Create and you are done   
  
  
  Now later if you wants to add or remove any Ec2 instance again then-
