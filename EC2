@@ -232,7 +232,7 @@ EC2 and Other AWS services ->
     > service httpd start : strat the servert
     > cd /var/www/html : go to the server directory which will be visible to internet
     > Create a file 'index.html' [how> CLI.txt #CreatFile]
-    
+    > DONE : go to the IP of EC2. EG : http://15.206.125.146/ or http://15.206.125.146/muf.html
     
     
     
