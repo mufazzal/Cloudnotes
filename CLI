@@ -69,6 +69,15 @@ Removing with force
   rm -rf <file or folder> 
   
   
+#CreatFile
+Creating a text file and adding text via CLI only :-
+  go to directory you wants to create a file in
+  > cd path/to/dir
+  > nano filename.txt
+  :: A very legacy UI will apear to creat a file, follw the instruction their and save it
+  > ctrl + X to save, then Y to done, and Enter for exiting text editor and come to CLI window again
+  
+  
 
 
 TODO :
