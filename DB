@@ -1,0 +1,47 @@
+AWS give us the way to integrate RD(Relation Database) and NRD(No Relation Database) DB both
+
+Supporting SQL DB:
+  SQLSever
+  ORACLE
+  MySql
+  PostgresSql
+  Amazon Aurora : amazon itself
+  MariaDb
+  
+  The AWS provide 'RDS' (Relation Database Service) for integration of RDB
+  
+  Key feature of RDS
+  1. Multiple AZ: For disator at one AZ will save you from complete loss
+      If anything happen then aws automatically rout to another AZ without even restarting anything
+  2. Read Replica: for performance boost AWS keep multiple read only copy
+      AWS write the one DB, and may keep multiple copy for fast reading
+      
+ No Relation DB: 
+  <<< How to connect MangoDB king of open source NRBD >>>
+  
+  AWS provide its own NRD: DynamoDB
+  
+  
+  Data Warehousing: 
+    Database is a central comp of any app. so the production DB shopuld always be fast and swift to generate result of query.
+    Generally application run the small queries on the DB but analytics work run very complex and time taking query.
+    
+    So for best practice we keep prod DB isolated from Analytics work
+    For analytics we use another DB and system, Thats called data warehousing 
+    
+    AWS tool for Data warehousing: RedShift
+    
+    
+    Cache: AWS also provide a way to cache the DB in the memory. So retrive the data from memory instead of a disk
+    this is mostly use for frequetly identical query (eg. Select * from todaysTop10Song)
+    AWS support two open source in-memory cache tecnique.
+    1. MeMCached
+    2. redis
+    
+    
+    Table:
+    RDB                 Aurora
+    NRDB                DnnamoDB
+    Data Warehosing:    RedShift
+    Cache:              ElasticCache
+    
