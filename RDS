@@ -1,0 +1,12 @@
+RDS is the service that provide a way to integrate the Relation Databse.
+
+There is 6 RDB supported
+  SQLSever
+  ORACLE
+  MySql
+  PostgresSql
+  Amazon Aurora : amazon itself
+  MariaDb
+  
+  
+Lets create a RDS instance with SQLServer :-
