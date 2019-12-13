@@ -1,5 +1,6 @@
 RDS is the service that provide a way to integrate the Relation Databse.
 
+#SDB
 There is 6 RDB supported
   SQLSever
   ORACLE
@@ -10,3 +11,80 @@ There is 6 RDB supported
   
   
 Lets create a RDS instance with SQLServer :-
+  
+  AWS Console > RDS > Create DB  
+  Engine options: Select which kind of DB and its version you wants to select from list #SDB
+  DB instance identifier: A unique id that must be unique among all DB instance that are in your AWS account 'mufdatabaseinstance'
+  Master username/Password: A user who will defining  users, objects, and permissions in the databases
+  DB instance size: Chosse the proper one depending on computational poewer you need.
+  Storage Type: 
+    General Purpose (SSD) -> suitable for a broad range of database workloads. Provides baseline of 3 IOPS/GiB and ability to burst to 3,000 IOPS.
+    Provisioned IOPS (SSD) -> suitable for I/O-intensive database workloads. Provides flexibility to provision I/O ranging from 1,000 to 30,000 IOPS.
+  Storage autoscalingInfo: let it be default ??????
+  Availability & durability: AWS keep the stadby replica of DB in cas of emergency.
+  Now just press 'Creat Database' leave all other default. and u r done
+  
+  You have created the DB now.
+  Lets now connect it with other things
+  
+  As like the any 
+  linux machine connect     at SSH port 22
+  window machine connect    at RDP port 3892
+  MySql Databse  connect    at TCP port 3306
+  
+  So to let it connect with outside word we need to open the 3306 port of this RDS DB instance
+  How  
+  open the DB page by clicking 'mufdatabaseinstance' and click on vlaue of 'VPC security groups'
+  VPC Security group: 
+    This is simply a firwall around our DB. This firwall should leave the proper port (3306 for mysql) open for client
+    (This client could be a IP, CIDR or security group)
+    How a security group can also be a point of connction for other security group 
+    Still A question ?????
+    But for now lets open the TCP 3306 port to all so that anybody can connect our sql DB
+    
+  How to connect with MySql workbench in you PC
+  will see later ????
+  How to connect with EC2-webserver instance.
+  For this we first launch the EC2 instance and make it a webserver
+  How? We have already seen it
+  
+  Now Just for testing: We are installing the wordpress also on this EC2 so that we can make a DB connection.
+  
+  So create EC2 web server, select proper security group as such EC2 have HTTP-80 and TCP-22 open
+  ##VVIMP: Why not TCP-3306: Because this  EC@ is not a databese itself, it will make a connection with DB at the port-3306 of DB
+  
+ ----------------------                           
+                          ------HTTP--------                        
+    world wide web        ------HTTP--------            80-----
+                          ------HTTP--------                  |                                
+ -----------------------                                      EC2-----------------  3306   RDS - MySql
+                                                              |
+ muf------------------SSH--------------------                 |
+ fat------------------SSH--------------------           22-----
+ mur------------------SSH--------------------
+ 
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+
+  
