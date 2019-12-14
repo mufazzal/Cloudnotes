@@ -41,17 +41,19 @@ Lets create a RDS instance with SQLServer :-
     How a security group can also be a point of connction for other security group 
     Still A question ?????
     But for now lets open the TCP 3306 port to all so that anybody can connect our sql DB
+  DB connection string:
+    Note the VPC url from  RDS > 'mufdatabaseinstance' > DB url
+    It formate is : ))))))))))))))))))))))))))
+    Also keep the note of root user you created at the time DB creation (rootUsername, rootPassword)
+  
     
   How to connect with MySql workbench in you PC
   will see later ????
   How to connect with EC2-webserver instance.
   For this we first launch the EC2 instance and make it a webserver
   How? We have already seen it
-  
-  Now Just for testing: We are installing the wordpress also on this EC2 so that we can make a DB connection.
-  
   So create EC2 web server, select proper security group as such EC2 have HTTP-80 and TCP-22 open
-  ##VVIMP: Why not TCP-3306: Because this  EC@ is not a databese itself, it will make a connection with DB at the port-3306 of DB
+  ##VVIMP: Why not TCP-3306: Because this  EC2 is not a databese itself, it will make a connection with DB at the port-3306 of DB
   
  ----------------------                           
                           ------HTTP--------                        
@@ -63,7 +65,15 @@ Lets create a RDS instance with SQLServer :-
  fat------------------SSH--------------------           22-----
  mur------------------SSH--------------------
  
+ The web-server created with EC2 may be built with any software likme apache etc.
+ We will place wither our java(war file), php, nodejs code in proper directory (var/www/html) 
  
+ To connect the DB at amazon RDS we will write simillar kind od code 
+  phpDBLib.connect('DB connection string', '3306', rootUsername, rootPassword)
+  OR
+  javaDBLib.connect('DB connection string', '3306',rootUsername, rootPassword)
+  OR
+  etc.
  
   
   
