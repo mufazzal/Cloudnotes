@@ -243,7 +243,23 @@ EC2 and Other AWS services ->
     EC2 Bootstap script : 
           https://acloud.guru/course/aws-certified-cloud-practitioner/learn/Cloud-Concepts-And-Technology/lets-use-a-load-balancer/watch?backUrl=~2Fcourses&backUrl=~2Fcourses
           at 5:52
-
+     
+     
+    ----------
+    
+    EC2 - web server install wordpress script : 
+          #!/bin/bash
+          yum install httpd php php-mysql -y
+          cd /var/www/html
+          wget https://wordpress.org/wordpress-5.1.1.tar.gz
+          tar -xzf wordpress-5.1.1.tar.gz
+          cp -r wordpress/* /var/www/html/
+          rm -rf wordpress
+          rm -rf wordpress-5.1.1.tar.gz
+          chmod -R 755 wp-content
+          chown -R apache:apache wp-content
+          service httpd start
+          chkconfig httpd on
 
 
 
