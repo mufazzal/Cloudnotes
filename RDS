@@ -43,7 +43,7 @@ Lets create a RDS instance with SQLServer :-
     But for now lets open the TCP 3306 port to all so that anybody can connect our sql DB
   DB connection string:
     Note the VPC url from  RDS > 'mufdatabaseinstance' > DB url
-    It formate is : ))))))))))))))))))))))))))
+    It formate is : 'mufdatabaseinstance.cu3kxg4kbwag.ap-south-1.rds.amazonaws.com'
     Also keep the note of root user you created at the time DB creation (rootUsername, rootPassword)
   
     
@@ -65,8 +65,8 @@ Lets create a RDS instance with SQLServer :-
  fat------------------SSH--------------------           22-----
  mur------------------SSH--------------------
  
- The web-server created with EC2 may be built with any software likme apache etc.
- We will place wither our java(war file), php, nodejs code in proper directory (var/www/html) 
+ The web-server created with EC2 may be built with any software like apache etc.
+ We will place either our java(war file), php, nodejs code in proper directory (var/www/html) 
  
  To connect the DB at amazon RDS we will write simillar kind od code 
   phpDBLib.connect('DB connection string', '3306', rootUsername, rootPassword)
