@@ -50,5 +50,17 @@ Creating A LB for EC2-webserver:-
  -----------------------                                      
 
  
+Q: If we are ok to use only one EC2 instance for webserver then can we ignore use of LB completly
+A: No! Not at all.
+    Because EC2 instance is something that could be carsshed/stop/terminat. And if next time 
+    you again start a new instance then it will have a new public IP. And if he got a new public ip
+    then webserver will be pointed out to diffrent location
+    SO LB save you from this uncertainity. and even if EC2 went down and we start new EC@, we can simply
+    place this new EC2 behid the existing LB. and so your endpint remain same.
+    
+    
+    
+    
+ 
  
  
