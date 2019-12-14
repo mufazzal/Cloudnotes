@@ -58,7 +58,7 @@ A: No! Not at all.
     SO LB save you from this uncertainity. and even if EC2 went down and we start new EC@, we can simply
     place this new EC2 behid the existing LB. and so your endpint remain same.
     
-    
+Its always an good idea that you create a EC@ instances in diffrent AZ, Create LB capable to connect with those AZ for fault tolenrence    
     
     
  
