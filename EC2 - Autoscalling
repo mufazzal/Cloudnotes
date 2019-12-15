@@ -1,1 +1,45 @@
+Autoscalling is the GERM of AWS.
 
+When you are using EC2 for any computing (like webserver, DB analysis, image processing), you may need to 
+add/remove some more instance depending on load on each EC2.
+
+EC2 - Auto scalling is done via configuring two part
+  1.  Launch Configuration
+        Here you decide how your each EC2 instance would look like. its cpu/memory/EBS capacity, bootstrap script, 
+        Security Group, SSH-key pair
+        Actully setting this up is almost same as launching a new EC2 instance except in the end it will not launche
+        it, but save the set up for on demand launch.
+  2.  Auto Scalling Group
+        This will set the scenario and capacity, that in which condition we should launch the instances and how many of them
+        should be launch. Also you set in which AZ they should be launch.
+                
+        2.1. First you need to select the 'Launch Configuration' you created earlier
+        2.2. Then Desired capacity: the number of instances you wants up and running in normal load
+        2.3. Then select the VPC  ?????????????
+        2.4. Then select subnet (AZ) -> 
+              You may slect as many availavble (AZ) possible in your region. 
+              The launched will happen in the AZ which are selected first.
+              It not necesaarily same as value selected in step 2 
+        2.5 Optional: We can set them to receive traffic from LB as well. You can select LB group here.
+            ?????????????????
+        2.6 Set the policy:-
+              2.6.1 Policy for scalling: Set the condition when the scal up and scale down should happen
+                  eg. :  if cpu utilization of each EC2 goes above 90% then sacle up.
+              2.6.1 Set How Many Minimum instance you will need at least: This much instance will always be avaialable
+              2.6.2 Set How many Maximum instance you can bear: Set one by one how many instance the system can create if situtation demand autoscalling
+        7 Select some ore things like tah and all.
+        DONE
+        Once you are done, the EC2 instances will launch automatically and at the begining the number of instances launched 
+        will be equal to value choosed in step 2.2
+                      
+        All Tuning eg:
+         in normal time number of instances = value choosed in step 2.2
+         if policy break an need more capasity (eg: if cpu utilization of each EC2 goes above 90% ) then sacle up
+         and launch new instances. launch one at a time till you reach at point where no of running instances  =  value choosed in step 2.6.1
+         Significance of value  choosed in step 2.6.2  ??????????????????
+         
+         
+         IMP : 
+            value in step 2.6.1  <= value in step 2.2  <=  value in step 2.6.2
+              
+              
