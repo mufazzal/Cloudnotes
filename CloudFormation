@@ -2,4 +2,13 @@ This is somthing you cannot define in few wprld
 
 But say! its a tool to create the whole application stack with GUI.
 
-Tits a great grand father of Elastic Beanstalk.
+
+Elastic Beanstalk VS CloudFormation
+CloudFormation a great grand father of Elastic Beanstalk.
+ELB is not programmable meaning you set up an preconfigured application either for hello world or with existing code (war/zip)
+CloudFormation is the soluction where you can change, create, delete, update all the diffrent parts(EC2, S3 ..) of your app. Its completely programmable.
+
+
+
+
+
