@@ -8,7 +8,7 @@ CloudFormation a great grand father of Elastic Beanstalk.
 ELB is not programmable meaning you set up an preconfigured application either for hello world or with existing code (war/zip)
 CloudFormation is the soluction where you can change, create, delete, update all the diffrent parts(EC2, S3 ..) of your app. Its completely programmable.
 
-
+Cloudformation in the very root use JSON file to provision the AWS resources
 
 
 
