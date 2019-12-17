@@ -7,3 +7,12 @@ Global Services of AWS:-
   
 Service that give Global view but is regional
   S3: You can see all the S3 bucket in single page but they all are located in their region
+  
+  
+Services that can be used in premises:-
+  Snowball: a gignatic hard disk, you can order the amazon to ship your data physically in this disk from your premisees to AWS data center
+  Snowball edge: snowball + a computer
+  Storage getway: A physical/virtual file server in premises 
+  CodeDeploy: way to deploy the code (either in AWS data center or in preimses)
+  Opsworks: use for automated deployment
+  
