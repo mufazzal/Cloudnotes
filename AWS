@@ -1,0 +1,9 @@
+Global Services of AWS:-
+  IAM
+  Route53
+  CloudFront
+  SNS
+  SES
+  
+Service that give Global view but is regional
+  S3: You can see all the S3 bucket in single page but they all are located in their region
