@@ -1,0 +1,6 @@
+If you have 50+ EC2 instance in you app and one day you need to update the verion of java on each one.
+
+How: 
+  SSH in each EC2 and run the update command OR use AWS SM
+
+AWS SM help you to manage fleet of EC2 instances together.
