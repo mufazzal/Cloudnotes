@@ -1,12 +1,58 @@
 
+If you save money here, It may rereflect in your bonus
 
+The Principle Philosoph in AWS :-\
+    Pay as you Go: 
+    Pay for what you use
+    Pay less if you use more
+    Pay even less if you reserve capasity
+    Custom pricing
+    
+    
+    Two expenses where AWS save money:
+      1. Capex: you do not have to buy a sercer, swich etc upfront
+      2. Opex: expense for day to day activity like server cooling
+      
+      
+      
+There is three main Driver for pricing :-
+    1. Computing Power
+    2. Storage
+    3. Data Oubound  (Data moving out from AWS)
+    
+    
 
-
-Absolutely Free:
+      
+Absolutely Free Service:
   Amazon VPC
-  Elastic Beanstalk
-  CloudFormation
-  IAM
-  Autoscalling
-  Opsworks
+  Elastic Beanstalk: But any Resources it provision are not
+  CloudFormation: But any Resources it provision are not
+  IAM: Creation of any group role etc is free
+  Autoscalling: But any Resources it provision are not
+  Opsworks: But any Resources it provision are not
   Consolidated Billing
+
+
+
+Pricing of EC2: 
+  Clock time of instace:
+    charged by hour or seconds
+  Family of Instance: 
+     is it t2.micro or m5 or etc.
+  Pricing Model:
+    Reserved: if you know load from start then go for it
+    On Demand: 
+    Spot: By bidding 
+    Dedicated Host: 
+ Load Balancing:
+    Is it betwork or Application LB
+ Monitoring:
+    default motering is 5 mnt but could be changed to less interval but its chargable
+ Auto Scalling
+ OS system
+  Window is costly then linux
+
+
+
+
+
