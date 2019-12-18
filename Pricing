@@ -54,5 +54,65 @@ Pricing of EC2:
 
 
 
+Pricing for EBS:
+    Price driver-
+        Volume (per GB): 
+        Snapshot (per GB):
+        Data Transfer:
+        
+Pricing for S3:
+    Price driver-
+        Storage Class
+        Storage
+        Request (GET, PUT, COPY)
+        Data Transfer
+        
+Pricing for S3:
+    Price driver-
+        Storage
+        Data retrival time
+        
+Pricing for RDS:
+    Price driver-        
+        Clock hour of server instance
+        DB type (mysql etc.)
+        No of DB
+        Requests
+        Data ransfer
+        etc..
 
+Pricing for DynamoDB:
+    Price driver-   
+        Provisioned Throughput for Read
+        Provisioned Throughput for Write
+        total storage
+        
+Pricing for CloudFront:
+    Price driver-     
+        Traffic Distribution
+        No of Request
+        Data transfer out
+        
+Resource and Tag Group:-
+    You can attach a Tag on each resources (eg: EC2 instace, S3 bucket)
+    usually you add tags to categorized the aws resources for proper indexing.
+    
+    Like a S3 bucket or an Ec2 instance or RDB as
+        department=finance or operation or HR
+        account=optima or PLDT or Altice 
+        ...
+        
+AWS Oreganization:-     
+    this is collection of multiple AWS account. Any company or organization have multiople AWS account
+    <<<Will see later>>>
+    
+AWS Calculator:
+    There is two main calculator
+        1. help you to chosse the capasity and its expected price.
+        2. TCO Calculator: help you determine on premise vs AWS cost
 
+        
+        
+        
+        
+        
