@@ -78,6 +78,10 @@ Creating a text file and adding text via CLI only :-
   > ctrl + X to save, then Y to done, and Enter for exiting text editor and come to CLI window again
   
   
+  Glob pattern: In command line interface Globe Pattern is used to to do operation on files 
+  whoes names matches some kingd of regular expression
+  In any commance the Glob pattern forst compile and producce resoult then opeeration happen on that result.
+  
 
 
 TODO :
