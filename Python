@@ -1,0 +1,6 @@
+ ["muf"] * 3  -> ['muf', 'muf', 'muf']
+ 'muf' * 3 -> 'mufmufmuf'
+ 
+ 
+ print("Hello" + 5)  -> Error
+ print("Hello "+ str(5)) -> Hello 5
