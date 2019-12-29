@@ -4,3 +4,96 @@ Total IPv4 possible address:    2^32    ~ 4294 Million
 Reserved for Multicast:                 ~  270 Million
 Reserved for private Network:           ~   18 Million
 
+Why CIDR/Subnet and all requred ?
+
+Suppose you wants to create an app, and that reqired 20 database, 50 EC2 instance, 10 LB etc.
+Now for comuunicating all this resources you gave all of them an indivisual public IP.
+You ma=y need up 100+ public IP for this. This is too costly and almost impossible to sustain.
+Becoz there are only 4 billion IP(IPv4) avaailabe to this universe.
+
+For this come the concept of subnet/CIDR etc.
+
+This things helps you to create a small isolated network.
+
+How its work. 
+
+For this the first thing you need an hardware Router. The router is the most fundamental Part of the network.
+The router place in muffy home create a small subnet 
+The router place in moiz home create a small subnet 
+The router place in murtuza home create a small subnet 
+
+Now its a responsibility of router to assign each one an IP. But How?
+If he assign any random ip from pool of all public IP to all 3 devices (my and fattu mobile and TV)
+This is unsustainable as it will deplete the bpublic IP pool in fey months.
+
+To solve this problem the concept of class IP came 
+Out of around 4 billion IPs cuple of ip address are revreved for creating subnet/private network. A router can use one of those address 
+to assign the ip to connected peers.
+
+To formalize and create a common ground for making a router hardware the 'Internet Assigned Numbers Authority' (IANA) come up with
+the proposal of reserving lot of IPs for particular usage
+
+##IMP: Earlier the allocation of IPs are done via class (A, B, C, D, E). but now its been done via CIDR.
+
+
+IANA have resrved following address block for particular usage
+
+10.0.0.0/8  	  10.0.0.0    – 10.255.255.255	2^24  Private network	  Used for local communications within a private network
+172.16.0.0/12	  172.16.0.0  – 172.31.255.255	2^20  Private network	  Used for local communications within a private network.[4]
+192.168.0.0/16	192.168.0.0 – 192.168.255.255	2^16	Private network	  Used for local communications within a private network.[4]
+127.0.0.0/8 	  127.0.0.0   – 127.255.255.255	      Host	            Used for loopback addresses to the local host.[3]
+192.0.0.0/24	  192.0.0.0   – 192.0.0.255		        Private network	  IETF Protocol Assignments.[3]
+224.0.0.0/4	    224.0.0.0   – 239.255.255.255		    Internet	        In use for IP multicast.[11] (Former Class D network).
+198.51.100.0/24	198.51.100.0–198.51.100.255	        Documentation	    Assigned as TEST-NET-2, documentation and examples.[7]
+192.88.99.0/24	192.88.99.0 –192.88.99.255	  	    Internet	        Reserved.[8] Formerly used for IPv6 to IPv4 relay[9] (included IPv6 address block 2002::/16).
+...etc
+
+Now all the router made in world has to take care of this rule and will have to riute the traffic according to this table.
+
+There is three main row in this table (1,2 and 3) This IPs are used for creation of private network. 
+If your network has lot of peers then use the router who can support '10.0.0.0/8' CIDR and you can connect up to 2^24 decvices  
+If your network has moderate of peers then use the router who can support '172.16.0.0/12' CIDR and you can connect up to 2^20 decvices  
+If your network has few of peers then use the router who can support '192.168.0.0/16' CIDR and you can connect up to 2^16 decvices  
+
+In memoth size corporate organization first one is good choce
+In medium size organization first one is good choce
+In small company or in home network(local broadband router) third one is best
+
+So lets come to router at homw of moiz, mufazzal and murtuza.
+
+
+
+
+
+
+Router and Public Internet :=-
+
+
+VVIMP: A public IP is assigm to each point which can communicate to the internet (DIRECTLY). 
+A website also has a IP, this IP is actully a address to peer which host the web setrver for that website.
+A router in muffy home also has an IP which is provided to muffy by tikona.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+All the devices connected to the router create a private network.
