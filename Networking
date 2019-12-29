@@ -41,6 +41,7 @@ IANA have resrved following address block for particular usage
 10.0.0.0/8  	  10.0.0.0    – 10.255.255.255	2^24  Private network	  Used for local communications within a private network
 172.16.0.0/12	  172.16.0.0  – 172.31.255.255	2^20  Private network	  Used for local communications within a private network.[4]
 192.168.0.0/16	192.168.0.0 – 192.168.255.255	2^16	Private network	  Used for local communications within a private network.[4]
+100.64.0.0/10	  100.64.0.0  –100.127.255.255		    Private network	  Shared address space for communications between a service provider and its subscribers.
 127.0.0.0/8 	  127.0.0.0   – 127.255.255.255	      Host	            Used for loopback addresses to the local host.[3]
 192.0.0.0/24	  192.0.0.0   – 192.0.0.255		        Private network	  IETF Protocol Assignments.[3]
 224.0.0.0/4	    224.0.0.0   – 239.255.255.255		    Internet	        In use for IP multicast.[11] (Former Class D network).
@@ -66,33 +67,98 @@ Generally all typical router we use in home give you '192.168.0.0/16' CIDR for p
                       ------Muf mob----  192.168.0.100
                       |
     Muf_Router ------- ------Fat mob----  192.168.0.101         
-                      |
+    192.168.0.1       |
                       ------TV---------  192.168.0.102
 
 
                       ------Moz mob----  192.168.0.100
                       |
     Moz_Router ------- ------Zen mob----  192.168.0.101
-                      |
+    192.168.0.1       |
                       ------TV---------  192.168.0.102
 
 
                       ------Mur mob----  192.168.0.100
                       |
     Mur_Router ------- ------Tas mob----  192.168.0.101
-                      |
+    192.168.0.1       |
                       ------TV---------  192.168.0.102
 
 Mufa cann connect up to 2^16 devices in his small 2bhk flat and none of them will be from public IP
 Also look how a same IPs are re-used in difftrent private network to optimized the IP pool.
+Also The router himself also have one IP address in the private network he created by himself. Most of the time for simple-home-router
+this address is '192.168.0.1'. So you can go to this IP via browser for more info.
 
 Router and Public Internet :=-
+Till now tyou see how a simple router in muffy home can make a small private netowrk, But till now this small private network is completely isolated form public internet. 
+But if muffy pay the tikona bill te tokona can connect this small network to public internet.
+The tikona router connect those all small private network to public internet.
+All the internet traffice from those device will have to be pass through the router.
+
+Though this router actuly not directly connected to Public internet, instaed they are a small peer in a WAN (Wide Area Network)
+There 100s of Router in a one WAN. This  all WAN may have one large router also. lets call them WAN-Router.
+
+The router in muffy, moiz and mur homes are peer in this WAN network and all of them connected to WAN-Router and so all those
+home-router will have an IP assosiated with that WAN.
+So home-router will have two IPs, one for its private network and one for WAN.
+IANA decided to use CIDR CIDR '100.64.0.0/10' to assign to ip for home-router by WAN-router. See the 4th row of reserved IP table.
+
+So the network will look like this now-
 
 
-VVIMP: A public IP is assigm to each point which can communicate to the internet (DIRECTLY). 
-A website also has a IP, this IP is actully a address to peer which host the web setrver for that website.
-A router in muffy home also has an IP which is provided to muffy by tikona.
+                                                                                         ------Muf mob----  192.168.0.100
+                                                                                         |
+                                   ---------------------------Muf_Router --------------- ------Fat mob----  192.168.0.101         
+                                  |                    100.79.166.24 | 192.168.0.1       |
+                                  |                                                      ------TV---------  192.168.0.102
+                                  |
+                                  | 
+                                  |                                                      ------Moz mob----  192.168.0.100
+                                  |                                                      |
+                 Pune-WAN-Router   -------------------------------Moz_Router ------------ ------Zen mob----  192.168.0.101
+                  100.79.160.1    |                     100.79.166.25 | 192.168.0.1      |
+                                  |                                                      ------TV---------  192.168.0.102
+                                  |
+                                  |
+                                  |                                                     ------Mur mob----  192.168.0.100
+                                  |                                                     |
+                                  ------------------------------Mur_Router ------------- ------Tas mob----  192.168.0.101
+                                                       100.79.166.26 | 192.168.0.1      |
+                                                                                        ------TV---------  192.168.0.102
+          
 
+                                                                                         ------Sha mob----  192.168.0.100
+                                                                                         |
+                                   ---------------------------Sha_Router --------------- ------Rsh mob----  192.168.0.101         
+                                  |                    100.79.166.24 | 192.168.0.1       |
+                                  |                                                      ------TV---------  192.168.0.102
+                                  |
+                                  | 
+                                  |                                                      ------Daw mob----  192.168.0.100
+                                  |                                                      |
+                 Barn-WAN-Router   -------------------------------Daw_Router ------------ ------Hus mob----  192.168.0.101
+                  100.79.160.2    |                     100.79.166.25 | 192.168.0.1      |
+                                  |                                                      ------TV---------  192.168.0.102
+                                  |
+                                  |
+                                  |                                                     ------Chk mob----  192.168.0.100
+                                  |                                                     |
+                                  ------------------------------Chk_Router ------------- ------Tas mob----  192.168.0.101
+                                                       100.79.166.26 | 192.168.0.1      |
+                                                                                        ------TV---------  192.168.0.102
+
+
+  
+ Now look in the above diagram how the IP '100.79.166.24' is used twice, one in pune WAN-network and one in Barnagar WAN-network.
+ This IP is from forth row of reserved CIDR ips.
+ 
+ See the address '100.79.160.2' and '100.79.160.1': This are the address that are assign to high level router. 
+ This address also are from reverved CIDR block of 4th row.
+  
+Website and public IP
+Router and public IP
+Default Getway VS IP Address
+  
 
 
 
