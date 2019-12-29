@@ -60,6 +60,9 @@ In memoth size corporate organization first one is good choce
 In medium size organization first one is good choce
 In small company or in home network(local broadband router) third one is best
 
+##Note:
+127.0.0.0/8 : this CIDR is localhost loop
+
 So lets come to router at homw of moiz, mufazzal and murtuza.
 
 Generally all typical router we use in home give you '192.168.0.0/16' CIDR for private network
