@@ -61,10 +61,30 @@ In small company or in home network(local broadband router) third one is best
 
 So lets come to router at homw of moiz, mufazzal and murtuza.
 
+Generally all typical router we use in home give you '192.168.0.0/16' CIDR for private network
+
+                      ------Muf mob----  192.168.0.100
+                      |
+    Muf_Router ------- ------Fat mob----  192.168.0.101         
+                      |
+                      ------TV---------  192.168.0.102
 
 
+                      ------Moz mob----  192.168.0.100
+                      |
+    Moz_Router ------- ------Zen mob----  192.168.0.101
+                      |
+                      ------TV---------  192.168.0.102
 
 
+                      ------Mur mob----  192.168.0.100
+                      |
+    Mur_Router ------- ------Tas mob----  192.168.0.101
+                      |
+                      ------TV---------  192.168.0.102
+
+Mufa cann connect up to 2^16 devices in his small 2bhk flat and none of them will be from public IP
+Also look how a same IPs are re-used in difftrent private network to optimized the IP pool.
 
 Router and Public Internet :=-
 
