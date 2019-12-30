@@ -1,1 +1,71 @@
+When we make any application we may need lot of resources, like 10s of DB, 100s of CPU, 10s of LB etc.
+As we have studuied in Networking chaprer that number of public IPv4 is limited so we cannot give all of them public IP.
 
+For this we generally create private network.
+This is done via VPC in aws. VPC stand for Virtual Private Cloud.
+
+By VPC you can create a isolated private cloud in the aws system.
+BAsically VPC are small isolated space where the nodeof an application lies.
+
+Suppose you wants to create 2 application one for shop and one for Bank in same AWS account.
+
+For this we will create two VPC:-
+  1.  AWS COnsole > VPC > Create VPC
+  2.  Select CIDR block
+        TRhe CIDR block availabe in any VPC is in range of 10.0.0.0/16  to   10.0.0.0/24.
+        Depending on your requirment you can choose the CIDR size. This CIDR rage of IP is lie in resrved range of PRivate NEtwork 
+        [see Network.txt IP reservation table ]
+        If you take 10.0.0.0/16 CIDR then you have total 2^16 IPs avaialaiable from 10.0.0.0 to 10.0.255.255
+        If you take 10.0.0.0/18 CIDR then you have total 2^14 IPs 
+        If you take 10.0.0.0/24 CIDR then you have total 2^6 IPs avaialaiable from 10.0.0.0 to 10.0.0.255
+        ...
+  Each VPC is isolated Private network in itself, The yiu can use any reserve IP in any VPC for a sigle node only at once.
+  But you can use the same IP in another VPC again.
+  
+  EG: in muffy home private network(VPC-muf) you can have an IP 192.168.0.100 also
+      in moiz home private network(VPC-moiz) you can have an IP 192.168.0.100
+        
+   
+   Suppose for two pplication of shop and Bank you create a two VPC each
+    VPC-Shop   CIDR  10.0.0.0/24      -> App is relativly small so may not need lot of Node so lets have 2^8 IP
+    VPC-Bank   CIDR  10.0.0.0/16      -> App is relativly big so may not lot of Node so lets have 2^16 IPs
+    
+    
+    Subnet:-
+      The next IMP building block come in VPC is subnet. Once tou craeted the VPC you can devide the VPC in another level of small private network
+      You can create as many subnet in a VPC you wants. The CIDR block you have selected for VPC will be shared among all those Subnet.
+      Subnet is of two type
+        a.  Public Subnet: those who are connected to internet
+        b.  Private Subnet: those who are not connected to internet
+      Subnet are very useful to devide the resources and partition them among diffrent department of any organization.
+      Creating Subnet:-
+         1.  AWS COnsole > Subnet > Create Subnet
+         2.  Choose name
+         3.  Select the VPC
+                The Subnet will lie in this VPC
+         4. CIDR of subnet
+                This CIDR is subset of VPC-CIDR. If the subnet going to have many nodes then you should take large CIDR 
+                to register good amount of IPs (avaialble in VPC-CIDR)
+         5. Availability Zone: Select the AZ of your choice ar leave to to choze by amazon itself.
+         DONE                    
+
+      lets create a subnet for BAnk:-        
+        sub_finance            10.0.1.0/24          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.1.0/24 [2^8] IP for finance deparments apps
+        sub_Insurence          10.0.2.0/24          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.2.0/24 [2^8] IP for finance deparments apps
+        sub_intBanking         10.0.3.0/24          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.3.0/24 [2^8] IP for finance deparments apps
+        sub_staticweb          10.0.4.0/30          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.4.0/30 [2^2] IP for finance deparments apps
+        
+      Simillarly you can create the Subnet for VPC-Shop  
+        sub_account            10.0.0.128/26          
+        sub_eccomerce          10.0.0.64/28          
+        sub_inventory          10.0.0.32/28          
+        sub_staticweb          10.0.0.16/30    
+        
+        USE https://cidr.xyz/ for detail calculation.
+        
+      
+      
+      
+      
+      
+      
