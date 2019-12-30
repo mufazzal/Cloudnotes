@@ -157,10 +157,49 @@ So the network will look like this now-
  
  See the address '100.79.160.2' and '100.79.160.1': This are the address that are assign to high level router. 
  This address also are from reverved CIDR block of 4th row.
+
+Default Getway VS IP Address :-
+  For any node in the network, there is two IMP IP. One is its own IPv4 address (either from public pool or from resrver IPs)
+  and another is the IP of the 'Default Getway'
+  default getway for any node is the IP address of its immediate parent in the network heirarachy.
+  LEts say muf whose IPv4 address id '192.168.0.100' in his private network wants to go to IP p.q.r.s
+  For this the muf has to go to its immediate parent node which is his home-router
+  So the dedfault gatway for muf is '192.168.0.1' which is IPv4 addres of muf-router
+  Simillarly for muf-rpouter the default getway is '100.79.160.1'
+  and so on..
   
+ How routung work (very high level) :-
+ lets say muf@192.168.0.100 wants to go to p.q.r.s
+  Now the default getway for muf is '192.168.0.1', so he will go to the 'muf-router'
+  Now if p.q.r.s is in private network of muf-rouer (eg fat-mob or muf-TV) then it route flow their
+  technically if p.q.r.s = 192.168.0.0/16 then it will route to private network. 
+  if p.q.r.s != 192.168.0.0/16 then it will go to next node the default getway of muf-router '100.79.160.1' [Pune-WAN-Router]
+  again Pune-WAN-Router will analyze and route the flow to proper direction.
+  In the end if require the flow will route to public internet if p.q.r.s is for IPv4 of public ip pool.
+  
+  
+  How to know all the node in network flow -
+    > tracert <ip>
+  EG: tracert 11.1.0.1
+  output-
+   1     5 ms     5 ms     2 ms  192.168.0.1    --> First node is the muf-router, the default getway of '192.168.0.100' [muf-mob]
+   2    20 ms    16 ms    31 ms  100.79.160.1   --> Second node is the Pune-WAN-Router, the default getway of '192.168.0.1' [muf-router]
+   ***                                          --> All intermediate
+   ***
+   ***
+   3    73 ms    79 ms    93 ms      11.1.0.1   --> final node
+    
+   
+  
+  
+  
+
+
+  
+
 Website and public IP
 Router and public IP
-Default Getway VS IP Address
+
   
 
 
