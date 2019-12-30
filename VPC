@@ -63,6 +63,20 @@ For this we will create two VPC:-
         
         USE https://cidr.xyz/ for detail calculation.
         
+    Routing Table:-
+      The next IMP building block in VPC is Routing Table. 
+      The routing table is simplly a table which has entery of IP or CIDR against the Node. 
+      It is actully a master table for all the routing decision happen in Subnet.
+      
+      A routing table can be attach to multiple Subnet But a subnet can have one ane only one Routing table attach to it.
+      But a routing table can be attach to only one VPC. Means all the subnet that are attach to any routing table must belongs to same VPC.
+      So its relation is
+        
+                                Subnet 1      
+        Routing Table--------   Subnet 2
+                                Subnet 3
+        
+      
       
       
       
