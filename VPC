@@ -77,8 +77,25 @@ For this we will create two VPC:-
                                 Subnet 3
         
       
-      
-      
+      Creating Routing Table:-
+        1. AWS COnsole > VPC > Create Routing Table
+        2. Select VPC
+        DONE
+        After this go to that Rputin table > Routes > Edit Routes
+        Now set the Destination and Target map, The destination id a CIDR block and target could be Internet Getway, NAT Getway, Instance etc.
+        Also one entery is this map is aleays there and uneditable:
+        Destination                 Target
+        10.0.0.0/16	                Local                       -> The default unchangable entry, this make sure that all the IP of type 10.0.***.*** remain inside the selected VPC
+        Some common entry you should use
+        0.0.0.0/0                   <select Internet Getway>    -> If you choose internet getway here then those CIDR block will be redirected to pulic internet
+        0.0.0.0/0                   <select NAT Getway>          -> This also enableinternet Access but at one sided only
+        
+        
+       Getway:
+        You can select Either Internet Getway or NAT Getway for the routing at public internet in routing table
+        [detail will come later]
+        
+        
       
       
       
