@@ -60,8 +60,9 @@ For this we will create two VPC:-
         sub_eccomerce          10.0.0.64/28          
         sub_inventory          10.0.0.32/28          
         sub_staticweb          10.0.0.16/30    
-        
         USE https://cidr.xyz/ for detail calculation.
+        
+      Creating subnet is a halfway task, It is not usable untill you attach the Routing table on it.
         
     Routing Table:-
       The next IMP building block in VPC is Routing Table. 
@@ -86,14 +87,67 @@ For this we will create two VPC:-
         Also one entery is this map is aleays there and uneditable:
         Destination                 Target
         10.0.0.0/16	                Local                       -> The default unchangable entry, this make sure that all the IP of type 10.0.***.*** remain inside the selected VPC
-        Some common entry you should use
         0.0.0.0/0                   <select Internet Getway>    -> If you choose internet getway here then those CIDR block will be redirected to pulic internet
         0.0.0.0/0                   <select NAT Getway>          -> This also enableinternet Access but at one sided only
         
-        
-       Getway:
-        You can select Either Internet Getway or NAT Getway for the routing at public internet in routing table
-        [detail will come later]
+       Route Table and Internet Access  Getway:
+        Depending on the security of any subnet you can either allow the internet traffic directly in subnet or not.
+        There is two way to handle Public Internet traffic in VPC
+          1. Internet Getway 
+          2. NAT Getway 
+          
+        Internet Getway:   
+          If nodes in your subnet (Public Subnet) has to accessible form internet. EG. if one of your node is EC2-webserver instance
+          and it has to accessible via www, then you should have a Internet Getway attach to that subnet.
+          How:-
+            1. Create Subnet
+            2. Create Internet Getway 
+                2.1  AWS > VPC > Internet gateways > Create internet gateway
+                2.2 Choose Name 
+                DONE
+            3. Create Routing table and place this Entry
+                0.0.0.0/0                   <select Internet Getway created in step 2>
+                This entry will allow all public internet to reach to inner node 
+            4. Now attach the routing table created in step 3 to Subnet created in step 1
+              DONE'
+            
+            Detail EG:
+              say you have an EC2-webserver with public IP = 22.45.32.63 and DNS name = www.muffiwebserver.com
+              Now assume gourav access it for his PC like 'ssh 22.45.32.63 ***' or www.muffiwebserver.com then
+              Internet getway will allow this happen.
+              
+           Public Subnet:- 
+              Any Subnet will become a public subnet if an 'Internet Getway' is attached to it.
+              Or more preciecly, a subnet who is attached to routatble which is assosiated with 'Internet Getway'
+              By default all the Subnet created are prvate and has no internet getway attached.
+              
+              
+           NAT Getway:-
+              
+              Why NAT Getway required
+              Suppose you created a web app wirth some public and privatesubnet
+              Now public subnet has many EC2-webserevr and as they are assosiated with their public IP they can reached from the public-internet also
+              like www.mufifnance.com or ssh 56.34.67.123 etc.
+              Now we also have couple of private subnet. This subnet can have manny DB-instace or EC2-instance (for computing)
+              those instances are not reacable by ssh or www at all.
+              This is fine because we de not wants them to exposed to public-internet.
+              But there is a patch-
+                Ok! Nobody can reach to Nodes inside private subnet.
+                But what if the Node itself wants something from internet? What if they wants to update their OS or patches. 
+                Or some computing instance wants to acceess an API from internet?
+                To solve this comes a 'NAT Getway'               
+              So In nutshell-
+                  NAT Getway do not allow any InBound comunication initiated from the Public Internet.
+                  NAT Getway only allow the OutBound communication intiated from withine the subnet
+              
+              
+              
+              
+          
+          
+          
+          
+       
         
         
       
