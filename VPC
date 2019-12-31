@@ -140,10 +140,32 @@ For this we will create two VPC:-
                   NAT Getway do not allow any InBound comunication initiated from the Public Internet.
                   NAT Getway only allow the OutBound communication intiated from withine the subnet
               
+              What you required to create an NAT Getway and Attach it: 
+                1. A Public Subnet
+                    NAT Getway do provide the one-way-initiated public internet access to private Subnet, but the 'NAT Getway' itself 
+                    reside in the Public Subnet.
+                2. A Elastic IP:-
+                    NAT GEtway is a point that is exposed to public internet directly (Though one way)
+                    So it does have one Public Elastic IP (not the reserved one like 10.0** or 192.168.**) assosiated with it.
+                    
+              Creating :-
+              1.  AWS > VPC > NAT gateways > Create NAT gateway
+              2.  Select the Subnet(Must be Public one who has internet getway attached to it) where this Gatway wwill reside
+              3.  Select the Public Elastic IP.
+              Done.
+              4. Create Routing table and place this Entry
+                0.0.0.0/0                   <select NAT Getway created in step 2>
+                This entry will allow all one-way-initiated(from inner side of subnet) public internet traffic. 
+              5. Now attach the routing table created in step 3 to Subnet created in step 1
+              DONE'
               
               
+
+                    
               
-          
+TODO:-
+Creat sophisticated VPC, Subnet, getway and create EC2 instances inthem
+Now use traceroute to detect nodes on the way.
           
           
           
