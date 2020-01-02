@@ -1,0 +1,26 @@
+
+
+				        Unit of scale		      	abstraction
+Data Center:	  Hardware				        Physical Hosting eviorment				:Everytime you need Hardware Upgrade, OS upgrade you have to call the Data center provider and tey will do:
+IAAS			      OS, Patches, Drivesr	  Hardware								          :Great that i do not have to worry about any hardware But I have to take care of its OS, PAtches, drivesr :		
+PAAS			      Application				      Hardware and OS							      :You just give the the code of your app and they will take care of all extra overhead: 
+Serverless		  Function				        App load								          :You just give small pices of code of your app : 
+
+In all above three there is one thing common. You need a machine up and running all the time your app is live.
+and whole things of the app has to be in running state all the time. so all the time you need either a server at data center or EC2 at aws up.
+All has to be Up and running even though you do not really need anyting or something.
+
+To solve this comes a serverless
+In sercerless you tear down your application in very very small piceses. So small that you use a tiny function to define it.
+This function sits idle somwhere in AWS without taking any kind of computing power. But when someone trigger it. 
+It will automatically allocate EC2 for itself, run itself, deallocate EC2 and again go in idle state.
+It will automatically scale up or down itself if load is high or low.
+By this way you save lot of money by saving the idle running time of EC2.
+
+
+Principle of Serverless:-
+  1. You execute a single pice of code on demand and so use compute power for that execution only
+  2. The single piece of code should be stateless
+  3. Use push based event driven pipeline
+  4. Thicked Front End
+  5. Same serverless function can at multiple instances. So they can run in paraller
