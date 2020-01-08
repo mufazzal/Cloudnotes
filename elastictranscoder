@@ -1,0 +1,19 @@
+Elastic Transcoder used to create a video in multiple formate.
+
+How to use-
+Create a pipline which will have folllowing configuration param
+  Name
+  input S3 buckek
+  output S3 bucket 
+ Done
+ 
+ Now you use this pipeline (identified by its ID) 
+ give it the name of file
+ it will look for this file in input bucket 
+ and create a diffrent video file from this one 
+ and finaly place them in outpuk bucket
+ 
+ So input -> filename
+ look in -> input bucket
+ output -> multiple file in output bucket 
+  
