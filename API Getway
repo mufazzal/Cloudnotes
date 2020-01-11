@@ -1,0 +1,10 @@
+The API getway provide you the way to write an API.
+
+Lets say you wants to have an api which will take userid and return the user detail.
+Also it has an third party authorization and all the data lie in another server(not in aws)
+
+For servverless arch you should write small picess of runnable code and deploy them as lembda function
+
+writre one lembda function which will take input as 'accessToken' and 'domainUrl' [assume- accessToken has all ids for user too]
+  
+  
