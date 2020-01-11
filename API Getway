@@ -5,6 +5,86 @@ Also it has an third party authorization and all the data lie in another server(
 
 For servverless arch you should write small picess of runnable code and deploy them as lembda function
 
-writre one lembda function which will take input as 'accessToken' and 'domainUrl' [assume- accessToken has all ids for user too]
+writre one lembda function which will take input as 'accessToken' and 'domainUrl' 
+  - accessToken has all ids for user and will be passed from 'event' variable if la,bda fumction
+  - domainUrl will configured in env variable of this lambda function 
+Name of this lembda function is 'get-user-profile'   
+  [accessToken] -> Lembda 'get-user-profile' { call www.{domainUrl}.com/userProfile } -> profile Json
   
-  
+Now the above lembda function is sitting somewhere inside the AWS system. 
+If you wants to call this lambda function via outside you have to write the API to invoke it.
+
+Creating an API :>
+  This API will actully expose the lembda function.
+  1. AWS > APIs Getway > Create APIs
+      Its is 'Create APIs' not 'Create API', It is IMP because what you are creatin here is not an actuly a end point
+      its is a collection of APIs
+      It look like this
+        APIs->
+          User APIs
+          Payment APIs
+          Shopping APIs
+          Admin APIs
+  2. Now once you have created APIs, now its time to creat a resource in it. 
+      The recourse is actully a path of Rest API, You can create the nested resource too.
+      2.1 AWS > API Getway > 'Collection Name' APIs > get focus at '/' > Action > Create Resource
+      2.1 Select Resource name (eg. user-profile or user-history, user-location) and enable CORS
+      Save
+      Now it will look like this
+        APIs->
+          User APIs  [its id is 0uckbsi8pd, which will be later appear again in API end point]
+            /user-profile 
+            /user-history
+            /user-location
+          Payment APIs
+            /payment-start 
+            /payment-status
+            /payment-profile          
+          Shopping APIs
+          ...
+           Admin APIs
+          ...
+          Why focus '/' :> It will make sure that the api resource will look like this
+              www.aws..mufvpc******.com/user-profile 
+    3. Now you have created resources so next step is to create a methods to access this resources
+       Of course this methodes are HTTP methods like GET, POST, PUT, DELETE, OPTION
+       3.1 Gain the focus on the resource (eg. user-profile, user-history, payment-status ...) 
+       3.2 Action > Create Methode > Select one from Drop Down 
+       3.3 Integration Type:-
+            This will define what this API will expose, If this this api is called then the call will be forwarded to
+            the item that you have selected for integration
+            For now we will see how we can integrate the lembda function(get-user-profile) with this API
+            -->lets gaiin focus of 'user-profile' in step 3.1
+            3.3.1 Now chose Integration Type 'lembda function'
+            3.3.2 enable 'Use Lambda Proxy integration' if you wants to get detail of API request available in
+                  'event' variable of the handler function of lembda. This is very useful because now you can get
+                  all the input header, body etc information are aviable in 'get-user-profile' lembda function.
+            3.3.3 Select the lambda function you wants to integrate 
+      Save
+      Now you have a API which is connected to lembda. So basically 
+        www.aws..mufvpc******.com/user-profile  is exposing 'get-user-profile' lembda function.
+            
+    4. Deploy API:-
+      Till now you have created the API, but now ou shoulfd deploy it.
+      4.1 AWS > APIs Getway > 'Collection' APIs [User APIs] > API [user-profile ] > Methode [GEt/POST..]
+      4.2 Action > Deploy API
+      4.3 Selct stage {dev, prod, uat..}, create one if none
+      Deploy
+      
+      At this point you will have a file URL which look like belo
+      
+      GET       https://    0uckbsi8pd              .execute-api.us-east-1.amazonaws.com/     dev     /user-profile
+      <Methode>             <ID of APIs Collection>                                         <stage>     <resource>
+      
+      
+      
+      
+      
+        
+        
+        
+        
+              
+              
+              
+              
