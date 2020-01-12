@@ -6,7 +6,7 @@ Also it has an third party authorization and all the data lie in another server(
 For servverless arch you should write small picess of runnable code and deploy them as lembda function
 
 writre one lembda function which will take input as 'accessToken' and 'domainUrl' 
-  - accessToken has all ids for user and will be passed from 'event' variable if la,bda fumction
+  - accessToken has all ids for user and will be passed from 'event' variable if lembda fumction
   - domainUrl will configured in env variable of this lambda function 
 Name of this lembda function is 'get-user-profile'   
   [accessToken] -> Lembda 'get-user-profile' { call www.{domainUrl}.com/userProfile } -> profile Json
@@ -52,7 +52,7 @@ Creating an API :>
        3.2 Action > Create Methode > Select one from Drop Down 
        3.3 Integration Type:-
             This will define what this API will expose, If this this api is called then the call will be forwarded to
-            the item that you have selected for integration
+            the item that you have selected for integration. this item could be Lembda, HTTP, AWS sevice, mock etc.
             For now we will see how we can integrate the lembda function(get-user-profile) with this API
             -->lets gaiin focus of 'user-profile' in step 3.1
             3.3.1 Now chose Integration Type 'lembda function'
@@ -64,7 +64,7 @@ Creating an API :>
       Now you have a API which is connected to lembda. So basically 
         www.aws..mufvpc******.com/user-profile  is exposing 'get-user-profile' lembda function.
             
-    4. Deploy API:-
+ 4. Deploy API:-
       Till now you have created the API, but now ou shoulfd deploy it.
       4.1 AWS > APIs Getway > 'Collection' APIs [User APIs] > API [user-profile ] > Methode [GEt/POST..]
       4.2 Action > Deploy API
@@ -76,15 +76,96 @@ Creating an API :>
       GET       https://    0uckbsi8pd              .execute-api.us-east-1.amazonaws.com/     dev     /user-profile
       <Methode>             <ID of APIs Collection>                                         <stage>     <resource>
       
-      
-      
-      
-      
+ 5.  Authorization of API :-
+       Before reaching to any resources that the API has integrated in step 3.3 it must be validated that caller has proper permission 
+       for it.
+       The Authorizes also on Lembda function which takes the input as 'AuthorizationToken' and return a IAM policy document.
+       What is IAM Policy doc-
+        Its a statement saying if the caller XXX has permission to perform operation YYY over resource ZZZ.
+        Its formate is same as as what we do in IAM of AWS.
+
+       How and where they applied :-
+        Authorizer are written below APIs collection and you can create more than one Authorizer there.
+        This authorizer later can be set over the API in that APIs collection.
+        So it will look like this-
+        APIs->
+          User APIs
+            <--api-->
+                /user-profile 
+                /user-history
+                /user-location
+            <--authorizer-->
+                userAutho
+                userEditAutho
+                userDeleteAutho
+                userMigrateAutho
+              ...
+          Payment APIs
+             <--api-->
+                /payment-start 
+                /payment-status
+                /payment-profile 
+             <--authorizer-->
+                startPayAutho
+                getStatusPAyAutho
+                ...
+          Here you can appy the any <Authorizer> of particular <APIs Collection> to any of its <API>
+                                     userAutho                       User APIs                  /user-profile 
+                                     userEditAutho                   User APIs                  /user-history
+                                     userEditAutho                   Payment APIs               /payment-start  
+                                     getStatusPAyAutho               Payment APIs               /payment-status 
+                    Impossible->     getStatusPAyAutho               User APIs                  /user-profile 
+
+        When exactly it will be called->
+          When any user make an API call(with useful tokens), if an Authorizer is attached with this api 
+          then the call will first lands in Authorizer with useful authentication token. 
+        
+        How to create->
+        5.1 The first step of wrinting an authorizer is to write an lembda function(mufAuthorizerLmbd) such as
+            [authorizationToken] -> Lembda mufAuthorizerLmbd() {}  -> IAM Policy JSON doc
+            Now lest suppose 'mufAuthorizerLmbd' is reday in AWS > compute > Lembda > 'mufAuthorizerLmbd'
+        
+        Now time to set this 'mufAuthorizerLmbd' lembda s authorizer of any api.
+        
+        5.2 go to AWS > API Getway > APIs-Collectin [eg User APIs or Payment APIs] > Authorizers > create Authorizers
+        5.3 type name you wants, lets say it is 'mufAuthorizer'
+        5.4 Select the Lembda function written in step 5.1 
+        5.5 'Token Source' should be the header perameter which contains the information about accessibility (eg Authorization etc)
+                The value coming in this token will later be avialable in Lembda of Authorizer [mufAuthorizerLmbd] 
+                at 'event.authorizationToken' and can be used to calculate the acccessibilty.
+            So set the value of 'Token Source' as header key, which contains accessibity info.
+            the value of this header later can be read in Authorizer lembda (mufAuthorizerLmbd) at 'event.authorizationToken'
+        5.6 Create
+        
+        Now Authorizer are created and ready to use, Its time to attach it to actual API
+        
+        5.7 first lets go the exact rnd point of api
+            AWS > API Getway > APIs-Collectin [eg User APIs or Payment APIs] 
+                  > Resource [eg user-profile, user-history,  payment-start] > Methode [eg GET, POST] > click 'Method Request'
+        5.8 In dropdown Authorizer choose the authorizer you created in step 5.6
+        5.9 As you know the API that user call first lands in Authorizer(eg mufAuthorizer) before landing in to what it integrate, at this point we can 
+            also set what information are must to have and then what information should be passed in authorizer.
+            5.9.1 Set 'URL Query String Parameters'
+                  click 'Add Query String' and type the name of parameter which must be in url string
+                  Suppose accessToken is coming in url string then for its prsense validation you can add this and check isReqiured.
+                  eg. www.*****.com/accessToken/12345
+                  Leter this query string param can be read in any subsquent lamba function (authorizer or exposed one) at 'event.queryStringParameters'  
+           5.9.2 Set HTTP Request Header-
+                  Click 'Add Header' and add the header which you wants that the API should carry and forward it to authorizer (mufAuthorizer) 
+                  eg. www.*****.com/accessToken/12345
+                      {header: {Authorization: "Bearer blablabla..."}}
+                  Leter this header param can be read in any subsquent lamba function (authorizer or exposed one) at 'event.???????????????'  
+           5.9.3 Set Body model
+                  ???????????
+           
         
         
         
         
-              
+        
+Jsu Remember : 
+  in Auth0- accessToken has info about is user is logged or not and his ids
+            AuthorizationToken has info about what kind of permissions that user has. 
               
               
               
