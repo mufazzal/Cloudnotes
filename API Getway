@@ -148,11 +148,11 @@ Creating an API :>
         5.2 go to AWS > API Getway > APIs-Collectin [eg User APIs or Payment APIs] > Authorizers > create Authorizers
         5.3 type name you wants, lets say it is 'mufAuthorizer'
         5.4 Select the Lembda function written in step 5.1 
-        5.5 'Token Source' should be the header perameter which contains the information about accessibility (eg Authorization etc)
+        5.5 'Token Source' should be the header perameter which contains the information about accessibility (eg Authorization, muAuthToken etc)
                 The value coming in this token will later be avialable in Lembda of Authorizer [mufAuthorizerLmbd] 
                 at 'event.authorizationToken' and can be used to calculate the acccessibilty.
             So set the value of 'Token Source' as header key, which contains accessibity info.
-            the value of this header later can be read in Authorizer lembda (mufAuthorizerLmbd) at 'event.authorizationToken'
+            the value of this header later can be read in Authorizer lembda (mufAuthorizerLmbd) at 'event.authorizationToken' [no matter what its real key in actual request]
         5.6 Create
         
         Now Authorizer are created and ready to use, Its time to attach it to actual API
