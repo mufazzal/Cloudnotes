@@ -79,7 +79,25 @@ Creating an API :>
  5.  Authorization of API :-
        Before reaching to any resources that the API has integrated in step 3.3 it must be validated that caller has proper permission 
        for it.
-       The Authorizes also on Lembda function which takes the input as 'AuthorizationToken' and return a IAM policy document.
+       
+       There is two places where you can check it
+       - At Apigetway by the apigetway itself
+       - At Apigetway but by the lembda function
+       
+       For fisrt one-
+        go to AWS > API GEtway > API collection > api > methode > MEthode Request
+        Now set the 'Request Validator' as such that what parts in api you wants to check
+        Now you can configure belo three things
+          Query String ->  www.*******.com?uName=Muf                    Here you setup qery in api must look like  
+          Header       ->  www.*******.com {Header:{ uname: "Muf"}}     Here you setup headers must look like  
+          Query String ->  www.*******.com?{body:{ uname: "Muf"}}       Here you setup body model must look like  
+        This authoization can work only upto request formate level.
+        It n verify if required data prsent in the call or not. But there is no way that it can verify that whoever
+        is accessing this api have permission/authority to go into it.
+        
+        For this we set up the 'Authorizer', This authorizaer ran even before the teh first one cech is performed
+        
+       The Authorizes is basically an Lembda function which takes the input as 'AuthorizationToken' and return a IAM policy document.
        What is IAM Policy doc-
         Its a statement saying if the caller XXX has permission to perform operation YYY over resource ZZZ.
         Its formate is same as as what we do in IAM of AWS.
