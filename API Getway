@@ -101,6 +101,24 @@ Creating an API :>
        What is IAM Policy doc-
         Its a statement saying if the caller XXX has permission to perform operation YYY over resource ZZZ.
         Its formate is same as as what we do in IAM of AWS.
+       For now just note two thing
+        if a lembda is integrated with al api then the authenticatoe lembda can allow or deny the access of futher lembda
+        by returning likr this
+          var effect = 'deny'
+              if(event.authorizationToken === 'muf')
+                  effect = 'allow'
+
+              const po = {
+                  principalId: 'user',
+                  policyDocument: { 
+                      Version: '2012-10-17', 
+                      Statement: {
+                          Action: 'execute-api:Invoke',
+                          Effect: effect,
+                          Resource: 'arn:aws:execute-api:us-east-1:388412347424:r3k1ggk9s7/Dev/GET/personalinfo'
+                        } 
+                  }
+              }        
 
        How and where they applied :-
         Authorizer are written below APIs collection and you can create more than one Authorizer there.
@@ -141,6 +159,9 @@ Creating an API :>
         How to create->
         5.1 The first step of wrinting an authorizer is to write an lembda function(mufAuthorizerLmbd) such as
             [authorizationToken] -> Lembda mufAuthorizerLmbd() {}  -> IAM Policy JSON doc
+            We will later see how we setup the 'authorizationToken' to recive the auth token, When we set this lembda to fire at a time of this api call 
+            The IAM policy return from this lembda will tell the sysytem should he allow the CALLER to perform certain
+            OPERATION on the called RESOURCE.
             Now lest suppose 'mufAuthorizerLmbd' is reday in AWS > compute > Lembda > 'mufAuthorizerLmbd'
         
         Now time to set this 'mufAuthorizerLmbd' lembda s authorizer of any api.
