@@ -191,6 +191,75 @@ S3: This is the Object-based storage. Each file stored in S3 has a own unique id
   Alternative of S3 ??????????????
   
   
+S3 + API Getway for Upload :-
+  For this you follow
+    First you call a api which will verify that you have the permission for S3 upload or not. This API is coonected with any 
+    lenbda authorizatuon function to determine the rights.
+    This API then return the secure upload link to you if auth is successful
+    Now you use this link to do the upload.
+    
+    Step 1
+      So first create a Role which will be attached to Lembda. This role must have two policy
+        step 1.1 basic lemda execution policy [choose predefined one]
+        step 1.2 create one policy as such that it has pemsission to write on S3.
+   Step 2
+      Creste an lembda function with this role, in this lembda function handle shoul look like this-
+        IMP parts- 
+          UPLOAD_BUCKET_NAME: the name of bucket, should be passed as env var
+          filename: the filename of uploading file
+          params: ??????
+          createPresignedPost: this function will generate secure url for uploading the video
 
+          const handler = (event, context, callback) => {
+                const bucket = process.env.UPLOAD_BUCKET_NAME;
+                const filename = decodeURI(event.queryStringParameters.filename);
+                const directory = crypto.randomBytes(20).toString('hex');
+                const key = directory + '/' + filename;
+
+                const params = { 'Bucket': bucket,
+                  'Fields': {'key': key},
+                  'Conditions': [{'acl': 'private'}]
+                }
+
+                s3.createPresignedPost(params, function callbackToPost(error, data) {
+                  if (error) {
+                     callback(null, generateResponse(400, error));
+                  } else {
+                    callback(null, generateResponse(200, data));
+                  }
+                });        
+        });
+        
+        Now at client side use this url for uloading the vidro data.
+        
+        Step 3:
+          Now create an api in API getway, which will expose this lembda function. It better if you also put an another lembda fuctin to check 
+          user authorization. This authorizer lembda will detrmine is user is logged in and has authority to execute the lembda created in step 2/
+          this authorizer do not detrmine authority to upload the file to s3 for the logged in user.
+       Step 4:
+           Create an API in api getway, atttach authorizer lembda of step 3 and link generater lembda of step 2 and you are done.
+           
+           
+       
+        
+        
+        
+        
+        
+        
+        
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
