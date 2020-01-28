@@ -114,7 +114,18 @@ What if in a subnet group all are private subnet but the Publicly accessible set
         
        If you need to access the database from internet then place it in all-public-subnet-group other wise place it in all-private-subnet-group
       
-      
+      Publicly accessible -
+        The subnet group you choose will decide if the DB should be avialable to outside or not.
+        But its not the final decision to let it connect from outside.
+        There is one more thing 'Publicly accessible'
+        If it is Yes then the amazon will allot an Public IPv4 for this DB
+        If its is No then there wont be any public IPv4 allocated to this DB server.
+        So if it is no then there is no way to connect this DB from outside (either bby SSH or by any DB client) becoz there is no IP to connect at all
+        Though it has a private IP but that will be accesibile only inside the VPC.
+        
+        
+        
+        
       
       
       
