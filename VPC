@@ -190,7 +190,56 @@ Now use traceroute to detect nodes on the way.
           
        
         
-        
+--------------
+
+Why NAT Getway has Elastic IP but not Internet Getway - 
+  Internet getway a simple gate from where to and fro public internet traffic is allowed. 
+  It assume that all the component living inside the subnet do have a public IPv4 assignet to them. also they have the private IP [1.0.*.*]
+  So if thay wants to to communicate via internet or sombody from public internet wants to communicate with them
+  then the inner component hav an unique IP for mapping the address.
+  Say for EG and webserver(EC2@97.98.67.87) inside the public subnet call www.google.con/api
+  then
+  the request first go to internet getway, it simply let it pass, the rresponse come and it simply let response go back to EC2@97.98.67.87.
+  Also if 
+  sombody wants to load https://97.98.67.87/api then the request first first reach to Internet Getway then IG simply let it go 
+  inside to the node of which the 97.98.67.87 is IPv4 address.
+  
+  
+  But NAT getway is bit diffrent, 
+  First it has to lie in a public subnet but it provide service to private one.
+  It assume that no component sitting inside has public IPv4. those do have the private IP[1.0.*.*]
+  If a compent say '10.0.*.*' make a request to 'www.google.com'. It will first go the NG, NG do allow communication initiated from inside
+  But before allowing it, the NG make a entry that 10.0.9.8 has requested the www.google.com.
+  Now NG2@65.76.87.34 forward the request to Internet Getway of the public subnet in which it reside
+  Now request then go to internet getway, it simply let it pass, the response come and it simply let response go back to NG2@65.76.87.34.
+  response comes to NG2@65.76.87.34
+  NG chack the mapping that who Requseted this [www.google.com]
+  The mapping say 10.0.9.8 has requested it so the respponse now forwarded to 10.0.9.8
+  Also
+  sombody wants to load https://10.0.9.8/api then there is no way to do this, because first it is an private IP which cannot be acceses via 
+  public internet. and NAT getway denied any entery requested from outside.
+  
+  
+  It simplay an agent of private subnet sitting in public subnet 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
       
       
       
