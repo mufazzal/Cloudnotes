@@ -77,6 +77,38 @@ Lets create a RDS instance with SQLServer :-
  
   
   
+  -------------
+  
+  Choosing VPC, subnet group, Publicly accessible at a time of DB creation
+  
+  VPC:  This is solely depend on you.
+  Subnet group :- 
+      Why subnet group important
+      impact of public subnet group
+      impact of private subnet group
+Publicly accessible:-
+      This one will decide if a public UPv4 should be assign to this DB or not
+      If yes, then a public UP will be assigned and so anybody from outside internet can reach to this DB via SSH or any
+      if no then no public IPv4 will be assigned and so the DB will be acceesible only in the subnet its been created. 
+      
+What if in a subnet group all are private subnet
+???
+What if in a subnet group all are public subnet
+???
+What if in a subnet group are public + private subnet
+???
+What if in a subnet group all are private subnet but the Publicly accessible set to be Yes?
+???
+    
+    
+    
+    
+      
+      
+      
+      
+      
+                 
   
   
   
