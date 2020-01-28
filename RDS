@@ -102,7 +102,17 @@ What if in a subnet group all are private subnet but the Publicly accessible set
     
     
     
-    
+    Subnet Group - 
+      The subnet group is the set of subnets in same VPC. This subnets must lie in diffrent AZ.
+      There is two time it playa a critical role - 
+        1.  At a time of DB initilization, it determine which AZ is healthy and use that one AZ.
+        Once AZ is fixed it now allocate the private IP to this RDS instance.
+        2.  At a time of any failovere on any AZ, and DB is configured az multi AZ. the back up DB will be stand up at the other subnet
+            in the same group.
+        
+        It good practice that you either have all the aubnet public or all the subnet private in the subnet group.
+        
+       If you need to access the database from internet then place it in all-public-subnet-group other wise place it in all-private-subnet-group
       
       
       
