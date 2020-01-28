@@ -226,15 +226,43 @@ Why NAT Getway has Elastic IP but not Internet Getway -
   
   
   
+  --------
+  
+  Steps to creating a private and public subnet system.
+  I assume you have created VPC and subnets in it
+  step 1:  Create an internet getway. This need nothing just type a name and u are done 
+        lets creat MufIG
+  step 3:  Route tables for public subnet first:
+        type name and chose the VPC that you have already created. 
+        say the name is 'MufPubRtTable'
+        Now set the route somting like        
+        10.0.0.0/16	      local	
+        0.0.0.0/0          <The one you created in step 1> MufIG
+  Step 4:           
+      attach the routtable 'MufPubRtTable' to the subnet to whome you wants to be public one
+      say you attach it to 'MufPubSubnet'
+  
+  step 5:  Create an elastic ip. this also need nothing just press the allocate button and u have one
+        say you got 84.67.76.45.   We will use this elastic IP for private subnet part
+  step 6:  Create NAT Getway:
+        First the chose the subnet (A public one it must be) in which this AG will reside.
+        lets choose 'MufPubSubnet', because this is public subnet 
+        if you wants you can give name at NAG list page
+        say its name is 'MufNAG'
+        Done
+  step 7
+        Route tables for private subnet :
+        type name and chose the VPC that you have already created. 
+        say the name is 'MufPriRtTable'
+        Now set the route somting like        
+        10.0.0.0/16	      local	
+        0.0.0.0/0          <The one you created in step 6> MufNAG
+  step 7: 
+        attach the routtable 'MufPriRtTable' to the subnet to whome you wants to be private one
+         say you attach it to 'MufPriSubnet'
   
   
-  
-  
-  
-  
-  
-  
-  
+  Done
   
 
 
