@@ -159,9 +159,28 @@ For this we will create two VPC:-
               5. Now attach the routing table created in step 3 to Subnet created in step 1
               DONE'
               
-              
 
-                    
+In Public Subnet - Internet Getway:-
+  Accessible via public internet - initiated from outside
+    Yes! if :  The component attched with an public IPv4
+      How - SSH 45.45.76.88 or https://45.7.5.6
+    No! : The component not attched with an public IPv4
+  Have Access to public internet - initiated from inside
+    Yes  eg. calling an googlmap api from EC2 webserver
+  Access among sibling components of same subnet : inter-subnet
+    ?????
+  Access among sibling components of diffrent subnet : inter-vpc
+    ?????
+
+In Private Subnet - NAT Getway:-
+  Accessible via public internet - initiated from outside
+    No
+  Have Access to public internet - initiated from inside
+    Yes  eg. calling an googlmap api from EC2 webserver
+  Access among sibling components of same subnet : inter-subnet
+    ?????
+  Access among sibling components of diffrent subnet : inter-vpc
+    ?????
               
 TODO:-
 Creat sophisticated VPC, Subnet, getway and create EC2 instances inthem
