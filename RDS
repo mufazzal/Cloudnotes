@@ -119,7 +119,7 @@ What if in a subnet group all are private subnet but the Publicly accessible set
         
  ---------------------------
  
- DB Types-
+ DB Engine and version-
   There is 6 RDB supported
   SQLSever
   ORACLE
@@ -157,7 +157,7 @@ What if in a subnet group all are private subnet but the Publicly accessible set
           High Networking performance
           >> Great query intesnsive work and higher connection workload.
                  
-    Miti EZ:-
+    Miti AZ:-
       If you enable this then, you will have two diffrent DB instance under the hood. one is primary and 
       other is secondry and copy of primary. AWS take care to keep the secondry in synch to primary.
       In case of any failover the secondery will becom the primary.
@@ -165,17 +165,45 @@ What if in a subnet group all are private subnet but the Publicly accessible set
     Storage Type Allocation :-
       This define the quality and quantity of storage 
       There is 3 type-
-        1. General Purpose
-        2. Provisoned IO
+        1. General Purpose : GP2
+          SSD
+          up to 16TB
+          3 to 3K IOPS [input outpu per sec]
+        2. Provisoned IO : IO1
+          SSD
+          up to 16TB
+          up to 40K IOPS
+          >> High performance and should be use in prod
         3. Megnetic
+          for legacy
   
   
   
   
+Pricing:-
+    The cost of DB is decided by this factors -
+      1.  DB Engine and version + its licence if applicable
+      2.  DB Instance Class
+      3.  Miti AZ
+      4.  Storage Type Allocation 
+      
+      
+Databse Idetifier:-
+    This is an unique identifier for the databse of you AWS account.
+    In any region of any AWS account, the identifier will be unique. So choose the value as such.
+    This is useful for aws API to identify DB.
+    IMP: This is an identifier, not the database name. 
+      
+Credential:-
+    This is the master user cred. and have most previlaged permission. this permission though varies for diffrent DB types.
+    Its very dagourous to use this ser in Application. instead create the another user after DB creation
+    with less privillages.
   
-  
-  
-  
+Networking Config:  
+    VPC:-
+      You must select an VPC in which you DB will lie. 
+    Subnet Group:-
+      
   
   
   
