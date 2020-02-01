@@ -1,14 +1,6 @@
 RDS is the service that provide a way to integrate the Relation Databse.
 
-#SDB
-There is 6 RDB supported
-  SQLSever
-  ORACLE
-  MySql
-  PostgresSql
-  Amazon Aurora : amazon itself
-  MariaDb
-  
+
   
 Lets create a RDS instance with SQLServer :-
   
@@ -125,14 +117,57 @@ What if in a subnet group all are private subnet but the Publicly accessible set
         
         
         
-        
+ ---------------------------
+ 
+ DB Types-
+  There is 6 RDB supported
+  SQLSever
+  ORACLE
+  MySql
+  PostgresSql
+  Amazon Aurora : amazon itself
+  MariaDb
+  
+  IMP: there are diffrent version of that DB also there. like in Oracle you may have enterprise and standard edition etc.
+  Some of them may not be in free tier.
+  
+  Use Case:- 
+    There are 2 use case 
+    -Prod: This has some default onfiguration like Multi EZ enbaled and higher speed low letencty profile. 
+    -Dev/Test: This has single AZ with low storage and lower speed.
+      This is ust an default value set up, you can change them any time.
       
-      
-      
+  DB Instance Class:-
+  This define the quality and auantity of compute power
+    This define what king of EC2 CPU you wants for this DB. 
+    There is 3 family of class
+      1.  T2 / T3
+          1 - 8 vCPU
+          1 - 32 GB RAM
+          Moderate Networking performance
+          >> Great for small and variable workload
+      2.  M3 / M4
+          2 - 64 vCPU
+          8 - 256GB RAM
+          High Networking performance
+          >> Great for CPU intensive work
+      3.  R3 / R4
+          2 - 64 vCPU
+          16 - 488GB RAM
+          High Networking performance
+          >> Great query intesnsive work and higher connection workload.
                  
+    Miti EZ:-
+      If you enable this then, you will have two diffrent DB instance under the hood. one is primary and 
+      other is secondry and copy of primary. AWS take care to keep the secondry in synch to primary.
+      In case of any failover the secondery will becom the primary.
   
-  
-  
+    Storage Type Allocation :-
+      This define the quality and quantity of storage 
+      There is 3 type-
+        1. General Purpose
+        2. Provisoned IO
+        3. Megnetic
   
   
   
