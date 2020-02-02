@@ -83,37 +83,11 @@ Publicly accessible:-
       If yes, then a public UP will be assigned and so anybody from outside internet can reach to this DB via SSH or any
       if no then no public IPv4 will be assigned and so the DB will be acceesible only in the subnet its been created. 
       
-What if in a subnet group all are private subnet
-???
-What if in a subnet group all are public subnet
-???
-What if in a subnet group are public + private subnet
-???
-What if in a subnet group all are private subnet but the Publicly accessible set to be Yes?
-???
+
     
     
     
-    Subnet Group - 
-      The subnet group is the set of subnets in same VPC. This subnets must lie in diffrent AZ.
-      There is two time it playa a critical role - 
-        1.  At a time of DB initilization, it determine which AZ is healthy and use that one AZ.
-        Once AZ is fixed it now allocate the private IP to this RDS instance.
-        2.  At a time of any failovere on any AZ, and DB is configured az multi AZ. the back up DB will be stand up at the other subnet
-            in the same group.
-        
-        It good practice that you either have all the aubnet public or all the subnet private in the subnet group.
-        
-       If you need to access the database from internet then place it in all-public-subnet-group other wise place it in all-private-subnet-group
-      
-      Publicly accessible -
-        The subnet group you choose will decide if the DB should be avialable to outside or not.
-        But its not the final decision to let it connect from outside.
-        There is one more thing 'Publicly accessible'
-        If it is Yes then the amazon will allot an Public IPv4 for this DB
-        If its is No then there wont be any public IPv4 allocated to this DB server.
-        So if it is no then there is no way to connect this DB from outside (either bby SSH or by any DB client) becoz there is no IP to connect at all
-        Though it has a private IP but that will be accesibile only inside the VPC.
+    
         
         
         
@@ -202,13 +176,80 @@ Credential:-
 Networking Config:  
     VPC:-
       You must select an VPC in which you DB will lie. 
-    Subnet Group:-
+    Subnet Group:- 
+      The subnet group is the set of subnets in same VPC. This subnets must lie in diffrent AZ.
+      There is two time it playa a critical role - 
+        1.  At a time of DB initilization, it determine which AZ(from the AZ of subnets of selected subnet group) is healthy and use that one AZ.
+            Once AZ is fixed it now allocate the private IP(out of CIDR of selected subnet from subnet group) to this RDS instance.
+        2.  At a time of any failovere on any AZ, and if DB is configured as multi AZ. the back up DB will be stand up at the other 
+            AZ of other subnet of selected subnet group.
+        
+       It good practice that you either have all the aubnet public or all the subnet private in the subnet group.
+       If you need to access the database from internet then place it in all-public-subnet-group other wise place it in all-private-subnet-group.
+       Though in all-private-subnet-group the traffice initiated from outside will be prohibited but traffic initiated from inside will be allowed.
       
+      Publicly accessible:-
+        The subnet group you choose will decide if the DB should be avialable to outside or not.
+        But its not the final decision to let it connect from outside.
+        There is one more thing 'Publicly accessible'
+        If it is Yes then the amazon will allot an Public IPv4 for this DB
+        If its is No then there wont be any public IPv4 allocated to this DB server.
+        So if it is no then there is no way to connect this DB from outside (either bby SSH or by any DB client) becoz there is no IP to connect at all
+        Though it has a private IP but that will be accesibile only inside the VPC.
+  
+        IMP: The Subnet group will decide which private IP will be assign to DB.
+         The 'Publicly accessible' will decide if the public IPv4 will be assign to DB or not all. 
+         if yes then an IPv4 from the aws public ip pool will be allocated. 
+         
+              What if in a subnet group all are private subnet
+              ???
+              What if in a subnet group all are public subnet
+              ???
+              What if in a subnet group are public + private subnet
+              ???
+              What if in a subnet group all are private subnet but the Publicly accessible set to be Yes?
+              ???         
+         
+    AZ:-
+        If you wnats to have the DB only in specific AZ then be my guest.
+    
+    Security Group:-
+        The 'Subnet Group' and 'Publicly accessible' both provide some layer of security as add on.
+        Like subnet group can deny accessibilty to outbound initiated internet traffic if it is all-private-subnet-group
+        Like you do not even assign the public IPv4 by setting the 'Publicly accessible' to No. and provide no way to 
+        connect the DB and public internet.
+        But this two rae very broad level
+        What if you wants it to be accessible to some system and not to other one.
+        what if you wants let the traffic initiated from cetain IP to flow but deny other
+        What if you wants let the DB to initiate the connection with certain IP but not with other.
+        
+        For this comes the Security Group:-
+        In the SG ou can set the inbound and outbound rule and so make the firewall round the DB which will 
+        keep the source and destination of traffic in check from both side.
+    
+ <--End Networking-->
+    Provisioning Database:-
+      In this part we define certain charachtristrics of database itsef.
+      DB Name: his is the default name of the database to create. This is diffrent from DB identifier.
+      DB Port: ususally default shoud be taken
+      DB Param: 
+      DB Option: 
+      DB Encryption:
+      DB Monitoring:
+        
+  
+   Back Up:-
+    Here you will set two imp things
+    Backup Window:-
+      The time window when the back up should be taken. EG: 24 hour
+    Retenstion priode:-
+      How long you wants to keep the back up. EG: 35 days
+     EG: Take back up after every 24 hour and keep this back up file for next 35 days.
+
+
   
   
-  
-  
-  
+  Maintainance:-
   
   
     
