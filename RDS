@@ -356,7 +356,36 @@ Networking Config:
       Changing DB instance class is straighforward, you just have to know about its impact.
         
      
-     
+  Read Replica:-
+    Suppose in your app you see at a time there is only 5 write operation but 500 read operations. So lot of read but very few write
+    If you have only one DB answering all of those then there may be lot of leg.
+    For this comes a read replica.
+    Here you craete a additinal databases which are remain in synch with its master database.
+    The write operation will happen on master db and later those changes will be synch up with other read replica.
+    This feature reduced the time for reading data too much.
+    Though the read replica could remain few minute behind of master data. So developer has to be careful
+    it may be possible that data written on master may not be available immidiety on read replica
+    
+    Actully read replica in itslef a complete standalone DB instance execpt it is remain sych with master.
+    In your app, you can connect with master or replica DB. both have their endpoint.
+    But you should use master for write and replica for read.
+    
+    Read Replica vs Multi AZ :-
+      In multi AZ, the prime and sec has 0 leg. data written on prime will also reflect on sec and then operation suppose to be completed.
+      In read replica, the write happen on master and operaton marker as done. after some time those changes will be transmitted to all read replicas.
+    
+    How-
+      1. Aws > RDS > instance > check 'mufdb' > modify > create Read Replica 
+      2. now set all values, this is just like creating a new standalone DB actully
+      3. Done
+      
+      Now in the app you should do write operation on endpoint ''
+      
+      
+      
+    
+    
+    
       
     
     
