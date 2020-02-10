@@ -137,8 +137,9 @@ Publicly accessible:-
       In case of any failover the secondery will becom the primary.
       When you choose the Multi AZ then, you can see the subnet group in connectivity detail od DBs aws page.
       In Multi AZ env there is two DB host, The primary and secondry.
-      Primary handle all the traffic and answer it. Secondry remain updated and synch with primary via, 
-      ultra low latancy channel between AZs.
+      Primary handle all the traffic and answer it. For any write operation the wrote forst happen over prime one
+      and then on sec one. after write on prime and sec both are successful, the user will be acknolaged with success
+      otherwise with failure.
       IMP: The Multi AZ not at improve a bit of your performance. It do not handle any traffic. 
       Its only is to keep a secondry one ready in case of failover at primary one.
       On the contrary it actully increase the time for write operation on DB. bcoz now write has to perform on two 
