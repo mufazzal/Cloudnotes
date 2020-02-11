@@ -376,10 +376,12 @@ Networking Config:
     
     How-
       1. Aws > RDS > instance > check 'mufdb' > modify > create Read Replica 
-      2. now set all values, this is just like creating a new standalone DB actully
+      2. now set all values, this is just like creating a new standalone DB actully, name it say 'muf_1_DbReplica'
       3. Done
       
-      Now in the app you should do write operation on endpoint ''
+      Now in the app you should do write operation on endpoint of 'mufdb' and for read you can use any of 'muf_#_DbReplica'.
+      
+      for good prformance one should create multiple readreplica in diffrent AZ to keep.
       
       
       
