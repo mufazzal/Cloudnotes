@@ -71,6 +71,29 @@ In IAM you should know the tuening between following things to uderstand it comp
     
     
 
+   The Policy is the most fundamental document, it define that 
+   user UUUU has permisiion DENY/ALLOW to perform operation OOO on Resource RRR
+   You can write as many policy you wants, but there many such policy are already provideed by AWS already.
+   
+   The groups are the template which are made of policies. you can add as many policy you wants in the group.
+   Now all the user who are liing in this group will have those policy attached to them.
+   
+   
+   Can i assign policy directly to user ->
+    yes.
+    
+    
+   Role:-
+    Just like group, the Role is also a template which are made of policies. you can add as many policy you wants in the Role.
+    Role is quite a diffrent kind of entity. Role is not at all useful for the normal user you created in the same aws account.
+    the role are assign to following items
+    1. An user from diffrent AWS account
+    2. EC2 and Lembda
+    3. Identity fedration user.
+   
+   
+   
+   
    
    
    
