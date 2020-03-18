@@ -1,0 +1,19 @@
+With the EC2 instance by default on EBS block witll be attached.
+This is like an CPU with C-drive. you cannot simply remove it.
+
+for linux system this drive moutned at : /dev/xvda
+
+Though default you have one ESB attached but you can attach more then one.
+You can attch them even after instance is running.
+
+How ?
+in nutshell-
+first you create it
+then you attcah it
+then you create file system in it
+then you mount it at some location.
+
+
+Craeting the EBS: -
+  You can creat as many EBS as you wants via aws console. once created you can play with it like attaching/dettaching from EC2s.
+
