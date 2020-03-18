@@ -1,0 +1,19 @@
+Formate of ARN - 
+
+
+arn:aws:  <SERVICE>   :   <REGION>   :   <ACCOUNTID>  :accesspoint/  <RESOURCE_ACCESS_POINT_NAME>
+
+SERVICE: S3, EC2, lembda etc or blank. Blank means all services
+REGION: Asia, EU etc. blank means all region
+ACCOUNTID: The id of AWS account. eg. 388412347424. IMP: This is the id of top most or the ROOT AWS account [h.mufazzal@gmail.com]
+           Even if you have logged via child IAM user and the resources of ARN lie in that logged in account
+RESOURCE_ACCESS_POINT_NAME: The access point odf resource in the selected AWS service
+
+arn:aws:*:*:388412347424:accesspoint/*
+  > This reprsent all the resources(3rd star) all the AWS service(1st star) of all the region(2nd star).
+  
+arn:aws:S3:*:388412347424:accesspoint/myres
+  > This reprsent resouce 'myres' in S3 AWS service in all the region.
+  
+arn:aws:S3:ap:388412347424:accesspoint/myres
+  > This reprsent resouce 'myres' in S3 AWS service in asia-pecific.  
