@@ -207,6 +207,9 @@ EC2 and Other AWS services ->
           3. From SSH-terminal connect local pc ('muf') with EC2 ('bar') via proper private key
           4. Once connected, You can use the comands to create S3 bucket 
                     >  'aws s3 mb s3://muf12decbuck'
+          - You can attach or dettach the Role   from EC2,  and it      will take immediate effect. you dont even have to restart the Ec2
+          - You can attach or dettach the Policy from Role, and it also will take immediate effect. you dont even have to restart the Ec2
+          - 
     
     
     
