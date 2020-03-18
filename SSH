@@ -196,7 +196,15 @@ How to connect EC2-witndoe with RDP??????????
   
   
   
-  
+  EC2 and Subnet:- 
+    The choosed subnet play very critical role to decide weather the EC2 will be visible to internet traffic(in-bound) or not
+    If you choosed the subnet which happen to be 'private' [NAT-Getway attached] you will never be able to connect via ssh from
+    any outside machine. Though you may be able to connect from one internal-subnet EC2 to this EC2
+    Also here even if you enable the public IP alocation, the allocated IP is of no use actully.
+    
+    So if you wants Ec2 to e connected via SSH from outside machine then you must keet y=the EC2 in Public subnet[Internet getway attached]
+    
+    
   
   
   
