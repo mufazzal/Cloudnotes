@@ -92,6 +92,22 @@ In IAM you should know the tuening between following things to uderstand it comp
     3. Identity fedration user.
    
    
+   Role and USer : 
+   Unlike group where you explicitly assign the user to the group. and then that user will get the 
+    accesses predefined by that group.
+    the Role and USer relation is bit diffrent
+      First of all the role can be attached to many things as described above.
+      A Role can also be assumed(or attached) to the user (of same AWS account), but that relation is temporary and as the requred task finished
+      user will strip off that Role.
+      User-Group: this relation is kind of permanent unles you change it by yiurself in IAM
+      User-Role: This is temporary arrangment if user need to do an task out of its accessibility. then useer will for 
+      a moment take the Role do the task and release himself from role.
+      
+      
+How a AWS user can assume the role and then release it after task done ?
+???????
+                      
+   
    
    
    
