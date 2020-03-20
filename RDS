@@ -464,6 +464,8 @@ Networking Config:
     Read Replica VS Multi AZ:
     AZ is for disaster recovery only, and for mainainace time backup.
     Read replica is for performance boost
+    Read replica is asynchronus [one after other]
+    AZ is synchronus [in paralel]
     
     ----------
     
