@@ -175,7 +175,8 @@ Publicly accessible:-
       On the contrary it actully increase the time for write operation on DB. bcoz now write has to perform on two 
       diffrent isolate host
       cost is also high.
-      It give one additional advantage at back uo time, noe back up taken from secondry not primary.
+      It give one additional advantage at back uo time, noe 
+      taken from secondry not primary.
       Multi AZ and DNS :-
         In the Multi AZ DB the DNS play a major role, when the prime DB fails then its duty of DNS to resolve the 
         DNS name to proper working DB instance either prime or sec.
@@ -358,16 +359,50 @@ Networking Config:
       DB Encryption:
       DB Monitoring:
         
-  
-   Back Up:-
+------
+   Automated-back-up:-
     Here you will set two imp things
     Backup Window:-
       The time window when the back up should be taken. EG: 24 hour
     Retenstion priode:-
       How long you wants to keep the back up. EG: 35 days
      EG: Take back up after every 24 hour and keep this back up file for next 35 days.
+     
+   Restoring from back up :-
+    1. for this simply select the DB > Action > restore point in time.
+    2. Select time 
+    3. choose DB identifier [must and should be non existubg one]
+    4. chose other thing
+    5. Done
+    
+--------
 
+  Snapshot:-
+    Other way to take the back up is via snap shot. This is totally manual process for backing up.
+    to take it :-
+      1. for this simply select the DB > Action > take snapshot
+      2. type name
+      3. save
+      You will be able to see the snap in 'snapshot' page
+     Restore :-
+      1. got to snapshot
+      2. Action > restore
+      3. choose DB identifier [must and should be non existubg one]
+      4. chose other thing
+      5. Done
 
+  
+  Snapshot vs Automated-back-up :-
+    Simillarity - 
+      1. Both are way to take back up and restore
+      2. Whenever  you restore the DB from snapshot or from Automated-back-up, the process is very same
+         and in both the DNS endpoint get changes. you have to choose the other identifier.
+         So orignal.bala.blabal.aws.com  may changed to   snappy.bla.bla.aws.com
+     Diffrence :-
+      1.  in Automated-back-up the back time and retention is configured, after that taking back is totally automatic proceess
+          in snapshot you take a snap whenever you need. so here backing up is not automated with time
+      
+ -----
   
   
   Maintainance:-
