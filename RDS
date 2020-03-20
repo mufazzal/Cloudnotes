@@ -257,6 +257,11 @@ Publicly accessible:-
        IP:   34.200.143.202
     
       
+    After creating a DB in RDS, The AWS only give you the DNS name for that DB to connect.
+    It never ever gives you the IP address, that is of course because in case of failure of prime DB the sec DB turn inti prime and so
+    the IP of DB also changed. 
+    The DNS remain same and it start pointing to Sec DB
+      
   
     Storage Type Allocation :-
       This define the quality and quantity of storage 
