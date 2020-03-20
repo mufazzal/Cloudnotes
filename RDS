@@ -459,8 +459,12 @@ Networking Config:
       
       for good prformance one should create multiple readreplica in diffrent AZ to keep.
       
-      
-      
+    ------
+    
+    Read Replica VS Multi AZ:
+    AZ is for disaster recovery only, and for mainainace time backup.
+    Read replica is for performance boost
+    
     ----------
     
     Encryption :- 
