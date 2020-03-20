@@ -86,8 +86,38 @@ Publicly accessible:-
 
     
     
-    
-    
+ ----------------
+ EC2 and RDS relative location in VPC :-
+  If EC2 and RDS both are liying in same VPC, then there is chances that 
+  1. Affect of RDS publicaly accessible
+      > It has no effect, Doesnt matter id RDS is publically accesible or not (means RDS has an public IPv4)
+        If other things are right then the EC2 will be able to connect and communicate.
+  2. Affect of RDS living in public or private subnet :-
+      > It also has no effect, Doesnt matter if living in public or private subnet
+          If other things are right then the EC2 will be able to connect and communicate. becaue the public/private subnet decide
+          weather the internet traffic generated from outside VPC will be able to reach to component living inside subnets or not.
+          If both the part EC2 and RDS are inside the same VPC then subnet doesnt matter.
+  3. Affect of EC2 living in public or private subnet :-
+    ?????????????
+    I think thi also shouldnt have any affect, because both live inside same VPC.
+  4. Affect od security group of EC2 :-
+      This do has a effect.
+      It must allow the outbound TCP traffic at proper port
+        eg. for mysql 3306, for postgress ***
+ 5. Affect of SG of RDS
+      It also do have effect
+      It must allow the SG of EC2 to connect at at proper port in inbound rule (eg. for mysql 3306, for postgress ***) 
+      [
+        Note: will simply seting up the inbound rule wiht port and 'any IP' work ?
+        No!, This is useful when we are connecting the RDS from outsde the VPC, like when we connect the RDS from local machine from home or office.
+        or we wants to connect from webserver outside the AWS ecosystem.
+      ]
+      
+      
+     --------
+     Scenario when webserver is outside the VPC -
+     ??????
+      
         
         
         
