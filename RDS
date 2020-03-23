@@ -443,8 +443,13 @@ Networking Config:
     it may be possible that data written on master may not be available immidiety on read replica
     
     Actully read replica in itslef a complete standalone DB instance execpt it is remain sych with master.
-    In your app, you can connect with master or replica DB. both have their endpoint.
+    In your app, you can connect with master or replica DB. both have their diffrent endpoint.
     But you should use master for write and replica for read.
+    
+    IMP Notes : 
+    - All read replica have diffrent DNS endpoint, so in theory they are completely diffrent and independent DB.
+    - You can have a RR of RR DB [but letecy will be low]
+    - 
     
     You can create read replica in diffrent region.
     
