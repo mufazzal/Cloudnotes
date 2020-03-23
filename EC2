@@ -32,7 +32,9 @@ Pricing-
          Me: Ok! lets go to Spot pricing, when it cost low buy some, work on it, release if it get costly, and  keep doing it at very low cost.
          Finance: smart guy.
   Dedicated Host:
-    Generally if you need to follow soome regulatory protocols.
+    Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
+    This physically hosted server do lies in AWS building but unlike other EC2, this are solely assign to you.
+    Very costly
     
     
 Type of Ec2 instances-
