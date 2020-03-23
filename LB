@@ -61,6 +61,19 @@ A: No! Not at all.
 Its always an good idea that you create a EC@ instances in diffrent AZ, Create LB capable to connect with those AZ for fault tolenrence    
     
     
+----------
+
+LB and HTTP Header
+https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/x-forwarded-headers.html
+
+Network LB???????????
+
+
+
+
+
+
+
  
  
  
