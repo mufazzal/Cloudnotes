@@ -55,16 +55,22 @@ S3 Storage Classes:-
       Low Latancy - High Throughput -  >= 3 AZ  -
       Storage Fee:  0 till 50TB
       Retrival Fee: NA
+      - Best for any general data that need frequent access.
   2. S3 IA (infrequently Access) : long-lived, but less frequently accessed data
       Low Latancy - High Throughput -  >= 3 AZ  -  
-      Storage Fee:  Yes
+      Storage Fee:  Yes but lower then S3-Standard
       Retrival Fee: Yes
-  3. S3 IA - one zone (infrequently Access) : long-lived, but less frequently accessed data
-      Best for lessfrequently access data   - Low Latancy - High Throughput -   1 AZ  -  
+      - Best for storing data, that need to access less frequently like at a time of year end or some festival
+  3. S3 IA - one zone (infrequently Access) : long-lived, but less frequently accessed data, Ok to being in service outage
       This is same as S3-IA except data lies in only one AZ. So risk if AZ goes down and cost lower
+      IMP: if AZ goes down then you may face service outage for S3 bucket, but once AZ back online you again got your data and services back.
   4. S3 Inteligent Tiering: Use AI to move data b\w diffrent tiers without your intervention
+      IT has two tier
+        1. Frequent access tiering : ??????????????????///
+        1. In-Frequent access tiering : ?????????????????????/
+        
   5. S3 Glacier and S3 Glacier deep Archive: for long-term archive and digital preservation
-      Take minute and Hours for retrival
+      Take minute and Hours for retrival, Glcier do not have any real time access.
     
       
 Charges:
