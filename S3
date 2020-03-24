@@ -335,8 +335,14 @@ S3 + API Getway for Upload :-
     Bucket policy can grant the access of bucket for certaion operation to other user, other account, user group.
     BP attached to bucket and apply to all objevt inside.
     BP cannot be attached to object inside.
+    This is simplay a json doc.
     
     
+   Access Control List :- 
+      The BP is applied over the Bucket, that give you quite higher level of access management
+      The ACL is applied over the object inside the bucket. It define what user, user group, etc can have access to 
+      the underline object [not bucket].
+      It gives you very fine grain way to manage access of any objct in S3
     
     
     
