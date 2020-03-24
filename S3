@@ -322,8 +322,19 @@ S3 + API Getway for Upload :-
     This is two diffrent file reprset by two diffrent key 'pune' and 'distric/pune'
     
     
+    --------------------------
     
-    
+    S3 security -
+    1. Default Access :-
+        By default the Bucket is private and only the owner who created the bucket can do any operation be it read, write, delete, edit.
+        No onle else has any access to it.
+        So by default the bucket is not public
+        
+   Bucket Policy : -
+    BP is the way to define the accessibility of the bucket. The BP applied to all the object in the bucket.
+    Bucket policy can grant the access of bucket for certaion operation to other user, other account, user group.
+    BP attached to bucket and apply to all objevt inside.
+    BP cannot be attached to object inside.
     
     
     
