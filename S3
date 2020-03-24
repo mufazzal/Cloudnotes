@@ -303,10 +303,23 @@ S3 + API Getway for Upload :-
       
         
         
-        
-        
-        
+--------------------------------        
   
+    Bucket name VS key :-
+    Bucket name is assosiated with bucket and lie in universal S3 namespace.
+    The 'key' belongs to the file names in that bucket.
+    EG:
+    https://indiaMapImages.s3.eu-west1.amazonaws.com/pune
+    Here 'indiaMapImages' is the bucket name and 'pune' is the key.
+    The key has to be unique in the bucket.
+    
+    YOu cannot have two file with same key in a bucket.
+    Though you xcan make folder in bucket to use the same key name.
+    EG:
+    https://indiaMapImages.s3.eu-west1.amazonaws.com/pune
+    and 
+    https://indiaMapImages.s3.eu-west1.amazonaws.com/distric/pune
+    This is two diffrent file reprset by two diffrent key 'pune' and 'distric/pune'
     
     
     
