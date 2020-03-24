@@ -36,6 +36,19 @@ S3 and Data Consistency :-
 
 
 
+S3 and Region :-
+  When you create a bucket youu have to select the region, and so toyr bucket will lie in that region. 
+  VVIMP: it not at all means that content of this bucket wont be avialabler in other region.
+  like you create a bucket 'indiaMapImages' in mumbai. 
+  but the url 'https:// indiaMapImages.s3.eu-west1.amazonaws.com/pune' will be accessible in anywhere in the world.
+  Though the time taken to load the content in newyork will be greater than in mumbai.
+
+
+S3 and AZ :- 
+  Bucket in region specific, you do not have to choose the AZ at all when you create bucket.
+  Depending on your storage class, the content of the bucket will be stored in either 3 or 2 or 2 AZ at atime.
+  So if some data lost at some AZ or any AZ is down, you still be able to access the S3 buckets.
+  
 
 S3 Storage Classes:-
   1. S3 - Standard : general-purpose storage of frequently accessed data
