@@ -361,11 +361,12 @@ S3 + API Getway for Upload :-
     the underline object [not bucket].
     It gives you very fine grain way to manage access of any objct in S3
       
- Accesibility of file :-      
+ Anonymus Public Accesibility :-      
    The first two kind of Access management (ACL and BP) tells you that if user/user group/account/role etc can do certaion operration
    on the underline resource or not
-   After this two there is one more that is 'Public Accesibility of file'
-   This define will this file be accessible ANONYMOuSLY or not. mns will this file be accessible with #URL_1 or not.
+   After this two there is one more that is 'Anonymus Public Accesibility'
+   This define will this file be accessible ANONYMOuSLY or not. mns will this file be accessible with #URL_2 or not.
+   VVIMP: You must stuck in your mind that 'Anonymus Public Accesibility' only and only deal with url '#URL_2'
    How to set it:-
     1.  For new upload: At a time of upload at permission page just chose 'Manage public permissions' to 'grant public read access'
         [There is only 2 option to choose 'grant public read access' and 'do not grant public read access']
@@ -376,14 +377,45 @@ Block Public Access feature :-
   Above all 3 there is one more option lies, and this can (or cannot) override all the permission granted through either of above three
   this is 'Block Public Access feature'.
   This has power to deny the access granted through above 3, but do not have any way to grant acceess which is deny by above 3
+  This has a 4 option that you can select at a time of either bucket creation or from   
+        AWS > S3 > your bucket > Permisssion >  Block Public Access >  4 checkboxes. 
   
-  
+  If you have checked all 4:-
+    It means you have blocked all the access to the public. this will completely override all the accesses granted throug 
+    either BP, ACL, APA. All the access are denied. ?????????????i doubt?????????
+    
+ if all 4 are unchecked :-
+    In this case this permission filter is completely shut off. it wont deny any kind of access. So all the permission granted through
+    either BP, ACL, APA will be honoured. ?????????????i doubt?????????
  
       
+ Block-Public-Access-feature and APA relation :-
+      If you have checked all 4 of 'Block-Public-Access-feature':-
+        It means you have blocked all the access to the public. this will completely override all the accesses granted throug APA.
+
+     if all 4 are unchecked of 'Block-Public-Access-feature' :-
+        In this case this permission filter is completely shut off. So all the permission granted through APA will be honoured.   
       
-   What if Bu   
-    
-  1. Default Access :-
+     Scenarion #1: 
+      You have a bucket where Block-Public-Access-feature = all 4 un-checked (so block all public access turned off). 
+      and you have many files/object in this bucket that are either have APA = granted or APA = denied
+      So what happed if I change 
+          Block-Public-Access-feature = all 4 checked  (so block public access all turned on). 
+      - Here the 'Block-Public-Access-feature' will override the permisssions granted through APA. and so no one will be able to read the #URL_2
+     Scenario#2: 
+      You have a bucket where Block-Public-Access-feature = all 4 un-checked (so block all public access turned off). 
+      So what happed if I upload a and set APA = granted/denied ? 
+      Both case are fine, AWS system will let you do it. No error will come.
+    Scenario#3:
+      You have a bucket where Block-Public-Access-feature = all 4 checked (so block all public access turned on). 
+      So what happed if I upload a and set APA = granted/denied ? 
+      Only APA = denied, will work granted will give error, that is because you cannot upload the file with publicaly accessible setting 
+      when the bucket itself deny any public access.
+      Also what happen if i change the existing file/obect to APA = granted, The option will remain disabled actully.
+      You cannot set the file APA to publically accessible if bucket deny any public access.
+
+
+1. Default Access :-
       By default the Bucket is private and only the owner who created the bucket can do any operation be it read, write, delete, edit.
       No onle else has any access to it.
       So by default the bucket is not public
