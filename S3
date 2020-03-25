@@ -387,7 +387,10 @@ Block Public Access feature :-
  if all 4 are unchecked :-
     In this case this permission filter is completely shut off. it wont deny any kind of access. So all the permission granted through
     either BP, ACL, APA will be honoured. ?????????????i doubt?????????
- 
+
+  Default value :-
+    By default the all 4 remain checked, so the bucket by default deny any kinfd on bublic access.    
+      
       
  Block-Public-Access-feature and APA relation :-
       If you have checked all 4 of 'Block-Public-Access-feature':-
@@ -413,12 +416,8 @@ Block Public Access feature :-
       when the bucket itself deny any public access.
       Also what happen if i change the existing file/obect to APA = granted, The option will remain disabled actully.
       You cannot set the file APA to publically accessible if bucket deny any public access.
+      
 
-
-1. Default Access :-
-      By default the Bucket is private and only the owner who created the bucket can do any operation be it read, write, delete, edit.
-      No onle else has any access to it.
-      So by default the bucket is not public
         
     
     
