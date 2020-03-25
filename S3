@@ -98,11 +98,21 @@ Cross Region replication:-
 
 
 
-URL of the cucket:-
-  A url of the bucket is unique for each indivisual bucket in entire S3 universe
-And it pattern is :-
-  https://<Bucket Name>.s3.<region Name>.amazonaws.com/<NAme of Item in Bucket>
-  https://  muftests3  .s3.  eu-west1   .amazonaws.com/    MufazzalPhoto
+URL of the files/object in Bcucket:-
+
+Actully there is two kind of url generated for any file
+  1. For the AWS logged in user specific 
+      This is the url specifically for AWS logged-in user only, user will be able to access it only if he has proper permissions.
+      Its pattern is 
+      https://<Bucket Name>.s3.<Region>.amazonaws.com/<NAme of Item in Bucket>?<A larger params string>   ....#URL_1
+      You can get this url from AWS > S3 > you bucket > your file > Open
+      
+  2. Anonymosuly : the one for the All, 
+    This url is distributed all the people for accessing the file. ince they has the url they will able to access it.
+    Not login or authorization needed.
+    And it pattern is :-
+      https://<Bucket Name>.s3.<region Name>.amazonaws.com/<NAme of Item in Bucket>  ....#URL_2
+      https://  muftests3  .s3.  eu-west1   .amazonaws.com/    MufazzalPhoto
 
 Note:
 S3 is Object based storage so you can store file but not OS or database. ?????????
@@ -325,12 +335,19 @@ S3 + API Getway for Upload :-
     --------------------------
     
     S3 security -
-    1. Default Access :-
-        By default the Bucket is private and only the owner who created the bucket can do any operation be it read, write, delete, edit.
-        No onle else has any access to it.
-        So by default the bucket is not public
-        
-   Bucket Policy : -
+    S3 provide you the two type of security for ant bucket/file
+    1. Encryption
+    2. Access level
+    
+    
+    
+ Access Managment S3 :-
+ For Access managemet there is three level where the owner can decide the access of any S3 item
+  1. Bucket Policy: Ay Bucket level
+  2. Access Control List: at file/object level.
+  3. Public Accesibility of file.
+    
+  Bucket Policy : -
     BP is the way to define the accessibility of the bucket. The BP applied to all the object in the bucket.
     Bucket policy can grant the access of bucket for certaion operation to other user, other account, user group.
     BP attached to bucket and apply to all objevt inside.
@@ -338,12 +355,39 @@ S3 + API Getway for Upload :-
     This is simplay a json doc.
     
     
-   Access Control List :- 
-      The BP is applied over the Bucket, that give you quite higher level of access management
-      The ACL is applied over the object inside the bucket. It define what user, user group, etc can have access to 
-      the underline object [not bucket].
-      It gives you very fine grain way to manage access of any objct in S3
+ Access Control List :- 
+    The BP is applied over the Bucket, that give you quite higher level of access management
+    The ACL is applied over the object inside the bucket. It define what user, user group, etc can have access to 
+    the underline object [not bucket].
+    It gives you very fine grain way to manage access of any objct in S3
+      
+ Accesibility of file :-      
+   The first two kind of Access management (ACL and BP) tells you that if user/user group/account/role etc can do certaion operration
+   on the underline resource or not
+   After this two there is one more that is 'Public Accesibility of file'
+   This define will this file be accessible ANONYMOuSLY or not. mns will this file be accessible with #URL_1 or not.
+   How to set it:-
+    1.  For new upload: At a time of upload at permission page just chose 'Manage public permissions' to 'grant public read access'
+        [There is only 2 option to choose 'grant public read access' and 'do not grant public read access']
+    2.  For existing one: AWS > S3 > 'your bucket' > 'your file' > Action > Make Public
     
+    
+Block Public Access feature :-        
+  Above all 3 there is one more option lies, and this can (or cannot) override all the permission granted through either of above three
+  this is 'Block Public Access feature'.
+  This has power to deny the access granted through above 3, but do not have any way to grant acceess which is deny by above 3
+  
+  
+ 
+      
+      
+   What if Bu   
+    
+  1. Default Access :-
+      By default the Bucket is private and only the owner who created the bucket can do any operation be it read, write, delete, edit.
+      No onle else has any access to it.
+      So by default the bucket is not public
+        
     
     
     
