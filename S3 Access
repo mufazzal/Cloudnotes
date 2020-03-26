@@ -122,7 +122,20 @@ MAnaging Anonymus/Public Access via ACL of bucket :-
      Done
   
     
-
+----------------------------
+S3 and IAM user :-
+    Whenever you creat an IAM user via root user or faderated user, and if you wants this user to be able to do certaion operation on S3
+    then you must attach hime with a policy.
+    There is two such IAM policy:-
+    Scenaro#1 : assigm him none :- USer will not see any thing on his S3 home page.
+    Scenaro#2 : attach him with 'S3ReadOnlyPolicy' - 
+        He will be able to see the list of bucket. but not able to create new bucket or delete existing one.
+        Will he be able to add/remove/delete the objects inside the Bucket:
+            - YES! as long as ACL abd BP of that bucket are allowing it.
+    Scenaro#3 : attach him with S3FullAccess: 
+            He will be able to see the list of bucket. also able to create new bucket or delete existing one.
+            Will he be able to add/remove/delete the objects inside the Bucket:
+                - YES! as long as ACL abd BP of that bucket are allowing it.
 
 
 
