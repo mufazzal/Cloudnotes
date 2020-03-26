@@ -106,11 +106,50 @@ Bucket and ACL :-
 Grant/deny Anonymus Access via ACL of bucket :-
    When i say anonymus access, it means that accessing the content of bucket via #URL_2
    The type anonymus access you can give are 
-    1.  List Object : 
-    2.  Write Object: 
+    1.  List Object : getting the list of object in bucket, EG api A1,   
+    2.  Write Object: Adding an item in the bucket, Eg api A2
+  In simple world if if 
+  ACL provide permission 'List Object', then A1 will work
+  ACL provide permission 'List Object' and 'Write Object' , then A1, A2 both will work
+  
+  How to give this permission :-
+     1. AWS > S3 > 'your bucket' > Permission > Access control list 
+     2. go to 'Public access'
+     3. Click 'every one'
+     4. select the permissions in 'Access to the objects'
+     Done
+  
     
 
 
+
+
+
+
+------------------------
+API of S3
+AP Refrence :- https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+
+  A1. ListObjectsV2
+       Anonymusly get list of object in bucket
+         GET https://muftmpbucket.s3.ap-south-1.amazonaws.com/   OR  GET https://muftmpbucket.s3.amazonaws.com/
+         Return: an XML
+        
+  A2. PutObject 
+    Anonymusly Add/Edit object in bucket :-
+    POST http://muftmpbucket.s3.amazonaws.com/
+    {
+        key:        myfile.txt
+        x-amz-acl:  ????????
+        ...??????
+    }
+    
+        
+        
+
+
+
+    
 
 
 
