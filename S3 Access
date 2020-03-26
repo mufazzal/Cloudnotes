@@ -103,14 +103,16 @@ Bucket and ACL :-
       2. Block public access to buckets and objects granted through any access control lists (ACLs)
     If this two is checked then your ACL policy will all be useless, The BPAF will deny all the access granted via ACL of this bucket
     
-Grant/deny Anonymus Access via ACL of bucket :-
-   When i say anonymus access, it means that accessing the content of bucket via #URL_2
+MAnaging Anonymus/Public Access via ACL of bucket :-
+   When i say anonymus/public access, it means that accessing the content of bucket via #URL_2, without ant=y login, authentication or authorization
    The type anonymus access you can give are 
     1.  List Object : getting the list of object in bucket, EG api A1,   
     2.  Write Object: Adding an item in the bucket, Eg api A2
-  In simple world if if 
-  ACL provide permission 'List Object', then A1 will work
-  ACL provide permission 'List Object' and 'Write Object' , then A1, A2 both will work
+  In simple world if
+  ACL provide public permission = 'List Object', then A1 will work
+  ACL provide public permission = 'List Object' and 'Write Object' , then api A1, A2 both will work
+  Does write provide access to delet the objevt from content 
+  No! dont know why. It provide way to add the object, change it also but not delete it.
   
   How to give this permission :-
      1. AWS > S3 > 'your bucket' > Permission > Access control list 
