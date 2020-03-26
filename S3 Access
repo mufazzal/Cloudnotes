@@ -40,7 +40,7 @@ S3 security -
      >> both way will actully configure the ACL behind the scene	
 
 
-Block Public Access feature :-        	
+Block Public Access feature [BPAF]:-        	
   Above all 3 there is one more option lies, and this can (or cannot) override all the permission granted through either of above three	
   this is 'Block Public Access feature'.	
   This has power to deny the access granted through above 3, but do not have any way to grant acceess which is deny by above 3	
@@ -90,4 +90,30 @@ Block Public Access feature :-
       when the bucket itself deny any public access.	
       Also what happen if i change the existing file/obect to APA = granted, The option will remain disabled actully.	
       You cannot set the file APA to publically accessible if bucket deny any public access.	
+
+------------------------------------------
+
+
+Bucket and ACL :-
+
+ prerequisite - 
+    To make the ACL working for the bucket the first thing you have to do is to configure BPAF properly 
+    for this you must UN-CHECK below two check boxes
+      1. Block public access to buckets and objects granted through new access control lists (ACLs)
+      2. Block public access to buckets and objects granted through any access control lists (ACLs)
+    If this two is checked then your ACL policy will all be useless, The BPAF will deny all the access granted via ACL of this bucket
+    
+Grant/deny Anonymus Access via ACL of bucket :-
+   When i say anonymus access, it means that accessing the content of bucket via #URL_2
+   The type anonymus access you can give are 
+    1.  List Object : 
+    2.  Write Object: 
+    
+
+
+
+
+
+
+
 
