@@ -10,6 +10,7 @@ S3 security -
   1. Bucket Policy: Ay Bucket level	
   2. Access Control List: at file/object level.	
     2.1. Public Accesibility of file.	
+  3. IAM Policy
 
   Bucket Policy : -	
     BP is the way to define the accessibility of the bucket. The BP applied to all the object in the bucket.	
@@ -24,6 +25,9 @@ S3 security -
     The ACL is applied over the object and bucket both. It define what user, user group, etc can have access to 	
     the underline object or buccket 	
     It gives you very fine grain way to manage access of any objct in S3 as well.	
+
+IAM Policy :-
+    ??????????????????????
 
  2.1  	
  Anonymus Public Accesibility [Special cass of ACL] :-    	
@@ -104,40 +108,62 @@ ACL over Bucket :-
     If this two is checked then your ACL policy will all be useless, The BPAF will deny all the access granted via ACL of this bucket
     
 MAnaging Anonymus/Public Access via ACL of bucket :-
-   When i say anonymus/public access, it means that accessing the content of bucket via #URL_2, without ant=y login, authentication or authorization
+   When i say anonymus/public access, it means that accessing the content of bucket via #URL_2, without any login, authentication or authorization
    The type anonymus access you can give are 
     1.  List Object : getting the list of object in bucket, EG api A1,   
     2.  Write Object: Adding an item in the bucket, Eg api A2
   In simple world if
   ACL provide public permission = 'List Object', then A1 will work
   ACL provide public permission = 'List Object' and 'Write Object' , then api A1, A2 both will work
-  Does write provide access to delet the objevt from content 
+  Does write provide access to delete the object from content 
   No! dont know why. It provide way to add the object, change it also but not delete it.
   
   How to give this permission :-
+
+  For existing one:-
      1. AWS > S3 > 'your bucket' > Permission > Access control list 
      2. go to 'Public access'
      3. Click 'every one'
      4. select the permissions in 'Access to the objects'
      Done
+     OR
+      AWS > S3 > 'your bucket' > 'your file' > Action > Make Public
+  For new one:-
+     For new upload: At a time of upload at permission page just chose 'Manage public permissions' to 'grant public read access'	
+        [There is only 2 option to choose 'grant public read access' and 'do not grant public read access']	
+        >> This will automatically select option 'List Object' but not 'write Object'
+	
+
+  MAnaging named/user Access via ACL of bucket :-
+  
+      Providng public/anonymus acceess of bucket is widely user ACL feature. ACL can also allow or deny the permission of certaion
+      operation for Other AWS account, Grou, User etc. 
+      But ACL itself is an LEGACY system, so aws do not recommend to overuse ACL.
+      So i am not going much deeper in ACL instead we will more focus on 2 widely use 
+      IAM Policy
+      Bucket policy
+  
+  
   
     
 ----------------------------
-S3 and IAM user :-
-    Whenever you creat an IAM user via root user or faderated user, and if you wants this user to be able to do certaion operation on S3
-    then you must attach hime with a policy.
-    There is two such IAM policy:-
-    Scenaro#1 : assigm him none :- USer will not see any thing on his S3 home page.
-    Scenaro#2 : attach him with 'S3ReadOnlyPolicy' - 
-        He will be able to see the list of bucket. but not able to create new bucket or delete existing one.
-        Will he be able to add/remove/delete the objects inside the Bucket:
-            - YES! as long as ACL and BP of that bucket are allowing it.
-    Scenaro#3 : attach him with S3FullAccess: 
-            He will be able to see the list of bucket. also able to create new bucket or delete existing one.
+S3 and IAM Policy :-
+    
+    Predefined IAM Policy :-
+        Whenever you creat an IAM user via root user or faderated user, and if you wants this user to be able to do certaion operation on S3
+        then you must attach hime with a policy.
+        There is two such IAM policy:-
+        Scenaro#1 : assigm him none :- USer will not see any thing on his S3 home page.
+        Scenaro#2 : attach him with 'S3ReadOnlyPolicy' - 
+            He will be able to see the list of bucket. but not able to create new bucket or delete existing one.
             Will he be able to add/remove/delete the objects inside the Bucket:
                 - YES! as long as ACL and BP of that bucket are allowing it.
-    Scenario#4: Custom IAM Policy for S3:
-            ????????????????????????????
+        Scenaro#3 : attach him with S3FullAccess: 
+                He will be able to see the list of bucket. also able to create new bucket or delete existing one.
+                Will he be able to add/remove/delete the objects inside the Bucket:
+                    - YES! as long as ACL and BP of that bucket are allowing it.
+    Custom IAM Policy:-
+        ???????????????????????????????/
 
 
 
