@@ -37,11 +37,7 @@ IAM Policy :-
    on the underline resource or not	
    APA will set up the ACL properly to make the file be accessible ANONYMOuSLY or not. mns will this file be accessible with #URL_2 or not.	
    VVIMP: You must stuck in your mind that 'Anonymus Public Accesibility' only and only deal with url '#URL_2'	
-   How to set it:-	
-    1.  For new upload: At a time of upload at permission page just chose 'Manage public permissions' to 'grant public read access'	
-        [There is only 2 option to choose 'grant public read access' and 'do not grant public read access']	
-    2.  For existing one: AWS > S3 > 'your bucket' > 'your file' > Action > Make Public	
-     >> both way will actully configure the ACL behind the scene	
+
 
 
 Block Public Access feature [BPAF]:-        	
@@ -62,38 +58,13 @@ Block Public Access feature [BPAF]:-
   Default value :-	
     By default the all 4 remain checked, so the bucket by default deny any kinfd on bublic access.    	
 
+   How to set it:-	
+    1.  For new bucket creation: U will see this 4 option in process of bucket creation flow	
+    2.  For existing one: AWS > S3 > 'your bucket' > Permission > Block public access	
+         Set the checkboxes.
 
- Block-Public-Access-feature and APA relation :-	
-      When you set APA = deny/grant, you actully change the ACL of underline file/object.	
-      Now you have 4 chack box in BPAF, 2 for BP and 2 for ACL.	
-      So	
-      The access granted by ACL/APA could be overriden by BPAF, if the two check box of BAPF belongs to ACL are checked.	
 
-      If you have checked 2 ACL checkbox of 'Block-Public-Access-feature':-	
-        It means you have blocked all the Anonymuus public access granted via APA. this will completely override all the accesses granted throug APA.	
-        So #urL_2 will not work  	
-
-     if all 4 are unchecked of 'Block-Public-Access-feature' :-	
-        In this case this permission filter is completely shut off. So all the permission granted through APA will be honoured.   	
-        So #urL_2 will work	
-
-     Scenarion #1: 	
-      You have a bucket where Block-Public-Access-feature = 2 ACL un-checked (so block all public access via ACL turned off). 	
-      and you have many files/object in this bucket that are either have APA = granted or APA = denied	
-      So what happed if I change 	
-          Block-Public-Access-feature = 2-ACL checked  (so block all public access via ACL turned on). 	
-      - Here the 'Block-Public-Access-feature' will override the permisssions granted through APA. and so no one will be able to read the #URL_2	
-     Scenario#2: 	
-      You have a bucket where Block-Public-Access-feature = 2 ACL un-checked (so block all public access via ACL turned off). 	
-      So what happed if I upload a and set APA = granted/denied ? 	
-      Both case are fine, AWS system will let you do it. No error will come.	
-    Scenario#3:	
-      You have a bucket where Block-Public-Access-feature = 2 ACL checked (so block all public access via ACL turned on). 	
-      So what happed if I upload a and set APA = granted/denied ? 	
-      Only APA = denied, will work granted will give error, that is because you cannot upload the file with publicaly accessible setting 	
-      when the bucket itself deny any public access.	
-      Also what happen if i change the existing file/obect to APA = granted, The option will remain disabled actully.	
-      You cannot set the file APA to publically accessible if bucket deny any public access.	
+ 
 
 ------------------------------------------
 
@@ -135,14 +106,53 @@ MAnaging Anonymus/Public Access via ACL of bucket :-
 	
 
   MAnaging named/user Access via ACL of bucket :-
-  
       Providng public/anonymus acceess of bucket is widely user ACL feature. ACL can also allow or deny the permission of certaion
       operation for Other AWS account, Grou, User etc. 
       But ACL itself is an LEGACY system, so aws do not recommend to overuse ACL.
+      detail ??????????????????????
       So i am not going much deeper in ACL instead we will more focus on 2 widely use 
       IAM Policy
       Bucket policy
-  
+      
+     
+Block-Public-Access-feature and ACL conflict :-	
+      Now you have 4 chack box in BPAF, 2 for BP and 2 for ACL.	
+      So	
+      The access granted by ACL could be overriden by BPAF, if the two check box of BAPF belongs to ACL are checked.	
+
+      If you have checked 2 ACL checkbox of 'Block-Public-Access-feature':-	
+        It means you have blocked all the Anonymuus public access granted via ACL. this will completely override all the accesses granted throug APA.	
+        So api A1, A2, A3 will not work  	
+
+      If you have un-checked 2 ACL checkbox of 'Block-Public-Access-feature':-	
+        In this case this permission filter is completely shut off. So all the permission granted through APA will be honoured.   	
+        So A1, A2, A3 will work	
+
+     Scenarion #1: 	
+      You have a bucket where Block-Public-Access-feature = 2 ACL un-checked (so block all public access via ACL turned off). 	
+      and you have many files/object in this bucket that are either have APA = granted or APA = denied	
+      So what happed if I change 	
+          Block-Public-Access-feature = 2-ACL checked  (so block all public access via ACL turned on). 	
+      - Here the 'Block-Public-Access-feature' will override the permisssions granted through APA. and so no one will be able to read the #URL_2	
+     Scenario#2: 	
+      You have a bucket where Block-Public-Access-feature = 2 ACL un-checked (so block all public access via ACL turned off). 	
+      So what happed if I upload a and set APA = granted/denied ? 	
+      Both case are fine, AWS system will let you do it. No error will come.	
+    Scenario#3:	
+      You have a bucket where Block-Public-Access-feature = 2 ACL checked (so block all public access via ACL turned on). 	
+      So what happed if I upload a and set APA = granted/denied ? 	
+      Only APA = denied, will work granted will give error, that is because you cannot upload the file with publicaly accessible setting 	
+      when the bucket itself deny any public access.	
+      Also what happen if i change the existing file/obect to APA = granted, The option will remain disabled actully.	
+      You cannot set the file APA to publically accessible if bucket deny any public access.	     
+     
+     
+ACL over Object :-
+	????????????????????????
+--------------------------
+
+S3 and Bucket Policy :-
+	
   
   
     
