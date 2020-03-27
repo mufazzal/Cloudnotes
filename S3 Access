@@ -94,7 +94,7 @@ Block Public Access feature [BPAF]:-
 ------------------------------------------
 
 
-Bucket and ACL :-
+ACL over Bucket :-
 
  prerequisite - 
     To make the ACL working for the bucket the first thing you have to do is to configure BPAF properly 
@@ -131,12 +131,13 @@ S3 and IAM user :-
     Scenaro#2 : attach him with 'S3ReadOnlyPolicy' - 
         He will be able to see the list of bucket. but not able to create new bucket or delete existing one.
         Will he be able to add/remove/delete the objects inside the Bucket:
-            - YES! as long as ACL abd BP of that bucket are allowing it.
+            - YES! as long as ACL and BP of that bucket are allowing it.
     Scenaro#3 : attach him with S3FullAccess: 
             He will be able to see the list of bucket. also able to create new bucket or delete existing one.
             Will he be able to add/remove/delete the objects inside the Bucket:
-                - YES! as long as ACL abd BP of that bucket are allowing it.
-
+                - YES! as long as ACL and BP of that bucket are allowing it.
+    Scenario#4: Custom IAM Policy for S3:
+            ????????????????????????????
 
 
 
