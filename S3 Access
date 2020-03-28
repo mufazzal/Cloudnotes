@@ -115,7 +115,7 @@ MAnaging Anonymus/Public Access via ACL of bucket :-
       Bucket policy
       
      
-Block-Public-Access-feature and ACL conflict :-	
+Block-Public-Access-feature(BPAF) and ACL conflict :-	
       Now you have 4 chack box in BPAF, 2 for BP and 2 for ACL.	
       So	
       The access granted by ACL could be overriden by BPAF, if the two check box of BAPF belongs to ACL are checked.	
@@ -149,13 +149,7 @@ Block-Public-Access-feature and ACL conflict :-
      
 ACL over Object :-
 	????????????????????????
---------------------------
 
-S3 and Bucket Policy :-
-	
-  
-  
-    
 ----------------------------
 S3 and IAM Policy :-
     
@@ -166,19 +160,58 @@ S3 and IAM Policy :-
         Scenaro#1 : assigm him none :- USer will not see any thing on his S3 home page.
         Scenaro#2 : attach him with 'S3ReadOnlyPolicy' - 
             He will be able to see the list of bucket. but not able to create new bucket or delete existing one.
-            Will he be able to add/remove/delete the objects inside the Bucket:
-                - YES! as long as ACL and BP of that bucket are allowing it.
+            Will he be able to add/remove/delete the objects inside the Bucket in aws console:
+                - YES! as long as ACL, BP, BPAF of that bucket are allowing it.
         Scenaro#3 : attach him with S3FullAccess: 
                 He will be able to see the list of bucket. also able to create new bucket or delete existing one.
-                Will he be able to add/remove/delete the objects inside the Bucket:
-                    - YES! as long as ACL and BP of that bucket are allowing it.
+                Will he be able to add/remove/delete the objects inside the Bucket in aws console:
+                    - YES! as long as ACL, BP, BPAF of that bucket are allowing it.
     Custom IAM Policy:-
-        ???????????????????????????????/
-
-
+        The above two AIM policy are very high level, 
+		if you do not provide them then the IAM user will have no access at all 
+		if you provide S3ReadAccess, he will have permission to read a lot of things.
+		if you provided S3FullAccess, he will have all the accesses
+		But
+		What if you vwants to give user an access like
+		  for some bucket no access at all,
+		  for some bucket partial read access
+		  for some bucket full access
+		  for some bucket access to certain fuctionality only
+		  for some bucket you wants to give some contitional access
+		  .... etc
+	    For this come an cutomized IAM policy. 
+	    How to write this policy is not a scope of this tutorial. We will look iin it after AIM policy
+	    so for now its ???????????????????????????????/
 
 
 ------------------------
+
+
+
+S3 and Bucket Policy :-
+	Thery both are same exept
+		In The IAM policy the subject is USer/Principle which is fixed and Object if Resource.
+		In The Bucket policy the subject is Resource which is fixed and Object if Principle/User.
+	
+	The Bucket policy is 90% same as IAM policy 
+	The 10% diffrence are
+	1. BP management happen in S3 pages on each indivisual S3 bucket
+		- For IAM policy its management happen at IAM pages
+	2. The 'Resouce' value in bucket policy is fixed and its value could be 'arn:aws:s3:::muftmpbucket/*' or 'arn:aws:s3:::muftmpbucket' only
+	   That is because the subject of the policy is the Bucket not the Principal/User
+	   That is why there the resource tage is indeed there but its value is fixed.
+	   So
+	   Recource tag: prsetn but fixed
+	   Principle:	 prsent
+		- For IAM policy the the 'Principle/User' tag is not even present, when you attach a policy to any 'user/group/role' those
+		  become the Principle/User.
+		  That is because the subject of the policy is the Principal/User not the Bucket.
+		  So
+		  Recource tag:  present and variable
+		  Principle:	 not prsent
+	
+--------------------------
+
 API of S3
 AP Refrence :- https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
 
