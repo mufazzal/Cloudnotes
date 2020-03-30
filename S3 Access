@@ -154,6 +154,7 @@ Block-Public-Access-feature(BPAF) and IAM Policy conflict :-
 	The BPAF is design to deny[if checked] only and only ANONYMUS public access. The IAM policy never ever design to allow or deny the anonymus
 	public access. So basically its impossible that they both ever have a conflict. 
      
+     
 ACL over Object :-
 	????????????????????????
 
@@ -221,6 +222,32 @@ S3 and Bucket Policy :-
 	So for now
 	?????????????????????????????????????????/
 	
+	
+Can Bucket Policy block the Public Access completely
+Yes! there is a way but its not at all recomended. For thias you haver to do this - 
+
+	{
+	    "Id": "Policy1585571253140",
+	    "Version": "2012-10-17",
+	    "Statement": [
+		{
+		    "Sid": "Stmt1585571245236",
+		    "Action": "s3:*",
+		    "Effect": "Deny",
+		    "Resource": "arn:aws:s3:::muftmpbucket",
+		    "Principal": "*"
+		}
+	    ]
+	
+Principal": "*"  ---> Will here DENY the access of all the Action for all the users. and so you wont be able to to do anything either
+			with named or anonymus access.
+			So
+			Best is to do the public access blockage via ACL/BPAF and nammed access lockage via BP or IAM policy
+			
+			
+			
+
+	
 --------------------------
 
 API of S3
@@ -240,7 +267,8 @@ AP Refrence :- https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.htm
         ...??????
     }
     
-        
+  A1, A2: Both of this api is Anonumus and any body can consume it without any identification.
+  
         
 
 
