@@ -243,7 +243,8 @@ Principal": "*"  ---> Will here DENY the access of all the Action for all the us
 			with named or anonymus access.
 			So
 			Best is to do the public access blockage via ACL/BPAF and nammed access lockage via BP or IAM policy
-			
+		- The above BP statement is so dangourus that if owner of the bucket apply it over bucket, The Owner himself will also lost
+		   all the access of that bucket [from console too]
 			
 			
 
