@@ -182,7 +182,7 @@ S3 and IAM Policy :-
 	    For this come an cutomized IAM policy. 
 	    How to write this policy is not a scope of this tutorial. We will look iin it after AIM policy
 	    so for now its ???????????????????????????????/
-
+		
 
 ------------------------
 
@@ -201,14 +201,18 @@ S3 and Bucket Policy :-
 	   That is because the subject of the policy is the Bucket not the Principal/User
 	   That is why there the resource tage is indeed there but its value is fixed.
 	   So
-	   Recource tag: prsetn but fixed
-	   Principle:	 prsent
+	   Recource tag: present but fixed
+	   Principle:	 present
 		- For IAM policy the the 'Principle/User' tag is not even present, when you attach a policy to any 'user/group/role' those
 		  become the Principle/User.
 		  That is because the subject of the policy is the Principal/User not the Bucket.
 		  So
 		  Recource tag:  present and variable
 		  Principle:	 not prsent
+	
+	Once we finish the detail about IAM policy, then we will come for Bucket Policy
+	So for now
+	?????????????????????????????????????????/
 	
 --------------------------
 
