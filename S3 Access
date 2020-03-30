@@ -147,6 +147,13 @@ Block-Public-Access-feature(BPAF) and ACL conflict :-
       You cannot set the file APA to publically accessible if bucket deny any public access.	     
      
      
+Block-Public-Access-feature(BPAF) and IAM Policy conflict :-
+	In IAM policy the access is granted to any principle, and this priciple has to be an IAM user, other AWS account, federated user
+	ect. and they all have to to do the authentication/authorization. so all are nammed access.
+	But
+	The BPAF is design to deny[if checked] only and only ANONYMUS public access. The IAM policy never ever design to allow or deny the anonymus
+	public access. So basically its impossible that they both ever have a conflict. 
+     
 ACL over Object :-
 	????????????????????????
 
