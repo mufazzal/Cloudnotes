@@ -1,5 +1,84 @@
-You can 
 
+Its always best to keep the data encrypted.
 
-Upload object via PutObject APi ANONYMOUSLY :-
-  Seems impossible. dont know why ?
+B4 dive in, 
+  The Encryption need one most ipm part that is 'encryption key'.
+  So if you wants to do any kind of encryption you must need an key. For this the AWS provide the ecosystem of key management thats called 
+  KMS. 
+  I am not diving into how you create the key. But there is two type of key
+  1. AWS managed key ('default-key') : This is a default key that is generated for you. though you cannot delete/change it at all.
+      there is one anly one such key for each account. 
+      Its key policy written as such that the root user and all the IAM user can do use tis key for 'kms:encrypr' and 'kms:decrypr'
+      But root user can do some more operation like 'kms:Get*', 'kms:List'
+      But no one (not even root) has permicssion for action 'kms:Delete'.
+      
+  2. Customer Managed Key (CMK)
+      You can create your own keys here and manage its access by the key policy. Just like the BP in S3, there is Key Policy in KMS.
+      Key policy define that the key assosiated with it, will be accessible (for what action also) to which IAM users.
+      Its key policy written as such that the root user and all the IAM user can do use tis key for 'kms:encrypr' and 'kms:decrypr'
+      some user can do some more operation like 'kms:Get*', 'kms:List'
+      few user has permicssion for action 'kms:Delete'.
+
+  Actully both kay work 100% same, the only diffrence is one is not at all changable by even root account.
+  
+  So first lets create a key and give iy key policy.
+
+Simplest : upload a file in regular bucket with encryption :-
+  When you upload a file via aws console, in 'Set Properties' step you will be given 3 option for encryption
+  1. None
+  2. Amazon S3 master-key : This will encrypt the file with default-key. and as you know all the IAM user do have permission to access this for 
+                  encryption.
+  3. AWS KMS master-key : You can choose some other key also. but you must first have the access to this key for doing the encryption.
+                          if you has, then paste the id of the key there.
+    
+  Once you upload it, the S3 system remember which key is used to encrypting the file. so you do not have to provide it again at a time of decryption.
+  
+  Now suppose any one try to retrive it
+  So at a time of retrival S3 automatically get this key for user(this could be the one who uploaded or any IAM User/Role/Ec2) 
+  BUT it does chek if user have permission to use this key for decryption.
+  And AWS gain uses the Key-Policy attach withis key to determine the permission.
+  If permission is denied then user will not be able to decrypt this file and you will get 'Access denied' error even you have uploaded ir yourself.
+  
+  So if an file uploded with encryption via a key, then other people will be able to read only and only if they has permission of 'decrypt' via this key
+ 
+ 
+ 
+Encrypt/Decrypt pubic/Anonymous file :-
+  upload Anonymously with encryption :-
+      you fisrt need a bucket with ACL = public
+      set BPAF = off
+      Create a key in KMS, which should have key-policy as such     "Principal": "*"    can encrypt/decrypt the file. 
+      Now use api PutObject, with below with encryption header
+      'x-amz-server-side-encryption'
+      This could have two value
+        1. ?????? : If you wants to use default-key
+        2. aws:kms: if you wants to use the custon key
+      In case of 'aws:kms' you should also provide the id of the key in body as
+      'x-amz-server-side-encryption-aws-kms-key-id' : 'key Id'
+      
+      VVIMP: This work only and only if key has the policy "Principal": "*" 
+      
+      postman eg: 'S3 direct file upload Encrypted'
+      
+      UNFORTUNATLY: I am getting this error all the time 
+          <Message>Requests specifying Server Side Encryption with AWS KMS managed keys require AWS Signature Version 4.</Message>
+    
+    retriving Anonymously with decryption :-  
+      Here you do not have to provide the key again, if key allow the    "Principal": "*"   to do the decryption then it will work
+      Simply use GetObject api
+      postman:- 'S3 Get Encrypted file'
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
