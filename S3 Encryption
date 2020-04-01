@@ -69,8 +69,14 @@ Encrypt/Decrypt pubic/Anonymous file :-
       postman:- 'S3 Get Encrypted file'
       
       
+      VVIMP: Here you should make plant one idea in mind very robustly, that is
+              The uploader provide the encryption key at a time of uploading.
+             The retriver no at all have to reprovide it, instead S3 will automatically get that key for him,
+             BUT BUT BUT the retriver must have permission to perform 'kms:decrypt' operation with that key.
       
-      
+ Encryption over entire bucket:- 
+  
+ 
       
       
       
