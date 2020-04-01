@@ -40,8 +40,7 @@ Simplest : upload a file in regular bucket with encryption :-
   If permission is denied then user will not be able to decrypt this file and you will get 'Access denied' error even you have uploaded ir yourself.
   
   So if an file uploded with encryption via a key, then other people will be able to read only and only if they has permission of 'decrypt' via this key
- 
- 
+  
  
 Encrypt/Decrypt pubic/Anonymous file :-
   upload Anonymously with encryption :-
@@ -74,8 +73,27 @@ Encrypt/Decrypt pubic/Anonymous file :-
              The retriver no at all have to reprovide it, instead S3 will automatically get that key for him,
              BUT BUT BUT the retriver must have permission to perform 'kms:decrypt' operation with that key.
       
+       
+      
  Encryption over entire bucket:- 
-  
+    Actully there is no way to set up somthing like 'encrypt all the file with this key'
+    also there is no straight forward way to set up somthing like 'encrypt each uploading file with this key'
+    
+    Encryption occure only over the objevt not on bucket itself.
+    
+    But thate is couple of tricks in BP, through wich you can configure the bucket behavior wrt encryption of its contents.
+    
+    How we do it?
+    Simply in BP you must place some restriction/conditions as such that bkt will accept only if those condition got fullfiled.
+    
+    Now what are the tools to use for this condition?
+    You know if you upload a file, what api is actully being used/called 
+    that is PutObject.
+    Now if you wants it to be uploded with eencryption then what headre u must provide
+    that is 'x-amz-server-side-encryption'
+    So thats your first and formost tool
+    you may/may not also use the key-ir param if u sed 'aws:kms'
+    so 'x-amz-server-side-encryption-aws-kms-key-id' is your another tool
  
       
       
