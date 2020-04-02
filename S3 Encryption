@@ -93,7 +93,13 @@ Encrypt/Decrypt pubic/Anonymous file :-
     that is 'x-amz-server-side-encryption'
     So thats your first and formost tool
     you may/may not also use the key-ir param if u sed 'aws:kms'
-    so 'x-amz-server-side-encryption-aws-kms-key-id' is your another tool
+    so 'x-amz-server-side-encryption-aws-kms-key-id' is your another tool.
+    
+    There are some more header params available but this 2 are most imp.
+    
+    Now with this you can write the bucket policy for any bkt, this policy can set a rule that what should be the values of those or
+    who among them are required or not.
+    Simply we write BP that will check that the uploaded-object-request (PutObject) do have the the proper values of inlined headers or not     
  
       
       
