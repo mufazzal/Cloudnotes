@@ -102,7 +102,65 @@ Encrypt/Decrypt pubic/Anonymous file :-
     Simply we write BP that will check that the uploaded-object-request (PutObject) do have the the proper values of inlined headers or not     
  
       
-      
+    EG:
+    LEts say you wants to make sure that anything uploaded in bkt is Encrypted :-
+    So u write BP as
+    {
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::mufencryptedeucket/*",
+            "Condition": {
+                "Null": {
+                    "s3:x-amz-server-side-encryption": "false"                    
+                    }
+                }
+            }
+        ]
+    }    
+    
+    Observe here waht it say:-
+    Deny all the user("Principal": "*") to upload the file (upload use PutObject api) in bkt 'mufencryptedeucket' if the statement in the condition is true.
+    Now what is the condition: The condition check if header "s3:x-amz-server-side-encryption" is prsent or not
+    if not present then condition satisfied and you are denied the access.
+    if present then then condition de-satisfied and you are not denied the access so allowed.
+    
+    So this BP simply make sure that anything uploaded in bkt is encrypted.
+    
+    Now you are still not happy and you wants more so you wants that it should be encrypted and only encrypted with 'aws:kms'
+    For this you simply change the codtionlike this
+    
+     "Condition": {
+              "StringNotEquals": {
+                     "s3:x-amz-server-side-encryption": "aws:kms"
+                  }
+            } 
+    Now it will make sure that upcoming thisngs are encrypted and encrypted with 'aws:kms'
+    
+    Still wants more:-
+    say you wants that it should be encryped with 'aws:kms' and key used in the encryption is also be always 'mufkey'
+    Then
+    
+{
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::mufencryptedeucket/*",
+            "Condition": {"StringNotEquals": { "s3:x-amz-server-side-encryption": "aws:kms" }}
+        },
+        {
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::mufencryptedeucket/*",
+            "Condition": { "StringNotEquals": "s3:x-amz-server-side-encryption-aws-kms-key-id": "arn:aws:kms:ap-south-1:388412347424:key/<mufKeyId>"}}
+        }
+    ]
+}    
       
       
       
