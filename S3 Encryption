@@ -127,7 +127,9 @@ Encrypt/Decrypt pubic/Anonymous file :-
     if not present then condition satisfied and you are denied the access.
     if present then then condition de-satisfied and you are not denied the access so allowed.
     
-    So this BP simply make sure that anything uploaded in bkt is encrypted.
+    So this BP simply make sure that anything uploaded in bkt is encrypted. It does not matter that you user key source 'aws:kms' or 'AES-256'
+    It also does not matter what key you user for encryption.
+    
     
     Now you are still not happy and you wants more so you wants that it should be encrypted and only encrypted with 'aws:kms'
     For this you simply change the codtionlike this
@@ -161,6 +163,22 @@ Encrypt/Decrypt pubic/Anonymous file :-
         }
     ]
 }    
+      
+      
+     Conjecture of Key-Policy and BP :-
+        When you are doing encrytion/decryption on any S3 object then there is two policy come inti pucture. 
+        BP: The policy that is attached to bkt
+        KP: The key policy that define which user can access the the key for certaion operration like encrypt/decrypt
+        
+        The user(Principle) who is doing the operation MUST MUST have permission to
+        perform that operation (decrypt fro GetObject and encrypt for PutObject). So KP and BP must be written with harmony.
+        
+        
+      
+      
+      
+      
+      
       
       
       
