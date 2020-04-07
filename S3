@@ -336,7 +336,24 @@ S3 + API Getway for Upload :-
     
     
     
-    
+    S3 Bucket and CORS:- To get any objevt from S3 we generally use GetObject web-service, now if you call it direcl=tly from 
+       browser URL or from Postman, it work fine but if we call it via any other origin eg: localhost.com or www.mufsite.com, 
+       or by fetch(..) function of JS, then you may gey the CORS error.
+       TO resolve this just add the origin To the bucket it lies in.
+       aws > s3 > 'your bucket' > permission > CORS.
+       
+       Note: The CORS config is set over the Bucket not on the Object
+       
+       How: google it.
+       
+       
+       
+       
+       
+       
+       
+       
+       
     
 
 
