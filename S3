@@ -468,14 +468,32 @@ S3 + API Getway for Upload :-
 
 What happen When
   1. You delete a file from S3 : 
-        If you delete a file from S3 and this file is laredy over multiple edge location, then its deletion will not be immediatly
-        reflected over all ELs, insteat the CACHE of this file will remain over the all ELs till its TTL expire.
+        If you delete a file from S3 and this file may be alaredy over multiple edge location, then its deletion will not be immediatly
+        reflected over all ELs, instead the CACHE of this file will remain over the all ELs till its TTL expire. and rhis cached file
+        will be served to user.
         Once TTL expire the CFT make a sych request to origin (S3 bkt 'mufa-cdf-enbled-bucket' in our case)
-        and look fot this object/file, once he got its deleted then it will reflect it over all trhe ELs. 
+        and look fot this object/file, once he is informed that its deleted then it will reflect it over all trhe ELs. 
         So deletion of file may not reflect immedietly but after the TTL expiration.
 
-          
-
+  2. Add new file in Bucket:-
+       When uploaded upload it, at thattime the file will not be at ELs. becoz S3 upload do not care about CFT. 
+       lets say the file key is 'graps' so when you do PUtObject operation on graps.txt, the fi;le will be uploaded obly on S3 bucket. thats it
+       Now when any user make a request to CFT (not S3 bucket) for this object by calling 'blablabla.cloudfront.net/graps' 
+       The file will be first cached from S3 to the nearest Edge location and then it will be served to the called.
+       So in nutshell if new file is added the file be reflected as soon as somone call it via CFT url (no S3 url 'blablabla.s3.amazonaws.com/fruits/graps')
+  
+  3. When you cvhange the file:
+        This work same as the delete one, it will be reflected after the TTL passed out.
+        
+        
+        
+  How S3-bucket and CFT synch :- 
+      When i say su=ynch, it does not mns that all S3 object will be come into the CFT,
+      CFT only keep the cache of the file/object that are at least being quried at once, if it never being quried then it will 
+      neither it on ELs, nor synch it ever.
+      Once the file is quried by any user then only its key is added on CFT and late those only keys are synched.
+      
+      
    Restrict Viewer Access (Use Signed URLs or Signed Cookies): 
     yes! if you wants to use only personalized signed url to access the files.
 
