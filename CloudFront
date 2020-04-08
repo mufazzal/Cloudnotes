@@ -15,7 +15,8 @@ CDN of AWS : CloudFront :-
 Clodfront is a tool that enable to use the CDN for many aws servoces. It core is a great network of EDGE-LOCATIONs spread 
 across the entire earth. there are total ??? edge location currently.
 
-Egde-location: this is diffrent from Region and AZ, This are the servers which use to cache the resource and expedite its delivery
+Egde-location: This is the collection of network/server which can cache the content.
+  this is diffrent from Region and AZ, This are the servers which use to cache the resource and expedite its delivery
 
 What edge-location can cache :-
   .html, .css, .js,
@@ -70,6 +71,13 @@ like:-
   cdnjs/cloudflare for jquery :         https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js
   google cdn for jquery:                https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js 
   Microsoft CDN for Jquery:             https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js
+
+
+
+-----
+
+
+Cloudfront With EC2 :- ????????????????????????????
 
 
 
