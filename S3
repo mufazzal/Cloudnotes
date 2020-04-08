@@ -348,7 +348,57 @@ S3 + API Getway for Upload :-
        
        
        
-       
+ ---------------------------------------
+ S3 and CloudFront(CDN) :-
+  When you use the apt 'GET <s3-object-url>' to download any S3 resource, it usues the typiccal internet to load the file to client side.
+  Now suppose you have bkt in usa and downloading the file in india, it will take hell of the time. 
+  To minimize this time the solution is use CloudFront for the bucket.
+  
+  Cloud front in itself a large aws service, this serve fast delivery of many S3 servoce like S3, EC2, Rout53 etc
+  For now we will see How S3 and CloudFront (CFT) interact.
+  
+  First lets make a bkt in farthest region possible 'mufa-cdf-enbled-bucket'.
+  also say there is many folder in this bucket and you just wants a specific folder ('myDistItems') to be over CFT.
+  so create couple of folder including 'myDistItems'. also create 'mufWebsite' and 'mufPriv'
+  There is no single setting you have to do here for CFT, it all will be done on AWS > CFT page itself.  
+  
+  lets create the distribution-
+  Steps:-
+    Simply go to AWS > Cloud Front > Create > web
+    Fill the form, lets see mos imp things to fill for S3:-
+    
+    Origin Domain Name: Select from the existing value, this will be related to bkt that we have create ealier
+      choose option 'mufa-cdf-enbled-bucket.s3.amazonaws.com'. 
+      So for S3, this is simply a   <Bucket Name>.s3.amazonaws.com
+    Origin Path: This is will be the folder inside that bucket, all the content inside the chossed folder will be accessible via 
+      this CFT-distribution. anything outside this folder will not be accessible via this 'CFT-distribution'
+      lets type here 'myDistItems'
+    Restrict Bucket Access: YEs! if you wants to restrict the accessibilitry only and only via CDN, not via direct S3 url
+      ?????????????????????????
+    Origin ID: unique id of this distridution
+      ??????????????????????????
+    Origin Access Identity: ??????????????
+    Grant Read Permissions on Bucket: ????????????
+    Viewer Protocol Policy: you can restric user either to use HTTP or to use HTTPS. Also you can configure to redirect any HTTP 
+      to HTTPS. but such redirection will need a SSL certificate to. if you wants it then upload the SSL certifiate in option '???????'
+      Allowed HTTP Methods: which HTTP methodes are allowed, yoyu can allow 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE' methodes
+      the confusion is, CFT mainly do viewing operatiojn so  How PUT, DELETE, POST works??????????????????????????
+    Object Caching: 
+        Maximum TTL: Once the objevt is cached at Edge-location, it may be possiblr that the file later changed at origin.
+          To keepthe edgre location in synch it is must that the edge locations keep itself in synch to that origin.
+          The max TTL time is the time that determine that how long the file will live at Edge-location.
+          Once the TTL priode passed out the Edge-location communicate wuth origin and synch itself again.
+          So any chages at origin will again be refected in edge-locations.
+          
+          So if you files in s3 buucket/folder is changing very rarly thaen keet the max TTL higher.
+          but if it chages a lot then keep it small.
+
+  
+ 
+ CloudFront VS Transfer-Acceleration : Cloud front is for CDN, its main goal is to make downloading of file asap. But TA is used for
+                                        making upload asap.
+ 
+ 
        
        
        
