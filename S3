@@ -461,10 +461,19 @@ S3 + API Getway for Upload :-
           So any chages at origin will again be refected in edge-locations.
           
           So if you files in s3 buucket/folder is changing very rarly thaen keep the max TTL higher.
-          but if it chages a lot then keep it small.
+          but if it chages a lot then keep it small.expire.
   
   
-    
+  
+
+What happen When
+  1. You delete a file from S3 : 
+        If you delete a file from S3 and this file is laredy over multiple edge location, then its deletion will not be immediatly
+        reflected over all ELs, insteat the CACHE of this file will remain over the all ELs till its TTL expire.
+        Once TTL expire the CFT make a sych request to origin (S3 bkt 'mufa-cdf-enbled-bucket' in our case)
+        and look fot this object/file, once he got its deleted then it will reflect it over all trhe ELs. 
+        So deletion of file may not reflect immedietly but after the TTL expiration.
+
           
 
    Restrict Viewer Access (Use Signed URLs or Signed Cookies): 
