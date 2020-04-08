@@ -37,6 +37,10 @@ now if you access the file by the given cloudfrong domain name then the edge net
 get the information of origin server from 'cloudfrong domain name' and cache the file if requied.
 
 
+IF user try to get conent but its not yet cached at edge location trhen it will be get from the origin location via normal internet
+then it will be cached to the nearest edge location.
+next time if sombody ask for this file then it will be redeliverd from the cacheed location
+
 
 Cloudfront With S3 Bucket :-
 Suppose you have files in S3 and wants it delivery to be super fast via Cloud front. Stweps-
