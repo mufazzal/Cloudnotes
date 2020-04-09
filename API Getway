@@ -207,4 +207,15 @@ Jsu Remember :
             AuthorizationToken has info about what kind of permissions that user has. 
               
               
-              
+   ---------------
+   
+   API getway and Regio:- 
+      This is regional dependent service, The APIs created in one region will not be availiable if youi change the region in AWS console.
+      Do not confuse that you cannnot call the API in diffrent region, you can call them but the it will take greated time to respond.
+      Ther best region will always be the one where you have most of ur users.
+      
+      
+      
+      
+   
+   
