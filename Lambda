@@ -29,4 +29,7 @@ Creating the Lembda:-
       ...
     now set the value of 'isprod' in aws console simply.
   
-  
+ ---------
+Q:  How many lambda can be call cocurrently
+A:  1000
+ 
