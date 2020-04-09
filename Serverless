@@ -1,10 +1,10 @@
 
 
-				        Unit of scale		      	abstraction
-Data Center:	  Hardware				        Physical Hosting eviorment				:Everytime you need Hardware Upgrade, OS upgrade you have to call the Data center provider and tey will do:
-IAAS			      OS, Patches, Drivesr	  Hardware								          :Great that i do not have to worry about any hardware But I have to take care of its OS, PAtches, drivesr :		
-PAAS			      Application				      Hardware and OS							      :You just give the the code of your app and they will take care of all extra overhead: 
-Serverless		  Function				        App load								          :You just give small pices of code of your app : 
+		Unit of scale		      	abstraction
+Data Center:	Hardware		Physical Hosting eviorment	:Everytime you need Hardware Upgrade, OS upgrade you have to call the Data center provider and tey will do:
+IAAS		OS, Patches, Drivesr	Hardware			:Great that i do not have to worry about any hardware But I have to take care of its OS, PAtches, drivesr :		
+PAAS		Application		Hardware and OS			:You just give the the code of your app and they will take care of all extra overhead: 
+Serverless	Function		App load			:You just give small pices of code of your app : 
 
 In all above three there is one thing common. You need a machine up and running all the time your app is live.
 and whole things of the app has to be in running state all the time. so all the time you need either a server at data center or EC2 at aws up.
