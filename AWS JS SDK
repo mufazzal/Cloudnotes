@@ -1,0 +1,21 @@
+The SDK is nothing but all the console function in the proramming form.
+
+With the SDK you can do all those thing that youi do on AES console.
+
+In nutshell its nothing but a simple lib in npm. 
+  Just install Node, '
+  install NPM,  
+  Create node project via 'npn init'
+  install 'aws-sdk' via 'npm i aws-sdk'
+  DOne
+  
+You can use this any where in the world, like in your PC, in EC2, in AZURE-EC2, in google cloude,
+
+Above step will install the node and install the dependency now comes the main part.
+Any AWS-SDK, will first need the credential in form of  'Access ID' and 'Access Key' and you know where you get it.
+
+So get it for the user that you wants to loging with AWS-SDK. This user mut be having the programatic Access.
+
+Now place it at proper place :-
+  in window-
+    ????????????????????????????
