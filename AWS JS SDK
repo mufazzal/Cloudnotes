@@ -18,4 +18,23 @@ So get it for the user that you wants to loging with AWS-SDK. This user mut be h
 
 Now place it at proper place :-
   in window-
-    ????????????????????????????
+    C:\Users\hussaimu\.aws  create file name 'credential' and paste this
+    
+        [default] ; default profile
+        aws_access_key_id = pppppp
+        aws_secret_access_key = lllll
+
+        [personal-account] ; personal account profile
+        aws_access_key_id = <PERSONAL_ACCESS_KEY_ID>
+        aws_secret_access_key = <PERSONAL_SECRET_ACCESS_KEY>
+
+        [work-account] ; work account profile
+        aws_access_key_id = <WORK_ACCESS_KEY_ID>
+        aws_secret_access_key = <WORK_SECRET_ACCESS_KEY>
+        
+        .....
+   LAter AWS SDK will use this file for programmaatic access credential.
+   
+   
+   
+   
