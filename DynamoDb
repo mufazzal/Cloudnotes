@@ -1,0 +1,35 @@
+This is the NOSQL DB. it does not have any restricion at column side
+
+HoW to creater a Table :-
+  AWS > DynamoDB > Table > Create
+  HEre you do not have to tell how much colum are there. the items in the table could have variation in colum.
+  But you have to peovide the key. 
+  There is two type of key here 
+    1. Partition key	: This is just like a primary key, think of it like a address for the data related to this key.
+       This has to be the unique in the whole table. IT best case scenario is UUID in user table. 
+       you wants to add the user then create UUID and put thid user data with 'Partition key' = that uuid.
+    2. Sort key: 
+    
+    
+    In nutshell :-
+      Say you need to create a user table but you do not know the user structure, that user could be employee, cutomer, admin, vendor 
+      etc. Those all may have variuos params to store.
+      The NoSql will handle it like acharm.
+      You can store any kind of user with its UUID : Just for eg : ->
+        uTable.store(genetrateUUID(), {name: muf, eId: 100, salary: 111} )
+        uTable.store(genetrateUUID(), {name: hus, eId: 100, salary: 111} )
+        uTable.store(genetrateUUID(), {name: juj, vendor: airtel, contractType: annual} )
+        uTable.store(genetrateUUID(), {name: gtg, cutomerId: 34, buyListId: 45} )
+    The DDB table user will take care of all this cvariation in colums and if you see the user table in AWS consoole you will 
+    see all those colums but of couse many will have empty entries agains those colums.
+  
+  
+
+Dynamo DB via non-AWS system :-
+  Say from your local machine you wants to connect the DynamoDB
+  
+Connectig by EC2 :-
+
+Connecting By LEmbda:-
+  
+  
