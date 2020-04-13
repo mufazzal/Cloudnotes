@@ -188,7 +188,8 @@ EC2 and Other AWS services ->
     
     Lets say you wants to create a S3 bucket wirh EC2
     
-    First way:
+     
+    First way: #ROLE_WAY_1 :-
           1. Strat EC2 instance
           2. Create user with proper permission to access and manage S3 
           3. From SSH-terminal connect local pc ('muf') with EC2 ('bar') via proper private key
