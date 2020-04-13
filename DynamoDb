@@ -26,9 +26,12 @@ HoW to creater a Table :-
   
 
 Dynamo DB via non-AWS system :-
-  Say from your local machine you wants to connect the DynamoDB
+  for this read 'AWS JS SDK.txt' #AWSSDK_AUTH_BY_KEY_ID
   
 Connectig by EC2 :-
+  There is two way to do the Authentication here
+    1. Via AWS config file : same as of 'non-AWS system'. For this read EC2.txt #AUTHEC2_WAY_1
+    2. By assigning a Role which has 'AmazonDynamoDBFullAccess' Policy attached to it. for more read #AUTHEC2_WAY_2
 
 Connecting By LEmbda:-
   
