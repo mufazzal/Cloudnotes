@@ -196,30 +196,30 @@ EC2 and Other AWS services ->
                     not  MufazzalPC: >_
              do the login to aws-cli via command 'aws configuration' with proper access key and ID of user created in step 2
              
+          under the hood: 
+                    the command 'aws configuration' create a config file i EC2 instance at path '?????'
           Security flaw in here :-
                     The EC2 instance actully save the access key and ID at './aws' directory of EC2 honme drive
                     So sombody may be able to see it if he has access to EC2 via SSH. So second aproach is recommended.
                     Also if your key is compromisesd and you change it. then you have to login in all Ec2 instances manulally
                     and change them via 'aws comfiguration'. 
-                    
+         
     #AUTHEC2_WAY_2
     Way 2:
           1. Crate a Role in IAM (for EC2) with proper permissions [seAdminFullAccess in our case]
           2. right click on EC2 > action > instance setting > add/remove Role
           - You can attach or dettach the Role   from EC2,  and it      will take immediate effect. you dont even have to restart the Ec2
           - You can attach or dettach the Policy from Role, and it also will take immediate effect. you dont even have to restart the Ec2
-             
+           
+    VVVINMP : in way 2 the it is very IMP to remember that the aws configuration file will not be created at the path '??????'.
+              so in the code if you have used 'new AWS.SharedIniFileCredentials({profile: <profile>});' 
+              The code will fail for sure.
+      
+           
     Lets say you wants to create a S3 bucket wirh EC2
-          
-          5 Once login is successful, You can use the comands to create S3 bucket at location '  ec-user@1.1.1.1 >_ '
+       For this Once login is successful, You can use the comands to create S3 bucket at location '  ec-user@1.1.1.1 >_ '
                     >  'aws s3 mb s3://muf12decbuck'
 
-
-       - 
-    
-    
-    
-    
     ------------------
     
     Using EC2 As Web Server :-
