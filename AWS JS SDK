@@ -36,5 +36,15 @@ Now place it at proper place :-
    LAter AWS SDK will use this file for programmaatic access credential.
    
    
-   
+Now in the code you will have to use below 3 line to make the aws-sdk working
+      var AWS = require('aws-sdk');
+      AWS.config.credentials = new AWS.SharedIniFileCredentials({profile: 'Mufazzal_Hussain'});
+      AWS.config.update({ region: "us-east-1"});
+This lines are self explainatory. This is just like you login into the AWS console via ue AWS username na dpassword then select the 
+region of your wish.
+
+
+
+
+
    
