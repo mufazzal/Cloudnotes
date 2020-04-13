@@ -43,7 +43,8 @@ Now in the code you will have to use below 3 line to make the aws-sdk working
 This lines are self explainatory. This is just like you login into the AWS console via ue AWS username na dpassword then select the 
 region of your wish.
 
-
+The above approcach of authentication via the Access Key and ID work everywhere. but its not at all recomendded to use in case of 
+EC2 or Lembda. The best way to to authenticate is to via providing neccesary role to the EC2 or LEmbda.
 
 
 
