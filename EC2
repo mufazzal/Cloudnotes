@@ -186,10 +186,8 @@ EC2 and Other AWS services ->
     1. By loging in to AWS-CLI in EC2 instance with authorized user of AWS account, For this you must have a authorized user
     2. By assigning the role itself to EC2 instance. (No IAM user required)
     
-    Lets say you wants to create a S3 bucket wirh EC2
-    
-     
-    First way:  :-
+    #AUTHEC2_WAY_1
+    Way 1: 
           1. Strat EC2 instance
           2. Create user with proper permission to access and manage S3 
           3. From SSH-terminal connect local pc ('muf') with EC2 ('bar') via proper private key
@@ -197,22 +195,27 @@ EC2 and Other AWS services ->
                     at   ec-user@1.1.1.1 >_
                     not  MufazzalPC: >_
              do the login to aws-cli via command 'aws configuration' with proper access key and ID of user created in step 2
-          5 Once login is successful, You can use the comands to create S3 bucket 
-                    >  'aws s3 mb s3://muf12decbuck'
+             
           Security flaw in here :-
                     The EC2 instance actully save the access key and ID at './aws' directory of EC2 honme drive
                     So sombody may be able to see it if he has access to EC2 via SSH. So second aproach is recommended.
                     Also if your key is compromisesd and you change it. then you have to login in all Ec2 instances manulally
                     and change them via 'aws comfiguration'. 
-     Second Way:
-          1. Crate ar Role in IAM (for EC2) with proper permissions [seAdminFullAccess in our case]
+                    
+    #AUTHEC2_WAY_2
+    Way 2:
+          1. Crate a Role in IAM (for EC2) with proper permissions [seAdminFullAccess in our case]
           2. right click on EC2 > action > instance setting > add/remove Role
-          3. From SSH-terminal connect local pc ('muf') with EC2 ('bar') via proper private key
-          4. Once connected, You can use the comands to create S3 bucket 
-                    >  'aws s3 mb s3://muf12decbuck'
           - You can attach or dettach the Role   from EC2,  and it      will take immediate effect. you dont even have to restart the Ec2
           - You can attach or dettach the Policy from Role, and it also will take immediate effect. you dont even have to restart the Ec2
-          - 
+             
+    Lets say you wants to create a S3 bucket wirh EC2
+          
+          5 Once login is successful, You can use the comands to create S3 bucket at location '  ec-user@1.1.1.1 >_ '
+                    >  'aws s3 mb s3://muf12decbuck'
+
+
+       - 
     
     
     
