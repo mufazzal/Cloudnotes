@@ -30,7 +30,7 @@ Dynamo DB via non-AWS system :-
   
 Connectig by EC2 :-
   There is two way to do the Authentication here
-    1. Via AWS config file : same as of 'non-AWS system'. For this read EC2.txt #AUTHEC2_WAY_1
+    1. Via AWS config file : same as of 'non-AWS system'. For this read EC2.txt #AUTHEC2_WAY_1 [never recommended]
     2. By assigning a Role which has 'AmazonDynamoDBFullAccess' Policy attached to it. for more read #AUTHEC2_WAY_2
 
 Connecting By LEmbda:-
