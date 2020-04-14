@@ -33,7 +33,7 @@ HoW to creater a Table[By AWS console] :  :-
     you have to provide by yourself only.
     It is of 2 types
     a. Partition Key :- a simple one key 
-    b. Sort key :- combination of two keys 
+    b. Partition Key + Sort key :- combination of two keys 
 
     EG:-
     Say we are using a simple partition key, and You have a tabe userTable and u store somthing like.
@@ -94,12 +94,21 @@ Querying the DDB :-
 	Now lets see those 3 :-
   1 : get By the Primary Key (partition or Sort) :-
         Just provide the partition-key 
-        var params = { TableName: "MufUser",  Key:{ "userID": "34" } };	
+        var params = { TableName: "MufUser",  Key:{ "userID": "10" } };	
         This will gives you all the attributes stored against the key '34'. This is most efficient and fastest way.
+	out :-
+			"Item": {
+			    "company": "Amdocs",
+			    "name": "Mufazzal",
+			    "salary": "200",
+			    "userID": "10"
+			  }	
         This only work with PK not with other attribute
         So below params will give error in 'get' function
      var params = { TableName: "MufUser",  Key:{ "name": "mufa" } };	  
      Basioclly 'key' in params accept only and only promary key.
+     
+     
      
      PK as Sort Key :-
         ??????????????????
@@ -108,36 +117,40 @@ Querying the DDB :-
      then its useless.
      
   2 : Query:-
-      By query function you can get the data fro the primary-keys that satisfy some contion (so more than one key) and also then
-      filter result for some specifiv attribute value. So basically it gives you way more tools to get precise results.
-      Unlike in get you retrive data for one particular PK. but here data is from many PK and also filtered via sonme attributer va;lues
-      
+      Query is very useful when you are using the sort key with the partition key. Here once you get the data via your partion key, then 
+      you can apply some filter comparison over the sort key.
+      For now lets say you hace the Partition-key as 'userID'
+      Then thwe query will go-
            var paramsQuery = {
               TableName: "MufUser",
               KeyConditionExpression: "userID = :a",
               ExpressionAttributeValues: { ":a": "34" }
             }     
         Out:
-          [ { name: 'eee', genger: 'male', userID: '34' } ]
-          
+          [ { name: 'eee', genger: 'male', userID: '34' } ]         
           
         KeyConditionExpression and Partition-key :- 
-          VVVIMP: in the query function param you can use ONLY ONLY and ONLY 'equal' operatior for Partition-key. youi cannot ever use
+          VVVIMP: in the query function param you can use ONLY ONLY and ONLY 'equal' operatior for Partition-key. you cannot ever use
                   any other operator with partition-key.
-                  You can use any operator with 'srtt-ket' though. How ??????????????
-        So all blow statement simply give an error
-        ...
-        KeyConditionExpression: "userID > :a",
-        ExpressionAttributeValues: { ":a": "34" }
-        ...
-        OR
-        ...
-        KeyConditionExpression: "userID IN :a",
-        ExpressionAttributeValues: { ":a": {SS: [34, 78, 67]} }
-        ...
-        
-        
-        
+                  You can use any operator with 'sort-ket' though. How ????????????????
+		So all blow statement simply give an error
+		...
+		KeyConditionExpression: "userID > :a",
+		ExpressionAttributeValues: { ":a": "34" }
+		...
+		OR
+		...
+		KeyConditionExpression: "userID IN :a",
+		ExpressionAttributeValues: { ":a": {SS: [34, 78, 67]} }
+		...
+     Query ansd sort key:-
+     	This is the real germ of query. its most useful with sort key. we will see it later
+	?????????????????????????????????
+     
+     
+     Common between 'get' and 'query' both
+       - You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
+        	eg: ProjectionExpression: 'name, company, cid'
         
           
           
