@@ -154,7 +154,10 @@ Querying the DDB :-
         
           
           
-          
+  3. Scan:
+  	To read data this way is exterely resource sensitive. it should be used in very rare case.
+	will see it later
+	??????????????????????????/
           
           
           
