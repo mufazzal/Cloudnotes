@@ -1,6 +1,6 @@
 This is the NOSQL DB. it does not have any restricion at column side
 
-HoW to creater a Table :-
+HoW to creater a Table[By AWS console] :  :-
   AWS > DynamoDB > Table > Create
   HEre you do not have to tell how much colum are there. the items in the table could have variation in colum.
   But you have to peovide the key. 
@@ -24,15 +24,29 @@ HoW to creater a Table :-
     see all those colums but of couse many will have empty entries agains those colums.
   
   
+Querying the DDB :0-
+  For thi first you have to use the AWS-SDK. say if uou are using the nodejs. the install the SDK via 'npm i aws-sdk'
+  Now do the authentication with proper IAM user/role for the SDK.
+  For diffrent env -
+      1. Authenticating  for non-AWS system :-
+          for this read 'AWS JS SDK.txt' #AWSSDK_AUTH_BY_KEY_ID
 
-Dynamo DB via non-AWS system :-
-  for this read 'AWS JS SDK.txt' #AWSSDK_AUTH_BY_KEY_ID
+      2. Authenticating for EC2 :-
+          There is two way to do the Authentication here
+            1. Via AWS config file : same as of 'non-AWS system'. For this read EC2.txt #AUTHEC2_WAY_1 [never recommended]
+            2. By assigning a Role which has 'AmazonDynamoDBFullAccess' Policy attached to it. for more read #AUTHEC2_WAY_2
+
+     3. Authenticating for Lembda :-
+          ????????????
+          
+   Once authentiacation is successful the you can query the data by below code:-
+              var docClient = new AWS.DynamoDB.DocumentClient();
+              var params = { TableName: "MufUser",  Key:{  "userID": "34",  } };
+              docClient.get(params, function(err, data) { console.log(err, data) });    
+    
   
-Connectig by EC2 :-
-  There is two way to do the Authentication here
-    1. Via AWS config file : same as of 'non-AWS system'. For this read EC2.txt #AUTHEC2_WAY_1 [never recommended]
-    2. By assigning a Role which has 'AmazonDynamoDBFullAccess' Policy attached to it. for more read #AUTHEC2_WAY_2
-
-Connecting By LEmbda:-
+      
+  
+How to run a   
   
   
