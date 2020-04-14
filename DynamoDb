@@ -25,51 +25,47 @@ HoW to creater a Table[By AWS console] :  :-
   
  Structure of Data :-
     IN DDB the data stored somthing like this. 
-    U simply have to have a unique Prtition-key for any data-item that you wants to store in the DDB.
-    against this Prtition-key all the data will be stored. 
-    The that data inside also have a pairs of value which are nothing but a column 
-    
+    U simply have to have a unique PRimary-key for any data-item that you wants to store in the DDB.
+    against this PRimary-key all the data will be stored. 
+    The that data inside also have a attributes which are nothing but a column 
+  Primary Key:- 
+    This is the partition key which has to be unique in the table. VVIMP: it is not at all qutogenerated. 
+    you have to provide by yourself only.
+    It is of 2 types
+    a. Partition Key :- a simple one key 
+    b. Sort key :- combination of two keys 
+
     EG:-
-    You have a tabe userTable and u store somthing like.
+    Say we are using a simple partition key, and You have a tabe userTable and u store somthing like.
       uTable.store(genetrateUUID(), {name: muf, eId: 100, salary: 111} )
-                            name:       eId       salary
+          P_KEY              name:       eId       salary
           132133 ->          muf        100       111
       uTable.store(genetrateUUID(), {name: hus, eId: 101 salary: 161} )
-                            name:       eId       salary
+          P_KEY              name:       eId       salary
           132133 ->          muf         100       111
           689787 ->          hus         101       161
      uTable.store(genetrateUUID(), {name: juj, vendor: airtel, contractType: annual} )
-                            name:       eId       salary      Vendor      contractType
+          P_KEY              name:       eId       salary      Vendor      contractType
           132133 ->          muf         100       111
           689787 ->          hus         101       161
           545455 ->          juj                              airtel        annual
      uTable.store(genetrateUUID(), {name: gtg, cutomerId: 34, buyListId: 45} )
-                            name:       eId       salary      Vendor      contractType    cutomerId       buyListId
+          P_KEY              name:       eId       salary      Vendor      contractType    cutomerId       buyListId
           132133 ->          muf         100       111
           689787 ->          hus         101       161
           689787 ->          juj                              airtel        annual
           975434 ->          gtg                                                           34               45
 
+  So above there you can see how a data are stored against there PK and eacg row have diffrent attributes.
 
 
-
-
-
-
-    
-    
-    
-    
-    
-  
-  
-  
-Querying the DDB :0-
-  For thi first you have to use the AWS-SDK. say if uou are using the nodejs. the install the SDK via 'npm i aws-sdk'
-  Now do the authentication with proper IAM user/role for the SDK.
-  For diffrent env -
-      1. Authenticating  for non-AWS system :-
-          for this read 'AWS JS SDK.txt' #AWSSDK_AUTH_BY_KEY_ID
+Authentication and connection the DDB via AWS-SDK :-
+  To perfornm any operation over DDB cia SDG first you have to do some basic setup.
+  For this first you have to install the AWS-SDK. say if uou are using the nodejs. the install the SDK via 'npm i aws-sdk'
+    Now do the authentication with proper IAM user/role for the SDK.
+    For diffrent env -
+        1. Authenticating  for non-AWS system :-
+            for this read 'AWS JS SDK.txt' #AWSSDK_AUTH_BY_KEY_ID
 
       2. Authenticating for EC2 :-
           There is two way to do the Authentication here
@@ -78,15 +74,85 @@ Querying the DDB :0-
 
      3. Authenticating for Lembda :-
           ????????????
-          
-   Once authentiacation is successful the you can query the data by below code:-
-              var docClient = new AWS.DynamoDB.DocumentClient();
-              var params = { TableName: "MufUser",  Key:{  "userID": "34",  } };
-              docClient.get(params, function(err, data) { console.log(err, data) });    
+
+
+  Create Table:
+    ?????????????????????  
+  
+  
+  
+  
+Querying the DDB :- 
+  Once authentiacation is successful the you can query the data via below code:-              
+	var docClient = new AWS.DynamoDB.DocumentClient();
+	var params = { TableName: "MufUser",  ...... };
+	docClient.get(params, function(err, data) { console.log(err, data) });    
+	Params here define that what the data you will get afetr the calling get function.
     
-  
+ There is three diffrent technique to read the data. for this you have to provide proper values in params
+	and in all three way you have to provide TableName (of course)
+	Now lets see those 3 :-
+  1 : get By the Primary Key (partition or Sort) :-
+        Just provide the partition-key 
+        var params = { TableName: "MufUser",  Key:{ "userID": "34" } };	
+        This will gives you all the attributes stored against the key '34'. This is most efficient and fastest way.
+        This only work with PK not with other attribute
+        So below params will give error in 'get' function
+     var params = { TableName: "MufUser",  Key:{ "name": "mufa" } };	  
+     Basioclly 'key' in params accept only and only promary key.
+     
+     PK as Sort Key :-
+        ??????????????????
+     This is most widely used way to get the data because it give whole data for that PK. 
+     But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key
+     then its useless.
+     
+  2 : Query:-
+      By query function you can get the data fro the primary-keys that satisfy some contion (so more than one key) and also then
+      filter result for some specifiv attribute value. So basically it gives you way more tools to get precise results.
+      Unlike in get you retrive data for one particular PK. but here data is from many PK and also filtered via sonme attributer va;lues
       
-  
-How to run a   
+           var paramsQuery = {
+              TableName: "MufUser",
+              KeyConditionExpression: "userID = :a",
+              ExpressionAttributeValues: { ":a": "34" }
+            }     
+        Out:
+          [ { name: 'eee', genger: 'male', userID: '34' } ]
+          
+          
+        KeyConditionExpression and Partition-key :- 
+          VVVIMP: in the query function param you can use ONLY ONLY and ONLY 'equal' operatior for Partition-key. youi cannot ever use
+                  any other operator with partition-key.
+                  You can use any operator with 'srtt-ket' though. How ??????????????
+        So all blow statement simply give an error
+        ...
+        KeyConditionExpression: "userID > :a",
+        ExpressionAttributeValues: { ":a": "34" }
+        ...
+        OR
+        ...
+        KeyConditionExpression: "userID IN :a",
+        ExpressionAttributeValues: { ":a": {SS: [34, 78, 67]} }
+        ...
+        
+        
+        
+        
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+      
+      
+        
+        
   
   
