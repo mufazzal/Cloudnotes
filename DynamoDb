@@ -23,6 +23,46 @@ HoW to creater a Table[By AWS console] :  :-
     The DDB table user will take care of all this cvariation in colums and if you see the user table in AWS consoole you will 
     see all those colums but of couse many will have empty entries agains those colums.
   
+ Structure of Data :-
+    IN DDB the data stored somthing like this. 
+    U simply have to have a unique Prtition-key for any data-item that you wants to store in the DDB.
+    against this Prtition-key all the data will be stored. 
+    The that data inside also have a pairs of value which are nothing but a column 
+    
+    EG:-
+    You have a tabe userTable and u store somthing like.
+      uTable.store(genetrateUUID(), {name: muf, eId: 100, salary: 111} )
+                            name:       eId       salary
+          132133 ->          muf        100       111
+      uTable.store(genetrateUUID(), {name: hus, eId: 101 salary: 161} )
+                            name:       eId       salary
+          132133 ->          muf         100       111
+          689787 ->          hus         101       161
+     uTable.store(genetrateUUID(), {name: juj, vendor: airtel, contractType: annual} )
+                            name:       eId       salary      Vendor      contractType
+          132133 ->          muf         100       111
+          689787 ->          hus         101       161
+          545455 ->          juj                              airtel        annual
+     uTable.store(genetrateUUID(), {name: gtg, cutomerId: 34, buyListId: 45} )
+                            name:       eId       salary      Vendor      contractType    cutomerId       buyListId
+          132133 ->          muf         100       111
+          689787 ->          hus         101       161
+          689787 ->          juj                              airtel        annual
+          975434 ->          gtg                                                           34               45
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+  
+  
   
 Querying the DDB :0-
   For thi first you have to use the AWS-SDK. say if uou are using the nodejs. the install the SDK via 'npm i aws-sdk'
