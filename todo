@@ -7,7 +7,10 @@ See how if we chose diffrent geographical location, the latancy impact by
   
 AWS :-
   AWS SSO
+  X-ray
   
+  
+Concepts:-  
   CIDR (Classless Inter Domain Routing )
   IPV4 vs IPV6
   reserved IP addresses
