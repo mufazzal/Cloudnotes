@@ -38,19 +38,19 @@ HoW to creater a Table[By AWS console] :  :-
   Data with single Partition Key :-
     Say we are using a simple partition key, and You have a tabe userTable and u store somthing like.
       uTable.store(genetrateUUID(), {name: muf, eId: 100, salary: 111} )
-          P_KEY              name:       eId       salary
+          P_KEY[userID]      name:       eId       salary
           123	 ->          muf        100       111
       uTable.store(genetrateUUID(), {name: hus, eId: 101 salary: 161} )
-          P_KEY              name:       eId       salary
+          P_KEY[userID]      name:       eId       salary
           123	 ->          muf         100       111
           456	 ->          hus         101       161
      uTable.store(genetrateUUID(), {name: juj, vendor: airtel, contractType: annual} )
-          P_KEY              name:       eId       salary      Vendor      contractType
+          P_KEY[userID]      name:       eId       salary      Vendor      contractType
           123	 ->          muf         100       111
           456	 ->          hus         101       161
           789	 ->          juj                              airtel        annual
      uTable.store(genetrateUUID(), {name: gtg, cutomerId: 34, buyListId: 45} )
-          P_KEY              name:       eId       salary      Vendor      contractType    cutomerId       buyListId
+          P_KEY[userID]      name:       eId       salary      Vendor      contractType    cutomerId       buyListId
           123	 ->          muf         100       111
           456	 ->          hus         101       161
           789	 ->          juj                              airtel        annual
@@ -76,8 +76,52 @@ HoW to creater a Table[By AWS console] :  :-
     EG:-
     Say you have a userOrderTable which will have entry of user and his order. so for every order of each user there will be a row
     
-    
-    
+    uoTable.store({userID: muffy, orderId: mob1}, {device: samsung, model: J7} )
+         P_KEY[userID]    S_KEY[orderID]	device       model       
+         muffy		   mob1			samsung		J7   
+    uoTable.store({userID: muffy, orderId: mob2}, {device: oneplus, model: 8, price: 1000} )
+         P_KEY[userID]    S_KEY[orderID]	device       model	  price    	   
+         muffy		   mob1	->		samsung		J7   	  	
+         muffy		   mob2	->		oneplus	 	8   	  10000
+    uoTable.store({userID: muffy, orderId: lap1}, {device: dell, ram: 8GB, rom: 1TB} )
+ 	P_KEY[userID]    S_KEY[orderID]         device       model	  price		ram	rom	   
+        muffy		   mob1	->		samsung	 	J7   	  	
+        muffy		   mob2	->		oneplus		8   	  10000   
+        muffy		   lap1	->		dell		8   	  		8GB	1TB
+    uoTable.store({userID: fattu, orderId: mob1}, {device: samsung, model: J8, price: 12222} )
+	P_KEY[userID]    S_KEY[orderID]         device       model	  price		ram	rom	   
+        muffy		   mob1	->		samsung	 	J7   	  	
+        muffy		   mob2	->		oneplus		8   	  10000   
+        muffy		   lap1	->		dell		8   	  		8GB	1TB
+	fattu		   mob1	->		samsung	 	J8	  12222   	  	
+    uoTable.store({userID: fattu, orderId: mob2}, {device: samsung, model: J9, price: 67667} )
+	P_KEY[userID]    S_KEY[orderID]         device       model	  price		ram	rom	   
+        muffy		   mob1	->		samsung	 	J7   	  	
+        muffy		   mob2	->		oneplus		8   	  10000   
+        muffy		   lap1	->		dell		8   	  		8GB	1TB
+	fattu		   mob1	->		samsung	 	J8	  12222   	  	
+	fattu		   mob2	->		samsung	 	J9	  67667   	  	
+
+ So above there you can see how a data are stored against there PK[partition key + sort key] and each row have diffrent attributes.
+  But the best way to IMAGIN about this data-sructure is the following-
+	Just imaginn in your home PC you have on directory that is 'uoTable'
+	Now when you open this directory you will see tyhe folder with partition-key and inside each partition key there is a folder 
+	with sort key and inside that lies the data
+		#DDB_FIG_PK_SORT
+		uoTable
+		  |-----> muffy
+		  	    |-----> mob1
+			    	     |-----> [...data1...]
+		  	    |-----> mob2
+			    	     |-----> [...data2...]
+		  	    |-----> lap1
+			    	     |-----> [...data3...]
+		  |-----> fattu
+		  	    |-----> mob1
+			    	     |-----> [...data4...]
+		  	    |-----> mob2
+			    	     |-----> [...data5...]
+		  
 
 Authentication and connection the DDB via AWS-SDK :-
   To perfornm any operation over DDB cia SDG first you have to do some basic setup.
@@ -162,14 +206,20 @@ Querying the DDB :-
 		...
      Query and sort key:-
      	This is the real germ of query. its most useful with sort key. we will see it later
-	?????????????????????????????????
-     
+	The first thing you must remeber that in the query you can give one and only one partition-key with equal comparator
+	So the 'query' function can only play with the sort-key-combination which lies in that partition-key
+	in simple:-
+		for the database in fig '#DDB_FIG_PK_SORT' you run the 'qyuery' function and provide the 
+		partition-key = 'muffy' then you can play only with data1, data2, or data3 but not at all with data4, data5. 
+		partition-key = 'fattu' then you can not play with data1, data2, or data3 but only with with data4, data5. 
+	EG:-
+	***********************************
+	
      
      Common between 'get' and 'query' both
        - You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
         	eg: ProjectionExpression: 'name, company, cid'
         
-          
           
   3. Scan:
   	To read data this way is exterely resource sensitive. it should be used in very rare case.
@@ -214,14 +264,7 @@ Querying the DDB :-
 	
 	
 	Q: What will happen if the primary key (partition key OR partition key + Srt key) provided in 'put' is already exist
-	A: It will be updated with new data.
+	A: It will be updated with new data.    
           
-          
-          
-          
-      
-      
-        
-        
   
   
