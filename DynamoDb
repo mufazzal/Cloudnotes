@@ -9,7 +9,7 @@ HoW to creater a Table[By AWS console] :  :-
        This has to be the unique in the whole table. IT best case scenario is UUID in user table. 
        you wants to add the user then create UUID and put thid user data with 'Partition key' = that uuid.
     2. Sort key: 
-    
+    	provide a sort-key if you wants to have a primary key as combination of two
     
     In nutshell :-
       Say you need to create a user table but you do not know the user structure, that user could be employee, cutomer, admin, vendor 
@@ -35,29 +35,49 @@ HoW to creater a Table[By AWS console] :  :-
     a. Partition Key :- a simple one key 
     b. Partition Key + Sort key :- combination of two keys 
 
-    EG:-
+  Data with single Partition Key :-
     Say we are using a simple partition key, and You have a tabe userTable and u store somthing like.
       uTable.store(genetrateUUID(), {name: muf, eId: 100, salary: 111} )
           P_KEY              name:       eId       salary
-          132133 ->          muf        100       111
+          123	 ->          muf        100       111
       uTable.store(genetrateUUID(), {name: hus, eId: 101 salary: 161} )
           P_KEY              name:       eId       salary
-          132133 ->          muf         100       111
-          689787 ->          hus         101       161
+          123	 ->          muf         100       111
+          456	 ->          hus         101       161
      uTable.store(genetrateUUID(), {name: juj, vendor: airtel, contractType: annual} )
           P_KEY              name:       eId       salary      Vendor      contractType
-          132133 ->          muf         100       111
-          689787 ->          hus         101       161
-          545455 ->          juj                              airtel        annual
+          123	 ->          muf         100       111
+          456	 ->          hus         101       161
+          789	 ->          juj                              airtel        annual
      uTable.store(genetrateUUID(), {name: gtg, cutomerId: 34, buyListId: 45} )
           P_KEY              name:       eId       salary      Vendor      contractType    cutomerId       buyListId
-          132133 ->          muf         100       111
-          689787 ->          hus         101       161
-          689787 ->          juj                              airtel        annual
-          975434 ->          gtg                                                           34               45
+          123	 ->          muf         100       111
+          456	 ->          hus         101       161
+          789	 ->          juj                              airtel        annual
+          901	 ->          gtg                                                           34               45
 
   So above there you can see how a data are stored against there PK and eacg row have diffrent attributes.
+  But the best way to IMAGIN about this data-sructure is the following-
+	Just imaginn in your home PC you have on directory that is 'uTable'
+	Now when you open this directory you will see below folders, and inside each of this foler data related to that partition-key
+		uTable
+		  |-----> 123
+		  	    |---> [...data...]
+		  |-----> 456
+		  	    |---> [...data...]
+		  |-----> 789
+		  	    |---> [...data...]
+		  |-----> 901
+		  	    |---> [...data...]
 
+
+  Data with single Partition Key + Sort Key :-
+    Another way two havingeach uniqly identifiable item is by having the combination of two key one is partition-key and another is sert-key
+    EG:-
+    Say you have a userOrderTable which will have entry of user and his order. so for every order of each user there will be a row
+    
+    
+    
 
 Authentication and connection the DDB via AWS-SDK :-
   To perfornm any operation over DDB cia SDG first you have to do some basic setup.
@@ -78,8 +98,6 @@ Authentication and connection the DDB via AWS-SDK :-
 
   Create Table:
     ?????????????????????  
-  
-  
   
   
 Querying the DDB :- 
@@ -108,10 +126,9 @@ Querying the DDB :-
      var params = { TableName: "MufUser",  Key:{ "name": "mufa" } };	  
      Basioclly 'key' in params accept only and only promary key.
      
-     
-     
      PK as Sort Key :-
         ??????????????????
+	
      This is most widely used way to get the data because it give whole data for that PK. 
      But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key
      then its useless.
@@ -143,7 +160,7 @@ Querying the DDB :-
 		KeyConditionExpression: "userID IN :a",
 		ExpressionAttributeValues: { ":a": {SS: [34, 78, 67]} }
 		...
-     Query ansd sort key:-
+     Query and sort key:-
      	This is the real germ of query. its most useful with sort key. we will see it later
 	?????????????????????????????????
      
@@ -157,11 +174,31 @@ Querying the DDB :-
   3. Scan:
   	To read data this way is exterely resource sensitive. it should be used in very rare case.
 	will see it later
-	??????????????????????????/
+	??????????????????????????
+	
+	
+
           
+   Add/Edit data item :-
+	For this use 'put' function
+	See the example below
+		var paramsPut = {
+		    TableName: "MufUser",
+		    Item: {
+			userID: "20",
+			name: 'abbas',
+			city: "Pune"
+		    }
+		}
+		docClient.put(paramsPut, function(err, data) {console.log(err, data)});	
           
-          
-          
+         The main thing here is again param, you must must provide 'tableName' and 'Item' key 
+	 In the 'Item' you have to neccesarily provide the partition-key. otherwise there will be an error.
+	 
+	 put wuth PArtition Key + Sort Key:-
+	 	??????????????????????????????????
+	
+	
           
           
           
