@@ -194,7 +194,24 @@ Querying the DDB :-
 	 In the 'Item' you have to neccesarily provide the partition-key. otherwise there will be an error.
 	 
 	 put wuth PArtition Key + Sort Key:-
-	 	??????????????????????????????????
+	 	This is almost 99% same as above, exept you also have to provide the Sort-Key 
+		if youu do not provide it then it will give an Error.
+		EG:
+			var paramsPutUOTable = {
+			    TableName: "UserOrder",
+			    Item: {
+				userID: "fattu",
+				OrderID: "fattuEaring1",
+				metal: 'gold',
+				city: "Pune",
+				price: 900
+			    }
+			}
+			docClient.put(paramsPutUOTable, function(err, data) {console.log(err, data)});		
+		
+		You do not have to provide the keys in any special param, just it has to be in the 'Item' above 'userID' and 'OrderID'
+		are partition and Sort keys. fail to provide any single of them cause Error.
+	
 	
 	Q: What will happen if the primary key (partition key OR partition key + Srt key) provided in 'put' is already exist
 	A: It will be updated with new data.
