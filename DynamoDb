@@ -76,6 +76,7 @@ HoW to creater a Table[By AWS console] :  :-
     EG:-
     Say you have a userOrderTable which will have entry of user and his order. so for every order of each user there will be a row
     
+    #DDB_FIG_PK_SORT
     uoTable.store({userID: muffy, orderId: mob1}, {device: samsung, model: J7} )
          P_KEY[userID]    S_KEY[orderID]	device       model       
          muffy		   mob1			samsung		J7   
@@ -96,31 +97,30 @@ HoW to creater a Table[By AWS console] :  :-
 	fattu		   mob1	->		samsung	 	J8	  12222   	  	
     uoTable.store({userID: fattu, orderId: mob2}, {device: samsung, model: J9, price: 67667} )
 	P_KEY[userID]    S_KEY[orderID]         device       model	  price		ram	rom	   
-        muffy		   mob1	->		samsung	 	J7   	  	
-        muffy		   mob2	->		oneplus		8   	  10000   
-        muffy		   lap1	->		dell		8   	  		8GB	1TB
-	fattu		   mob1	->		samsung	 	J8	  12222   	  	
-	fattu		   mob2	->		samsung	 	J9	  67667   	  	
+r1      muffy		   mob1	->		samsung	 	J7   	  	
+r2      muffy		   mob2	->		oneplus		8   	  10000   
+r3      muffy		   lap1	->		dell		8   	  		8GB	1TB
+r4	fattu		   mob1	->		samsung	 	J8	  12222   	  	
+r5	fattu		   mob2	->		samsung	 	J9	  67667   	  	
 
  So above there you can see how a data are stored against there PK[partition key + sort key] and each row have diffrent attributes.
   But the best way to IMAGIN about this data-sructure is the following-
 	Just imaginn in your home PC you have on directory that is 'uoTable'
 	Now when you open this directory you will see tyhe folder with partition-key and inside each partition key there is a folder 
 	with sort key and inside that lies the data
-		#DDB_FIG_PK_SORT
 		uoTable
 		  |-----> muffy
 		  	    |-----> mob1
-			    	     |-----> [...data1...]
+			    	     |-----> [...r1...]
 		  	    |-----> mob2
-			    	     |-----> [...data2...]
+			    	     |-----> [...r2...]
 		  	    |-----> lap1
-			    	     |-----> [...data3...]
+			    	     |-----> [...r3...]
 		  |-----> fattu
 		  	    |-----> mob1
-			    	     |-----> [...data4...]
+			    	     |-----> [...r4...]
 		  	    |-----> mob2
-			    	     |-----> [...data5...]
+			    	     |-----> [...r5...]
 		  
 
 Authentication and connection the DDB via AWS-SDK :-
@@ -210,12 +210,58 @@ Querying the DDB :-
 	So the 'query' function can only play with the sort-key-combination which lies in that partition-key
 	in simple:-
 		for the database in fig '#DDB_FIG_PK_SORT' you run the 'qyuery' function and provide the 
-		partition-key = 'muffy' then you can play only with data1, data2, or data3 but not at all with data4, data5. 
-		partition-key = 'fattu' then you can not play with data1, data2, or data3 but only with with data4, data5. 
+		partition-key = 'muffy' then you can play only with r1, r2, or r1=3 but not at all with r4, r5. 
+		partition-key = 'fattu' then you can not play with r1, r2, or r3 but only with r4, r5. 
 	EG:-
-	***********************************
+		var paramsQueryWithSort = {
+		    TableName: "UserOrder",
+		    KeyConditionExpression: "userID = :a",
+		    ExpressionAttributeValues: { ":a": "muffy" }
+		}
+		docClient.query(paramsQueryWithSort, function(err, data) {console.log(err, data)});		
+     	The above function will return r1, r2 and r3.
+     	Now make a little change:-
+		...
+	    	KeyConditionExpression: "userID = :a and OrderID = :b",
+	    	ExpressionAttributeValues: { ":a": "muffy", ":b": "mob1" }
+		...
+	This will give only r1
 	
-     
+		...
+		KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
+	    	ExpressionAttributeValues: { ":a": "muffy", ":t": "mob", }
+     		...
+	this will give r1 and r2 but nor r3
+	
+		...
+		KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
+		ExpressionAttributeValues: { ":a": "muffy", ":t": "mob", }
+		...
+	this will give r3 only.
+	
+
+	...
+	KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
+	ExpressionAttributeValues: { ":a": "fattu", ":t": "mob", }
+	...
+	this will give r4 and r5
+	
+	Q: can we design the query in such a way that we can get r1 and r5
+	A: Impossible! because r1 and r5 have diffrent partition-key and 'query' methode support only single value of partition-key
+	
+	
+	Q: So partition-key support only '=', but what operation sort-key do support. Does it support all
+	A: NO! it support only following
+		sortKeyName = :sortkeyval - true if the sort key value is equal to :sortkeyval.
+		sortKeyName < :sortkeyval - true if the sort key value is less than :sortkeyval.
+		sortKeyName <= :sortkeyval - true if the sort key value is less than or equal to :sortkeyval.
+		sortKeyName > :sortkeyval - true if the sort key value is greater than :sortkeyval.
+		sortKeyName >= :sortkeyval - true if the sort key value is greater than or equal to :sortkeyval.
+		sortKeyName BETWEEN :sortkeyval1 AND :sortkeyval2 - true if the sort key value is greater than or equal to :sortkeyval1, and less than or equal to :sortkeyval2.
+		begins_with ( sortKeyName, :sortkeyval ) - true if the sort key value begins with a particular operand. (You cannot use this function with a sort key that is of type Number.) Note that the function name begins_with is case-sensitive.
+	sort-key do not support 'IN()', =%***%, contains(*) etc.
+	
+		
      Common between 'get' and 'query' both
        - You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
         	eg: ProjectionExpression: 'name, company, cid'
