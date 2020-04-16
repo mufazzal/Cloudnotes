@@ -167,7 +167,7 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
       	SO: in nutshell, if you wants any attribute ar a combination oftwo attribute queriable, then create GSI out of them.
 
    LSI :-
-   	This is just a subst of GSI, here you use the partition-key with GSI-Sort-Key.
+   	This is just a subst of GSI, here you use the partition-key with GSI-Sort-Key. ???????????????????
 	
 
 
