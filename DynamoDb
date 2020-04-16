@@ -122,9 +122,17 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
 		  	    |-----> mob2
 			    	     |-----> [...r5...]
 
-Q: Can you inser a data cell in the DDB without Partition-key (along woth sort-key if applicable)?
-A: NO. you have to provide each one if table is design to have them.
+   Now you have got a idea how the architeture of DDB table is. Now what is the biggest issue here.
+   The biggest problem is you can query the item with either by   partition-key    or with   partition key + Sort Key
+   Now lets say you wants to query by somthing else. with any non-partition, non-sort attribute.
+   I actully do not at all wants to provide the partition or sort key
+   for this you have to use either
+	1. GSI (Global Secondry Index) 
+	2. LSI(Local Secondry Index).
+   
+   
 
+-------
 Authentication and connection the DDB via AWS-SDK :-
   To perfornm any operation over DDB cia SDG first you have to do some basic setup.
   For this first you have to install the AWS-SDK. say if uou are using the nodejs. the install the SDK via 'npm i aws-sdk'
@@ -247,10 +255,9 @@ Querying the DDB :-
 	ExpressionAttributeValues: { ":a": "fattu", ":t": "mob", }
 	...
 	this will give r4 and r5
-	
+
 	Q: can we design the query in such a way that we can get r1 and r5
 	A: Impossible! because r1 and r5 have diffrent partition-key and 'query' methode support only single value of partition-key
-	
 	
 	Q: So partition-key support only '=', but what operation sort-key do support. Does it support all
 	A: NO! it support only following
@@ -267,7 +274,20 @@ Querying the DDB :-
      Common between 'get' and 'query' both
        - You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
         	eg: ProjectionExpression: 'name, company, cid'
-        
+      
+     Filter(NOT QUERY) by attribute :-
+		you can furthure filter the result based on the attribute also. for this you must use 'FilterExpression'
+		How ???????????????????????
+		VVIMP: A filter expression cannot contain partition key or sort key attributes. 
+			You need to specify those attributes in the 'KeyConditionExpression', not the 'FilterExpression'
+			In 'query' and 'get' both function 'KeyConditionExpression' in required and you have to provide proper condition
+			for the the key. but 'FilterExpression' is optional. it just do tyhe after operation of furthur filtering
+			So
+			A filter expression is applied after a Query finishes, but before the results are returned. 
+			Therefore, a Query consumes the same amount of read capacity, regardless of whether a filter expression is present.
+	
+	
+      
           
   3. Scan:
   	To read data this way is exterely resource sensitive. it should be used in very rare case.
@@ -314,5 +334,15 @@ Querying the DDB :-
 	Q: What will happen if the primary key (partition key OR partition key + Srt key) provided in 'put' is already exist
 	A: It will be updated with new data.    
           
-  
-  
+	Q: Can you insert a data cell in the DDB without Partition-key (along woth sort-key if applicable)?
+	A: NO. you have to provide each one if table is design to have them. 
+  	
+	Quering the data via Attribute :- 
+		Either by 'query' or 'get' function you can query the data by partition key OR partition key + Srt key
+		but not with any other attributee.
+		But if you still wants to make the query possible with any non-partition, non-sort attribute, you have to use 
+		GSI (Global Secondry Index) or LSI(Local Secondry Index).
+		
+		
+		
+	
