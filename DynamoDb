@@ -130,7 +130,57 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
 	1. GSI (Global Secondry Index) 
 	2. LSI(Local Secondry Index).
    
-   
+   GSI :-
+     By creating a GSI you actully creat a additional vie of the table. to ceate the GSI in existing table
+     go to table > indexes > create
+     Now fill the below IMP value
+     	1. inex name: name of this index.
+	2. partion-key: This is the key which later you can use for querying the data. [this is not same as the one we shose in begining]
+		lets call ir GSI-part-key
+	3. Sort-key: if you want theis secondry key to be a combination then select the second one.
+	
+     lets say in our table 'uoTable' you choose the 'device' as GSI-part-key.
+	     Now you will be able to query the data with the Attribute 'price' [and not at all have to give the actual PKs in the query]
+	     Also when you use the GSI you have to pass the name of index inkey 'IndexName'.
+	     So 
+			var paramsQueryGSI = {
+			    TableName: "UserOrder",
+			    IndexName: 'device-index',
+			    KeyConditionExpression: "device = :a",
+			    ExpressionAttributeValues: { ":a": "samsung" }
+			}     
+		will produce all the data cell which have device = samsung. no matter what are there partition or sort keys are.
+		output :- r1, r4, r5
+		ALso as like part-key the GSI-part-key also support only and only '='
+		so    KeyConditionExpression: "device > :a",     will give error.
+
+	lets say in our table 'uoTable' we create one more index and and choose the 'device' as GSI-part-key and price as GSI-sort-key then we can 
+	do the query like this also
+			var paramsQueryGSI = {
+			    TableName: "UserOrder",
+			    IndexName: 'device-price-index',
+			    KeyConditionExpression: "device = :a AND price > :b",
+			    ExpressionAttributeValues: { ":a": "samsung", ':b' '100'}
+			}     	
+			
+	Suppose you wants the data to be searchable by 'name' then you have to create a GSI for the attribute 'name'.  
+      	SO: in nutshell, if you wants any attribute ar a combination oftwo attribute queriable, then create GSI out of them.
+
+   LSI :-
+   	??????????????????????????????/
+
+
+	When to use GSI: Though GSI make the DB very queriable and dynamic but there is one very big secret here. that secret is
+	for each created GSI for ant table the AWS in background have to capture almost double information and store almost double data
+	for each entries. it take lot of memore and. 
+	AWS almosty crea a new table in which data is arrage againt GSI and instead of real promary key.
+	So there is three disadvantage here
+		1. Speed:	saving additional info about data cause little delya
+		2. Memory	more the indexes are, more the memory u need
+		3. Cost		each GSI cost aroud 3$ a month.
+	
+	
+
 
 -------
 Authentication and connection the DDB via AWS-SDK :-
