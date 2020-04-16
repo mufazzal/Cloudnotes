@@ -247,14 +247,19 @@ Querying the DDB :-
 		KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
 		ExpressionAttributeValues: { ":a": "muffy", ":t": "mob", }
 		...
-	this will give r3 only.
-	
+	this will give r3 only.	
 
 	...
 	KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
 	ExpressionAttributeValues: { ":a": "fattu", ":t": "mob", }
 	...
 	this will give r4 and r5
+	
+	The KeyConditionExpression accept only the partition-key or sort-key. no one else so below will throw error
+	...
+	KeyConditionExpression: "userID = :a and price = :b",
+	ExpressionAttributeValues: { ":a": "fattu", ":b": "100", }
+	...	
 
 	Q: can we design the query in such a way that we can get r1 and r5
 	A: Impossible! because r1 and r5 have diffrent partition-key and 'query' methode support only single value of partition-key
