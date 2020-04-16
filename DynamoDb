@@ -121,7 +121,9 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
 			    	     |-----> [...r4...]
 		  	    |-----> mob2
 			    	     |-----> [...r5...]
-		  
+
+Q: Can you inser a data cell in the DDB without Partition-key (along woth sort-key if applicable)?
+A: NO. you have to provide each one if table is design to have them.
 
 Authentication and connection the DDB via AWS-SDK :-
   To perfornm any operation over DDB cia SDG first you have to do some basic setup.
