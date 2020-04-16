@@ -167,17 +167,18 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
       	SO: in nutshell, if you wants any attribute ar a combination oftwo attribute queriable, then create GSI out of them.
 
    LSI :-
-   	??????????????????????????????/
+   	??????????????????????????/
+	
 
 
-	When to use GSI: Though GSI make the DB very queriable and dynamic but there is one very big secret here. that secret is
-	for each created GSI for ant table the AWS in background have to capture almost double information and store almost double data
+	When to use SI(secondry index): Though SI make the DB very queriable and dynamic but there is one very big secret here. that secret is
+	for each created SI for ant table the AWS in background have to capture almost double information and store almost double data
 	for each entries. it take lot of memore and. 
-	AWS almosty crea a new table in which data is arrage againt GSI and instead of real promary key.
+	AWS almosty crea a new table in which data is arrage againt SI and instead of real promary key.
 	So there is three disadvantage here
 		1. Speed:	saving additional info about data cause little delya
 		2. Memory	more the indexes are, more the memory u need
-		3. Cost		each GSI cost aroud 3$ a month.
+		3. Cost		each SI cost aroud 3$ a month.
 	
 	
 
