@@ -458,6 +458,32 @@ Querying the DDB :-
 		So more GSI will cost you more.
 
 
+----------------------
+
+	DDB Accelerator [DAX] :-
+		DAX in in-memory cache for DDB. 
+		DAX provide you way to let the frenetly accessed data to remain in cache.
+		For this you 
+			set up the DAX, 					[HOW ????????????????????????????]
+			Point all your API to DAX instead of DDB table		[HOW ????????????????????????????]
+		then AWS DDS system take care
+		if your API reach to DAX and try to get some data but DAX do not find it then
+		DAX make a getItem call to DDB table get it
+		Store it in DAX cache
+		and return it to api response
+		NExt time if some api ask for same data then it will just return from the pre-stored cache.
+	   Advantages :-
+	   	remove many read overload from DDB and so you may need less read-capacity on DDB table
+		Make read fater
+	   Limits:-
+	   	Not major improvement if data is changing frequently
+		If data change in origin DDB table it still may remain unupdated in cache   
+		so its only suitable for eventually consistent read. not suitable for Strongly-consistent read
+		
+		
+		
+		
+
 
 
 		
