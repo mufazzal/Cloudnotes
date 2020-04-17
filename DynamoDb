@@ -447,17 +447,24 @@ Querying the DDB :-
 			for write capacity anf if utilization goes above   <PPPP> percentage 
 			then add  one more unit and keep it going till the allotment reach to       <MXMXMX> unit
 			After that let the thing crash or performance dipped.
- 			
+ 						
 	   2. On demand
-			This is new and tjhe best one. just enbale it and you do not need to set anything . AWS will take care of all things.
+			This is new and the best one. just enbale it and you do not need to set anything . AWS will take care of all things.
 			
-
+	
 	PRovision CApicity and GSI :-
 		When you creat a GSI, it as same as creating a new table. so at that time you will also be asked to set the provision-capasity of 
 		GSI table. all the concept same here also except GSI table do not support 'on demand' provisioning.
 		So more GSI will cost you more.
 
-
+	
+	What if your throughput goes exceptionalyy high and surpass even the autoscalling max:-
+	In that case you will get the 'ProvisionedThroughputExceededException'
+	Now if tou are using any AWS-SDK then SDK (if js, java or any) will take care of this and do the retries via ExceptionalBackoff
+	SDK handle all this internally so no worry for you.
+	But even if retry fail for 1 minute then its a dead end. you will get the error and you have to increase the provisioned capacity.
+	
+	
 ----------------------
 
 	DDB Accelerator [DAX] :-
