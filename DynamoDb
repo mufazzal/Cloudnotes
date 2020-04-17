@@ -465,7 +465,7 @@ Querying the DDB :-
 	
 	What if your throughput goes exceptionalyy high and surpass even the autoscalling max:-
 	In that case you will get the 'ProvisionedThroughputExceededException'
-	Now if tou are using any AWS-SDK then SDK (if js, java or any) will take care of this and do the retries via ExceptionalBackoff
+	Now if tou are using any AWS-SDK then SDK (if js, java or any) will take care of this and do the retries via 'Exponential Backoff Algorithm'
 	SDK handle all this internally so no worry for you.
 	But even if retry fail for 1 minute then its a dead end. you will get the error and you have to increase the provisioned capacity.
 	
