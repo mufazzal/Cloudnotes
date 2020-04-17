@@ -480,7 +480,12 @@ Querying the DDB :-
 		If data change in origin DDB table it still may remain unupdated in cache   
 		so its only suitable for eventually consistent read. not suitable for Strongly-consistent read
 		
-		
+------------
+	ElastiCache:-
+		This provide same service as DAX, but DAX is specifically for DDB. and Elasticache for mny other.
+		for DAX one should always use DAX.
+		Set up:-
+		?????????????????????????????
 		
 		
 
