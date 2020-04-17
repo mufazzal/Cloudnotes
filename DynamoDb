@@ -487,6 +487,30 @@ Querying the DDB :-
 		Set up:-
 		?????????????????????????????
 		
+--------------------
+
+	TTL Attribute:-
+		One of the issue with very large database is too keep deleting useless data. For this DDB provide a excellent feature.
+		You ca set any particular attribute in the Table as 'TTL Attriute' 
+		The data cell will automatically deleted when the time set in that attribute reach
+		For this :-
+			AWS > DDB > Table > 'your table' > Action > Manage TTL
+			Set the attribute that you prefer should consist the value of TTL timestamp.
+			lets say you set the attribute 'ExpirationTime'
+			Done
+		Now entry made by below 'put' request will be deleted after the time reached to '4234234344'	
+			var paramsPutExpirationTime = {
+			    TableName: "MufUser",
+			    Item: {
+				userID: "34",
+				name: 'ttttt',
+				city: "yyyyy",
+				ExpirationTime: '4234234344'
+			    }
+			}			
+			
+------------------------------		
+		
 		
 
 
