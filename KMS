@@ -8,17 +8,17 @@ Its so strongle integrated with other system that with just few setting you can 
   3. RDS
   4. Elastic Transcoder
   All of them have few setting in their contextual page to enable disable the en-dc via KMS.
-
-
   
-  There is two type of key in AWS-KMS
-    1. AWS managed key ('default-key') : This is a default key that is generated for you. though you cannot delete/change it at all.
+  CMK (Customer Master key) :-
+    In simple word the key you see or create in console in any tab ('Customer managed keys' or 'AWS managed keys') is a CMK.  
+  There is two type of key in AWS-KMS CMK
+    1. AWS managed CMK : This is a default key that is generated for you. though you cannot delete/change it at all.
         there is one anly one such key for each account. 
         Its key policy written as such that the root user and all the IAM user can do use tis key for 'kms:encrypr' and 'kms:decrypr'
         But root user can do some more operation like 'kms:Get*', 'kms:List'
         But no one (not even root) has permicssion for action 'kms:Delete'.
 
-    2. Customer Managed Key (CMK)
+    2. Customer Managed CMK
         You can create your own keys here and manage its access by the key policy. Just like the BP in S3, there is Key Policy in KMS.
         Key policy define that the key assosiated with it, will be accessible (for what action also) to which IAM users.
         Its key policy written as such that the root user and all the IAM user can do use tis key for 'kms:encrypr' and 'kms:decrypr'
