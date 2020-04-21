@@ -43,9 +43,10 @@ Now in the code you will have to use below 3 line to make the aws-sdk working
 This lines are self explainatory. This is just like you login into the AWS console via ue AWS username na dpassword then select the 
 region of your wish.
 
+#AWS_SDK_AUTHENTICATE
 The above approcach of authentication via the Access Key and ID work everywhere. but its not at all recomendded to use in case of 
 EC2 or Lembda. The best way to to authenticate is to via providing neccesary role to the EC2 or LEmbda.
-  Fpr non-aws server : do #AWSSDK_AUTH_BY_KEY_ID in 'AWS JS SDK.txt'
+  For non-aws server : do #AWSSDK_AUTH_BY_KEY_ID in 'AWS JS SDK.txt'
   For EC2: do AUTHEC2_WAY_1 or AUTHEC2_WAY_2  in EC2.txt
   For Lembd: just assign the proper Role to lembda
 
