@@ -32,8 +32,12 @@ Its so strongle integrated with other system that with just few setting you can 
     
   Before you do the en/dc by any of those three, the first thing you have too do is Authentication
   And for this either you use Role or IAM-User
-    For this see #AWS_SDK_AUTHENTICATE in 'AWS JS SDK.txt'
-
+    For SDK see #AWS_SDK_AUTHENTICATE in 'AWS JS SDK.txt'
+    For API see #AWS_API_AUTHENTICATE in 'AWS API.txt'
+    For AWS-CLI see #AWS_CLI_AUTHENTICATE in 'AWS CLI.txt'
+    
+    
+    
 
 
 
