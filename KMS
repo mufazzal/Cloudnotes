@@ -1,0 +1,19 @@
+When it comes to encryption and decryption the KMS play the central role in AWS ecosystem.
+
+The KMS is mpotre than just a primitive en-dc system. its a complete managed service.
+
+Its so strongle integrated with other system that with just few setting you can use this to en-dc the file/dat/object of below items
+  1. S3
+  2. EBS
+  3. RDS
+  4. Elastic Transcoder
+  
+  All of them have few setting in their contextual page to enable disable the en-dc via KMS.
+  
+  Aprt from this tyhe KMS also provide the API ti do this operation. will see it later
+  ??????????????????????
+  
+  
+  The most imp thing in the for any key is to 
+    - Who can manage it what level
+    - Who can use it for en/dc
