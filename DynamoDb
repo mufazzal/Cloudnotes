@@ -540,7 +540,18 @@ Querying the DDB :-
 				ExpirationTime: '4234234344'
 			    }
 			}			
-			
+
+-------
+
+For AWS-JS-SDK :-
+	any dynamoDB function can be conver in promise simply by calling the promise() function.
+	the function
+			docClient.get(params, function(err, data) {console.log(err, data)});
+	is same as below
+			docClient.get(params)
+			.promise()
+			.then(function(data, err) {console.log(err, data)});
+
 ------------------------------		
 		
 	DDB Transaction
