@@ -32,10 +32,7 @@ Its so strongle integrated with other system that with just few setting you can 
     
   Before you do the en/dc by any of those three, the first thing you have too do is Authentication
   And for this either you use Role or IAM-User
-  If you are using any EC2, lembda or any hosting server then you can the the authorization via
-  1. aws configuration
-  2 by ptoviding Role to EC2 or Lembda (not applicable for non aws hosting server)
-
+    For this see #AWS_SDK_AUTHENTICATE in 'AWS JS SDK.txt'
 
 
 
