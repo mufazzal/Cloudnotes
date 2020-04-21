@@ -14,6 +14,39 @@ Its so strongle integrated with other system that with just few setting you can 
   ??????????????????????
   
   
-  The most imp thing in the for any key is to 
-    - Who can manage it what level
-    - Who can use it for en/dc
+ KMS uses key policy the decide rhe access level of any key. 
+ you can use User and Role only to assign the permission not USER GROUP (Why? No one know)
+ Therer is IMP permission in Key policy that you must provide
+    1. Who can manage it what level
+        Those who can edit/delet the key
+    2. Who can use it for en/dc
+        Those who can use this key for en/dc (but not able to delete or edit it)
+    
+  
+  How to do the en/dc :-
+    there is as usual three way
+    1. By SDK
+    2. By API
+    3. BY AWS-CLI
+    
+    
+  Before you do the en/dc by any of those three, the first thing you have too do is Authentication
+  And for this either you use Role or IAM-User
+  If you are using any EC2, lembda or any hosting server then you can the the authorization via
+  1. aws configuration
+  2 by ptoviding Role to EC2 or Lembda (not applicable for non aws hosting server)
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+  
+  
+  
