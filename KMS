@@ -54,10 +54,11 @@ Creating Key :-
     For API see #AWS_API_AUTHENTICATE in 'AWS API.txt'
     For AWS-CLI see #AWS_CLI_AUTHENTICATE in 'AWS CLI.txt'
     
-   
-  Below is the code that you can use to en/dc the data string with any kay.
-  Now this code could be hosted over EC2, Lembda or any non-aws node server.
-  to make it working it is must that they are authenticated with proper User/Role who has the permission to use this key for encrypt and decrypt the 
+  
+  Encrypting via Customer MAster key (CMK) :-  
+    Below is the code that you can use to en/dc the data string with any kay.
+    Now this code could be hosted over EC2, Lembda or any non-aws node server.
+    to make it working it is must that they are authenticated with proper User/Role who has the permission to use this key for encrypt and decrypt the 
     
           const kms = new AWS.KMS();
           const params = {
@@ -75,6 +76,20 @@ Creating Key :-
             kms.decrypt(params, (err,deData) => {
               console.log("Decrypted--> ", err, deData.Plaintext.toString('utf-8'))
           });
+          
+      HEre you can see you need to pass the key-id t=in the function and data or ciphertext for operation.
+      The key-id could be belongs to 'Customer Managed CMK' of 'AWS Managed CMK'
+      
+But there is couple of serious issue with this straightforward approach
+  1. Whap happen if the key is deleted.
+  2. for en and dc operation you have to use the CMK. So for any one who wants to use this you have toshare this key with them.
+      which is very risky.
+  3. most of your data would be encrypted with same key so if somhow the key(CMK) is compromised then its a hell.
+  
+  To solve all this, comes a Data KEy-
+  
+      
+      
 ----
 
   In many of the services like S3, EBS etc. the KMS is so strongly integrated that you hardly need any coding there.
