@@ -81,14 +81,8 @@ Creating Key :-
       The key-id could be belongs to 'Customer Managed CMK' of 'AWS Managed CMK'
       
 But there is couple of serious issue with this straightforward approach
-  1. Whap happen if the key is deleted.
-  2. for en and dc operation you have to use the CMK. So for any one who wants to use this you have toshare this key with them.
-      which is very risky.
-  3. most of your data would be encrypted with same key so if somhow the key(CMK) is compromised then its a hell.
-  
-  To solve all this, comes a Data KEy-
-  
-      
+  1. most of your data would be encrypted with same key so if somhow the key(CMK) is compromised then its a hell. 
+  for this we use 'Envelop Encryption'
       
 ----
 
@@ -99,8 +93,33 @@ But there is couple of serious issue with this straightforward approach
 
   Envolop key / Data key :-
     Envolop key is the key which is use to encrypt and decrypt the key (AWS-CMK key) itself.
-    How
-    ??????????
+    To avoid the scenario where all the data are encrypted with unique CMK. The Data-key comes to picture. The data-key indeed generated 
+    by any CMK. but that CMK itself not uised to encrypt data
+    it work like this
+      1. Generate the data-key with CMK of your choice by 'GenerateDataKey' api or by 'keyring' (for JS sdk)
+      2. This will provide you a data-key-object which will have two component
+        a. A plain text data key. 
+        b. Encrypted data key.
+      3. Now encrypt the data with the 'data-key-object' that is generated in step 2
+          The function(from any SDK) you here for encryption do the trick, it will encrypt the data with the key (plain text data key)
+          and with this encrypted data it will also append the 'Encrypted data key'. So the resulted encrypted envelope will have
+            a. The encrypted data - Which can be decrypted only with the plain text data key
+            b. The encrrypted data key - which will be decrypted only wih the CMK you used in step 1.
+      4.  Now at the time of decryption you will not at all need to know that what CMK you used in in step 1 for encryption.
+          The AWS-KMS system itself can figure out that waht CMK is used for the encrypted-data-key.
+          But For decryption mechanism diffrent SDK take diffrent approches
+            JAVA SDK : Here ypu have to first break the encrypted data for data and data-key part, then decrypt the data key first,
+                and finally tou decrypt the data with the data key. so most of the hing you have to by yourself.
+                and in any step of decryption you not need to re-provide the CMK used in step 1. for more
+              - https://github.com/devender/envelope-encryption-aws/blob/55b42f4aca4a20b20e03dbb42915d1ac277b308b/src/main/java/com/gdr/aws/kms/EnvelopeEncryptionService.java#L95
+            JS SDK -
+                For decrypting via js sdk with data-key you have to again have to call tyhe 'keyring' function but not have to provide
+                the CMK as in step 1.
+                You just have to provide the encrypted enevople generated isn step 3.
+                now call 'decrypt(keyring, encryptedEnvolop)' for decryption.
+              
+              
+      
     
 -------------
 
