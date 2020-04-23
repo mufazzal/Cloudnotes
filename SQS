@@ -39,7 +39,7 @@ WHen exaclty we may need it :-
               const params = {
                 QueueUrl: "https://sqs.us-east-1.amazonaws.com/388412347424/mufQue",
                 MaxNumberOfMessages: 1,
-                VisibilityTimeout: 0,
+                VisibilityTimeout: 30,
                 WaitTimeSeconds: 0
               };
               sqs.receiveMessage(params, (err, data) => {
@@ -75,6 +75,14 @@ WHen exaclty we may need it :-
             exact order also. This is chargable abd can handle only up to 300 message/sec
       
       
+      - max size of message is 256 KB
+      - msg can kept in the que from 1 mnt to 14 days, default is 4 days. after this time it will be auto deleted.
       
-      
+      VisibilityTimeout: When the worker start processing the message we need to make sure that at a time of processing no one 
+        accidently pick it again and start processing it in paraller.
+        So we set this time to make this message incvisible for 30 sec so after 30 sec the message will re-apear in the que unless you have deleted it.
+       So if you processing gona take more time then set this value accordingly  
+        
+        
+        
     
