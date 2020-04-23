@@ -54,7 +54,14 @@ WHen exaclty we may need it :-
         
       Done.
       
+      So the main usage of SQS is that when you have a stream of jobs coming for processing and you not need to process them in real time 
+      you can do it later 
+      for this you should create a SQS and deliver this jobs in that SQS in formate of a message which will have all the required info 
+      for processing it.
+      Now the worker thread will read it and process it.
       
+      This is polling-based ,echanism. so the worker have to keep polling for the news message.
+      It not a pullbased mechansn like SNS, the worker do not have any way to know that a new message if delivered in the queue.
       
       
       
