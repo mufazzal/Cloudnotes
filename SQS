@@ -1,0 +1,67 @@
+SQS stand for Simple Que Service.
+
+This AWS service help you de design a large scale system that work on que of a message.
+
+WHen exaclty we may need it :-
+  WHen you need to make system that process hell lot of messages that lie one after another. 
+  Suppose you need to process any upcoming image in S3 and process its metadat or create a meme or resize the image.
+  and all this operations do not need to produce a response for the user.
+  Its like user uploaded it and once uploading done user will goet the success response.
+  But behind the picture after some time we will do that operation.
+  
+  How we can do it:-
+    By lembda: yes you can. it has its advantage and disadvantage. thr disadvantage is if many people keep uploading then lot of lembda keep 
+    invoking for this small operation.
+    By SNS -
+      ????????????
+    By SQS:-
+      This would be very suitable here. it goes like this
+      1. First you need to create a message queue at  AWS > SQS > Create New > standard. 
+      2. When S3 upload successful you deliver a message in that queue via this code
+              [it may be uploaded by any melbda itself or you can confiure a lembga that will trigger once the upload is done 
+                and this lembda will hvve below code]
+          
+          const params = {
+            MessageBody: JSON.stringify({name: Mufazzal}),
+            QueueUrl: "https://sqs.us-east-1.amazonaws.com/388412347424/mufQue"
+          };
+          sqs.sendMessage(params, (err, data) => { console.log(data, err); });          
+      
+        You can see this message in AWS console at 
+          AWS > SQS > 'mufQue' > Action > view/delete message
+       
+       3. Now create Worker : You can use EC2-Auto scalling or Lembda to create a worker
+          Worker will keep looking for the new messages and process it and delte it if you wants
+            For EC2-Autoscalluing ??????????????
+            For Lembda:  AWS > SQS > 'mufQue' > Action > configure Lembda
+          USe this code         
+          
+              const params = {
+                QueueUrl: "https://sqs.us-east-1.amazonaws.com/388412347424/mufQue",
+                MaxNumberOfMessages: 1,
+                VisibilityTimeout: 0,
+                WaitTimeSeconds: 0
+              };
+              sqs.receiveMessage(params, (err, data) => {
+
+                  const orderData = JSON.parse(data.Messages[0].Body);
+                  const deleteParams = {
+                    QueueUrl: queueUrl,
+                    ReceiptHandle: data.Messages[0].ReceiptHandle
+                  };
+                  sqs.deleteMessage(deleteParams, (err, data) => {console.log(err, data;});
+              }                                                                                                                                              });          
+        
+      Done.
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
