@@ -148,3 +148,12 @@ But there is couple of serious issue with this straightforward approach
   ?????????????????
   
   
+  ------------------------------------
+  
+  Key Rotation:- 
+    You can set the key to rotate it material each year. you ca do it via AWS-console or by code.
+    Though key changes ots content but it does keep entry of its older material so if anything is encrypted before the rotation 
+    will be decrypted with older vesrion of key.
+  
+  
+  
