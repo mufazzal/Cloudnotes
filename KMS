@@ -105,21 +105,33 @@ But there is couple of serious issue with this straightforward approach
           and with this encrypted data it will also append the 'Encrypted data key'. So the resulted encrypted envelope will have
             a. The encrypted data - Which can be decrypted only with the plain text data key
             b. The encrrypted data key - which will be decrypted only wih the CMK you used in step 1.
-      4.  Now at the time of decryption you will not at all need to know that what CMK you used in in step 1 for encryption.
-          The AWS-KMS system itself can figure out that waht CMK is used for the encrypted-data-key.
+      4.  Now at the time of decryption you will not at all need to provide the data-key because it is already in the envelope
+          But you do have to provide the CMK you used in step 1.
+          The AWS-KMS system itself can figure out that waht data-key is used for encryption via envelope.
           But For decryption mechanism diffrent SDK take diffrent approches
             JAVA SDK : Here ypu have to first break the encrypted data for data and data-key part, then decrypt the data key first,
                 and finally tou decrypt the data with the data key. so most of the hing you have to by yourself.
                 and in any step of decryption you not need to re-provide the CMK used in step 1. for more
               - https://github.com/devender/envelope-encryption-aws/blob/55b42f4aca4a20b20e03dbb42915d1ac277b308b/src/main/java/com/gdr/aws/kms/EnvelopeEncryptionService.java#L95
             JS SDK -
-                For decrypting via js sdk with data-key you have to again have to call tyhe 'keyring' function but not have to provide
-                the CMK as in step 1.
-                You just have to provide the encrypted enevople generated isn step 3.
-                now call 'decrypt(keyring, encryptedEnvolop)' for decryption.
-              
-              
-      
+                    Code for Envolop enc JS :-
+
+                          const paramsDK1 = { generatorKeyId : 'arn:aws:kms:us-east-1:388412347424:key/1cee637d-43d9-4329-aa55-59d17c7a4f5f' }
+                          const keyringEn = new KmsKeyringNode(paramsDK1);
+                          console.log('keyringEn -> ', keyringEn);
+                          encrypt(keyringEn, "Mufazzal Hussain", { encryptionContext: "blablablabla" }).then((encEnvelope, err) => {
+                                const res = encEnvelope.result.toString('base64');
+                                console.log("Envolop encrypted Base64String [Data key + Data] -------> ", res);
+                                return res;
+                          }).then(
+                            res => {
+                              const paramsDK2 = { generatorKeyId : 'arn:aws:kms:us-east-1:388412347424:key/1cee637d-43d9-4329-aa55-59d17c7a4f5f' }
+                              const keyringDc = new KmsKeyringNode(paramsDK2);
+                              decrypt(keyringDc, Buffer.from(res, 'base64')).then((decData, err) => {
+                                console.log("Decrypted Data  --------> ", decData.plaintext.toString());
+                              });
+                          });  
+ 
     
 -------------
 
