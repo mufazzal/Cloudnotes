@@ -1,0 +1,34 @@
+In the development today the CI CD is most imp thing to know.
+
+In AWS there is total 3 prime services for this
+1.  CodeCommit:   This is like GIT
+2.  Codeuild:     This is like Jenkins
+3.  CodeDeploy:   A deployment tool
+4.  CodePipeline: A service build on top of above three that orchatrate this three to male CI/CD pipeline.
+
+CodeCommit: This is very much like the GIT repository, so you know most of its part. The goal of this is to only manage commit, branch
+etc. it do not care what happed to that code. how its buil where ut may deploy.
+
+Codeuild: ????????
+
+CodeDeploy: The task of CodeDeploy is to 
+  take the artifact [from S3 or GIT or any othe location]   
+  read its 'appSpec.yml' file to read about task to do
+  perform this task like
+    copy the file from source to dest
+    peform some script[at aprticular moment in life cycle] provided in that artifact if provided
+    Do health check if provided
+  Done.
+  
+  CodePipeline:-
+    This connect all three in a manner they work like a symphone.
+    You commit a code via CodeCommit
+    CodeBuild creat a artifact and upload at proper locatio
+    CodeDeploy detect new artifact and deploy it to proper Ec2 or Lembda
+    
+    
+  
+  
+  
+  
+  
