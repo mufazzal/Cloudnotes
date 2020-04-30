@@ -1,0 +1,37 @@
+Why wwe need it :-
+  Say you have a EC2s running on version1 of code and nw you wants to upgrade the version to next
+  What you will do
+  1. you have to stop the App or stop the EC2 if it is Blue/Greem deployment
+  2. now you have to login to instances of EC2 with proper user
+  3. Now you have to upload the new code 
+  4. Now you have to make chages in the configuration if needed and run some script if needed.
+  5. Now you have start the App.
+  6. Now you may also run a script for health check
+  
+The code deploy help the user to automate the above process of deploying. 
+Here you have to provide 
+  The Source: The location of 'Artifact' on S3 or github or other
+    Inside the artifat lies
+      1. The new Code
+      2. Appspec.yml file.
+      3. Scripts that you wants to run at events of deployment life cycle
+  The Destination: Wher you wants to deploy, 
+    On EC2
+      - On EC2s of specific tags
+      - On a Autoscalling group of EC2
+      - On premise instances.
+    On LAmbde
+      ???????????????
+      
+ VVIMP: Code deploy automate the steps of deploment in the EC2/LEmbda But it not at all automate the deployment if a new artifact 
+        come in the source location. For this you have to use the CodePipeline.
+      
+      
+      
+      
+Ec2 - CodeDeploy :- 
+  if you wants to deploy the code with codedeply on EC2 you have to install the 'CodeDeploAgent' on EC2 instance.
+  THis is one time activity for EC2. once it is installed you will be able to use the CodeDeploy for automation.
+      
+      
+ 
