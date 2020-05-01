@@ -28,10 +28,25 @@ Here you have to provide
       
       
       
+Some component of CodeDeploy ->
+
+  CodeDeploy Agent:- 
+    if you wants to deploy the code with codedeply on EC2 you have to install the 'CodeDeploAgent' on EC2 instance.
+    THis is one time activity for EC2. once it is installed you will be able to use the CodeDeploy for automation.
+    Usually you should install it when you start a EC2 instance. Provide the proper script in the start script of EC2
+    Script for installing CodeDeployAgent:-
+      ?????????????????
+  
+  How Codedeploy find the exact EC2's to deploy code on:-
+    There is two possibility
+    1. By Tags: In the CodeDeploy at the time of creating Deployment you can provide the specific tag. 
+        Now CodeDeploy will find all the EC2(More than one possible) that has the same tag and deploy the new version on it.
+    2. By Autoscalling Group: If you are using the autoscalling and so your instances invoked/killd based on usage. 
+    
+    
+    
+    
       
-Ec2 - CodeDeploy :- 
-  if you wants to deploy the code with codedeply on EC2 you have to install the 'CodeDeploAgent' on EC2 instance.
-  THis is one time activity for EC2. once it is installed you will be able to use the CodeDeploy for automation.
-      
-      
+ 
+ 
  
