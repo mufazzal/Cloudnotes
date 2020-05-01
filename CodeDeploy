@@ -2,6 +2,7 @@ Why wwe need it :-
   Say you have a EC2s running on version1 of code and nw you wants to upgrade the version to next
   What you will do
   1. you have to stop the App or stop the EC2 if it is Blue/Greem deployment
+  2. Now also ou have to configure the LB(if any) to not to sent traffic to in-deployment Ec2's
   2. now you have to login to instances of EC2 with proper user
   3. Now you have to upload the new code 
   4. Now you have to make chages in the configuration if needed and run some script if needed.
@@ -22,6 +23,10 @@ Here you have to provide
       - On premise instances.
     On LAmbde
       ???????????????
+ CodeDeploy is so smart that even if your EC@ is attached with any LB, 
+ for in-place deployment it will do to that LB and instruct them to not to send any request to in-deploment EC2. and once done it again go to that LB and give him a green signal.
+ If it is Blue/Green deployment then it will make sure to that the new instances are invoked and lated older one are killed.
+      
       
  VVIMP: Code deploy automate the steps of deploment in the EC2/LEmbda But it not at all automate the deployment if a new artifact 
         come in the source location. For this you have to use the CodePipeline.
@@ -44,7 +49,47 @@ Some component of CodeDeploy ->
     2. By Autoscalling Group: If you are using the autoscalling and so your instances invoked/killd based on usage. 
     
     
+  AppSpec File:- 
+    This is the file that must lie at the root of the zip file of you code.
+    This has all the configuration related information for for deployment
+    It has 4 parts:-
+      1. Version : always 0.0, will be used in future
+      2. OS: supported OS
+      3. Files: 
+        this has info of list of file that should be copid to destination. it has two piece of info
+          - The file to be copied from
+          - the should be copied to.
+      4. Hooks: 
+        This has info about the scripts that should be ran on some specific time of deploument lifecycle.
+        This hook run the script provided by developen on EC2 at a time like
+         - after/before Ec2 stop
+         - after/before application installed
+         - after/before LB attached/dettached
+         - run some health check after deployment
+         - run some test
+         etc.
+         
+  Deployment Bundle:-
+    This is the zip file whose strucure shouls look like this [but not neccessary]
+    MuBundle.zip
+      |--- AppSpec.yml    MUST
+      |----Config         NAme could change, this is the folder of config files
+      |----Scripts        NAme could change, this is the folder of scripts
+      |----Source         NAme could change, this is the folder of source code.
+    This look of zip is very primitive it can have some more files in it.  
+      
+      
+      
+      
+      
     
+    
+    
+         
+         
+      
+      
+      
     
       
  
