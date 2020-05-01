@@ -43,3 +43,22 @@ EC2 - Auto scalling is done via configuring two part
             value in step 2.6.1  <= value in step 2.2  <=  value in step 2.6.2
               
               
+  AutoScalling and LB: 
+    do not confuse the ASL with LB, the ASL is the feature that keep your capacity in check, depending in usage on each instance
+      the ASL can kill/invoke the instances.
+      For ASL it does not at all matter that what those instance are doing, from whome they are getting the requestes.
+      The only thing they see if they are overloaded or underloaded then just kill/invoke few instances.
+      
+    The LB is the kind of balancer, when a new request comes to LB it check who has least task in its plate and assign the upcoming
+      request to him. It will never be able to invoke /kill any instance.
+      For LB it does not matter if system are heavily utilized, it will keep sending the requests to it subordinate EC2s even 
+      all of them are at 99.99% occupied.
+      
+      
+      
+    
+    
+    
+    
+
+
