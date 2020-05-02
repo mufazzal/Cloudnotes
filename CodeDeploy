@@ -68,6 +68,15 @@ Some component of CodeDeploy ->
         this has info of list of file that should be copid to destination. it has two piece of info
           - The file to be copied from
           - the should be copied to.
+           EG:
+              - source: /DepTest/
+                destination: /MufProject/DepTest
+          This will copy all the content inside the folder 'DepTest/' in the zipped bundle to the '/MufProject/DepTest' of EC2 instance
+              - source: /Resources/
+                destination: /MufProject/Resources          
+          This will copy all the content inside the folder 'Resources/' in the zipped bundle to the '/MufProject/Resources' of EC2 instance
+        So you can specify as many pair you wants here.  
+          
       4. Hooks: 
         This has info about the scripts that should be ran on some specific time of deploument lifecycle.
         This hook run the script provided by developen on EC2 at a time like
@@ -106,6 +115,18 @@ Some component of CodeDeploy ->
           Actully it is rarle user, it use only for the first time deployment.
     2. Blue Green
     
+    
+  Hook lifecyle:-
+    
+    For In-place : EC2 : without any loadbalancer
+      ApplicationStop
+      BeforeInstall
+      AfetrInstall
+      ApplicationStart
+      validateService
+    
+  
+  
     
     
   Deployment Group:-
