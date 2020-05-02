@@ -160,3 +160,45 @@ Some component of CodeDeploy ->
         6.7 LB:
           IF the EC2 are attached to any LB then select them, so that codedeploy can attach/dettach it while in deployment.
  
+     7. Now finally Create deployment
+        7.1  AWS > CodeDEploy > Deploy > Application > MufCodeDeploy > Create Deployment
+        7.2  Select the deployment group created in step 6
+        7.3  select thee source from S3 bucket and choose the bundle you uploaded to s3 
+        Now you can see thst deployment is started and in aws cosole you can see its process.
+     Done        
+    So here the process is finished.
+    
+    SO notice here that 
+    - The deployment group created in step 6 is reusable. if you created once then you can resue it again for next version of deployment
+    - Step 7 is one time activity. you create a deployment and run it once for next release you have to re-create one more deployment.
+    
+    
+    In the DodeDeploy you actully create a the app;ication and inside this application you can create diffrent deployment group
+    later for actul deployment you can use those groups.
+    
+    Application
+      |-------------- App1 [Info: Lembda]
+                        |---------Deployment group1  [info: Blue/green, LB1, MyEc2Tag, AllAtOnce etc]
+                        |---------Deployment group2  [info: In-place, LB2, MyEc5Tag, AllAtOnce etc]
+                        |---------Deployment group3   ; ;     ;;  ; ; ;
+      |-------------- App2 [Info: EC2]
+                        |---------Deployment group11  [info: Blue/green, LB1, MyEc2Tag, AllAtOnce etc]
+                        |---------Deployment group21  [info: In-place, LB2, MyEc5Tag, AllAtOnce etc]
+                        |---------Deployment group31   ; ;     ;;  ; ; ;
+    
+    
+    
+    
+    
+       
+       
+       
+       
+       
+        
+        
+        
+        
+        
+        
+        
