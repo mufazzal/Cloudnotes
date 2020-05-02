@@ -23,8 +23,8 @@ Here you have to provide
       - On premise instances.
     On LAmbde
       ???????????????
- CodeDeploy is so smart that even if your EC@ is attached with any LB, 
- for in-place deployment it will do to that LB and instruct them to not to send any request to in-deploment EC2. and once done it again go to that LB and give him a green signal.
+ CodeDeploy is so smart that even if your EC2 is attached with any LB, 
+ for in-place deployment it will go to that LB and instruct them to not to send any request to in-deploment EC2. and once done it again go to that LB and give him a green signal.
  If it is Blue/Green deployment then it will make sure to that the new instances are invoked and lated older one are killed.
       
       
@@ -35,12 +35,21 @@ Here you have to provide
       
 Some component of CodeDeploy ->
 
+  #INSTCODEAG
   CodeDeploy Agent:- 
     if you wants to deploy the code with codedeply on EC2 you have to install the 'CodeDeploAgent' on EC2 instance.
     THis is one time activity for EC2. once it is installed you will be able to use the CodeDeploy for automation.
     Usually you should install it when you start a EC2 instance. Provide the proper script in the start script of EC2
     Script for installing CodeDeployAgent:-
-      ?????????????????
+              sudo yum update
+              sudo yum install ruby
+              sudo yum install wget
+              cd /home/ec2-user
+              wget https://aws-codedeploy-eu-central-1.s3.amazonaws.com/latest/install
+              chmod +x ./install
+              sudo ./install auto
+   Finally Check if install is successful or not by
+              sudo service codedeploy-agent status      
   
   How Codedeploy find the exact EC2's to deploy code on:-
     There is two possibility
@@ -79,19 +88,75 @@ Some component of CodeDeploy ->
     This look of zip is very primitive it can have some more files in it.  
       
       
-      
-      
-      
+  IAM Roles:-
+    - You must create one Role for 'CodeDEploy' with policy ??????? attached. This role will grant the CodeDeploy to perform operation such as
+        start EC2, terminate EC2, attache EC2 for LB, dettache it etc.
+    - IF your code is on S3 then you must give EC2 the access of S3. So you should have a role with S3FullAccess policy attached to EC2
+  So depending on this you should create two Role one for EC2(if you are usin S3) and one for CodeDeploy(Must)  
+    
+  
+  Deployment Type:-
+    There are two type
+    1. In-Place:  
+        In this kind of deployment the application is installed on existing running instances. they will be brifly taken offline
+        and then upgraded with new version and finally start again.
+        This has couple of risk
+          1. It take the instances offline so capacity is reduced
+          2. roll back is difficult you have to re-deploy the older version once again
+          Actully it is rarle user, it use only for the first time deployment.
+    2. Blue Green
     
     
     
-         
-         
-      
-      
-      
+  Deployment Group:-
     
+  
+  
+  Steps:-
+    1. Create 2 IAM role one for Ec2 and one For CodeDeploy
+    2. Launce the EC2's and
+      - provide them the tag 'MufCodeDEployTag' so codedeploy later can idetify it for deployment
+      - provide hime the role for EC2 created in step 1 [if you are using S3 for deploymeny ]
+      - Install codedeploy agent on those EC2 as described in section #INSTCODEAG
+          To do this Quickly you can provide this script in 'start script' at a time of launch configuration.
+    3. Now create a S3 bucket where in you will upload your code and later codedeploy get it from here for EC2.
+         - Do remember to enable the versioning in this bucket
+    4. Now this is time to create a zip package of you deployment unble. create a Deploymet Bulble with must have 'appspec.yml' file
+       with sourcvve code, scripts and resources etc. then upload thisZip in S3 bucket
+       You can use below command to upload it or can do it via aws console.
+        ???????????????    
+    - Now at this point you have your deployment package ready in S3, our destination EC2 is running, everyone have all necessary roles,
+      From here we will see the steps we need to take for deployment of it.      
       
+    5. Create CodeDeploy Application
+      go to   AWS > CodeDEploy > Deploy > Application > Create Application
+          - Name of Application [say MufCodeDeploy]
+          - Platform [EC2 in our case]          
+     
+    6. Create Deployment Group:
+        6.1  AWS > CodeDEploy > Deploy > Application > MufCodeDeploy > Deployment Group > Create 
+        6.2  choose name [say MufCodeDeployGroup]
+        6.3  choose the service role we created in step 1 for CodeDeploy so that it can perform crtain task.
+        6.4  Select Deployment Type
+            - If you are deploying for the firset time then you shoulg choose the in-place deployment otherwise b\g
+        6.5 Set Environment configuration:   
+            Here you nned to specify that how CodeDeplot will idetify the EC2 for Deployment, this depend on hwhat deployment type you have choosen
+            For 'In-Place': 
+                If you choosed 'In Palce' there is two possible way to identify the candidate EC2
+                  1. By Tags: you provide the tag here so that all the EC2 (aws/on-primises) with this Tag will be deployed with app version
+                      he tag of EC2 in Step 2 'MufCodeDEployTag' must be same as the one here.
+                      IMP:- only key of the Tag is compared the value is not required at all.
+                  2. By AutoScalling Group: 
+                      You must choose the ASG here
+                      All the EC2 running in this ASG will be upgraded with new version.
+            For 'BG'  
+                ????????????????????????????????????
+        6.6: Now choose how you consider the deployment as successful
+              AllAtOnce:   It means we will consider the deployment as success if all the EC2 deployment is successful
+              HalfAtATime: It means we will consider the deployment as success if at least hallf of the EC2 deployment is successful
+              OneAtATime:  It means we will consider the deployment as success if at least one of the EC2 deployment is successful
+          So of course the safest option is  'AllAtOnce'
  
- 
+        6.7 LB:
+          IF the EC2 are attached to any LB then select them, so that codedeploy can attach/dettach it while in deployment.
  
