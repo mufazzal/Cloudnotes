@@ -222,10 +222,10 @@ EC2 and Other AWS services ->
 
     ------------------
     
-    Using EC2 As Web Server :-
+    Using EC2 As Apache Web Server :-
           Till now we have seen that how we can configure the EC2 instance to listen the SSH traffic on Port 22, We see hoe we create the 
           Security group with inbound rule of (SSH-22-0.0.0.0) setup.
-          Now when we wants to creat a webserver also out of this EC2, The first thing we need to do is to 
+          Now when we wants to creat a Apache webserver also out of this EC2, The first thing we need to do is to 
           let the HTTP traffic to be listened at port 80 so first step to create a web server is to creat a security group with 
           inboud : 
                     SSH  22   0.0.0.0/0   -> because you may also need it to access by SSH
@@ -247,7 +247,15 @@ EC2 and Other AWS services ->
     
     
     
-    
+    Ec2 and Nodejs web server:-
+          When you use the EC2 for NodeJs webserver you may use diffrent port then 80 EG.
+                              http.createServer(function (req, res) {
+                                res.write('Hello World! version 1'); 
+                                res.end(); 
+                              }).listen(3000);
+          So here in SG instead of opening 80 you should open 3000 
+                    SSH  22     0.0.0.0/0   -> because you may also need it to access by SSH
+                    HTTP 3000   0.0.0.0/0
     
     ----
     
