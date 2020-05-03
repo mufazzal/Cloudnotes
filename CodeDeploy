@@ -40,16 +40,9 @@ Some component of CodeDeploy ->
     if you wants to deploy the code with codedeply on EC2 you have to install the 'CodeDeploAgent' on EC2 instance.
     THis is one time activity for EC2. once it is installed you will be able to use the CodeDeploy for automation.
     Usually you should install it when you start a EC2 instance. Provide the proper script in the start script of EC2
-    Script for installing CodeDeployAgent:-
-              sudo yum update
-              sudo yum install ruby
-              sudo yum install wget
-              cd /home/ec2-user
-              wget https://aws-codedeploy-eu-central-1.s3.amazonaws.com/latest/install
-              chmod +x ./install
-              sudo ./install auto
-   Finally Check if install is successful or not by
-              sudo service codedeploy-agent status      
+    Script for installing CodeDeployAgent:-  
+        go to https://aws.amazon.com/premiumsupport/knowledge-center/codedeploy-agent-launch-configuration/
+        copy script and paste it in user data.
   
   How Codedeploy find the exact EC2's to deploy code on:-
     There is two possibility
@@ -159,13 +152,100 @@ Some component of CodeDeploy ->
                 ApplicationStart
                 validateService
         se 2:  For In-place : EC2 : with loadbalancer
-        
+              ???????????????????????????????
         se 3:  For BG : EC2 : without any loadbalancer
-        
+              ????????????????????????????????
         se 4:  For BG : EC2 : with loadbalancer
-             
-         
-  Deployment Bundle:-
+             ????????????????????????????????????????????????
+
+
+
+
+--------------------------
+Appspec file structure:-
+
+                      version: 0.0
+                      os: linux
+                      files:
+                        - source: /DepTest/
+                          destination: /MufProject/DepTest
+                        - source: /Resources/
+                          destination: /MufProject/Resources
+                      hooks:
+                        BeforeBlockTraffic:
+                          - location: scripts/beforeBlockTraffic.sh
+                            timeout: 300
+                            runas: root
+                        AfterBlockTraffic:    
+                          - location: scripts/afterBlockTraffic.sh
+                            timeout: 300
+                            runas: root  
+                        ApplicationStop:
+                          - location: scripts/stop.sh
+                            timeout: 300
+                            runas: root      
+                        BeforeInstall:
+                          - location: scripts/beforeInstall.sh
+                            timeout: 300
+                            runas: root
+                        AfterInstall:
+                          - location: scripts/afterInstall.sh
+                            timeout: 300
+                            runas: root      
+                        ApplicationStart:  
+                          - location: scripts/start.sh
+                            timeout: 300
+                            runas: root      
+                        ValidateService:
+                          - location: scripts/validateService.sh
+                            timeout: 300
+                            runas: root      
+                        BeforeAllowTraffic:
+                          - location: scripts/beforeAllowTraffic.sh
+                            timeout: 300
+                            runas: root    
+                        AfterAllowTraffic:
+                          - location: scripts/afterAllowTraffic.sh
+                            timeout: 300
+                            runas: root
+
+-------------------------
+
+
+    Hook Script File:-
+      The script in hook file do couple of operation at time that hook run. This is how it shoul look like generall
+      laets say you want to run somthing at BeforeInstall then
+      in appspec.yml
+        BeforeInstall: 
+          - scripts/BeforeInstall.sh
+          
+      in scripts/BeforeInstall.sh
+            #!/bin/bash
+            echo "I am in BeforeInstall"
+      
+      This first line in this file will be the Shebang,  which tells the systen in which enviorment this file should ran.
+      for Bourne shell envirment       #!/bin/sh
+      for Bash envirment               #!/bin/bash
+      for python envirment             !/usr/bin/env python
+      for node envirment               !/usr/bin/env node
+      
+------------------
+ 
+CodeDEploy and design hook for Node App
+  1. in BeforeInstall hook install the nodejs via 
+                          #!/bin/bash
+                          echo "I am in BeforeInstall" >> 'home/ec2-user/mmmll.txt'
+                          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+                          . ~/.nvm/nvm.sh
+                          nvm install node
+                          echo "	Node Version installed: $(node -v)" >> 'home/ec2-user/mmmll.txt'  
+  2. in ApplicationStart Hook give
+                          node /MufProject/DepTest/src/main.js
+                          echo "	Your App is running at: $(sudo ss -tulpn | grep :3000)" >> 'home/ec2-user/mmmll.txt'  
+         [Though command in ApplicationStart not working fine fioe now. why ??????????????????]                 
+                          
+------------------
+Deployment Bundle:-
     This is the zip file whose strucure shouls look like this [but not neccessary]
     MuBundle.zip
       |--- AppSpec.yml    MUST
@@ -280,7 +360,9 @@ Some component of CodeDeploy ->
     
     
     
-    
+   ----------------
+   Log fie location of CodeDployAgent:-
+    var/logs/aws/code-deploy
        
        
        
