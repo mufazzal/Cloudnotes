@@ -79,13 +79,91 @@ Some component of CodeDeploy ->
           
       4. Hooks: 
         This has info about the scripts that should be ran on some specific time of deploument lifecycle.
-        This hook run the script provided by developen on EC2 at a time like
-         - after/before Ec2 stop
-         - after/before application installed
-         - after/before LB attached/dettached
-         - run some health check after deployment
-         - run some test
-         etc.
+        The sequence of hook always remain same bur some of the hook may or may not be called depending upon what config the dep has.
+        The dep may happen one or more than one EC2. this lifecycle run for each of this EC2 and completely independent of each other. 
+        Below is the list of hook with time when its called.
+        
+        > before and after the traffic blocked from LB
+            BeforeBlockTraffic
+            AfterBlockTraffic
+                                  : Both on this event fire only and only if The candidate EC2 is attached to any Load Balancer
+                                  
+        > Hook for stopping the application
+            ApplicationStop
+                                  : CpdeDeploy do not know how he should stop the running application. 
+                                    In this hook you provide the script to stop it. for EG. to stop apache server use 'stop server httpd'
+                                    In this hook you should stop any process that you deemed to be necessary
+         
+          > Hook for new Installation time
+            BeforeInstall
+            AfterInstall
+                                  : This two hook provide event before and after installation. you can use this event in install any necessary
+                                    dependecy in the EC2. EG. to run a node server EC2 must need to have node installed. So put node install
+                                    script in 'BeforeInstall'
+                                    
+        > Hook for strating the application
+            ApplicationStart
+                                  : CpdeDeploy do not know how he should start the application. 
+                                    In this hook you provide the script to start it. for EG. to stop apache server use 'start server httpd'
+                                    and for node app you give 'node src/server.js'
+                                    In this hook you should start any process that you deemed to be necessary                                    
+         > Hook for validation of installation
+            ValidateService
+                                  : This hook is very good to test if installtion is proper or not for eg. you can tset here if node is installed 
+                                    or not or check if some process is running or not or check if some file is there or not.
+         
+         > before and after the traffic allowed from LB
+            BeforeAllowTraffic
+            AfterAllowTraffic
+                                  : Both on this event fire only and only if The candidate EC2 is attached to any Load Balancer
+         
+         >>> Note : There is four more hook but they are not available for override. so unusable for now
+                DownloadBundle, install, AllowTraffic, BlockTraffic
+         
+         
+         The final sequence ->
+         
+            BeforeBlockTraffic  --->    [BlockTraffic]    --->    AfterBlockTraffic   ---->>---|          IF LB is attached to candidate EC2 then this three will be called otherwise not              
+                                                                                               |
+                                            |---------------------------<<<-------------------|
+                                            |
+                                            |
+                                      ApplicationStop
+                                            |
+                                            |
+     |---------<<<--------------------------|
+     |
+     |----> BeforeInstall       --->    [install]         --->    AfterInstall        ---->>---|
+                                                                                               |
+                                            |----------------------------<<<-------------------|
+                                            |
+                                            |
+                                    ApplicationStart
+                                            |
+                                            |
+                                    ValidateService       
+                                            |                                                  
+                                            |
+     |---------<<<--------------------------|
+     |
+     |----> BeforeAllowTraffic       --->    [AllowTraffic]         --->    AfterAllowTraffic             IF LB is attached to candidate EC2 then this three will be called otherwise not  
+      
+        [****] -> is not avialable for use
+        
+    
+    Verified Scenarios
+       se 1: For In-place : EC2 : without any loadbalancer
+                ApplicationStop
+                BeforeInstall
+                AfetrInstall
+                ApplicationStart
+                validateService
+        se 2:  For In-place : EC2 : with loadbalancer
+        
+        se 3:  For BG : EC2 : without any loadbalancer
+        
+        se 4:  For BG : EC2 : with loadbalancer
+             
          
   Deployment Bundle:-
     This is the zip file whose strucure shouls look like this [but not neccessary]
@@ -113,24 +191,16 @@ Some component of CodeDeploy ->
           1. It take the instances offline so capacity is reduced
           2. roll back is difficult you have to re-deploy the older version once again
           Actully it is rarle user, it use only for the first time deployment.
-    2. Blue Green
-    
-    
-  Hook lifecyle:-
-    
-    For In-place : EC2 : without any loadbalancer
-      ApplicationStop
-      BeforeInstall
-      AfetrInstall
-      ApplicationStart
-      validateService
-    
-  
-  
+    2. Blue Green  
+
     
     
   Deployment Group:-
-    
+    Think of Dep Group as reusable deployment comfiguratiuion template which contain lot of config detail like, dep type, enviorment, 
+    sucsses stratagy, LB detail, EC2 groups or tag, ASG etc.
+    Once you created dep group with all this infor you can then for deployment you give two things
+    1. The grouo that you wants to use
+    2. The deployment bundle location 
   
   
   Steps:-
