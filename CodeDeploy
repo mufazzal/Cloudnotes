@@ -338,7 +338,9 @@ Deployment Bundle:-
   
   
   How to set the proper ASG for CodeDeploy:-
-    Choose all that you want in your EC2's. jjust att the 'user data' script as mentioned in #INSTCODEAG. That it.
+    Choose all that you want in your EC2's. 
+    then add the proper 'user data' script as mentioned in #INSTCODEAG. That it.
+    assign the LAM role as such that EC2 has full access of S3.
     so all the created instances in this ASG will have codedeploy agent preinstalled.
     
   Deployment Group:-
