@@ -170,14 +170,18 @@ Some component of CodeDeploy ->
 ---------------------
 
 Role of EC2-Tag, ASG, LB:-
-  In th Codedeploy The EC2-Tag and ASG help the agent to finding out which EC@ he need to work upon. 
+  In th Codedeploy The EC2-Tag and ASG help the agent to finding out which EC2 he need to work upon. 
   The devops engineer do have to provice at least one of this information in step 6.5
   This has nothing to do with LB.
-  Devops engineer have option either to specify the LB or not in step 6.7. 
+  Devops engineer have option either to specify the LB in step 6.7. 
   If he specify-
-    ?????????????????????
+    For In-Place and BG both:-
+       Then as discussed the deattach and attach of LB and EC2 take place on deployment Lifecycle
   If he do not:-
-    THen all the time of deployment the LB keep sending the traffic to EC2.
+    For In-Place:-
+        THen all the time of deployment the LB keep sending the traffic to EC2.
+    For BG:-
+        For BG it is must. BG is impposible without LB. you have to specify the LB if you are doiing BG deploynet.
 
 
 --------------------------
@@ -285,13 +289,23 @@ Deployment Bundle:-
     There are two type
     1. In-Place:  
         In this kind of deployment the application is installed on existing running instances. they will be brifly taken offline
-        and then upgraded with new version and finally start again.
+        then dettached from the LB (if any)
+        then upgraded with new version 
+        then attached to LB(if any) again
+        and then finally started ahain
         This has couple of risk
           1. It take the instances offline so capacity is reduced
           2. roll back is difficult you have to re-deploy the older version once again
           Actully it is rarle user, it use only for the first time deployment.
     2. Blue Green  
-
+          This pne is most widely user Deployment. This has certain featurewhich make it very reliable and practical to use.
+          Why ?
+            Because 2 risk of In-Place deployment mentioned above
+          What is neccessary for BG?
+            The candidate EC2 must be attached to the LB. if not then you cannot do the BG.
+          How it work:
+            ????????????????????
+          
     
     
   Deployment Group:-
