@@ -304,9 +304,42 @@ Deployment Bundle:-
           What is neccessary for BG?
             The candidate EC2 must be attached to the LB. if not then you cannot do the BG.
           How it work:
-            ????????????????????
+            Unlike in In-place wherein the upgraded app is deployed over same EC2. in BG 
+            completely new EC2 instances will be Used or Created [depending on 'Environment configuration' user choose] for each candidate instance 
+            and then 
+            upgraded app is deployed over the new instances 
+            and then
+            all newly instances will be attached to LB (LB is must for BG)
+            and then
+            for sometime all the instances (old + new) will be subordinated to the LB
+            and after some time [user can configure this time for sanity]
+            the older one will be dettached from LB
+            and then
+            they older one will be terminated.
+            
+            So in nutshell you create the new instances and attach it to LB and kill older one.
+            
+          Advantages:-
+            1. Reverting deployment way too easy. just attch the old EC2 with LB
+            2. No capacity reduction 
           
-    
+          How New Instances are Created or Used:-
+            There is two way for the new instance
+            1. Use existing one:-
+                The developer creat a instances MANUALLY and at the time of deployment he will give info about either its tag or ASG
+                This is rarely used because it add the overhead task of creating the EC2 manually.
+            2. Let Codedeploy create for you:-
+                For this you must have the ASG. without ASG it will not work.
+                Here you will give information about the ASG in deployment group. 
+                later at the time of deployment the codedeploy agent will create a copy of that ASG with exactly same cofiguration 
+                and create new instances in that ASG for you. then use those new instances foe new version and kill the older ones.
+                This one is widely used. here you hjust have to set the proper ASG and codedeploy will do the rest.
+            
+  
+  
+  How to set the proper ASG for CodeDeploy:-
+    Choose all that you want in your EC2's. jjust att the 'user data' script as mentioned in #INSTCODEAG. That it.
+    so all the created instances in this ASG will have codedeploy agent preinstalled.
     
   Deployment Group:-
     Think of Dep Group as reusable deployment comfiguratiuion template which contain lot of config detail like, dep type, enviorment, 
