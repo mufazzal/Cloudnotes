@@ -23,12 +23,27 @@ Creating A LB for EC2-webserver:-
       Chose the Availability Zones [of region selected in step 1] where you wants to route the traffic. The LB will route the traffic to the targets, ( eg. EC2 )
       which lies in this zone only. 
   7. Security Group:
-    A SCG which has inboud open as   HTTP   80   0.0.0.0/0, ::/0
-  8. Routing Group: 
-    Slect the routing group of you choice 
+    A SCG which has inbound port open. this port could be 80, 3000, 8080 etc. 
+    default is 80 but if your app in subodinate EC2 may ran on diffrent port so you may wants ti tobe like 80, 8080, 3000
+    EG: 
+    HTTP   80     0.0.0.0/0, ::/0  or 
+    HTTP   8080   0.0.0.0/0, ::/0  or
+    HTTP   3000   0.0.0.0/0, ::/0
+
+  8. Routing/Target Group: 
+    The routing group inform the load balancer that to 
+      whome (To EC@ or Lembda) he should navigate the traffic and 
+      how (Via HTTP:3000 or HTTP:80 or SSH:22)
+    Slect or create the routing group of you choice
+    How to create
       8.1  select routing group name 'MufWebServerRoutingGroup'
-      8.2  Target Type: instance.  Because we wants to rote to EC2 for now ???????????
-      8.3  port and protocol ??????? [HTTP and 80 for now] 
+      8.2  Target Type: instance.  
+                Becauase we wants to route the traffic to th EC2 instances
+      8.3  port and protocol 
+                This inform the EC2 that how he should connevt the EC2s, 
+                you need to specify the protocol and port.
+                generally its HTTP and port 80.
+                But many app (specially Node app) may ran at diffrent port so it could be 80, 8080, 3000 etc.
       8.4 Health Chech ?????
       8.5 Register Target:
           8.5.1 Here you will register the targest for LB ports chosen in step 8.3
@@ -77,7 +92,26 @@ https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/x-forwarded-head
 Network LB???????????
 
 
+-----------
 
+  LB and EC2-NodeJS server:-
+    This is 100% same as above with minore cahnge,
+    say your nodejs server is running at port 3000 then you select port 3000 instead of 80 everywhere.
+    So if instaed of port 80 app is running at port 3000 then below things should be changes-
+    1. Security Group: 
+        ins step 7 you set
+        HTTP   3000   0.0.0.0/0, ::/0
+    2. Routing/Target Group: 
+        in step 8.3
+          it should be HTTP:3000
+    
+    
+    
+    ----------------------                           
+                          ------HTTP--------      --|            |--        ---HTTP--- 3000 - EC2 1  
+    world wide web        ------HTTP--------      --- 3000 - LB-------      ---HTTP--- 3000 - EC2 2
+                          ------HTTP--------      --|            |--        ---HTTP--- 3000 - EC2 3                               
+ -----------------------      
 
 
 
