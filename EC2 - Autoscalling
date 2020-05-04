@@ -22,6 +22,8 @@ EC2 - Auto scalling is done via configuring two part
               It not necesaarily same as value selected in step 2 
         2.5 Optional: We can set them to receive traffic from LB as well. You can select LB group here.
             ?????????????????
+        2.6 Optional: 
+            if you wants each launched instances to have a public IP then youst choose proper options in Advance setting
         2.6 Set the policy:-
               2.6.1 Policy for scalling: Set the condition when the scal up and scale down should happen
                   eg. :  if cpu utilization of each EC2 goes above 90% then sacle up.
