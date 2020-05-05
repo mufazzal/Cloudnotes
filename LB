@@ -114,7 +114,21 @@ Network LB???????????
  -----------------------      
 
 
+-------------
 
+Once the LB is setup then in the that LB provide the endpoint for internet.
+generally its in this form
+  
+  https://<LB NAme>-<LB id>.<Region>.elb.amazonaws.com
+  EG:-
+    mynodelb-585968286.us-east-1.elb.amazonaws.com
+  
+  if you have user the port 80 then you do not have to give the port because HTTP has it default but if you setuo at t port 30000 then use
+        mynodelb-585968286.us-east-1.elb.amazonaws.com:3000
+  
+  
+  
+  
 
  
  
