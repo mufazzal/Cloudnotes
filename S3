@@ -521,7 +521,7 @@ Invalidate Cache on CFT:-
        
  --------------------
  
- What is max file size S3 upport :
+ What is max/object file size S3 upport :
  5 TB
        
        
@@ -531,7 +531,17 @@ Invalidate Cache on CFT:-
   S3 partition:
     ?????????????//
   How to upload a very large file of < 1TB
+     
+-------------------------
+
+TODO:-
+  S3 Select
+  VPC S3 endpoint
+  Object Lifecycle set up
+  S3 Multipart
   
-    
+  
+  
+
 
 
