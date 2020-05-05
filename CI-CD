@@ -27,6 +27,35 @@ CodeDeploy: The task of CodeDeploy is to
     CodeDeploy detect new artifact and deploy it to proper Ec2 or Lembda
     
     
+  In the AWS CI-CD there is three main component which is 
+  CodeCommit
+  CodeBuild
+  CodeDeploy
+  and over all thre is CodePipeline
+  But in real world, CodeCommit and CodeBuild has very very strong alternatives
+  Most of the time we use git, bitbucket, svn instead of codecommit
+  Most of the time we use jenkins instead of codeBuild
+  But codeDeploy is indepspensibe as it is very strongly and nicely coupled with EC2 and Lembda.
+  
+  In most of the project CodeCommit and CodeBuild is not used.
+  
+  AS i said there are many diffrent combination of tool possible for each starge of development. 
+  To abstract them with each other comes a codepipeline
+  
+  In CodePipleline it does not matter what set of tool you used its so beatifully designed that it mask each stage with each other.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
