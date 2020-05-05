@@ -143,6 +143,30 @@ Some component of CodeDeploy ->
       
         [****] -> is not avialable for use
         
+        
+     Flow of the hook will remail same for always but some hook may or may not be called.
+     
+     Calling mechanism fo BG :-
+      For BG deplloyment there is a patch. that is 
+      in the In-Place the app is installed in same EC2 and so EC2 remain there and hooks are called over those EC2.
+      But in BG its bit tricky
+      new EC2 are created from ASG, those are attached to LB and the older EC2 are dettached fron LB.
+      So its obvious that hooks of the lifecycle will be called over the respective EC2 only
+      for EG:
+        The older instaces will be deattached but app wont be installed on older and it also not be re-attached to LB
+        so on the older instaces only this hook will be called
+                BeforeBlockTraffic
+                AfterBlockTraffic
+        The newer one not be attached to LB initialy but app will be installed on newer one and it also re-attached to LB 
+        so on the newer instaces only this hook will be called
+          ApplicationStop
+                BeforeInstall
+                AfetrInstall
+                ApplicationStart
+                validateService
+                BeforeAllowTraffic
+                AfterAllowTraffic
+      
     
     Verified Scenarios
        se 1: For In-place : EC2 : without any loadbalancer
@@ -163,9 +187,21 @@ Some component of CodeDeploy ->
                 AfterAllowTraffic
                 
         se 3:  For BG : EC2 : without any loadbalancer
-              ????????????????????????????????
+              Impossible, For BG you must have LB.
         se 4:  For BG : EC2 : with loadbalancer
-             ????????????????????????????????????????????????
+             on older instances
+                  BeforeBlockTraffic
+                  AfterBlockTraffic
+             on newer instances
+                BeforeBlockTraffic
+                AfterBlockTraffic
+                ApplicationStop
+                BeforeInstall
+                AfetrInstall
+                ApplicationStart
+                validateService
+                BeforeAllowTraffic
+                AfterAllowTraffic
 
 ---------------------
 
@@ -388,8 +424,30 @@ Deployment Bundle:-
                   2. By AutoScalling Group: 
                       You must choose the ASG here
                       All the EC2 running in this ASG will be upgraded with new version.
-            For 'BG'  
-                ????????????????????????????????????
+             5.1A  Elect the ASG or EC2 tag of candidate instaces         
+                  
+            For 'BG':-
+               As mentioned above that for BG you kill the existing instance of EC2 and create the new one.
+               and there is two way to do this:-
+               Manual:- 
+                 In deploy-group you specify the tag or ASG of existing EC2 instances 
+                 and before deployment you manually create the new EC2 instances(with tag 'mufNewInc') or new ASG ('mufNewAsg') 
+                 and finally at a time of deployment you provide the info (TAg(mufNewInc) or ASG(mufNewAsg)) of new instances.
+                 This is not at all recomendded as it onvolve manula process.
+               
+               Auto:-
+                In deploy-group you specify the ASG(not tag) of existing EC2 instances.
+                Now at a time of deployment
+                The codedeploy agent create a copy of this ASG (you can see it in AWS console) with 100% same configuration of ASG mentioned above
+                create new instances in that new ASG.
+                
+              5.1A Choose BG deployment type from Manual or Auto
+                  5.1A1: For Manual-
+                          ??????????????
+                  5.1A2: For Auto-
+                          Select the ASG from from which the older instances will be killed and by which a new copy of ASG will be created. 
+                     
+                
         6.6: Now choose how you consider the deployment as successful
               AllAtOnce:   It means we will consider the deployment as success if all the EC2 deployment is successful
               HalfAtATime: It means we will consider the deployment as success if at least hallf of the EC2 deployment is successful
