@@ -1,0 +1,88 @@
+The CodePipeline is the tool that bring play the three stages of development in synch.
+This stages are
+  commit
+  build
+  deploy
+  
+  There are many diffrent combination of tool possible for commit and build starge of development. 
+  EG you can use 
+    git and jenkins  or
+    bitbucket and jenkins  or
+    git and CodeBuild  or
+    SVN and Jenkins etc.   
+    
+  To abstract them with each other comes a codepipeline
+  In CodePipleline it does not matter what set of tool you used its so beatifully designed that it mask each stage with each other.
+  
+  In the code piple line you make sure that when 
+    developer commit the code
+    the build process started either by jenkins or CodeBuild [as set by devops]
+    once build process finish it make sure the artifact also uploaded to proper source location like S3 or google drive [as set by devops]
+    Now when Codedeploy find that new artifact comes to source location
+    it start deploying it over proper EC2 or Lembda.
+    
+    CodePipeline with Git + Jenkins + CodeDEploy
+    The flow will be
+      
+      Developer Commit Code in GIT/SVN/bitBucket
+                      |
+                      |
+      The buld insntrument like Jenkins/CodeBuild detected it and start build process. trun tests etc
+      and finally generate the deploument bundle Zip and upload that to proper S3 bucket
+                      |
+                      |
+      CodeDeploy detect the new artifact and start deployment
+      
+      Steps:-
+        ???????????????????????
+    
+    Lets say my Git and Jenkins are properly setup and both work fine and the Jenkins upload the generated artifact the proper S3 bucket
+    Now lets design the CodeDeploy and CodePipeline o automate this.
+    
+    
+    CodePipeline with source at S3:
+      1. Create CodeDeploy application
+      2. Create Deployment group in that app as that
+          How ? See the CodeDeploy.txt
+          [IMP: you have to create the only Deployment group in this step not the deploymet itself. 
+           so you have to tell that group that are you going to use S3/git/google drive for the deployment bundle
+           you do not need to specify from which S3 bucket the artifact will lie. This would be told in code pipeline]
+      3. Now Aws Console > CodePipeline > Pipelines > Craete
+          3.1 pipeline settings:
+                3.1.1 choose name 
+                3.1.2 use existing or create new service role
+          3.2: Add source stage:
+                Select the the source location from where the code will be taken. 
+                This typically be GIT or BitBucket or CodeBuild but in our case wr are using the S3 for simplicity.
+                So provide the bucket name and the object key of artifact 
+          3.3: Add build stage:
+                You can select either Jenkins or CodeBuild or skip it.
+                Generally it should be Jenkins. 
+                In this stage the jenkins take the source code from 'source stage' detect changes and if there is any then start building it
+                once build finish it upload the articat to S3. Jenkins/CodeBuild have to do it internally by theself.
+                For now leta say we get the code from S3 and without building ir just passing it for deployment
+                so skip this step
+           3.4 Add deploy stage: 
+                In this stage you set 
+                3.4.1  select 'Deploy provider' which could be CodeDeploy, CloudFormation etc.
+                        mostly we use CodeDeploy
+                3.4.2: If you select the CodeDeploy in above step then 
+                          - select the Application name you created in step 1
+                          - select the Deployment group you created in step 2
+             Done.
+             
+             When you press the Done, Deployment will be started immediatly. and lated whenever you upload a new artifact in S3 
+             the deployment will begin again with that new artifact.
+       
+       So now whenever there is new artifact uploaded to S3, it will be deployed to the designated EC2 or Lembdas.
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
