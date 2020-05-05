@@ -218,6 +218,19 @@ Role of EC2-Tag, ASG, LB:-
         For BG it is must. BG is impposible without LB. you have to specify the LB if you are doiing BG deploynet.
 
 
+   Auto Scalling Group, Load-Balancer-Target-Group and BG deployment:-
+    Do not confuse.
+    The CodeDeploy first go to ASG to find which are the candidate instances. All the instances in that invoked by this ASG are candidate.
+    Now codedeploy go to LB(you provided in step ??) and get the Load-Balancer-Target-Group of that LB
+    Now from Load-Balancer-Target-Group he determine which instances are subordinate of LB.
+      In general both the list of EC2 one from ASG and one of those subordinate to LB are same.
+      lets assume its same.
+    Now Codedeploy will create a copy of ASG as ASG_2 with 100% same configuration
+    Now launch instances in new ASG
+    Now add the new instances to Load-Balancer-Target-Group and so newly craeted instances also subordinated to LB
+    later suspend the ASG (the older one not the copied)
+    then remove the old instances from Load-Balancer-Target-Group and so only newly craeted instances remain subordinated to LB
+
 --------------------------
 Appspec file structure:-
 
