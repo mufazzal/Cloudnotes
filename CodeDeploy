@@ -193,15 +193,13 @@ Some component of CodeDeploy ->
                   BeforeBlockTraffic
                   AfterBlockTraffic
              on newer instances
-                BeforeBlockTraffic
-                AfterBlockTraffic
-                ApplicationStop
-                BeforeInstall
-                AfetrInstall
-                ApplicationStart
-                validateService
-                BeforeAllowTraffic
-                AfterAllowTraffic
+                  ApplicationStop
+                  BeforeInstall
+                  AfetrInstall
+                  ApplicationStart
+                  validateService
+                  BeforeAllowTraffic
+                  AfterAllowTraffic
 
 ---------------------
 
