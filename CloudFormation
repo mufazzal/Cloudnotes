@@ -1,8 +1,111 @@
-This is somthing you cannot define in few wprld
+The cloudforamation in simple word is "Infra AS Code"
 
-But say! its a tool to create the whole application stack with GUI.
+This is the way to w4rite complete inra in Jsom or Yaml file. You can write the file or use AWS designer for this.
+You can design  EC2, S3, RDS etc with this.
+Once the templatebjson or Yaml is created, it can be used anywhere to build whole infra out of this template. 
+Its impossible to become master in clouformation and know how cloudformation template can be designed to make EC2, S3 etc.
+But you should know the fundamentals
+
+To understand the CloudFormation always remebper there is two party 
+one is Creator, who create the template
+other is Builder who is building the stack out of template
+
+Creatore create the template as such that the tempplate
+has definations of RESOURCES like EC2, S3 etc
+has some MAPPING, which are like a function which take one input and return the set of label
+has some PARAMETER which are set by Builder at a time of stack building
+has OUTPUT, which are final logs of stack creation
 
 
+
+Structure of template file:-
+  In the cloud formation template has below part
+  1. AWSTemplateFormatVersion: This has the constante value '2010-09-09'
+  2. Description: optional
+  3. Resource:-
+      This is most imp part of tempalte file. it has defnation of resorce like EC2, s3 and it s configuration also.
+      Diffrebt S3 services has diffrent set of defination template. Its impossible to remeber them all.
+      But for refrence best is to look at 
+        https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html
+  4. Mapping:-
+      In the template the mapping are the function which take a string as input and return the set of label. 
+      In the template you call this function to get some value based on certain condition. you have to pass what label you wants to get.
+
+      EG:-
+                  Mappings:
+                    GetPersonData:
+                      Mufazzal:
+                        AGE: 32
+                        COM: "amdocs"
+                        PLC: "Pune"
+                      Murtuza:
+                        AGE: 22
+                        COM: "Trd"
+                        PLC: "Indore"
+              How to call it:-
+                        ageValue: !FindInMap 
+                                    - GetPersonData
+                                    - Mufazzal
+                                    - AGE
+              Ibn the calling we are calling the function 'GetPersonData' passing the param 'Mufazzal' and asking to returm label 'AGE'
+              so it wil return 32.
+    5. PARAMETER:-      
+         This is where the Creator define the defination of some inputs. when the builder create the stack from the template.
+         Builder would be asked to provide this inputs valye via UI.
+         This parameter could be anything. So builder could be asked to
+          - Give a simple string or Number[a input box will be shown]
+          - A value from set of predefined one [dropdown will be shown]
+          - Key pair for SSH [the dropdown with key pair defined in that region by userm he need to selecty one]
+          - Security group [the dropdown with Security group defined in that region by userm he need to selecty one]
+          - VPC, Subnet, etc.
+              more : https://aws.amazon.com/blogs/devops/using-the-new-cloudformation-parameter-types/
+           
+           EG:- say you wants the user to choose the instance type and assign it value in 'MufInstanceTypeParameter'
+                
+                    Parameters: 
+                      MufInstanceTypeParameter: 
+                        Type: String
+                        Default: t2.micro
+                        AllowedValues: 
+                          - t2.micro
+                          - m1.small
+                          - m1.large
+                        Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.            
+           
+           How would you use this value in template?
+                      ...
+                      ...
+                      InstanceType:
+                            Ref: MufInstanceTypeParameter
+                      ...
+          One more EG:-
+                      Parameters
+                        MufKeyName:
+                            Description: Name of SSH KeyPair
+                            Type: 'AWS::EC2::KeyPair::KeyName'
+            This will prompt the builder with dropdown and ask to select the SSH key pair.
+            Use-
+                      ...
+                      ...
+                      KeyName: 
+                            Ref: MufKeyName
+                      InstanceType:
+                            Ref: MufInstanceTypeParameter
+                      ...            
+          
+         There are many way to write such defination for more go to google.
+    
+    6. Outout:-
+        Here you define what output log the builder will see once the stack is created.
+        EG:-
+              Outputs: 
+                MufInstanceID:
+                  Description: The Instance ID
+                  Value: !Ref MyEC2Instance          
+         It will show a pair in which the key is 'MufInstanceID' and value is theid of resource instance 'MyEC2Instance' 
+          
+
+---------
 Elastic Beanstalk VS CloudFormation
 CloudFormation a great grand father of Elastic Beanstalk.
 ELB is not programmable meaning you set up an preconfigured application either for hello world or with existing code (war/zip)
