@@ -32,23 +32,22 @@ Structure of template file:-
       In the template you call this function to get some value based on certain condition. you have to pass what label you wants to get.
 
       EG:-
-                  Mappings:
-                    GetPersonData:
-                      Mufazzal:
-                        AGE: 32
-                        COM: "amdocs"
-                        PLC: "Pune"
-                      Murtuza:
-                        AGE: 22
-                        COM: "Trd"
-                        PLC: "Indore"
+                "Mappings" : {
+                  "GetPersonData" : {
+                      "Mufazzal"        : { "AGE": 32, "City" : "pune"},
+                      "Murtuza"         : { "AGE": 22, "city" : "indore"},
+                   }
+                 }
+                 
               How to call it:-
-                        ageValue: !FindInMap 
-                                    - GetPersonData
-                                    - Mufazzal
-                                    - AGE
-              Ibn the calling we are calling the function 'GetPersonData' passing the param 'Mufazzal' and asking to returm label 'AGE'
+              use this syntex-
+                              { "Fn::FindInMap" : [ "MapName", "TopLevelKey", "key ypounts in return"] }
+              EG-
+                 "perData" :  { "Fn::FindInMap" : [ "GetPersonData", "Mufazzal", AGE]},
+                 
+              In the calling we are calling the function 'GetPersonData' passing the param 'Mufazzal' and asking to returm label 'AGE'
               so it wil return 32.
+              
     5. PARAMETER:-      
          This is where the Creator define the defination of some inputs. when the builder create the stack from the template.
          Builder would be asked to provide this inputs valye via UI.
@@ -62,40 +61,32 @@ Structure of template file:-
            
            EG:- say you wants the user to choose the instance type and assign it value in 'MufInstanceTypeParameter'
                 
-                    Parameters: 
-                      MufInstanceTypeParameter: 
-                        Type: String
-                        Default: t2.micro
-                        AllowedValues: 
-                          - t2.micro
-                          - m1.small
-                          - m1.large
-                        Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.            
+                  "Parameters" : {      
+                    "MufInstanceTypeParameter" : {
+                      "Description" : "WebServer EC2 instance type",
+                      "Type" : "String",
+                      "Default" : "t2.small",
+                      "AllowedValues" : [ "t1.micro", "t2.nano", "t2.micro", "t2.small"],
+                      "ConstraintDescription" : "must be a valid EC2 instance type."
+                    },      
+                  }
            
-           How would you use this value in template?
-                      ...
-                      ...
-                      InstanceType:
-                            Ref: MufInstanceTypeParameter
-                      ...
+
           One more EG:-
-                      Parameters
-                        MufKeyName:
-                            Description: Name of SSH KeyPair
-                            Type: 'AWS::EC2::KeyPair::KeyName'
-            This will prompt the builder with dropdown and ask to select the SSH key pair.
-            Use-
+                      "Parameters" : {      
+                        "MufKeyName" : {
+                          "Description": "Name of SSH KeyPair"
+                          "Type" : "AWS::EC2::KeyPair::KeyName",
+                        },      
+                      }          
+           This will prompt the builder with dropdown and ask to select the SSH key pair.
+           How would you use this values in template?
                       ...
                       ...
-                      KeyName: 
-                            Ref: MufKeyName
-                      InstanceType:
-                            Ref: MufInstanceTypeParameter
-                      ...            
-          
-          For short it can also re-write as-
-                      KeyName:     : !Ref MufKeyName
-                      InstanceType : !Ref MufInstanceTypeParameter
+                      "InstanceType" : { "Ref" : "MufInstanceTypeParameter" },
+                      "KeyName" : { "Ref" : "MufKeyName" },
+                      ...    
+
          There are many way to write such defination for more go to google.
     
     6. Outout:-
