@@ -107,6 +107,13 @@ Structure of template file:-
                   Value: !Ref MyEC2Instance          
          It will show a pair in which the key is 'MufInstanceID' and value is theid of resource instance 'MyEC2Instance' 
           
+---------
+  RTefering diffrent element in remplate:-
+    for tjhis you can use 'Ref'
+    EG:-  
+      Ref <WHATEVER>     :> will refer to WHATEVER, which could be a EC2 isntance, SecurityGroup, S3 Bucket, simple string,
+                            keypair, region.
+
 
 ---------
 Elastic Beanstalk VS CloudFormation
