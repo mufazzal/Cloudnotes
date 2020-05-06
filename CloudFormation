@@ -93,6 +93,9 @@ Structure of template file:-
                             Ref: MufInstanceTypeParameter
                       ...            
           
+          For short it can also re-write as-
+                      KeyName:     : !Ref MufKeyName
+                      InstanceType : !Ref MufInstanceTypeParameter
          There are many way to write such defination for more go to google.
     
     6. Outout:-
