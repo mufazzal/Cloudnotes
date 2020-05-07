@@ -1,0 +1,18 @@
+SAM stand for Serverless Application Model. This is the extension of CloudFront but with additional feature to build serverless app.
+The SAM added the new feature in the CF to work in serverless. 
+
+What problem it solve:-
+  The SAM can Create a small project in local directory with nodejs/pythone/java enviorment, 
+  can run building process to install dependencies 
+  can create a locally ran api on localhost
+  can create a function like lembda and give you place to write the buisness logic
+  can then attach the local api and functiion
+  can then create some test template for testing
+      and once you think all okk
+  you can package it for deployment 
+  and then
+  deploy the function as lembda and api at api-getway.
+  
+  
+    
+  
