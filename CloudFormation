@@ -78,7 +78,14 @@ Structure of template file:-
                           "Description": "Name of SSH KeyPair"
                           "Type" : "AWS::EC2::KeyPair::KeyName",
                         },      
-                      }          
+                      }       
+            Another Eg: to select the VPC and sunnet-
+                     "MufVPCID": {
+                          "Type": "AWS::EC2::VPC::Id"
+                      },
+                      "MufSubnetId": {
+                          "Type": "AWS::EC2::Subnet::Id"
+                      },            
            This will prompt the builder with dropdown and ask to select the SSH key pair.
            How would you use this values in template?
                       ...
@@ -113,17 +120,15 @@ Template designer:-
       Ref <WHATEVER>     :> will refer to WHATEVER, which could be a EC2 isntance, SecurityGroup, S3 Bucket, simple string,
                             keypair, region.
 
-    
-
----------
+--------
 Elastic Beanstalk VS CloudFormation
 CloudFormation a great grand father of Elastic Beanstalk.
 ELB is not programmable meaning you set up an preconfigured application either for hello world or with existing code (war/zip)
 CloudFormation is the soluction where you can change, create, delete, update all the diffrent parts(EC2, S3 ..) of your app. Its completely programmable.
 
-
 -----------------
-
+EG: see the file resources/MufCFTemplateEC2 file which is clouformation template file for invoking the ED2 and let user select 
+  vpc, sunbnet, type et.
       
       
       
