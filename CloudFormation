@@ -136,7 +136,9 @@ EG: see the file resources/MufCFTemplateEC2 file which is clouformation template
       
       
       
-
+-----------
+TODO: 
+    Set cloudwatch alarm for stack creation
 
 
 
