@@ -14,5 +14,64 @@ What problem it solve:-
   deploy the function as lembda and api at api-getway.
   
   
+  To create the small Hello world App with lembda code and api that invke that lembda
+  run this command in you loca machine
+      C1. sam init --runtime nodejs10.7 --dependency-manager pip --app-template hello-world --name MufApp
+      
+          This will generate couple of file for lembda and api call and their integeration.
+          This will contain the two folder
+            1. MufApp:- the folder of that same name as project.. which contains the code
+            2. events:- this are some random test event generated for you for testing.
+          One IMP file that also generated is
+            template.yml:
+              This is the SAM-template it is very mush same like a cloudformation template.
+              it comtains the information which may later be used for deployment.
+          The api generated via this will be GET as path '/MufApp'
+          
+          You can change the value of this template if you wants like
+            - change the handler function
+            - wants diffrent event set up
+            - wants POST instaed of GET etc
+          
+    C2. sam build:-
+          This will build the app and also download the necessary dependency.
+    C3. Now time to do some local test of function
+        sam local invoke events/event.json
+    Now time for APi to bring heer
+    This 
     
+    C4: atart localhost server for api
+        sam local start-api
+       In the output it will give the api endpoint, use postman now
+
+    Now time for Packaging and deployment:
+      For deployment you also need the s3 bucket. sam use this bucket for deployment as intermidiatory.
+      say you are using the bucket 'mufSamBkt'
+      
+      Packaging:
+        for this use 'sam package' command. This command will create the zip with all the resources and push it ti s3 bucket.
+        it also generate a cloudformation templalte file. 
+        Actully it imply convert the SAM-template file to CF-template file.
+        So in this command you should provide
+          - the name of the CF template file that you wants to create
+          - S3 bucket on shich yiu wants uploading of package.
+          
+       C5:  sam package --output-template MufCFTmplat.yaml --S3-bucket mufSamBkt
+       
+          This command will generate the CF template 'MufCFTmplat.yaml', zip all esources like code and all, 
+          and push it to bucket 'mufSamBkt'
+          
+      C6: Finally the deployment
+          Here we will actully create the infrastructure on the aws system. This will create the api at API-Getway and a lembda function
+          you have to provide
+          - the name of the CF template file that has been generated via 'package' command
+          - the name of stack that this CF will create
+          - capabilities
+
+            sam deploy --template-file MufCFTmplat.yml --stack-name MufStack --capabilities CAPABILITY_IAM      
+      
+      
+    
+    
+  
   
