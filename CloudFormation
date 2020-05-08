@@ -105,7 +105,11 @@ Structure of template file:-
                   Value: !Ref MyEC2Instance          
          It will show a pair in which the key is 'MufInstanceID' and value is theid of resource instance 'MyEC2Instance' 
           
-          
+--------
+
+What happen if eroor occure:-
+  By default entire stack will be rolled back. thoug you can change it and let all the resources retained.
+  for this chnage the option at 'Rollback on failure' option while creating stack.
           
 --------
 
