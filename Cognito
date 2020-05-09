@@ -1,0 +1,61 @@
+Cognito provide a the end to end solution for user authentication in th application.
+
+Its very much like Red Hat SSO.
+
+here we simply do some set up and then
+  sign in
+  sign up
+  sign in with facebook/google
+  sign in with SAML
+  is ready for authentication.
+  
+  
+    
+  How we set it  up:-
+    It onvolve lot of step which cant be covered here.
+    but in nutshell
+    
+    You creat a pool then creat the appclirnt in it
+    you give callback url which will be used for redirection once user is succefgully signed in
+    You also set if you wants to create a JWT token
+    You set the domain name in it also. this is precofugured url with blank domain name, you type the domain name and check avialability
+        formate: 
+          http://________.auth.us-east-1.amazoncognito.com
+    you can customize UI also for login and registration form.
+    
+  Steps:>
+  
+  1. go to ASWS > Cognito > Manage user pool > Create User Pool 
+  2. Type name of pool say 'mufUserPool' and press Ok
+  3. AWS > Cognito > User Pool > 'mufUserPool' 
+  4. set up App Integration
+      4.1: Click 'App Client' > Add Client 
+      4.2 Type name of App Client 
+      Done and not the client id here.
+  5. Set up App Integration
+      go to 'App Client Setting'
+        here you set up the callback url on which user will be redirected after successful login. say it is 'exp.com'
+        Check 'Cognito User Pool'
+        Also in 'Allowed OAuth Flows' check 'Authorization code grant' and 'Implicit grant'
+      go to domain name:
+        type the domain name and chech availability. This url will lead you to signin/signup page. say we select 'mufpoolau'
+   6. UI Customization:
+        in sidebar se thisoption. do it if you luke
+        
+   Done
+   
+   Now you can use below url for app
+   
+   <Your Cognito Domain>  /login?response_type=token&client_id= <Your App Client ID>  &redirect_uri= <redirect Url>
+   
+   
+   https://mufpoolau.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=265c2a544llj0sbk367fpdigin&redirect_uri=https://exp.com
+        
+   Once you go to this url, you will see the login page with sign up button.
+   
+        
+        
+        
+        
+        
+  
