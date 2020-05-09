@@ -55,7 +55,14 @@ here we simply do some set up and then
    
    once the login is successful user will be redirected to exp.com
    
-        
+  You can view this users in
+    AWS > Cognito > 'mufUserPool' > User and Group.
+    
+    you can also create the grou of user here.
+    
+    
+    You can also use identity provide like facebook, google, saml for auth.
+    
         
         
         
