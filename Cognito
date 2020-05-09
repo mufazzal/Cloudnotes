@@ -51,7 +51,9 @@ here we simply do some set up and then
    
    https://mufpoolau.auth.us-east-1.amazoncognito.com/login?response_type=token&client_id=265c2a544llj0sbk367fpdigin&redirect_uri=https://exp.com
         
-   Once you go to this url, you will see the login page with sign up button.
+   Once you go to this url, you will see the login page with sign up button. you can do both here.
+   
+   once the login is successful user will be redirected to exp.com
    
         
         
