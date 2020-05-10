@@ -66,5 +66,31 @@ How to create such user (Prerequisite#2) :
   #AWS_CLI_AUTHENTICATE
     ????????????????????????
   
+ ------------------
+ 
+ AWS CLI commands with larse dta list output:-
+  many aws command return the list od data. like listObject in S3 bucket.
+  What hapen if there is large data.
+  AWS CLI handle it internally. when you run the command AWS CLI internally can make more then one apis to get data in parts.
+  for this it uses 'page-size' param. the command keep makeing the api calls to get data of the size of page till all the data is retrived
+  once all is received then they all will be clubbed ogether to reprsent the user.
+  You can chnage the value of pagae size by passing param '--page-size' in command.
+  changung this will not at all impact any final output. it just make some changes in the internal call machanism.
+  When to use:- when you are getting 'timeout error' or 'too many result' in output of any command.
   
+  For limiting the result you can use the param '--max-item'. this will do change the final output. 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+ 
+ 
+ 
+ 
  
