@@ -34,6 +34,23 @@ Q:  How many lambda can be call cocurrently
 A:  1000
 -----------------------------
 
+
+Cocurrency:-
+  In AWS lambda there is overall limit for number of paraller execution count for any aws account and that is 1000
+  It means combining all lembda function the max possible run at a time is 1000.
+  if more lambda execution are requested then it will be denied and a response with 'TooManyRequestException' error with code 549 will be received.
+  VIMP : this limit is on the account across all the lambda not for each lambda.
+  
+  Reserved Cocurrency:-
+    As you know there is a limit on overall account and so on all the lambada combined. 
+    But lets say there is some funcvtions that you think are mission critical na dyou wants them to when needed.
+    But you knw that there is a overall limit.
+    To solve this we can reserve the cocurency for those function. This will actully keep some cocurucy reserved for mission critical lambda
+    How:
+      AWS > Lambda > 'you lambda' > in section Concurrency set the value of reserved cocurency.
+      The rest of the cocurrency will be left for the rest of the lambda functions.    
+    
+
 Pricing :-
 
 scaling:-
