@@ -50,6 +50,9 @@ Cocurrency:-
       AWS > Lambda > 'you lambda' > in section Concurrency set the value of reserved cocurency.
       The rest of the cocurrency will be left for the rest of the lambda functions.    
     
+   Q: Can you increase the account level reserve from 1000?
+   A: Yes, but for this you have to raise the support ticket at aws.
+    
 
 Pricing :-
 
