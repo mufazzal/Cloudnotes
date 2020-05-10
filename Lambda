@@ -53,6 +53,70 @@ Cocurrency:-
    Q: Can you increase the account level reserve from 1000?
    A: Yes, but for this you have to raise the support ticket at aws.
     
+    
+---------
+
+
+Lambda and VPC:
+  By default lambda has no relation with any VPC(imcluding default VPC).
+  Lambda in itself is a small piece of code that that execute on demand. in itself it is not a node like EC2 or RDS.
+  Lambda do not lie in any VPC. and Lambda cannot have any Public or Private IP address attached to himself.
+  BUT
+  what if you nmeed to communicate with any node lie in VPC via lambda.
+  EG: you wants to read the data from RDS which lie in a subnet of VPC, or you eabts to run a api hosted on EC2 lieing in VPC
+
+  There is two possible scenarion
+  SC1. The node (EC2, RDS etc) of VPC you wants to communicate lies in Public Subnet
+        - In this case you do not have to do anything. becoz if node is in public subnet then it accessible via internrt and 
+          you can simply communicate with then with public IP of those nodes.
+
+   SC2. The node (EC2, RDS etc) of VPC you wants to communicate lies in private Subnet
+        - This is tricky. If node is in private subnet then lambda also has to execute in VPC.
+        
+   Again two possible solution     
+   we can host the Lambda in public or private sunbnet     
+        
+  sol1. Placing the Lambda in Public Subnet:-
+          You can place it in public subnet but in that case lambda will not be able to access the public internet.
+          Why
+          Because even though the Lambda function is running inside a public subnet of a VPC, 
+          But the Lambda functions do not, and cannot, have public IP addresses. 
+          You cannot send traffic to the internet, via the VPC's Internet Gateway, 
+          unless you have a public IP. You would need to route through a NAT Getway.
+          Lambda in public subnet can only access the nodes lieing in VPC not the internet. so its vert limiting.
+          
+   sol2: Placing the Lambda in Private Subnet without NAT getway:-           
+          This is again of no use becoz private subnet without NAT getway cannot access the internet.
+          
+   sol3: Placing the Lambda in Private Subnet with NAT getway:-         
+          This is perfect. here you can access all the nodes in VPA as well as the internet in the lambda function.
+          
+   How could i implement sol3?
+   You will need
+    - For NAT getway to exist you must fiest need at leat one public subnet.
+    - A Private subnet with NAT getway attached to it
+    - Security Group ???????????????
+    - Execution Role ?????????????
+    
+    
+    Steps:-
+      1. AWS > LAmbda > you lambda function > go to VPC section > Edit
+      2. set VPC connection to 'custom'
+      3. Choose VPC
+      4. Choose private subnet lying in that VPc. (choose at least two for high avilability)
+      5. Select Security group ????????????
+      6. Create a Role for the Lambda which has following polocy attached
+          'AWSLambdaVPCAccessExecutionRole'
+          TIP: You can create and assign it simply by using the template at
+                6.1 AWS > LAmbda > you lambda function > Permission > Execution role > Edit
+                6.2 ????????????????????
+      7. Done.
+      
+      Now you cann access internet as well as all the private node lying in VPC.
+      
+  -----------------
+  
+  
 
 Pricing :-
 
