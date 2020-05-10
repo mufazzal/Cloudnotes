@@ -18,7 +18,10 @@ Metrics:-
   https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/aws-services-cloudwatch-metrics.html
     
               
-              
+ Cloud watch Alarm:
+  You can set the cloud watch alarm for any data metrics. this alarm one in triggerd it can send an SNS, trigger Lembda, send Email etc.
+  
+  Its very useful to detect if something you wnat to benotified about for any perfirmance issue.
          
          
           
