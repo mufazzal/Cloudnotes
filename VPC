@@ -151,12 +151,13 @@ For this we will create two VPC:-
               Creating :-
               1.  AWS > VPC > NAT gateways > Create NAT gateway
               2.  Select the Subnet(Must be Public one who has internet getway attached to it) where this Gatway wwill reside
-              3.  Select the Public Elastic IP.
-              Done.
-              4. Create Routing table and place this Entry
-                0.0.0.0/0                   <select NAT Getway created in step 2>
-                This entry will allow all one-way-initiated(from inner side of subnet) public internet traffic. 
-              5. Now attach the routing table created in step 3 to Subnet created in step 1
+              3.  Select the Public Elastic IP and press Create.
+              4. Done.
+              Now the NAT getway is created, now lets connect this nat-getway to the private subnet
+              for this 
+              5. Open the route table of the private subnet and place this Entry
+                  0.0.0.0/0                   <select NAT Getway created in step 4>
+                  This entry will allow all one-way-initiated(from inner side of private subnetsubnet) public internet traffic. 
               DONE'
               
 
