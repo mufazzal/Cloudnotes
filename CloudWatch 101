@@ -7,64 +7,16 @@ It can monitor EC2, S3, Auto scalling  Group, ELB, Route53, EBSs, Storage getway
 
 Metrics:-
   Metric is a set of data which is collected over the proide of time. For many of the services AWS provide the default data metrics 
-  for EG. 
-    in EC2 the cloudwach by defult provide info about
-        CPU 
-        Network 
-        Disk IO
-        Status
-    But by default it does not moniter 
-        Disk usages
-        RAM utilization
-      To moiter this two you need to have the custom metric.
-      
-   Ho to view this metric
-    AWS > CloudWatch > MEtrics > EC2 > Per-Instance Metrics > search with instance ID 
-    You can see many metrics there and see diffent performance indicator.
+ 
+ Integaration with EC2: see ec2.txt
+ 
+ How long Cloudwatch retain the data
+ A: indefinatly. but you can set it to be deleted after sometime.
+ 
+ 
+ What thing cloudwatch moniter on diffrent s3 services
+  https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/aws-services-cloudwatch-metrics.html
     
-  By default the performance data form the EC2 is monitered in every 5 minut. but you can enable the detail monitering.
-  If you enable it then data wil be monitered in every 1 minute.
-  for this:
-    AWS > EC2 > Instances > you instace > Action > 'Per-Instance Metrics' > yes
-  IMP: this is chargable.
-  This will also moniter the default data metric only but more frequently.
-      
-  Custom metrics:-
-    TRhis is the metric of performance data that are not by default monitor by the clouwact.
-    user have to set it up by himself.    
-    How?
-      1. The first thing you need is to get the EC2 special permission via a policy called ''
-          So create a Role for EC2 that has the policy '' attached and attach this role to your EC2 instance.
-      2. install the cloudwatch in your EC2 instance via below commands
-                yum update -y
-                sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
-                cd /home/ec2-user/
-                curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
-                unzip CloudWatchMonitoringScripts-1.2.2.zip
-                rm -rf CloudWatchMonitoringScripts-1.2.2.zip
-          TIP:: you may wants to put this script in user data for auto install.
-          After running this commands in the /home/ec2-user/ directory you  will be able to see a folder name 'aws-scripts-mon'
-          in this folder there is coulple of file, we do not need to go in detail of all those.
-          But there is one file nameed 'mon-put-instance-data.pl'
-          This has necessary script (in perl) to push the data metrics at cloudwatch. we need to run this script
-        3. lets say our custom data metrics is for memory utilization, memory used and memory available.
-            So to send the data about this metric to cloud watch use below command
-              /home/ec2-user/aws-scripts-mon/mon-put-instance-data.pl --mem-util --mem-used --mem-avail
-         4. Now the EC2 will send the data to Cloudwatch and after some time you can see this metric at cloudwatch page
-            How much time it take?
-              if EC2 has only statdared monitering then it may take 5 mnt. but if its detail then may be only 1.
-            Where to see this metric:
-              AWS > CloudWatch > MEtrics > in Custom Namespaces > Linux System
-            you can see this three data there.
-            
-        VIMP: This is only one moment monitering means datais ent for this metric is for an specific moment when the command ran.
-              if you wants to send the data again then you have to re-run this command. 
-              
-       Custom metrics with Crone job:-
-        As you know that above command send the data only when it ran. so for continous monitering the best approach is to
-        add this command in crone job
-        How?
-          its not in scope here.
               
               
          
