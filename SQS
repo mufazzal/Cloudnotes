@@ -84,5 +84,20 @@ WHen exaclty we may need it :-
        So if you processing gona take more time then set this value accordingly  
         
         
-        
+ Size constraint of message:
+  max allowed size is 256 KB
+  For large message you can use 'Amazon SQS Extended Client Library for Java' which uses S3 to point the payload of the message 
+  and could handle message of up to 2GB. Only JAva sdk work here. it only work though with AWS SDK. not with any ither.
+  
+  
+  Delay Que:-
+    You can use delay que to keep the message invisible for certain amount of time.
+    
+  
+  
+  
+  
+  
+
+
     
