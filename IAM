@@ -110,36 +110,14 @@ How a AWS user can assume the role and then release it after task done ?
                       
 -------------------
 
+Policy Simulatir:-
+  A very cool tool to check if a user, group, or role can access any api of any ase service or not.
+  use this url:-
+    https://policysim.aws.amazon.com/home/index.jsp?#
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  
-  
-  
-  
-  
   
   
   
   
   
 
-
-
-
-
-
-
-   
-   
-   
-   
-   
-   
