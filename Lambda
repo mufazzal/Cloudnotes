@@ -95,8 +95,12 @@ Lambda and VPC:
    You will need
     - For NAT getway to exist you must fiest need at leat one public subnet.
     - A Private subnet with NAT getway attached to it
-    - Security Group ???????????????
-    - Execution Role ?????????????
+    - Security Group: This security group is wraped arroud the lambda so it should have proper inbound and outbound rule.
+                        Generally lambda dont need any inbound rule as it is not like any server or DB which has an IP address.
+                        and outbound should open to all internet.
+                        So default VPC group is enough if you do not wants to restrict anything.
+    - Execution Role: You know that lambda has a role. If you wants to put a lambda in VPC 
+                        then the lambda should have the policy 'AWSLambdaVPCAccessExecutionRole' attached to it. 
     
     
     Steps:-
@@ -113,6 +117,19 @@ Lambda and VPC:
       7. Done.
       
       Now you cann access internet as well as all the private node lying in VPC.
+      
+      What happen in backgroud:-
+        The step above are fairely simple but inside the aws it make lot of changes.
+        When Lambda attach to any VPC, the AWS system actully use 'Elastic Network Interface' to create a network aroud the lambda 
+        that connect the VPC. 
+        To create this network tha lambda must need the permission 'AWSLambdaVPCAccessExecutionRole'
+        Also once wrapped via ENI, the lambda also behave like a Node in network, simillar to EC2 or RDS.
+        So any node the AWS network must have a security group that can tell what destination are safe for inbound and outbound communication
+        
+        
+        
+        
+      
       
   -----------------
   
