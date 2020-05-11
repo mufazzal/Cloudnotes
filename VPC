@@ -268,7 +268,10 @@ Why NAT Getway has Elastic IP but not Internet Getway -
 
 
 
-
+----------
+Default Security Group of VPC;-
+  Every VPC by default has one ready to use security group.
+  This has all the inbound and outboud open.
       
       
       
