@@ -272,7 +272,19 @@ Why NAT Getway has Elastic IP but not Internet Getway -
 Default Security Group of VPC;-
   Every VPC by default has one ready to use security group.
   This has all the inbound and outboud open.
-      
+-------------
+
+DEfault VPC and DEfault Subnet:-
+  Every AWS account di have one default VPC and in that default VPC also lie a one default subnet.
+  MAny of the nodes we create like EC2, RDS are actully created in that default VPC ans in that VPC it lies in its default subnet.
+  You canchange VPC and subnet of your choice if you wants. but by default it lies in default
+  
+  
+User created VPC and DEfault Subnet:-
+  Only default VPC can have default subnet. not other.  
+  
+  
+
       
       
       
