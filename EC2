@@ -245,7 +245,12 @@ EC2 and Other AWS services ->
     > Create a file 'index.html' [how> CLI.txt #CreatFile]
     > DONE : go to the IP of EC2. EG : http://15.206.125.146/ or http://15.206.125.146/muf.html
     
-    
+    Selecting source as another Security Group:-
+          Instead of the CIDR block you can also select another security group as source.
+          EG: say a EC2-muf has SG as
+            SSH  22     sg-1
+          This will allow all the EC2 whos securyty group is 'sg-1' will be able to establish connection with EC2-muf. 
+              
     
     Ec2 and Nodejs web server:-
           When you use the EC2 for NodeJs webserver you may use diffrent port then 80 EG.
