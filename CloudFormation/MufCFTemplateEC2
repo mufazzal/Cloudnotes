@@ -38,6 +38,9 @@
                 "KeyName": {
                     "Ref": "MufKeyName"
                 },
+                "InstanceType" : { 
+                    "Ref" : "InstanceType" 
+                },
                 "SubnetId": {
                     "Ref": "MufSubnetId"
                 },
