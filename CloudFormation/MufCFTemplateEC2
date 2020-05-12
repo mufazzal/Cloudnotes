@@ -135,20 +135,6 @@
                 "Arch": "HVM64"
             }
         },
-        "AWSInstanceType2NATArch": {
-            "t1.micro": {
-                "Arch": "NATHVM64"
-            },
-            "t2.micro": {
-                "Arch": "NATHVM64"
-            },
-            "t2.small": {
-                "Arch": "NATHVM64"
-            },
-            "t2.medium": {
-                "Arch": "NATHVM64"
-            }
-        },
         "AWSRegionArch2AMI": {
             "us-east-1": {
                 "HVM64": "ami-0080e4c5bc078760e",
