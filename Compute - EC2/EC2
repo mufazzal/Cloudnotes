@@ -375,8 +375,8 @@ EC2 AML image:
              The first line tell the AWS to run this script on EC2 with bash
              -y: in the mid of running any command in script it may be possible that user would be asked to enter somthiy 
                 like'press Y to continue'. fir this proide the answer in advance.
- 
-    
+             This script run with root user so no need for 'sudo su' 
+             The ouput log can be sen at 'var/log/cloud-init-output.log'
     
 installing Node-js on EC2 -
           https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
