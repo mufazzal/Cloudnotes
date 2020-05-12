@@ -43,7 +43,7 @@ Structure of template file:-
               use this syntex-
                               { "Fn::FindInMap" : [ "MapName", "TopLevelKey", "key ypounts in return"] }
               EG-
-                 "perData" :  { "Fn::FindInMap" : [ "GetPersonData", "Mufazzal", AGE]},
+                 "perAge" :  { "Fn::FindInMap" : [ "GetPersonData", "Mufazzal", AGE]},
                  
               In the calling we are calling the function 'GetPersonData' passing the param 'Mufazzal' and asking to returm label 'AGE'
               so it wil return 32.
