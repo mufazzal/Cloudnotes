@@ -19,26 +19,90 @@ has OUTPUT, which are final logs of stack creation
 
 
 Structure of template file:-
+  The empty Skeleton:-
+          {
+          "AWSTemplateFormatVersion" : "version date",
+          "Description" :  "JSON string",
+          "Metadata" :    { template metadata },
+          "Parameters" :  { set of parameters },
+          "Mappings" :    { set of mappings },
+          "Conditions" :  { set of conditions },
+          "Transform" :   { set of transforms },
+          "Resources" :   { set of resources },   ----> Only the trequired item, all other are optinal.
+          "Outputs" :     { set of outputs }
+        }
+
   In the cloud formation template has below part
   1. AWSTemplateFormatVersion: This has the constante value '2010-09-09'
   2. Description: optional
   3. Resource:-
-      This is most imp part of tempalte file. it has defnation of resorce like EC2, s3 and it s configuration also.
-      Diffrebt S3 services has diffrent set of defination template. Its impossible to remeber them all.
-      But for refrence best is to look at 
-        https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html
-  4. Mapping:-
-      In the template the mapping are the function which take a string as input and return the set of label. 
-      In the template you call this function to get some value based on certain condition. you have to pass what label you wants to get.
+      This is most imp part of tempalte file. it has defnation of resorce like EC2, s3 and its configuration also.
+      
+      The basic struture of the Resouce remain same across all the services that is
+            "Resources" : {
+                "Logical ID" : {
+                    "Type" : <Resource type>,
+                    "Properties" : {
+                        Set of properties
+                    }
+                }
+            }      
+      Logical ID: this is used to refer the resource created by this configuration. You can use this 'Logical ID' anywhere in the
+        template for refrencing this resource.
+      Type: This tells that what kind of resource it is. like EC2 or S3 or what. This is must to provide
+        EG: for EC2 type Resource type will be 'AWS::EC2::Instance', for S3 AWS::S3::Bucket etc.
+      Properties: depending on what type you chossed in 'Type', you need to provide some set of properties to create that resource
+        EG. for EC2 you must provide imageId, tags, instance-type.      
+      
+        Diffrebt S3 services has diffrent set of properties. Its impossible to remeber them all.
+        But for refrence best is to look at-
+          https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
+               
+   4. Mapping:-
+      In the template the mapping are the function which take a string key and reyurnkey as input and value againt that key and returnkey. 
+      In the template you call this function to get some value based on certain condition. you have to pass what kay and inside that key what returnkey you wants to get.
+      The structure of Mapping is like this in template
+            MApping {
+                Map1 : {
+                      key1: {
+                          "retKey1": "in Map1->key1->retKey1"
+                          "retKey2": "in Map1->key1->retKey2"
+                          "retKey3": "in Map1->key1->retKey3"
+                      },
+                      key2: {
+                          "retKey1": "in Map1->key2->retKey1"
+                          "retKey2": "in Map1->key2->retKey2"
+                          "retKey3": "in Map1->key2->retKey3"
+                      }
+                      key3: {...}
+                      key4: {...}
+                      key5: {...}
+                },
+                Map2: {.....}
+                Map3: {.....}
+            }  
+       Syntex:-
+          outputVar: { "Fn::FindInMap" : [ <MapName>, <TopLevelKey>, <ReturnKey>] }
+          EG.
+          outputVar: { "Fn::FindInMap" : [ Map1, key1, retKey1] } 
+            set the value of outputVar as "in Map1->key1->retKey1"
+          outputVar: { "Fn::FindInMap" : [ Map1, key2, retKey1] } 
+            set the value of outputVar as "in Map1->key2->retKey1"        
+          outputVar: { "Fn::FindInMap" : [ Map1, key2 retKey3] } 
+            set the value of outputVar as "in Map1->key2->retKey3"            
 
-      EG:-
-                "Mappings" : {
-                  "GetPersonData" : {
-                      "Mufazzal"        : { "AGE": 32, "City" : "pune"},
-                      "Murtuza"         : { "AGE": 22, "city" : "indore"},
-                   }
-                 }
-                 
+      EG:
+            "Mappings" : {
+              "GetPersonData" : {
+                  "Mufazzal"        : { "AGE": 32, "City" : "pune"},
+                  "Murtuza"         : { "AGE": 22, "city" : "indore"},
+               },
+               GetVillageData: {
+                  "Barna"         : { "Name": "Barnagar", "Dist" : "Dhar"},
+                  "Badna"         : { "Name": "Badnawar", "Dist" : "Ujjain"},
+               }
+             }
+
               How to call it:-
               use this syntex-
                               { "Fn::FindInMap" : [ "MapName", "TopLevelKey", "key ypounts in return"] }
@@ -48,7 +112,7 @@ Structure of template file:-
               In the calling we are calling the function 'GetPersonData' passing the param 'Mufazzal' and asking to returm label 'AGE'
               so it wil return 32.
               
-    5. PARAMETER:-      
+    5. Imnput Parameter:-      
          This is where the Creator define the defination of some inputs. when the builder create the stack from the template.
          Builder would be asked to provide this inputs valye via UI.
          This parameter could be anything. So builder could be asked to
@@ -87,13 +151,15 @@ Structure of template file:-
                           "Type": "AWS::EC2::Subnet::Id"
                       },            
            This will prompt the builder with dropdown and ask to select the SSH key pair.
+            logicalName of Input-Paramenter:-
+              MufInstanceTypeParameter, MufKeyName is the Logical Name of Input Param. This can be used to refer this parameter in elsewhere in template.
            How would you use this values in template?
                       ...
                       ...
                       "InstanceType" : { "Ref" : "MufInstanceTypeParameter" },
                       "KeyName" : { "Ref" : "MufKeyName" },
                       ...    
-
+        
          There are many way to write such defination for more go to google.
     
     6. Outout:-
@@ -103,8 +169,89 @@ Structure of template file:-
                 MufInstanceID:
                   Description: The Instance ID
                   Value: !Ref MyEC2Instance          
-         It will show a pair in which the key is 'MufInstanceID' and value is theid of resource instance 'MyEC2Instance' 
+         It will show a pair in which the key is 'MufInstanceID' and value is the id of resource instance 'MyEC2Instance' 
+        
+---
+
+  Intrinsc Function:- 
+    The tempate of cloudformation support some intrinsic function. This function can be used to perform certain operation in template items.
+    thers it around 10 such function
+          Fn::Base64
+          Fn::FindInMap
+          Fn::GetAtt
+          Fn::GetAZs
+          Fn::Join
+          Fn::Select
+          Fn::Split
+          Ref
+          Condition Functions
+              Fn::And
+              Fn::Equals
+              Fn::If
+              Fn::Not
+              Fn::Or    
+              
+        There is couple of more function which not mentioned, above are most used one
+        How to use it In JSon
+            outputParam: {<NAme Of the Function> : <parameters to pass>}
+            Here the passed parameters could be an array, string etc.
+            
+          Join-
+              ...
+              allName: {"Fn::Join" : [ "+", [ muf, hus, mur ] ]
+              ...
+            Output is the final value of allName is 'muf+hus+mur'
           
+          Base64:-
+            data: { "Fn::Base64" : "Mufzzal Hussain" }
+            the value data finally be 'jfklajjhjkasldjioaasd=='
+        
+          For more : https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html
+          
+       Fn::FindInMap :-  
+          This one is one of the most user intrinsic function in template. This used to call the mapping function declared in 'Mapping'
+            Section of tempplate. This function take 3 input
+            - MapName:      Name of the Mapping(declared in Mapping section of template) that you wants to use    EG. Map1, Map2, Map3
+            - TopLevelKey:  This is they key that against you wants to get the mapped item                        EG. key1, key2, key3 
+            - ReturnKey:    The item mapped against the 'TopLevelKey' also has key in it. mention here that key.  EG. retKey1, retKey2, retKey3
+      
+       Fn::GetAtt:-
+          This also useful function. This function ruturn you some attribue of the Resorces in the template.
+          you have to provide the Logical Id of the resource for this and the name of the attribute you wants to get.
+          Syntex:-
+             outVar: { "Fn::GetAtt" : [ <logicalNameOfResource>, <attributeName> ] }
+             outVAr: { "Fn::GetAtt" : [ "MufEC2Instance",        "PublicDnsName" ] }
+ 
+ 
+    Ref:-
+        This is the utmost used one. This functions behavior is depend on what formal-parameter are passed in this function
+        Syntex:-
+          { "Ref" : <logicalName of Resorce or Paramenter> }
+        If logican name of Parameter(pseudo or Input) is given then it will return the value of that param
+                "KeyName" : { "Ref" : "MufKeyName" }   
+                "myRegion" : { "Re : "AWS::Region" }
+        if a logical name of resource is given then it will returns a value that you can typically use to refer to that resource like instance physical C2, BucketUrl for S3
+                "InstanceIdVar { "Ref" : "MyEC2Instance" }
+---
+
+  Pseudo Parameters:-
+    DO not confuse it with 'Input Parameter' discussed eariier
+    In simple world this are the Enviorment Variable. This parameter is set by the AWS system itself.
+    This is quite same as 'Input Parameter', in 'Input Parameter' you give user the control to set value of the parameter
+    In 'Pseudo Parameters' its value set by the AWS itself.
+    
+    Some widely used Pseudo Parameters are:-
+      AWS::Region
+      AWS::StackId
+      AWS::StackName
+  AWS set its values at runtime, at the time if creation of stack.
+  
+  How to use it:-
+    It way to use is 100% same as the 'Input Parameter'
+      location : { "Ref" : "AWS::Region" },
+    location will be the region in which the stack is created.      
+         
+        
 --------
 
 What happen if eroor occure:-
