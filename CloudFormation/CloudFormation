@@ -112,15 +112,16 @@ Structure of template file:-
               In the calling we are calling the function 'GetPersonData' passing the param 'Mufazzal' and asking to returm label 'AGE'
               so it wil return 32.
               
-    5. Imnput Parameter:-      
+  5. Imnput Parameter:-      
          This is where the Creator define the defination of some inputs. when the builder create the stack from the template.
          Builder would be asked to provide this inputs valye via UI.
          This parameter could be anything. So builder could be asked to
           - Give a simple string or Number[a input box will be shown]
           - A value from set of predefined one [dropdown will be shown]
-          - Key pair for SSH [the dropdown with key pair defined in that region by userm he need to selecty one]
-          - Security group [the dropdown with Security group defined in that region by userm he need to selecty one]
-          - VPC, Subnet, etc.
+          - Thers is some AWS Resource oriented
+            - Key pair for SSH [the dropdown with key pair defined in that region by userm he need to selecty one]
+            - Security group [the dropdown with Security group defined in that region by userm he need to selecty one]
+            - VPC, Subnet, etc.
               more : https://aws.amazon.com/blogs/devops/using-the-new-cloudformation-parameter-types/
            
            EG:- say you wants the user to choose the instance type and assign it value in 'MufInstanceTypeParameter'
@@ -143,6 +144,7 @@ Structure of template file:-
                           "Type" : "AWS::EC2::KeyPair::KeyName",
                         },      
                       }       
+           This will prompt the builder with dropdown and ask to select the SSH key pair.
             Another Eg: to select the VPC and sunnet-
                      "MufVPCID": {
                           "Type": "AWS::EC2::VPC::Id"
@@ -150,7 +152,6 @@ Structure of template file:-
                       "MufSubnetId": {
                           "Type": "AWS::EC2::Subnet::Id"
                       },            
-           This will prompt the builder with dropdown and ask to select the SSH key pair.
             logicalName of Input-Paramenter:-
               MufInstanceTypeParameter, MufKeyName is the Logical Name of Input Param. This can be used to refer this parameter in elsewhere in template.
            How would you use this values in template?
@@ -163,13 +164,24 @@ Structure of template file:-
          There are many way to write such defination for more go to google.
     
     6. Outout:-
-        Here you define what output log the builder will see once the stack is created.
-        EG:-
-              Outputs: 
-                MufInstanceID:
-                  Description: The Instance ID
-                  Value: !Ref MyEC2Instance          
-         It will show a pair in which the key is 'MufInstanceID' and value is the id of resource instance 'MyEC2Instance' 
+        Here you define what output log the builder will see once the stack is created. This is where you should let the builder know 
+          some imp info about created stack like any public IP or DNA name of EC2
+        Syntex
+                    "Outputs" : {
+                      "Logical ID" : {
+                        "Description" : "Information about the value",
+                        "Value" : "Value to return",
+                      }
+                    }        
+
+          EG:-
+           "Outputs" : {
+              "PublicDNS": {
+                  "Description": "Public DNSName of the newly created EC2 instance",
+                  "Value": { "Fn::GetAtt": [ "MufEC2Instance", "PublicDnsName" ] }
+              },
+            }
+         It will show a pair in which the key is 'PublicDNS' and value is the DNS name of EC2 instance 'MufEC2Instance' 
         
 ---
 
