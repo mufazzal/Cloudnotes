@@ -360,8 +360,21 @@ EC2 AML image:
               its not in scope here.
 
           
- 
- 
+ -----------
+          
+          User Data:
+            In the user data you can provide the script that can ran at the initilization of the EC2 insyance.
+            This script run only at once. never rerun again even if you reboot the instance.
+            
+            You can provide it like this
+                #!/bin/bash
+                yum update -y
+                yum install -y httpd 
+                ...
+                ...
+             The first line tell the AWS to run this script on EC2 with bash
+             -y: in the mid of running any command in script it may be possible that user would be asked to enter somthiy 
+                like'press Y to continue'. fir this proide the answer in advance.
  
     
     
