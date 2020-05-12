@@ -37,11 +37,24 @@ To create an EC2 with CFR we can use below most basic template-
         To handle all this it is adviced that you should use imageId as function of Region and Instance type
           imageId = f(AWS::Region, InstanceType)
         
-        This function is nthing but a mapping that you ca see in template 'MufCFTemplateEC2'
+        This function is nothing but a mapping that you ca see in template 'MufCFTemplateEC2'
         
         
-          
-        
+       
+       User Data: 
+        you can pass any boot script here in base64 encoded form.
+        Resources: {
+         properties {
+            "UserData" : 
+               { "Fn::Base64" : 
+                 { "Fn::Join" : ["", [
+                       "#!/bin/bash",
+                       "yum update -y"
+                       "yum install httd -y"
+                  ]]}}
+                }       
+          } 
+        }
         
    
    
