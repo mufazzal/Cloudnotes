@@ -284,6 +284,59 @@ User created VPC and DEfault Subnet:-
   Only default VPC can have default subnet. not other.  
   
   
+---------------------------------------------
+
+Which AWS resources could lie inside the VPC and which cannot:-
+  The VPC in very simple term is a network. and network contains node. 
+  and every node must have an IP (private is must and public if needed). So this node then will be reachable by thos IPs.
+  Also vice-versa any item which is reachable by Ip has to lie in the network to work. if not then it is impposible to use.
+  
+  
+  Now what AWS resources could be the Node of the VPC or which could not:-
+    You have to be a Node in a network if 
+    - You need to communicate with any other node the the network
+    - You wants others to reach to you in the network.
+    
+    EC2: The EC2 isntance has to be a Network Node. It cannot be used without network. Because you can use EC2 only if he has an IP.
+      Its impossible to create a EC2 without IP.
+      Also EC2 should be reach and can be reachable in the network. 
+      
+      Thats why you must select the VPC for creating EC2.
+      >> SO EC2 will always be a node in VPC.  it cannot live independently.
+
+    S3: S3 is not a network node. When you create a S3 bucket you can access them via url of that bucket. This bucket do not have any 
+      Public or private IP.
+      Also Nither the S3 bucket itself ever has to communicate with any of node
+      >> SO S3 bucket can never be a node in VPC.
+    
+    DynamoDB:
+      Same as S3. It do not live in VPC.
+    
+    RDS: RDS also get a public IP (as well as DNS name).
+      >> SO RDS will always be a node in VPC. it cannot live independently.
+      
+    Lambda: This is tricky. 
+      Lambda also do not have any IP assosated with it so it live outside VPC.
+      But some time you may need to commnunicate with some part of VPC.
+      EG. calling an webapi that is hosted over EC2 liying in VPC or accessing an RDS live in VPC.
+      Though it is impposible to plave the Lambda in the VPC. 
+      But with use of Elastic Network Interface you can actully bridge the lambda with VPC. and give a IP to the labda temporarily.
+      How: see lambda.txt.
+      
+      
+    
+    
+    
+    
+  
+
+
+
+
+
+
+
+
 
       
       
