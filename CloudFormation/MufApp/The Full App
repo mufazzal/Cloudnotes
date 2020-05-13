@@ -16,3 +16,6 @@ To create all this we know there is lot of interdependencis. We will go through 
     
     So create the SG for EC2 and ALB.
       see the template 'OnlySG'
+      
+      
+ 2. Nest thing we could make is LanuchConfiguration.
