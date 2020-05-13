@@ -303,7 +303,7 @@ EG: see the file resources/MufCFTemplateEC2 file which is clouformation template
       
 --------------------
 
-Change Set:-
+Update Stack:-
   When we say Cloudformation is lime infrasturcture as code. 
   We know we keep making chages in code. but how underline infrascture cope with it.
   If you need to make changes in infrastruture then you need to first make the change in CF template.
@@ -313,8 +313,36 @@ Change Set:-
   
   Best way is to update one:-
     Steps to update:- 
-      1. get the updated CF template.
-      ?????????
+      1. get the updated CF template in s3 or in PC.
+      2. AWS > CloudFormation > stacl > Select you stack > Update
+      3. Follow almost the same process as like creation.
+      Only thing is that it will be in edit mode now.
+      
+  
+  Change Set:
+    Biggest risk of updating the stack is that you may mistakenly end up lossing couple of resources or change something unexpectadly
+    To sole this comes a 'Change Set'
+    This is nothing but way to look what resource will be impacted and how if you update the stack with new CFL template
+    
+    Step:-
+      1. get the updated CF template in s3 or in PC.
+      2. AWS > CloudFormation > stacl > Select you stack > Stack Action > Create change set for Stack
+      3. Select the template of step 1, the new template 
+      4. Next > next for page of imput paramenter. change if you wants.
+      5. Finall put name of Change set
+      6. press Create Changeset
+      7. Now at next page you will be able to see what resources will be changed 
+          who will be deleted, will be replaced, will be added etc. it may also be possible 
+          that AWS not able to detemine what will chage on particulare resource. in that case you will see 'Conditional'
+          You can see overall impact here on the stack.
+      Nothing on the Stack will be actully changes here. it only find that what could be change if we execute the new template over this stack.
+    
+    
+    
+    
+      
+      
+      
       
       
    When you update the stack with new template then for each resource the CF will do one of the following
