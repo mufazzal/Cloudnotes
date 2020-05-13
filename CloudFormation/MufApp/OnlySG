@@ -19,7 +19,7 @@
                     "IpProtocol": "tcp",
                     "CidrIp": "0.0.0.0/0"
                 }
-            },
+            }
         },
         "EC2SG": {
             "Type": "AWS::EC2::SecurityGroup",
