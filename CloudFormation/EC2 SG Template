@@ -1,0 +1,76 @@
+This is ho the CF template of SG look like
+
+{
+  "Type" : "AWS::EC2::SecurityGroup",
+  "Properties" : {
+      "GroupDescription" : String,
+      "GroupName" : String,
+      "SecurityGroupEgress" :  [ eg1, eg2, eg3 ],
+      "SecurityGroupIngress" : [ ig1, ig2, ig3 ],
+      "Tags" : [ Tag, ... ],
+      "VpcId" : String
+    }
+}
+
+
+SG belong to the specific VPC, otherwise it take the default VPC.
+
+SecurityGroupIngress: 
+  This define the inbound rules in form of arry.
+  the egress can be in two form 
+  1. directly in form of inline object
+              "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]    
+  2. in form of 'AWS::EC2::SecurityGroupIngress' object
+           Resources: {
+                  eg3: {
+                      "Type" : "AWS::EC2::SecurityGroupIngress",
+                      "Properties" : {
+                          "CidrIp" : String,
+                          "CidrIpv6" : String,
+                          "Description" : String,
+                          "FromPort" : Integer,
+                          "GroupId" : String,
+                          "GroupName" : String,
+                          "IpProtocol" : String,
+                          "SourcePrefixListId" : String,
+                          "SourceSecurityGroupId" : String,
+                          "SourceSecurityGroupName" : String,
+                          "SourceSecurityGroupOwnerId" : String,
+                          "ToPort" : Integer
+                        }
+                    }
+              }
+          and in SG-
+             "SecurityGroupEgress" :  [ eg3 ],
+          
+        
+  
+ FromPort and ToPort:  This two seems confusing, if it is a inound rule then why 'ToPort' here?
+ actully FromPort and ToPort is not a inboud and outbound port but its a range of port for inbound rule.
+ So if 
+  "FromPort" : 20
+  "ToPort" : 25 
+      It means that allow inbound traffic from pport 20, 21, 22...25.
+  "FromPort" : 80
+  "ToPort" : 80
+      Allow traffic from port 80 only.
+      
+      
+      
+      
+  
+  
+ 
+ 
+ 
+  
+  
+  
+
