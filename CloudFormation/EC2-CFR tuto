@@ -37,8 +37,21 @@ To create an EC2 with CFR we can use below most basic template-
         To handle all this it is adviced that you should use imageId as function of Region and Instance type
           imageId = f(AWS::Region, InstanceType)
         
-        This function is nothing but a mapping that you ca see in template 'MufCFTemplateEC2'
+        This function is nothing but a mapping that you can see in template 'MufCFTemplateEC2'
         
+        Straight forward way-
+         though many time you know exactly what kind of InstanceTypoe and which region you are giving support to.
+         in that case you can directly map the AMI id with region.
+         EG:-
+          Mapping: {
+            regionAndAMIMAp: {
+              "us-east-1": {AMI: "ami-7er84"}
+              "us-east-2": {AMI: "ami-74tfdgf4"}
+              "eu-west-4": {AMI: "ami-3454asa"}
+            }
+          }
+          Calling
+            imageId: {"Fn::FindInMap":  [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]}
         
        
        User Data: 
