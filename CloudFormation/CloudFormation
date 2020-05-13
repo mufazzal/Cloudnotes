@@ -182,6 +182,9 @@ Structure of template file:-
               },
             }
          It will show a pair in which the key is 'PublicDNS' and value is the DNS name of EC2 instance 'MufEC2Instance' 
+         in yaml:-
+              Value:
+                - !GetAtt "MufEC2Instance.PublicDnsName"
         
 ---
 
