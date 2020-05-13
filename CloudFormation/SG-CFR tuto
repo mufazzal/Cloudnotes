@@ -75,7 +75,9 @@ SecurityGroupIngress:
           "Fn::GetAtt": [ "ALBSG", "GroupId" ]
       }    
 
-  
+See template 'OnlySG' in which two SG design in such a way that one do inbound communication with other.
+Like one is for LB and one is EC2 under it.
+
  
  
   
