@@ -21,6 +21,12 @@ Creating the Lembda:-
     E.G : you can Select S3, then select the bucket in it and set the event like upload, delete, edit file to trigger this event
   Done
   
+  Plz note that reserved concurrency means that we keep
+  Some cocurency for our function. Its not like that
+  100s of lambda kept in warm state all the time.
+   For this feature u have to use provision ed cocurency
+
+
  Setting up envirment vasrible:-
   You can use the env variable in the code and supply its value via aws console.
   EG: in node runtime-
