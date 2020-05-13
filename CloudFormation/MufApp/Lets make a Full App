@@ -19,4 +19,9 @@ To create all this we know there is lot of interdependencis. We will go through 
       EC2SG : for EC2 -> open to only LB at inboud HTTP:80 
       
  2. Next thing we could make is LanuchConfiguration.
-      Here 
+      Here we will create the 'LanuchConfiguration' with all necessary properties we wants in launched instances.
+      See the template 'Step 2 - LanuchConfiguration' where we make it as 'EC2LAunchConfig'
+      The LanuchConfiguration has the SG assosiated to it. Though we do not specify the VPC here. But you have to take care
+      that once the EC2 are launched then the SG setted here must lie in VPS where EC2 is launched.
+      
+        AssociatePublicIpAddress-> Set this true if you wants each of the EC2 to have an public IP.
