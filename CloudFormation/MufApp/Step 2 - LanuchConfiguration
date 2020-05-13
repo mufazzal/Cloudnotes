@@ -43,7 +43,7 @@
                 }
             }
         },
-        "EC2LAuncConfig": {
+        "EC2LAunchConfig": {
             "Type": "AWS::AutoScaling::LaunchConfiguration",
             "Properties": {
                 "AssociatePublicIpAddress": true,
