@@ -146,20 +146,25 @@ Structure of template file:-
                       }       
            This will prompt the builder with dropdown and ask to select the SSH key pair.
             Another Eg: to select the VPC and sunnet-
-                     "MufVPCID": {
-                          "Type": "AWS::EC2::VPC::Id"
-                      },
-                      "MufSubnetId": {
-                          "Type": "AWS::EC2::Subnet::Id"
-                      },            
-            logicalName of Input-Paramenter:-
+                     "MufVPCID": { "Type": "AWS::EC2::VPC::Id" },
+                      "MufSubnetId": { "Type": "AWS::EC2::Subnet::Id" },            
+                In yaml-
+                      MufVPCID:
+                        Type: 'AWS::EC2::VPC::Id'
+                      MufSubnetId:
+                        Type: 'AWS::EC2::Subnet::Id'    
+           
+           logicalName of Input-Paramenter:-
               MufInstanceTypeParameter, MufKeyName is the Logical Name of Input Param. This can be used to refer this parameter in elsewhere in template.
            How would you use this values in template?
-                      ...
                       ...
                       "InstanceType" : { "Ref" : "MufInstanceTypeParameter" },
                       "KeyName" : { "Ref" : "MufKeyName" },
                       ...    
+                  In Yaml
+                      VpcId: !Ref MufVPCID
+                      KeyName: !Ref MufInstanceTypeParameter
+      
         
          There are many way to write such defination for more go to google.
     
