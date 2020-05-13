@@ -15,14 +15,17 @@ EC2 - Auto scalling is done via configuring two part
                 
         2.1. First you need to select the 'Launch Configuration' you created earlier
         2.2. Then Desired capacity: the number of instances you wants up and running in normal load
-        2.3. Then select the VPC  ?????????????
-        2.4. Then select subnet (AZ) -> 
-              You may slect as many availavble (AZ) possible in your region. 
-              The launched will happen in the AZ which are selected first.
-              It not necesaarily same as value selected in step 2 
-        2.5 Optional: We can set them to receive traffic from LB as well. You can select LB group here.
-            ?????????????????
-        2.6 Optional: 
+        2.3. Then select the VPC, If you wants the launched instances to lie in some other VPC then default one.
+        2.4. Then select subnet  -> 
+           You have to select at leat one Subnet in which you wants your instances to launch. always select more then one subnet for higher availibility.
+        2.5 LB: Connecting Auto Scalling and Load Balancing:-
+             You can desigen the Auto-Scalling-Group in such a way that the launch instances in scalling group will auomatically get attached to a Load balancer.
+             For this you have to connect the 'Auto Scalluing Group' [at auto scalling side] to the 'Target Group'[at LB side]
+              2.5.1 Click 'Advance'
+              2.5.2 Check 'Load Balancing'
+              2.5.3 Select the target group[of load balancer] in which you wants to launche th instance.
+              
+        2.6 Publip Ip for each instance: 
             if you wants each launched instances to have a public IP then youst choose proper options in Advance setting
         2.6 Set the policy:-
               2.6.1 Policy for scalling: Set the condition when the scal up and scale down should happen
@@ -64,6 +67,15 @@ EC2 - Auto scalling is done via configuring two part
   go to 
   AWS > EC2 > ASG > 'tour group' > Action > Edit
   in this forn set 'Suspended Processes' to 'Terminate'
+
+---------------
+
+    
+    
+    
+
+
+
 
 
 
