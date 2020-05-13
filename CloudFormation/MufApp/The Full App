@@ -12,10 +12,11 @@ To create all this we know there is lot of interdependencis. We will go through 
 
 1. The first thing which is very much independent among all is SGs.
     and we will create the SGs as that the 
-    EC2's Sg will accept the inbound traffic from ALB' SG only.
-    
-    So create the SG for EC2 and ALB.
-      see the template 'OnlySG'
+    EC2's Sg will accept the inbound traffic from ALB' SG only.    
+    So create the SG for EC2 and ALB. see the template 'step 1- SG creation'  
+    Two SG are
+      ALBSG : for LB -> open to internet at inbound HTTP:80
+      EC2SG : for EC2 -> open to only LB at inboud HTTP:80 
       
-      
- 2. Nest thing we could make is LanuchConfiguration.
+ 2. Next thing we could make is LanuchConfiguration.
+      Here 
