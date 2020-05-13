@@ -303,7 +303,10 @@ Which AWS resources could lie inside the VPC and which cannot:-
       
       Thats why you must select the VPC for creating EC2.
       >> SO EC2 will always be a node in VPC.  it cannot live independently.
-
+    
+    LB: This also has to be in network. because it need to communicate to EC2s.
+        SO LB cant exist outside VPC.
+    
     S3: S3 is not a network node. When you create a S3 bucket you can access them via url of that bucket. This bucket do not have any 
       Public or private IP.
       Also Nither the S3 bucket itself ever has to communicate with any of node
@@ -324,7 +327,13 @@ Which AWS resources could lie inside the VPC and which cannot:-
       How: see lambda.txt.
       
       
+----
+  Importance in Security Group in VPC:-
+    Security group are tied to VPC in which they are created. you cant use them for other VPC ites.
+    Any node in VPC Must Must and Must have a SG attachet to it. It is impossible to have a node without SG attached.
+    The SG is actully a mandatory layer of security around the Node in VPC for traffic control.
     
+    Thats is why EC2, LB, RDS, Lambda(with ENI/VPC enabled) can be created without SG.
     
     
     
