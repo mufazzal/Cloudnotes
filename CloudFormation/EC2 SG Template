@@ -65,7 +65,63 @@ SecurityGroupIngress:
       
       
       
+  SourceSecurityGroupId: You can also use the security group id of other SG to ristric the inbound traffic from some specific SG only.
+  IMP: issue in AWS: for creation of SG default VPC, you can give group name in 'SourceSecurityGroupId'. for nondefault you must give group id
   
+  for Default:-
+    SourceSecurityGroupId: {"Ref": "ALBSG"}
+  for non-default VPC:
+     "SourceSecurityGroupId": {
+          "Fn::GetAtt": [ "ALBSG", "GroupId" ]
+      }    
+
+  
+  Below is the code to create the two SG, one for LB and one for subordinate EC2's in non-default VPC
+  
+  
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {}
+    },
+    "Resources": {
+        "ALBSG": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "SG for ALB",
+                "VpcId": { "Ref": "MufVPCID" },
+                "SecurityGroupIngress": {
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpProtocol": "tcp",
+                    "CidrIp": "0.0.0.0/0"
+                }
+            },
+        },
+        "EC2SG": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "SG for EC2",
+                "VpcId": { "Ref": "MufVPCID" },
+                "SecurityGroupIngress": {
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpProtocol": "tcp",
+                    "SourceSecurityGroupId": {
+                        "Fn::GetAtt": [ "ALBSG", "GroupId" ]
+                    }
+                }
+            }
+        }
+    },
+    "Parameters": {
+        "MufVPCID": {
+            "Type": "AWS::EC2::VPC::Id"
+        },
+        "MufSubnetId": {
+            "Type": "AWS::EC2::Subnet::Id"
+        }
+    }
+}  
   
  
  
