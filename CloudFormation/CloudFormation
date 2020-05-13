@@ -293,7 +293,37 @@ CloudFormation is the soluction where you can change, create, delete, update all
 EG: see the file resources/MufCFTemplateEC2 file which is clouformation template file for invoking the ED2 and let user select 
   vpc, sunbnet, type et.
       
+--------------------
+
+Change Set:-
+  When we say Cloudformation is lime infrasturcture as code. 
+  We know we keep making chages in code. but how underline infrascture cope with it.
+  If you need to make changes in infrastruture then you need to first make the change in CF template.
+  Then
+  Either you ca delete the existing stack and create new one with new template but this is impractical. for any small or big change if
+  we keep deleting and re-creating the stack then whole system will be unstable.
+  
+  Best way is to update one:-
+    Steps to update:- 
+      1. get the updated CF template.
+      ?????????
       
+      
+   When you update the stack with new template then for each resource the CF will do one of the following
+   - Replace the existing resource with new one if change in the template is as such
+          EG: instance type of EC2 is changed from t2.micro to t2.small
+   - Modify the existing resource if change in the template is as such
+          EG: a new tag added to EC2
+   - Add a new resource if there is one in template but not in stack
+   - Delete the one if it is in stcak but not in template
+  
+  
+  
+  
+  
+  
+  
+
       
 -----------
 TODO: 
