@@ -75,11 +75,55 @@ SecurityGroupIngress:
           "Fn::GetAtt": [ "ALBSG", "GroupId" ]
       }    
 
-See template 'OnlySG' in which two SG design in such a way that one do inbound communication with other.
+See below template in which two SG design in such a way that one do inbound communication with other.
 Like one is for LB and one is EC2 under it.
+For creating the SG the VPC is must, if not provided then default VPC will be traken
+ 
+ {
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {},
+    
+    "Resources": {
+        "ALBSG": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "SG for ALB",
+                "Tags": [{
+                        "Key": "example_key",
+                        "Value": "example value 11"
+                 }],                
+                "VpcId": { "Ref": "MufVPCID" },
+                "SecurityGroupIngress": {
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpProtocol": "tcp",
+                    "CidrIp": "0.0.0.0/0"
+                }
+            }
+        },
+        "EC2SG": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "SG for EC2",
+                "VpcId": { "Ref": "MufVPCID" },
+                "SecurityGroupIngress": {
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpProtocol": "tcp",
+                    "SourceSecurityGroupId": {
+                        "Fn::GetAtt": [ "ALBSG", "GroupId" ]
+                    }
+                }
+            }
+        }
+    },
+    "Parameters": {
+        "MufVPCID": {
+            "Type": "AWS::EC2::VPC::Id"
+        }
+    }
+}  
 
- 
- 
   
   
   
