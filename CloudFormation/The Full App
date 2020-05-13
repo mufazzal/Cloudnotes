@@ -1,0 +1,18 @@
+We will create a full app of EC2 with 
+  SGs.
+  EC2s
+  ASG
+  Lanunch Config for ASG
+  LB
+  Target Group for LB
+We will let user choose his VPC, Subnet and ssh key pair.
+
+
+To create all this we know there is lot of interdependencis. We will go through in proper sequence to create the app.
+
+1. The first thing which is very much independent among all is SGs.
+    and we will create the SGs as that the 
+    EC2's Sg will accept the inbound traffic from ALB' SG only.
+    
+    So create the SG for EC2 and ALB.
+      see the template 'OnlySG'
