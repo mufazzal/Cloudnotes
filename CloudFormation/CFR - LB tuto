@@ -1,0 +1,36 @@
+To create the LB via CFR you need to work on three parts, just like you create the LB via aws console.
+
+Part 1. Create Target Group just like step 8 [Routing/Target Group: ] in LB.txt
+Part 2. Create Listener for LB just like step 5 [Listener ] in LB.txt
+Part 3: Create the The LB itself
+
+
+Creating Target Group:-
+  Target Group tell the LB about which EC2 he need to forward the traffic and How(por and protocol)
+  We can either the Add the EC2s in it or set some ASG as such that the ASG launch and add the EC2 here.
+  we can also leave it empty so that the developer add the EC2 later.
+
+Craeting Listener:- 
+          "LBLIS": {
+            "Type" : "AWS::ElasticLoadBalancingV2::Listener",
+            "Properties" : {
+                "DefaultActions" : [ Action, ... ],
+                "LoadBalancerArn" : String,
+                "Port" : Integer,
+                "Protocol" : String,
+              }
+          }  
+   This will tell the LB that what kind of traffic he has to listen and then how and where he need to route it.
+   LoadBalancerArn: the arn of load balancer you will create in 'Part 3'
+   Port and Protocol: the traffic that LB should listen.
+   DefaultActions: What to do to the traffic coming from mentioned port and protocol and where to rote it.
+    The typical formate of DefaultActions is mentioned below
+    this syas that   forward the traffic to Target group 'LBTRG' that we created in 'part 1'
+               "DefaultActions": [{
+                        "Type": "forward",
+                        "TargetGroupArn": { "Ref": "LBTRG"}
+                 }]   
+    Listener is the most imp part in here. This connect the Target Group(LBTRG) of Part 1 and the Load Balancer(MALB) of part 3.
+    
+                 
+          
