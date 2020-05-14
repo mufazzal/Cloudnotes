@@ -29,4 +29,6 @@ To create all this we know there is lot of interdependencis. We will go through 
   3. Next thing we will make the ASG. 
       Here we will specify that in what subnets (so vpc too) we will launch the instances and what kind of min/max capacity we need.
       We will create 'ASGEC2' here.
-      For now here we are only setting the minmax capacity but not any policy to scale up and down.        
+      For now here we are only setting the minmax capacity but not any policy to scale up and down.
+      
+      
