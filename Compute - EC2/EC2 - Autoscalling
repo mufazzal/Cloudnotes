@@ -46,7 +46,12 @@ EC2 - Auto scalling is done via configuring two part
          
          IMP : 
             value in step 2.6.1  <= value in step 2.2  <=  value in step 2.6.2
-              
+         
+       Launch Configuration VS ASG:-  
+        The first one tell you how an each instance will look like in itself.
+        Second tell you how those instances are arranged in infrastrucre. 
+          Like in what VPC, Subnet behide what LB, wil they have public IP etc.
+         
               
   AutoScalling and LB: 
     do not confuse the ASL with LB, the ASL is the feature that keep your capacity in check, depending in usage on each instance
