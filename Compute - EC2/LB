@@ -19,9 +19,14 @@ Creating A LB for EC2-webserver:-
   4. choose schema: internet facing
   5. Listener:-
       keep the HTTP port 80 open for allowing in the internet traffic
-  6. Availability Zones :-
-      Chose the Availability Zones [of region selected in step 1] where you wants to route the traffic. The LB will route the traffic to the targets, ( eg. EC2 )
-      which lies in this zone only. 
+  6. VPC/SubnetId/Availability Zones :-
+      Here you have to select the VPC and then the subnet in that VPC.
+      The LB will route the traffic to EC2 lying in that subnets only.
+      Therts is some rule to choose subnet
+        - You have to choose at least two subnet
+        - both the subnet must lie in diffrent AZ.
+      
+      
   7. Security Group:
     A SCG which has inbound port open. this port could be 80, 3000, 8080 etc. 
     default is 80 but if your app in subodinate EC2 may ran on diffrent port so you may wants ti tobe like 80, 8080, 3000
