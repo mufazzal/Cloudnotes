@@ -27,7 +27,7 @@ Below will create a SG and Launch Config in aws.
                 }
             }
         },
-        "EC2LAuncConfig": {
+        "EC2LAunchConfig": {
             "Type": "AWS::AutoScaling::LaunchConfiguration",
             "Properties": {
                 "AssociatePublicIpAddress": true,
