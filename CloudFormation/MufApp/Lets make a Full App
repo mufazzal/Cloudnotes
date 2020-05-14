@@ -25,3 +25,8 @@ To create all this we know there is lot of interdependencis. We will go through 
       that once the EC2 are launched then the SG setted here must lie in VPS where EC2 is launched.
       
         AssociatePublicIpAddress-> Set this true if you wants each of the EC2 to have an public IP.
+        
+  3. Next thing we will make the ASG. 
+      Here we will specify that in what subnets (so vpc too) we will launch the instances and what kind of min/max capacity we need.
+      We will create 'ASGEC2' here.
+      For now here we are only setting the minmax capacity but not any policy to scale up and down.        
