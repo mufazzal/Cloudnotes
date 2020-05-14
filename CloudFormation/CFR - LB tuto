@@ -1,16 +1,49 @@
 To create the LB via CFR you need to work on three parts, just like you create the LB via aws console.
 
 Part 1. Create Target Group just like step 8 [Routing/Target Group: ] in LB.txt
-Part 2. Create Listener for LB just like step 5 [Listener ] in LB.txt
-Part 3: Create the The LB itself
+Part 2: Create the LB itself
+Part 3. Create Listener for LB just like step 5 [Listener ] in LB.txt
 
 
 Creating Target Group:-
-  Target Group tell the LB about which EC2 he need to forward the traffic and How(por and protocol)
-  We can either the Add the EC2s in it or set some ASG as such that the ASG launch and add the EC2 here.
-  we can also leave it empty so that the developer add the EC2 later.
+    Target Group tell the LB about which EC2 he need to forward the traffic and How(por and protocol)
+    We can either the Add the EC2s in it or set some ASG as such that the ASG launch and add the EC2 here.
+    we can also leave it empty so that the developer add the EC2 later.
+
+    this target group will be created but it will remain empty and not attached to any LB,
+    In part 3 we will see how we can attach it to Listener of LB
+    For adding EC2: its not possible here, LB do not care is there any EC2 behind it or not.
+      Best way is too create an ASG and set ASG in such a manner that the EC2 will be added to this target Group after invokation.
+    Code:-  
+            "LBTRG": {
+                  "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+                  "Properties": {
+                      "Port": 80,
+                      "Protocol": "HTTP",
+                      "VpcId": { "Ref": "MufVPCID" }
+                  }
+              },    
+
+Create the LB:
+  The LB in itself held very few info.
+  You must set it Security Group as such that it allow all the inbound internet traffic.
+  you also need to set what subnet he should transfer the traffic. later the deveper has to take care that EC2 are in those subnets.
+  this subnet must lie in diffrent AZ.
+            "MALB": {
+                  "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+                  "Properties": {
+                      "Name": "LB_for_EC2_webserver",
+                      "SecurityGroups": { "Ref": "ALBSG" },
+                      "Subnets": { "Ref": "MufSubnetIdForWebServers" }
+                  }
+                }
+              }  
+              
+         
 
 Craeting Listener:- 
+   This will tell the LB that what kind of traffic he has to listen and then how and where he need to route it.
+   
           "LBLIS": {
             "Type" : "AWS::ElasticLoadBalancingV2::Listener",
             "Properties" : {
@@ -19,9 +52,9 @@ Craeting Listener:-
                 "Port" : Integer,
                 "Protocol" : String,
               }
-          }  
-   This will tell the LB that what kind of traffic he has to listen and then how and where he need to route it.
-   LoadBalancerArn: the arn of load balancer you will create in 'Part 3'
+          }     
+   
+   LoadBalancerArn: the arn of load balancer you created in 'Part 2'
    Port and Protocol: the traffic that LB should listen.
    DefaultActions: What to do to the traffic coming from mentioned port and protocol and where to rote it.
     The typical formate of DefaultActions is mentioned below
@@ -30,7 +63,7 @@ Craeting Listener:-
                         "Type": "forward",
                         "TargetGroupArn": { "Ref": "LBTRG"}
                  }]   
-    Listener is the most imp part in here. This connect the Target Group(LBTRG) of Part 1 and the Load Balancer(MALB) of part 3.
+    Listener is the most imp part in here. This connect the Target Group(LBTRG) of Part 1 and the Load Balancer(MALB) of part 2.
     
                  
           
