@@ -39,5 +39,9 @@ To create all this we know there is lot of interdependencis. We will go through 
       4.3 Crate listener (LBLIS) which connect the MALB and LBTRG.
       See it in 'Step 4 - LB'
       
+      Now connect the Auto Scalling and Load Balancer
+      For this you have to connect Auto Scalling Group (ASGEC2 created in step 3) with the Target Group of load balancer (LBTRG)
+        So in ASGEC2 add below property.
+            "TargetGroupARNs": [{"Ref": "LBTRG"}]
          '
  
