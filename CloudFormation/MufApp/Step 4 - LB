@@ -1,0 +1,302 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "6d4780ef-36c0-4e7a-a1cb-487d30f9c71d": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 380,
+                    "y": 110
+                },
+                "z": 1,
+                "embeds": []
+            },
+            "1428fb0a-0518-44b8-b42b-14acc208b16b": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 380,
+                    "y": 210
+                },
+                "z": 1,
+                "embeds": []
+            },
+            "c9902027-40b9-402e-9164-1d0f6f5ee1fe": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 210,
+                    "y": 260
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "1428fb0a-0518-44b8-b42b-14acc208b16b"
+                ]
+            },
+            "ce2f77ab-2340-4f5d-a084-33ff7d068236": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 600,
+                    "y": 100
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "6d4780ef-36c0-4e7a-a1cb-487d30f9c71d"
+                ]
+            },
+            "7872ed8e-6a4a-463f-b631-3186cb0ae731": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 60,
+                    "y": 50
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "ce2f77ab-2340-4f5d-a084-33ff7d068236"
+                ]
+            },
+            "e4f5012b-8ad6-487e-972f-4f73dbf21dc6": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": -160,
+                    "y": 180
+                },
+                "z": 1,
+                "embeds": []
+            },
+            "fe6c4a5a-d0d9-4ba0-bc74-fc88d76834c3": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 10,
+                    "y": 250
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "c9902027-40b9-402e-9164-1d0f6f5ee1fe",
+                    "e4f5012b-8ad6-487e-972f-4f73dbf21dc6"
+                ]
+            }
+        }
+    },
+    "Resources": {
+        "ALBSG": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "SG for ALB",
+                "Tags": [
+                    {
+                        "Key": "example_key",
+                        "Value": "example value 11"
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "MufVPCID"
+                },
+                "SecurityGroupIngress": {
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpProtocol": "TCP",
+                    "CidrIp": "0.0.0.0/0"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "6d4780ef-36c0-4e7a-a1cb-487d30f9c71d"
+                }
+            }
+        },
+        "EC2SG": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "SG for EC2",
+                "VpcId": {
+                    "Ref": "MufVPCID"
+                },
+                "SecurityGroupIngress": {
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpProtocol": "TCP",
+                    "SourceSecurityGroupId": {
+                        "Fn::GetAtt": [
+                            "ALBSG",
+                            "GroupId"
+                        ]
+                    }
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "1428fb0a-0518-44b8-b42b-14acc208b16b"
+                }
+            }
+        },
+        "EC2LAunchConfig": {
+            "Type": "AWS::AutoScaling::LaunchConfiguration",
+            "Properties": {
+                "AssociatePublicIpAddress": true,
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "RegionMap",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        "AMI"
+                    ]
+                },
+                "InstanceType": {
+                    "Ref": "MufInstanceType"
+                },
+                "KeyName": {
+                    "Ref": "MufKeyName"
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "EC2SG"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "c9902027-40b9-402e-9164-1d0f6f5ee1fe"
+                }
+            }
+        },
+        "ASGEC2": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "AutoScalingGroupName": "ASG_for_EC2",
+                "LaunchConfigurationName": {
+                    "Ref": "EC2LAunchConfig"
+                },
+                "MaxSize": 3,
+                "MinSize": 1,
+                "VPCZoneIdentifier": {
+                    "Ref": "MufSubnetIdForWebServers"
+                },
+                "TargetGroupARNs": [
+                    {
+                        "Ref": "LBTRG"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "fe6c4a5a-d0d9-4ba0-bc74-fc88d76834c3"
+                }
+            }
+        },
+        "LBTRG": {
+            "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+            "Properties": {
+                "Port": 80,
+                "Protocol": "HTTP",
+                "VpcId": {
+                    "Ref": "MufVPCID"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "e4f5012b-8ad6-487e-972f-4f73dbf21dc6"
+                }
+            }
+        },
+        "LBLIS": {
+            "Type": "AWS::ElasticLoadBalancingV2::Listener",
+            "Properties": {
+                "Port": 80,
+                "Protocol": "HTTP",
+                "LoadBalancerArn": {
+                    "Ref": "MALB"
+                },
+                "DefaultActions": [
+                    {
+                        "Type": "forward",
+                        "TargetGroupArn": {
+                            "Ref": "LBTRG"
+                        }
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "7872ed8e-6a4a-463f-b631-3186cb0ae731"
+                }
+            }
+        },
+        "MALB": {
+            "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+            "Properties": {
+                "Name": "LBForEC2Webserver",
+                "SecurityGroups": [
+                    {
+                        "Ref": "ALBSG"
+                    }
+                ],
+                "Subnets": {
+                    "Ref": "MufSubnetIdForWebServers"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "ce2f77ab-2340-4f5d-a084-33ff7d068236"
+                }
+            }
+        }
+    },
+    "Parameters": {
+        "MufVPCID": {
+            "Type": "AWS::EC2::VPC::Id"
+        },
+        "MufSubnetIdForWebServers": {
+            "Type": "List<AWS::EC2::Subnet::Id>",
+            "MinLength": 2,
+            "Description": "Select the Subnet for EC2 WebServer(This is behind LB so private subnet is more secure)"
+        },
+        "MufInstanceType": {
+            "Description": "EC2 instance type",
+            "Type": "String",
+            "Default": "t2.small",
+            "AllowedValues": [
+                "t2.micro",
+                "t2.small",
+                "t2.medium"
+            ],
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        },
+        "MufKeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        }
+    },
+    "Mappings": {
+        "RegionMap": {
+            "us-east-1": {
+                "AMI": "ami-0323c3dd2da7fb37d"
+            }
+        }
+    }
+}
