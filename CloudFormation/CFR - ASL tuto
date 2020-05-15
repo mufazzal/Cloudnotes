@@ -193,11 +193,12 @@ Scaling Policy:-
        for detail:  https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-autoscaling.html
 
 ASG and LB in Cloudformation:-  
-    As like in AWS console you can here also also set to launch the EC2 behind any LB. for this
+    As like in AWS console you can here also also set to launch the EC2 behind any LB. for this 
     - For Classicloadbalanced:-
         use 'LoadBalancerNames'
     - For Application and Network LB :-
-        use 'TargetGroupARNs' like 
+        Simply connect the Auto Scalling Group (ASGEC2) with the Target Group of load balancer (LBTRG)
+        So in ASGEC2 add below property.
             "TargetGroupARNs": [{"Ref": "LBTRG"}]
             
 
