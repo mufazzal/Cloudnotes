@@ -31,4 +31,13 @@ To create all this we know there is lot of interdependencis. We will go through 
       We will create 'ASGEC2' here.
       For now here we are only setting the minmax capacity but not any policy to scale up and down.
       
+    
+  4.  The LB is created in 3 parts as we discussed.
+      So we devide this step in three part.
+      4.1 First we will create the Target Group(LBTRG) with info about the opened port.
+      4.2 Create LB(MALB), with SG(ALBSG) that let inbound HTTP:80 open for internet
+      4.3 Crate listener (LBLIS) which connect the MALB and LBTRG.
+      See it in 'Step 4 - LB'
       
+         '
+ 
