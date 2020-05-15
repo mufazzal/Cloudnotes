@@ -198,7 +198,8 @@ ASG and LB in Cloudformation:-
         use 'LoadBalancerNames'
     - For Application and Network LB :-
         use 'TargetGroupARNs' like 
-            "TargetGroupARNs": {"Ref": "LBTRG"}
+            "TargetGroupARNs": [{"Ref": "LBTRG"}]
+            
 
 
 
