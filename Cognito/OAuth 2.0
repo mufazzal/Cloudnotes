@@ -1,0 +1,130 @@
+The OAuth 2.0 is the way to do the Authentication between parties.
+
+There is four party here
+
+1. Resource Owner : User :-  The one who know the username and password
+2. Client :              :-  The one who need to have access on some protected resource Or himself is the protected resource.
+3. Autherization Server  :-  The one who has directory of authenticated owners(users) and owen the logic of authentication
+4. Resource Server       :-  The one who has the protected resources.
+
+IMP: Resource Server may or may not come ino picture for Authentication flow.
+
+Resource Owner: 
+  This is the end user. who know the username and password or social login detail or any personal info that need for authorization
+  It could be
+    h.mufazzal@gmail.com
+    Fatema
+    7387486776
+    etc.
+
+Client: 
+  Client could be of two type
+  Non trusted with 'Resource Server' :-
+    A intemediatory between 'Resource Owner' and 'Resource Server'. who do nothing but call the APIs (non authenticated) of 
+    'Resource Server' and assume that resource server will check if user is authorized or not.
+    Think of client a front end and REsource server as back end with session detail + accesa token from 'Autherization Server' of each session 
+    EX: 
+  Trusted with or without 'Resource Server':-
+    When you are sure that your client is trusted and the communication between the Client and Resorce Server is secured.
+    You place all responsibility of authentication to Client and resource server does not come in picture.
+
+  EG:  Any web app or mobile, this is for the developer of that app i to decide that does he trust the app fully or not.
+
+ Autherization Server: 
+  This is where all the user credention info or social info or any othe rinfo lie which can be used to verify user identity.
+  This also own the logic of identification. It own the Login UI page also whhere user fill its login detail.
+
+Resource Server:
+  This is where the protected resources lie.
+  EG. the server who hist the APIs. 
+
+---
+
+When resource server is protected resource not client->
+The 'Client' Wants 'Autherization Server' to verify the 'Resource Owner' authenticity and give client the TOKEN so that client can let user
+access the protected resources at 'Resource Server'
+
+OR
+
+When client is protected resource->
+The 'Client' Wants 'Autherization Server' to verify the 'Resource Owner' authenticity and give client the TOKEN so that he can let user use
+the client.
+---
+
+
+Client and Autherization Server initial set up:-
+  Authentication server guarantee the user identity and The client need this guarantee 
+  so they both need to first make some contract between them, this is one time activity where the Client need to register himself at 'Autherization Server'
+  How this contract look like
+  At AS the client need to provide below info
+  1. Name
+  2. Callback url : This is the url where user will be redirected to onece user complete the authorizaion successfully/unsuccessfully 
+    This two are mosy imp info client need to provide, AS may ask for some more detail.
+  In return the AS give 2 things to Client to note down
+  1. Client ID: a ub=nique id of client among all other client registerd at AS
+  2. Client Secret (Opional) : AS will provide the client secret if you wants. which the client should not share with any one.
+      Client Secret must be placed at trusted location. if you trust client then place it there otherwise are RS
+    
+So what AS has:-
+  This list of user credential, the logic of user identity verification, the list of registerd clint with there name, clent id and secret.
+  View of AS, Client, RS if we trust the Client
+																							
+	                                                                                     
+                                                                                  APP1                         APP1-RS
+                                                                            ---------------------       ---------------------
+																			                                      |           		    |       |      			        |  		
+                                                                            |      clientId     |       |   client_Secret   |   
+                                   AS                                       |      xgsuhw13     |       |     asassqsws     |                 
+      -------------------------------------------------------------         |                   |       |                   |   
+      |                         User Creds                        |			    ---------------------       ---------------------   	
+      |     --------------------------------------------------    |			         	
+      |     | ID | TYPE |  USERNAME   |  PASSWORD   |  scID  |    |                                   
+      |     | ## | FB   |  mufa_FB    |             |  6486  |    |               APP1                         APP1-RS             
+      |     | ## | RGTR |  h_mufazz   |  t!fs$fsd   |        |    |         ---------------------       ---------------------               
+      |     | ## | RGTR |  fatem_23   |  2334SDew   |        |    |         |           		    |       |      			 	      |             
+      |     | ## | GOGL |  murtuzaa   |             |  32232 |    |         |      clientId     |       |   client_Secret   |          
+      |     | ## | SAML |  sd@amd.c   |             |  457u8 |    |         |      asds23sd     |       |     45wfytgb      |	          
+      |     --------------------------------------------------    |         |                   |       |                   |	          
+      |                                                           |         ---------------------       ---------------------	    
+      |                                                           |                     
+      |                        Clients                            |                                  
+      |     --------------------------------------------------    |               usrPO                      
+      |     | NAME  |   C_ID   |  C_SECRET   |  CLBK_URL     |    |         ---------------------            
+      |     | APP1  | xgsuhw13 |  asassqsws  | www.app1.com  |    |         |           		    |      
+      |     | APP2  | asds23sd |  45wfytgb   | www.app2.com  |    |			    |      clientId     | 		
+      |     | usrPO | iwndo24l |             | urPo.abc.com  |    |			    |      iwndo24l     | 		
+      |     | admPo | eicne35e |  43dfy6vd   | adPo.abc.com  |    |			    |                   | 		
+      |     | conAp | efdfhdi2 |             | google.com    |    |         ---------------------    
+      |     --------------------------------------------------    |             
+      |                                                           |                usrPO               
+      |                                                           |         ---------------------     
+      -------------------------------------------------------------         |           		    |     
+                                                                            |      clientId     |     
+                                                                            |      eicne35e     | 	
+                                                                            |                   | 	
+                                                                            |   client_Secret   | 	
+                                                                            |      43dfy6vd     | 	
+                                                                            |                   | 			
+                                                                            ---------------------			
+																				
+                                                                                
+																				
+																				
+																				
+																				
+																				
+																				
+																						
+                                                                                        
+----                                                                                    
+Oauth 2.0 define 4 diffrent kind of flow mechanism for uthentication between multiple party.
+They should be used on scenario basis.
+
+This 4 are
+  Authorizaion Code Grant
+  Implicit Grant
+  Client Credential
+
+
+
+
