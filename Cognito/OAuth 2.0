@@ -255,7 +255,31 @@ Implicit Grant:
 			This is because in implicit grant the AS assume that trust in client is low and so trust the cliens in least possible way
 			So give client token only once and after expiration if client need again, then user has to be there to generate the new one.
 		
-		
+
+Client Credential Flow:-
+	In this of flow the user is not at all involved. Also at no point of time in this flow you will redirected to Login page of AS.
+	For this you just need to call one API of AS.
+	The formate of this API is	
+				POST
+					https:// <AS server domain> /oauth2/token?
+						Content-Type=	application/x-www-form-urlencoded&
+						Authorization=	Basic Base64(<Id of the client admPo>:<Client_secret of the client admPo>>)
+					BODY
+						grant_type:		client_credentials&
+						client_id:		<Id of the client admPo>
+						client_secret:	<Secret of the client admPo>
+	No login page and no redirection needed so we do not supply 'redirect_url' too
+		response:-
+			{
+				"access_token": "....",
+				"expires_in": 3600,
+				"token_type": "Bearer"
+			}
+		Just like in implicit flow you do not get the refresh token here.
+		Bu here you Also do not receive the id_token, that is because id token conyains the info about the user wh fill his 
+		creds in login page os AS. but here neither user nor login page is involve.
+		it only between   AS<-->Client  not  User<-->AS<-->Client
+	
 		
 Access VS ID VS Refresh Token:-
 	????????????????????????????
@@ -263,7 +287,8 @@ Access VS ID VS Refresh Token:-
 		
 		
 		
-		
+JWT Token:-
+	??????????
 		
 	
 	
