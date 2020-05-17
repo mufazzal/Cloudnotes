@@ -1,0 +1,115 @@
+In short in Cognito is Red Hat SSO of AWS.
+
+This is the complete user management system which provide
+  1. User sign up via pre-built registration form or via Facebook/Google or via any SAML active directory.
+  2. User sign in via pre-built login form or via Facebook/Google or via any SAML active directory.
+  3. USer delete/enable/password change etc functions.
+  4. It can be used as federation authentication via OAuth 2.0 for other Apps.
+  5. User pool with identity pool provide strong binding with IAM for user access management over AWS services like S3 etc.
+  6. strongly coupled with Lambda for authentication.
+  
+  Only User Pool  ->  Authentication
+  User Pool + Identity Pool -> Authentication + Autherization.
+  
+  User Pool and FB/Gmail/SAML :-
+    The cognito user pool is directory of user. In this directory user can register himself with form or FB or gamil or SAML anything.
+    Of course the developer has to configure each of thi id provide if required.
+  
+  UserPool and User:-
+    The User pool will have one entry for each user no matter he registered with Form, FB, Gmail, SAML etc.
+    No matter how he register hinmself, they will be logged in via same Login page. Of cource this page will have option of 
+    Login via Username/Password, By FB, BY Gmail, By SAML.
+  
+  UserPool and App Client:-
+    The user pool in himself can also work as fedrated Authenticator, which can Authenticate the user on behalf of Client APp via Oauth 2.0
+    For this the Client App has to register himself with UsePool with Name and redirectUrl.
+    Each of Client App will then be provided with Client_id and also of he need them client_secret.
+    
+    
+    So there is thre major data table prsent in each userPool
+        1. Its integration detail with FB/Gmail/SAML etc.
+        2. The user table. which has credetial (username/password or FB ID or Gmail Id or SAML id) for each indivisual user
+        3. The list of App Client register with userPool who wants to authenticate user by userpool on his behalf.
+        
+        
+        In nutshell it look like this-       
+                                                                            
+                                   AS                                       
+      -------------------------------------------------------------         
+      |                         User Creds Table                  |			
+      |     --------------------------------------------------    |			
+      |     | ID | TYPE |  USERNAME   |  PASSWORD   |  scID  |    |         
+      |     | ## | FB   |  mufa_FB    |             |  6486  |    |         
+      |     | ## | RGTR |  h_mufazz   |  t!fs$fsd   |        |    |         
+      |     | ## | RGTR |  fatem_23   |  2334SDew   |        |    |         
+      |     | ## | GOGL |  murtuzaa   |             |  32232 |    |         
+      |     | ## | SAML |  sd@amd.c   |             |  457u8 |    |         
+      |     --------------------------------------------------    |         
+      |                                                           |         
+      |                                                           |         
+      |                     App Clients Table                     |         
+      |     --------------------------------------------------    |         
+      |     | NAME  |   C_ID   |  C_SECRET   |  CLBK_URL     |    |         
+      |     | APP1  | xgsuhw13 |  asassqsws  | www.app1.com  |    |         
+      |     | APP2  | asds23sd |  45wfytgb   | www.app2.com  |    |			
+      |     | usrPO | iwndo24l |             | urPo.abc.com  |    |			
+      |     | admPo | eicne35e |  43dfy6vd   | adPo.abc.com  |    |			
+      |     | conAp | efdfhdi2 |             | google.com    |    |         
+      |     --------------------------------------------------    |         
+      |                                                           |         
+      |                                                           |         
+      |                    Federation-integration data    		  |
+	  |   	|-------------------------------------------|		  |
+      |   	| 	                 						|		  |
+	  |		|	FB-> 	{	AppId: 'mufFbPage'			|		  |
+	  |		|				AppSecret: '23422343'	 }	|		  |
+	  |		|	Gmail-> {	AppId: 'mufGmailApp'		|		  |
+	  |		|				AppSecret: '23we434'	 }	|		  |
+	  |		|	SAML-> {	provider: 'amdocsid'		|		  |
+	  |		|				identifier: 'username'	 }	|		  |
+	  |		|-------------------------------------------|		  |
+	  |															  |	
+	  |         												  |	
+      |                                                           |         
+	  |						[Login Page]  						  |			
+      |           {Token API}                                     |         
+      |                                                           |         
+	  -------------------------------------------------------------                
+        
+
+user pool and Federation-id-provider set up:-
+    Here you set the necessary information about how the diffrent id provider(FB, Gmil, SAML) are integrated with your uerpool.
+    This is regarding 'Federation-integration data' in the above figure.
+    In AWS console:-
+        AWS > Cognito > manage usetr pool > select your pool > in Federation select identity provider
+        You can see diffrent options like FB, Gmail, SAML here.
+        fill the data for the id provider you wants to integrate.
+   This is one time activity for each provider and developer has to do it at a time of set up 
+  
+user pool and and App Client:-
+    The App client who uses the userpool for on his behalf to authenticate the user.
+    Each App client has to register himself.
+    As like in OAuth 2.0 for any client to register he need to provide the name and Callbackurl.
+    and then the userPool (our Authentiction server) will return him the Client_id and Client_Secret(if needed)
+    Later clients will use this information to authenticate the user on its behalf.
+    
+    This is also one time activity for each client.
+    
+user pool and and user table:-
+    This is where the data about the usr lie. For each user either he register via form, FB, Gmail, SAML 
+    there will be one row for that user.
+  
+So no matter its for uerPool himself or on behalf of any App Client, for login the user will be presented with the Login Page 
+owned completely by the userpool. This page do have options to either login by diffrent mean like.
+
+
+Setting up userPool:-
+
+Setting up userPool and Fedrated id provider:-
+
+Setting up userPool and Appclient:-
+
+
+
+
+
