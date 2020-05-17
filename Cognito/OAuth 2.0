@@ -65,7 +65,7 @@ Client and Authentication Server initial set up:-
   In return the AS give 2 things to Client to note down
   1. Client ID: a ub=nique id of client among all other client registerd at AS
   2. Client Secret (Opional) : AS will provide the client secret if you wants. which the client should not share with any one.
-      Client Secret must be placed at trusted location. if you trust client then place it there otherwise are RS
+      Client Secret must be placed at trusted location. if you trust client then place it there otherwise are RS.
     
 So what AS has:-
   - This list of user credential, the logic of user identity verification, the list of registerd clint with there name, clent id and secret.
@@ -190,7 +190,14 @@ Authorizaion Code Grant:-
 										grant_type:		authorization_code
 										code:			<The Auth code received in step 5>
 										client_id:		<Id of the client admPo>
-										redirect_uri:	<redirect url of the client admPo>		
+										redirect_uri:	<redirect url of the client admPo>
+										client_secret:	<secret of the client admPo>
+				The Client Secret in above api is required only if the developer has created the secret at a time of app registration
+				in AS. if not then we can leave it.
+				EG:-
+					for client 'admPo' you have to provide the secret
+					for client 'usrPo' you do not have to give.
+					
 				The API will reach to AS server again and finalyy produce below result if all is ook
 							{
 									"id_token": ".....",
@@ -280,6 +287,30 @@ Client Credential Flow:-
 		creds in login page os AS. but here neither user nor login page is involve.
 		it only between   AS<-->Client  not  User<-->AS<-->Client
 	
+	
+Refresh the token:-
+	We know that the access_token expires in given time so we need to get the new token before that.
+	retriving the new tokenvis allowed only if your flow were 'Auth Code' so system is preasumable trusted.
+	in 'implicit' and 'client_credential' refressing token not allowed.
+	
+	That why you receive the refresh_token only in 'Auth code' flow not in others.
+	
+	To get the new access_token you need to simply call below api:-
+				POST
+					https:// <AS server domain> /oauth2/token?
+						Content-Type=	application/x-www-form-urlencoded&
+					BODY
+						grant_type:		refresh_token&
+						refresh_token:  <the refres_token you receive in the end of Auth Flow>
+						client_id:		<Id of the client admPo>
+						client_secret:	<Secret of the client admPo>		
+				Response
+							{
+									"id_token": ".....",
+									"access_token": "......",
+									"expires_in": <time in seconds>,
+									"token_type": "Bearer"
+							}					
 		
 Access VS ID VS Refresh Token:-
 	????????????????????????????
