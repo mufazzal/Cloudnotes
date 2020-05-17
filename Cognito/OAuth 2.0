@@ -91,14 +91,14 @@ So what AS has:-
       |     --------------------------------------------------    |               usrPO                      
       |     | NAME  |   C_ID   |  C_SECRET   |  CLBK_URL     |    |         ---------------------            
       |     | APP1  | xgsuhw13 |  asassqsws  | www.app1.com  |    |         |           		    |      
-      |     | APP2  | asds23sd |  45wfytgb   | www.app2.com  |    |			    |      clientId     | 		
+      |     | APP2  | asds23sd |  45wfytgb   | www.app2.com  |    |					|      clientId     | 		
       |     | usrPO | iwndo24l |             | urPo.abc.com  |    |			    |      iwndo24l     | 		
       |     | admPo | eicne35e |  43dfy6vd   | adPo.abc.com  |    |			    |                   | 		
       |     | conAp | efdfhdi2 |             | google.com    |    |         ---------------------    
       |     --------------------------------------------------    |             
       |                                                           |                usrPO               
       |                                                           |         ---------------------     
-      -------------------------------------------------------------         |           		    |     
+      -------------------------------------------------------------         |           				|     
                                                                             |      clientId     |     
                                                                             |      eicne35e     | 	
                                                                             |                   | 	
