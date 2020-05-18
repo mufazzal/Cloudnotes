@@ -30,7 +30,8 @@ What AWS sevices will be allowed:-
     you can see table of create pseudo IAM user. 
     thiug because of securoty reason AWS do not show key and id generated, also do not show for which user it generated
     so no mush info to see in here.
-
+    
+    IMP: The pseudo user is created only once for each requested user, if for same user id requested again then the pre-created one will be returned.
   
   
   Steps to create idp:-
