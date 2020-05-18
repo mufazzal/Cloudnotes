@@ -98,24 +98,116 @@ user pool and and App Client:-
 user pool and and user table:-
     This is where the data about the usr lie. For each user either he register via form, FB, Gmail, SAML 
     there will be one row for that user.
-  
+
+user pool + Client + Login/Registration:-
+	There is two eay to register the user in userpool
+	1. Directly via aws console
+	2. On
+	
+	The regitered user will have an entery in user table, no matter on which client behalf it is added in user table.
+	Actully at a time of registration client does not even matter. All user are same at that point.
+	
+	
+
 So no matter its for uerPool himself or on behalf of any App Client, for login the user will be presented with the Login Page 
 owned completely by the userpool. This page do have options to either login by diffrent mean like.
 
 
 Setting up userPool:-
+	to create the userpool just go to  AWS > Cognito > manage pool > Create pool
+	type name and press 'step through setting'
+	Now fill detail of each step if required.
+	This are some basit detail for user sign in/sign up functions. like requiret attribute, MFA, password and email formate etc.
+	Go through it is beter.
+
 
 Setting up userPool and Fedrated id provider:-
+	When you wnats to integrate the other fedrated id proider to the pool. you need to provide some detail.
+	FA/Gmail or anu OAuth 2.0 complient AS : just add Client_secret and Cliet_is
+	for other like saml and OIDC add the necessary detail.
+		- 
 
 Setting up userPool and Appclient:-
+	This is where you set the App Client who wnakts to use the the your uerpool for authentication of user via OAuth 2.0 protocol.
+	Appclient are the Aith2.0 compatible clients who will later ask the uaserpool to authenticate the user on behalf of himself.
+	
+	Please Note:-
+		userPool and Fedrated id provider 	-> Here the userpool is become OAuth2.0-Client and Fedrated-id-provider is the OAuth2.0-Auth-Server 
+		userPool and Appclient				-> Here the userpool is OAuth2.0-Auth-Server and Appclient is a OAuth2.0-Client
 
-UserPool and Auth 2.0 APIs:-
+	As you know the Auth2.0 contract between the AS and Client is that 
+		Client will give his name and callback_url and in return AS will handover Clent the Client_id and Client_secret.
+
+	Steps to set AppClient:-
+		1. Cognito > User Pool > Select ur > pool > App Client in General setting > Add Client
+		2. Type client Name say 'admPo'.
+		3. Generate Client Secret:-	
+			You have option to choose if you wants to generate the secret ot not. in step 6.4 we will see when we should generate it and when shouldn't
+		4. press Ok. and a Appclient will be created. But this is not yet usable. Dont why AWS did it. it stil need some config set up.
+		5. You will aslo see the AppClient id and secret(if checked earlier) which are nothing bit Client_id and Client_secret for 'admPo'
+			You will need this two later for Auth flows.
+		6. Now cofigure th client in more detail->
+			6.1 go to  App Integration > App Client setting > see detail of client 'admPo'
+			6.2 Enabled Identity Providers: checked it why ?????????
+			6.3 Callback URL: put tha callback ur for this Client [See what is callback url of Auth2.0 Client in OAthe2.0.txt]
+			6.4 Allowed OAuth Flows  :-
+				As you know in Auth2.0 ther is three mechanism of Auth flow, now here you decide what flow will be allowed and what not
+					- Authorization code grant: Checked if you wants to allowe this flow. If you choose this flow then you cannot select
+							'Client Credential' flow
+					- Implicit Grant:-	Checked if you wants to allowe this flow. If you choose this flow then you cannot select
+							'Client Credential' flow	
+						NOTE: There is some bug in AWS, due to that the if AppClient have checked the 'Client secret' in step 3
+							then this two flow will not work. so if you want to use this two flow then do not create the secret fir that client.
+					- Client credentials: Checked if you wants to allowe this flow. If you choose this flow then you cannot select
+							'Authorization code grant' flow and 'Implicit Grant' flow
+							This flow work only if Appclient has Client_secret.					
+			6.5: Allowed OAuth Scopes  : ??????????????????/
+			6.6: Allowed Custom Scopes  : ???????????????
+		7: 	Hosted UI Customization: (Optional) The Login page in completely owned by the userpool not by client('admPo')
+			yet you can customize some look and feel feature of Login page for each Client. you can do it at 
+				App Integration > App Client setting > Hosted UI
+				in dropdown choose the Client and change the UI features if you wants.
+			
+
+UserPool and Auth 2.0 Flow mechanisn:-
+	AS you know there is three mechanism to Authenticate the user by userpool on behalf of Client.
+	For API detail see the APIs in postman   AWS > Cognito > Cognito.
 	
+	Lets say the Client is 'MufAppClient' and user poll is 'MufTestPool' and user is Muffy
+	Now Client (MufAppClient) on his behalf, wnats to authenticate user (Muffy) by Authentaction sever (MufTestPool) 
 	
-	
-	
-	
-	
+	Auth Code Flow:-	
+		Use url 'IDP Login URL' postman and past it in browser to perform the Authentication. This will open the login page of 'MufTestPool' on behalf of 'MufAppClient'   	
+		Also vaerify that 'state' return in redirection url is same as we gave in Header (dummyRandom)
+		This work only if  Cognito > USer Pool > select the pool > click 'App Client Setting' in 'App Integration' > Go to card of your App > Check 'Authorization code grant'
+		After auth success full get the 'code' from redirect page url.
+		formate of this redirect url is-
+				https://<redirect url>/?code=<Auth Code>&state=dummyRandom
+
+		Now AppCliebt have to read this code and use this to get the Oauth2.0 Tokens
+		For this use this API:-  'Grant: Code: Client withot Secret'
+		This a piwill generate the three token Id, Access, refresh.
+		
+		IMP: This flow only work for client without Client_secret.
+			
+	Implicit Grant
+		For this use url:- in postman 'Grant: Implicit: Client without Secret', paste it in broser and do the login.
+		After auth successfull get the 'tokens' from redirect page url.
+		formate of this redirect url is-
+				https://<redirect url>/?
+				access_Token=<...>
+				id_token=<...>
+				expiire_at=<....>
+				type=bearer&
+				state=dummyRandom
+
+		get the token from here.
+		IMP: This flow only work for client without Client_secret.
+		
+	Clirnt Credention:- For this user is not at all involved. its just between userpool and Client.
+		Uer API:-	'Grant: CC: Client witht Secret' in postman
+		IMP: This flow only work for client with Client_secret.
+		
 	
 	
 	
