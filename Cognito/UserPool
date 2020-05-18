@@ -99,15 +99,20 @@ user pool and and user table:-
     This is where the data about the usr lie. For each user either he register via form, FB, Gmail, SAML 
     there will be one row for that user.
 
-user pool + Client + Login/Registration:-
+user pool + Client + Registration:-
 	There is two eay to register the user in userpool
 	1. Directly via aws console
-	2. On
+	2. Via hosted UI of any App client
+	
+	For both of the case the process is same. AppClient matter only at a time of Login.
 	
 	The regitered user will have an entery in user table, no matter on which client behalf it is added in user table.
 	Actully at a time of registration client does not even matter. All user are same at that point.
 	
 	
+user pool + Client + Login :-
+	At a time of Login via hosten UI, it does matter on which client bhalf the Login page is open.
+	So the access token will be issue to that user only for that client.
 
 So no matter its for uerPool himself or on behalf of any App Client, for login the user will be presented with the Login Page 
 owned completely by the userpool. This page do have options to either login by diffrent mean like.
