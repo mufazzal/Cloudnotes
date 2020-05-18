@@ -69,7 +69,7 @@ Lambda and VPC:
   Lambda do not lie in any VPC. and Lambda cannot have any Public or Private IP address attached to himself.
   BUT
   what if you nmeed to communicate with any node lie in VPC via lambda.
-  EG: you wants to read the data from RDS which lie in a subnet of VPC, or you eabts to run a api hosted on EC2 lieing in VPC
+  EG: you wants to read the data from RDS which lie in a subnet of VPC, or you need to run a api hosted on EC2 lieing in VPC
 
   There is two possible scenarion
   SC1. The node (EC2, RDS etc) of VPC you wants to communicate lies in Public Subnet
