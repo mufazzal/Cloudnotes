@@ -1,0 +1,82 @@
+The user pool work to resolve two problem
+  1. A complete user managgement portal witj necessary functions
+  2. A Authentication provider for the users on behalf of registered client via OAuth2.0
+  
+  
+The identity pool enable those user to behave like a IAM user. 
+The identity pool can allow the user of USer Pool to access the certain AWS service like those user are thea pseudo IAM user.
+
+For any user prsent in user pool and have valid access_token for any client, 
+then the Client can request(with access_token) the identity pool to create a Access ID and Access Key just like a IAM user have.
+With this set of key the user can directly access some AWS services.
+
+What AWS sevices will be allowed:-
+  for this we need to create Role for authenticated user.
+  Also we can create a role for unauthenticated user if want user to give a guest acccess.
+  
+ What info we need to provide to idp :-
+  1. Which user pool the user belongs to
+  2. id_token of user issued by userpool on behalf of some valid client
+  
+  
+ What IDP do:-
+  when idp receive a request to create a pseudo IAM user for any user(with valid id_token for a client) in userpool, 
+  then idp receive request with userPoolId and id_token
+  from id token idp also determine the Client on whose behalf this token is issued by userpool to that user.
+  the IDP generate a key and ID mapped with that user in userpool and valid for same client only.
+  Now devekoper can use this Key and ID to perform certain operation AWS services.
+  You can see the created pseudo IAM usr at 
+    AWS > Cognito > Manage Identity Pool > Select you idp > identity browser
+    you can see table of create pseudo IAM user. 
+    thiug because of securoty reason AWS do not show key and id generated, also do not show for which user it generated
+    so no mush info to see in here.
+
+  
+  
+  Steps to create idp:-
+    1. Aws > Cognito > identity pool > Create 
+    2. Type name
+    3. set up configuration for diffrent Authentication-provider
+        3.1 if ypu are using Congnito USer Pool for Authentication of user the open respective tab and provide twi thing
+            - the user pool id
+            - the App Client id (Client App must be prsent in user pool above)
+        Here you tell the idp that please create a pseudo IAM user against any userpool user whenever i request you with valid id_token for Client i choosed.           
+    4. Now chosse the IAM role for Authenticated user as we as the unauthenticated user if you wants the guest acccess
+        This Role will define that what kind of permision the pseudo user will have once created with key and id.
+     Done.
+     
+     
+     
+Code to generate the pseudo IAM user for userpool user
+
+      AWS.config.region = "us-east-1";
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: <ID of Identity Pool>,
+        Logins: {
+          'cognito-idp.us-east-1.amazonaws.com/<ID of user pool>': <Valie id_token>
+        }
+      });
+
+      AWS.config.credentials.get((error) => {
+        console.error(error.message, AWS.config.credentials);
+      });
+
+ now 'AWS.config.credentials' ppoint to key and id of pseudo IAM user. it can be used to access any AWS service on which the role assigned in
+ step 4 give permission to.
+ 
+ 
+ EG:-
+  
+  ??????????????
+  
+  The above code will upload the S3 image with creds of pseudo user with private-access. now only this user has the permission to 
+  edit/delete this image.
+  
+  
+  
+     
+     
+     
+        
+  
+  
