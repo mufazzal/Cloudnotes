@@ -6,6 +6,8 @@ IAAS		OS, Patches, Drivesr	Hardware			:Great that i do not have to worry about a
 PAAS		Application		Hardware and OS			:You just give the the code of your app and they will take care of all extra overhead: 
 Serverless	Function		App load			:You just give small pices of code of your app : 
 
+
+
 In all above three there is one thing common. You need a machine up and running all the time your app is live.
 and whole things of the app has to be in running state all the time. so all the time you need either a server at data center or EC2 at aws up.
 All has to be Up and running even though you do not really need anyting or something.
