@@ -24,3 +24,63 @@ Principle of Serverless:-
   3. Use push based event driven pipeline
   4. Thicked Front End
   5. Same serverless function can at multiple instances. So they can run in paraller
+
+
+Serverless and the Grand issue of Cold start/Warm Up:-
+	No matter what serverless env you use AWS-lambda or Azure-??? or google-???? under the hood they all work in same way.
+	
+	They all are container based. and instantiate the container when a lambda is triggered. 
+	For each triggered lambda there will be one container created.
+	Once lambda is finished. this container remain in memory of ecosystem for some time, this instantiarted but idle instance 
+	of a lambda container is ready to user for any upcoming next lambda(same type) trigger.
+	
+	So It create the two big prolem
+	1. If a container of previously triggered lambda is used then how could it be the stateles?
+	2. Warm up/Cold start.
+	
+	
+	Warm up/Cold start: This is the biggest bottelneck of serverless. 
+		When you craete lambda in aws system and save it. its just a template of enviorment-code-resources-files.
+		At this moment when its not yet instantiated at once, its just and zipped-code not executable.
+		Now when the first time its triggerd then a 
+		new container is created 
+		then zipped-code is copied in that container
+		then code is unzipped, configured, compiled 
+		and finally intiantatiated
+		And then the lambda is ran.
+		
+		After the execution finished this Lambda-container remin instantited for some time (5 mnt for AWS) and then it destroyed.
+		So at a moment it is possible that there is couple of ready-to-use instantated container remain in memory 
+		OR
+		no single ready-to-use instantiated container is there
+			Again the condition of no single ready-to-use conatainer can appear in two scenario
+			1. LAmbda usage is very high at a moment and any free container got reused immediatly and so no exra left
+			2. LAmbda usage is very low at a moment and any free container got destroyed to longer idle waiting time.
+		In both of this condition when no ready-to-use container left for reuse the problem of warm-up or Cold-start appear.	
+				
+		Cold-start / Warm-up: This problem appear when a lambda function funtion got a trigger but due to no container 
+			the syatem first has to create the container, set the runtime enviorment in it copy the code and run any script if needed.
+			This whole process is time comsuming and so user face big delay.
+						
+		This problem appear in all serverless system. all of those provide some way to mitigate it. we will see later how.
+		As a developer at his side he can set some larm to triggr some lambda so that couple of container instantiated 
+		in each interval.
+		
+		
+		
+		
+		
+			
+		
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
