@@ -70,7 +70,9 @@ Serverless and the Grand issue of Cold start/Warm Up:-
 		
 		
 		
-		
+	Instance limitation:-
+		All the FaaS provider like lambda of aws, ???? of Azure do have limitation of how many lambda can be instantiated
+		at given moment. if more trigger will come more instantiation then they will be denied.
 		
 			
 		
