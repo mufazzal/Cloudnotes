@@ -133,9 +133,15 @@ Lambda and VPC:
         So any node the AWS network must have a security group that can tell what destination are safe for inbound and outbound communication
         
         
+---------------
 
-
-      
+Lambda's IAM Role/Permissions at local development at you PC:-
+  The lambda get it role when it is deployed over AWS. But in time of local development at you PC he can not have any role.
+  For at a time of development if you wants to access the previlged resource then you have to onfigure the AWS user locally.
+  
+  How? See #AWSSDK_AUTH_BY_KEY_ID in 'AWS JS SDK.txt'
+  The cofigured user locally must have all the permission that you will late give to the Lambda Role at deployed stage..
+  
       
   -----------------
   
