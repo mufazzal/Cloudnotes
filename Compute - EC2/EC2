@@ -203,6 +203,7 @@ EC2 and Other AWS services ->
                     So sombody may be able to see it if he has access to EC2 via SSH. So second aproach is recommended.
                     Also if your key is compromisesd and you change it. then you have to login in all Ec2 instances manulally
                     and change them via 'aws comfiguration'. 
+                    
          
     #AUTHEC2_WAY_2
     Way 2:
