@@ -27,12 +27,13 @@ What AWS sevices will be allowed:-
   Now devekoper can use this Key and ID to perform certain operation AWS services.
   You can see the created pseudo IAM usr at 
     AWS > Cognito > Manage Identity Pool > Select you idp > identity browser
-    you can see table of create pseudo IAM user. 
-    thiug because of securoty reason AWS do not show key and id generated, also do not show for which user it generated
-    so no mush info to see in here.
+    you can see table of created identityI of pseudo IAM user. 
     
-    IMP: The pseudo user is created only once for each requested user, if for same user id requested again then the pre-created one will be returned.
-  
+    IMP: The pseudo user is created only once for each requested user. and it will get the identityId assigned.
+
+    The Key and Secret gernerated are shorr live and they both expire after sometime. but identityId not.
+    if for same user the key and secret are requested again then the pre-created one will be returned with same identityID but diffrent key and secret.
+    
   
   Steps to create idp:-
     1. Aws > Cognito > identity pool > Create 
@@ -65,6 +66,8 @@ Code to generate the pseudo IAM user for userpool user
  now 'AWS.config.credentials' ppoint to key and id of pseudo IAM user. it can be used to access any AWS service on which the role assigned in
  step 4 give permission to.
  
+ Each time you use 'CognitoIdentityCredentials' for generating the key and secret for same user.
+ you will get the same identityID but diffrent set of key and secret
  
  EG:-
   
