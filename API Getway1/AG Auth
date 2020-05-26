@@ -1,0 +1,68 @@
+There is multiple way to autheticate that if caller has valid request and has proper access. 
+The choce is your that what level of security you wants.
+
+Verify (not authenticate) if API is in correct form:-
+
+  Verify if API caller has provided proper structure like body, header, query param
+      This will check if the caller has proper params in the API. it does not verify if he has the access to that api or not.
+      How:-
+        at your  Api > Method Request 
+          set 'URL Query String Parameters', 'HTTP Request Headers', 'Request Body'
+      This is very basic level of check.
+
+
+
+Authenticate the caller:-
+  You can configure the authorizer in aws console and then can attach this authorizer to APIs.
+  FOr this go to
+  There are 3 way to authenticate if caller has access to API or not
+  1. custom authorizer + Cognito user-pool
+  2. AWS_IAM with Cognito id-pool
+  3. custom authorizer
+  
+  
+  1. custom authorizer + Cognito user-pool:-
+    When you want to restrict the access of API only to the user who has valid id_token of the selected user-pool.
+    So here in the api you have to pass the valid id_token.
+    go to 
+      Authorizers > Create 
+      Choose Type = Cognito
+      Select the user-pool of you choice.
+      Type the key of Header param who has the id_token in 'Token Source'
+      Done
+    Now at the time of calling the caller has to provide the valid id_token and api getway take care if it is valid for the give user-pool
+    if yes then the api get executed or else it fail.
+    EG:-
+      see 'getUsers-US pool' api in postman and provide the valid id_token in Authorization param.
+      
+      When to use it:-
+        This approch is good when you wants to give the balncate access to all the user of certain user-pool.
+        It say 'if caller has valid id_token then gothrough'
+        Actully here the call is placed on behalf of certain AppClient that is registerd at cognito portal. The id token has 
+        the information about on whose(AppClient) behalf this call took place.
+      
+      In above approch you give access to the user if it has the valid id_token
+      Suppose you wants to write a IAM kind of access management where you write a policy for any authenticated cognito-user to tell
+      if he has access to set of api or not.
+      
+      For this first you need to set the identity poll and then 
+      Resources > your api > METHODE > Method Request
+        in 'Authorization' select AWS_IAM
+      Done
+      
+      Actully here the call is placed on behalf of cognito-user directly. you have to provide the identity of that cognito user 
+      in form of Access key and Secret.
+      
+      
+      At the time of calling first you have to generate the access-key and secret via id_token for given identity pool.
+      once generated then we will call the api with the signature v 4 params with access-key and secret
+      EG:-
+        'getUsers-ID pool' in postman
+    
+    
+  
+  
+  
+  
+  
+  
