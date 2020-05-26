@@ -64,6 +64,8 @@ Authenticate the caller:-
                       }
                   ]
               }        
+      So now the authenticated user will have acces to the APi listed in 'Resource'
+      
       
       Now cofiguring the API for this identity pool- 
       For this first you need to set the identity poll and then 
