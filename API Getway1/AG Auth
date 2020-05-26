@@ -77,8 +77,8 @@ Authenticate the caller:-
       in form of Access key and Secret.
       Unlike approch 1 here you do not have to create the Authorizer.
       
-      At the time of calling first you have to generate the access-key and secret via id_token for given identity pool.
-      once generated then we will call the api with the signature v 4 params with access-key and secret
+      At the time of calling first you have to generate the access-key, secret and session_token via id_token for given identity pool.
+      once generated then we will call the api with the signature v 4 params with access-key, secret, session_token
       EG:-
         'getUsers-ID pool' in postman
       
