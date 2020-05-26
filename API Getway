@@ -95,9 +95,15 @@ Creating an API :>
         It n verify if required data prsent in the call or not. But there is no way that it can verify that whoever
         is accessing this api have permission/authority to go into it.
         
-        For this we set up the 'Authorizer', This authorizaer ran even before the teh first one cech is performed
-        
-       The Authorizes is basically an Lembda function which takes the input as 'AuthorizationToken' and return a IAM policy document.
+        There are 3 way to authenticate if caller has access to API or not
+        1. custom authorizer + Cognito user-pool
+        2. AWS_IAM with Cognito id-pool
+        3. custom authorizer + Lambda
+       We will use 3rd option 
+       
+       custom authorizer  :-
+       
+       The custom Authorizer is with Lembda function  takes the input as 'AuthorizationToken' and return a IAM policy document.
        What is IAM Policy doc-
         Its a statement saying if the caller XXX has permission to perform operation YYY over resource ZZZ.
         Its formate is same as as what we do in IAM of AWS.
