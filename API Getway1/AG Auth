@@ -21,7 +21,7 @@ Authenticate the caller:-
   3. custom authorizer
   
   
-  1. custom authorizer + Cognito user-pool:-
+  1. custom authorizer + Cognito user-pool:- called on behalf of an appclient with valid user id_token
     When you want to restrict the access of API only to the user who has valid id_token of the selected user-pool.
     So here in the api you have to pass the valid id_token.
     go to 
@@ -42,7 +42,7 @@ Authenticate the caller:-
         Actully here the call is placed on behalf of certain AppClient that is registerd at cognito portal. The id token has 
         the information about on whose(AppClient) behalf this call took place.
       
-   2.  
+   2. AWS_IAM with Cognito id-pool :- called on behalf of an cognito user with valid user key and secret
       In above approch you give access to the user if it has the valid id_token
       Suppose you wants to write a IAM kind of access management where you write a policy for any authenticated cognito-user to tell
       if he has access to set of api or not.
