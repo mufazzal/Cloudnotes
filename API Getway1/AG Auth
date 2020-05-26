@@ -13,12 +13,10 @@ Verify (not authenticate) if API is in correct form:-
 
 
 Authenticate the caller:-
-  You can configure the authorizer in aws console and then can attach this authorizer to APIs.
-  FOr this go to
   There are 3 way to authenticate if caller has access to API or not
   1. custom authorizer + Cognito user-pool
   2. AWS_IAM with Cognito id-pool
-  3. custom authorizer
+  3. custom authorizer + Lambda
   
   
   1. custom authorizer + Cognito user-pool:- called on behalf of an appclient with valid user id_token
@@ -87,7 +85,14 @@ Authenticate the caller:-
       
     
     
-  
+  3. custom authorizer + Lambda:-
+      This is extremly fine grain way to give access at a runtime.
+      In this approach you have to create a lambda who take the input for the api and return the IAM policy
+      for detail see 'API Getway.txt'
+      
+      
+      
+      
   
   
   
