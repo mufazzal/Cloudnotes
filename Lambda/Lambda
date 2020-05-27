@@ -143,9 +143,83 @@ Lambda's IAM Role/Permissions at local development at you PC:-
   The cofigured user locally must have all the permission that you will late give to the Lambda Role at deployed stage..
   
       
-  -----------------
+-----------------
   
+Lambda and asynchronus operation:-
+  As we know that the lambda run in a epameral container. It accept some input perameter and produce the response.
+  This work fine if all the operation is synchronus but if some code in the lambda function is asynch then it has to 
+  handle properly.
   
+  The lambda should be capable to perform those asynch operation and then process the output of that asynch operation
+  and then finally producce the response.
+  
+  Scenario 1: If you do not need anu asynch operation. like sum of two number.
+    handler = (event) => {
+      return event.a + event.b
+    }
+    This is simplest and most useless example. you hardly need it practically
+    
+  Scenario 1: involving any asynch operation
+    There is diffrent way to handle this. we will see all of them and their advatages.
+
+    1. With use of Callback:-
+      IF your enviormrnt is < Nodejs8.x then you haver to use this. For greater version use asynch/await.
+        
+        exports.handler =  function(event, context, callback) {
+              docClient.scan(paramsScan, function(err, data) {
+                if(err) { var response = { statusCode: 500, body: JSON.stringify(err)};
+                } else  { response = { statusCode: 200, body: JSON.stringify(data) }; }
+                console.log(response)
+                callback(null, response)
+              });
+              return <THE Output>
+         });
+      This approch is very legacy and you should not use. Though you have to if you are usin nodejs lesser then 8.x.
+      The final produced result are sent into the callback methode.
+
+    2. With asynch/await and promise:-
+        This is the best approch and easiest one.
+        
+                exports.getUsers = async (event, context) => {
+                      var paramsScan = { TableName: "UserOrder", }
+                      const response = await docClient.scan(paramsScan).
+                                  promise().
+                                  then(function(err, data) {
+                                    if(err) { var res = { statusCode: 500, body: JSON.stringify(err) };
+                                    } else  { res = { statusCode: 200, body: JSON.stringify(data) };}
+                                    return res;
+                                  });
+                      return response;
+                 });
+         With use of asynch/await the code wait for the await statement to produce the result of asynchronus operation
+         once produce then the code move ahead.
+         Then you can use the result of asynchronus operation for producing the final response.
+         
+
+  Asynchronus operation without any callback or asynch/await:-
+      If your code has any asynchronuss operation but you do not use 'asynch/await' or callback then the result of this 
+      asynchronuss operation will lost in vain.
+      EG:-
+            exports.getUsers = async (event, context) => {
+                var paramsScan = { TableName: "UserOrder", }
+                const response = docClient.scan(paramsScan, function(err, data) {
+                              if(err) { var res = { statusCode: 500, body: JSON.stringify(err) };
+                              } else  { res = { statusCode: 200, body: JSON.stringify(data) };}
+                              console.log(res)	.....LNCO1
+                              return res;
+                            }).
+                return response;		
+             });
+      --  The response return at here is not tha result scan query. it will be some random object.
+          The lambda will return immediatly after initiating the scan. it wont wait fro the result to come. 
+          So even though the result will come later the final output response would have already being sent.
+          The 'LNCO1' will do pringt the result of scan query in console but this in not goes as final output return of lambda.
+
+        So the best pattern is to use lambda with NodeJs10.X with 'asynch/await'
+
+------------
+
+
 
 Pricing :-
 
