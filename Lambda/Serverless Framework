@@ -1,0 +1,57 @@
+
+
+
+Layer:-
+  with the SF you can deploy the layer and also can attach it to lambda function.
+  
+  How to create layer:-
+    create such strucure
+      
+      serverless.yml
+      commonlibs
+            |---nodejs
+                  |-----package.json
+                  |-----node_modules
+                            |--------aws-sdk
+                            |--------moment
+                            |--------axious  
+       
+      The content of serverless.yml:-
+            service: UAP-libs
+            provider:
+              name: aws
+              stage: beta
+              region: us-east-1  
+              runtime: nodejs12.x
+
+            layers:
+              commonLibs:
+                path: 'commonlibs'      
+                
+      Now run the command 'sls deploy' at directory in which the 'serverless.yml' lies.
+      in the outpu you will get the arn of the created layer.
+      
+      
+     How to attach:-
+     for attaching it simply provide the list of arn you wants to attach. 
+     also optional but strongly recommended : exclude the module from uploading which are already in the layer.
+     
+        ....
+        ....
+        functions:
+          getUsers:
+            handler: handler.getUsers
+            layers: 
+             - arn:aws:lambda:us-east-1:388412347424:layer:CommonNodeJsLibs:2
+            events:
+                ...
+        package:
+          exclude:
+            - node_modules/**     
+      
+      node_modules/** :- will exclude all the node modules
+      to exclude some specific who are in layer use
+        
+        node_modules/moment/**
+        node_modules/logger/**
+        
