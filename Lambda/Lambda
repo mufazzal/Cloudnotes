@@ -219,6 +219,67 @@ Lambda and asynchronus operation:-
 
 ------------
 
+Layer:-
+  In the development of lambda the biggest challange is code size, and if code has lof of dependencies then the library code size got 
+  bigger and bigger 
+  for EG if you are using the NodeJs env, then it may be possibe the node_modules folder got too large and handler function is tiny in comparision.
+  
+  Now you know that we make changes only in handler function mot in libs. 
+  so in every deployment why we should even deploy all the libe (node_modules in case of nodejs)
+  Also if code size is large thjen you can not edit the code in aws console directly. 
+  
+  To solve this problem comes the concept of layer.
+  
+  Layer is the collection of set library that lambdas can use in the code. so you do not have to upload the whole lib+code
+  in lambda instead you just upload the handler function and some necessary file if needed.
+  This layed can be used with many lambda so it giv great reusability.
+  
+  AWS system take care that when code ask for any lib, it will firt check in lambda and then check in attached layesr to that lambda.
+  
+  
+  How to create layer for nodejs libs:-
+    say we wants to write a code for many lambda that use the 'aws-sdk', 'moment' and 'axious' node modules.
+    so we will create a layer which will contain this three libs.
+    The one most imp thing you must remember that the folder structure of the layer id proper. 
+    fore node you have to place all the node_modules in the 'nodejs' folder 
+    
+    Creating Lob:->
+    
+      1. So simply create a directory 'commonlibs' and create the 'nodejs' folder in it and install all dependency here
+          commonlibs
+            |---nodejs
+                  |-----package.json
+                  |-----node_modules
+                            |--------aws-sdk
+                            |--------moment
+                            |--------axious
+
+      2. Now zip the 'commonlibs' folder and create 'commonlibs.zip'
+      3. go to AWS console > Lambda > layers > Create
+      4. type name, description, choose env as node
+      5. upload the zip
+      Done
+    
+    Attaching lib ->
+      1. go to the lambda function on which you wants to attach the lib
+      2. click on layer and then on Add Layer
+      3. paste the ARN of created layer above.
+      Done
+      
+    ** Accession the lib via layer is same as we do in normal scenarion   var awsSdk = require('aws-sdk')  
+    
+    
+    Challande with LAyer:-
+      With layer you have great liberty to not to deploy the libs with handler code. in aws enviormrnt the lambda get the refrence of lib
+      from layers but what about local development
+      if we do not have node_module folder in local the we cannot test the function locally.
+      
+      solutiin is that at the time of uploadint the handler function on lambda you do not zip the entire node_module folder
+      or do not zip the the specific node modules that are available in the layer 
+      
+      ** you can also have combination of both, some node modules imported from layer and some are placed with handler function itself.
+
+------------
 
 
 Pricing :-
