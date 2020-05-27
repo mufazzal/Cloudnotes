@@ -246,7 +246,7 @@ Layer:-
     Creating Lob:->
     
       1. So simply create a directory 'commonlibs' and create the 'nodejs' folder in it and install all dependency here
-          commonlibs
+          mufcommonlibs
             |---nodejs
                   |-----package.json
                   |-----node_modules
@@ -254,7 +254,7 @@ Layer:-
                             |--------moment
                             |--------axious
 
-      2. Now zip the 'commonlibs' folder and create 'commonlibs.zip'
+      2. Now zip the contyent of 'mufcommonlibs' (not folder mufcommonlibs) folder and create 'mufcommonlibs.zip'
       3. go to AWS console > Lambda > layers > Create
       4. type name, description, choose env as node
       5. upload the zip
