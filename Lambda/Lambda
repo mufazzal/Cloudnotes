@@ -281,13 +281,25 @@ Layer:-
 
 ------------
 
-
+provisioned cocurency :-
+  You may have read the issue in Cold Start or Warm Up in serverless.txt.
+  To solve this issue the AWS provided the 'provisioned cocurency'
+  By this you can keep number of cotainer of this lambda alive even when there is 0 traffic. the advantage is you not have to 
+  worry about cold start. 
+  But this is chargable and more the provisioned capacity more the charges will be. 
+  Remebber ther is maximum limit of overall capacity across any account and that is 1000
+  you cannot have more lambda instances of any kind running more then 1000.
+  So provisioned amount will be deducted from reserved capacity.
+  
+  reserved VS provisioned:-
+    reserved cocurrency will be reserved for designated lambda but containers will not be initiated. Free
+    provisioned cocurrency will reserved for designated lambda along with containers initiated. Chargable
+  
 Pricing :-
 
 scaling:-
 
 
-provisioned cocurency
 
 
 
