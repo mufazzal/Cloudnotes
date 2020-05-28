@@ -1,5 +1,87 @@
+The serverless framwork is the alternative of aws SAM. it is so easy to use in comparision of AWS SAM.
 
+This provide way to create, run locally and deploy the serverless modules.
 
+The SF uses serverless.yml for deployment. this file is like template in cloudfprmation.
+How to create app in local directory:-
+  1. Go to you directory in CMD
+  2. type 'sls' and hit enter and fill some value
+  3. This will create on file name 'serverless.yml' and one 'handler.js'
+  You can use this two file a boilerpalte set up for start.
+  
+  
+  SF has three part which work tigether
+  1. The serevrless.yml: This is ther file which contains the information like
+  2. Set of commands that we need to run for local-run, deploy , validate etc.
+  
+  Struture of file:-
+    Below is basic outline structure of the file
+   
+      service: UAP-getusers         <This will be the name of the stack that are going to created>
+      provider:                     <This has the list of some cofiguration that are going to apply on all function below>
+        name: aws
+        runtime: nodejs12.x    
+      functions:                    <This is the lamdas with info about its layers, code, triggers etc.>
+        hello:
+          handler: handler.hello
+      package:                      <List of folder that you wants explicitly to exclude or include in deployment package>
+        include:
+        exclude:
+      resources:                    <????????>
+        Resources:          
+    
+provider:-
+  In this part you set some globakl configuration plus some default configuration for all function declared in this file
+  here you can ddefine
+    stage
+    region
+    iamRoleStatements
+    environment
+    
+    etc.
+    
+function:-
+ This is the central component of this file. It has info about list of lambda function.
+ Each function has the detail about hoe it will trigger. a single lambda can have a multiple trigger
+ 
+ outline:-
+      functions:
+        MufFfunction1:
+          handler: src/function1.handler 
+          events:
+            <config of trigger 1>
+            <config of trigger 2>
+            <config of trigger 3>
+            <config of trigger 4>
+        MufFfunction2:
+          handler: src/function2.handler 
+          events:
+            <config of trigger 1 for function2>
+            <config of trigger 2 for function2>
+            <config of trigger 3 for function2>
+            <config of trigger 4 for function2>            
+          .........
+          ......
+          ...
+          
+ function:-
+    This will has info like below handler, name, runtime, timeout, provisionedConcurrency, reservedConcurrency, VPC, environment variable
+    for detail
+      https://www.serverless.com/framework/docs/providers/aws/guide/functions/
+      
+ Event:-
+    This define how the function will be triggered and how.
+    event could be of many type like http, websocket, S3, sns, sqs, API Getway etc.
+    it has info like
+      if trigger is API Getway then wjhat api will invoke this function. what will be authorizer of that api. etc
+      if trigger is S3 then what operation like add/delete/edit the s3 which object will trigger this lambda
+      if trigger is SNA then what notification will trigge this lambda
+      ETC.
+      
+      For more:  https://www.serverless.com/framework/docs/providers/aws/events/
+  
+  Service: This will be used to create name of stack that are going to build via this template
+  
 
 Layer:-
   with the SF you can deploy the layer and also can attach it to lambda function.
@@ -55,3 +137,20 @@ Layer:-
         node_modules/moment/**
         node_modules/logger/**
         
+----------------
+
+Commands :-
+  Below command will create the serverless app
+    >> sls
+  Below will run the function getUser locally   
+    >> serverless invoke local --function getUsers
+  Below will deploy the whole stack
+    >> serverless deploy
+  Below will deploy the whole only the code of function getUsers
+    >> serverless deploy function --function getUsers
+  
+  
+    
+    
+    
+
