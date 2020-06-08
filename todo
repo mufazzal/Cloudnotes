@@ -8,6 +8,7 @@ See how if we chose diffrent geographical location, the latancy impact by
 AWS :-
   AWS SSO
   X-ray
+  SQS  SNS   Kenesis
   
   
 Concepts:-  
