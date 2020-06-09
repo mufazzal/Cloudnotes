@@ -147,7 +147,7 @@ Commands :-
   Below will deploy the whole stack
     >> serverless deploy
   Below will deploy the whole only the code of function getUsers
-    >> serverless deploy function --function getUsers
+    >> serverless deploy function --function getUsers           OR       sls deploy -f getUsers
   
   
     
