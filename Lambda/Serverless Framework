@@ -141,9 +141,9 @@ Layer:-
 
 Commands :-
   Below command will create the serverless app
-    >> sls
+    >> sls                                                    OR       sls create --name <name> --template aws-nodejs path <path of folder to create>
   Below will run the function getUser locally   
-    >> serverless invoke local --function getUsers
+    >> serverless invoke local --function getUsers             OR       sls invoke -f getUsers          
   Below will deploy the whole stack
     >> serverless deploy
   Below will deploy the whole only the code of function getUsers
