@@ -11,7 +11,7 @@ Verify (not authenticate) if API is in correct form:-
       This is very basic level of check.
 
 
-
+#APIGETAUTH
 Authenticate the caller:-
   There are 3 way to authenticate if caller has access to API or not
   1. custom authorizer + Cognito user-pool
@@ -94,7 +94,37 @@ Authenticate the caller:-
       
       
       
-      
+----      
+Authorizer of API Getway   VS   Lambda Role 
+  Most of the time you will see a lambda attached to a certain api in API getwatway.
+  Now there is two point of authorization check here (in order of execution)
+  1. By Api Getway Authorizer
+  2. By Lambda execution Role
+  
+  By Api Getway Authorizer:-
+    This one will determine that does the called of the API has permission to erxecute this api. No matter what this api is doing inside
+    But do the caller even have the permission to un it.
+    Once it says 'yes the caller has access' then the lambda attached will start running 
+      but In any way this authorizer wil not affect the operation done inside the lambda itself.
+    If it says 'No the caller do not has access' then the lambda attached will not run at all. 
+    There is three way to manage access. see it at '#APIGETAUTH'
+    So this access is actully depend on the previllage level of USER
+    
+  By Lambda Role:-
+    Onxce the 'Api Getway Authorizer' say yes, then the next step is executing the lambda itself. 
+    Now making changes in any aws resource the lambda must have the proper ppermission and role. for this comes the 'execution Role'
+    This define that what kind of operation on what kind of resource does the lambda has permission to perform
+    So this access is actully depend on the previllage level of Lambda [not user]
+    
+    
+    
+  
+  
+  
+  
+  
+  
+  
   
   
   
