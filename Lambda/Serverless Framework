@@ -137,6 +137,9 @@ Layer:-
         node_modules/moment/**
         node_modules/logger/**
         
+        
+    IMP: attached Layers to lambda can be updated on updating with function update command only.     
+        
 ----------------
 
 Commands :-
