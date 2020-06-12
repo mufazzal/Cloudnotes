@@ -154,7 +154,28 @@ Commands :-
 ----------
 Deleting the stack:-
   For this go to cloudformation and delete it
+  Or use command
+    >> sls remove
+    
+-----------------
 
+USer creds:-
+  sls exploit the aws configure you set up for aws-cli.
+  if you wants to use the specific profile of aws-cli credential profile then use 'profile' tag in provider
+  EG:
+    provider:
+      name: aws
+      profile: Mufazzal_Hussain
+      ...
+   in C:\Users\hussaimu\.aws\credentials file:-
+      [Mufazzal_Hussain] ; Mufazzal_Hussain profile
+      aws_access_key_id = *******
+      aws_secret_access_key = **************    
+
+--------------
+
+
+    
 
 
 
