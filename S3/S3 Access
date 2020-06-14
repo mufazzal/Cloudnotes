@@ -271,7 +271,9 @@ AP Refrence :- https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.htm
   A1, A2: Both of this api is Anonumus and any body can consume it without any identification.
   
         
+---------------------
 
+S3 and Identity Pool ????????????????/
 
 
     
