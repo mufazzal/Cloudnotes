@@ -139,7 +139,7 @@ Authenticate the caller:-
                                     }      
     
     
-    Working Code:- in 'UAPUI' 
+   
     
   3. custom authorizer + Lambda:-
       This is extremly fine grain way to give access at a runtime.
