@@ -51,17 +51,26 @@ What AWS sevices will be allowed:-
      
 Code to generate the pseudo IAM user for userpool user
 
-      AWS.config.region = "us-east-1";
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: <ID of Identity Pool>,
-        Logins: {
-          'cognito-idp.us-east-1.amazonaws.com/<ID of user pool>': <Valie id_token>
-        }
-      });
+          async function getUsersIdentityPoolIdValues(session) {
 
-      AWS.config.credentials.get((error) => {
-        console.error(error.message, AWS.config.credentials);
-      });
+            const credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: 'us-east-1:324cf0f8-83f3-43d4-a61e-248425a60cd0',
+              Logins: {
+                'cognito-idp.us-east-1.amazonaws.com/us-east-1_d8rcMtMXj': session.tokens.idToken.jwtToken
+              }
+            }, 
+            { region: 'us-east-1' });
+
+            credentials.get((error) => {
+              if (error) {
+              console.error(error.message);
+              } else {
+              console.log(credentials.accessKeyId, credentials.secretAccessKey);
+              console.log(credentials.sessionToken);
+              }
+            });
+
+          }
 
  now 'AWS.config.credentials' ppoint to key and id of pseudo IAM user. it can be used to access any AWS service on which the role assigned in
  step 4 give permission to.
@@ -78,9 +87,30 @@ Code to generate the pseudo IAM user for userpool user
   
   
   
-     
-     
-     
+   -----------
+   
+   When you create a idp, you need to choose ywo thing
+   1. The user pool of cognito
+   2. Any AppClient attache to selected usr poll above.
+   
+   IMP: The idp has one to one access among USer pool and its AppClient. if you wants to create a idp for any other Appclient of the same user pool
+        then you have to create a new idp again.
         
+                  ---------  AppClent1
+     MufuserPool  ---------  AppClent2
+                  ---------  AppClent3
+        
+        
+    MufIDPool_1 ----- MufuserPool ----- AppClent1   
+    MufIDPool_2 ----- MufuserPool ----- AppClent2   
+    MufIDPool_3 ----- MufuserPool ----- AppClent3   
+     
+     
+    Below will be incorrect-
+    
+    
+                  ---------  AppClent1
+     MufuserPool  ---------  AppClent2    ---------  MufIDPool
+                  ---------  AppClent3    
   
   
