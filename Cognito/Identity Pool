@@ -54,9 +54,10 @@ Code to generate the pseudo IAM user for userpool user
           async function getUsersIdentityPoolIdValues(session) {
 
             const credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: 'us-east-1:324cf0f8-83f3-43d4-a61e-248425a60cd0',
+              IdentityPoolId: <cognoto identiti pool id>,
               Logins: {
-                'cognito-idp.us-east-1.amazonaws.com/us-east-1_d8rcMtMXj': session.tokens.idToken.jwtToken
+                'cognito-idp.us-east-1.amazonaws.com/us-east-1_d8rcMtMXj': <id_token of valid cognito session>
+                // 'cognito-idp.us-east-1.amazonaws.com/<cognoti user pool id>': session.tokens.idToken.jwtToken
               }
             }, 
             { region: 'us-east-1' });
@@ -72,10 +73,8 @@ Code to generate the pseudo IAM user for userpool user
 
           }
 
- now 'AWS.config.credentials' ppoint to key and id of pseudo IAM user. it can be used to access any AWS service on which the role assigned in
- step 4 give permission to.
  
- Each time you use 'CognitoIdentityCredentials' for generating the key and secret for same user.
+ Each time you use 'credentials.get' for generating the key and secret for same user.
  you will get the same identityID but diffrent set of key and secret
  
  EG:-
