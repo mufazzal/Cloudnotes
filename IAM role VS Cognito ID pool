@@ -1,0 +1,22 @@
+Suppose you wants to do an operation like
+  A file upload to S3 bucket
+  Change in DynamoDB table
+  get the data from RDS
+  ETC.
+  
+  
+  To perform this operation we need couple of permission.
+ 
+  Depending on what level of fine grain access managemet you want, you xcan set up the permission mechanism.
+  
+  1: At Back End:  Permission to the Conputing System itself (EC2 or Lambda-API-Getway):-
+      Give role to lambda or EC2 via console
+  2: At Back End: Permission to IAM User and log-in into the Conputing System (EC2 or Lambda-API-Getway)
+      2.1 EC2: 'aws configure'
+      2.2 Lambda: ???????
+  3: At Front End : Permission to the logged in APP-User [not IAM user] via identity pool
+      Create the identity pool for fine user poll and appclient. 
+      Create a role for authenticated and unauthenticated app-user and give this role the access to certain resources.
+      generate the accesskay nad secret for that user and use theis keys to access the resource.
+  4: At Front End : By giving the Access-key and Secret directly in code : never do it.
+  
