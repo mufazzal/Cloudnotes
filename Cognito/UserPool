@@ -214,6 +214,15 @@ UserPool and Auth 2.0 Flow mechanisn:-
 		IMP: This flow only work for client with Client_secret.
 		
 	
+--------------------
+
+Cognito Auth and Amplify:-
+	The process of writing code authenticating the user is pretty tedious to do.
+	But AWS provide you very easy way to do it via AWsAmplify.
+	After few line of code with proper config files you can do it pretty quick. you do not at all worry aout the back and forth 
+	exchanges of tokens between diffrent systems.
+	
+	See the code in 'UAPUI/App.js' for authentication
 	
 	
 
