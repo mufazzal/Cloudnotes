@@ -85,7 +85,61 @@ Authenticate the caller:-
       The AWS system automatically determine the identiti pool from the params passed in signature-v-4-params.
       So you do not have to provide it at the time of set up.
       
+      
+      Calling this API from Front End:-
+        To call this api which is secured by AWS_IAM, you have to use signed v4 api call.
+        for this use 'aws4fetch' npm lib.
+      Code-
+                                    import { AwsClient } from 'aws4fetch'
+                                    
+                                    async function getUsersCognitoIDPAuth(session) {
+                                      const idpKeysAndToken = await getUsersIdentityPoolIdValues(session);
+                                      console.log(idpKeysAndToken)
+
+                                      const aws4Client = new AwsClient({
+                                        accessKeyId: idpKeysAndToken.accessKeyId,     
+                                        secretAccessKey: idpKeysAndToken.secretAccessKey,
+                                        sessionToken: idpKeysAndToken.sessionToken,
+                                        service: 'execute-api',
+                                        region: 'us-east-1'
+                                      });
+
+                                      // This will work only if the role assign to authenticated user do have proper permussoin to execute this api
+                                      const res = await aws4Client.fetch('https://hhswh9zgfa.execute-api.us-east-1.amazonaws.com/beta/getUsersIDPAuth').
+                                                                    then(res => res.json());
+                                      console.log(res)
+                                    }
+
+
+                                    async function getUsersIdentityPoolIdValues(session) {
+
+                                      const credentials = new AWS.CognitoIdentityCredentials({
+                                        IdentityPoolId: 'us-east-1:1918fbf6-b033-442c-8ae9-5a0b9b047200',
+                                        Logins: {
+                                          'cognito-idp.us-east-1.amazonaws.com/us-east-1_d8rcMtMXj': <valid id token>
+                                        }
+                                      }, 
+                                      { region: 'us-east-1' });
+
+                                      const prm = new Promise((res, rej) => {
+                                          credentials.get((error, data) => {
+                                            if (error) {
+                                              rej({error: error.message});
+                                            } else {
+                                              res({
+                                                accessKeyId: credentials.accessKeyId,
+                                                secretAccessKey: credentials.secretAccessKey,
+                                                sessionToken: credentials.sessionToken,
+                                              })
+                                            }
+                                        });
+                                      })
+
+                                      return prm;
+                                    }      
     
+    
+    Working Code:- in 'UAPUI' 
     
   3. custom authorizer + Lambda:-
       This is extremly fine grain way to give access at a runtime.
