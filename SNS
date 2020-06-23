@@ -1,0 +1,30 @@
+SNS is a mechanism of push based notifications.
+
+This system helps to build the mechanism to send the notification to diffrent medium like
+  SMS
+  Email
+  Lambda
+  Mobile App
+  etc.
+  
+  
+  There is two main part in SNS
+  1. SNS Topic
+  2. SNS subscription
+  
+  You can create the SNS topic in aws console itself or by SLF template.
+  Once created the topic you can add subsctription to that topic in diffrent ways.
+  
+  LAmbda and SNS topic subscription:-
+    do it via aws console or by SLF template
+    
+  Lambda and sMS/Email subscription:-
+    see code in 'SNSTuto' folder
+    
+ Sending sns notification to the subscriber:-
+    see code in 'SNSTuto' folder
+
+Pricing and Limits:-
+  ?????????????????????
+
+
