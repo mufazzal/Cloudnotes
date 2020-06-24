@@ -2,6 +2,48 @@ SQS stand for Simple Que Service.
 
 This AWS service help you de design a large scale system that work on que of a message.
 
+There is two main part of the SQS
+1. The Producer
+2. The Comsumer
+
+The producer are the software that generate the message and push it in the que. There can be many producer that keep pushing the messages in the que.
+
+The consumer are the piece of software that consume that message and do the needful processing. Now there can be many consumer working at a time.
+This consumer keep polling the que indefinatly for new messages. if the que has one then then the nexr poller consumer will get this message and start processing it.
+Immediatly after that the message become invisible foe 'inVisibleTimout' amount of time.
+Now its the responsibilty of consumer that he should delete this message from the que. if not then the message reapear in the que and re-processed.
+
+Producer:-
+  To send the message in SQS que use the in 'SQDTuto' folder
+
+There is two way to write the consumer
+1. In EC2 or on hosted server
+2. Lambda
+
+In EC2 or on hosted server :-
+  This is kind of legacy and it need lot of work by developer himself. Dev has to write the code for indefinate polling and reading the message.
+  
+Lambda:-
+  This is fatest and cheapest way to this. Here you do not have to write the polling mechanism at all.
+  Actully when you set the SQS as event source in lambda then the Cloudwach also get involved in it.
+  The cloudwach do the pollong of the que continously in the backround and when there is a new message/messages, the lambda get triggerd by the cloudwatch.
+  
+  This lambda can have more then one messages in one call which can be retrived from 'event.body.Records[]' array.
+  if you wants to limit the number of record to read in on go then you can set the parameter  'batchSize' in lambda sqs event source. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------
 WHen exaclty we may need it :-
   WHen you need to make system that process hell lot of messages that lie one after another. 
   Suppose you need to process any upcoming image in S3 and process its metadat or create a meme or resize the image.
