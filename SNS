@@ -29,3 +29,14 @@ Pricing and Limits:-
 
 
 SNS and redrive policy : Dead Letter Que
+  It may be posible that sns message is failed to deliver. this failure can happen at diffrent level
+  deliveryu of message on lambda or SQS subscription mau fail if thta lambda failed to insytantiate or SQS is inactive.
+  OR
+  SMS, Email wtc also may failed to deliver.
+  
+  To handle this you can set the Dead Etter Que at subscription level.
+  HoW
+  see code in SNSTuto.
+  
+  Dead letter que is nothing but a simple SQS que that have messages of failed SNS deliveries.
+  
