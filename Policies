@@ -69,10 +69,15 @@ Type of Policies:
                             AWS Console > IAM > Role  OR
                             Now attach the policy there
             Via Cloudformation:-
-                          ...
-                          policy: { "Ref": "MufPolicy" }
-                          ...
-
+                          Type: AWS::IAM::Group
+                          Properties: 
+                            GroupName: String
+                            ManagedPolicyArns: 
+                              - arn1
+                              - arn2
+                              - !Ref MufPolicy                          
+                            Policies: - Policy                      
+                      In Clodformation template 'Policy' belongs to inline policy and 'ManagedPolicyArns' belongs to the managed policy
 
        Managed policy is of two type:-
           A. AWS Managed Policy:-
@@ -182,25 +187,8 @@ Type of Policies:
   then you create the policy under it.
   But in clodformation its bit of strange.
   you create the policy and in the policy itself you give refrence of any IAM identity or S3 bucket or KMS key.
-  so it like
-      "mufUserGroup"/"mufUserRole"/"mufUser": {
-        Type: "AWS:IAM:****"
-        ...
-      }
-      "theInlinePolicy": {
-        Type: "AWS::IAM::Policy",
-        ...
-        Users: {"ref": "mufUser"}
-        Roles: {"ref": "mufUserRole"}
-        Groups: {"ref": "mufUserGroup"}
-      }
     
-   This is not correct:-
-    "mufUserGroup"/"mufUserRole"/"mufUser": {
-        Type: "AWS:IAM:****"
-        ...
-        Polic
-      }
+
               
               
               
