@@ -70,7 +70,7 @@ Type of Policies:
                             Now attach the policy there
             Via Cloudformation:-
                           ...
-                          policyARN: { "Ref": "MufPolicy" }
+                          policy: { "Ref": "MufPolicy" }
                           ...
 
 
@@ -118,6 +118,9 @@ Type of Policies:
                       AWS Console > IAM > Role  OR
                    Now you can see the 'Inline Policy' button there. just press it and create it there. So the created inline policy will always be subordinated to the selected IAM identity.
              Via Cloudformation:-
+              There is two way to do it
+              1. Creating policy with attaching it to user/role/group
+                   Creating->
                    Type: AWS::IAM::Policy
                    Properties: 
                       PolicyDocument: Json
@@ -125,10 +128,19 @@ Type of Policies:
                       Roles: - String
                       Users: - String                        
                       Groups: - String
-            
-            Here also the Groups, Roles, and Users properties are optional. However, you must specify at least one of these properties. otherwise this policy will be useless.
-
-
+                  
+                      Here also the Groups, Roles, and Users properties are optional. However, you must specify at least one of these properties. otherwise this policy will be useless.
+                      
+              2. Creating policy directly in user/role/group
+                      Type: AWS::IAM::Group/Role/User
+                      Properties: 
+                        ....
+                        Policies: [{
+                          Effect:
+                          Action:
+                          Resources:
+                        },
+                        {..}]                  
               
   Resource Based Policy:-
     In the resource based policy the subject is resource and so this policies are assignable to certain kind of AWS-service-resources not the AWS IAM user.
@@ -162,8 +174,33 @@ Type of Policies:
     
     
     
+ --------------------------------
+ 
+ Strange implemetation of Bucket Policy, KMS Policy:-
+  I do not know wht AWS did it.
+  When you need to create any of those in AWS console then first you have to go to either the bucket.
+  then you create the policy under it.
+  But in clodformation its bit of strange.
+  you create the policy and in the policy itself you give refrence of any IAM identity or S3 bucket or KMS key.
+  so it like
+      "mufUserGroup"/"mufUserRole"/"mufUser": {
+        Type: "AWS:IAM:****"
+        ...
+      }
+      "theInlinePolicy": {
+        Type: "AWS::IAM::Policy",
+        ...
+        Users: {"ref": "mufUser"}
+        Roles: {"ref": "mufUserRole"}
+        Groups: {"ref": "mufUserGroup"}
+      }
     
-    
+   This is not correct:-
+    "mufUserGroup"/"mufUserRole"/"mufUser": {
+        Type: "AWS:IAM:****"
+        ...
+        Polic
+      }
               
               
               
