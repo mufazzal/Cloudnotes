@@ -1,9 +1,22 @@
 IN AWS system the policy is the nucleas statement of Access.
 its strcure remain same everywhere and used in many places in may context of access.
 
-The structure:-
-  ?????????????????????
-  
+Policy Document OR Policy JSON:-
+The policy contains the json doc which define the access sytem like below
+              {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                      {
+                          "Sid": "myIds",
+                          "Effect": "Allow" | "Deny",
+                          "Action": ...,
+                          "Resource": ...,
+                          "Condition": ...
+                      },
+                      {...},
+                      {...}
+                  ]
+              }  
 
 Type of Policies:
   On the whole AWS level we can have below type of policies
@@ -50,9 +63,16 @@ Type of Policies:
 
         Use managed Policy:-
             Via AWS console:-
-              ??????
+                          To use this first you have to either go to 
+                            AWS Console > IAM > Users  OR
+                            AWS Console > IAM > User Groups  OR
+                            AWS Console > IAM > Role  OR
+                            Now attach the policy there
             Via Cloudformation:-
-              ?????
+                          ...
+                          policyARN: { "Ref": "MufPolicy" }
+                          ...
+
 
        Managed policy is of two type:-
           A. AWS Managed Policy:-
@@ -70,9 +90,20 @@ Type of Policies:
 
               Creating Customer Managed Policy:-
                  Via AWS console:-
-                  ??????
+                    Console > IAM > Policies > Create Policy
                  Via Cloudformation:-
-                  ?????         
+                    MufPolicy:
+                          Type: AWS::IAM::ManagedPolicy
+                          Properties: 
+                            ManagedPolicyName: String
+                            Description: String
+                            Path: String
+                            PolicyDocument: Json
+                            Groups: - String
+                            Roles: - String
+                            Users: - String     
+                            
+               Groups/Roles/Users are optiona here. no need to specify it 
 
      Inline Policy:-
         Inline policy is attached to one and only one IAM identity. It cannot be assign to multiple IAM Identity.
@@ -81,11 +112,23 @@ Type of Policies:
           
           Creating Inline IAM Policy:-
              Via AWS console:-
-              ??????
+                   To Create this first you have to either go to 
+                      AWS Console > IAM > Users  OR
+                      AWS Console > IAM > User Groups  OR
+                      AWS Console > IAM > Role  OR
+                   Now you can see the 'Inline Policy' button there. just press it and create it there. So the created inline policy will always be subordinated to the selected IAM identity.
              Via Cloudformation:-
-              ?????    
-                        
+                   Type: AWS::IAM::Policy
+                   Properties: 
+                      PolicyDocument: Json
+                      PolicyName: String
+                      Roles: - String
+                      Users: - String                        
+                      Groups: - String
             
+            Here also the Groups, Roles, and Users properties are optional. However, you must specify at least one of these properties. otherwise this policy will be useless.
+
+
               
   Resource Based Policy:-
     In the resource based policy the subject is resource and so this policies are assignable to certain kind of AWS-service-resources not the AWS IAM user.
@@ -103,7 +146,16 @@ Type of Policies:
     but you further wants to narrow down the resource then you can use ARN. but this ARN sould only lie in the scope of attaced resource.
     
     Bucket Policy:-
-      ?????
+      Jsut like inline policy which is attached to at least one IAM identity (Role, Group, User).
+      The bucked policy is subordinated to qt least one bucked in S3. To create a bucket policy you have to first inside the S3 bucket.
+      Creating Bucket Policy:-
+             Via AWS console:-
+                AWS Console > S3 > 'you bucked' > Permission > Bucket policy
+             Via Clouformation
+                Type: AWS::S3::BucketPolicy
+                Properties: 
+                  Bucket: {"Ref" : "mufazzalBucket"},
+                  PolicyDocument: Json                
     KMS Policy:-
       ??????
     
