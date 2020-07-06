@@ -178,7 +178,99 @@ Type of Policies:
     
     
     
+ ---------------------------------
+  
+ Say you wants to create somthing like below
+ 
+ A customer managed policy 'mufCustPolicy'
+              mufCustPolicy:
+               Type: AWS::IAM::ManagedPolicy
+                Properties: 
+                  ManagedPolicyName: String
+                  PolicyDocument: Json
+                  ...
+                  
+ A inline policy 'mufInlinePol1'
+               mufInlinePol1:
+                  Type: 'AWS::IAM::Policy'
+                  Properties:
+                    PolicyName: mufInlinePol1
+                    PolicyDocument:
+                      Version: 2012-10-17
+                      Statement:
+                        - Sid: myIds
+                          Effect: Allow
+                          Action: '*'
+                          Resource: '*'
+ A User Group with 
+    one aws managed policy  's3FullAccess'
+    one customer managed policy 'mufCustPolicy'
+    one inline policy 'mufInlinePol1'
+    one more inline policy
+            groupMuf:
+               Type: AWS::IAM::Group
+                Properties: 
+                  GroupName: String
+                  ManagedPolicyArns: 
+                    - 'arn:aws.IAM...*.s3FullAccess'
+                    - !Ref mufCustPolicy
+                  Policies: 
+                    - !Ref mufInlinePol1
+                    - PolicyName: root
+                      PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                          - Effect: Allow
+                            Action: '*'
+                            Resource: '*'
+
     
+ A role with 
+    one aws managed policy  's3FullAccess'
+    one customer managed policy 'mufCustPolicy'
+    one inline policy 'mufInlinePol1'
+    one more inline policy
+            roleMuf:
+              Type: AWS::IAM::Role
+                Properties: 
+                  RoleName: String
+                  ManagedPolicyArns: 
+                    - 'arn:aws.IAM...*.s3FullAccess'
+                    - !Ref mufCustPolicy
+                  Policies: 
+                    - !Ref mufInlinePol1
+                    - PolicyName: root
+                      PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                          - Effect: Allow
+                            Action: '*'
+                            Resource: '*'
+  
+
+A one more inline policy (commonInlinePolicy) which is attached to roleMuf and groupMuf both 
+          
+          commonInlinePolicy:
+            Type: AWS::IAM::Policy
+            Properties: 
+              PolicyDocument: {....}
+              PolicyName: String
+              Groups: 
+                - !Ref groupMuf
+              Roles: 
+                - !Ref roleMuf
+  
+A one more managed policy (commonMAnagedPolicy) which is attached to roleMuf and groupMuf both 
+            commonMAnagedPolicy:
+              Type: AWS::IAM::ManagedPolicy
+              Properties: 
+                ManagedPolicyName: String
+                PolicyDocument: Json
+                Groups: 
+                  - !Ref groupMuf
+                Roles: 
+                  - !Ref roleMuf
+  
  --------------------------------
  
  Strange implemetation of Bucket Policy, KMS Policy:-
