@@ -1,0 +1,3 @@
+Item                          Type                      Ref                     ARN                           Attributes
+
+IAM User Group            AWS::IAM::Group               give Group Name         No ARN                        
