@@ -126,14 +126,20 @@ Type of Policies:
               There is two way to do it
               1. Creating policy with attaching it to user/role/group
                    Creating->
-                   Type: AWS::IAM::Policy
-                   Properties: 
-                      PolicyDocument: Json
-                      PolicyName: String
-                      Roles: - String
-                      Users: - String                        
-                      Groups: - String
-                  
+                   mufExmpPolicy:
+                     Type: AWS::IAM::Policy
+                     Properties: 
+                        PolicyDocument: Json
+                        PolicyName: String
+                        Roles: - String
+                        Users: - String                        
+                        Groups: - String
+                      
+                      Now attachig it:-
+                        Type: AWS::IAM::Group/Role/User
+                        Properties:
+                          Policies: [{"Ref": "mufExmpPolicy"}, ... ]
+                        
                       Here also the Groups, Roles, and Users properties are optional. However, you must specify at least one of these properties. otherwise this policy will be useless.
                       
               2. Creating policy directly in user/role/group
@@ -146,7 +152,10 @@ Type of Policies:
                           Resources:
                         },
                         {..}]                  
-              
+  
+  
+  IMP {"Ref": "policyName"} ->   This will return the ARN for managed policy and physical name for inline policy.
+  
   Resource Based Policy:-
     In the resource based policy the subject is resource and so this policies are assignable to certain kind of AWS-service-resources not the AWS IAM user.
     Here we has the Principle tag in the policy statement that is because you attach the policy to the EC2, Lambda, RDS instances but not on IAM Role, IAM User Group, IAM User.
