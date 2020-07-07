@@ -1,10 +1,10 @@
-                                                                                                      {"Fn::GetAtt" : [<logicalName>, <Attr name>] }
-Item                          Type                      Ref                     ARN                           Attributes
-
-IAM User Group            AWS::IAM::Group          give Group Name              No                        
-IAM User Role             AWS::IAM::Role           Role Name                    Yes                               Arn
-S3 Bucket                 AWS::S3::Bucket	         Bucket Name                  Yes                               Arn, DomainName, WebsiteURL...
-S3 Bucket Policy          AWS::S3::BucketPolicy    NA                           No
-Managed Policy            AWS::IAM::ManagedPolicy  ARN                          Yes                               
-Inline Policy             AWS::IAM::Policy         Physical ID                  No                                  
-
+Item                          Type                 			     Ref                  ARN     Attributes                             
+                                                                                      
+IAM User Group            AWS::IAM::Group                   give Group Name       No                               
+IAM User Role             AWS::IAM::Role                    Role Name             Yes     Arn                             
+S3 Bucket                 AWS::S3::Bucket	                  Bucket Name           Yes     Arn, DomainName, WebsiteURL...                             
+S3 Bucket Policy          AWS::S3::BucketPolicy             NA                    No       
+Managed Policy            AWS::IAM::ManagedPolicy           ARN                   Yes                                      
+Inline Policy             AWS::IAM::Policy                  Physical ID           No                                         
+CodeDeploy Application    AWS::CodeDeploy::Application      App Name              No
+DEployment Group          AWS::CodeDeploy::DeploymentGroup  Group Name            No
