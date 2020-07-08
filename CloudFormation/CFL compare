@@ -1,8 +1,8 @@
-Item                          Type                 			     Ref                  ARN     Attributes                             
+Item                          Type                              Ref               ARN     Attributes                             
                                                                                       
 IAM User Group            AWS::IAM::Group                   give Group Name       No                               
 IAM User Role             AWS::IAM::Role                    Role Name             Yes     Arn                             
-S3 Bucket                 AWS::S3::Bucket	                  Bucket Name           Yes     Arn, DomainName, WebsiteURL...                             
+S3 Bucket                 AWS::S3::Bucket	            Bucket Name           Yes     Arn, DomainName, WebsiteURL...                             
 S3 Bucket Policy          AWS::S3::BucketPolicy             NA                    No       
 Managed Policy            AWS::IAM::ManagedPolicy           ARN                   Yes                                      
 Inline Policy             AWS::IAM::Policy                  Physical ID           No                                         
