@@ -14,7 +14,7 @@ This group will have specific set of permissions to perform operation on aws con
 
 In IAM you should know the tuening between following things to uderstand it completely 
 (For now lets go in drief)
-  1.  User: An entity that will access the aws console/cli and perform operation on it.
+  1.  User: An entity that will access the aws console/cli and perform operation on it.role
   2.  Policies: A set of permissions that are clubbed together for creating a profile.
   3.  Role: ??????????????????
   4.  Group: A group has a number of policy assign to it. and all the user in this group will have those policy assigned to them 
@@ -85,24 +85,35 @@ In IAM you should know the tuening between following things to uderstand it comp
     
    Role:-
     Just like group, the Role is also a template which are made of policies. you can add as many policy you wants in the Role.
-    Role is quite a diffrent kind of entity. Role is not at all useful for the normal user you created in the same aws account.
+    Role is quite a diffrent kind of entity. Role is not at all useful for the normal IAM user you created in IAM.
     the role are assign to following items
     1. An user from diffrent AWS account
-    2. EC2 and Lembda
+    2. The AWS products like EC2, Lembda, RDS, Codedeploy
     3. Identity fedration user.
    
-   
-   Role and USer : 
-   Unlike group where you explicitly assign the user to the group. and then that user will get the 
-    accesses predefined by that group.
-    the Role and USer relation is bit diffrent
-      First of all the role can be attached to many things as described above.
-      A Role can also be assumed(or attached) to the user (of same AWS account), but that relation is temporary and as the requred task finished
-      user will strip off that Role.
-      User-Group: this relation is kind of permanent unles you change it by yiurself in IAM
-      User-Role: This is temporary arrangment if user need to do an task out of its accessibility. then useer will for 
-      a moment take the Role do the task and release himself from role.
-      
+  The role is attachable entity to aws services like EC2 instance, RDS, Lambda etc.
+  By attaching the role to then you grant them the access to perform operation allowed to that role.
+  
+  But can we attach any role to any AWS servoce instance
+  No! Its depend on Trust Policy of Role.
+  
+  Role's Trust Policy:-
+    There is two policy attached to the role one is IAM Policy and other is Trust Policy
+    The IAM Policy tells that what resources and actions are allowed to owners of this roles.
+    The trust policy tells that to whome (EC2 or Lambda or CodeDeploy) we can attach this role to.
+    
+    The formate of trust policy also quite same as IAM. EG.
+      { "Version": "2012-10-17",
+        "Statement": [{
+            "Effect": "Allow",
+            "Principal": {"Service": "ec2.amazonaws.com"},
+            "Action": "sts:AssumeRole"
+       }]}    
+      The above statment tells us that we can attach this role to any EC2 instance.
+      Most of the part of this remain same but only principle keep changing.
+      if you want it to attachabe to codedeploy the
+      "Principal": {"Service": "codedeploy.amazonaws.com"},
+
       
 How a AWS user can assume the role and then release it after task done ?
 ???????
