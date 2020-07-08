@@ -1,0 +1,48 @@
+To create a complete codedeploy app do the below
+
+1. Creat a role for codedeploy group. will later use it to grant access to CodeDEployGroup for task like attach,dettach,stop,start EC2
+    ManagedPolicyArns- This is the AWS managed policy which has all the required permission set up for AWS.
+    AssumeRolePolicyDocument: This will allow the role to be attached to the Codedeploy.
+    
+  AWSTutoCodeDeployRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Description: Role for Codedeploy to assume for deployment
+      RoleName: AWSTutoCodeDeployRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service:
+                - codedeploy.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole'
+        
+2. Now create the CodeDeploy App
+
+  AwsTutoFrontEndCodeDeployApp:
+    Type: 'AWS::CodeDeploy::Application'
+    Properties:
+      ApplicationName: FrontEndBuild
+      ComputePlatform: Server
+      
+    ComputePlatform: This can has three value. Server for EC2/On-Premises, Lambda, ECS 
+    
+    
+ 3. Now create main part, that is CodeDEployGroup
+
+    AwsTutoCodeDeployGroup:
+        Type: 'AWS::CodeDeploy::DeploymentGroup'
+        Properties:
+          ApplicationName: !Ref AwsTutoFrontEndCodeDeployApp
+          ServiceRoleArn: !GetAtt 
+            - AWSTutoCodeDeployRole
+            - Arn 
+    See in it, How we attached the CodeDeploy App and the Role we created in step 1 and 2 with DeploymentGroup.
+    
+    
+    
+  
