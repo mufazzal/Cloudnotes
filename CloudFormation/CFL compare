@@ -8,3 +8,4 @@ Managed Policy            AWS::IAM::ManagedPolicy           ARN                 
 Inline Policy             AWS::IAM::Policy                  Physical ID           No                                         
 CodeDeploy Application    AWS::CodeDeploy::Application      App Name              No
 DEployment Group          AWS::CodeDeploy::DeploymentGroup  Group Name            No
+Code Pipeline             AWS::CodePipeline::Pipeline       Name                  No    Version
