@@ -9,3 +9,11 @@ Inline Policy             AWS::IAM::Policy                  Physical ID         
 CodeDeploy Application    AWS::CodeDeploy::Application      App Name              No
 DEployment Group          AWS::CodeDeploy::DeploymentGroup  Group Name            No
 Code Pipeline             AWS::CodePipeline::Pipeline       Name                  No    Version
+Security Group            AWS::EC2::SecurityGroup           ID or Name            No    VpcId, GroupId       --> Ref will give ID if SG is in non-default VPC, Name otherwise
+EC2 Launch Config         AWS::Auto*::LaunchConfigura..     Name                  No
+Auto Scalling Group       AWS::Auto*::AutoScalingGroup      Name                  No
+LB Target Group           AWS::Elas*L*cingV2::TargetGroup   ARN                   Yes   LoadBalancerArns,TargetGroupName
+LB Listener               AWS::Elas*L*cingV2::Listener      ARN                   Yes
+LB                        AWS::Elas*L*cingV2::LoadBalancer  ARN                   Yes   DNSName, LoadBalancerName, CanonicalHostedZoneID
+
+
