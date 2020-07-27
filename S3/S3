@@ -6,6 +6,8 @@ Things that should be stored in S3 :-
 Wich should not:-
   Any dynamic/processable/database/OS file
   
+S3 is Object based storage so you can store file but not OS or database. ?????????
+Also data store in form of <key> <value> pair in somewhere ??????? 
  
 Bucket:-
   In very simple word, This is a kind of UNIQUE folder in the ENTIRE S3 UNIVERSE
@@ -18,9 +20,6 @@ Region of S3:-
   If "Test" bucket in created in region "Asia" then "Test" cant be created again by anyone in any region ever.
 Region of bucket:
   Though S3 is region independent, but the bucket created in S3 by you will must lie in a selected region 
-  
-Q:  Can i access the bucket on region A in Region B
-  ????????
  
 
 How To create Bucket :-
@@ -31,9 +30,12 @@ How To create Bucket :-
 
 
 S3 and Data Consistency :-
-1: Read after Write: its consistent, mns you will be able to read the file immdietly after writing it.
-2: Read after Delete/Change: This may take some time to reflect, so if you read immedietly after then you may get the previouse version
-
+1: Read after Write for PUT: its consistent, mns you will be able to read the file immdietly after writing it. So when upload a new object the upload reuest finish 
+        when object is uploaded to all the destination with succes otherwise the upload wil fail and you will not be able to read after PUT.
+        So after successful PUT you will surely get the data
+2: Eventual Consistency for UPDATE/DELETE: This may take some time to reflect, so if you read immedietly after then you may get the previouse version. So when you delete or update the 
+        objevt then the request finish even when the object is not yet update/deleted to all destinations. 
+        So after successful DELETE/UPDATE you may or may not get the new data
 
 
 S3 and Region :-
@@ -49,37 +51,71 @@ S3 and AZ :-
   Depending on your storage class, the content of the bucket will be stored in either 3 or 2 or 2 AZ at atime.
   So if some data lost at some AZ or any AZ is down, you still be able to access the S3 buckets.
   
+-----------------------------
+
 
 S3 Storage Classes:-
+  Storage classes are applied to a Indivisual Object not on Bucket
   1. S3 - Standard : general-purpose storage of frequently accessed data
       Low Latancy - High Throughput -  >= 3 AZ  -
       Storage Fee:  0 till 50TB
       Retrival Fee: NA
       - Best for any general data that need frequent access.
-  2. S3 IA (infrequently Access) : long-lived, but less frequently accessed data
+  2. S3 Standard_IA (infrequently Access) : long-lived, but less frequently accessed data
       Low Latancy - High Throughput -  >= 3 AZ  -  
       Storage Fee:  Yes but lower then S3-Standard
       Retrival Fee: Yes
+      Minimum retention priode and objecte size is 30 days and 128kb. mns even you store a 5kb object for 10 days, u will be charged with 128kb for 30 days. 
       - Best for storing data, that need to access less frequently like at a time of year end or some festival
-  3. S3 IA - one zone (infrequently Access) : long-lived, but less frequently accessed data, Ok to being in service outage
+  3. S3 Standard_IA_one_zone (infrequently Access) : long-lived, but less frequently accessed data, Ok to being in service outage
       This is same as S3-IA except data lies in only one AZ. So risk if AZ goes down and cost lower
       IMP: if AZ goes down then you may face service outage for S3 bucket, but once AZ back online you again got your data and services back.
   4. S3 Inteligent Tiering: Use AI to move data b\w diffrent tiers without your intervention
       IT has two tier, Frequent access tiering And In-Frequent access tiering : -
             If data is not fetched for last 30 days, it will move in 'In-Frequent access tiering'. but as soon as it accessed
             it moved to 'Frequent access tiering'
-        
+      Storage Fee:  Yes but very efficient
+      Retrival Fee: No but charged for data movement between tiering.
+      Minimum retention priode is 30 days. mns even you store a object for 10 days, u will be charged for 30 days. 
+            
   5. S3 Glacier and S3 Glacier deep Archive: for long-term archive and digital preservation
       Take minute and Hours for retrival, Glcier do not have any real time access.
-    
       
+    
+--------------------
+Lifecycle Policy:-
+  The life cycle policy is apply to a group of object[all in folder] or on whole bucket.
+  In lifecycle policy the user define the set of configuration to move the objects in diffrent storage class.
+  This is best if you know the lifecycle of the object.
+  The is two rule you can define
+  Transition Rule:- Rule to determine when and which storage class the object should move
+  Expiration rule: set when to delete the object.
+
+Lifecycle Policy VS Inteligent Tiering
+  Inteligent Tiering use the amazon developed algorith to move the object between the classes. In Lifecycle Policy the developer himself provide the set of rule to do this.
+  EG:-  in Inteligent Tiering the object moves between standard to stanrard_IA in 30 days. in lifecycle you can do set you own rule of time, date, size etc.
+
+-------------------------
+Limits:-  
+  Default Max No of bucket you can make in AWS account
+    - 100, for increasing limit contact to aws service center.
+  No of obect in a bucket
+    - Infinite
+  MAx size of a object that can be uploaded
+    - 5 TB
+  MAx tag on object
+    - 10
+    
+   
 Charges:
   For Storage
   For Request
+  Data Transfer out od S3 (into s3 is free)
   For Storage Management
   Data Transfer
   Transfer Acceleration
   Cross border replication
+  Object Tagging
   
 Transfer Acceleration: 
   First if you wants to use it then pay for it.
@@ -96,29 +132,48 @@ Cross Region replication:-
     It simply allow the bucket to automatically copy to another bucket in diffrent region. So give you kind of data security
 
 
-
-
 URL of the files/object in Bcucket:-
-
-Actully there is two kind of url generated for any file
-  1. For the AWS logged in user specific 
-      This is the url specifically for AWS logged-in user only, user will be able to access it only if he has proper permissions.
-      Its pattern is 
-      https://<Bucket Name>.s3.<Region>.amazonaws.com/<NAme of Item in Bucket>?<A larger params string>   ....#URL_1
-      You can get this url from AWS > S3 > you bucket > your file > Open
-      
-  2. Anonymosuly : the one for the All, 
-    This url is distributed all the people for accessing the file. ince they has the url they will able to access it.
-    Not login or authorization needed.
-    And it pattern is :-
-      https://<Bucket Name>.s3.<region Name>.amazonaws.com/<NAme of Item in Bucket>  ....#URL_2
-      https://  muftests3  .s3.  eu-west1   .amazonaws.com/    MufazzalPhoto
-
-Note:
-S3 is Object based storage so you can store file but not OS or database. ?????????
-Also data store in form of <key> <value> pair in somewhere ???????
+  There is 3 diffrent URL pattern to access the S3 object
+  
+  Virtual region specific
+      https://<Bucket Name>.s3.<region Name>.amazonaws.com/<Object Key>  ....#URL_2
+  Virtual Global
+      https://<Bucket Name>.s3.amazonaws.com/<Object Key>  ....#URL_2
+  Path
+      https://s3-<region Name>.amazonaws.com/<Bucket Name>/<Object Key>  ....#URL_3
+        This style is going to be deprecated.
 
 
+---------------------
+
+Object Versioning:-
+  You can enable the versioning on any object in S3. By this you can keep all the older vesion of that S3 object.
+  The versioning is enabled over the object not bucket.
+  So 
+  Bucket-Name + Object-key + Version gives you the unique s3 object in S3.
+
+-------------------------
+
+Metadata:- S3 also give you the way to store data bout data. EG content-type, content-lengh etc.
+Tag:- You can also attach the tag on the Object. 
+
+--------------------------
+
+S3 has thhe flate file structure. thoug it apear to be have a directiris inside the bucket but s3 actully store it in flt system.
+EG:-
+  http://s3.mufbucket......com/folder1/folder/2/folder3/image.jpg  
+  It does not mean that there is 3 inner folder. It actully mean that a object with key 'folder1/folder/2/folder3/image.jpg'
+  For easier viewing experience AWS console also do the logical nesting based on '/' in object key.
+
+--------------------------
+
+Object Taging:-
+  You cann attach deattach the Tag on Objevt. with the help of tagging you can do below things 
+    1. Fine grain access control
+    2. Fine grained Lifcycle managment
+    3. Cloud watch and cloudtrain metrics filtering
+
+-------------------------
 How to craete S3 Bucket and and upload file in it by aws portal:-
   Such Spoonfeeding! really
 
