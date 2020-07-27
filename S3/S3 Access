@@ -1,3 +1,5 @@
+#View file in tab = 2
+
 There two broad way to manage the access
 	1. Resource Based
 		1.1 ACL
@@ -66,7 +68,7 @@ ACL:-
 				But for other medium there is tricky way
 							for this we use the Canned ACL. This is the predefined set of permission in diffremt combination of READ, WRITE, READ_ACL, WRITE_ACL, FULL_CONTROL.
 				
-				Canned ACL															ingridients																						use case
+				Canned ACL																				ingridients																	Use case
 				private															Owner: 														FULL_CONTROL						Owner has full contron. no one else has any access. This is default ACL setting.
 																						Public_Access or AllUsers-group:	none 
 																						Other AWS account:								none
@@ -97,6 +99,11 @@ ACL:-
 
 
 
+-----------------
+
+BPAF->
+	Default BPAF setting if bucket is created via any medium CLI, sdk, CFR is all are off
+	Default BPAF setting if bucket is created via any console is all are on
 
 
 
