@@ -23,6 +23,12 @@ ACL:-
 	
 	Kind of Access on Actions it provide is also very limited. It give just basic read and write access over bucket. bucket_ACL, object, object_ACL
 	
+	Owner in context of ACL:-
+		The owner is the root AWSD account here not the IAM_USER.
+		So if you have uploaded the object or created the  bucket with access key and id of h.mufazza@gmail.com or MUFAZZL_HUSSAIN or Murtuza.
+		The owner will always be h.mufazza@gmail.com only.
+		The cananical id you see in ACL page will be of  h.mufazza@gmail.com always.
+		
 	ACL for Bucket:-
 		In context of bucket the ACL grant access to below operation to Principls
 		READ: Will provide access to reading the list of object inside the bucket. So access to Action 's3:ListBucket, s3:ListBucketVersions'
@@ -123,29 +129,22 @@ ACL:-
 			isVersiningEnabled, getTags, setObjectPolicy etc
 		NO. The ACL give only and only the basic read accees nothing else.	
 		
+		You can set the ACL on object via AWS console or by CLI or by SDK.
+		ACL on Bucket via AWS console:-
+			go to bucket > ypour object > permission > ACL
+			You will see three panels(AuthenticatedUser-group is not there) and Each has 3 options to toggle. which are like below
+									
+																					 			Read object    |  	Read object permissions   |  	Write object permissions
+				1. For object owner
+				2. For Other AWS account
+				3. Public Access or AllUsers-group
+
 		ACL on Bucket via CLI, SDK, CFT :-
 			See table 	#CannedACLTABLE
 
 
+--------------
 
-Scenarios:-
-	CAn we put the object in bucket anonymously with ACL = private ? if yes then who will be the owner? 
-
-	Bucket is public, can you put object with ACL = private ?
-	
-	Bucket is private, can you put object with ACL = public ?
-	
-
-
------------------
-
---------
-
-BPAF->
-	Default BPAF setting if bucket is created via any medium CLI, sdk, CFR is all are off
-	Default BPAF setting if bucket is created via any console is all are on
-
----
 Accessing Bucket and object Anonymously:-
 
 	By AWS SDK:-
@@ -166,6 +165,23 @@ Accessing Bucket and object Anonymously:-
 		Object:-
 			You can get the object with metadata
 			You can get the ACL of Object.
+			
+			
+	Who is the owner of bucket object if it is uploaded anonymously. who is its owner?
+	DO NOT GO IN THIS DETAIN. We never have a bucket that is public write. its rarest of the rare.
+	so forget it.
+	
+	Just assume that we never upload object anonymously. at best we can just read/download it.
+
+
+--------
+
+BPAF->
+	Default BPAF setting if bucket is created via any medium CLI, sdk, CFR is all are off
+	Default BPAF setting if bucket is created via any console is all are on
+
+---
+
 	
 
 ---
