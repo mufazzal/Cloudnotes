@@ -143,6 +143,12 @@ ACL:-
 			See table 	#CannedACLTABLE
 
 
+### ACL is a Legacy and it has very few use case. Only time it is unavoidable to use is to 
+			-	when you need to share the bucked between multiple AWS accounts.
+			- You wants any particular object to be anonymously public accessible
+		Otherwise DO NOT USE IT. 
+		Even allowing/denying the anonymous public access of bucket is also possible with Bucket Policy.
+
 --------------
 
 Accessing Bucket and object Anonymously:-
@@ -168,7 +174,7 @@ Accessing Bucket and object Anonymously:-
 			
 			
 	Who is the owner of bucket object if it is uploaded anonymously. who is its owner?
-	DO NOT GO IN THIS DETAIN. We never have a bucket that is public write. its rarest of the rare.
+	DO NOT GO IN THIS DETAIL. We never have a bucket that is public write. its rarest of the rare.
 	so forget it.
 	
 	Just assume that we never upload object anonymously. at best we can just read/download it.
