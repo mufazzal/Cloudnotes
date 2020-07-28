@@ -68,50 +68,90 @@ ACL:-
 				But for other medium there is tricky way
 							for this we use the Canned ACL. This is the predefined set of permission in diffremt combination of READ, WRITE, READ_ACL, WRITE_ACL, FULL_CONTROL.
 				
-				Canned ACL																				ingridients																	Use case
-				private															Owner: 														FULL_CONTROL						Owner has full contron. no one else has any access. This is default ACL setting.
+				#CannedACLTABLE
+				
+				Canned ACL					Apply on											ingridients																	Use case
+				private								B O						Owner: 														FULL_CONTROL						Bucket/Object Owner has full control. no one else has any access. This is default ACL setting.
 																						Public_Access or AllUsers-group:	none 
 																						Other AWS account:								none
 																						AuthenticatedUser-group:					none
 																						Log Delivery Group:								none
 			
-				public-read													Owner: 														FULL_CONTROL						Owner has full contron.
+				public-read						B O						Owner: 														FULL_CONTROL						Bucket/Object Owner has full contron.
 																						Public_Access or AllUsers-group:	READ	 									All other in the world can just read it anonymously without any kind of authentication.
 																						Other AWS account:								???
 																						AuthenticatedUser-group:					???
 																						Log Delivery Group:								???
 
-				public-read-write										Owner: 														FULL_CONTROL						All in the world can read/write anonymously without any kind of authentication.
+				public-read-write			B O						Owner: 														FULL_CONTROL						All in the world can read/write anonymously without any kind of authentication.
 																						Public_Access or AllUsers-group:	FULL_CONTROL						
 																						Other AWS account:								???
 																						AuthenticatedUser-group:					???
 																						Log Delivery Group:								???
-				public-read-write										Owner: 														FULL_CONTROL						Owner has full contron.
-																						Public_Access or AllUsers-group:	FULL_CONTROL						Authenticated AWS user can read the bucket
+				authenticated-read		B O						Owner: 														FULL_CONTROL						Bucket/Object Owner has full contron.
+																						Public_Access or AllUsers-group:	FULL_CONTROL						Authenticated AWS user can read the bucket/Object
 																						Other AWS account:								none
 																						AuthenticatedUser-group:					READ
-																						Log Delivery Group:								none			
-				aws-exec-read														?????
+																						Log Delivery Group:								none		
+				bucket-owner-read		 		O						Owner: 														FULL_CONTROL						Object Owner has full contron. Bucket Owner can read.
+																						Bucket Owner:											READ
+																						Public_Access or AllUsers-group:	none						
+																						Other AWS account:								none
+																						AuthenticatedUser-group:					none
+																						Log Delivery Group:								none																								
+		bucket-owner-full-control		O						Owner: 														FULL_CONTROL						Object Owner and Bucket owner has full contron.
+																						Bucket Owner:											FULL_CONTROL
+																						Public_Access or AllUsers-group:	FULL_CONTROL						
+																						Other AWS account:								none
+																						AuthenticatedUser-group:					none
+																						Log Delivery Group:								none																							
 																						
-			ACL and Public Access of Bucket:-
 				
+	ACL for Object:-
+		Object level ACL decide that if grantee can access the Object and its ACL or not.
+		At bucket level access grantee can be granted to add/edit/delete the object in the bucket but not to read or download the object itself.
+		For this he need the ACL permission at object level.
+
+		In context of bucket the ACL grant access to below operation to Principls
+		READ: Will provide access to downloading/reading the object. So access to Action 's3:GetObjct'
+		WRITE: Not applicable at object level. as write permission is granted via ACL of bucket
+		READ_ACL: Will provide access to reading the ACL of Object. So access to Action 's3:GetObjectAcl
+		WRITE_ACL: Will provide access to change the ACL of Object. So access to Action s3:PutObjectAcl'
+		FULL_CONTRL: all 4 accesses
+		
+		Does any of those permission provide access to Resource/Action like
+			isVersiningEnabled, getTags, setObjectPolicy etc
+		NO. The ACL give only and only the basic read accees nothing else.	
+		
+		ACL on Bucket via CLI, SDK, CFT :-
+			See table 	#CannedACLTABLE
 
 
+
+Scenarios:-
+	CAn we put the object in bucket anonymously with ACL = private ? if yes then who will be the owner? 
+
+	Bucket is public, can you put object with ACL = private ?
+	
+	Bucket is private, can you put object with ACL = public ?
+	
 
 
 -----------------
+
+--------
 
 BPAF->
 	Default BPAF setting if bucket is created via any medium CLI, sdk, CFR is all are off
 	Default BPAF setting if bucket is created via any console is all are on
 
 ---
-Bucket and object Anonymously:-
+Accessing Bucket and object Anonymously:-
 
 	By AWS SDK:-
 		No single AWS SDK support the anonymous access. so if you wants to do any anonymous operation on S3 buckets o object then you have to use the REST API directly.
 	By CLI:
-		Not support anonymous access
+		Not support for anonymous access here also
   By AWS console:-
 		No way. you must first login in console
 	By direct Rest API:-
