@@ -105,7 +105,32 @@ BPAF->
 	Default BPAF setting if bucket is created via any medium CLI, sdk, CFR is all are off
 	Default BPAF setting if bucket is created via any console is all are on
 
+---
+Bucket and object Anonymously:-
 
+	By AWS SDK:-
+		No single AWS SDK support the anonymous access. so if you wants to do any anonymous operation on S3 buckets o object then you have to use the REST API directly.
+	By CLI:
+		Not support anonymous access
+  By AWS console:-
+		No way. you must first login in console
+	By direct Rest API:-
+		Yes. This is the only way
+	
+	What operation you can do on bucket and object anonymously:-
+		This is also very limited.
+		Bucket:-
+			You can get list of object in bucket  API:- see in S3Tuto function 'getObjectListAnonymous'  
+			You can Add/Delet obect								API:- see in S3Tuto function 'doAnonymousUpload'  
+			You can get the ACL of Bucket.
+		Object:-
+			You can get the object with metadata
+			You can get the ACL of Object.
+	
+
+---
+
+s3.upload  VS  AWS.S3.ManageUpload
 
 
 
