@@ -13,6 +13,7 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 		can 
 			create, delete, edit, change Tag, modify policy, change any configuration on bucket or object
 		if they have proper permission to do so.  
+*1: Anonmous user at best can get list of object, read the object and its ACL only. no other operation allowd by anonymous.
 		
 		Visualize it like this 
 			
@@ -58,7 +59,6 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 															- PUT Object
 															- GET ObjectACL																			 
 																			 
-	*1: Anonmous user at best can get list of object, read the object and its ACL only. no other operation allowd by anonymous.
 
 There two broad way to manage the access
 	1. Resource Based
@@ -200,13 +200,28 @@ ACL:-
 		but if you set it like to be accessible to public anonymously.
 		
 
-
-
 ### ACL is a Legacy and it has very few use case. Only time it is unavoidable to use is to 
 			-	when you need to share the bucked between multiple AWS accounts.
 			- You wants any particular object to be anonymously public accessible
 		Otherwise DO NOT USE IT. 
-		Even allowing/denying the anonymous public access of bucket is also possible with Bucket Policy.
+		Even allowing/denying the anonymous public access of bucket is also possible with Bucket Policy.		
+	
+	Intrasting use case of ACL: Making a particular object public in bucket:-
+		Suppose you wants to allow some particular objects in the bucket to be public. Now how would you do it?
+		1. BPAF: You have to set it Off. so it allow anonymous request to flow.
+		2. Bucket ACL: You can keep the bucket private as for reading/downloading object we need Object-ACL permission not Bucket-ACL permission
+		3. Object ACL: It must be publi-read so that anonymous user can readthe object.
+		4. IAMP: IAMP do not matter for Anonymous user
+		5. BP: ???????????????????????
+	
+Bucket ACL VS Object ACL:-
+	When you wants to get the list of object in bucket or add/edit/delete the object in bucket then Bucket-ACL is used to give access.
+	When you wants to read/download the object then Bucket-ACL is used to give access.
+	After any request only one of then will be ued so they never come acrossin each other path.
+	Once finish up with one of them the request go to BP to determine if BP also allowing the operation or not. 
+
+
+	
 
 --------------
 
