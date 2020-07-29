@@ -20,7 +20,7 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 			-----------------------																		 				          							 
 			|IAM user							|																						          							 
 			|	- Mufazzal_Hussain	|						---------												          							 
-			|	- Murtaza						|						|				|														      							 
+			|	- Murtaza						|	S3:*			|				|														      							 
 			|	- Shabbir						|=========>>|	IAMP	|==============>>================|		      															 
 			|IAM Role							|						|				|												        ||  							 
 			|	- EC2ServerRole			|				 		---------												        ||  							 
@@ -32,7 +32,7 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 																																								||
 			       											                                              ||
 			_______________________	       	                              						||				---------					______________________________
-			|Root User						|					          The Owner of ALL                ||        |				|         |															|
+			|Root User						|		S3:*	          The Owner of ALL                ||        |				|         |															|
 			|		h.mufazzal@gmail	|===============>>=====================|            |=======>>|				|         |					devopsBucket				|
 			|_____________________|					  													||                      |	BP		|=======>>|					profile_bucket			|
 																																	||            |=======>>|				|         |						mubucket					|
@@ -40,7 +40,7 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 																																---------       ||        ---------         |_____________________________|
 				                                                        |				|       ||
 			_______________________						                        |				|       ||
-			|											|						      	                |	ACL		|===>>===|
+			|											|		S3:*		      	                |	ACL		|===>>===|
 			|Other AWS accout			|===============>>================>>|				|       
 			|		awsacc1						|							                      |				|       
 			|_____________________|         		                      ---------
@@ -49,10 +49,14 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 			_______________________	       	 ----------------						 ||									 
 			|											|					 |						 	|						 ||										 
 			|Anonymous users			|===>>====>|			BPAF	 	|===>>========|																 
-			|_____________________|					 |							|																 
+			|_____________________|		RA	 	 |							|																 
 			                                 ----------------																 
-																			 
-																			 
+													RA = Only some Rest APi are allowed, that are
+															- GET objectList
+															- GET BucketACL
+															- GET Object
+															- PUT Object
+															- GET ObjectACL																			 
 																			 
 	*1: Anonmous user at best can get list of object, read the object and its ACL only. no other operation allowd by anonymous.
 
