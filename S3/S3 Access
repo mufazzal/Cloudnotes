@@ -35,7 +35,7 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 			_______________________	       	                              						||				---------					______________________________
 			|Root User						|		S3:*	          The Owner of ALL                ||        |				|         |															|
 			|		h.mufazzal@gmail	|===============>>=====================|            |=======>>|				|         |					devopsBucket				|
-			|_____________________|					  													||                      |	BP		|=======>>|					profile_bucket			|
+			|_____________________|					  													||                      |	 BP		|=======>>|					profile_bucket			|
 																																	||            |=======>>|				|         |						mubucket					|
 																																	||            ||        |				|         |															|
 																																---------       ||        ---------         |_____________________________|
@@ -245,7 +245,10 @@ Accessing Bucket and object Anonymously:-
 		Object:-
 			You can get the object with metadata
 			You can get the ACL of Object.
-			
+		
+		Can you do below operation anonymously via S3 Rest API
+					isVersiningEnabled, getTags, setObjectPolicy, getBukeyPolicy, betBucketEncryption etc
+			No! Not at all.
 			
 		I can access the object anonymously when
 			1. bucket ACL:
