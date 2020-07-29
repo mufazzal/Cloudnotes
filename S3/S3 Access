@@ -256,8 +256,13 @@ BPAF->
 
 ---
 
-	
 
+Controlling User:-
+													BPAF							ACL								IAMP							BP
+	Root User								NO								YES								??								??
+	IAM User								NO								NO								YES								YES
+	AWS Account							NO								YES								??								??			
+	Anonymous								YES								YES								NO								??
 ---
 
 s3.upload  VS  AWS.S3.ManageUpload
