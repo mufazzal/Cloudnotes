@@ -15,26 +15,45 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 		if they have proper permission to do so.  
 		
 		Visualize it like this 
-																										
-			Users																																				S3		
 			
-			root user	
-			- h.mufazzal@gmail.com	----------OWNER--------------------|							
-																																 |			_______________________________						
-																			ACL/BP/IP									 |-->		|					devopsBucket				|
-			IAM user							|					______________										|					profile_bucket			|
-				- Mufazzal_Hussain	|					|	BP				 |										|						mubucket					|
-				- Murtaza						|					|			ACL		 |										|															|		
-				- Shabbir						|===>>===>|						 |=========>>=======>>|															|		
-			IAM Role							|					|			IP		 |										|															|
-				- EC2ServerRole			|					|____________|										|_____________________________|
-				- LambdaUserRoel		|					
-			cognito id						|
-				- appuer1						|
-				- appuser2					|
-			
-			
-
+																																																 
+			-----------------------																		 				          							 
+			|IAM user							|																						          							 
+			|	- Mufazzal_Hussain	|						---------												          							 
+			|	- Murtaza						|						|				|														      							 
+			|	- Shabbir						|=========>>|	IAMP	|==============>>================|		      															 
+			|IAM Role							|						|				|												        ||  							 
+			|	- EC2ServerRole			|				 		---------												        ||  							 
+			|	- LambdaUserRoel		|																										||								 
+			|cognito id						|																										||								 
+			|	- appuer1						|																										||			
+			|	- appuser2					|																										||							            															
+			-----------------------																						        ||    
+																																								||
+			       											                                              ||
+			_______________________	       	                              						||				---------					______________________________
+			|Root User						|					          The Owner of ALL                ||        |				|         |															|
+			|		h.mufazzal@gmail	|===============>>=====================|            |=======>>|				|         |					devopsBucket				|
+			|_____________________|					  													||                      |	BP		|=======>>|					profile_bucket			|
+																																	||            |=======>>|				|         |						mubucket					|
+																																	||            ||        |				|         |															|
+																																---------       ||        ---------         |_____________________________|
+				                                                        |				|       ||
+			_______________________						                        |				|       ||
+			|											|						      	                |	ACL		|===>>===|
+			|Other AWS accout			|===============>>================>>|				|       
+			|		awsacc1						|							                      |				|       
+			|_____________________|         		                      ---------
+																																	 ^^
+																																	 ||			 
+			_______________________	       	 ----------------						 ||									 
+			|											|					 |						 	|						 ||										 
+			|Anonymous users			|===>>====>|			BPAF	 	|===>>========|																 
+			|_____________________|					 |							|																 
+			                                 ----------------																 
+																			 
+																			 
+																			 
 	*1: Anonmous user at best can get list of object, read the object and its ACL only. no other operation allowd by anonymous.
 
 There two broad way to manage the access
