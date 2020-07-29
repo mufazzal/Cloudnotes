@@ -1,5 +1,42 @@
 #View file in tab = 2
 
+
+Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
+	Bucket can be created by root-USer, IAM-User, Congnito-USer but not by Anonymous-user
+	Object can be created by root-USer, IAM-User, Congnito-USer, Anonymous-user
+	
+	exept for root-user, S3 has the flat structure for ownership of any bucket or object.
+	for any S3 bucket or Object the only and only owner is ROOT USER. no one else. 
+	
+		Anyone either 
+			IAM user, Cognito identity user, Anonymus user(*1)
+		can 
+			create, delete, edit, change Tag, modify policy, change any configuration on bucket or object
+		if they have proper permission to do so.  
+		
+		Visualize it like this 
+																										
+			Users																																				S3		
+			
+			root user	
+			- h.mufazzal@gmail.com	----------OWNER--------------------|							
+																																 |			_______________________________						
+																			ACL/BP/IP									 |-->		|					devopsBucket				|
+			IAM user							|					______________										|					profile_bucket			|
+				- Mufazzal_Hussain	|					|	BP				 |										|						mubucket					|
+				- Murtaza						|					|			ACL		 |										|															|		
+				- Shabbir						|===>>===>|						 |=========>>=======>>|															|		
+			IAM Role							|					|			IP		 |										|															|
+				- EC2ServerRole			|					|____________|										|_____________________________|
+				- LambdaUserRoel		|					
+			cognito id						|
+				- appuer1						|
+				- appuser2					|
+			
+			
+
+	*1: Anonmous user at best can get list of object, read the object and its ACL only. no other operation allowd by anonymous.
+
 There two broad way to manage the access
 	1. Resource Based
 		1.1 ACL
@@ -22,12 +59,6 @@ ACL:-
 	- IAM User
 	
 	Kind of Access on Actions it provide is also very limited. It give just basic read and write access over bucket. bucket_ACL, object, object_ACL
-	
-	Owner in context of ACL:-
-		The owner is the root AWSD account here not the IAM_USER.
-		So if you have uploaded the object or created the  bucket with access key and id of h.mufazza@gmail.com or MUFAZZL_HUSSAIN or Murtuza.
-		The owner will always be h.mufazza@gmail.com only.
-		The cananical id you see in ACL page will be of  h.mufazza@gmail.com always.
 		
 	ACL for Bucket:-
 		In context of bucket the ACL grant access to below operation to Principls
