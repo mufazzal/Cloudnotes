@@ -195,6 +195,20 @@ ACL:-
 
 		ACL on Bucket via CLI, SDK, CFT :-
 			See table 	#CannedACLTABLE
+			
+		By Default the Object ACL is private and so only the owner has the full access. no one else.
+		but if you set it like to be accessible to public anonymously.
+		
+		Can i acccess the objevct with ACL = public even
+		1. When its ownert bucket has ACL = private
+				Yes. For bucket ACL to be private mns you can get the list of object in tha bucket or add/delete/edit new object.
+							For getting object you should have grant from object ACL only.
+	 2. When BP deny permission of S3:GET* 
+	 			????????
+	 3. When IAM policy deny it
+	 		For anonymous user IAM policy never comes to picture.
+	 4. When BPAF is on.
+	 		No. you can not.  access the object then.
 
 
 ### ACL is a Legacy and it has very few use case. Only time it is unavoidable to use is to 
