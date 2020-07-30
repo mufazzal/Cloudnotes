@@ -17,7 +17,7 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 		
 		Visualize it like this 
 			
-																																																 
+																	#S3ACCESSVISUAL																																												 
 			-----------------------																		 				          							 
 			|IAM user							|																						          							 
 			|	- Mufazzal_Hussain	|						---------												          							 
@@ -26,9 +26,9 @@ Relation of Bucket/Object and root-USer/IAM-User/Congnito-USer/Anonymous-user
 			|IAM Role							|						|				|												        ||  							 
 			|	- EC2ServerRole			|				 		---------												        ||  							 
 			|	- LambdaUserRoel		|																										||								 
-			|cognito id						|																										||								 
-			|	- appuer1						|																										||			
-			|	- appuser2					|																										||							            															
+			|   <cognitoRoles>		|																										||								 
+			|			- appRole1			|																										||			
+			|			- appRole2			|																										||							            															
 			-----------------------																						        ||    
 																																								||
 			       											                                              ||
@@ -221,8 +221,82 @@ Bucket ACL VS Object ACL:-
 	Once finish up with one of them the request go to BP to determine if BP also allowing the operation or not. 
 
 
+-----------------
+IAM Policy:-
+	The IAM policy is use to give the access of AWS resources to IAM user. This is user based policy. and apply to user
+	Unlike ACL it provide way to give access to the actions like
+		getObjetTaging, getBucketTagging, getObjectVersion etc.
+	
+	IAMP work for below principle
+	- Root User ????????
+	- IAM User it is attched to
+	- IAM Role it is attched to
+	- Cognito identity that is attached to IAM Role it is attched to
+	It not work for
+	-	Cross AWS account Access
+	- Predefined AWS Group Access
+	- Public Anonymous Access
+	
+	When you create the IAM user, by default he is toothless. he can do anyting. so you have to assign him the proper group.
+	So newly created IAM user will be stop at IAAMP block only in #S3ACCESSVISUAL
+	
+	to give him access you need to write the policy doc for that user.
+	There is two AWS managed policy you can use if you want to give the not so fine grain access ti that user
+	- S3FullAccess:- This will grant user the full acceess to do anything on S3. This policy is basically
+							{		"Version": "2012-10-17",
+									"Statement": [{
+													"Effect": "Allow",
+													"Action": "s3:*",
+													"Resource": "*"
+											}]
+							}			
+	- S3ReadOnlyAccess:- This will give read access
+							{		"Version": "2012-10-17",
+									"Statement": [{
+													"Effect": "Allow",
+													"Action": [ "s3:Get*", "s3:List*"],
+													"Resource": "*"
+											}]
+							}
+	This two will give "Allow" to read anything or read/write anything on S3. so it is bit risky.
+	If you want then to have access on limited number of resource and action with some condition then you shoud write the policy by yourself
+	see #WRITEPOLICY
+	
+	IMP: By default if IAM user has no policy attached for S3 so it give "DENY" always.
+				but if you set it with "S3FullAccess" then it will allow all.
+				and if you set it with "S3ReadOnlyAccess" then it will allow all read(get*) and deny write(put/delete*).
 	
 
+------
+
+Bucket Policy:-
+	The Bucket policy is resource based policy. and apply to the Bucket. consider it to be the final check point for any principle to pass to S3.
+	This is most fine grained access system for S3.
+	
+	BP work for below principle
+	- Root User ????????
+	- IAM User
+	- IAM Role
+	- IAM Role of Cognito identity 
+	- Other AWS Account
+	-	Cross AWS account Access
+	- Predefined AWS Group Access  ??????????
+	- Public Anonymous Access	 ????????
+	It not work for
+	??????????????
+	
+	When you create the Bucket, by default he is defenceless for BP side. anybody can do anything on it if he has come up to BP block in #S3ACCESSVISUAL.
+	So Empty BP of bucket will give "Allow" to any action on S3. so it is bit risky.
+	to make it secure from BP side, need to write the policy doc for that user.
+	
+	to write BP-
+	see #WRITEPOLICY
+	
+	
+#WRITEPOLICY
+Writing BP or IAMP:-
+		
+	
 --------------
 
 Accessing Bucket and object Anonymously:-
@@ -262,7 +336,8 @@ Accessing Bucket and object Anonymously:-
 					Doesnt matter. For anonymous user IAM policy never comes to picture.
 		  4. When BPAF.
 					It must be off.
-			
+		
+	If BPAF is block on the bucket then all the anonymous request will be stop at block 'BPAF' in #S3ACCESSVISUAL	
 			
 	Who is the owner of bucket object if it is uploaded anonymously. who is its owner?
 	DO NOT GO IN THIS DETAIL. We never have a bucket that is public write. its rarest of the rare.
