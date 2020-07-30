@@ -295,7 +295,76 @@ Bucket Policy:-
 	
 #WRITEPOLICY
 Writing BP or IAMP:-
-		
+		Writing policy for both is almost same with 1 major diffrence
+		1. In IAMP you do not have Principle, because the IAMP is attach to a IAM user/grou/role so the principle is inherently the IAM identity on which this policy is attached.
+				But BP do have principle Tag.
+		2. In IAMP the scope of resource is too larger, ot could be the EC2, lambda, RDS, Bucket etc. [Thoug for S3 we use only from S3:*]
+				But in BP it is only limilter to the bucket is is attached to.
+
+
+	Principle:-
+		This is only for BP not for IAMP.
+		Formate:-
+			For root user-
+											Principle: { "AWS": "arn:aws:iam::<12_digit_acc_no>:root"}
+			For IAM User-
+											Principle: { "AWS": "arn:aws:iam::<12_digit_acc_no>:user/Mufazzal_Hussain"}
+			For Role:
+											Principal: { "AWS": "arn:aws:iam::<12_digit_acc_no>/role-name" }
+			For Federated
+											Principal: { "Federated": "graph.facebook.com" }
+											Principal: { "Federated": "cognito-identity.amazonaws.com" }
+			Federated SAML
+											Principal: { "Federated": "arn:aws:iam::<12_digit_acc_no>:saml-provider/provider-name" }
+			For Anonymous 
+											Principal: { "AWS": "*"}			OR		Principle: '*'
+			For more then one aws identity you can use the array
+											Principal: { "AWS": [{}, {}...] }
+
+			With canonical id : hardly used
+				Principal: {"CanonicalUser":"64-digit-alphanumeric-value"}
+
+
+	Resource:-
+		In IAMP the resource could by anything drom EC2 to Lambda to S3 to CFT. but we are concentrating on S3 only.
+		In BP it is only limilted to the bucket is is attached to.
+		Formate:
+			Filter To Bucket only [not its inner objects]
+				Resource: "arn:aws:s3:::bucket_name"
+			Filter To all the inner object of bucket [not bucket]
+				Resource: "arn:aws:s3:::bucket_name/*"				
+			Filter To all the inner object of bucket and bucket both
+				Resource: ["arn:aws:s3:::bucket_name", "arn:aws:s3:::bucket_name/*]				
+			Filter To some object
+				Resource: ["arn:aws:s3:::bucket_name/obj1.txtx", "arn:aws:s3:::bucket_name/obj3.txt"]				
+			Filter To ALL the Bucket and its objects
+				Resource: "arn:aws:s3:::*"		
+
+	Conditions:-
+		Apart form Principle, Action there is more filter from which the request passes in the policy. this is Conditions. 
+		in the Conditions you can check some other things that come with the request.
+		only if the condition matches, then the Effect will take place.
+		Formate:-
+			Condition: {
+				"A_Condition" : [
+					{"Condition_key": ["value_1", "value_2", "value_3"]}
+				]
+			}
+		EG:-
+			Allow user to put objecy=t but only if ACL = public_read
+						Condition: {
+							"StringEquals": [										-----> A_Condition
+								"S3:x-amz-alc": 									-----> Condition_key
+									["public_read"]									-----> values
+							]
+						}
+					
+			Allow put only if encryption provided
+			Allo delete only if usr has multifactor auth
+
+	Effect: this could be "Allow" or "Deny"
+	
+	
 	
 --------------
 
