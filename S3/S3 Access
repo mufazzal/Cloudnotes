@@ -324,7 +324,16 @@ Writing BP or IAMP:-
 
 			With canonical id : hardly used
 				Principal: {"CanonicalUser":"64-digit-alphanumeric-value"}
-
+			
+			Wildcard and Principle-ARN:-
+				VVVIMP: You CAN NOT use the wild card in the ARN of principle. So anything like below is invalid
+				 "Principal": { "AWS": "arn:aws:iam::388412347424:user/*" },
+				 "Principal": { "AWS": "arn:aws:iam::388412347424:role/*" },
+				 "Principal": { "AWS": "arn:aws:iam::388412347424:user/muf*" },
+				Basically you cannot allow or deny all the role or user matching the pattern.
+				You have to be very specific in the ARN about the grantee. iyt must be a definative user/role
+				
+			
 
 	Resource:-
 		In IAMP the resource could by anything drom EC2 to Lambda to S3 to CFT. but we are concentrating on S3 only.
@@ -365,24 +374,23 @@ Writing BP or IAMP:-
 
 	Effect: this could be "Allow" or "Deny"
 	
-
-	What if a principlr try to access a resource but access defination for this principle not specified in BP?
-	Then it is consider as "Allow"
-	
-	EG:-
-		On a bucket you have a empty BP. OR
-		Have a policy like below
-					{
-							"Statement": [{
-											"Effect": "Deny/Allow",
-											"Principal": { "AWS": "arn:aws:iam::388412347424:user/Mufazzal_Hussain"},
-											"Action": "s3:ListBucket",
-											"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
-									}]
-					}		
-			Suppose a other kind of user like an anonymous user or IAM user 'Murtaza' or IAM user of aws accout '21334312' then what happen.
-			- As this policy say nothing for them. it mns they all got "Allow"
-			
+Sce-1:-
+	What if a principle try to access a resource but BP access defination for this principle not specified in BP?
+	Then it is consider as "Allow"	
+		EG:-
+			On a bucket you have a empty BP. OR
+			Have a policy like below
+						{
+								"Statement": [{
+												"Effect": "Deny/Allow",
+												"Principal": { "AWS": "arn:aws:iam::388412347424:user/Mufazzal_Hussain"},
+												"Action": "s3:ListBucket",
+												"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
+										}]
+						}		
+				Suppose a other kind of user like an anonymous user or IAM user 'Murtaza' or IAM user of aws accout '21334312' then what happen.
+				- As this policy say nothing for them. it mns they all got "Allow"
+Sce-2:-			
 			The fine grainness of BP-
 				In above statement if you ue "Deny" then 'Mufazzal_Hussain' will not be able to see the list of object in bucket 'muf-aws-tuto-acl-public-rw'. 
 				IF he login to AWS console, he may 
@@ -406,9 +414,8 @@ Writing BP or IAMP:-
             "Action": "s3:ListBucket",
             "Resource": [ "arn:aws:s3:::muf-aws-tuto-acl-public-rw", "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*" ]			
 			
-	
-		Allowing Anonymous but deny spesific-
-		
+Sce-3:-	
+		Allowing Anonymous but deny spesific-		
 											"Statement": [{
 																	"Effect": "Deny",
 																	"Principal": { "AWS": "arn:aws:iam::388412347424:user/Mufazzal_Hussain" },
@@ -424,8 +431,22 @@ Writing BP or IAMP:-
 		This will work as the statement say.
 		You will get the list without any authentication info in REST API. but if you 
 			-	login in AWS console via Mufazzal_Hussain, you will not see the list of object in that bucket
-			- if uou use ADK, CLI with cred of Mufazzal_Hussain you wont get any list.
+			- if you use SDK, CLI with cred of Mufazzal_Hussain you wont get any list.
 		
+Sce-4:-
+	Allowing all the IAM user/role but deny the one.
+											"Statement": [{
+																	"Effect": "Deny",
+																	"Principal": { "AWS": "arn:aws:iam::388412347424:role/*" },
+																	"Action": "s3:ListBucket",
+																	"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
+															},{
+																	"Effect": "Allow",
+																	"Principal": { "AWS": "arn:aws:iam::388412347424:role/Mufazzal_Hussain"},
+																	"Action": "s3:ListBucket",
+																	"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
+															}]
+		Impossible: This will give error. you cannot use wildcard in principle ARN.
 --------------
 
 Accessing Bucket and object Anonymously:-
