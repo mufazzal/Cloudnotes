@@ -399,6 +399,7 @@ Sce-2:-
 					But he cannot at all view the list of object in that bucket. there he will got the access denied.
 					neither you will be ale to get the list of object via CLI or SDK with Accesskey-id of Mufazzal_Hussain.
 	
+Sce-3:-	
 			The action mentioned in the Action tag must be applicable on at least one resource in the Resorces
 			EG:-
 				Below statement will give error while saving, because 'ListBucket' is a bucket level opearion and its not applied to objects of that bucket. 
@@ -413,8 +414,14 @@ Sce-2:-
 				Below statement will also work because 'ListBucket' is a bucket level opearion and 'arn:aws:s3:::muf-aws-tuto-acl-public-rw' is bucket.
             "Action": "s3:ListBucket",
             "Resource": [ "arn:aws:s3:::muf-aws-tuto-acl-public-rw", "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*" ]			
+				Below will also give error because 'GetObject' is for object not bucket:-
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"				
+				Below will work fine:-
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"						
 			
-Sce-3:-	
+Sce-4:-	
 		Allowing Anonymous but deny spesific-		
 											"Statement": [{
 																	"Effect": "Deny",
@@ -433,7 +440,7 @@ Sce-3:-
 			-	login in AWS console via Mufazzal_Hussain, you will not see the list of object in that bucket
 			- if you use SDK, CLI with cred of Mufazzal_Hussain you wont get any list.
 		
-Sce-4:-
+Sce-5:-
 	Allowing all the IAM user/role but deny the one.
 											"Statement": [{
 																	"Effect": "Deny",
@@ -447,8 +454,65 @@ Sce-4:-
 																	"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
 															}]
 		Impossible: This will give error. you cannot use wildcard in principle ARN.
+		
+Sec-6:-
+	Deny always win
+	If a principle is matched with two criretrion in policy with diffrent result then "Deny" always win
+	EG:-
+				{		"Effect": "Deny",
+            "Principal": { "AWS": "arn:aws:iam::388412347424:user/Mufazzal_Hussain" },
+            "Action": [ "s3:GetObject", "s3:PutObject" ],
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*"
+        },
+				{		"Effect": "Allow",
+            "Principal": { "AWS": "*" },
+            "Action": [ "s3:GetObject", "s3:PutObject" ],
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*"
+        },	
+		Now if you try to do operation with creds of 'Mufazzal_Hussain' then it will e denied.
+		but if you do it anonymously or by Murtuzas account then it will work.
+		
 --------------
 
+Actions of Object and Buckets-
+	Action on Bucket or on 'arn:aws:s3:::muf-aws-tuto-acl-public-rw'
+		-	S3:CreateBucket	
+		- S3:ListBucket					-> This is for getting all the objects inside the bucket.
+		- S3:ListBucketVersion
+		- S3:DeleteBucket
+		- S3:ListAllMyBuckets   -> This is for getting all the bucket in aws account
+
+	Action on Objects or on 'arn:aws:s3:::muf-aws-tuto-acl-public-rw/*'
+		-	S3:GetObject	
+		-	S3:GetObjectVersion	
+		-	S3:PutObject	
+		-	S3:DeleteObject	
+		-	S3:GetObjectAcl	
+		-	S3:PutObjectAcl	
+	
+	Action on subresources:-
+		-	S3:GetBucketPolicy
+		-	S3:PutBucketPolicy
+		-	S3:DeleteBucketPolicy
+		- S3:GetBucketAcl
+		- S3:PutBucketAcl
+		- S3:GetBucketCORS
+		- S3:PutBucketCORS
+		- S3:GetBucketTagging
+		- S3:PutBucketTagging
+		- S3:GetBucketWebsite
+		- S3:PutBucketWebsite
+		- S3:PutBucketWebsite
+		- S3:GetBucketVersioning
+		- S3:PutBucketVersioning
+		- S3:GetAccelerateConfiguration
+		- S3:PutAccelerateConfiguration
+		- S3:GetLifeCycleConfiguration
+		- S3:PutLifeCycleConfiguration		
+		
+		API for chnging storage class???????????????
+	
+---------
 Accessing Bucket and object Anonymously:-
 
 	By AWS SDK:-
