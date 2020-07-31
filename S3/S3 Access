@@ -295,12 +295,13 @@ Bucket Policy:-
 	
 #WRITEPOLICY
 Writing BP or IAMP:-
-		Writing policy for both is almost same with 1 major diffrence
+		Writing policy for both is almost same with 3 major diffrence
 		1. In IAMP you do not have Principle, because the IAMP is attach to a IAM user/grou/role so the principle is inherently the IAM identity on which this policy is attached.
 				But BP do have principle Tag.
 		2. In IAMP the scope of resource is too larger, ot could be the EC2, lambda, RDS, Bucket etc. [Thoug for S3 we use only from S3:*]
 				But in BP it is only limilter to the bucket is is attached to.
-
+		3. The BP is apply to Bucket so it can restrict the operation only up the bucket and object level. But by IAM you can restrict usre to do operation over S3 itself
+				EG:- Creatinig or deleting bucket. 
 
 	Principle:-
 		This is only for BP not for IAMP.
@@ -364,8 +365,67 @@ Writing BP or IAMP:-
 
 	Effect: this could be "Allow" or "Deny"
 	
+
+	What if a principlr try to access a resource but access defination for this principle not specified in BP?
+	Then it is consider as "Allow"
 	
+	EG:-
+		On a bucket you have a empty BP. OR
+		Have a policy like below
+					{
+							"Statement": [{
+											"Effect": "Deny/Allow",
+											"Principal": { "AWS": "arn:aws:iam::388412347424:user/Mufazzal_Hussain"},
+											"Action": "s3:ListBucket",
+											"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
+									}]
+					}		
+			Suppose a other kind of user like an anonymous user or IAM user 'Murtaza' or IAM user of aws accout '21334312' then what happen.
+			- As this policy say nothing for them. it mns they all got "Allow"
+			
+			The fine grainness of BP-
+				In above statement if you ue "Deny" then 'Mufazzal_Hussain' will not be able to see the list of object in bucket 'muf-aws-tuto-acl-public-rw'. 
+				IF he login to AWS console, he may 
+					- see/edit the all other info of bucket like bucket policy, ACL, version enabe etc
+					- he may add/edit an object in the bucket
+					But he cannot at all view the list of object in that bucket. there he will got the access denied.
+					neither you will be ale to get the list of object via CLI or SDK with Accesskey-id of Mufazzal_Hussain.
 	
+			The action mentioned in the Action tag must be applicable on at least one resource in the Resorces
+			EG:-
+				Below statement will give error while saving, because 'ListBucket' is a bucket level opearion and its not applied to objects of that bucket. 
+				 and 'arn:aws:s3:::muf-aws-tuto-acl-public-rw/*' is all objects of bucket not bucket.
+			      "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*",
+												
+				Below statement will work because 'ListBucket' is a bucket level opearion.
+			      "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw",
+												
+				Below statement will also work because 'ListBucket' is a bucket level opearion and 'arn:aws:s3:::muf-aws-tuto-acl-public-rw' is bucket.
+            "Action": "s3:ListBucket",
+            "Resource": [ "arn:aws:s3:::muf-aws-tuto-acl-public-rw", "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*" ]			
+			
+	
+		Allowing Anonymous but deny spesific-
+		
+											"Statement": [{
+																	"Effect": "Deny",
+																	"Principal": { "AWS": "arn:aws:iam::388412347424:user/Mufazzal_Hussain" },
+																	"Action": "s3:ListBucket",
+																	"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
+															},{
+																	"Effect": "Allow",
+																	"Principal": { "AWS": "*"},
+																	"Action": "s3:ListBucket",
+																	"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
+															}]
+	
+		This will work as the statement say.
+		You will get the list without any authentication info in REST API. but if you 
+			-	login in AWS console via Mufazzal_Hussain, you will not see the list of object in that bucket
+			- if uou use ADK, CLI with cred of Mufazzal_Hussain you wont get any list.
+		
 --------------
 
 Accessing Bucket and object Anonymously:-
@@ -400,7 +460,7 @@ Accessing Bucket and object Anonymously:-
 			2. Object ACL:
 					Must be have public access enabled. so public or public-read
 		  3. BP 
-					Must allow Anonymus access.
+					Must allow Anonymus access. like  Principle: *		OR		Principle: {"AWS": "*"}
 		  3. IAMP
 					Doesnt matter. For anonymous user IAM policy never comes to picture.
 		  4. When BPAF.
@@ -429,7 +489,7 @@ Controlling User:-
 	Root User								NO								YES								??								??
 	IAM User								NO								NO								YES								YES
 	AWS Account							NO								YES								??								??			
-	Anonymous								YES								YES								NO								??
+	Anonymous								YES								YES								NO								Yes
 ---
 
 s3.upload  VS  AWS.S3.ManageUpload
