@@ -419,7 +419,7 @@ Sce-3:-
             "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"				
 				Below will work fine:-
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"						
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*"						
 			
 Sce-4:-	
 		Allowing Anonymous but deny spesific-		
