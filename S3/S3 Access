@@ -375,8 +375,13 @@ Writing BP or IAMP:-
 	Effect: this could be "Allow" or "Deny"
 	
 Sce-1:-
-	What if a principle try to access a resource but BP access defination for this principle not specified in BP?
-	Then it is consider as "Allow"	
+	When a ceratain PRINCIPLE requested to perform certain ACTION on certain RESOURCE but that PRINCIPLE is not mentioned in the BP
+	OR
+	When a ceratain ACTION requested to be performed on certain RESOURCE by certain PRINCIPLE but that ACTION is not mentioned in the BP
+	OR
+	When a ceratain RESOURCE is asked to have certain ACTION by certain PRINCIPLE but that RESOURCE is not mentioned in the BP
+	
+	Then they all will be consider as "Allow"	
 		EG:-
 			On a bucket you have a empty BP. OR
 			Have a policy like below
@@ -388,8 +393,11 @@ Sce-1:-
 												"Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
 										}]
 						}		
-				Suppose a other kind of user like an anonymous user or IAM user 'Murtaza' or IAM user of aws accout '21334312' then what happen.
+				Suppose a other kind of user like an anonymous user or IAM user 'Murtaza' or IAM user of aws accout '21334312' wants to do 'ListBucket' then what happen.
 				- As this policy say nothing for them. it mns they all got "Allow"
+				Suppose someone asked to perform the action 'GetObject' then what happen.
+				- As this policy say nothing for GetObject. it mns it got "Allow"
+				
 Sce-2:-			
 			The fine grainness of BP-
 				In above statement if you ue "Deny" then 'Mufazzal_Hussain' will not be able to see the list of object in bucket 'muf-aws-tuto-acl-public-rw'. 
@@ -481,7 +489,10 @@ Actions of Object and Buckets-
 		- S3:ListBucketVersion
 		- S3:DeleteBucket
 		- S3:ListAllMyBuckets   -> This is for getting all the bucket in aws account
-
+		Subresource level for bucket
+		- S3:GetBucketTagging
+		- S3:PutBucketTagging
+		
 	Action on Objects or on 'arn:aws:s3:::muf-aws-tuto-acl-public-rw/*'
 		-	S3:GetObject	
 		-	S3:GetObjectVersion	
@@ -498,8 +509,6 @@ Actions of Object and Buckets-
 		- S3:PutBucketAcl
 		- S3:GetBucketCORS
 		- S3:PutBucketCORS
-		- S3:GetBucketTagging
-		- S3:PutBucketTagging
 		- S3:GetBucketWebsite
 		- S3:PutBucketWebsite
 		- S3:PutBucketWebsite
