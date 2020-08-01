@@ -414,11 +414,9 @@ Sce-3:-
 				 and 'arn:aws:s3:::muf-aws-tuto-acl-public-rw/*' is all objects of bucket not bucket.
 			      "Action": "s3:ListBucket",
             "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*",
-												
 				Below statement will work because 'ListBucket' is a bucket level opearion.
 			      "Action": "s3:ListBucket",
             "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw",
-												
 				Below statement will also work because 'ListBucket' is a bucket level opearion and 'arn:aws:s3:::muf-aws-tuto-acl-public-rw' is bucket.
             "Action": "s3:ListBucket",
             "Resource": [ "arn:aws:s3:::muf-aws-tuto-acl-public-rw", "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*" ]			
@@ -479,7 +477,27 @@ Sec-6:-
         },	
 		Now if you try to do operation with creds of 'Mufazzal_Hussain' then it will e denied.
 		but if you do it anonymously or by Murtuzas account then it will work.
-		
+
+Sec-7:-
+	The Actions and the Resource could be clubbed if principle is same.
+				{		"Effect": "Deny",
+            "Principal": { "AWS": "*" },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*"
+        },
+				{		"Effect": "Allow",
+            "Principal": { "AWS": "*" },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw"
+        },	
+		This can be writtedn in one like below
+				{		"Effect": "Allow",
+            "Principal": { "AWS": "*" },
+            "Action": [ "s3:ListBucket", "s3:GetObject" ],
+            "Resource": ["arn:aws:s3:::muf-aws-tuto-acl-public-rw", "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*" ]
+        },		
+				
+
 --------------
 
 Actions of Object and Buckets-
@@ -548,7 +566,7 @@ Accessing Bucket and object Anonymously:-
 			2. Object ACL:
 					Must be have public access enabled. so public or public-read
 		  3. BP 
-					Must allow Anonymus access. like  Principle: *		OR		Principle: {"AWS": "*"}
+					Must allow Anonymus access. 
 		  3. IAMP
 					Doesnt matter. For anonymous user IAM policy never comes to picture.
 		  4. When BPAF.
@@ -562,6 +580,12 @@ Accessing Bucket and object Anonymously:-
 	
 	Just assume that we never upload object anonymously. at best we can just read/download it.
 
+	How BP can allow/deny Anonymous access
+	- BP remain empty
+	- BP say nothing for like  	Principle: *		OR		Principle: {"AWS": "*"} 	
+	- BP say "Allow" nothing for like  	Principle: *		OR		Principle: {"AWS": "*"} on "S3:GetObject" 	
+	
+
 
 --------
 
@@ -571,7 +595,6 @@ BPAF->
 
 ---
 
-
 Controlling User:-
 													BPAF							ACL								IAMP							BP
 	Root User								NO								YES								??								??
@@ -580,6 +603,20 @@ Controlling User:-
 	Anonymous								YES								YES								NO								Yes
 ---
 
+
+S3 getting objcet mechanism:-
+	1. Simple GET request [Anonymously]
+	2. By s3.getObject() of AWS SDK
+			This will get the data of object in binary formate
+	3. By s3.getSignedUrl('getObject', ...)
+			This will get the downloadable link
+
+S3 uploading objcet mechanism:-
+	1. Simple PUT request [Anonymous]
+	2. by s3.upload() of AWS SDK
+	3. By s3.getSignedUrl('putObject', ...)
+	
+	
 s3.upload  VS  AWS.S3.ManageUpload
 
 
@@ -791,7 +828,6 @@ S3 and IAM Policy :-
 		
 
 ------------------------
-
 
 
 S3 and Bucket Policy :-
