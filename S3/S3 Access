@@ -492,6 +492,18 @@ Actions of Object and Buckets-
 		Subresource level for bucket
 		- S3:GetBucketTagging
 		- S3:PutBucketTagging
+		-	S3:GetBucketPolicy
+		-	S3:PutBucketPolicy
+		- S3:GetBucketCORS
+		- S3:PutBucketCORS		
+		- S3:GetBucketAcl
+		- S3:PutBucketAcl
+		-	S3:DeleteBucketPolicy
+		- S3:GetBucketWebsite
+		- S3:PutBucketWebsite
+		- S3:PutBucketWebsite
+		- S3:GetBucketVersioning
+		- S3:PutBucketVersioning
 		
 	Action on Objects or on 'arn:aws:s3:::muf-aws-tuto-acl-public-rw/*'
 		-	S3:GetObject	
@@ -501,24 +513,6 @@ Actions of Object and Buckets-
 		-	S3:GetObjectAcl	
 		-	S3:PutObjectAcl	
 	
-	Action on subresources:-
-		-	S3:GetBucketPolicy
-		-	S3:PutBucketPolicy
-		-	S3:DeleteBucketPolicy
-		- S3:GetBucketAcl
-		- S3:PutBucketAcl
-		- S3:GetBucketCORS
-		- S3:PutBucketCORS
-		- S3:GetBucketWebsite
-		- S3:PutBucketWebsite
-		- S3:PutBucketWebsite
-		- S3:GetBucketVersioning
-		- S3:PutBucketVersioning
-		- S3:GetAccelerateConfiguration
-		- S3:PutAccelerateConfiguration
-		- S3:GetLifeCycleConfiguration
-		- S3:PutLifeCycleConfiguration		
-		
 		API for chnging storage class???????????????
 	
 ---------
