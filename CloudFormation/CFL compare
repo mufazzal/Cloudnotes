@@ -15,5 +15,6 @@ Auto Scalling Group       AWS::Auto*::AutoScalingGroup      Name                
 LB Target Group           AWS::Elas*L*cingV2::TargetGroup   ARN                   Yes   LoadBalancerArns,TargetGroupName
 LB Listener               AWS::Elas*L*cingV2::Listener      ARN                   Yes
 LB                        AWS::Elas*L*cingV2::LoadBalancer  ARN                   Yes   DNSName, LoadBalancerName, CanonicalHostedZoneID
-
+Bucket                    AWS::S3::Bucket                   Name                  Yes   Arn, DomainName, RegionalDomainName, WebsiteURL
+BucketPolicy              AWS::S3::BucketPolicy             ??                     ?
 
