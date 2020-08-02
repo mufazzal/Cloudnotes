@@ -295,13 +295,15 @@ Bucket Policy:-
 	
 #WRITEPOLICY
 Writing BP or IAMP:-
-		Writing policy for both is almost same with 3 major diffrence
+		Writing policy for both is almost same with below major diffrence
 		1. In IAMP you do not have Principle, because the IAMP is attach to a IAM user/grou/role so the principle is inherently the IAM identity on which this policy is attached.
 				But BP do have principle Tag.
 		2. In IAMP the scope of resource is too larger, ot could be the EC2, lambda, RDS, Bucket etc. [Thoug for S3 we use only from S3:*]
 				But in BP it is only limilter to the bucket is is attached to.
 		3. The BP is apply to Bucket so it can restrict the operation only up the bucket and object level. But by IAM you can restrict usre to do operation over S3 itself
-				EG:- Creatinig or deleting bucket. 
+				EG:- Creatinig or deleting bucket. 				
+		4. If a User/role do not have a IAMP attached or has policy attached which says naothing for S3 then that user will have "Deny" for all S3 operation.
+				But if a BP is empty then it will "Allow" any opration on any resource by anyone.
 
 	Principle:-
 		This is only for BP not for IAMP.
@@ -497,6 +499,13 @@ Sec-7:-
             "Resource": ["arn:aws:s3:::muf-aws-tuto-acl-public-rw", "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*" ]
         },		
 				
+
+IAM Group with BP and/or IAMP:-
+	Do remember, At bucket policy you cannot identify the user based in IAM Group so anything like below will never be effective or valid
+			"Principal": { "AWS": "arn:aws:iam::388412347424:group/devopsUserGroup" },
+	IAM group can only be used at IAMP. for this you just creat Group then create policy and finally you assign this policy to group.
+	
+	
 
 --------------
 
