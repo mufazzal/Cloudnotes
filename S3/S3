@@ -20,8 +20,22 @@ Region of S3:-
   If "Test" bucket in created in region "Asia" then "Test" cant be created again by anyone in any region ever.
 Region of bucket:
   Though S3 is region independent, but the bucket created in S3 by you will must lie in a selected region 
- 
+  When you create a bucket you have to select the region, and so your bucket will lie in that region. 
+  VVIMP: it not at all means that content of this bucket wont be avialabler in other region.
+  like you create a bucket 'indiaMapImages' in mumbai. 
+  but the url 'https:// indiaMapImages.s3.eu-west1.amazonaws.com/pune' will be accessible in anywhere in the world.
+  Though the time taken to load the content in newyork will be greater than in mumbai. 
+S3 and AZ :- 
+  Bucket in region specific, you do not have to choose the AZ at all when you create bucket.
+  Depending on your storage class, the content of the bucket will be stored in either 3 or 2 or 2 AZ at atime.
+  So if some data lost at some AZ or any AZ is down, you still be able to access the S3 buckets.
 
+S3 has thhe flate file structure. thoug it apear to be have a directiris inside the bucket but s3 actully store it in flt system.
+EG:-
+  http://s3.mufbucket......com/folder1/folder/2/folder3/image.jpg  
+  It does not mean that there is 3 inner folder. It actully mean that a object with key 'folder1/folder/2/folder3/image.jpg'
+  For easier viewing experience AWS console also do the logical nesting based on '/' in object key.
+  
 How To create Bucket :-
   1. aws > S3 > Create Bucket
   2. Fill Name: Mut be unique in all S3 universe 
@@ -37,20 +51,6 @@ S3 and Data Consistency :-
         objevt then the request finish even when the object is not yet update/deleted to all destinations. 
         So after successful DELETE/UPDATE you may or may not get the new data
 
-
-S3 and Region :-
-  When you create a bucket youu have to select the region, and so toyr bucket will lie in that region. 
-  VVIMP: it not at all means that content of this bucket wont be avialabler in other region.
-  like you create a bucket 'indiaMapImages' in mumbai. 
-  but the url 'https:// indiaMapImages.s3.eu-west1.amazonaws.com/pune' will be accessible in anywhere in the world.
-  Though the time taken to load the content in newyork will be greater than in mumbai.
-
-
-S3 and AZ :- 
-  Bucket in region specific, you do not have to choose the AZ at all when you create bucket.
-  Depending on your storage class, the content of the bucket will be stored in either 3 or 2 or 2 AZ at atime.
-  So if some data lost at some AZ or any AZ is down, you still be able to access the S3 buckets.
-  
 -----------------------------
 
 
@@ -106,7 +106,7 @@ Limits:-
   MAx tag on object
     - 10
     
-   
+--------------------   
 Charges:
   For Storage
   For Request
@@ -117,6 +117,7 @@ Charges:
   Cross border replication
   Object Tagging
   
+---------------------  
 Transfer Acceleration: 
   First if you wants to use it then pay for it.
   If you wnants to accelerate the speed of UPLOADing of file on S3 bucket then use it.
@@ -127,10 +128,12 @@ When to use this -
   You transfer gigabytes to terabytes of data on a regular basis across continents.
   You are unable to utilize all of your available bandwidth over the Internet when uploading to Amazon S3.
 
+-----------------
 Cross Region replication:-
     First if you wants to use it then pay for it.
     It simply allow the bucket to automatically copy to another bucket in diffrent region. So give you kind of data security
 
+-----------------
 
 URL of the files/object in Bcucket:-
   There is 3 diffrent URL pattern to access the S3 object
@@ -159,14 +162,6 @@ Tag:- You can also attach the tag on the Object.
 
 --------------------------
 
-S3 has thhe flate file structure. thoug it apear to be have a directiris inside the bucket but s3 actully store it in flt system.
-EG:-
-  http://s3.mufbucket......com/folder1/folder/2/folder3/image.jpg  
-  It does not mean that there is 3 inner folder. It actully mean that a object with key 'folder1/folder/2/folder3/image.jpg'
-  For easier viewing experience AWS console also do the logical nesting based on '/' in object key.
-
---------------------------
-
 Object Taging:-
   You cann attach deattach the Tag on Objevt. with the help of tagging you can do below things 
     1. Fine grain access control
@@ -176,9 +171,6 @@ Object Taging:-
 -------------------------
 How to craete S3 Bucket and and upload file in it by aws portal:-
   Such Spoonfeeding! really
-
-Folder in Bucket:-
-  You can create a folder in it and its url path will in in respective of its directory path.
 
 Once a Bucket is created, These are the operation we can do (Over the bucket not indivisual file)
   1. Enable Versioning
@@ -198,16 +190,7 @@ Once a file uploaded on Bucket possible operation on File (not Bucket)
   2. Changing permission
   ...etc
   
-  
-  
-Access of Bucket and its Content:-
-There is three way to do it
-  1. resource-based policies
-      1.1 Bucket Policy
-      1.2 ACL (Access control list)
-  2. User Policy
-    [Detail will come later] 
-  
+-------------  
   
  Static website in S3:- 
   1. Create a bucket [mufazzalbio], mark it public access, place index.html in it
@@ -215,21 +198,13 @@ There is three way to do it
   3. Though bucket is public but content in it is not so now add bucket policy like this to make all the content in the bucket public
       myWebSiteBucket > Permission > Bucket policy
       
-        {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Sid": "PublicReadGetObject",
+        { "Version": "2012-10-17",
+          "Statement": [{
               "Effect": "Allow",
               "Principal": "*",
-              "Action": [
-                "s3:GetObject"
-              ],
-              "Resource": [
-                "arn:aws:s3:::BUCKET_NAME/*"
-              ]
-            }
-          ]
+              "Action": [ "s3:GetObject" ],
+              "Resource": [ "arn:aws:s3:::BUCKET_NAME/*"]
+            }]
         }      
         
   The url for website be :-
@@ -241,8 +216,7 @@ There is three way to do it
 #VVIMP: Anything you put intially in S3 in any bucket by default never be public, you have to go and set it after upload.
 
 
-Alternative to AWS-S3 :-
-  
+----------------
   
 S3 VS EBS VS EFS :-
 
@@ -272,61 +246,7 @@ S3: This is the Object-based storage. Each file stored in S3 has a own unique id
       Latency: b/w both
       
       
-  Alternative of S3 ??????????????
-  
-  
-S3 + API Getway for Upload :-
-  For this you follow
-    First you call a api which will verify that you have the permission for S3 upload or not. This API is coonected with any 
-    lenbda authorizatuon function to determine the rights.
-    This API then return the secure upload link to you if auth is successful
-    Now you use this link to do the upload.
-    
-    Step 1
-      So first create a Role which will be attached to Lembda. This role must have two policy
-        step 1.1 basic lemda execution policy [choose predefined one]
-        step 1.2 create one policy as such that it has pemsission to write on S3.
-   Step 2
-      Creste an lembda function with this role, in this lembda function handle shoul look like this-
-        IMP parts- 
-          UPLOAD_BUCKET_NAME: the name of bucket, should be passed as env var
-          filename: the filename of uploading file
-          params: ??????
-          createPresignedPost: this function will generate secure url for uploading the video
-
-          const handler = (event, context, callback) => {
-                const bucket = process.env.UPLOAD_BUCKET_NAME;
-                const filename = decodeURI(event.queryStringParameters.filename);
-                const directory = crypto.randomBytes(20).toString('hex');
-                const key = directory + '/' + filename;
-
-                const params = { 'Bucket': bucket,
-                  'Fields': {'key': key},
-                  'Conditions': [{'acl': 'private'}]
-                }
-
-                s3.createPresignedPost(params, function callbackToPost(error, data) {
-                  if (error) {
-                     callback(null, generateResponse(400, error));
-                  } else {
-                    callback(null, generateResponse(200, data));
-                  }
-                });        
-        });
-        
-        Now at client side use this url for uloading the vidro data.
-        
-        Step 3:
-          Now create an api in API getway, which will expose this lembda function. It better if you also put an another lembda fuctin to check 
-          user authorization. This authorizer lembda will detrmine is user is logged in and has authority to execute the lembda created in step 2/
-          this authorizer do not detrmine authority to upload the file to s3 for the logged in user.
-       Step 4:
-           Create an API in api getway, atttach authorizer lembda of step 3 and link generater lembda of step 2 and you are done.
-           
-           
-       
-        
-   ------------------------------------------
+------------------------------------------
    
    Object VS block storage :-
       To understand the behavior of S3 you musr first focus on its way of working, To understnd the doffrence lets say i wants to sve a 
@@ -369,26 +289,6 @@ S3 + API Getway for Upload :-
         
         
 --------------------------------        
-  
-    Bucket name VS key :-
-    Bucket name is assosiated with bucket and lie in universal S3 namespace.
-    The 'key' belongs to the file names in that bucket.
-    EG:
-    https://indiaMapImages.s3.eu-west1.amazonaws.com/pune
-    Here 'indiaMapImages' is the bucket name and 'pune' is the key.
-    The key has to be unique in the bucket.
-    
-    YOu cannot have two file with same key in a bucket.
-    Though you xcan make folder in bucket to use the same key name.
-    EG:
-    https://indiaMapImages.s3.eu-west1.amazonaws.com/pune
-    and 
-    https://indiaMapImages.s3.eu-west1.amazonaws.com/distric/pune
-    This is two diffrent file reprset by two diffrent key 'pune' and 'distric/pune'
-    
-    
-    --------------------------
-    
     
     
     S3 Bucket and CORS:- To get any objevt from S3 we generally use GetObject web-service, now if you call it direcl=tly from 
@@ -518,7 +418,6 @@ S3 + API Getway for Upload :-
    Restrict Viewer Access (Use Signed URLs or Signed Cookies): 
     yes! if you wants to use only personalized signed url to access the files.
 
--------  
 
 What happen over CFT When
   1. You delete a file from S3 : 
@@ -549,7 +448,7 @@ What happen over CFT When
        not 
         file/object with the origin(Se). '
       
--------
+
 
  Q: Does bkt must have all BPAF as off for CloudFront to work: 
     No, its value doesnt matter here.
@@ -560,7 +459,7 @@ What happen over CFT When
  Q: Does OBject also has to have a public access
     No, not neccesarily
  
-------
+
 
 Invalidate Cache on CFT:-
   As you know that after the TTL passes out the cache of file/object will get to be synched with origin, but you can also forcefully
@@ -574,11 +473,7 @@ Invalidate Cache on CFT:-
  
  
        
- --------------------
- 
- What is max/object file size S3 upport :will get
- 5 TB
-       
+     
 --------------------
   S3 Signed URLs:-
     Signed url provied you an pre-authenticated url wich is generated via creds of some authorized user. this url can be used used for 2 of operation on S3
@@ -606,8 +501,6 @@ Invalidate Cache on CFT:-
       otherwise user will get the Access denied on that url.
 
 ---------------------------------------------
-  S3 Signed URLs or Signed Cookies :-
-    ????????????????????????????????????????/
   S3 partition:
     ?????????????//
   How to upload a very large file of < 1TB
