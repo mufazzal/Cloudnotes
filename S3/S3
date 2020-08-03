@@ -76,13 +76,47 @@ S3 Storage Classes:-
             it moved to 'Frequent access tiering'
       Storage Fee:  Yes but very efficient
       Retrival Fee: No but charged for data movement between tiering.
-      Minimum retention priode is 30 days. mns even you store a object for 10 days, u will be charged for 30 days. 
+      Minimum retention priode is 30 days. mns even you store a object for 10 days, u will be charged for 30 d
             
   5. S3 Glacier and S3 Glacier deep Archive: for long-term archive and digital preservation
       Take minute and Hours for retrival, Glcier do not have any real time access.
       
     
 --------------------
+
+S3 Monitoring:-
+  There is threee main tool for this
+  1. Cloudwatch
+  2. Access log
+  3. Clodtrail
+  
+  Cloudwatch:-
+    By cloudwatch you can monitor daily storage, no of object for free
+    Also you ca monitoer request, replication, data transfer by paying extra.
+    Go to S3 > your bucket > MAnagement > Matrics.
+    play around.
+    You can filter by object tag or object prefix also.
+    
+  Access log: 
+    By default S3 do not store any access log info. this is simply a info about who, how, what, when try to access on S3 bucket and if it successful or not.
+    To get the log you will have to set up an special S3 bucket for savintg the log.
+    say you wants to store the access log info of bucket 'mufbucket', 'murbucket' etc in buclet 'mylogbucket'.
+    for this:-
+      Set target bucket for writing log-
+        Go to 'mylogbucket' > Permission > ACL > Log Delivery Group > give write permission.
+        So now this bucket cn be used to write the logs.
+      Set source buckets:-
+        1. Go to 'mufbucket'/'murbucket' > Management > Server Access Log > Enable it
+        2. Select the bucket 'mylogbucket' in target bucket
+        3. set prefix for the log for easy filtering EG. for 'murbucket' set 'murbucketLogs-',  for 'mufbucket' set 'mufbucketLogs-'
+        Done
+    Viewing log:-
+      Simply go to 'mylogbucket' and you will see files containing logs. this logs has info like
+    Charges:-
+      Access log is free but storing the log will cost you. So its very imp that you aset the lifecycle policy for 'mylogbucket'
+        
+
+---------------------
 Lifecycle Policy:-
   The life cycle policy is apply to a group of object[all in folder] or on whole bucket.
   In lifecycle policy the user define the set of configuration to move the objects in diffrent storage class.
