@@ -576,11 +576,36 @@ Invalidate Cache on CFT:-
        
  --------------------
  
- What is max/object file size S3 upport :
+ What is max/object file size S3 upport :will get
  5 TB
        
-       
-  ---------------------------------------------
+--------------------
+  S3 Signed URLs:-
+    Signed url provied you an pre-authenticated url wich is generated via creds of some authorized user. this url can be used used for 2 of operation on S3
+    1. GET: read/download object
+    2. PUT: upload/update the Object.
+    for creating signed url you will need below ingredient-
+      Access Id, Secret key, Bucket name, Object name, operation type(getObject, putObject), expiration time
+    When you may need this:-
+      - You wants to give someone a url to download/upload the object without any creds. 
+        the reciver of this url will be able to download/upload the object anywhere without any login.
+      - by s3.upload you get the object/file in binary formate (like response: {data: Array[0-100, 101-1000, ...]}) and you need to convert this binary data in strean or file
+        by signed url mechanism you can get url to download this file directly.
+    EG:-
+            AWS.config.update({ credentials: new AWS.Credentials({ accessKeyId: ..., secretAccessKey: .... }) });
+            var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+
+            var params = {
+              Bucket: document.getElementById("pBucketName").value,
+              Key: document.getElementById("objKey").value,
+              Expires: 60
+            };
+            var url = s3.getSignedUrl('getObject', params);
+    Acceess and signedUrl:-
+      To create the signed url you do not need any permission. but this url will work only if the cred used in the creation process has the proped permission to do operation.
+      otherwise user will get the Access denied on that url.
+
+---------------------------------------------
   S3 Signed URLs or Signed Cookies :-
     ????????????????????????????????????????/
   S3 partition:
