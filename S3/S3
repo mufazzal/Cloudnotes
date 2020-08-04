@@ -91,11 +91,32 @@ S3 Monitoring:-
   3. Clodtrail
   
   Cloudwatch:-
-    By cloudwatch you can monitor daily storage, no of object for free
-    Also you ca monitoer request, replication, data transfer by paying extra.
-    Go to S3 > your bucket > MAnagement > Matrics.
-    play around.
-    You can filter by object tag or object prefix also.
+    By default cloudwatch monitor couple of thing on S3 bucket for free. and this matrics are updates once in a day.
+    this are 
+    - Daily Storage in the bucket in bytes
+    - Daily No. of object in a bucket     
+    But you can also enable monitoering for request, replication, data transfer by paying extra. this is not by default enabled.
+    This below metrics of request are paid one-
+          GetRequests, PutRequests, ListRequests, AllRequests, PostRequests, DeleteRequests, HeadRequests, 4xxErrors, 5xxErrors, SelectRequests 
+    This below metrics of data transfer are paid
+          TotalRequestLatency, FirstByteLatency, BytesUploaded, BytesDownloaded, SelectBytesReturned, SelectBytesScanned          
+    To view this in S3:-
+        Go to S3 > your bucket > MAnagement > Matrics.
+        
+    This metrics/graphs gave you insight about storage utilization, traffic monitering, total of any kind of request etc.     
+    What you can answer by looking in this graphs/metric  
+      - How much of storage does the bucket has occupied 
+      - How many of object are in there today, yesterday, a month ago etc.
+      - How many PUT/GET/POT request were there on this bucket
+      - How many 4XX kind of error we dot today.
+     What we cannot answer
+      - Who make the PUT request at 3:15:45 and was it successful
+      - Who make a PUT request for object 'aab'
+      - Who make a GET request at 3:12:41 and was it successful
+      - Who make a 'setACL' request to chage the ACL of Object 'aab' at 3:12:41 and was it successful
+      - Who make a 'setTag' request on Object 'aab' at 3:12:41 and was it successful
+    So cloudwatch give you a high level storage, data transfer, request analysis but not very specific about who, How, When, result.
+      
     
   Access log: 
     By default S3 do not store any access log info. this is simply a info about who, how, what, when try to access on S3 bucket and if it successful or not.
