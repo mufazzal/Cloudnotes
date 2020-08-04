@@ -520,6 +520,48 @@ A: No one will be able to read it but owner of bucket can delete or edit it.
 
 VVVIMP: The Object can be uploaded Anonymously but A bucket cnnnot be created Anonymously. Sp ACL may not allow the root user/bucket owner to read the object 
 but ACL cannot deny hime from deleting/editing.
+
+Assumption: BP is empty and ACL of bucket os public-read-write
+Object Created By Anonymous + No ACL
+Owner: 65a011a29cdf8ec533ec3d1ccaae921c
+									Read											Edit/Delete									
+	Anonymous				Yes												Yes
+	IAM							No												Yes
+	
+Object Created By Anonymous + ACL = Private
+Owner: 65a011a29cdf8ec533ec3d1ccaae921c
+									Read											Edit/Delete									
+	Anonymous				Yes												Yes
+	IAM							No												Yes
+	
+Object Created By Anonymous + ACL = publicRead
+Owner: 65a011a29cdf8ec533ec3d1ccaae921c
+									Read											Edit/Delete									
+	Anonymous				Yes												Yes
+	IAM							Yes												Yes
+	
+
+Object Created By IAM User + ACL = public 
+Owner: h.mufazzal
+	Impossible: it will give error.
+
+Object Created By IAM User + ACL = public-read
+Owner: h.mufazzal
+									Read											Edit/Delete									
+	Anonymous				Yes												Yes
+	IAM							Yes												Yes
+	
+Object Created By IAM User + ACL = private
+Owner: h.mufazzal
+									Read											Edit/Delete									
+	Anonymous				No												Yes
+	IAM							Yes												Yes	
+	
+Object Created By IAM User + ACL = bucket-owner-full-control
+Owner: h.mufazzal
+									Read											Edit/Delete									
+	Anonymous				No												Yes
+	IAM							Yes												Yes		
 --------------
 
 Actions of Object and Buckets-
@@ -607,8 +649,6 @@ Accessing Bucket and object Anonymously:-
 	- BP say nothing for like  	Principle: *		OR		Principle: {"AWS": "*"} 	
 	- BP say "Allow" nothing for like  	Principle: *		OR		Principle: {"AWS": "*"} on "S3:GetObject" 	
 	
-
-
 --------
 
 BPAF->
