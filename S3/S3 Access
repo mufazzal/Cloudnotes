@@ -514,6 +514,12 @@ Suppose someone anonymously did Put* and uploaded the object 'mufPic.jpg'
 Q: Who is the owner of 'mufPic.jpg' and can Murtuza delete/edit it?
 A: OWmer is root user(h.mufazzal@gmail.com). but Murtuza can delete/edit it if murtada has permission to do 'Delete*'/'put*'
 
+Suppose somone uploaded the Object in a bucket Anonymously with ACL of object = private
+Q: then who can read/edot/delete it 
+A: No one will be able to read it but owner of bucket can delete or edit it.
+
+VVVIMP: The Object can be uploaded Anonymously but A bucket cnnnot be created Anonymously. Sp ACL may not allow the root user/bucket owner to read the object 
+but ACL cannot deny hime from deleting/editing.
 --------------
 
 Actions of Object and Buckets-
