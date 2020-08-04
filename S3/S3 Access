@@ -505,7 +505,14 @@ IAM Group with BP and/or IAMP:-
 			"Principal": { "AWS": "arn:aws:iam::388412347424:group/devopsUserGroup" },
 	IAM group can only be used at IAMP. for this you just creat Group then create policy and finally you assign this policy to group.
 	
-	
+----
+Suppose Mufazzal_Hussain has the permisson of Put* so he uploaded the object 'mufPic.jpg'
+Q: Who is the owner of 'mufPic.jpg' and can Murtuza delete/edit it?
+A: OWmer is root user(h.mufazzal@gmail.com). but Murtuza can delete/edit it if murtada has permission to do 'Delete*'/'put*'
+
+Suppose someone anonymously did Put* and uploaded the object 'mufPic.jpg'
+Q: Who is the owner of 'mufPic.jpg' and can Murtuza delete/edit it?
+A: OWmer is root user(h.mufazzal@gmail.com). but Murtuza can delete/edit it if murtada has permission to do 'Delete*'/'put*'
 
 --------------
 
