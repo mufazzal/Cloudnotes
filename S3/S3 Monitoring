@@ -1,0 +1,155 @@
+S3 Monitoring:-
+  There is threee main tool for this
+  1. Cloudwatch
+  2. Access log
+  3. Clodtrail
+  
+  Cloudwatch:-
+    By default cloudwatch monitor couple of thing on S3 bucket for free. and this matrics are updates once in a day.
+    this are 
+    - Daily Storage in the bucket in bytes
+    - Daily No. of object in a bucket     
+    But you can also enable monitoering for request, replication, data transfer by paying extra. this is not by default enabled.
+    This below metrics of request are paid one-
+          GetRequests, PutRequests, ListRequests, AllRequests, PostRequests, DeleteRequests, HeadRequests, 4xxErrors, 5xxErrors, SelectRequests 
+    This below metrics of data transfer are paid
+          TotalRequestLatency, FirstByteLatency, BytesUploaded, BytesDownloaded, SelectBytesReturned, SelectBytesScanned          
+    To view this in S3:-
+        Go to S3 > your bucket > MAnagement > Matrics.
+        
+    This metrics/graphs gave you insight about storage utilization, traffic monitering, total of any kind of request etc.     
+    What you can answer by looking in this graphs/metric  
+      - How much of storage does the bucket has occupied 
+      - How many of object are in there today, yesterday, a month ago etc.
+      - How many PUT/GET/POT request were there on this bucket
+      - How many 4XX kind of error we dot today.
+     What we cannot answer
+      - Who make the PUT request at 3:15:45 and was it successful
+      - Who make a PUT request for object 'aab'
+      - Who make a GET request at 3:12:41 and was it successful
+      - Who make a 'setACL' request to chage the ACL of Object 'aab' at 3:12:41 and was it successful
+      - Who make a 'setTag' request on Object 'aab' at 3:12:41 and was it successful
+      - The full requets body and response
+    So cloudwatch give you a high level storage, data transfer, request analysis but not very specific about who, How, When, result.
+      
+    Filtering in the graph:-
+      You can further filter the graph by prefix and Tag. 
+      Like you wants to know how many object were there with tag = "dep" or prefix = "fol1".
+      
+    You can also create filter by cloudwatch like below-  
+              S3TutoPublicRWBucket:
+                Type: 'AWS::S3::Bucket'
+                Properties:
+                  BucketName: "Mybucket" 
+                  MetricsConfigurations: 
+                    - Id: fol1Graphs
+                      Prefix: 'fol1/'
+                    - Id: ofTag
+                      TagFilters:
+                        - Key: 'dep'
+                          Value: 'operation'      
+    
+    
+  Access log: 
+    By default S3 do not store any access log info. this is simply a info about who, how, what, when try to access on S3 bucket and if it successful or not.
+    To get the log you will have to set up an special S3 bucket for savintg the log.
+    say you wants to store the access log info of bucket 'mufbucket', 'murbucket' etc in buclet 'mylogbucket'.
+    for this:-
+      Set target bucket for writing log-
+        Go to 'mylogbucket' > Permission > ACL > Log Delivery Group > give write permission.
+        So now this bucket cn be used to write the logs.
+      Set source buckets:-
+        1. Go to 'mufbucket'/'murbucket' > Management > Server Access Log > Enable it
+        2. Select the bucket 'mylogbucket' in target bucket
+        3. set prefix for the log for easy filtering EG. for 'murbucket' set 'murbucketLogs-',  for 'mufbucket' set 'mufbucketLogs-'
+        Done
+    Viewing log:-
+      Simply go to 'mylogbucket' and you will see files containing logs. this logs has info like
+    Charges:-
+      Access log is free but storing the log will cost you. So its very imp that you aset the lifecycle policy for 'mylogbucket'
+      
+    What we can answer with Access Log-
+      - Who make the PUT request at 3:15:45 and was it successful
+      - Who make a PUT request for object 'aab' at 8:33 with failure
+      - Who make a GET request at 3:12:41 and was it successful
+      - Who make a 'setACL' request to chage the ACL of Object 'aab' at 3:12:41 and was it successful
+      - Who make a 'setTag' request on Object 'aab' at 3:12:41 and was it successful      
+    What we cannot answer  
+      - How much of storage does the bucket has occupied 
+      - How many of object are in there today, yesterday, a month ago etc.
+      - How many PUT/GET/POT request were there on this bucket
+      - How many 4XX kind of error we dot today.    
+      - The full requets body and response
+  
+  The formate of this logs are:-
+      f9da3b5bec57f4601a1d29654ffc1d8983ff413d534b9cd13b9a05a1343dbd2a muf-aws-tuto-acl-public-rw [05/Aug/2020:14:57:55 +0000] 10.246.191.124 arn:aws:iam::388412347424:user/Mufazzal_Hussain F1EDCEB81EBCDFF0 REST.PUT.TAGGING - "PUT /?tagging HTTP/1.1" 204 - - - 155 99 "-" "AWS CloudFormation, aws-internal/3" - XBDaseYr8wAQvrSvoEHAbY673VNI0WNuXPKKh6pgolqpfNCqwlpOB4JvqETYFL3WGRD2LfO7Zog= SigV4 ECDHE-RSA-AES128-SHA AuthHeader muf-aws-tuto-acl-public-rw.s3.us-east-1.amazonaws.com TLSv1.2  
+  
+  Setting Access Log via cloudrormation:-
+            S3TutoPublicRWBucket:
+              Type: 'AWS::S3::Bucket'
+              Properties:
+                BucketName: "mufbucket"
+                LoggingConfiguration:
+                  DestinationBucketName: !Ref mufbucketLogs
+                  LogFilePrefix: 'S3TutoPublicRWBucket/'        
+            S3LogBucket:
+              Type: 'AWS::S3::Bucket'
+              Properties:
+                BucketName: "mufbucketLogs"
+                AccessControl: LogDeliveryWrite    
+                   
+    
+  By Cloudtrail + Cloudwatch:-
+    This is the deepest level of logging that can give you the Request and response of the APIs that are being called in/out of S3.
+    here you can do the object level logging(optional and costly) for the bucket.
+    you can store this logs in an another S3 bucket or can create a LogGroup in cloudwatch and then can view this log in cloudwatch with filter funtioning.
+    Here is the step to do this-
+    1. Create a extra S3 bucket which will hold the logs if you wants to use S3 for storing the bucket.
+    2. The BP for this bucket should be
+                    "Statement": [
+                        {   "Effect": "Allow",
+                            "Principal": {"Service": "cloudtrail.amazonaws.com"},
+                            "Action": "s3:GetBucketAcl",
+                            "Resource": "arn:aws:s3:::muf-aws-tuto-trail-log-bucket"
+                        },{ "Effect": "Allow",
+                            "Principal": { "Service": "cloudtrail.amazonaws.com" },
+                            "Action": "s3:PutObject",
+                            "Resource": "arn:aws:s3:::muf-aws-tuto-trail-log-bucket/AWSLogs/388412347424/*",
+                            "Condition": { "StringEquals": { "s3:x-amz-acl": "bucket-owner-full-control"}
+                            }
+                        }]
+    
+    3. Create a trail in the cloud trail. The trail will capture all the requests in S3 account.
+       But by default trail do not capture two things (Data events) on S3 account
+          A> Oject level operation on S3 EG. GetObject. PutObject
+          B> LAmbda calls
+       3.1 For our case we will select the S3 bucket on which we wants to do the object level logging. we can also choose the prefix if we wants to further reduce logging scope
+       3.2 also select te bucket in which you wans to store the log.
+       Create
+    4. IF you also wants to see this log in a cloudwatch then again open the train you created in step 3. and edit the cloud watcj section. give/create the loggroup name and iam role. 
+      Done
+    Now you can see detailed requests in the cloudwach. and s3 bucket.
+    This contains the request params user in that request.
+    This give you very minute detail about the operation made.    
+       
+    What we can answer with Cloudtrail + Cloudwatch-
+      - The full requets body and response       
+      - Who make the PUT request at 3:15:45 and was it successful
+      - Who make a PUT request for object 'aab' at 8:33 with failure
+      - Who make a GET request at 3:12:41 and was it successful
+      - Who make a 'setACL' request to chage the ACL of Object 'aab' at 3:12:41 and was it successful
+      - Who make a 'setTag' request on Object 'aab' at 3:12:41 and was it successful      
+    What we cannot wihh Cloudtrail + Cloudwatch  
+      - How much of storage does the bucket has occupied 
+      - How many of object are in there today, yesterday, a month ago etc.
+      - How many PUT/GET/POT request were there on this bucket
+      - How many 4XX kind of error we dot today.    
+    
+    
+      
+      
+        
+    
+    
+    
+      
