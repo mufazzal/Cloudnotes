@@ -82,60 +82,7 @@ S3 Storage Classes:-
       Take minute and Hours for retrival, Glcier do not have any real time access.
       
     
---------------------
-
-S3 Monitoring:-
-  There is threee main tool for this
-  1. Cloudwatch
-  2. Access log
-  3. Clodtrail
-  
-  Cloudwatch:-
-    By default cloudwatch monitor couple of thing on S3 bucket for free. and this matrics are updates once in a day.
-    this are 
-    - Daily Storage in the bucket in bytes
-    - Daily No. of object in a bucket     
-    But you can also enable monitoering for request, replication, data transfer by paying extra. this is not by default enabled.
-    This below metrics of request are paid one-
-          GetRequests, PutRequests, ListRequests, AllRequests, PostRequests, DeleteRequests, HeadRequests, 4xxErrors, 5xxErrors, SelectRequests 
-    This below metrics of data transfer are paid
-          TotalRequestLatency, FirstByteLatency, BytesUploaded, BytesDownloaded, SelectBytesReturned, SelectBytesScanned          
-    To view this in S3:-
-        Go to S3 > your bucket > MAnagement > Matrics.
-        
-    This metrics/graphs gave you insight about storage utilization, traffic monitering, total of any kind of request etc.     
-    What you can answer by looking in this graphs/metric  
-      - How much of storage does the bucket has occupied 
-      - How many of object are in there today, yesterday, a month ago etc.
-      - How many PUT/GET/POT request were there on this bucket
-      - How many 4XX kind of error we dot today.
-     What we cannot answer
-      - Who make the PUT request at 3:15:45 and was it successful
-      - Who make a PUT request for object 'aab'
-      - Who make a GET request at 3:12:41 and was it successful
-      - Who make a 'setACL' request to chage the ACL of Object 'aab' at 3:12:41 and was it successful
-      - Who make a 'setTag' request on Object 'aab' at 3:12:41 and was it successful
-    So cloudwatch give you a high level storage, data transfer, request analysis but not very specific about who, How, When, result.
       
-    
-  Access log: 
-    By default S3 do not store any access log info. this is simply a info about who, how, what, when try to access on S3 bucket and if it successful or not.
-    To get the log you will have to set up an special S3 bucket for savintg the log.
-    say you wants to store the access log info of bucket 'mufbucket', 'murbucket' etc in buclet 'mylogbucket'.
-    for this:-
-      Set target bucket for writing log-
-        Go to 'mylogbucket' > Permission > ACL > Log Delivery Group > give write permission.
-        So now this bucket cn be used to write the logs.
-      Set source buckets:-
-        1. Go to 'mufbucket'/'murbucket' > Management > Server Access Log > Enable it
-        2. Select the bucket 'mylogbucket' in target bucket
-        3. set prefix for the log for easy filtering EG. for 'murbucket' set 'murbucketLogs-',  for 'mufbucket' set 'mufbucketLogs-'
-        Done
-    Viewing log:-
-      Simply go to 'mylogbucket' and you will see files containing logs. this logs has info like
-    Charges:-
-      Access log is free but storing the log will cost you. So its very imp that you aset the lifecycle policy for 'mylogbucket'
-        
 
 ---------------------
 Lifecycle Policy:-
