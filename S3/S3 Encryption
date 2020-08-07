@@ -74,7 +74,13 @@ PUT [file, ]--->|---------------------------------------> |												|  		Encr
 								|                                                                                                           |
 								-------------------------------------------------------------------------------------------------------------
 																																			S3
-																																			
+Code:-
+	const params = {
+    Bucket: ..., Key: ..., Body: files[0],
+    ServerSideEncryption: "AES256"
+  }
+  s3.upload(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));	
+
 Mechanism of Server Side Dec - SSE-S3 :-
   - User make a request with GET {ObjectKey,}
   - S3 will retrive related file and its encrypted data key
@@ -185,9 +191,23 @@ GET [file, ]		|																					-------------------------                   
 				|																															S3                                   |
 				|----------------------------->------------------------->------------------------------------>------																										
 																																			
-																																			
+
+Code:-
+	1.2.1:  for KMS managed CMK in KMS
+			const params = {
+				Bucket: ..., Key: ..., Body: files[0],
+				ServerSideEncryption: "aws:kms"
+			}
+			s3.upload(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));			
 	
-      
+	1.2.2: for customer managed CMK in KMS
+			const params = {
+				Bucket: ..., Key: ..., Body: files[0],
+				ServerSideEncryption: "aws:kms",
+				SSEKMSKeyId: <id of key>
+			}
+			s3.upload(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));			
+				Impact of KMS policy of customer managed CMK: The KMS api called here on behalf of S3 so the KMS policy has no impact here.
 -------------------------------------------------------------------------
 Its always best to keep the data encrypted.
 
