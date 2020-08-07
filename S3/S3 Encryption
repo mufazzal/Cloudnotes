@@ -16,6 +16,7 @@ En/Dc mechanism provide by AWS:-
                       Here En/Dc is done by S3 itself
                       You do not have any control over key. No maintainance of key required by you. S3 do it for you
                         - Master key rotated automatically and S3 do it for you
+                        - The master key ise here is belongs to S3 not of KMS. KMS do not come to picture at all.
                         - It free to use
                         - Just enable it and use. 
                         - This is chargable
@@ -43,7 +44,149 @@ En/Dc mechanism provide by AWS:-
   
   3. Enforce HTTPS:-
       You can use Bucket Policy to restrict user to use HTTPS and not HTTP.
-      It give defence at 'Data at transit' but not in 'Data at rest'
+      It give defence at 'Data at transit' but not in 'Data at rest'   
+      
+Mechanism of Server Side Enc - SSE-S3 :-
+  This is how the flow look like
+  - User make a request with PUT {file, =SSE-S3}
+  - S3 will now generate the data key
+  - S3 will now encrypt file with data key
+  - S3 will now encrypt data ley with master key of S3.
+  - S3 wil now store encrypted file + encrypted data key
+    IMP: file is encrypted wilth Data Key and Data Key is encrypted with S3-Master-Key
+
+								-------------------------------------------------------------------------------------------------------------
+								|								[S3-Master-Key]-----|                                                                       |
+								|																		|                                                                       |
+								|																		|			-------------------------                                         |
+								|																		|--->	|		data key + 					|			Encrypted-Data-Key                  |
+								|	 -------------------------              |   S3-Master-Key =			|------------                             |
+								|	 |  data key generatotr  |------------> |		Encrypted-Data-Key	|						|                             |
+								|	 -------------------------   datakey    -------------------------						|				*******************   |
+								|										|                     																		----->	*									*   |
+								|										|																													----->	*									*   |
+								|										|				datakey				-------------------------						|				*******************   |
+								|										|------------------->	|		file + datakey	=		|						|								Bucket        |
+								|																					|    Encrypted File			|------------                             |
+PUT [file, ]--->|---------------------------------------> |												|  		Encrypted File                      |
+								|														file					-------------------------                                         |
+								|                                                                                                           |
+								|                                                                                                           |
+								-------------------------------------------------------------------------------------------------------------
+																																			S3
+																																			
+Mechanism of Server Side Dec - SSE-S3 :-
+  - User make a request with GET {ObjectKey,}
+  - S3 will retrive related file and its encrypted data key
+  - S3 will first decrypt Data Key with the s3-master-key
+  - now S3 will decrypt file with the Data Key
+  - The decrypted file will now being sent.
+
+								-------------------------------------------------------------------------------------------------------------
+								|								[S3-Master-Key]-----|                                                                       |
+								|																		|                                                                       |
+								|																		|			-------------------------                                         |
+								|																		|--->	|	Encrypted-Data-Key +	|			Encrypted-Data-Key                  |
+								|	 													              |   S3-Master-Key =			|--<---------                             |
+								|	 																				|		Data-Key						|						|                             |
+								|	 													   				    -------------------------						|				*******************   |
+								|																											|												----<---*									*   |
+								|																										 \|/											----<---*									*   |
+								|																					-------------------------						|				*******************   |
+								|																					|		file + datakey	=		|						|						 ^		Bucket      |
+		Response----|--------<-------------<------------<-----|    Encrypted File			|--<---------            |                |
+								|																					|												|  		Encrypted File     |                |
+GET [file, ]		|																					-------------------------                        |                |
+				|				|                                                                                          |                |
+				|				|																																													 |								|
+				|				-------------------------------------------------------------------------------------------------------------
+				|																															S3                                   |
+				|----------------------------->------------------------->------------------------------------>------			
+      
+                          
+Mechanism of Server Side Enc - SSE-KMS :-
+  This is how the flow look like
+  - User make a request with PUT {file, =SSE-KMS}
+  - S3 will now generate the data key
+  - S3 will now encrypt file with data key
+  - S3 will now encrypt data key with master key from KMS.
+      This master key could be default master ket for S3 service on KMS 'aws/s3' Or
+      This master key could be a master key created by user 'mufMasterKey1'
+  - S3 wil now store encrypted file + encrypted data key
+    IMP: file is encrypted wilth Data Key and Data Key is encrypted with S3-Master-Key 
+ 
+
+																									KMS
+																|--------------------------------------|
+                                |                                      |
+																|		for 1.2.1: Master-Key is  Aws console > KMS > AWS managed keys > aws/s3
+																|		for 1.2.1: Master-Key is  Aws console > KMS > Customer managed keys > 'mufKeyId'
+																|		                                   |
+																|	 [Master-Key]-----|                  |
+																|										|                  |
+																|										|	                 |
+																|--------------------------------------|
+																										|		
+								-------------------------------------------------------------------------------------------------------------
+								|								                    |                                                   |
+								|																		|                                                                       |
+								|																		|			-------------------------                                         |
+								|																		|--->	|		data key + 					|			Encrypted-Data-Key                  |
+								|	 -------------------------              |   S3-Master-Key =			|------------                             |
+								|	 |  data key generatotr  |------------> |		Encrypted-Data-Key	|						|                             |
+								|	 -------------------------   datakey    -------------------------						|				*******************   |
+								|										|                     																		----->	*									*   |
+								|										|																													----->	*									*   |
+								|										|				datakey				-------------------------						|				*******************   |
+								|										|------------------->	|		file + datakey	=		|						|								Bucket        |
+								|																					|    Encrypted File			|------------                             |
+PUT [file, ]--->|---------------------------------------> |												|  		Encrypted File                      |
+								|														file					-------------------------                                         |
+								|                                                                                                           |
+								|                                                                                                           |
+								-------------------------------------------------------------------------------------------------------------
+																																			S3
+																																			
+Mechanism of Server Side Dec - SSE-S3 :-
+  - User make a request with GET {ObjectKey,}
+  - S3 will retrive related file and its encrypted data key
+  - S3 will first decrypt Data Key with the s3-master-key from KMS
+  - now S3 will decrypt file with the Data Key
+  - The decrypted file will now being sent.
+																									KMS
+																|--------------------------------------|
+                                |                                      |
+																|		for 1.2.1: Master-Key is  Aws console > KMS > AWS managed keys > aws/s3
+																|		for 1.2.1: Master-Key is  Aws console > KMS > Customer managed keys > 'mufKeyId'
+																|		                                   |
+																|	 [Master-Key]-----|                  |
+																|										|                  |
+																|									 \|/	               |
+																|--------------------------------------|
+																										|		
+								-------------------------------------------------------------------------------------------------------------
+								|																		|                                                                       |
+								|																		|                                                                       |
+								|																		|			-------------------------                                         |
+								|																		|--->	|	Encrypted-Data-Key +	|			Encrypted-Data-Key                  |
+								|	 													              |   S3-Master-Key =			|--<---------                             |
+								|	 																				|		Data-Key						|						|                             |
+								|	 													   				    -------------------------						|				*******************   |
+								|																											|												----<---*									*   |
+								|																										 \|/											----<---*									*   |
+								|																					-------------------------						|				*******************   |
+								|																					|		file + datakey	=		|						|						 ^		Bucket      |
+		Response----|--------<-------------<------------<-----|    Encrypted File			|--<---------            |                |
+								|																					|												|  		Encrypted File     |                |
+GET [file, ]		|																					-------------------------                        |                |
+				|				|                                                                                          |                |
+				|				|																																													 |								|
+				|				-------------------------------------------------------------------------------------------------------------
+				|																															S3                                   |
+				|----------------------------->------------------------->------------------------------------>------																										
+																																			
+																																			
+	
       
 -------------------------------------------------------------------------
 Its always best to keep the data encrypted.
