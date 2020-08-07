@@ -75,11 +75,14 @@ PUT [file, ]--->|---------------------------------------> |												|  		Encr
 								-------------------------------------------------------------------------------------------------------------
 																																			S3
 Code:-
+for upload/PUT-
 	const params = {
     Bucket: ..., Key: ..., Body: files[0],
     ServerSideEncryption: "AES256"
   }
   s3.upload(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));	
+for download/GET-
+	You do not need to provide any encryption related param here
 
 Mechanism of Server Side Dec - SSE-S3 :-
   - User make a request with GET {ObjectKey,}
@@ -208,6 +211,81 @@ Code:-
 			}
 			s3.upload(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));			
 				Impact of KMS policy of customer managed CMK: The KMS api called here on behalf of S3 so the KMS policy has no impact here.
+				
+for download/GET-
+	You do not need to provide any encryption related param here.
+	
+	
+1.3 SSE-C:
+Mechanism of Server Side Enc - SSE-C :-
+  This is how the flow look like
+  - User make a request with PUT {file, encKey}
+  - S3 will now encrypt file with encKey.
+  - S3 wil now store encrypted file
+		
+								-------------------------------------------------------------------------------------------------------------
+								|																																							                             	|
+								|																																											*******************   |
+								|										                     																							*									*   |
+								|																																							----->	*									*   |
+								|														datakey				-------------------------						|				*******************   |
+								|										|------------------>	|		enc file+datakey=		|						|								Bucket        |
+								|										|											|    Encrypted File			|------------                             |
+PUT ----------->|---------------------------------------> |												|  		Encrypted File                      |
+[file, key]			|														file					-------------------------                                         |
+								|                                                                                                           |
+								|                                                                                                           |
+								-------------------------------------------------------------------------------------------------------------
+																																			S3
+																																			
+
+Mechanism of Server Side Dec - SSE-C :-
+  - User make a request with GET {ObjectKey, enckey}
+  - S3 will retrive related file 
+  - now S3 will decrypt file with the enckey
+  - The decrypted file will now being sent.
+	
+								-------------------------------------------------------------------------------------------------------------
+								|																																											                      |
+								|	 																																										                      |
+								|	 													   																												*******************   |
+								|																																											*									*   |
+								|																										 													----<---*									*   |
+								|																					-------------------------						|				*******************   |
+								|																					|		enc file+datakey=		|						|						 ^		Bucket      |
+		Response----|--------<-------------<------------<-----|    Decrypted File			|--<---------            |                |
+								|																					|												|  		Encrypted File     |                |
+GET 						|																					-------------------------                        |                |
+[file, key]			|                                                          ^---------<----------<----------|                |
+				|				|																																			datakey							 |								|
+				|				-------------------------------------------------------------------------------------------------------------
+				|																															S3                                   |
+				|----------------------------->------------------------->------------------------------------>------																										
+																																			
+																																			
+																																			
+
+Code:-
+ 	for upload-
+			const params = {
+				Bucket: document.getElementById("bucketName").value,
+				Key: files[0].name,
+				Body: files[0],
+				SSECustomerAlgorithm : "AES256",
+				SSECustomerKey: '12345678901234567890123456789012'
+			}    	
+			s3.upload(params)...
+			
+	for GET-
+ 	for upload-
+			const params = {
+				Bucket: document.getElementById("bucketName").value,
+				Key: files[0].name,
+				Body: files[0],
+				SSECustomerAlgorithm : "AES256",
+				SSECustomerKey: '12345678901234567890123456789012'
+			}    	
+			s3.getObject(params)...	
 -------------------------------------------------------------------------
 Its always best to keep the data encrypted.
 
