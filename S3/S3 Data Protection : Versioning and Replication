@@ -104,7 +104,7 @@ Mechanism of versioning supended bucket[but has history of versioning enabled]:-
 			2. If object exist previously and its vId = null.
 					2.1 vId = null is at the top
 					2.2 vId = null is somewhere in version history.
-						-	In both the cases the previous copy with vId = null will be vanished and will have only obe object with vId = null at the top. 
+						-	In this cases the previous copy with vId = null will be vanished and will have only obe object with vId = null at the top. 
 			3. If object exist previously and its vId not null.
 					- Then those previos version will be preserved and then a new object will be added with vid = null.
 			4. If object has #DM# at top
