@@ -288,6 +288,23 @@ Code:-
 				SSECustomerKey: '12345678901234567890123456789012'
 			}    	
 			s3.getObject(params)...	
+			
+			
+----
+Enforce HTTPS:-
+	This is very useful if you wants data to be encrypted when it is in transit. 
+	This is simply done by EXPLICITLY DENY the acceess of GET/PUT request for any call if the call is not over HTTPS.
+	so just add BUCKET POLICY-
+						{   "Version": "2008-10-17",
+								"Statement": [{
+												"Effect": "Deny",
+												"Principal": "*",
+												"Action": ["s3:GetObject". "s3:PutObject"],
+												"Resource": "arn:aws:s3:::<YOURBUCKETHERE>/<any_prefix>/*",
+												"Condition": { "Bool": { "aws:SecureTransport": "false"} }
+										}]
+						}	
+
 -------------------------------------------------------------------------
 
 Encryption over entire bucket:- 
