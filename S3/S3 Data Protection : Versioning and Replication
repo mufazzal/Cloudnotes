@@ -1,0 +1,89 @@
+Versioning and Replica both are applied over the Buket Level not on Object level.
+
+Versioning:-
+  The bucket can be in two state at a time either at Versioning Enabled or at Versioning Suspended.
+  By default it is versioning Suspended state.
+  
+  By enabling it you can preserve the object previos versions after deletion or override.
+  
+  Say you created a bucket 'ProfilePic' and upload three pic.
+  This look like below
+  	
+  | muf.jpg 	null	3MB |		#state0
+  | arr.jpg 	null	2MB |
+  | mur.jpg 	null	1MB |
+  -----------------------
+  
+  Deleting/Override/upload for version suspended bucket:-
+    This will Delete/Override/upload the object without retaining any trace of that object.
+    EG. 
+			you do
+			DELETE muf.jpg
+			PUT arr.jpg 
+			PUT hus.jpg
+			
+	| 									  |
+	| hus.jpg 	null	2MB |
+	| arr.jpg 	null	9MB |
+	| mur.jpg 	null	1MB |
+	-----------------------
+	
+Enable versioning in version suspended Bucket:-	
+	If you enable the versioning after some of the nonversioned object uploaded there then those object will remain unversioned
+	they will not be preserve with version id if somone upload or delete them.
+	So bucket may look like below if you enable versioning on #state0
+	
+  | muf.jpg 	null	3MB |
+  | arr.jpg 	null	2MB |
+  | mur.jpg 	null	1MB |
+  -----------------------	
+	
+Upload/Override on Version enabled Bucket:-
+	If you upload any objevt in version enable bucket then S3 will add then object in bucket and assign a version id to him.
+	Whart happed to pervios versions of that object is depend on below 
+		1. If object does not exist previously
+		2. If object exist previously and its vId = null.
+		3. If object exist previously and its vId not null.
+		
+		1, 2 and 3: In all the cases the new object will be uploaded and no trace of previous one will be retain(for overide)
+		So bucket will look like below. EG (muf.jpg overried and hus.jpg fresh upload)
+		
+			| muf.jpg 	v1		5MB	<|>	muf.jpg 	null	3MB |
+			| hus.jpg 	v1		7MB 												|
+			| arr.jpg 	null	2MB 												|
+			| mur.jpg 	null	1MB 												|
+			-----------------------------------------------		
+		
+			say after uploading v1 of 'muf.jpg' you again upload it.
+		
+			| muf.jpg 	v2		5MB	<|>	muf.jpg 	v1	3MB	<|>	muf.jpg		null	3MB |			#state1
+			| hus.jpg 	v1		7MB 																							|
+			| arr.jpg 	null	2MB 																							|
+			| mur.jpg 	null	1MB 																							|
+			---------------------------------------------------------------------
+			
+			At this state if you do
+			GET muf.jpg the you will get muf.jpg@v2
+
+		
+Delete on Version enabled Bucket:-
+	If you Delete any objevt in version enable bucket then S3 will not actully delete that OBject Key instead S3 will add 
+	a Delete Marker (DM) on the top of that object-key with latest version id and make it apear like delete.
+	Whart happed to pervios versions of that object is depend on below 
+		1. If object does not exist previously
+		2. If object exist previously and its vId = null.
+		3. If object exist previously and its vId not null. 			
+		
+		Suppose bucket at #state1 you did two operation
+		DELETE muf.jpg and
+		DELETE hus.jpg
+		
+			| #DM#			v3		 -	<|>	muf.jpg		v2	5MB	<|>	muf.jpg 	v1	3MB	<|>	muf.jpg		null	3MB |			
+			| #DM#		 	v2		 -  <|>	hus.jpg 	v1	7MB																								|
+			| arr.jpg 	null	2MB 																						                        |
+			| mur.jpg 	null	1MB 																							                      |
+			-------------------------------------------------------------------------------------------	
+
+			At this state if you do
+				GET muf.jpg the you will get 404
+			
