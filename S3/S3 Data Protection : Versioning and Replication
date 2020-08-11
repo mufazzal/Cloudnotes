@@ -136,3 +136,39 @@ GET/PUT/DELETE on versioned object:-
 	you can do GET and DELETE operation on the versioned object but not the PUT.
 	To this simply pass the param 'VersionId' in each of that request.
 
+
+---------------------------------------------------------------------------------------------------
+
+Replication:-
+
+Suppose you place you data in the bucket 'mufBucket' but somehow 
+	- This bucket is corrupted or 
+	- You lost credential for accessing it or 
+	- Someone just delete all its data.
+	In all above cases you will never be able to get the data back. even though you had data at Multiple AZ based on your storage class
+	But in all above three cases the data from those AZ will also got lost or inaccessible because those Multi AZ copis of data belengs to same bucket.
+	
+	To handle this situation comes the Replication.
+	By default this is disabled but you can configure it. By this you can simply keep the copy of the data in one bucket to another one. 
+	Replication happen over bucket level. though you can filter object to be replicated by Tag or Prefix.
+	
+	Mechanism:-
+		If you wants to have Replication of bucket then you must first have
+		- Source bucket must be version enabled.
+		- A additional bucket(Target bucket) which will have reploca of object in spurce bucket
+		- A service Role for S3 that gives S3 permission to GET object from Source and DELETE/PUT in target.
+		Now you can cofigure below rules for copying:-
+		- Filter: You can set the Tag or Prefix for filtering the object to be replicated. by default whole bucket id replicated.
+		- Object Storage Class: You can change the storage class of replica object. It saves cost
+		- Object Ownership: You can also change the ownership of reploca object to the bucket owner so the bucket owner can have some control oer it.
+		- Replication Time Control: If you enable this then AWS guarantee you that 99.99% of your objects will be copied in 15 mnt. this is chargable.
+
+	Remember:-
+		- Older Objects: Once configured, the replication take place for new PUTs not the older existing onject. so replication will only replicate the files when replication is activated.
+		- Delete: Deletion is not replicated at all. so if some object is deleted from spource then its replica will not be deleted. this give additional data preservness. 
+	
+	
+	
+
+
+
