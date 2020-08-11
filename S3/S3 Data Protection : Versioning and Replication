@@ -92,13 +92,13 @@ Mechanism of versioning enabled bucket:-
 			Think of #DM# as just a another uploaded version the only diiference it that it make things like delted and give 404.
 			You can have a multiple #DM# in the version history if uts deleted many time EG.
 			this is possible-
-				#DM#		 	v2		 -  <|>	hus.jpg 	v1	7MB	<|>	#DM# 	v1	7MB	<|>	hus.jpg 	v1	7MB
+				#DM#	v2	-  <|>	hus.jpg 	v1	7MB	<|>	#DM# 	v1	7MB	<|>	hus.jpg 	v1	7MB
 			
 Mechanism of versioning supended bucket[but has history of versioning enabled]:-
 	If you suspend the versioning then all the prvously uploaded versioned object will retain their version infos.
 	Upload/Override on Version such Bucket:-
 		If you upload any objevt in version enable bucket then S3 will add that object in bucket and will set their versionid = null.
-		Whart happed to pervios versions of that object is depend on below 
+		What happed to pervios versions of that object is depend on below 
 			1. If object does not exist previously
 					- Then this object wil be added with version id = null with no history. 
 			2. If object exist previously and its vId = null.
@@ -132,3 +132,7 @@ Mechanism of versioning supended bucket[but has history of versioning enabled]:-
 				---------------------------------------------------------------------		
 	
 	
+GET/PUT/DELETE on versioned object:-
+	you can do GET and DELETE operation on the versioned object but not the PUT.
+	To this simply pass the param 'VersionId' in each of that request.
+
