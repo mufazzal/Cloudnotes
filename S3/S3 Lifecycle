@@ -1,0 +1,54 @@
+Lifecycle is one of the most imp thing you set for saving cost.
+
+It enable you to transit and delete the object in its lifetime. 
+
+To anable it go to 
+  S3 > you bucket > MAnagement > Lifrcycle > Add Rule
+  
+  Below are thing that you can configure for lifecycle
+  1. Scope: 
+    - You can apply the rule to whole bucket or 
+    - You can choose prefix or Tag to filter the object on which this rule is applied.
+  2. Transition Rule
+      This define that after how many days the object can travel from one storage class to other.
+      There are couple of criterion for this rule statement. see #TransitionCriterion 
+      You can choose if you wants apply this rule to currunt or all versions of objects.
+      So you input three things here
+        - apply on current, previous
+        - array of transion rule
+            - the storage class
+            - Days.
+   3. Expiration Rule
+        Here you give after how many days you wants to delete the object.
+        So you input three things here
+          - apply on current, previous
+          - No of days.      
+      
+#TransitionCriterion:
+  The movement of objct from certain storage to other storage class has some prohibition. All combination are not possible
+  below is the list
+    - 'Standard' class object can be transit to any other class
+    - 'Inteligent Tiering' class object cannot transit to 'Standard' but can transit to all other.
+    - 'Onezone_IA' can move to 'Glacier' and 'Deep_Archive' but can not move to 'Standard' and 'Inteligent Tiering'
+    - You can not move 'Glacier' and 'Deep_Archive' class object to any other class.
+  There issome rule for size and days too
+    - Object must lie at least 30 days before it can make any transition.
+    - Minimum size of the object to transit is 128kb
+    - You cannot make lifecycle rule for MFA enaled bucket
+ 
+Behaviour of Expiration Rule on unversioned/version-enable/version-suspended bucket on the CURRENT Object:-
+  Expiration on unversioned:-
+    Simply delete the object
+  Expiration on version-enable:
+    Do not delete rather place the Delete Marker on the top of that object key
+  Expiration on version-suspended
+    - if versionId = null then delete the object 
+    - if versionId != null then do not delete the object rather place the Delete Marker on the top. 
+    
+    
+Behaviour of Expiration Rule on unversioned/version-enable/version-suspended bucket on the PREVIOUS Object:-
+  SImply delete it.
+
+So in version enabled bucket the current object first become the prevoius object and then finally this previous object is deleted.
+
+  
