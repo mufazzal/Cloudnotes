@@ -15,3 +15,55 @@ For SNS/SQS the S3 must also gived the service role which look like at page:-
   https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
   
 You can set the event configuration at lambda side or S3 side.
+
+
+S3 and SNS:-
+  To get the certain S3 event on SNS you first need to give S3 a service level access to perform SNS operations of 'sendMessage'
+  Simply give S3 bucket right to perform 'senMessage'
+  How:
+    create a TopicPolicy: see SNSTopicPolicy in 'S3TutoStackCFT.yaml'. This policy will be attached to SNS Topic but not the S3 bucket.
+    This simply allow the SNS to let S3 do operation on SNSTOpic  
+                            
+    Now attach this policy to Bucket like below
+      S3TutoPublicRWBucket:
+        Type: 'AWS::S3::Bucket'
+        DependsOn:
+              - SNSTopicPolicy
+    Now in properties of bucket just put this:-
+        NotificationConfiguration:
+          TopicConfigurations:
+            - Event: s3:ObjectCreated:Put
+              Topic: !Ref SNSTopic
+               Filter: 
+                  S3Key: 
+                   Rules:
+                     - Name: "prefix"
+                       Value: "private/"    
+      This will simply set the SNS to be triggered on PUT operation.      
+      
+S3 and SQS:-
+  This is also very simillar    
+   create a QueuePolicy: see SQSQeuePolicy in 'S3TutoStackCFT.yaml'
+    Now attach this policy to Bucket like below
+      S3TutoPublicRWBucket:
+        Type: 'AWS::S3::Bucket'
+        DependsOn:
+              - SQSQeuePolicy
+    Now in properties of bucket just put this:-
+        NotificationConfiguration:
+          QueueConfigurations:
+            - Event: s3:ObjectRemoved:Delete
+              Queue: !Ref SQSQeue    
+               Filter: 
+                  S3Key: 
+                   Rules:
+                     - Name: "prefix"
+                       Value: "private/"      
+      This will simply set the SQS to be triggered on Delete operation.   
+  
+  
+  
+  ------
+  Limitation:-
+    You can configure only one even trigger for any operation.
+      
