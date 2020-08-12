@@ -44,10 +44,10 @@ Behaviour of Expiration Rule on unversioned/version-enable/version-suspended buc
   Expiration on version-suspended
     - if versionId = null then delete the object 
     - if versionId != null then do not delete the object rather place the Delete Marker on the top. 
- If object has delete mark at top
-    - No acion will be taken
     
-    
+  If object has delete mark at top
+      Simply delete the DM and objects below it 
+
 Behaviour of Expiration Rule on unversioned/version-enable/version-suspended bucket on the PREVIOUS Object:-
   SImply delete it.
 
