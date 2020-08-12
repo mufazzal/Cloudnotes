@@ -1,0 +1,17 @@
+The S3 can sent the Notification of couple of operation to the three AWS service
+  1. Lambda
+  2. SQS
+  3. SNS
+  
+This is configured at the bucket level but you can filter the scpe by setting Prefix and Tag.  
+
+What kind of notification you can send:-
+  You can sen notification of below type-
+    see list at 'Supported event types' at https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+    in nutshell this are event to intimate like
+    if a object created/deleted/restored/copied etc.
+
+For SNS/SQS the S3 must also gived the service role which look like at page:-
+  https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
+  
+You can set the event configuration at lambda side or S3 side.
