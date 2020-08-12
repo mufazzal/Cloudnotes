@@ -168,7 +168,10 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 		- Delete: Deletion is not replicated at all. so if some object is deleted from spource then its replica will not be deleted. this give additional data preservness. 
 	
 	
+	----
 	
+	How to restore the deleted object in versioned bucket:-
+		Simply delete the delete marker
 
 
 
