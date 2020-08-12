@@ -33,7 +33,11 @@ Lambda:-
 
 
 
-
+AccessPolicy of SQS : QuePolicy:-
+  The QuePolicy of sqs define that who can perform certain operation on that Que. By default only SQS(of AWS console) has this permission.
+  But suppose you wants S3 to anutomatically send notification on upload/delete on some object in bucket then you must override this 
+  policy in such manner that it allow S3 to do sqs:sendmessage() on que.
+  
 
 SQS Pricing ?????????/
 Dead Letter Que?????????????
