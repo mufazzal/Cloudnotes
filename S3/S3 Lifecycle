@@ -50,6 +50,10 @@ Behaviour of Expiration Rule on unversioned/version-enable/version-suspended buc
 
 Behaviour of Expiration Rule on unversioned/version-enable/version-suspended bucket on the PREVIOUS Object:-
   SImply delete it.
+  
+Behaviour of Transition Rule on Delete Marker:-
+  Nothing! because transition rule move the object from one storage class to other. The DM do not lie in any class. Its just an indicator of deletion not real file.
+  
 
 So in version enabled bucket the current object first become the prevoius object and then finally this previous object is deleted.
 
@@ -71,7 +75,10 @@ Say you put below lifecycle policy via CLF:-
                   StorageClass: "GLACIER"          
                   TransitionInDays: 1                   #RULE3 
                 NoncurrentVersionExpirationInDays: 2    #RULE4
-                            
+         
+muf@v1 = Kn8TapJhV.KHjkNd3brJV3j0qHJsQb4T
+         
+         
     Aug 17                  
     t=0                     t=0+1                             t=0+1+2                                 
       *---------->-------------*------------->------------------*----------------------------------------------->
@@ -87,11 +94,15 @@ Say you put below lifecycle policy via CLF:-
   <-----------------------------------------------------------------------------------><---------------------------------------------------------------->
             current version = muf@v1 | prev version = []                                     current version = muf@v2 | prev version = ["muf@v1"]
 
-  
+
+fai@1 = d4WDmiJCzDrEC3SjdCXwppWSJvycqJoK
+fai@2 = t5lyftYAJ1brbOPMOx82o5Ev8bcHzjFH - #DM
+
+
   t=0
     *----------------->-------------
    #DM
-   fai@
+   fai@2
    
    *----------------->--------------
-   #malk1
+   fai@1
