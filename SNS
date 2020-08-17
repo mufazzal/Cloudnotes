@@ -44,3 +44,10 @@ SNS and redrive policy : Dead Letter Que
   
   Dead letter que is nothing but a simple SQS que that have messages of failed SNS deliveries.
   
+  
+  Issue of TopicName in cloudformation:-
+    In CFL template if you specify the TopicName then you will not be able to perform any further update via CFL template on the SNS Topic.
+    So either do do give TopicName or give new name each time of update [so basically replace on each update]
+  
+  
+  
