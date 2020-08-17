@@ -54,3 +54,32 @@ Behaviour of Expiration Rule on unversioned/version-enable/version-suspended buc
 So in version enabled bucket the current object first become the prevoius object and then finally this previous object is deleted.
 
   
+------------------
+
+
+Say you put below lifecycle policy via CLF:-
+        LifecycleConfiguration:
+            Rules:
+              - Id: DeleteContentAfter1Day
+                Status: 'Enabled'
+              # Prefix: "private/"
+                Transition:
+                  StorageClass: "GLACIER"
+                  TransitionInDays: 1                   #RULE1    
+                ExpirationInDays: 2                     #RULE2
+                NoncurrentVersionTransition: 
+                  StorageClass: "GLACIER"          
+                  TransitionInDays: 1                   #RULE3 
+                NoncurrentVersionExpirationInDays: 2    #RULE4
+                            
+    Aug 17                  
+    t=0                     t=0+1                             t=0+1+2                                 
+      *---------->-------------*------------->------------------*----------------------------------------------->
+  Object uploaded         #RULE1 Apply                        #RULE2 Apply              |         Delete Marker
+      @ver123          Object move to Glacier            Delete Marker placed at Top    |           @ver456
+                           @ver123                       Older one stay in Glecier      |
+                                                                                        |
+                                                                                        |----------------------->
+                                                                                                     @ver123
+  <-----------------------------------------------------------------------------------><---------------------------------------------------------------->
+            current version = @ver123 | prev version = []                                     current version = @ver456 | prev version = ["@ver123"]
