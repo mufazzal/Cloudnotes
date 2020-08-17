@@ -29,6 +29,8 @@ Pricing and Limits:-
 
 SNS and AccessPolicy / TopicPolicy:-
   This is very much simillar to bucket policy. This can use to allow/deny the certain Principle for Certain operation on certain resources if certain condition is met.
+SNS and S3:-
+  see at S3 > S3 Events.txt
 
 SNS and redrive policy : Dead Letter Que
   It may be posible that sns message is failed to deliver. this failure can happen at diffrent level
