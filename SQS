@@ -142,7 +142,9 @@ WHen exaclty we may need it :-
     You can use delay que to keep the message invisible for certain amount of time.
     
   
-  
+   Issue of QueueName in cloudformation:-
+    In CFL template if you specify the QueueName then you will not be able to perform any further update via CFL template on the que.
+    So either do not give QueueName or give new name each time of update [so basically replace on each update] 
   
   
   
