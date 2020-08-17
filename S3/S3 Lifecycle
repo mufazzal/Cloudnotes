@@ -75,11 +75,23 @@ Say you put below lifecycle policy via CLF:-
     Aug 17                  
     t=0                     t=0+1                             t=0+1+2                                 
       *---------->-------------*------------->------------------*----------------------------------------------->
-  Object uploaded         #RULE1 Apply                        #RULE2 Apply              |         Delete Marker
-      @ver123          Object move to Glacier            Delete Marker placed at Top    |           @ver456
-                           @ver123                       Older one stay in Glecier      |
+  Object uploaded         #RULE1 Apply                        #RULE2 Apply              |         Delete Marker | current version
+      muf@v1          Object move to Glacier              Delete Marker placed at Top   |           #DM-muf@v2
+                           muf@v1                         Older one stay in Glecier     |
                                                                                         |
                                                                                         |----------------------->
-                                                                                                     @ver123
+                                                                                                     muf@v1 | previous version
+                                                                                                     
+                                                                                                     
+                                                                                                     
   <-----------------------------------------------------------------------------------><---------------------------------------------------------------->
-            current version = @ver123 | prev version = []                                     current version = @ver456 | prev version = ["@ver123"]
+            current version = muf@v1 | prev version = []                                     current version = muf@v2 | prev version = ["muf@v1"]
+
+  
+  t=0
+    *----------------->-------------
+   #DM
+   fai@
+   
+   *----------------->--------------
+   #malk1
