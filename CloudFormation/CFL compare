@@ -2,7 +2,7 @@ Item                          Type                              Ref             
                                                                                       
 IAM User Group            AWS::IAM::Group                   give Group Name       No                               
 IAM User Role             AWS::IAM::Role                    Role Name             Yes     Arn                             
-S3 Bucket                 AWS::S3::Bucket	            Bucket Name           Yes     Arn, DomainName, WebsiteURL...                             
+S3 Bucket                 AWS::S3::Bucket	                  Bucket Name           Yes     Arn, DomainName, WebsiteURL...                             
 S3 Bucket Policy          AWS::S3::BucketPolicy             NA                    No       
 Managed Policy            AWS::IAM::ManagedPolicy           ARN                   Yes                                      
 Inline Policy             AWS::IAM::Policy                  Physical ID           No                                         
@@ -17,4 +17,5 @@ LB Listener               AWS::Elas*L*cingV2::Listener      ARN                 
 LB                        AWS::Elas*L*cingV2::LoadBalancer  ARN                   Yes   DNSName, LoadBalancerName, CanonicalHostedZoneID
 Bucket                    AWS::S3::Bucket                   Name                  Yes   Arn, DomainName, RegionalDomainName, WebsiteURL
 BucketPolicy              AWS::S3::BucketPolicy             ??                     ?
-
+SQS                       AWS::SQS::Queue                   URL                   Yes   Arn, QueueName   
+SNS                       AWS::SNS::Topic                   Arn                   Yes   TopicName   
