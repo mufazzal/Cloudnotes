@@ -14,7 +14,6 @@ What kind of notification you can send:-
 For SNS/SQS the S3 must also gived the service role which look like at page:-
   https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
   
-You can set the event configuration at lambda side or S3 side.
 
 
 S3 and SNS:-
@@ -29,16 +28,16 @@ S3 and SNS:-
         Type: 'AWS::S3::Bucket'
         DependsOn:
               - SNSTopicPolicy
-    Now in properties of bucket just put this:-
-        NotificationConfiguration:
-          TopicConfigurations:
-            - Event: s3:ObjectCreated:Put
-              Topic: !Ref SNSTopic
-               Filter: 
-                  S3Key: 
-                   Rules:
-                     - Name: "prefix"
-                       Value: "private/"    
+        Properties:
+          NotificationConfiguration:
+            TopicConfigurations:
+              - Event: s3:ObjectCreated:Put
+                Topic: !Ref SNSTopic
+                 Filter: 
+                    S3Key: 
+                     Rules:
+                       - Name: "prefix"
+                         Value: "private/"    
       This will simply set the SNS to be triggered on PUT operation.      
       
 S3 and SQS:-
@@ -61,6 +60,23 @@ S3 and SQS:-
                        Value: "private/"      
       This will simply set the SQS to be triggered on Delete operation.   
   
+  S3 and Lambda:-
+    You can set the event configuration at lambda side or S3 side.
+    Lambda Side:-
+        simply use below template event in serverless template
+                functions:
+                  users:
+                    handler: users.handler
+                    events:
+                      - s3:
+                          bucket: photos
+                          event: s3:ObjectCreated:*
+                          rules:
+                            - prefix: uploads/
+                            - suffix: .jpg        
+        see- https://www.serverless.com/framework/docs/providers/aws/events/s3/
+     S3 Side:-
+      ??????????????
   
   
   ------
