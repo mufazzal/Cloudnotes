@@ -13,7 +13,27 @@ What kind of notification you can send:-
 
 For SNS/SQS the S3 must also gived the service role which look like at page:-
   https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html
-  
+
+
+Events:-
+  Currently S3 support limited number of operation for triggering event. not all the opration can be notofied.
+  Below are the possible ones-
+  For put-
+      s3:ObjectCreated:*
+      s3:ObjectCreated:Put
+      s3:ObjectCreated:Post
+      s3:ObjectCreated:Copy
+      s3:ObjectCreated:CompleteMultipartUpload  
+  For delete-
+      s3:ObjectRemoved:*
+      s3:ObjectRemoved:Delete
+      s3:ObjectRemoved:DeleteMarkerCreated
+ Some more-
+      s3:ObjectRestore:Post
+      s3:ReducedRedundancyLostObject	
+      ...etc
+  Below wildcard will not be supported and gives error-
+    s3:*:*
 
 
 S3 and SNS:-
@@ -82,4 +102,14 @@ S3 and SQS:-
   ------
   Limitation:-
     You can configure only one even trigger for any operation.
+    So below will give error-
+        NotificationConfiguration:
+          TopicConfigurations:    
+            - Event: s3:ObjectRemoved:*   OR    s3:ObjectRemoved:Delete
+              Topic: !Ref S3SNS              
+          QueueConfigurations:
+            - Event: s3:ObjectRemoved:Delete
+              Queue: !Ref SQSQeue        
+    
+    Because only once the 's3:ObjectRemoved:Delete' can be register for notification.
       
