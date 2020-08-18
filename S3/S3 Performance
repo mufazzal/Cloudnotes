@@ -1,18 +1,54 @@
+
+
 There are diffrent technique you can adopt for performance optimization for diffrent kind of operation.
 
-:-
 Technique                 Target                                    Operation            How               
+
 Transfer Acceleration     Latency minimization                      GET and PUT          Instead of simple internet, it uses Amazon backbon network                                                       
 CloudFront + S3           Latency minimization                      GET                  By caching the content in nearest edge location. and us Amazon backbon network to get object if no cache there.
-Multipart Upload          Throughput / maximise bandwith usage      PUT                  By breaking large file in small parts and upload then in paraller. remerge them in the end of operation.
+Multipart Upload          Throughput / maximise bandwith usage      PUT                  By breaking large file in small parts and upload them in paraller. remerge them in the end of operation.
 Range Based Get           Throughput / maximise bandwith usage      GET                  By breaking large file in small parts and download them in paraller. remerge them in the end of operation.      
 Parallelise
 Secondery Indexes         Faster response by s3                     LIST                  ??????
 S3 Inventory              faster response by s3                     LIST                  ??????            
             
+       
+Default performance of S3:-
+  3500 PUT/POST/COPY/DELET per sec per prifix
+  5500 GET/HEAD per sec per prifix
+      
+
+Transfer Acceleration:-
+  The TA uses the AWS owned global clodfront network(instead of internt) to transfer the data.
+  Data arrive at edge location first and then passed to destination address over the AWS backbone network.
+  Data is not stored/cached at Edge location at all. it just use the backbone network.
+  For GET:-
+    1. Request pssed to nearest edge location 
+    2. the edge location then use the backbone network(not internet) to get the object, 
+    3. Object routed to caller address via internet netwprk.
+   For PUT:-
+    1. Request pssed to nearest edge location and object uploaded to the edge location. 
+    2. the edge location then use the backbone network(not internet) to upload the object to S3 bucket, 
+    3. Success/Fail response routed to caller address via internet netwprk. 
   
-      
-      
-      
-      
-      
+  Enabling TAX by CFR:-
+    simply add property
+        AccelerateConfiguration:
+          AccelerationStatus: Enabled    
+   
+   Now you can use the TAX url of this buckey for GET and PUT operation
+   TAX url formate-
+    https://<Bucket Name>.s3-accelerate.amazonaws.com/<Key>
+    
+  Doing upload/GET via JS SDK with TAX-
+      var s3 = new AWS.S3({apiVersion: '2006-03-01', useAccelerateEndpoint: true});
+      const params = {Bucket: ..,  Key: .., ..}
+      s3.upload(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));
+      OR
+      s3.getObject(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));
+    
+    
+    
+    
+  
+  
