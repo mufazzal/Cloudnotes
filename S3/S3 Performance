@@ -1,1 +1,59 @@
-sd
+There are diffrent technique you can adopt for performance optimization for diffrent kind of operation.
+
+Transfer Acceleration:-
+          Target:-
+            Latency minimization
+          What it Optimize:-
+            GET and PUT
+          How
+            Instead of simple internet, it uses Amazon backbon network
+
+CloudFront + S3:-
+          Target:-
+            Latency minimization
+          What it Optimize:-
+            GET
+          How
+            By caching the content in nearest edge location. and us Amazon backbon network to get object if no cache there.
+    
+Multipart Upload:-
+          Target:-
+            Throughput / maximise bandwith usage
+          What it Optimize:-
+            PUT
+          How
+            By breaking large file in small parts and upload then in paraller. remerge them in the end of operation.
+    
+Range Based Get:-
+          Target:-
+            Throughput / maximise bandwith usage
+          What it Optimize:-
+            GET
+          How
+            By breaking large file in small parts and download them in paraller. remerge them in the end of operation.      
+
+Parallelise
+  ?????????
+
+Secondery Indexes:-
+          Target:-
+            faster response by s3
+          What it Optimize:-
+            LIST
+          How
+            ??????
+            
+S3 Inventory:-
+          Target:-
+            faster response by s3
+          What it Optimize:-
+            LIST
+          How
+            ??????            
+            
+  
+      
+      
+      
+      
+      
