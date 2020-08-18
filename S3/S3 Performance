@@ -55,30 +55,9 @@ Transfer Acceleration:-
       - your bucket is in one location.
     due to this Even TAX may not help to all user because S3 bucket will have lot of GET request to handle from lot many user.
     For this comes the CDN(Cloudfront for AWS)
-    The CFT use the globally spreaded EdgeLocations to cache the bucket content and deliver the object from nearest EdgeLocation instead of bucket.
-    
-    How to set it up:-
-      in a nutshell you set CFT distribution with below info
-        - Buccket
-        - prefix
-      and you get
-        - A CFT url for this distribution.
-    Now you should use the CFT url to invole CFT.
-    
-    mechanism:-
-      User do GET <cft url for bucket> and query for an object
-      The request reaches to nearest EL.
-      It check if EL has the cache of that object.
-      if yes
-        then provide it from cache.
-      if no
-        then EL us the aws backbone netrwork to get that object 
-        the retrived object saved in cache.
-        and response returned with that object to user.
-      
-      - EL only keep the cache of the file/object that are at least being quried at once, if it never being quried then it will not be at that EL. 
+    The CFT use the globally spreaded EdgeLocations to cache the bucket content and deliver the object from nearest EdgeLocation instead of bucket.    
 
-     More on CFT:- see 'S3 SloudFront.txt'
+    More on CFT:- see 'S3: Performance: CloudFront.txt'
         
         
         
