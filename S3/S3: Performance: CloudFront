@@ -6,6 +6,28 @@ S3 and CloudFront(CDN) :-
   Cloud front in itself a large aws service, this serve fast delivery of many S3 servoce like S3, EC2, Rout53 etc
   For now we will see How S3 and CloudFront (CFT) interact.
   
+    How to set it up:-
+      in a nutshell you set CFT distribution with below info
+        - Buccket
+        - prefix
+      and you get
+        - A CFT url for this distribution.
+    Now you should use the CFT url to invole CFT.
+    
+    mechanism:-
+      User do GET <cft url for bucket> and query for an object
+      The request reaches to nearest EL.
+      It check if EL has the cache of that object.
+      if yes
+        then provide it from cache.
+      if no
+        then EL us the aws backbone netrwork to get that object 
+        the retrived object saved in cache.
+        and response returned with that object to user.
+      
+      - EL only keep the cache of the file/object that are at least being quried at once, if it never being quried then it will not be at that EL. 
+  
+  
   First lets make a bkt in farthest region possible 'mufa-cdf-enbled-bucket'.
   also say there is many folder in this bucket and you just wants a specific folder ('myDistItems') to be over CFT.
   so create couple of folder including 'myDistItems'. also create 'mufWebsite' and 'mufPriv'
