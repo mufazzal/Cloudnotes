@@ -47,7 +47,10 @@ Transfer Acceleration:-
       OR
       s3.getObject(params).promise().then(res => console.log(res)).catch(rej => console.log(rej));
     
-    
+ TAX url and Access:-
+   In the SDK and CLI you just need to set the useAccelerateEndpoint=true to use this feature. SDK internally take care of other things then.
+ 
+ 
  CloudFront + S3:-
     What if your 
       - user base is spread accross the world and 
