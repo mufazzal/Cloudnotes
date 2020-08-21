@@ -78,7 +78,33 @@ Transfer Acceleration:-
       max possible parts: 10000
       part size: 5MB to 5GB
       
-      
+ S3 Inventory:-
+   You can set the inventory to get quick snapshot of detail of objects in the S3 bucket. 
+   This will give you info about all the object or of some special prefix in CSV formate. 
+   You can set to generate weekly or daily.
+   
+
+S3 Select:
+  S3 select is design to query deep inside the object with SQL alike query. With this you do not have to load the whole object instead a littile imp data from Object you can load.
+  Currently it support onlu CSV, JSON and ZIP formated objects.
+  
+  Suppose you have a object user.csv in S3 then you ca use S3 select like-
+  
+    const query = ;
+    const bucket = 'test-bucket-for-s3-select-tutorial';
+    const key = 'planets.json';
+    const params = {
+      Bucket: user,
+      Key: 'userPosts.json',
+      ExpressionType: 'SQL',
+      Expression: 'SELECT * FROM s3object[*].results[*] r;',
+      InputSerialization:  { JSON: { Type: 'DOCUMENT',}},
+      OutputSerialization: { JSON: { RecordDelimiter: ',' }}
+    }  
+  
+  
+  
+  
       
     
     
