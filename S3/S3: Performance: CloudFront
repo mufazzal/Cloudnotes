@@ -176,6 +176,12 @@ What happen over CFT When
     No, not neccesarily
  
 
+CFT url and Access:-
+  Suppose a CFt is destribuction is created over a bucket that is protected by BP or IAL or ACL and user has to pass the Auth info with url.
+  To achive this you can use CloudFront Signed URL.
+  For this simply sign a CFT url as given in  https://medium.com/roam-and-wander/using-cloudfront-signed-urls-to-serve-private-s3-content-e7c63ee271db
+  
+
 
 Invalidate Cache on CFT:-
   As you know that after the TTL passes out the cache of file/object will get to be synched with origin, but you can also forcefully
