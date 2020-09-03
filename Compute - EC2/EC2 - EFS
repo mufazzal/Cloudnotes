@@ -38,4 +38,8 @@ SG set up:-
   At EC2:-
     The EC2 must allow the Outboud on 2049. 
 
+
+###VIMP: EFS only work for Linux instace not windows.
+
+For windows instace you can use Windows-FSx
   
