@@ -441,3 +441,28 @@ An AMI includes the following:
 Instance		  root files     EC2-user files		start-script		node	apache	web-server Running
 Orignal		          Yes		Yes	        	Yes	          	Yes	Yes	Yes						
 Via AMI   	          Yes		Yes			No		   	Yes	Yes	No
+
+
+----------------
+
+When we start the stopped EC2 below things happen:-
+	1. OS boot up
+	2. User data script run
+	3. Application start
+----------
+
+Hibernate the EC2:-
+	This will stop the EC2 but preserve the RAM data and OS so that restart is lot quicker and no need to OS boot, user data run and application start needed.
+	also it keep all the prevously attached volumes and also keep the instance id.
+	By default EC2 do not enable Hibernation function. It must ne enable at a time of launch. 
+	To put EC2 in hibenation:-
+		Ec2 > your inst > state > Hibernate
+	
+
+
+	
+	
+
+
+
+
