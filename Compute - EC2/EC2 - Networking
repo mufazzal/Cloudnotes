@@ -18,8 +18,11 @@ ENI (Elastic Network Interface):-
  
 Private IPv4 and ENI:-
   By default ENI has one private IPv4 address attached to it. but you can assosiate more IPv4 address from the CIDR of the VPC.
-  Though a ENI ca have one and only one Public IPv4 address
-  
+
+Public IPv4 and ENI:-
+  The default primary ENI can have a public IP assigned antomatically if subknet allow it.
+  Later you can assosiate more public IP address to the ENI.
+
   When you creat an EC2 by default a single ENI device is attached to that EC2. This ENI device will give following service to EC2
     - One public IPv4 address (if allowed)
     - One or more private IPv4 addresses from the CIDR range of your VPC
@@ -36,5 +39,11 @@ Private IPv4 and ENI:-
     For failover:-
       Have a secodry ENI for traffic. now in case the EC2 failed then simply detach and re-attach the secndory ENI to standby EC2.
       
-      
+If my EC2 is doing lot of networking task then should i add more and more ENI:-
+  No! the ENI is the building block for Logical Network building. it should not be us for more throuhghput.
+  
+  
+  Assosiating IPs:-
+    You can assosiate additional private IP to the ENI and for each private IP you can also map a public IP via Elastic IP. 
+  
       
