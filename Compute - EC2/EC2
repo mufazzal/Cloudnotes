@@ -410,12 +410,10 @@ An AMI includes the following:
                     - For each EBS-snapshot a volume will be created and will be attached to launched EC2.
 
           What about Type: t2.micro etc. This do not come from AMI. you should select it as your requirment
-------------------------------
 
           Say you have a EC2(Orignal) running which has some files and software installed.
-          What will be the start state of any EC2 created for AMI or EBS-snap of the orignal EC2 
+          What will be the start state of any EC2 created for AMI of the orignal EC2 
           
-Instance		          root files          EC2-user files	start-script	node	apache	web-server Running
-Orignal		          Yes		Yes	          Yes	          Yes	Yes	Yes						
-Via EBS Snapshot(rot)         Yes                 Yes                 No                  No        No        No
-Via AMI   	          Yes		Yes		No		Yes	Yes	No
+Instance		  root files     EC2-user files		start-script		node	apache	web-server Running
+Orignal		          Yes		Yes	        	Yes	          	Yes	Yes	Yes						
+Via AMI   	          Yes		Yes			No		   	Yes	Yes	No
