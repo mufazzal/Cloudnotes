@@ -6,6 +6,7 @@ Say you have a use case:-
   How you do it:-
     - Copying files in each of EBS is not very good idea
     - Multi attach EBS has many limitation
+  EFS lie in the VPC. so you need to select one when you create it.
    
  For this comes the EFS (Elastic file system)
  EFS is the file system that can be attcahed to many EC2 instances at a time and it automatically grow and shrink in size based on avilabale empty space in disk.
@@ -21,6 +22,13 @@ Say you have a use case:-
   One is blockk other is object storage.
   EFS has very high througput and IOPS.
   
+  
+Mouting the EFS on EC2:-
+  You can mount it on EC2 by ssh in EC2 and run command
+  sudo mount -t efs -o tls <FS id>:/ efs
+  
+Mounting the EFS on VPVC Endpoint:-
+  ????????????????
   
 When you create the EFS you must select proper AZ and SG so that the EC2s can communicate with them.
 
