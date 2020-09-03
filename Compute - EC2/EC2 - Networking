@@ -1,0 +1,40 @@
+Just like the EBS is a Physical HDD for storage
+The ENI is Physical device for Networking.
+
+ENI (Elastic Network Interface):-
+  The ENI is a NEtwork Card in the VPC that is attached to instances running in the VPC.
+  The ENI is the main part for networking in EC2.
+  The ENI establish the rule and rechability of EC2.
+  By default when you create the EC2 a primary ENI is also created and attached to that EC2.
+    - the SG you attach to EC2 is actully apply at the Primary ENI created in scope of that EC2. 
+    - the IPs (public and private) is actully apply at the Primary ENI created in scope of that EC2. 
+    
+ Creating ENI:-   
+   Though you can attach the additional ENI in the EC2 if you need ore complex Networking operations. 
+   You can create and configure network interfaces in your account and attach them to instances in your VPC
+  
+ Monitoring IP traffic
+  Simply enable VPC flow log on your network interface and then you can see monitered data in cloudwatch
+ 
+Private IPv4 and ENI:-
+  By default ENI has one private IPv4 address attached to it. but you can assosiate more IPv4 address from the CIDR of the VPC.
+  Though a ENI ca have one and only one Public IPv4 address
+  
+  When you creat an EC2 by default a single ENI device is attached to that EC2. This ENI device will give following service to EC2
+    - One public IPv4 address (if allowed)
+    - One or more private IPv4 addresses from the CIDR range of your VPC
+    - A MAC address
+    - One or more security groups
+  
+  
+  Use cases:-
+    The MAnagemant networ:-
+      You can create a additional ENI which will allow the traffic inside the VPC and by SSH only and let primary ENI gave allower the traffic from internet.
+      So you can have better secured network syste.
+      So just create ENI with proper SG and with private IPv4 (no need of public IPv4) and attach it to EC2.
+      Now use the IP from secondry ENI for management tasks.
+    For failover:-
+      Have a secodry ENI for traffic. now in case the EC2 failed then simply detach and re-attach the secndory ENI to standby EC2.
+      
+      
+      
