@@ -40,7 +40,7 @@ Public IPv4 and ENI:-
       Have a secodry ENI for traffic. now in case the EC2 failed then simply detach and re-attach the secndory ENI to standby EC2.
       
 If my EC2 is doing lot of networking task then should i add more and more ENI:-
-  No! the ENI is the building block for Logical Network building. it should not be us for more throuhghput.
+  No! the ENI is the building block for Logical Network building. it should not be us for more throuhghput. for this use EN.
   
   
   Assosiating IPs:-
@@ -56,4 +56,11 @@ EN: Enhanced network:-
   This is of two type-
     1. ENA: Enhanced Network Interface - provide up to 100 GBps
     2. VF: Virtual function - provide up to 10 GBps
+
+-------------------
+
+EFA: Elastic file adapter:-
+  This is useful for ultra high throughput like machine lerning or Big data
+
+
 
