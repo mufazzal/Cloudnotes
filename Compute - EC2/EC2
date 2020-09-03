@@ -31,11 +31,35 @@ Pricing-
          Finance: We do not have much money for R and D. 
          Me: Ok! lets go to Spot pricing, when it cost low buy some, work on it, release if it get costly, and  keep doing it at very low cost.
          Finance: smart guy.
+	 To get the Spot instance you must set request with below items
+	 1. Max price
+	 2. no of instances
+	 3. type   on-time | persistent. if you wants to lanuch only at once or you wants repetative launch on favourable price.
+	 4. Launch config
+	 5. valid from - to
+	 
   Dedicated Host:
     Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
     This physically hosted server do lies in AWS building but unlike other EC2, this are solely assign to you.
     Very costly
-    
+   
+   
+  Spot Fleet:-
+  	This is another GEM.
+	Say you wants a an app running sucgh a manner that it need some EC2 running al the time and also more Ec2 if its cheaply available.
+	and company give you $100 to spent on it.
+	Now you know the pattern of traffic and that you analyze that you need 20 EC2 running all the time and if cheaply available the 30 more EC2. 
+	You analyze that 20 on-demand EC2 will cost 60$ and now rest 40$ can be spent dicreetly
+	Fir this you can create the Spot Fleet:-
+		Simply creat a fleet request wuth
+		+ 20 in demand EC2
+		+ request for target capacity of 30 spot instances too
+		+ price cap of 40$
+		
+   	By this the 20 instances will always be running no matter about price. but 30 more will also be running with them only if total price for those 30 are in 40$.
+	if spot price increase the some of those instance terminated.
+	later when price down it will be addaed to capacity.
+   
     
 Type of Ec2 instances-
   There are couple of EC2 instances which are design to achive a specific goal
