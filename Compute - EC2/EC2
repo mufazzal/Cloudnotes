@@ -459,6 +459,26 @@ Hibernate the EC2:-
 		Ec2 > your inst > state > Hibernate
 	
 
+---------------------------------------------------
+
+
+		AZ		Region			Subnet			VPC
+EBS		SAME		SAME			-			-
+EFS
+SG		-		-			-			SAME
+ENI		-		-			SAME			SAME
+-----
+AMI
+Snap
+
+
+
+
+
+
+
+
+
 
 	
 	
