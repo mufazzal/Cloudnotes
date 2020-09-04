@@ -24,6 +24,7 @@ Private IPv4 and ENI:-
 Public IPv4 and ENI:-
   The ENI can have one and only one public IP assosiated. Though you can change it but you cannot add or remove.
   When its created first time (excepr primay ENI of newly created EC2) it does not has any public IP. you can assosiate it later.
+	If it has the public IP then this public IP must be assosiated with another private IP (by default the public IP is assosiated to primary private IP)
   also you can then again change the public IP with 'ec2 associate-address '
 
   When you creat an EC2 by default a single ENI(Primary ENI) device is attached to that EC2. This ENI device will give following service to EC2
