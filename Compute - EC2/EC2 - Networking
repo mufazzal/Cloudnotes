@@ -8,6 +8,7 @@ ENI (Elastic Network Interface):-
   By default when you create the EC2 a primary ENI is also created and attached to that EC2.
     - the SG you attach to EC2 is actully apply at the Primary ENI created in scope of that EC2. 
     - the IPs (public and private) is actully apply at the Primary ENI created in scope of that EC2. 
+    - The default primary ENI can have a public IP assigned antomatically if subknet allow it.
     
  Creating ENI:-   
    Though you can attach the additional ENI in the EC2 if you need ore complex Networking operations. 
@@ -18,16 +19,30 @@ ENI (Elastic Network Interface):-
  
 Private IPv4 and ENI:-
   By default ENI has one private IPv4 address attached to it. but you can assosiate more IPv4 address from the CIDR of the VPC.
-
+  to add new private IP use 'ec2 assign-private-ip-addresses '
+  
 Public IPv4 and ENI:-
-  The default primary ENI can have a public IP assigned antomatically if subknet allow it.
-  Later you can assosiate more public IP address to the ENI.
+  The ENI can have one and only one public IP assosiated. Though you can change it but you cannot add or remove.
+  When its created first time (excepr primay ENI of newly created EC2) it does not has any public IP. you can assosiate it later.
+  also you can then again change the public IP with 'ec2 associate-address '
 
-  When you creat an EC2 by default a single ENI device is attached to that EC2. This ENI device will give following service to EC2
+  When you creat an EC2 by default a single ENI(Primary ENI) device is attached to that EC2. This ENI device will give following service to EC2
     - One public IPv4 address (if allowed)
-    - One or more private IPv4 addresses from the CIDR range of your VPC
+    - at least One(Primary private IP) or more private IPv4 addresses from the CIDR range of your VPC
     - A MAC address
     - One or more security groups
+    A primary private IP and public IP of ENI is mapped with each other. 
+    
+ when you create the new ENI at ENI page in console then it will have
+  - No public IP
+  - only one private IP (primary)
+    
+    
+For creating ENI you need to have decesion on
+  1. Subnet: The ENI will lie in this subnet and will be attacahble to any EC2 in this subnet only. Also it will get an Private IP from pool of CIDR of this subnet
+  2. SG: You will be able to select only the SG that are in the VPC of above selected Subnet.
+      This SG will later determimne the traffic flow accessibility in and out of this ENI.
+  3. Private IP: You can left it empty to auto assign or fill by yourself with proper value from Subnet CIDR.
   
   
   Use cases:-
@@ -61,6 +76,65 @@ EN: Enhanced network:-
 
 EFA: Elastic file adapter:-
   This is useful for ultra high throughput like machine lerning or Big data
+
+--------------------
+
+ENI and EC2 limits:-
+  Though you can therotically assign many ENI to the EC2 and eac EC2 can have numerous private IP but practically there is limit
+  There is limit on how many of the ENI can be attached to the EC2 and How many private IPs each of ENI can have for working properly.
+  EG:-
+  t2.micro can attach with only two ENI and each of that ENI can have only 2 private IP.
+  so basically it can collectivly have 4 private IP and max 2 public IP (one for each)
+  
+  
+  Arch:-
+  Say you have one EC2 and that is is design such that it has 
+  2 ENI attached (1 of them could be primary ENI)
+    ENI-pub: one for internet traffic 
+      - this will have a Security Group SG1 as that it allow Inboud:HTTP:80
+    ENI-main: one for maitainance trafic 
+       - this will have a Security Group SG2 as that it allow Inboud:SSH:22
+    So you can simply decuople you mainainance and public traffic to diffrent ENI.       
+      one will allow SSH and other will allow HTTP. though you can cahnge the SG setting if you wants to cahnge the inbound and outbound on each ENI.
+                  
+                  
+                  ENI_pub  = 10.1.1.1  <---> 55.4.4.4, 10.2.2.2  
+                  ENI_main = 10.6.6.6  <---> 55.5.5.5, 10.4.4.4  
+                  
+       
+																				ENI_pub
+                                  |---------------|
+                                  |								|
+                      HTTP        |	|---|		HTTP	|		HTTP
+       internet-------------------|-|SG1|---->--------------------|
+                                  |	|-|-|					|               |
+                                  |		|						|               |
+																	|---|-----------|               |
+																			|                           |
+																			|														|			
+																		 \|/													|			|-----------|
+																		 non HTTP											|---->|           |
+																																				|           |
+																			ENI_main										|---->|	          |
+                                  |---------------|								|			|           |
+                                  |								|								|			|-----------|
+                        SSH       |	|---|		SSH		|			SSH				|					EC2 CPU
+												|---------|-|SG2|---->--------------------|
+                        |	        |	|-|-|					|               
+                        |         |		|						|               
+												|					|---|-----------|               
+												|							|                           
+												|							|
+																		 \|/
+																		 non SSH
+  
+    In above syatem you can have two public IP and theorotically any number of private IP with a single EC2. 
+  
+  
+  
+  
+  
+
 
 
 
