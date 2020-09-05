@@ -1,0 +1,12 @@
+Launch configuration and Template both provide way to create a ready to use template to launch instance.
+This has info needed fto launch the instace 
+	- The AMI to use
+	- The VPC and Subnet
+	- TheSG
+	- any additional EBS or EBS snapshot
+	- any additional ENI
+	- Tags and netadata
+	etc.
+  
+  
+  AWS recommend to use the Launch Template instead of LAunch Config, that is because LAunch Template provide the feature of Spot Instances and also support versioning.
