@@ -1,1 +1,2 @@
 Single Availability Zone Fleet is only supported in instant fleet type
+InstancePoolsToUseCount option is only available with the lowestPrice allocation strategy
