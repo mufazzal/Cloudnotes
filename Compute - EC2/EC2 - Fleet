@@ -119,6 +119,9 @@ spot = 7
   micro = 7 
 >> Priority will be ignored in this setting
 
+in above setting if we do
+total = 10  onDemand = 2 - lowest-price  |   spot = 2 - lowest-price        AND         "DefaultTargetCapacityType": "on-demand"
+???????????????????????
 
 
 ---
@@ -127,3 +130,5 @@ spot = 7
   
 AllocationStrategy for on-demand -> lowest-price | prioritized  
 AllocationStrategy for spot ->      lowest-price | diversified |  capacity-optimized  
+value of priority is useless for spot instances.
+
