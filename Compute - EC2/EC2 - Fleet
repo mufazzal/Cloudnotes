@@ -8,7 +8,7 @@ InstancePoolsToUseCount option is only available with the lowestPrice allocation
     { "InstanceType": "t2.large", "WeightedCapacity": 3, "priority": 1 }                
   ]  
  
-total = 9  onDemand = 9 - lowest-price  |   spot = 0 - lowest-price
+total = 9  onDemand = 9 - prioritized  |   spot = 0 - lowest-price
 onDemand = 900
    micro = 0.01 * 900 = 9 so total 900 micro istances. why not only one large? that is because t2.large has priority = 3(higest) and AllocationStrategy = prioritized
 spot = 0 
@@ -23,11 +23,25 @@ onDemand = 900
     { "InstanceType": "t2.micro", "WeightedCapacity": 3, "priority": 1 },
   ]  
  
-total = 9  onDemand = 9 - lowest-price  |   spot = 0 - lowest-price
+total = 9  onDemand = 9  |   spot = 0 - lowest-price
 onDemand = 3
    micro = 3  (WeightedCapacity * count = total | 3 * 3 = 9)
 spot = 0 
 
+
+"OnDemandOptions": { "AllocationStrategy": "prioritized" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 1 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 1, "priority": 1 },
+    { "InstanceType": "t2.large", "WeightedCapacity": 1, "priority": 1 }                
+  ]  
+ 
+total = 9  onDemand = 9 - prioritized  |   spot = 0 - lowest-price
+onDemand = 3
+   micro = 1
+   small = 1
+   large = 1
+spot = 0 
 
 "OnDemandOptions": { "AllocationStrategy": "lowest-prize" },   
 "Overrides": [
