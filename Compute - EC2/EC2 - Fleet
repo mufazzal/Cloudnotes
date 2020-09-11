@@ -1,2 +1,84 @@
 Single Availability Zone Fleet is only supported in instant fleet type
 InstancePoolsToUseCount option is only available with the lowestPrice allocation strategy
+
+"OnDemandOptions": { "AllocationStrategy": "lowest-prize" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 2, "priority": 2 },
+    { "InstanceType": "t2.medium", "WeightedCapacity": 3, "priority": 1 }                
+  ]  
+ 
+total = 3  onDemand = 3 - lowest-price  |   spot = 0 - lowest-price
+onDemand = 2
+   small = 2  
+spot = 0 
+>> Priority will be ignored in this setting
+
+"OnDemandOptions": { "AllocationStrategy": "prioritized" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 2, "priority": 2 },
+    { "InstanceType": "t2.medium", "WeightedCapacity": 3, "priority": 1 }                
+  ]  
+total = 3  onDemand = 3 - prioritized  |   spot = 0 - lowest-price
+onDemand = 1
+   medium = 1
+spot = 0 
+
+
+"SpotOptions": { "AllocationStrategy": "lowest-price" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 2, "priority": 2 },
+    { "InstanceType": "t2.medium", "WeightedCapacity": 3, "priority": 1 }                 
+  ] 
+total = 3  onDemand = 0 - lowest-price  |   spot = 3 - lowest-price
+onDemand = 0
+spot = 3 
+  micro = 3 
+
+
+"SpotOptions": { "AllocationStrategy": "lowest-price" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 2, "priority": 2 },
+    { "InstanceType": "t2.medium", "WeightedCapacity": 3, "priority": 1 }                 
+  ] 
+total = 3  onDemand = 0 - lowest-price  |   spot = 3 - lowest-price
+onDemand = 0
+spot = 3 
+  micro = 3 
+  
+
+"SpotOptions": { "AllocationStrategy": "diversified" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 2, "priority": 2 },
+    { "InstanceType": "t2.medium", "WeightedCapacity": 3, "priority": 1 }                 
+  ] 
+total = 3  onDemand = 0 - lowest-price  |   spot = 3 - lowest-price
+onDemand = 0
+spot = 2 
+  micro = 1
+  small = 1
+
+
+"OnDemandOptions": { "AllocationStrategy": "lowest-price" },   
+"SpotOptions": { "AllocationStrategy": "lowest-price" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 2, "priority": 2 },
+    { "InstanceType": "t2.medium", "WeightedCapacity": 3, "priority": 1 }                 
+  ] 
+total = 10  onDemand = 3 - lowest-price  |   spot = 7 - lowest-price
+onDemand = 2
+   small = 2  
+spot = 7 
+  micro = 7 
+>> Priority will be ignored in this setting
+
+
+
+---
+
+  InstanceType, MaxPrice, SubnetId, AvailabilityZone, Weighte
