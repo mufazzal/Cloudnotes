@@ -1,6 +1,34 @@
 Single Availability Zone Fleet is only supported in instant fleet type
 InstancePoolsToUseCount option is only available with the lowestPrice allocation strategy
 
+"OnDemandOptions": { "AllocationStrategy": "prioritized" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 0.01, "priority": 3 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 0.01, "priority": 2 },
+    { "InstanceType": "t2.large", "WeightedCapacity": 3, "priority": 1 }                
+  ]  
+ 
+total = 9  onDemand = 9 - lowest-price  |   spot = 0 - lowest-price
+onDemand = 900
+   micro = 0.01 * 900 = 9 so total 900 micro istances. why not only one large? that is because t2.large has priority = 3(higest) and AllocationStrategy = prioritized
+spot = 0 
+
+in above change priority = 1 for all 3 then
+onDemand = 900
+    micro = 900
+
+
+"OnDemandOptions": { "AllocationStrategy": "prioritized or lowest-prize" },   
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 3, "priority": 1 },
+  ]  
+ 
+total = 9  onDemand = 9 - lowest-price  |   spot = 0 - lowest-price
+onDemand = 3
+   micro = 3  (WeightedCapacity * count = total | 3 * 3 = 9)
+spot = 0 
+
+
 "OnDemandOptions": { "AllocationStrategy": "lowest-prize" },   
 "Overrides": [
     { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
@@ -82,3 +110,6 @@ spot = 7
 ---
 
   InstanceType, MaxPrice, SubnetId, AvailabilityZone, Weighte
+  
+AllocationStrategy for on-demand -> lowest-price | prioritized  
+AllocationStrategy for spot ->      lowest-price | diversified |  capacity-optimized  
