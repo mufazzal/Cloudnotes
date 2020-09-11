@@ -119,7 +119,12 @@ spot = 7
   micro = 7 
 >> Priority will be ignored in this setting
 
-in above setting if we do
+
+"Overrides": [
+    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 1 },
+    { "InstanceType": "t2.small", "WeightedCapacity": 1, "priority": 1 },
+    { "InstanceType": "t2.large", "WeightedCapacity": 1, "priority": 1 } 
+]
 total = 10  onDemand = 2 - lowest-price  |   spot = 2 - lowest-price        AND         "DefaultTargetCapacityType": "on-demand"
 ???????????????????????
 
