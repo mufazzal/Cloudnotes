@@ -3,63 +3,7 @@ What is rackspace
 
 Why EC2: because purchasing a server and maintaining them is a hell.
           Now with EC2 you buy a machine and ready to go.
-          
-          
-
-Pricing-
-  On Demand:
-    You pay by usage/hour or per second
-    Best For -
-      If you do not need any long term contract
-      Low Cost
-      Short live application
-  Reserved:
-    You reserve the capasity for a certain time (for a 1 yera to 100s of year).
-    You are locked in a contract. AWS generally provide yuo discount if you contract for longer time. You also need to pay some amount upfront.
-    Best For -
-      App that need steady and predictable usages (So you calculate the computing power well in advance, 
-                                                        so pay upfront in advance and get good discount from AWS)
-      Type of Reserved :-
-        1. Standard:    You cant change the EC2 instance type
-        2. Convertible: You can change the EC2 instance type      
-        2. Schedule
-  Spot:
-      This work like a biding in stock market, you bid for a any instacne with many others. 
-      The best one get the deal, and if sombody again ready to pay more then you lose (after some agreed time) this instance.
-      Best For:-
-         Me: Hey! i want to do this task its kind of R and D, but it will take fair computing power so buy some Ec2. no specific strat or end time required
-         Finance: We do not have much money for R and D. 
-         Me: Ok! lets go to Spot pricing, when it cost low buy some, work on it, release if it get costly, and  keep doing it at very low cost.
-         Finance: smart guy.
-	 To get the Spot instance you must set request with below items
-	 1. Max price
-	 2. no of instances
-	 3. type   on-time | persistent. if you wants to lanuch only at once or you wants repetative launch on favourable price.
-	 4. Launch config
-	 5. valid from - to
-	 
-  Dedicated Host:
-    Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
-    This physically hosted server do lies in AWS building but unlike other EC2, this are solely assign to you.
-    Very costly
-   
-   
-  Spot Fleet:-
-  	This is another GEM.
-	Say you wants a an app running sucgh a manner that it need some EC2 running al the time and also more Ec2 if its cheaply available.
-	and company give you $100 to spent on it.
-	Now you know the pattern of traffic and that you analyze that you need 20 EC2 running all the time and if cheaply available the 30 more EC2. 
-	You analyze that 20 on-demand EC2 will cost 60$ and now rest 40$ can be spent dicreetly
-	Fir this you can create the Spot Fleet:-
-		Simply creat a fleet request wuth
-		+ 20 in demand EC2
-		+ request for target capacity of 30 spot instances too
-		+ price cap of 40$
-		
-   	By this the 20 instances will always be running no matter about price. but 30 more will also be running with them only if total price for those 30 are in 40$.
-	if spot price increase the some of those instance terminated.
-	later when price down it will be addaed to capacity.
-   
+ 
     
 Type of Ec2 instances-
   There are couple of EC2 instances which are design to achive a specific goal
@@ -113,94 +57,15 @@ The storage in EC2 is EBS
       install OS, mounting File System, DB etc.
     Type of EBS :-
       1. SSD
-          1.1 GP2 : General Purpos SSD- 
-              balanced price, good performance
-              Best for : general purpose
-          1.2 IO1 : Provisioned IOPS SSD - 
-              Highest performance, High price
-              Best for: mission-critical, low latancy and high throuput work. best for main DB's of your app
+          1.1 GP2
+          1.2 IO1
        2. Megnetic
-          2.1  ST1 :  Throughput optimize 
-                 Low cost - frequently accessed
-         2.2   SC1 :  Cold HDD  
-                Lowest cost - less frequently accessed 
-                Best for file server.
-            
-    
-Depending on your requirment you select the storage type, But as like computing power here also you need to decide on
-capasity of your storage.
-Seting the congiguration for EBS:-
-    When you set up the EC2 and EBS for that EC2. First decide how many drive you need. (at least one is must)
-    The first drive is always the default one and called Root. You can chnage its type, size but cant delete it.
-    Its root path is also fixed (eg. : '/dev/xvda' for linux).
-    Only GP2 and IO1 can be used as Root
-You can create more than one drive, the non-root drive can be one of type GP2, IO1, SC1, ST1. you can chose its size, drive-path
-Also you should note down the IOPS(input output per second) of selected device for performance tuning.
-          
-     So Following thing you Set for EBS -
-          1. Type
-          2. device path
-          3. snapshot ?????
-          4. Size
-          5. Note down IOPS
-          6. Delete on termination ????
-          7. Encryption
-
-Geography of EBS and EC2 :- A EBS attached to EC2 does lie in the same AZ as of EC2.
-    
+          2.1  ST1
+          2.2  SC1
 
 Security Of EC2 instance:-
     This is most critical part of EC2, Security of EC2 is implemented via Security group attached to EC2 
     Security group is nothing but a kind of firewall around EC2, that decide who can communicate to EC2 and who cannnot.
-    
-    ## Read Network Traffic Protocol ### in notes.txt    
-    Over the network there is multiple way to connect the EC2 with external system
-    1. If EC2 is linux based instance then we can use SSH (at port 22 of EC2)
-    2. If EC2 is window based instance then we can use RDP (at port 22 of 3892)
-    3. Connect EC2 (any based) with internet traffic with HTTP and HTTPS ( on port 80 or 443)
-    4. POP, SMTP ....etc.       
-
-    You have to set-up the InBound rule for this security group, this inbound rule will tell 
-    what kind of traffic (SSH, RDP, HTTP...)
-    And generated by whome (By which IP)
-    are allowed to listen by EC2 instance
-    
-    EG:   Allow listening of SSH traffic from 1.2.3.4, but not other
-          Allow listening of RDP traffic from 1.2.3.5, but not other
-          Allow listening of RDP and SSH traffic from 1.2.3.*, but not other
-          Allow listening of HTTP traffic from 1.2.*.*, but not other
-          .....hell lot of combination possible...
-       
-   Selection of sourcce IP:-
-          
-          To allow which particular IP is allowed to connect to EC2 and whoich is not you should pass a 
-          kind of regular expression of IP address.
-          EG: 
-              0.0.0.0/0, ::/0    :   will allow all the IP address to connect to EC2 via selected protocol
-              0.0.0.0/0, ::/0    :   will allow all the IP address to connect to EC2 via selected protocol
-              113.193.134.22/32  :   will allow all the 113.193.134.22 to connect to EC2 via selected protocol
-              113.*.*.*/32       :   will allow all matching IPs to connect to EC2 via selected protocol
-        This is CIDR notation of IP. Will study it later
-
-Securing the connection: 
-   Once the connection is established with EC2(linux, window any type) with another system (window based, linux based etc..) via any 
-   protocol (SSH, RDP, HTTP etc..)
-   The next thing comes is to make the communication safe and non penetrable.
-   Whatever you both talking, nobody in the network should be able to decode it.
-   
-   For this we will study diffrent cases
-   1.     Securing SSH for EC2 linux-instance and any remote client
-   2.     Securing RDP for EC2 window-instance and any remote client
-   3.     Securing HTTP and HTTPS
-   ...etc
-   
-   Securing SSH and RDP: For this aws provide PPK based encryption. The EC2-instance will encode all the thing via public key
-   and the peer we be able to decode it with its private key (correct one).
-      For detail on SSH: read ssh.txt
-      For detail on RDP: Study later
-   
-Outbound rule of security group: it will tell to whome the EC2 can iniate the communication [will see later] ????
-
 
 
 EC2 and Other AWS services -> 
@@ -321,71 +186,7 @@ EC2 AML image:
            ?????????????????
                    
  -------------------
- 
- 
- Monitering via cloudwatch:-
-    EC2 is very heavily integrated with Cloudwatch.
-    EC2 send detail data metric to the cloudwatch that you can view in the cloudwatch page of you AWS console.
-   in EC2 the cloudwach by defult provide info about
-          CPU 
-          Network 
-          Disk IO
-          Status
-      But by default it does not moniter 
-          Disk usages
-          RAM utilization
-        To moiter this two you need to have the custom metric.
 
-       How to view this metric
-        AWS > CloudWatch > MEtrics > EC2 > Per-Instance Metrics > search with instance ID 
-        You can see many metrics there and see diffent performance indicator.
-
-      By default the performance data form the EC2 is monitered in every 5 minut. but you can enable the detail monitering.
-      If you enable it then data wil be monitered in every 1 minute.
-      for this:
-        AWS > EC2 > Instances > you instace > Action > 'Per-Instance Metrics' > yes
-      IMP: this is chargable.
-      This will also moniter the default data metric only but more frequently.
-
-      Custom metrics:-
-        TRhis is the metric of performance data that are not by default monitor by the clouwact.
-        user have to set it up by himself.    
-        How?
-          1. The first thing you need is to get the EC2 special permission via a policy called ''
-              So create a Role for EC2 that has the policy '' attached and attach this role to your EC2 instance.
-          2. install the cloudwatch in your EC2 instance via below commands
-                    yum update -y
-                    sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
-                    cd /home/ec2-user/
-                    curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
-                    unzip CloudWatchMonitoringScripts-1.2.2.zip
-                    rm -rf CloudWatchMonitoringScripts-1.2.2.zip
-              TIP:: you may wants to put this script in user data for auto install.
-              After running this commands in the /home/ec2-user/ directory you  will be able to see a folder name 'aws-scripts-mon'
-              in this folder there is coulple of file, we do not need to go in detail of all those.
-              But there is one file nameed 'mon-put-instance-data.pl'
-              This has necessary script (in perl) to push the data metrics at cloudwatch. we need to run this script
-            3. lets say our custom data metrics is for memory utilization, memory used and memory available.
-                So to send the data about this metric to cloud watch use below command
-                  /home/ec2-user/aws-scripts-mon/mon-put-instance-data.pl --mem-util --mem-used --mem-avail
-             4. Now the EC2 will send the data to Cloudwatch and after some time you can see this metric at cloudwatch page
-                How much time it take?
-                  if EC2 has only statdared monitering then it may take 5 mnt. but if its detail then may be only 1.
-                Where to see this metric:
-                  AWS > CloudWatch > MEtrics > in Custom Namespaces > Linux System
-                you can see this three data there.
-
-            VIMP: This is only one moment monitering means datais ent for this metric is for an specific moment when the command ran.
-                  if you wants to send the data again then you have to re-run this command. 
-
-           Custom metrics with Crone job:-
-            As you know that above command send the data only when it ran. so for continous monitering the best approach is to
-            add this command in crone job
-            How?
-              its not in scope here.
-
-          
- -----------
           
           User Data:
             In the user data you can provide the script that can ran at the initilization of the EC2 insyance.
@@ -408,70 +209,14 @@ installing Node-js on EC2 -
 
 --------------------
 
-	
-AMI:-
-An Amazon Machine Image (AMI) provides the information required to launch an instance. You must specify an AMI when you launch an instance	
-An AMI includes the following:
-          - One or more EBS snapshots
-          - Launch permissions that control which AWS accounts can use the AMI to launch instances.
-          - A block device mapping that specifies the volumes to attach to the instance when it's launched.          
-          
-      Creating AMI from EC2-    
-          You can create a AMI from the instance. the AMI will take the Snap of 
-          attached EBS + OS + Software installed + Software Configuration
-          and store it as AMI in S3.
-          When you create an AMI from EC2 then the snapshots of each attached EBS-Volume will be created.
-          So AMI = EBS-Snapshot + OS + Software + Configs
-          You can see your AMI in EC2 > AMI
-
-          Creating instace via AMI:-
-          On AWS consolse when you create a EC2 you can select the AMI you created in step 1.
-          The below thing thing will be copued to new instance
-          1. OS
-          2. Virtlization type HVM or ??
-          3. EBS from the snapshots of that AMI
-                    - Here the root EBS can not be deselected but other mounted EBS can be deselec.
-                    - For each EBS-snapshot a volume will be created and will be attached to launched EC2.
-
-          What about Type: t2.micro etc. This do not come from AMI. you should select it as your requirment
-
-          Say you have a EC2(Orignal) running which has some files and software installed.
-          What will be the start state of any EC2 created for AMI of the orignal EC2 
-          
-Instance		  root files     EC2-user files		start-script		node	apache	web-server Running
-Orignal		          Yes		Yes	        	Yes	          	Yes	Yes	Yes						
-Via AMI   	          Yes		Yes			No		   	Yes	Yes	No
-
-
-----------------
-
-When we start the stopped EC2 below things happen:-
-	1. OS boot up
-	2. User data script run
-	3. Application start
-----------
-
-Hibernate the EC2:-
-	This will stop the EC2 but preserve the RAM data and OS so that restart is lot quicker and no need to OS boot, user data run and application start needed.
-	also it keep all the prevously attached volumes and also keep the instance id.
-	By default EC2 do not enable Hibernation function. It must ne enable at a time of launch. 
-	To put EC2 in hibenation:-
-		Ec2 > your inst > state > Hibernate
-	
-
----------------------------------------------------
-
+RElation of Region of EC2-Coumpute unit and other logical or physical peripheral like EBS, EFS, SG, ENI.
+SAME mns that both the EC2 compute unit and the object(EBS, EFS, SG, ENI) must lies in same subject(AZ, Region, Subnet, VPC) 
 
 		AZ		Region			Subnet			VPC
 EBS		SAME		SAME			-			-
 EFS
 SG		-		-			-			SAME
 ENI		-		-			SAME			SAME
------
-AMI
-Snap
-
-
 
 ---------
 
@@ -486,7 +231,9 @@ EC2 Hibernate:-
 	the conent preserved from RAM is loaded again from EBS. and so none of the process need to be re-done.
 	To make EC2 hibernate compatible you have to have large EBS volume attach to accomodate RAM content and also you must enable it at a time of instance creation.
 	
-
+	By default EC2 do not enable Hibernation function. It must ne enable at a time of launch. 
+	To put EC2 in hibenation:-
+		Ec2 > your inst > state > Hibernate
 
 
 
