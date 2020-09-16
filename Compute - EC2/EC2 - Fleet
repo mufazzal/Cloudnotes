@@ -1,6 +1,104 @@
-Single Availability Zone Fleet is only supported in instant fleet type
-InstancePoolsToUseCount option is only available with the lowestPrice allocation strategy
+This is is exteremly powerful feature that give you way to control the 1 to infinite number of EC2 in just one API call.
+You can start, stop and modify the 100s of EC2 in one API call.
+This EC2 could range from any catagory like
+  - diffrebt capacity like t2.micro, t1.large...
+  - in diffrent AZ and subnet
+  - with diffrent weight and priority
+  - with diffrent pricing model on-daman, spot
+  - with diffrent mechanism to acuire and release the spot instances 
+  - with diffrent mechanism to acuire and release the on-demand instances
+  - with capability to utilize the reserved instances
+  etc.
+  
+  To create the fleet you need to design the Launch-template, this will contains all the default params to launch an instance.
+  
+  Overrides:-
+    The params define in the template are fixed and this template will launche the instances with same configuration. but in fleet you may need diffrent configuration of 
+    diffrent EC2, say you may need
+    - many of t2.micro and/or some of t2.large and/or few of m2.xxlarge
+    - some in AZ1 and some in AZ2
+    - some with higher priority and some less (for on-demand)
+    - some with higher weight and some less (for spot)
+    - some in subnet1 and some in other.
+   
+   overrieds
+    To achive this we use overrieds. Though you canot overried many things of template but below things you can-
+      InstanceType, MaxPrice, SubnetId, AvailabilityZone, Weight, Priority.
+      Weight:- You can use this to give weight to any instance. laterthis number detrmine that how many of this configuration instance should be launch to match the required capasity
+                This is used only for spot instances
+      Priority:- This is used to determine who has higher priority for launch
+                This is used with On-Damnd only
+      
+     
+Typical Fleet Tmplate with most use param:-
+{
+    "Type": "maintain", 
+    "OnDemandOptions": { "AllocationStrategy": "prioritized" }, 
+    "SpotOptions": { "AllocationStrategy": "diversified",  "InstancePoolsToUseCount": 1, }, 
+    "TargetCapacitySpecification": {
+        "TotalTargetCapacity": 3, 
+        "OnDemandTargetCapacity": 0, 
+        "SpotTargetCapacity": 3, 
+        "DefaultTargetCapacityType": "on-demand"
+    }, 
+    "LaunchTemplateConfigs": [{ 
+            "LaunchTemplateSpecification": { "LaunchTemplateId": "lt-0070bc747fba7abcf", "Version": "1"},
+            "Overrides": [...], 
+    "TagSpecifications": [..]
+}
 
+Type: maintain | request | instant.
+  maintain: The intruputted spot instances will be replaced with new one. this place the asynchronous keep-it-up request
+  request: The intruputted spot instances will not be replaced with new one and so compute capacity reduced. this place the asynchronous one-time request.
+  instant: same as request but EC2 Fleet places a synchronous one-time request 
+  
+OnDemandOptions.AllocationStrategy: 
+  This can have two value lowest-price and prioritized.
+  lowest-price: This will make sure that on-damnd EC2 are launched in such a manner that cost is minimal. 
+  The fleet determine in which AZ, type, priority(in override section) etc bear the lowest public-on-demand price. 
+SpotOptions.AllocationStrategy
+  Valid values are lowest-price, diversified, and capacity-optimized.
+  lowest-price: EC2 from the overrides are launch in such a manner that cost is minimal
+    The fleet determine in which AZ, type, priority(in override section) etc bear the lowest spot price. 
+  diversified: EC2 from the overrides are launch in such a manner that it cover most of the possible configuration given in override.
+  capacity-optimized: As the price of spot instance increase the instances may terminate. to minimize this impact we use  this. 
+    The fleet launches the instances in AZ which has the highest capacity so that fluctuation is lessand so instances teminate less frequently due to price .
+ SpotOptions.InstancePoolsToUseCount
+  This work only for SpotOptions.AllocationStrategy = lowest-price, This will detrmine that that how many spot-instance-pool the fleet can use for instances.
+    higher the number can reduce the cost and increase the diversification furthure as fleet has more pools in diffrent AZ to deploy the EC2s.
+  
+ Overrides[*].Priority:- 
+  This work only for on-damnd when OnDemandOptions.AllocationStrategy = prioritized. this does not work spot instances.
+  each override can have the param "priority" and the fleet launches the instance with highest prio first and lesser one later.
+    
+ Overrides[*].WeightedCapacity:-
+  This work only for spot instances. The WeightedCapacity work in conjecture with 'SpotTargetCapacity'. 
+  for each override you can give a weight. 1 WeightedCapacity = 1 unit capacity.
+  The fleet lanuch the spot instances to meet the capacity target. if instances with high 'WeightedCapacity' is launched then overall less number of instances are needed
+  and if instances with less 'WeightedCapacity' is launched then overall higher number of instances are needed.
+  If two instance config has he same priority then lowest-price among them will be taken.
+ 
+  TotalTargetCapacity: 
+    Total EC2 capacity you need.
+  OnDemandTargetCapacity: 
+    Total on-damand capacity you need
+  SpotTargetCapacity: 
+    Total spot capacity you need
+  DefaultTargetCapacityType: 
+    spot | on-damand
+    - if TotalTargetCapacity > SpotTargetCapacity + OnDemandTargetCapacity then remaining capacity will be launched as 'DefaultTargetCapacityType'.
+        
+  Designing the stratagy:-
+    If your app small, fault tolerent and price sensitive then use 'lowest-price' fro on-damand and spot. this will save u money but app may keep intruppting for price falctuation
+    If your app small, fault tolerent and price sensitive but you also need some diversification so that instances are scattred among diffrent pool then
+      use the lowest-price strategy in combination with InstancePoolsToUseCount.
+      The higher value of InstancePoolsToUseCount mns you have large number of spot-pool for initiating the instances. so if any of the pool is temporarily not available then impact is minimal
+    If you app is less fault tolerent then you should go for 'capacity-optimized'. so that the instances are initiaten in pool with higher avilable instances.
+    IF you wants your app to be running on maximum possible pool configuration then use 'diversified' 
+  
+  
+ Example:- 
+  
 "OnDemandOptions": { "AllocationStrategy": "prioritized" },   
 "Overrides": [
     { "InstanceType": "t2.micro", "WeightedCapacity": 0.01, "priority": 3 },
@@ -15,8 +113,9 @@ spot = 0
 
 in above change priority = 1 for all 3 then
 onDemand = 900
-    micro = 900
+    micro = 900 because this bear the lowest cost
 
+--------
 
 "OnDemandOptions": { "AllocationStrategy": "prioritized or lowest-prize" },   
 "Overrides": [
@@ -28,6 +127,7 @@ onDemand = 3
    micro = 3  (WeightedCapacity * count = total | 3 * 3 = 9)
 spot = 0 
 
+--------
 
 "OnDemandOptions": { "AllocationStrategy": "prioritized" },   
 "Overrides": [
@@ -36,12 +136,14 @@ spot = 0
     { "InstanceType": "t2.large", "WeightedCapacity": 1, "priority": 1 }                
   ]  
  
-total = 9  onDemand = 9 - prioritized  |   spot = 0 - lowest-price
+total = 3  onDemand = 3 - prioritized  |   spot = 0 - lowest-price
 onDemand = 3
    micro = 1
    small = 1
    large = 1
 spot = 0 
+
+--------
 
 "OnDemandOptions": { "AllocationStrategy": "lowest-prize" },   
 "Overrides": [
@@ -54,7 +156,9 @@ total = 3  onDemand = 3 - lowest-price  |   spot = 0 - lowest-price
 onDemand = 2
    small = 2  
 spot = 0 
->> Priority will be ignored in this setting
+>> Priority will be ignored in this setting because OnDemandOptions.AllocationStrategy = lowest-prize
+
+--------
 
 "OnDemandOptions": { "AllocationStrategy": "prioritized" },   
 "Overrides": [
@@ -67,6 +171,7 @@ onDemand = 1
    medium = 1
 spot = 0 
 
+--------
 
 "SpotOptions": { "AllocationStrategy": "lowest-price" },   
 "Overrides": [
@@ -78,19 +183,10 @@ total = 3  onDemand = 0 - lowest-price  |   spot = 3 - lowest-price
 onDemand = 0
 spot = 3 
   micro = 3 
+priority is ignored as it is only spot instances.  
 
 
-"SpotOptions": { "AllocationStrategy": "lowest-price" },   
-"Overrides": [
-    { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 3 },
-    { "InstanceType": "t2.small", "WeightedCapacity": 2, "priority": 2 },
-    { "InstanceType": "t2.medium", "WeightedCapacity": 3, "priority": 1 }                 
-  ] 
-total = 3  onDemand = 0 - lowest-price  |   spot = 3 - lowest-price
-onDemand = 0
-spot = 3 
-  micro = 3 
-  
+--------
 
 "SpotOptions": { "AllocationStrategy": "diversified" },   
 "Overrides": [
@@ -104,6 +200,7 @@ spot = 2
   micro = 1
   small = 1
 
+--------
 
 "OnDemandOptions": { "AllocationStrategy": "lowest-price" },   
 "SpotOptions": { "AllocationStrategy": "lowest-price" },   
@@ -119,6 +216,7 @@ spot = 7
   micro = 7 
 >> Priority will be ignored in this setting
 
+--------
 
 "Overrides": [
     { "InstanceType": "t2.micro", "WeightedCapacity": 1, "priority": 1 },
@@ -131,9 +229,5 @@ total = 10  onDemand = 2 - lowest-price  |   spot = 2 - lowest-price        AND 
 
 ---
 
-  InstanceType, MaxPrice, SubnetId, AvailabilityZone, Weighte
-  
-AllocationStrategy for on-demand -> lowest-price | prioritized  
-AllocationStrategy for spot ->      lowest-price | diversified |  capacity-optimized  
-value of priority is useless for spot instances.
-
+ - Single Availability Zone Fleet is only supported in instant fleet type
+ - InstancePoolsToUseCount option is only available with the lowestPrice allocation strategy
