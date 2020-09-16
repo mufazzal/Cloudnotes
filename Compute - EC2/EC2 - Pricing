@@ -1,0 +1,36 @@
+Pricing-
+ On Demand:
+    You pay by usage/hour or per second
+    Best For -
+      If you do not need any long term contract
+      Low Cost
+      Short live application
+ Reserved:
+    You reserve the capasity for a certain time (for a 1 yera to 100s of year).
+    You are locked in a contract. AWS generally provide yuo discount if you contract for longer time. You also need to pay some amount upfront.
+    Best For -
+      App that need steady and predictable usages (So you calculate the computing power well in advance, 
+                                                        so pay upfront in advance and get good discount from AWS)
+      Type of Reserved :-
+        1. Standard:    You cant change the EC2 instance type
+        2. Convertible: You can change the EC2 instance type      
+        2. Schedule
+  Spot:
+      This work like a biding in stock market, you bid for a any instacne with many others. 
+      The best one get the deal, and if sombody again ready to pay more then you lose (after some agreed time) this instance.
+      Best For:-
+         Me: Hey! i want to do this task its kind of R and D, but it will take fair computing power so buy some Ec2. no specific strat or end time required
+         Finance: We do not have much money for R and D. 
+         Me: Ok! lets go to Spot pricing, when it cost low buy some, work on it, release if it get costly, and  keep doing it at very low cost.
+         Finance: smart guy.
+     To get the Spot instance you must set request with below items
+       1. Max price
+       2. no of instances
+       3. type   on-time | persistent. if you wants to lanuch only at once or you wants repetative launch on favourable price.
+       4. Launch config
+       5. valid from - to
+	 
+  Dedicated Host:
+    Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
+    This physically hosted server do lies in AWS building but unlike other EC2, this are solely assign to you.
+    Very costly
