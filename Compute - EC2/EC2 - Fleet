@@ -242,6 +242,18 @@ State of Fleet:-
   modifying: The fleet is modifying
   deleted_running: 
 
+-------
 
  - Single Availability Zone Fleet is only supported in instant fleet type
  - InstancePoolsToUseCount option is only available with the lowestPrice allocation strategy
+----------------------
+
+Spot Fleet:-
+    Spot fleet is legacy now and AWS advice you to go for EC2-fleet instaed as later one has more refined options.
+    
+
+      
+
+
+
+ 
