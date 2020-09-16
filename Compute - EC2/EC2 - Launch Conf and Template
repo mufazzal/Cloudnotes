@@ -1,6 +1,7 @@
 Launch configuration and Template both provide way to create a ready to use template to launch instance.
 This has info needed fto launch the instace 
 	- The AMI to use
+	- type like tc2.micro etc.
 	- The VPC and Subnet
 	- TheSG
 	- any additional EBS or EBS snapshot
@@ -16,6 +17,7 @@ This has info needed fto launch the instace
 	- You can create it from existing EC2 instance
 	- You van create it from other remplate
 	- You can Modif and create a new version of any existing template.
+	- via awc-cli you can create with create-launch-template
 	
 You can launch:-
 	- An instances from any template
@@ -26,3 +28,4 @@ You can launch:-
 	
 In Launch templalte you can
 	- Set request param for Spot Instances	
+
