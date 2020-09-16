@@ -1,0 +1,33 @@
+	
+AMI:-
+An Amazon Machine Image (AMI) provides the information required to launch an instance. You must specify an AMI when you launch an instance	
+An AMI includes the following:
+          - One or more EBS snapshots
+          - Launch permissions that control which AWS accounts can use the AMI to launch instances.
+          - A block device mapping that specifies the volumes to attach to the instance when it's launched.          
+          
+      Creating AMI from EC2-    
+          You can create a AMI from the instance. the AMI will take the Snap of 
+          attached EBS + OS + Software installed + Software Configuration
+          and store it as AMI in S3.
+          When you create an AMI from EC2 then the snapshots of each attached EBS-Volume will be created.
+          So AMI = EBS-Snapshot + OS + Software + Configs
+          You can see your AMI in EC2 > AMI
+
+          Creating instace via AMI:-
+          On AWS consolse when you create a EC2 you can select the AMI you created in step 1.
+          The below thing thing will be copued to new instance
+          1. OS
+          2. Virtlization type HVM or ??
+          3. EBS from the snapshots of that AMI
+                    - Here the root EBS can not be deselected but other mounted EBS can be deselec.
+                    - For each EBS-snapshot a volume will be created and will be attached to launched EC2.
+
+          What about Type: t2.micro etc. This do not come from AMI. you should select it as your requirment
+
+          Say you have a EC2(Orignal) running which has some files and software installed.
+          What will be the start state of any EC2 created for AMI of the orignal EC2 
+          
+Instance		  root files     EC2-user files		start-script		node	apache	web-server Running
+Orignal		          Yes		Yes	        	Yes	          	Yes	Yes	Yes						
+Via AMI   	          Yes		Yes			No		   	Yes	Yes	No
