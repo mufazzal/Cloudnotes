@@ -53,19 +53,25 @@ Type: maintain | request | instant.
   instant: same as request but EC2 Fleet places a synchronous one-time request 
   
 OnDemandOptions.AllocationStrategy: 
-  This can have two value lowest-price and prioritized.
-  lowest-price: This will make sure that on-damnd EC2 are launched in such a manner that cost is minimal. 
-  The fleet determine in which AZ, type, priority(in override section) etc bear the lowest public-on-demand price. 
+    This can have two value lowest-price and prioritized.
+    lowest-price: This will make sure that on-damnd EC2 are launched in such a manner that cost is minimal. 
+    The fleet determine in which AZ, type, priority(in override section) etc bear the lowest public-on-demand price. 
+OnDemandOptions.MaxTotalPrice:   
+    If you specify the max price per hour here then fleet will stop launchig spot instances if the total prices for spot instances goes above the mentioned per/hour charge. 
+    Even thoug you TargetCapacity is not met the fleet will not overbudget you.  
 SpotOptions.AllocationStrategy
-  Valid values are lowest-price, diversified, and capacity-optimized.
-  lowest-price: EC2 from the overrides are launch in such a manner that cost is minimal
-    The fleet determine in which AZ, type, priority(in override section) etc bear the lowest spot price. 
-  diversified: EC2 from the overrides are launch in such a manner that it cover most of the possible configuration given in override.
-  capacity-optimized: As the price of spot instance increase the instances may terminate. to minimize this impact we use  this. 
-    The fleet launches the instances in AZ which has the highest capacity so that fluctuation is lessand so instances teminate less frequently due to price .
+    Valid values are lowest-price, diversified, and capacity-optimized.
+    lowest-price: EC2 from the overrides are launch in such a manner that cost is minimal
+      The fleet determine in which AZ, type, priority(in override section) etc bear the lowest spot price. 
+    diversified: EC2 from the overrides are launch in such a manner that it cover most of the possible configuration given in override.
+    capacity-optimized: As the price of spot instance increase the instances may terminate. to minimize this impact we use  this. 
+      The fleet launches the instances in AZ which has the highest capacity so that fluctuation is lessand so instances teminate less frequently due to price .
  SpotOptions.InstancePoolsToUseCount
-  This work only for SpotOptions.AllocationStrategy = lowest-price, This will detrmine that that how many spot-instance-pool the fleet can use for instances.
-    higher the number can reduce the cost and increase the diversification furthure as fleet has more pools in diffrent AZ to deploy the EC2s.
+    This work only for SpotOptions.AllocationStrategy = lowest-price, This will detrmine that that how many spot-instance-pool the fleet can use for instances.
+      higher the number can reduce the cost and increase the diversification furthure as fleet has more pools in diffrent AZ to deploy the EC2s.
+  SpotOptions.MaxTotalPrice: 
+      If you specify the max price per hour here then fleet will stop launchig spot instances if the total prices for spot instances goes above the mentioned per/hour charge. 
+      Even thoug you TargetCapacity is not met the fleet will not overbudget you.
   
  Overrides[*].Priority:- 
   This work only for on-damnd when OnDemandOptions.AllocationStrategy = prioritized. this does not work spot instances.
@@ -87,7 +93,7 @@ SpotOptions.AllocationStrategy
   DefaultTargetCapacityType: 
     spot | on-damand
     - if TotalTargetCapacity > SpotTargetCapacity + OnDemandTargetCapacity then remaining capacity will be launched as 'DefaultTargetCapacityType'.
-        
+    
   Designing the stratagy:-
     If your app small, fault tolerent and price sensitive then use 'lowest-price' fro on-damand and spot. this will save u money but app may keep intruppting for price falctuation
     If your app small, fault tolerent and price sensitive but you also need some diversification so that instances are scattred among diffrent pool then
@@ -227,7 +233,15 @@ total = 10  onDemand = 2 - lowest-price  |   spot = 2 - lowest-price        AND 
 ???????????????????????
 
 
----
+------------------
+
+State of Fleet:-
+  There are below possible states of fleet
+  submitted: the request is submitted and preparing to launch but not launched
+  active: the fleet is fully live.  the instances are either launching or launched or terminating depending on pricing and other fluctuations.
+  modifying: The fleet is modifying
+  deleted_running: 
+
 
  - Single Availability Zone Fleet is only supported in instant fleet type
  - InstancePoolsToUseCount option is only available with the lowestPrice allocation strategy
