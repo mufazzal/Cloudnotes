@@ -175,15 +175,6 @@ EC2 and Other AWS services ->
           service httpd start
           chkconfig httpd on
 
-
-
-EC2 AML image: 
-          You can create an image of EC2 (kind of template) so that you can create the 
-          exact copies of imaged EC2 instance later.
-          For this
-                   EC2 > 'you ec2 instace' > righ click > image > create image
-           For creating EC2 from instace-
-           ?????????????????
                    
  -------------------
 
@@ -212,11 +203,11 @@ installing Node-js on EC2 -
 RElation of Region of EC2-Coumpute unit and other logical or physical peripheral like EBS, EFS, SG, ENI.
 SAME mns that both the EC2 compute unit and the object(EBS, EFS, SG, ENI) must lies in same subject(AZ, Region, Subnet, VPC) 
 
-		AZ		Region			Subnet			VPC
-EBS		SAME		SAME			-			-
+					AZ		Region			Subnet			VPC
+EBS				SAME	SAME				-						-
 EFS
-SG		-		-			-			SAME
-ENI		-		-			SAME			SAME
+SG				-			-						-						SAME
+ENI				-			-						SAME				SAME
 
 ---------
 
@@ -236,8 +227,26 @@ EC2 Hibernate:-
 		Ec2 > your inst > state > Hibernate
 
 
+-----------------
 
-
+EC2 Placement Group:-
+	The EC2 ran in the data centers and are a nothing but a hardware devices stack in the AWS  dat centers.
+	The AWS provide so detailed functionality that you can configure how and whhere in the stacks the your EC2 shoud instantiate.
+	By default EC2 service places the instances in any single AZ in such a manner that they are well diversified wrt underline hardware. 
+	but you can change this behaviour to met your requirment
+	You can create a PG and place the EC2 instances in it.  This PG can have one of below 3 placement stratagy
+	1. Clustered Placement Group:-
+			- EC2s are placed very close to each other. So close that they are being placed in same stacks and share the same hardware.
+				As they are in same hardware cluster, they have very less network latency when communicating with each other.
+				This is useful when you need high and fast EC2-to-EC2 communication. EG. HPC apps.
+				The EC2s in such kind of PG remain in single AZ.
+	2. Partition Placement Group:-
+			-	EC2 are placed in such a manner that they do not share the common hardware and so remain very much isolated (in term of hardware) from each other.
+				This is useful when you need highly distrubuted system with good fault tolerance so that failling on one hardware do not impact other.
+				The EC2s in such kind of PG can lie in in single AZ or multiple AZ.
+	3. Spread:-
+			- This in between Clustered and Partition Placement Group
+				Here the CLUSTER of some EC2-instances are placed in isolated PARTITION of hardware. So that failing of one clusted do not impact other partitions.
 
 	
 	
