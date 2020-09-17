@@ -112,45 +112,45 @@ EC2 and Other AWS services ->
 
     ------------------
     
-    Using EC2 As Apache Web Server :-
-          Till now we have seen that how we can configure the EC2 instance to listen the SSH traffic on Port 22, We see hoe we create the 
-          Security group with inbound rule of (SSH-22-0.0.0.0) setup.
-          Now when we wants to creat a Apache webserver also out of this EC2, The first thing we need to do is to 
-          let the HTTP traffic to be listened at port 80 so first step to create a web server is to creat a security group with 
-          inboud : 
-                    SSH  22   0.0.0.0/0   -> because you may also need it to access by SSH
-                    HTTP 80   0.0.0.0/0
-     
-    nest thing you require to use EC2 as web server 
-    1. A proper webserver to be installed like Apache, websphere etc.
-    2. A proper war or html deplo on it    
-    
-    Lets create one vert tiny web server from EC2 :-
-    create EC2 with proper security group 
-    Connect to EC2 by SSH
-    > yum update : to update ec2 libs
-    > yum install httpd -y : install the appache server
-    > service httpd start : strat the servert
-    > cd /var/www/html : go to the server directory which will be visible to internet
-    > Create a file 'index.html' [how> CLI.txt #CreatFile]
-    > DONE : go to the IP of EC2. EG : http://15.206.125.146/ or http://15.206.125.146/muf.html
-    
-    Selecting source as another Security Group:-
-          Instead of the CIDR block you can also select another security group as source.
-          EG: say a EC2-muf has SG as
-            SSH  22     sg-1
-          This will allow all the EC2 whos securyty group is 'sg-1' will be able to establish connection with EC2-muf. 
-              
-    
-    Ec2 and Nodejs web server:-
-          When you use the EC2 for NodeJs webserver you may use diffrent port then 80 EG.
-                              http.createServer(function (req, res) {
-                                res.write('Hello World! version 1'); 
-                                res.end(); 
-                              }).listen(3000);
-          So here in SG instead of opening 80 you should open 3000 
-                    SSH  22     0.0.0.0/0   -> because you may also need it to access by SSH
-                    HTTP 3000   0.0.0.0/0
+Using EC2 As Apache Web Server :-
+	Till now we have seen that how we can configure the EC2 instance to listen the SSH traffic on Port 22, We see hoe we create the 
+	Security group with inbound rule of (SSH-22-0.0.0.0) setup.
+	Now when we wants to creat a Apache webserver also out of this EC2, The first thing we need to do is to 
+	let the HTTP traffic to be listened at port 80 so first step to create a web server is to creat a security group with 
+	inboud : 
+						SSH  22   0.0.0.0/0   -> because you may also need it to access by SSH
+						HTTP 80   0.0.0.0/0
+
+	nest thing you require to use EC2 as web server 
+	1. A proper webserver to be installed like Apache, websphere etc.
+	2. A proper war or html deplo on it    
+
+	Lets create one vert tiny web server from EC2 :-
+	create EC2 with proper security group 
+	Connect to EC2 by SSH
+	> yum update : to update ec2 libs
+	> yum install httpd -y : install the appache server
+	> service httpd start : strat the servert
+	> cd /var/www/html : go to the server directory which will be visible to internet
+	> Create a file 'index.html' [how> CLI.txt #CreatFile]
+	> DONE : go to the IP of EC2. EG : http://15.206.125.146/ or http://15.206.125.146/muf.html
+
+	Selecting source as another Security Group:-
+				Instead of the CIDR block you can also select another security group as source.
+				EG: say a EC2-muf has SG as
+					SSH  22     sg-1
+				This will allow all the EC2 whos securyty group is 'sg-1' will be able to establish connection with EC2-muf. 
+
+
+	Ec2 and Nodejs web server:-
+				When you use the EC2 for NodeJs webserver you may use diffrent port then 80 EG.
+													http.createServer(function (req, res) {
+														res.write('Hello World! version 1'); 
+														res.end(); 
+													}).listen(3000);
+			So here in SG instead of opening 80 you should open 3000 
+								SSH  22     0.0.0.0/0   -> because you may also need it to access by SSH
+								HTTP 3000   0.0.0.0/0
     
     ----
     
@@ -259,7 +259,24 @@ EC2 Placement Group:-
 		- Move from one placement group to another
 		- Remove from a placement group
 
+----------------------
 
+EC2 CURL for meta-data and user-data:-
+	A unique feature of EC2 is inside the EC2 you can do the curl to get couple of imp info of the same EC2.
+	How:-
+		First SSH into the EC2 instance
+		now curl here
+			curl http://169.254.169.254/latest/meta-data/<item_name>
+		item_name could ne 
+			hostname, local-ipv4, public-ip etc.
+		In output you will get the respective item.
+		
+		To get the user dat just use 
+			curl http://169.254.169.254/latest/user-data
+
+
+	
+	
 	
 
 
