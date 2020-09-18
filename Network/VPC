@@ -1,3 +1,24 @@
+VPC as its name suggest is a virtual cloud in the AWS system. think of VPC as fulluy isolated data center inside the your AWS account
+An AWS account can have as many VPC as he wants. each is isolated with other. 
+
+The VPC lies one and only one region.
+Subnets inside that VPC can lie in multiple any AZ of that region
+But a single subnet itself lie only in one AZ.
+
+Below are the building element of VPC:-
+  1. Subnets
+  2. Route Table
+  3.
+
+Below are the configuration elements in VPC
+  1. CIDR block for the VPC
+  2. CIDR block for each subnet
+
+Below is Security Components:-
+  1. SG
+  2. Network ACL  
+
+
 When we make any application we may need lot of resources, like 10s of DB, 100s of CPU, 10s of LB etc.
 As we have studuied in Networking chaprer that number of public IPv4 is limited so we cannot give all of them public IP.
 
