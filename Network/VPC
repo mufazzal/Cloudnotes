@@ -18,6 +18,14 @@ Below is Security Components:-
   1. SG
   2. Network ACL  
 
+VPC and VPC
+  1. you can connect two vpc
+vpc in one region can be connect to vpc in other region
+vpc of one aws account can be connect to vpc to other aws account
+if vpc A is connectted to B
+and B is to C 
+it does not mn A can connect to C
+
 
 When we make any application we may need lot of resources, like 10s of DB, 100s of CPU, 10s of LB etc.
 As we have studuied in Networking chaprer that number of public IPv4 is limited so we cannot give all of them public IP.
