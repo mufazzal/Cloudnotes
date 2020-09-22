@@ -5,6 +5,15 @@ The VPC lies one and only one region.
 Subnets inside that VPC can lie in multiple any AZ of that region
 But a single subnet itself lie only in one AZ.
 
+When you create a VPC, below three default things will be create
+  1. A default SG for that VPC
+      This SG has all traffic of all type open for in and outbound
+  2. A default Network ACL
+      This NACL has all traffic of all type open for in and outbound
+  3. A default Rout Table
+      - This has all internal IP routing to internal VPC envirment    '10.0.0.0/16  -  local'
+      - This is not route anything to internet.
+
 Below are the building element of VPC:-
   1. Subnets
   2. Route Table
@@ -20,11 +29,11 @@ Below is Security Components:-
 
 VPC and VPC
   1. you can connect two vpc
-vpc in one region can be connect to vpc in other region
-vpc of one aws account can be connect to vpc to other aws account
-if vpc A is connectted to B
-and B is to C 
-it does not mn A can connect to C
+  2. vpc in one region can be connect to vpc in other region
+  3. vpc of one aws account can be connect to vpc to other aws account
+  4. if vpc A is connectted to B
+      and B is to C 
+      it does not mn A can connect to C
 
 one subnet can only connevt with one route table
 but one route table can be connected to multiple subnet
