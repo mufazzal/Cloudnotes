@@ -231,7 +231,9 @@ EC2 Hibernate:-
 	To put EC2 in hibenation:-
 		Ec2 > your inst > state > Hibernate
 
-
+        Charges when ec2 in the Hibernate;
+           This is where u save money. u will be charged for EBS volume and Elastic ip (if attached).
+           u will not have to pay for EC2 itself.
 -----------------
 
 EC2 Placement Group:-
