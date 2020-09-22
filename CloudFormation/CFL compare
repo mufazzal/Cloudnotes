@@ -19,3 +19,5 @@ Bucket                    AWS::S3::Bucket                   Name                
 BucketPolicy              AWS::S3::BucketPolicy             ??                     ?
 SQS                       AWS::SQS::Queue                   URL                   Yes   Arn, QueueName   
 SNS                       AWS::SNS::Topic                   Arn                   Yes   TopicName   
+VPC                       AWS::EC2::VPC                     logical ID            No    CidrBlock, DefaultNetworkAcl, DefaultSecurityGroup
+Subnet                    AWS::EC2::Subnet                  logical ID            No    AvailabilityZone, NetworkAclAssociationId, VpcId                        
