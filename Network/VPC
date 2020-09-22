@@ -5,15 +5,6 @@ The VPC lies one and only one region.
 Subnets inside that VPC can lie in multiple any AZ of that region
 But a single subnet itself lie only in one AZ.
 
-When you create a VPC, below three default things will be create
-  1. A default SG for that VPC
-      This SG has all traffic of all type open for in and outbound
-  2. A default Network ACL
-      This NACL has all traffic of all type open for in and outbound
-  3. A default Rout Table
-      - This has all internal IP routing to internal VPC envirment    '10.0.0.0/16  -  local'
-      - This is not route anything to internet.
-
 Below are the building element of VPC:-
   1. Subnets
   2. Route Table
@@ -34,10 +25,42 @@ VPC and VPC
   4. if vpc A is connectted to B
       and B is to C 
       it does not mn A can connect to C
+      
+
+When you create a VPC, below three default things will be create
+  1. A default SG for that VPC
+      This SG has all traffic of all type open for in and outbound. This SG at this moment is just free floating entity in this VPC because it is not attached to anything 
+  2. A default Network ACL
+      This NACL has all traffic of all type open for in and outbound
+  3. A default Rout Table
+      - This has all internal IP routing to internal VPC envirment    '10.0.0.0/16  -  local'
+      - This is not route anything to internet.
+
+This is how a very basi VPC with no subnet look like:-  
+				
+				|-------------------------------------------------------------|
+				|			                                                        |
+				|			        |----------|     |----------|                   |
+				|			        | Default	 |     | Default	|                   |
+				|     |-->----| Route		 |-->--| NACL			|                   |
+				|			|       |   Table  |     |   				|                   |
+				|     |       |----------|     |----------|                   |
+				|     |                                                       |
+-->-----|--Router                                                     |
+				|                                                             |
+				|                                                             |
+				|                 [Defaul SG]                                 |
+				|                                                             |
+				|                                                             |
+				|                                                             |
+				|                                                             |
+				|-------------------------------------------------------------|  
 
 one subnet can only connevt with one route table
 but one route table can be connected to multiple subnet
 
+
+---------------------------------
 
 
 When we make any application we may need lot of resources, like 10s of DB, 100s of CPU, 10s of LB etc.
