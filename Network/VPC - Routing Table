@@ -6,3 +6,17 @@ When you craete A VPC it will also create a Default Route Table.
   Which mns all the internal private IP will be routed to anf from internam components of that VPC.
   Also the internet traffic will be cutted off completely.
 
+
+one subnet can only connect with one route table
+but one route table can be connected to multiple subnet
+So its relation is like below
+
+                                Subnet 1      
+        Routing Table--------   Subnet 2
+                                Subnet 3  
+
+But not like
+    
+        RT 1------------
+        RT 2------------  Subnet 1
+        RT 3------------
