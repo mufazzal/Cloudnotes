@@ -1,0 +1,8 @@
+
+
+When you craete A VPC it will also create a Default Route Table.
+  This route table simply has one entery
+    10.0.0.0/16   - 	local - 	active	
+  Which mns all the internal private IP will be routed to anf from internam components of that VPC.
+  Also the internet traffic will be cutted off completely.
+
