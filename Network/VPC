@@ -36,17 +36,18 @@ When you create a VPC, below three default things will be create
       - This has all internal IP routing to internal VPC envirment    '10.0.0.0/16  -  local'
       - This is not route anything to internet.
 
-This is how a very basi VPC with no subnet look like:-  
-				
+This is how a very basic VPC with no subnet look like:-  
+	By default this VPC has no subnet and also its completely disconnected form internet.
+
 				|-------------------------------------------------------------|
 				|			                                                        |
 				|			        |----------|     |----------|                   |
 				|			        | Default	 |     | Default	|                   |
-				|     |-->----| Route		 |-->--| NACL			|                   |
+				|     |--><---| Route		 |--><-| NACL			|                   |
 				|			|       |   Table  |     |   				|                   |
 				|     |       |----------|     |----------|                   |
 				|     |                                                       |
--->-----|--Router                                                     |
+-->-----|		Router                                                     |
 				|                                                             |
 				|                                                             |
 				|                 [Defaul SG]                                 |
