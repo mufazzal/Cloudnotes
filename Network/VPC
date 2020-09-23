@@ -68,6 +68,12 @@ Can a two node in VPC (in any same or diffrent subnet) may have same private IP 
 	So if any route table look to naviagtion for any private IP then it will have have one and one unique destination for that private IP.
 
 
+
+internet getway used in roite table for giving internet access to subjected public subnet
+internet getway lies outside of any subnet
+
+NAT getway used in route table for giving one way internet access to subjected private subnet
+NAT getway lies inside of public subnet
 ---------------------------------
 
 
