@@ -1,0 +1,71 @@
+The next IMP building block come in VPC is subnet. Once tou craeted the VPC you can devide the VPC in another level of small private network
+You can create as many subnet in a VPC you wants. The CIDR block you have selected for VPC will be shared among all those Subnet.
+
+When you create the Subnet you have to provide below mandatory info:-
+  1. The VPC id
+  2. CIDR block
+  
+When you create Subnet with this two info it has
+  - Default Route Table atached to it
+  - Default NACL attached to it.
+  
+So The subnet look like below:-
+  Observe:-
+    The default Rout table block all the Internet access in the subnet.
+    
+				
+				|-----------------------------------------------------------------------------|
+				|																								 Subnet-1											|
+				|						 |----------|			 						|---------------------------|				|
+				|		*********|	Default	|--><-----|				|		|D|											|				|
+				|		*|--><---| Route		|					|				|		|E|											|				|
+				|		*|			 |	 Table	|--><---|	|				|		|F|											|				|
+				|		*|			 |----------|				|	|				|		|	|											|				|
+				|	***|											 		|	|--><---|---|N|--><--								|				|
+--------|***Router											|					|		|A|											|				|
+				|														 		|					|		|C|											|				|
+				|														 		|					|		|L|											|				|
+				|																|					|		|	|											|				|
+				|																|					|---------------------------|				|
+				|																|										10.0.1.0/24								|
+				|																|																							|
+				|																|											Subnet-2								|
+				|																|					|---------------------------|				|
+				|																|					|		|D|											|				|
+				|																|					|		|E|											|				|
+				|																|					|		|F|											|				|
+				|																|					|		|	|											|				|
+				|																|---><----|---|N|--><--								|				|
+				|																					|		|A|											|				|
+				|																					|		|C|											|				|
+				|																					|		|L|											|				|
+				|		[Default NACL]												|		|	|											|				|
+				|																					|---------------------------|				|
+				|		[Defaul SG]																			10.0.2.0/24								|
+				|																																							|
+				|-----------------------------------------------------------------------------|
+				
+				
+
+
+CIDR Block and Subnet:-
+  This Subnet must have an CIDR blok specified.
+  This CIDR is subset of VPC-CIDR. If the subnet going to have many nodes then you should take large CIDR to register good amount of IPs (avaialble in VPC-CIDR) .
+  lets create a subnet for BAnk:-        
+          sunbnet-1              10.0.1.0/24          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.1.0/24 [2^8] IP for finance deparments apps
+          sunbnet-2              10.0.2.0/24          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.2.0/24 [2^8] IP for finance deparments apps
+          sub_intBanking         10.0.3.0/24          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.3.0/24 [2^8] IP for finance deparments apps
+          sub_staticweb          10.0.4.0/30          out of 10.0.0.0/16 [2^16] IP lets reverve 10.0.4.0/30 [2^2] IP for finance deparments apps  
+          
+
+Reserved IPs:-
+  AWS has reserved some IP for the internal use. this private IP cannot be usedwith any VPC component
+  
+  
+          
+
+
+
+Subnet is of two type
+  a.  Public Subnet: those who are connected to internet
+  b.  Private Subnet: those who are not connected to internet
