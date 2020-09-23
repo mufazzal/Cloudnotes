@@ -60,6 +60,13 @@ This is how a very basic VPC with no subnet look like:-
 one subnet can only connevt with one route table
 but one route table can be connected to multiple subnet
 
+--
+
+Can a two node in VPC (in any same or diffrent subnet) may have same private IP ?
+	NO. Bold No. Impossible
+	Two subnet can never have a overlapping CIDR block. and each node must has a unique Private IP assosiated with that node. No other can have that again.
+	So if any route table look to naviagtion for any private IP then it will have have one and one unique destination for that private IP.
+
 
 ---------------------------------
 
