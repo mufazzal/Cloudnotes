@@ -74,7 +74,17 @@ internet getway lies outside of any subnet
 
 NAT getway used in route table for giving one way internet access to subjected private subnet
 NAT getway lies inside of public subnet
----------------------------------
+
+
+int getway is way to access internet in public subnet
+nat getway is way to access internet in private subnet
+
+none of both has mechanism to rout the traffic internally and externally like route table
+that is why none of them has any functionality to add entries like
+0.0.0./0.  all.   allow
+10.0.0.0/20.  all.  local
+
+-----------------------------
 
 
 When we make any application we may need lot of resources, like 10s of DB, 100s of CPU, 10s of LB etc.
