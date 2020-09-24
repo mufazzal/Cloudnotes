@@ -36,7 +36,9 @@ For each Subnet there is 4 pre-reserved private IPs by AWS for there inmternal U
 
 The NAT getway is not directly connected to Internet Getway 
 the internet flow like below
-PRivate subnet connecte to an NAT getway
+Private subnet connecte to an NAT getway
+  - the routable of private subnet has entry    0.0.0.0/0  -   NAT-997838493
 NAT Getway lies in a Public Subnet
 The Piblic subnet is public because it has an Internet Getway attached
+  - the routable of public subnet has entry    0.0.0.0/0  -   IGW-997838493
 so that NAT gettway now connect with Internet Getway of Public subnet.
