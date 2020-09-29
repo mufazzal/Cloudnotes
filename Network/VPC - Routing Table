@@ -1,17 +1,16 @@
 The next IMP building block in VPC is Routing Table. 
+
+Your VPC has an implicit router, and you use route tables to control where network traffic is directed. 
+Each subnet in your VPC must be associated with a route table, which controls the routing for the subnet (subnet route table)
 The routing table is simplly a table which has entery of IP or CIDR against the Node. 
 It is actully a master table for all the routing decision happen in Subnet.
-
-A routing table can be attach to multiple Subnet But a subnet can have one ane only one Routing table attach to it.
-But a routing table can be attach to only one VPC. Means all the subnet that are attach to any routing table must belongs to same VPC.
-So its relation is
 
 When you craete A VPC it will also create a Default Route Table.
   This route table simply has one default unchangable entery
     10.0.0.0/16   - 	local - 	active	
   Which mns all the internal private IP will be routed to anf from internam components of that VPC. Every route table has this entry and it cannot be changed or deleted.
-  The value 16 can be very depend on the CiDR range of the VPC.
-  Also the internet traffic will be cutted off completely.
+  The value 16 can be very depend on the CiDR range of the VPC. Also the internet traffic will be cutted off completely.
+
 
   one subnet can only connect with one route table
   but one route table can be connected to multiple subnet
@@ -42,6 +41,10 @@ Any IP falling in that CIDR range will be routed to the given destination.
     10.0.0.0/16	                Local                       -> The default unchangable entry, this make sure that all the IP of type 10.0.***.*** remain inside the selected VPC
     0.0.0.0/0                   <select Internet Getway>    -> If you choose internet getway here then those CIDR block will be redirected to pulic internet
     0.0.0.0/0                   <select NAT Getway>          -> This also enable internet Access but at intiatlted from internal sided only  
+
+Any newly create route table will have at least one entry that is
+10.0.0.0/16	                Local  
+You cannot delete it or edit it.
 
 For each Subnet there is 4 pre-reserved private IPs by AWS for there inmternal Use:-
   This are
