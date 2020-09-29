@@ -1,39 +1,64 @@
 Internet Getway:-
   Internet getway provide the internet access to all internal Nodes of VPC.
 
-Internet Getway perform two IMP task for two diffrent kind of Node:-
-  For Node with public IPv4:-
-    Work as NAT (Network Address Trasnslator) for Node with Public IPv4 
-  For Node without public IPv4:-
-    Use rote table to route the internet traffic to the destination node.
-    
-    
-Suppose there is a node that has the public IPv4
-  EG: EC2 with IPv4 Enable, RDS with IPv4, NAT Getway
-  say the reserved public IP is 87.9.8.7
-    Inboud traffic:-
-      Say mufazzal Hussain wants to run a API '87.9.8.7/getUsers' from his domain/PC/localhost.
-      In that case the request will reach the internet getway and the IG will see its NAT table (not rout table) to get the exact instance that has this IP.
-    Outbound traffic:-
-      For all such node this work as intermediatory to redirct the response of the request(generated from inside the node) to proper node     
-    
-  Suppose there is a node that do not has the public IPv4
-    Inboud traffic:-
-      Impossible. no one from internet can reach to a node who do not has the public IPv4
-    Outbound traffic:-
-      For all such node this work as intermediatory to redirct the response of the request(generated from inside the node) to proper node 
-      
-      
-Basically all the internet traffic flow from IG.
+  Internet Getway perform two IMP task for two diffrent kind of Node:-
+    For Node with public IPv4:-
+      Work as NAT (Network Address Trasnslator) for Node with Public IPv4 
+    For Node without public IPv4:-
+      Use rote table to route the internet traffic to the destination node.
 
-Can a VPC have mutiple IG
-?????????/
 
-IG and Internet Getway:-
-  By default any route table do not redirect any internally generated internet traffic to the IG.
-  to do this you have to add this entry in Rout Table
-    0.0.0.0./0  - igw-*******
-  This entry will route the traffic to the internet getway.  
+  Suppose there is a node that has the public IPv4
+    EG: EC2 with IPv4 Enable, RDS with IPv4, NAT Getway
+    say the reserved public IP is 87.9.8.7
+      Inboud traffic:-
+        Say mufazzal Hussain wants to run a API '87.9.8.7/getUsers' from his domain/PC/localhost.
+        In that case the request will reach the internet getway and the IG will see its NAT table (not rout table) to get the exact instance that has this IP.
+      Outbound traffic:-
+        For all such node this work as intermediatory to redirct the response of the request(generated from inside the node) to proper node     
+
+    Suppose there is a node that do not has the public IPv4
+      Inboud traffic:-
+        Impossible. no one from internet can reach to a node who do not has the public IPv4
+      Outbound traffic:-
+        For all such node this work as intermediatory to redirct the response of the request(generated from inside the node) to proper node 
+
+
+  Basically all the internet traffic flow from IG.
+
+  Can a VPC have mutiple IG
+  ?????????/
+
+  IG and Internet Getway:-
+    By default any route table do not redirect any internally generated internet traffic to the IG.
+    to do this you have to add this entry in Rout Table
+      0.0.0.0./0  - igw-*******
+    This entry will route the traffic to the internet getway.  
   
+NAT Getway:-
   
+    Why NAT Getway required
+    Suppose you created a web app wirth some public and privatesubnet
+    Now public subnet has many EC2-webserevr and as they are assosiated with their public IP they can reached from the public-internet also
+    like www.mufifnance.com or ssh 56.34.67.123 etc.
+    Now we also have couple of private subnet. This subnet can have manny DB-instace or EC2-instance (for computing)
+    those instances are not reacable by ssh or www at all.
+    This is fine because we de not wants them to exposed to public-internet.
+    But there is a patch-
+      Ok! Nobody can reach to Nodes inside private subnet.
+      But what if the Node itself wants something from internet? What if they wants to update their OS or patches. 
+      Or some computing instance wants to acceess an API from internet?
+      To solve this comes a 'NAT Getway'               
+    So In nutshell-
+        NAT Getway do not allow any InBound comunication initiated from the Public Internet.
+        NAT Getway only allow the OutBound communication intiated from withine the subnet
+        - NAT getway do allow SSHing in any instace in private subnet instance.
 
+    What you required to create an NAT Getway and Attach it: 
+      1. A Public Subnet
+          NAT Getway do provide the one-way-initiated public internet access to private Subnet, but the 'NAT Getway' itself 
+          reside in the Public Subnet.
+      2. A Elastic IP:-
+          You must have a EIP to attach to the NAT getway.
+          
+          
