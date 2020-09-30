@@ -54,13 +54,30 @@ NAT Getway:-
         NAT Getway only allow the OutBound communication intiated from withine the subnet
         - NAT getway do allow SSHing in any instace in private subnet instance.
 
-    What you required to create an NAT Getway and Attach it: 
-      1. A Public Subnet
-          NAT Getway do provide the one-way-initiated public internet access to private Subnet, but the 'NAT Getway' itself 
-          reside in the Public Subnet.
-      2. A Elastic IP:-
-          You must have a EIP to attach to the NAT getway.
+  What you required to create an NAT Getway and Attach it: 
+    1. A Public Subnet
+        NAT Getway do provide the one-way-initiated public internet access to private Subnet, but the 'NAT Getway' itself 
+        reside in the Public Subnet.
+    2. A Elastic IP:-
+        You must have a EIP to attach to the NAT getway.
           
- NAT Getway and Route Table:-
- ?????????????????
+  NAT Getway and Route Table:-
+    By default any route table do not redirect any internally generated internet traffic to the NAT Getway.
+      to do this you have to add this entry in Rout Table
+        0.0.0.0./0  - nat-*******
+      This entry will route the traffic generated in assosiated subnet into to the NAT getway.
+      
+      
+  One NAT Getway can be attached to many route table and so can handle traffic from many Subnets at a time.
+  The natgetway by default have 5GBPS bandwith but can scaled up to 45 Gbps.
+  So many instances in many private subnet may share this bandwith for nternet access.
+  
+  If you have multiple private subnet and they all access the internet via single NAT getway, then it may leads to high traffic on it and risk of single point of failure.
+  To avoid this its good pactice to have one NAT getway for each private subnet.
+  
+  
+  
+  
+  
+  
   
