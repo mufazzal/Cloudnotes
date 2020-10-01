@@ -1,0 +1,21 @@
+Security Group:-
+  SG is as you know a security wrapper around any component(EC2 or RDS or ENI) which has the capability to reach and rechable to any other newtwork component.
+  See EC2 - SG.txt for detail.
+  
+NACL (Network Access Control List):-
+  The NACL is very much like a SG of a Subnet.
+  The NACL control what kind of traffic on which port is allowed or denied.
+  One Subnet can be attached to only one NACL but one NACL can be assosiated with many subnet.
+  
+  If EC2 lies in any subnet then traffic first has to pass out from NACL test and then SG of EC2 will be tested. if both pass then traffice pass through.
+  
+  Just like EC2 in NACL we also set in and out bound rule
+  Below param you need to crete the inbound rule  
+    Rule - Protocol  - Port Range  - Source   -  Allow / Deny
+    100     HTTP         80          0.0.0.0/0       Allow 
+    200     HTTPS        443         0.0.0.0/0       Allow 
+    300     SSH          22          45.7.8.5        Allow 
+  Below param you need to crete the outbound rule  
+    Rule - Protocol  - Port Range  - Source  - Allow / Deny
+    100     HTTP         80           0.0.0.0/0       Allow 
+    100     HTTPS        443          0.0.0.0/0       Allow 
