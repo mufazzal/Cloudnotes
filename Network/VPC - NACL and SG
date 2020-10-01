@@ -10,6 +10,8 @@ NACL (Network Access Control List):-
   If EC2 lies in any subnet then traffic first has to pass out from NACL test and then SG of EC2 will be tested. if both pass then traffice pass through.
   Any trafiic prohibited by NACL will not reach to SG and further network comp at all.
   
+  For each VPC created there is a default NACL which allow all the traffic on al the port for all the type. you can create new NACL and attach then to subnets.
+  
   Just like EC2 in NACL we also set in and out bound rule
   Below param you need to crete the inbound rule  
     Rule - Protocol  - Port Range  - Source   -  Allow / Deny
