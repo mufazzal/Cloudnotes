@@ -75,7 +75,8 @@ NAT Getway:-
   If you have multiple private subnet and they all access the internet via single NAT getway, then it may leads to high traffic on it and risk of single point of failure.
   To avoid this its good pactice to have one NAT getway for each private subnet.
   
-  
+  Charges for NAT Getway:-
+    NAT Getway is chargable, u will be charged for per hour basis. its generally at $0.1 / hr
   
  --------------
  
