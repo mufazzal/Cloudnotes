@@ -1,0 +1,15 @@
+Health Check of EC2:-
+  Simply you can see it in console.
+
+Health Check of EC2 By LB:-
+  The Target group of LB have param name 'HealthCheckPath', here you can set the relatve url for health check.
+  The LB will look for <subordinate EC2 private IP>/HealthCheckPath.html for health of EC2.
+
+Health Check of EC2 By ASG:-
+  There is two way to do this
+    1. If EC2 and ASG is not behind LB
+      Simply check if instance in in running stage. [this will not check if Application inthe instance is also ok]
+    2. If EC2 and ASG is behind LB
+      First check if instance is running or not 
+      if yes then
+        Asn LB to do the Health chech for that EC2 to verify is Application is also healthy.
