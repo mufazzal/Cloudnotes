@@ -9,6 +9,8 @@ When you craete A VPC it will also create a Default Route Table.
   This route table simply has one default unchangable entery
     10.0.0.0/16   - 	local - 	active	
   Which mns all the internal private IP will be routed to anf from internam components of that VPC. Every route table has this entry and it cannot be changed or deleted.
+  This also mean that route table make sure each component in each sunbnet can reach to each other component in other subnet.
+  route table can never stop it. though u can stop one node to reach to other via DG or NACL.
   The value 16 can be very depend on the CiDR range of the VPC. Also the internet traffic will be cutted off completely.
 
 
