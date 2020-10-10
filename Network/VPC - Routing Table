@@ -46,14 +46,17 @@ Any newly create route table will have at least one entry that is
 10.0.0.0/16	                Local  
 You cannot delete it or edit it.
 
-For each Subnet there is 4 pre-reserved private IPs by AWS for there inmternal Use:-
+For each Subnet there is 5 pre-reserved private IPs by AWS for there inmternal Use:-
   This are
     1. ????????????/
     2.
     3.
     4.
-  That is why you always see 4 IP less in available IP colum of the subnet.
-  
+  That is why you always see 5 IP less in available IP colum of the subnet.
+  This 5 ips are the first 4 from the start and 1 from the last.
+   eg if subnet start from 10.0.3.0 then
+   resetved are 
+      10.0.3.0, 10.0.0.1, 10.0.0.2, 10.0.0.3 and 10.0.0.2555
   What is minimum and Maximum possible CIDR block for an Subnet
   ???????????/
   
