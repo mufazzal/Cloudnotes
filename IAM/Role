@@ -27,34 +27,55 @@ Now the role document tells you two main thing
   
   The second one is decided bt typical IAM policy statement.
   
-  To create Role by Cloudformation:-
-        Resources:
-          EC2WebServerIAMRole:
-            Type: 'AWS::IAM::Role'
-            Properties:
-              AssumeRolePolicyDocument:
-                Version: 2012-10-17
-                Statement:
-                  - Effect: Allow
-                    Principal:
-                      Service:
-                      - ec2.amazonaws.com
-                    Action:
-                      - 'sts:AssumeRole'
-              Path: /
-              Policies:
-                - PolicyName: EC2WebServerIAMRolePolicy
-                  PolicyDocument:
-                    Version: 2012-10-17
-                    Statement:
-                      - Effect: Allow
-                        Action: '*'
-                        Resource: '*'  
-                        
-                        
+   Better and easier way to wrte Role CFL with yaml and json combined:-
+   
+                                          ASGHookLambdaIAMRole:
+                                            Type: 'AWS::IAM::Role'
+                                            Properties:
+                                              Path: /
+                                              AssumeRolePolicyDocument: !Sub |
+                                                {
+                                                  "Version": "2012-10-17",
+                                                  "Statement": [{
+                                                      "Effect": "Allow",
+                                                      "Principal": {
+                                                        "Service": "lambda.amazonaws.com"
+                                                      },
+                                                      "Action": "sts:AssumeRole"
+                                                    }]
+                                                }            
+                                              Policies:
+                                                - PolicyName: EC2WebServerIAMRolePolicy
+                                                  PolicyDocument: !Sub |
+                                                      {
+                                                        "Version": "2012-10-17"
+                                                        "Statement": [{
+                                                                "Action": [
+                                                                    "logs:CreateLogGroup",
+                                                                    "logs:CreateLogStream",
+                                                                    "logs:PutLogEvents"
+                                                                ],
+                                                                "Effect": "Allow",
+                                                                "Resource": "arn:aws:logs:*:*:*"
+                                                            },{
+                                                                "Action": [
+                                                                    "ec2:CreateNetworkInterface",
+                                                                    "ec2:DescribeNetworkInterfaces",
+                                                                    "ec2:DetachNetworkInterface",
+                                                                    "ec2:DeleteNetworkInterface",
+                                                                    "ec2:AttachNetworkInterface",
+                                                                    "ec2:DescribeInstances",
+                                                                    "autoscaling:CompleteLifecycleAction"
+                                                                ],
+                                                                "Effect": "Allow",
+                                                                "Resource": "*"
+                                                            }],
+                                                      }          
+   
+------------------
+
   InstanceProfile:-
     This is a very special case. When a role is created for EC2 then with the role there is instance profile is also created.
     AWS CLI and CFR use the instance profile ARN(not Role ARN) for assigning the role to EC2.
 
 
-   
