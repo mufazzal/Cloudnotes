@@ -12,3 +12,49 @@ Role:-
 Now the role document tells you two main thing
   1. Who can assume that role. ie which AWS services like S3, CFT, EC2 can asume that role.
   2. What resources and action the candidate aws service can access.
+  
+  The first one is decied by Trust-Policy, every Role has the trust policy document whose formate is like below:-
+    {
+      "Statement": [{
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "ec2.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }]
+    }  
+  By this we state that this role can be assumed by EC2s.
+  
+  The second one is decided bt typical IAM policy statement.
+  
+  To create Role by Cloudformation:-
+        Resources:
+          EC2WebServerIAMRole:
+            Type: 'AWS::IAM::Role'
+            Properties:
+              AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                  - Effect: Allow
+                    Principal:
+                      Service:
+                      - ec2.amazonaws.com
+                    Action:
+                      - 'sts:AssumeRole'
+              Path: /
+              Policies:
+                - PolicyName: EC2WebServerIAMRolePolicy
+                  PolicyDocument:
+                    Version: 2012-10-17
+                    Statement:
+                      - Effect: Allow
+                        Action: '*'
+                        Resource: '*'  
+                        
+                        
+  InstanceProfile:-
+    This is a very special case. When a role is created for EC2 then with the role there is instance profile is also created.
+    AWS CLI and CFR use the instance profile ARN(not Role ARN) for assigning the role to EC2.
+
+
+   
