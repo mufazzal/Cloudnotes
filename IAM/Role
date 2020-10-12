@@ -1,14 +1,14 @@
-
-
-
-Service Role:-
+Role:-
   Many AWS service can perform certain operation on other service like an 
     EC2 can put/post an image in S3, 
     the codedeploy can attach/dettach/terminate the instances,
     Lambda function can write logs in cloudwatch
     etc.
     
-    If one servoce need to perform certain operation on other service then the called servoce must have permission to perform that operation on Calle service.
-    This permission is given by the Service-Roles.
-    The service role is inherently design for the specific services so that it can do operation on certain other services
+    If one service need to perform certain operation on other service then the called service must have permission to perform that operation on Calle service.
+    This permission is given by the Roles.
+    The Role is inherently design for the specific services so that it can do operation on certain other services
     
+Now the role document tells you two main thing
+  1. Who can assume that role. ie which AWS services like S3, CFT, EC2 can asume that role.
+  2. What resources and action the candidate aws service can access.
