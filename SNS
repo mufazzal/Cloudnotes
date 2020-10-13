@@ -51,3 +51,20 @@ SNS and redrive policy : Dead Letter Que
   
   
   
+  Subscribe LAmbda function to a SNS Topic:-
+    If you susbscribe a Lambda function to any SNS topic then you also mist set the proper Resource Policy of that Lambda so that SNS service can invoke the target Lambda function.
+    So if you wants to subscribe the lambda 'myLambda' with SNS topic 'myTopic' the Lambda must have Resource Policy like:-
+        {
+          "Version": "2012-10-17",
+          "Id": "default",
+          "Statement": [{
+              "Sid": "Allow SNS to invoke this Lambda",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "sns.amazonaws.com"
+              },
+              "Action": "lambda:InvokeFunction"
+            }]
+        }      
+  
+  
