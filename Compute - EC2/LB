@@ -131,8 +131,14 @@ generally its in this form
   if you have user the port 80 then you do not have to give the port because HTTP has it default but if you setuo at t port 30000 then use
         mynodelb-585968286.us-east-1.elb.amazonaws.com:3000
   
-  
-  
+_-----------------
+
+LB and ENI: just like an ec2 the networking unit of LB is ENI.
+The SG of LB is also attached to that ENI.
+the LB always need at least two subnet each in diffrent AZ.
+and ENI lies in a sinlgle subnet so LB will always have at least two ENI attached.
+if LB can span to n number of AZ then it must at least have n number of ENI.
+also each ENI will have an public ip attached to it.
   
 LB Health Check ???????????/
  
