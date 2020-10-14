@@ -138,6 +138,7 @@ ENI and EC2 limits:-
 																		 non SSH
   
     In above syatem you can have two public IP and theorotically any number of private IP with a single EC2. 
+
   
   
 EC2 - ENI and VPC:-
@@ -146,9 +147,10 @@ EC2 - ENI and VPC:-
 	But the EC2 Computing unit not actully lies in VPC. It lies outside the VPC.
 	But the defaultly attched iremovable ENI make it apear to live whole EC@ in subnet.
 	
-	Now amazingly you can attach multiple ENI with the EC@ conmputing unit.
-	Evenits also possible that two ENI livingf in two diffrent subnet can point to a same EC2 computing unit.
-	Therby a sible EC2 can live in two diffrent subnet.
+	Now amazingly you can attach multiple ENI with the EC2 conmputing unit.
+	Even its also possible that two ENI livingf in two diffrent subnet can point to a same EC2 computing unit.
+	Therby a sigle EC2 can live in two diffrent subnet.
+        though a single ec2 can have multiple eni in different subnet but those subnets must lie in same AZ of default ENI.
 	
 	
 	
