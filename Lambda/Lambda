@@ -306,6 +306,13 @@ lambda Edge :-
 
 ???????
 
+--------------------
+
+LAmbda and SetTimeout():-
+  You can not keep lambda running forever. 
+  Lambda functions life time is limited with 300 seconds, after 300 seconds, your function dies. 
+
+
 
 
 
