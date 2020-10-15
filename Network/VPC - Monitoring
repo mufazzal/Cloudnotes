@@ -79,3 +79,9 @@ VPC Flow Log:-
                 LogDestinationType: s3    
     The bucket must have a bucket policy with below alloed principle
        "Principal": { "Service": "delivery.logs.amazonaws.com" }
+
+  LogFormate: 
+    This string you can use to cutomize the strucure of log 
+    How?
+      google it
+
