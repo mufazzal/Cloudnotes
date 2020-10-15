@@ -1,0 +1,81 @@
+VPC Flow Log:-
+  The VPC flow log is mechanism to monitoer the incoming and outgoing PACKET traffic from/to diffrent nodes of VPC
+
+  Depending on renhgularity you wants you can choose the 'ResourceType' in flow log.
+    - VPC
+    - Subnet
+    - ENI
+  
+  The flow log is part of VPC (not cloudWatch)
+  The flow log generate the log stream that can be deliver to CloudWatch or to S3
+  
+  The log do not track the traffic at request level instead it track the traffic at Packet level which means that unlike typical log where we see entries like
+  **** | www.jjj.com |  {..request..} | {..response..} | 200
+  we see it like this
+  *** | sourceIP | dest IP | srcePort | destPort | packet size | ACCEPT/REJECT |  
+  
+  For a single request on any VPC node there could be multiple entry if request is large and coming in small packets
+  Also there wil be saperate(mutiple possible) entries for response transmission.
+  So for a tiny small request there will be at least two entry, one for in and one fro out.
+  
+  EG:-
+    A point 8.8.8.8:89 connect via TCP to 10.9.8.9:22 then u will see at below two entry in flow log
+    
+    2 |  8.8.8.8 | 10.9.8.9 | 89 | 22 | 6 | <no of packets> | ACCEPT
+    2 | 10.9.8.9 |  8.8.8.8 | 22 | 89 | 6 | <no of packets> | ACCEPT
+    -> The first entry is for request coming in and other is for response going out.
+
+  With the flow log you can analyze the the packet level traffic. you cannot see what inside the packet. 
+  so you cannot analyze the typical requetselement like header, body, methode, statuscode etc.. but you can analyze communication nodes.
+
+  You can also set if you wants log of ACCEPT or REJECT or ALL traffic via 'TrafficType' 
+  
+
+  The below CFL will create a Flow Log and deliver the Log to CloudWatch Log Group:-
+      MyFlowLog:
+        Type: AWS::EC2::FlowLog
+        Properties: 
+          DeliverLogsPermissionArn: <LogDeliveryRoleArn>
+          LogDestinationType: "cloud-watch-logs"
+          LogGroupName: "MyLogGroup"
+          ResourceId: <id of vpc or subnet or ENI>
+          ResourceType: "VPC or Subnet or ENI"
+          TrafficType: "ACCEPT or REJECT or ALL"      
+          LogFormate: '<formate string>'
+
+  DeliverLogsPermissionArn:-
+    This is the IAM role that you have create. This IAM role will be assumed by the Flow-log service.
+    and this role will permitte hime to create amnd write the log group and log in cloudwatch.
+    this look like beloe:-
+          LogDeliveryRole:
+                ...
+                AssumeRolePolicyDocument: !Sub |
+                  {...
+                    "Statement": [{ 
+                        "Effect": "Allow",
+                        "Principal": { "Service": "vpc-flow-logs.amazonaws.com" },
+                        "Action": "sts:AssumeRole"
+                     }]
+                  }           
+                  .....
+                    PolicyDocument: !Sub |
+                      {...
+                        "Statement": [{
+                            "Action": [ "logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents", "logs:DescribeLogGroups", "logs:DescribeLogStreams" ],
+                            "Effect": "Allow",
+                            "Resource": "*"
+                         }]
+                      }           
+    
+    
+    If you wants to deliver the log to S3 bucket then:
+          MainVPCFlowLog:
+              Type: AWS::EC2::FlowLog
+              Properties: 
+                ResourceId: !Ref VPCID
+                ResourceType: VPC
+                TrafficType: ACCEPT
+                LogDestination: !GetAtt S3BucketMainVPCLog.Arn
+                LogDestinationType: s3    
+    The bucket must have a bucket policy with below alloed principle
+       "Principal": { "Service": "delivery.logs.amazonaws.com" }
