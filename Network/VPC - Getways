@@ -82,7 +82,7 @@ NAT Getway:-
  
  NAT Instances:-
   This is the predecessor in NAT Getway. The NAT instance is simply an EC2 instance with publc IPv4.
-  This work 100% same as NAT Getway except it cannot scale.
+  This work 100% same as NAT Getway except it cannot scale and developer has to take care of instance management.
   
   
   
