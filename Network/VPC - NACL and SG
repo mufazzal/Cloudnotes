@@ -22,3 +22,16 @@ NACL (Network Access Control List):-
     Rule - Protocol  - Port Range  - Source  - Allow / Deny
     100     HTTP         80           0.0.0.0/0       Allow 
     100     HTTPS        443          0.0.0.0/0       Allow 
+
+
+NACL VS SG:-
+  The SG us statful and NACL is stateless.
+  This means that NACL work at packet level and SG work at Request level.
+  
+ if a SG has allwoed the request from point A to Point B then the response flow from B to A will automatically granted access.
+ But if NACL allwoed the request from point A to Point B then the response flow from B to A can be denied.
+ 
+ The inbound/outbound rule of SG state that who can initiate the request 
+  - if he can then the reverse response will be permitted automatically
+ The inbound/outbound rule of NACL state that in which direction the packed can flow
+  - if he can flow in one direction then still the reverse response can be allowed or denied
