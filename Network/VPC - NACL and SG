@@ -6,11 +6,10 @@ NACL (Network Access Control List):-
   The NACL is very much like a SG of a Subnet.
   The NACL control what kind of traffic on which port is allowed or denied.
   One Subnet can be attached to only one NACL but one NACL can be assosiated with many subnet.
+  The NACL is wrapped aroud the Subnet so that this. NACL now control what type of Traffice can move in and out of that SUBNET.
   
   If EC2 lies in any subnet then traffic first has to pass out from NACL test and then SG of EC2 will be tested. if both pass then traffice pass through.
   Any trafiic prohibited by NACL will not reach to SG and further network comp at all.
-  
-  For each VPC created there is a default NACL which allow all the traffic on al the port for all the type. you can create new NACL and attach then to subnets.
   
   Just like EC2 in NACL we also set in and out bound rule
   Below param you need to crete the inbound rule  
@@ -23,6 +22,29 @@ NACL (Network Access Control List):-
     100     HTTP         80           0.0.0.0/0       Allow 
     100     HTTPS        443          0.0.0.0/0       Allow 
 
+  How Rule evaluated:-
+    The rule with lower number will evaluate first and keep going till
+      - the matching rule come
+      - or denied
+
+  When you craete A VPC it will also create a Default NACL created.
+    This NACL simply has one entery
+      100   -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   ALLOW
+    This NACL has all traffic of all type (from internet or inside VPC) open for in and outbound
+
+
+one subnet can only connect with one NACL
+but one NACL can be connected to multiple subnet
+So its relation is like below
+                                Subnet 1      
+        NACL 1---------------   Subnet 2
+                                Subnet 3  
+
+But not like
+    
+        NACL 1------------
+        NACL 2------------  Subnet 1
+        NACL 3------------
 
 NACL VS SG:-
   The SG us statful and NACL is stateless.
