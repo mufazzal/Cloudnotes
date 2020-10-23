@@ -198,7 +198,10 @@ User Data:
 	Changing User Data after creation of instance:-
 		You can changeit but first you have to stop the instance and then simpllty cahnge it via colsole or CLI.
 		You cannot change the user data of running instance.
-
+	
+	Remeber two imp thing when writing user data script
+	1. It run as root user not as ec2-user. so you have max privilages and no need to do 'sudo su'
+	2. the directory it run is 'root/' not in 'home/ec2-user/'
 ------------		
 	installing Node-js on EC2 -
 		https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
