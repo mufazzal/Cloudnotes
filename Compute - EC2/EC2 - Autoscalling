@@ -109,8 +109,27 @@ ASG Lifecycle Hook:-
   - continue to process in service sate if DefaultResult = CONTINUE
   - discard the EC2 instance if DefaultResult = ABANDON
 
+------------------------
 
-
+Scalling Policy:-
+  This define on what condition the instances will be launched or taken down.
+  There is below policy to do it.
+  
+  Manual
+    - You set the desired capacityby yourself whnever you need to increase or decrease the capacity.
+  By Policy
+    There is 3 kind od policy
+    1. Target Tracking
+    2. Simple Scalling
+    3. Step Scalling
+    
+    
+    
+  
+  
+  
+  
+  
 
     
     
