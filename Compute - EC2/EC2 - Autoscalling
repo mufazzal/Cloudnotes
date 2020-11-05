@@ -120,8 +120,11 @@ Scalling Policy:-
   By Policy
     There is 3 kind od policy
     1. Target Tracking
+      - You set a target say 70% CPU usage and ASG take care of adding/removing instances to acive this target.
     2. Simple Scalling
+      - You set a usage value, above wich n number of instance will be launched  
     3. Step Scalling
+      - You set the spans os uasges and set how many instance will be launched or taken down if usage in respective range.
     
     
     
