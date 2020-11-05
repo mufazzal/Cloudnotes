@@ -121,10 +121,16 @@ Scalling Policy:-
     There is 3 kind od policy
     1. Target Tracking
       - You set a target say 70% CPU usage and ASG take care of adding/removing instances to acive this target.
+      There are 4 preconfigured matrics which you can use for this
+          ASGAverageCPUUtilization, ASGAverageNetworkIn, ASGAverageNetworkOut, ALBRequestCountPerTarget
+      you can use those to gauge the number of EC2 in group wrt targer value.
+      For this you do not need to set any cloudwatch metrics bu you own.      
     2. Simple Scalling
-      - You set a usage value, above wich n number of instance will be launched  
+      - You set a usage value, above wich n number of instance will be launched.
+        the value of 'n' you have to gave. also you need to set the cloudwatch metrics that will be use for this 
     3. Step Scalling
-      - You set the spans os uasges and set how many instance will be launched or taken down if usage in respective range.
+      - You set the spans of uasges and set how many instance will be launched or taken down if usage is in respective range.
+        also you need to set the cloudwatch metrics that will be use for this. 
     
     
     
