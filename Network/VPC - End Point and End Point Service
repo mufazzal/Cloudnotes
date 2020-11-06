@@ -44,7 +44,14 @@ Why we need EPS:-
       
       Now AWs will send a request to Mufazzal saying, Het Alex wants to use ur service.
       once mufazzal accept. its status comes available for Alex.
-            
+      
+      In the end you will get the 'DNS names' of EP and its formate is
+      'vpce-03669075e10b5dfa6-scr493ip.vpce-svc-03edf0bb1f6f09c9d.us-east-1.vpce.amazonaws.com'
+      
+      now if Alex do the 
+      curl vpce-03669075e10b5dfa6-scr493ip.vpce-svc-03edf0bb1f6f09c9d.us-east-1.vpce.amazonaws.com:80, he will reach to NLB of Mufazzal's EPS.
+      The url will not lead the alex to internet, instaed to mufazzal's EPS directly via aws backbon network.
+      
       VVIMP: Though in creation of endpoint you select/unselect AZs, but it has no impact on which subnet/Az can use this EP and which cannot.
       This is only for higher availability purpose.
       VVIMP: does the choosed subnet need to have internet access (IGW attached) ?
@@ -75,6 +82,20 @@ Why we need EPS:-
     
     *** Condition apply
     
+    So to use any of the AWS backed service you do not need the internet of internet getway.
+    you can simply create the endpoint for those service (just like alex did above) and use that endpoint for those services.
+    
+    Advantage:-
+      if you are using AWs apis or AWS sdk in the EC2s of you system. then Amazons provided EPS will give you better and fast speed and you do not even have to 
+      attach the internet getway for this.
+      you can access any aws provided EPS service without internet.
+    
+    
+   Special case of S3 and Dynamo DB:-
+    
+      
+      
+      
       
       
       
