@@ -1,0 +1,88 @@
+Why we need EPS:-
+  Suppose mufazzal make a application that do certain task. now he wants other to use it.
+  How?
+  - He can simply setup a typical model of Load balancer and expose the system to Internet.
+    What is drawbach here
+      1. The Application is expose to internet so any body can use it and so Mufazzal cannot encash it (assume no user registration/login there)
+      2. The biggest drawback: The consumer of this service must must allow their own system to connect to internet to consume Mufazzal's Service.
+    Say a bank need this service but the bank say red bold NO to conecting their system to internet.
+    So what mufazzal will do if he has created a Application but he wants to share it without internet?
+    
+    Here comes the 'End Point Service' :-
+      In simple word the EPS is the wrapper around the Network Load Balancer.
+      So first you hae to create a NLB, This NLB can be spread across multiple AZs (and subnet) 
+      This NLB will have its own Target Group, ASG etc.
+      
+      Once NLB is ready you can use this NLB to create the EPS.
+      To create EPS go to VPC > Endpont Service > Create
+      - Select NLB [this will by default select the AZ and Subnet as the selected NLB has them attached]
+      - Auto Acceptence: check if you wants to allow anyone to use your service, without your manual allowing process.
+      Done.
+      
+      The EPS simply expose the NLB to the consumer whos is allowed to use the service (not to full internet).
+      This EPS service will available only in those AZs which are coming with NLB (not in other AZ). 
+      So consumer has to make sure he has to be in at least one of that AZ if he wants to consume.
+      
+      After that you will get the DNS name for that Service. This look like below
+      'com.amazonaws.vpce.us-east-1.vpce-svc-03edf0bb1f6f09c9d'
+
+      Now any one in this universe can use this DNS name to consume ur service.
+      Suppose alex in USA wants to use this service
+      Q. What Alex need to do?
+      A. Alex need to creat the Endpoint and request Mufazzal to allow him to use the Service.
+      
+      Now How Alex will create the Endpoint?
+      Alex will login to his AWS account and Go to VPC > End point
+      1. Alex will Enter the DNS name of Mufazzal's service and search.
+      2. Alex will Select VPC in which he wants consumption
+      3. After Alex selected the VPC he will see the supported AZs
+         This suppored AZs are super set of 'AZ of NLB of Mufazzal`s Service' and 'AZ of Alex`s VPC'
+        3.1 In those supported AZ, Alex can select/unselect the AZ in which he wants to create the End point.
+            for higher availability Alaex shoud select more then one AZ. [VVIMP: This does not effect access of endpoint in any unselected subnet/AZ]
+      4. Alex will now choose the SG for this EP. 
+      Done.
+      
+      Now AWs will send a request to Mufazzal saying, Het Alex wants to use ur service.
+      once mufazzal accept. its status comes available for Alex.
+            
+      VVIMP: Though in creation of endpoint you select/unselect AZs, but it has no impact on which subnet/Az can use this EP and which cannot.
+      This is only for higher availability purpose.
+      VVIMP: does the choosed subnet need to have internet access (IGW attached) ?
+      NO! becoz the traffic never leave the AWS ecosystem. this generate in VPC of alex and reach to Mufazzal's NLB via AWS backbon network.
+      it never touches the iternet. So no IGW needed for Alex and mufazzal both.
+      VVIMP: EP is created at VPC level (not at subnet level) so it can be use in any EC2 lying in any subnet of that VPC.
+      
+      Also its way too fast the typical internet.
+      
+      EP and background:-
+        Actully when you create the EP, it will create the ENI in each subnet selected in step 3.1
+        This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give getway to reach the Mufazzal's service.
+       
+ 
+ So via this set up Alex' VPC and Mufazzal's service can communicate without internet via AWS backbone.
+---------------------
+   Now surprise!
+   Every AWS provided service is also have a affliated End point service.
+   EG:
+    SQS has the EPS 'com.amazonaws.us-east-1.sqs'
+    SNS has the EPS 'com.amazonaws.us-east-1.sns'
+    EC2 has the EPS 'com.amazonaws.us-east-1.ec2'
+    RDS has the EPS 'com.amazonaws.us-east-1.RDS'
+    ...
+    ...
+    S3  has the EPS 'com.amazonaws.us-east-1.S3'            ***
+    dynamodb has the EPS 'com.amazonaws.us-east-1.dynamodb' ***
+    
+    *** Condition apply
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
