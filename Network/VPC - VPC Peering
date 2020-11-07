@@ -1,0 +1,10 @@
+
+
+
+VPC Peering VS Endpoint Service:-
+  - VPC peering connect two VPC and allow communication from both direction
+    EPS is connection between PRovider and Consumer. consumer can consume the exposed sevice of Provider. not vice versa.
+  - Any service in both VPC will be exposed to each other by peering
+    Only exposed service of provider will be accessible to consumer
+  - If you wants to peer two VPC, they must not have overlapping CIDR block.
+    CIDR overlapping doesn't matter  
