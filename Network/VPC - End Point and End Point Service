@@ -52,19 +52,21 @@ Why we need EPS:-
       curl vpce-03669075e10b5dfa6-scr493ip.vpce-svc-03edf0bb1f6f09c9d.us-east-1.vpce.amazonaws.com:80, he will reach to NLB of Mufazzal's EPS.
       The url will not lead the alex to internet, instaed to mufazzal's EPS directly via aws backbon network.
       
-      VVIMP: Though in creation of endpoint you select/unselect AZs, but it has no impact on which subnet/Az can use this EP and which cannot.
-      This is only for higher availability purpose.
-      VVIMP: does the choosed subnet need to have internet access (IGW attached) ?
-      NO! becoz the traffic never leave the AWS ecosystem. this generate in VPC of alex and reach to Mufazzal's NLB via AWS backbon network.
-      it never touches the iternet. So no IGW needed for Alex and mufazzal both.
-      VVIMP: EP is created at VPC level (not at subnet level) so it can be use in any EC2 lying in any subnet of that VPC.
-      
+      Notes: 
+        Though in creation of endpoint you select/unselect AZs, but it has no impact on which subnet/Az can use this EP and which cannot.
+        - This is only for higher availability purpose.
+        - Q: does the choosed subnet need to have internet access (IGW attached) ?
+          NO! becoz the traffic never leave the AWS ecosystem. this generate in VPC of alex and reach to Mufazzal's NLB via AWS backbon network.
+            it never touches the iternet. So no IGW needed for Alex and mufazzal both.
+        - EP is created at VPC level (not at subnet level) so it can be use in any EC2 lying in any subnet of that VPC.
+        - The EP and EPS both must lies in same region so provider and client must e in same region
+        
       Also its way too fast the typical internet.
       
       EP and background:-
         Actully when you create the EP, it will create the ENI in each subnet selected in step 3.1
         This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give getway to reach the Mufazzal's service.
-       
+             
  
  So via this set up Alex' VPC and Mufazzal's service can communicate without internet via AWS backbone.
 ---------------------
