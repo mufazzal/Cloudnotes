@@ -60,8 +60,8 @@ Why we need EPS:-
             it never touches the iternet. So no IGW needed for Alex and mufazzal both.
         - EP is created at VPC level (not at subnet level) so it can be use in any EC2 lying in any subnet of that VPC.
         - The EP and EPS both must lies in same region so provider and client must e in same region
-        
-      Also its way too fast the typical internet.
+        - This mechanics of connection between EP and EPS is called 'AWS Private Link'
+        - Also its way too fast the typical internet.
       
       EP and background:-
         Actully when you create the EP, it will create the ENI in each subnet selected in step 3.1
@@ -98,9 +98,8 @@ Why we need EPS:-
     
     
    Special case of S3 and Dynamo DB:-
-    This two service has sligh diffrent mechnism for EP. 
-    rest of all services are type of 'Interface Endpoint'
-    this two is type of 'Getway Endpoint'
+    This two service has sligh diffrent mechnism for EP. They do not use mechanism of 'AWS Private Link' instead they use Getway 
+    rest of all services are type of 'Interface Endpoint' this two is type of 'Getway Endpoint'
     Getway Endpoint is scoped at Rout Table level instead of VPC level. So the EP of S3 and DD will available only on those subnet which has RT with one special route for S3 and DD   
     
     Creating Endpoint for S3 and DyanamoDb:-
