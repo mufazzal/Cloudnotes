@@ -59,7 +59,7 @@ Why we need EPS:-
           NO! becoz the traffic never leave the AWS ecosystem. this generate in VPC of alex and reach to Mufazzal's NLB via AWS backbon network.
             it never touches the iternet. So no IGW needed for Alex and mufazzal both.
         - EP is created at VPC level (not at subnet level) so it can be use in any EC2 lying in any subnet of that VPC.
-        - The EP and EPS both must lies in same region so provider and client must e in same region
+        - The EP and EPS both must lies in same region so provider and client must e in same region and at least one AZ of both must overlap.
         - This mechanics of connection between EP and EPS is called 'AWS Private Link'
         - Also its way too fast the typical internet.
       
