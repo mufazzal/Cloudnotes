@@ -89,11 +89,27 @@ Why we need EPS:-
       if you are using AWs apis or AWS sdk in the EC2s of you system. then Amazons provided EPS will give you better and fast speed and you do not even have to 
       attach the internet getway for this.
       you can access any aws provided EPS service without internet.
+      EG:-
+        you can do  sns.Publish() or ec2.createInstance() 
+        or curl GET sns.sws.com/ques 
+        or > aws ec2 describe-instances   etc without internet or NAT getway.
     
     
    Special case of S3 and Dynamo DB:-
+    This two service has sligh diffrent mechnism for EP. 
+    rest of all services are type of 'Interface Endpoint'
+    this two is type of 'Getway Endpoint'
+    Getway Endpoint is scoped at Rout Table level instead of VPC level. So the EP of S3 and DD will available only on those subnet which has RT with one special route for S3 and DD   
     
+    Creating Endpoint for S3 and DyanamoDb:-
+      All thing same but in step 3, you will not see the list of AZs instead you will see the list of all RT in selected VPC.
+      Now you can choose in which RTs you wants this EP to be available. selected RT will provide access of S3 and DD's EP service to attached subnet.
+      once selected the aws sytem will add below(either for s3 or DD) routes in thosse Route Table
+        pl-<some random>	vpce-<id of getway>
       
+      How to use this service:-
+        usage is 100% same as the one above. the only diifrence is that you can use it only in the subnet that has proper RT attached to it.
+        
       
       
       
