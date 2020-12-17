@@ -172,7 +172,7 @@ ACL:-
 		At bucket level access grantee can be granted to add/edit/delete the object in the bucket but not to read or download the object itself.
 		For this he need the ACL permission at object level.
 
-		In context of bucket the ACL grant access to below operation to Principls
+		In context of Object the ACL grant access to below operation to Principls
 		READ: Will provide access to downloading/reading the object. So access to Action 's3:GetObjct'
 		WRITE: Not applicable at object level. as write permission is granted via ACL of bucket
 		READ_ACL: Will provide access to reading the ACL of Object. So access to Action 's3:GetObjectAcl
