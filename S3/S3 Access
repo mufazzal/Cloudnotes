@@ -216,7 +216,7 @@ ACL:-
 	
 Bucket ACL VS Object ACL:-
 	When you wants to get the list of object in bucket or add/edit/delete the object in bucket then Bucket-ACL is used to give access.
-	When you wants to read/download the object then Bucket-ACL is used to give access.
+	When you wants to read/download the object then Object-ACL is used to give access.
 	After any request only one of then will be ued so they never come acrossin each other path.
 	Once finish up with one of them the request go to BP to determine if BP also allowing the operation or not. 
 
@@ -414,10 +414,10 @@ Sce-3:-
 			EG:-
 				Below statement will give error while saving, because 'ListBucket' is a bucket level opearion and its not applied to objects of that bucket. 
 				 and 'arn:aws:s3:::muf-aws-tuto-acl-public-rw/*' is all objects of bucket not bucket.
-			      "Action": "s3:ListBucket",
+	    "Action": "s3:ListBucket",
             "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw/*",
 				Below statement will work because 'ListBucket' is a bucket level opearion.
-			      "Action": "s3:ListBucket",
+	    "Action": "s3:ListBucket",
             "Resource": "arn:aws:s3:::muf-aws-tuto-acl-public-rw",
 				Below statement will also work because 'ListBucket' is a bucket level opearion and 'arn:aws:s3:::muf-aws-tuto-acl-public-rw' is bucket.
             "Action": "s3:ListBucket",
