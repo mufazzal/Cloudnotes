@@ -99,7 +99,7 @@ S3 Monitoring:-
                 AccessControl: LogDeliveryWrite    
                    
     
-  By Cloudtrail + Cloudwatch:-
+  By Cloudtrail + Cloudwatch/S3:-
     This is the deepest level of logging that can give you the Request and response of the APIs that are being called in/out of S3.
     here you can do the object level logging(optional and costly) for the bucket.
     you can store this logs in an another S3 bucket or can create a LogGroup in cloudwatch and then can view this log in cloudwatch with filter funtioning.
