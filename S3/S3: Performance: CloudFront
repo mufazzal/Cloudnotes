@@ -190,8 +190,7 @@ Invalidate Cache on CFT:-
   
 
 
- CloudFront VS Transfer-Acceleration : Cloud front is for CDN, its main goal is to make downloading of file asap. But TA is used for
-                                        making upload asap.
+ CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
  
  
        
