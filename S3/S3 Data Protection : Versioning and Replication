@@ -137,6 +137,10 @@ GET/PUT/DELETE on versioned object:-
 	To this simply pass the param 'VersionId' in each of that request.
 
 
+Object Versions and their ACLs:-
+	Each version of the object have its own ACL, It may be posible that muf@v1 if publically accessible but muf@v2 is not.
+	Making latest version public/private will not impact the other versions. you have to change their accesibility by yourself 
+
 ---------------------------------------------------------------------------------------------------
 
 Replication:-
