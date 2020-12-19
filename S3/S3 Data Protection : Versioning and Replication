@@ -183,9 +183,9 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 Object Lock:-
 	This feature enable user to put a lock on the object(not bucket). If its been locked then other user will not be allowed to do certain operations on that object 
 	There is 3 type of lock
-	1. : if enable then no one will be delete this object for specified time.
-	2. Complience: if enable then no one will be delete this object forever
-	3. Legal Hold: if enabled by user, then no one else will be able to delete it.
+	1. compliance: if enable then no one will be delete/modify this object for specified time.
+	2. governance: if enable then only some peoople with special permissions will be ae to delete/modify this object.
+	3. Legal Hold: if enabled by user, then no one else will be able to delete/modify it till legal hold removed
 	
 
 
