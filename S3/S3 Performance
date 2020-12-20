@@ -11,7 +11,7 @@ Range Based Get           Throughput / maximise bandwith usage      GET         
 Parallelise
 Secondery Indexes         Faster response by s3                     LIST                  ??????
 S3 Inventory              faster response by s3                     LIST                  ??????            
-            
+S3 Prefix                 Increase PUT/GET/DELET limits            
        
 Default performance of S3:-
   3500 PUT/POST/COPY/DELET per sec per prifix
@@ -103,6 +103,11 @@ S3 Select:
     }  
   
   
+  
+S3 Prefix:- Any string comes between the bucket name and Object key is Prefix.
+  EG: mufBucket/f1/f2/pic.jpg -> here /f1/f2/ is prefix.
+  S3 give you around 3500 PUT/POST/DELETE request per second per prefix and 5500 GET/HEAD request per second per prefix.
+  So if you have more prefix you can have more number of request per second limit for you.
   
   
       
