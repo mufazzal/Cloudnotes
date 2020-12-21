@@ -4,3 +4,9 @@ Data Synch:-
   You can also schedule to transfer it Houlrly, Daily, Weekly.
   This is very useful for migration from on premise to AWS.
   
+Snowball:-
+  This uis a large petabyte disk that can beused to move data to and from AWS and on premises.
+  This device is available from aws o nrequest.
+  AWS will send you this device physically to store your data and then you need to send them back with your loaded data.
+  then AWS push those data in the S3 bucket of your choice
+  
