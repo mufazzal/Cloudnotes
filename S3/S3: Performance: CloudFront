@@ -193,5 +193,9 @@ Invalidate Cache on CFT:-
  CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
  
  
+ PUT/POST on CDN: This operation are also supported in CDN. you need to simply do this operation with valid data.
+ 
+ 
+ CDN signed URL: ???????????????????????
        
      
