@@ -156,6 +156,10 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 	By default this is disabled but you can configure it. By this you can simply keep the copy of the data in one bucket to another one. 
 	Replication happen over bucket level. though you can filter object to be replicated by Tag or Prefix.
 	
+
+    Prerequisites for Replication:
+      both tge bucket soirce and destination must have versioing enabled.
+
 	Mechanism:-
 		If you wants to have Replication of bucket then you must first have
 		- Source bucket must be version enabled.
