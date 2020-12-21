@@ -16,7 +16,7 @@
     Durability for any bucket on any storage class
       - 99.999999999% (11 9s)
     Availibilty for Standard, IA, IA-one-zone, Glacier storage
-      - 99.99, 99.99, 99.95, NA
+      - 99.99, 99.90, 99.95, NA
     Min chanrgable size for IA, one-zone-IA, Glacier, depp archive
       - 128, 128, 40, 40 KB
     Min chanrgable day for IA, one-zone-IA, Glacier, depp archive
