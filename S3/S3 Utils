@@ -12,4 +12,17 @@ Snowball:-
   
 SnowMobil: this is 10000 * snowball
   a exteremly large snowball on truck.
+
+
+Athena:-
+  AWS athena is SQL type analytics tool. with athena you can ryn the SQL like query on S3.
+  With this you can analyze anything stored in side S3. like BLB logs, user data etc.
+  Thisis very useful for doind analytics on S3.
+  This is serverless and you need to pay for each runig qurey.
+  you do not have to setup any special mechanics for this.
   
+Athena VS S3 Slect:-
+  Athena work on stored items in S3, S3 select work on content stored inside file in S3. S3 select only work for file type CSV, ZIP, Json
+  
+Macie:-
+  This is AI tool buld over athena which help to find if there is any sensitive info like CC detail, password stored in any S3 file.
