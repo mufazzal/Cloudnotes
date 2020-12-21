@@ -1,1 +1,18 @@
+There is 3 diffrent way to give access of your Bucket/Object to diffrent AWS account.
+The approch you take depends on what level of access you wants to give to the user of other AWS account.
 
+Suppose there is a account Muf who own the bucket mufBkt, and another account Mur wants its access
+
+Those are
+  1. By ACL(in Muf) and IAM(in Mur):
+      This will gives you very basic PROGRAMATIC access. at best Mur can see the list of object in bucket and download/read the objects
+      Muf have to set the ACL of Bucket properly and Mur have to provide its respective IAM user proper IAM permission to do operation on S3.
+    
+ 2. By BP(in Muf) and IAM(in Mur):
+    This will gives advance PROGRAMATIC access. by this you can read/edit/delete/creatTag/deleteTag etc on the bucket and object.
+    Muf have to set the BP of Bucket properly and Mur have to provide its respective IAM user proper IAM permission to do operation on S3.
+    --> By default BP deny any operation by other AWS account. you have to explicitly allow it for forigen aws account.
+    
+ 3. Cross Account Access:
+    This will give you console access(unlike above two who give programatic access)
+    
