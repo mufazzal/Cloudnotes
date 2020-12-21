@@ -1,0 +1,6 @@
+Data Synch:-
+  IF you have a large amount of data in on premise and wants to transfer it to S3 then Data Synch can be used.
+  Just install in in ur premise and then you can start transfer of data.
+  You can also schedule to transfer it Houlrly, Daily, Weekly.
+  This is very useful for migration from on premise to AWS.
+  
