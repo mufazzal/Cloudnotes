@@ -13,8 +13,8 @@ Those are
     Muf have to set the BP of Bucket properly and Mur have to provide its respective IAM user proper IAM permission to do operation on S3.
     --> By default BP deny any operation by other AWS account. you have to explicitly allow it for forigen aws account.
     
- 3. Cross Account Access:
-    This will give you console access(unlike above two who give programatic access)
+ 3. Cross Account IAM Role:
+    This will give you console access and Programatic access both(unlike above two who give programatic access)
     For this Muf has to create a IAM Role for Other AWS Account which will have permission to do operation on S3 only.
     
     Now other aws account can assume this role and see theaccesible bucket and object in it.
