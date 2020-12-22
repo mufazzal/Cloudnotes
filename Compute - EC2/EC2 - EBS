@@ -62,6 +62,7 @@ Volume:-
 	
 	Changing Volume configuration:-
 		you can dynamically increase size, modify the provisioned IOPS capacity, and change volume type on live production volumes.
+		You do not even have to detach the volume ot stop the instance
 	
 	Attaching Volume:-
 		For attaching you will need below things-
