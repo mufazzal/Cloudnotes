@@ -6,11 +6,16 @@ Storage:-
   Pricing depend on storage class
   Standard cost higgest and glacier and deep archive cost least.
   The cost goes down as you incease the usage for every storage class.
+  Min chanrgable size for IA, one-zone-IA, Glacier, depp archive
+      - 128, 128, 40, 40 KB
+  Min chanrgable day for IA, one-zone-IA, Glacier, depp archive
+      - 30, 30, 90, 180
+
 
 Data upload:-
   its free for all
     
-Data retrivale:-
+Data retrival:-
   This depend op storage class and type of request
   Standard:-
     PUT, COPY, POST, LIST, GET, SELECT
@@ -35,3 +40,24 @@ Data retrivale:-
       - $0.05  
     Data Retrieval requests
       - Chargable based on size and number of request
+
+  Data Transfer:-
+    Below are free for data transfer
+      1. Transfering the any EC2 in same region
+      2. Transfering to CDN
+      3. any incoming data from internet
+    Data transfer OUT to internet
+      - 1 GB per month is free then chargable (charges decrease as size of usage increase)
+    Data transfer to other region (EG Replication)
+      - 0.02 per GB
+      - (additional charges if replication is time controled)
+    Transfer Acceleration:-
+      - Chargable (data IN and OUT both)
+  
+  MAnagement and Analytics:-
+    Below items are also chargable
+      - Inventory
+      - S3 Select
+      - Lense
+      - Batch Operation
+
