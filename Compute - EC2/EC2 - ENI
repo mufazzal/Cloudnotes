@@ -78,7 +78,7 @@ EN: Enhanced network:-
   This provide higher bandwidth, higher packet-per-second .
   
   This is of two type-
-    1. ENA: Enhanced Network Interface - provide up to 100 GBps
+    1. ENA: Enhanced Network Adapter - provide up to 100 GBps
     2. VF: Virtual function - provide up to 10 GBps
 
 -------------------
