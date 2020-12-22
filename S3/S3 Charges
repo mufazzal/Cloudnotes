@@ -1,0 +1,37 @@
+S3 charges the user on below items as per scenario
+
+Pricing is same across all region.
+
+Storage:-
+  Pricing depend on storage class
+  Standard cost higgest and glacier and deep archive cost least.
+  The cost goes down as you incease the usage for every storage class.
+
+Data upload:-
+  its free for all
+    
+Data retrivale:-
+  This depend op storage class and type of request
+  Standard:-
+    PUT, COPY, POST, LIST, GET, SELECT
+      - No Charges
+    Lifecycle Transition requests
+      - NA
+    Data Retrieval requests
+      - NA
+  IA and on zone IA:-
+    PUT, COPY, POST, LIST,
+      - $0.01	/ 1000 requets
+     GET, SELECT
+      - $0.001	/ 1000 requets
+    Lifecycle Transition requests
+      - $0.01
+    Data Retrieval requests
+      - NA
+  Glcier and deep archive:-
+    PUT, COPY, POST, LIST, GET, SELECT
+      - NA
+    Lifecycle Transition requests
+      - $0.05  
+    Data Retrieval requests
+      - Chargable based on size and number of request
