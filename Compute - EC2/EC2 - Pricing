@@ -16,6 +16,9 @@ Pricing-
         2. Convertible: You can change the EC2 instance type      
         2. Schedule
   Spot:
+      AWS most of the time have spare capacity inntheir data center and so after fulfilling all on demand request remaing hardware is available for spot.
+      this instances are available at spot price to highest bidder.
+      remember that if demand increase then aws can take back the allocated instance.
       This work like a biding in stock market, you bid for a any instacne with many others. 
       The best one get the deal, and if sombody again ready to pay more then you lose (after some agreed time) this instance.
       Best For:-
@@ -29,6 +32,10 @@ Pricing-
        3. type   on-time | persistent. if you wants to lanuch only at once or you wants repetative launch on favourable price.
        4. Launch config
        5. valid from - to
+    the spot instance can be taken back in brlow condotion
+      1. if demand of on-denmand instances are higher then aws can immediately terminatethe instance and take it back
+            in this case you do not hve to pay for partial hour
+      2. if ur bidded price is lesser then current spot price then your instance will be terminated after full hoir passed 
 	 
   Dedicated Host:
     Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
