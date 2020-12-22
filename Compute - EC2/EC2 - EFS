@@ -3,6 +3,7 @@ Say you have a use case:-
   Now all the EC2 must have access to those user created files.
   But files lies only in respective EC2's EBS-Volume.
   But you wants to share the files among the running EC2s.
+  Though you can change the size of EBS volume but its a manual process and depend on load it cant be automated for size change
   How you do it:-
     - Copying files in each of EBS is not very good idea
     - Multi attach EBS has many limitation
