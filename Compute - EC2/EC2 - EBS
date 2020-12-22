@@ -38,7 +38,11 @@ EBS:-
 		
 		Monitoring:-
 			Performance metrics, such as bandwidth, throughput, latency, and average queue length is free in cloudwatch.
-	
+	        On EC2 termination: 
+                        The root EBS device is by default deleted.
+                        BBut any other EBS device will not be deleted by default.
+
+
 Volume:-
 	The volume is actual Hard disk in the system. 
 	You can create volume either from snapshot or without it.
