@@ -28,6 +28,9 @@ EBS:-
 			 2.3 	 EBS Magnetic:
 			 					Legacy
 
+			IMP:-
+				SC1 and EBS Magnetic cannot be used as root device. 
+
 				#						GP2												IO1										ST1									SC1
 				IOPS				3 to 16000 IOPS						64000 IOPS						500 IOPS
 			Throughput		250 MiB/sec								1,000 MiB/sec					500  MiB/sec
@@ -83,9 +86,8 @@ Volume:-
 					For root device the resrved lovcation are generally
 					/dev/sda1 or /dev/xvda
 					But it could vary by AMI type.
-		
-		
-		- EBS volume can be attach or dettach only on the stopped instances.
+	
+			- EBS volume can be attach or dettach only on the stopped instances.
 		
 Instance Store:-
 	The alternative to EBS-Volume is to Instance Store.
