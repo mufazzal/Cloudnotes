@@ -128,7 +128,7 @@ EBS Snapshot:-
 		
 		EBS Snapshot and Region:-
 			You can create the napshot from the EBS-Volume, from EC2 itself or from another EBS-snapshot. 
-			The snapshot created from those S3 and avilable to the region of its creator device(EC2, Volume, EBS-snap).
+			The snapshot created from those will stored in S3 and avilable to the region of its creator device(EC2, Volume, EBS-snap).
 			Now you can create the volume from that newly created snapshot in any AZ of that region.
 			Though you cannot create the volume in another region from this snapshot.
 			How to do cross region EBS replicatiion:-
