@@ -53,6 +53,10 @@ NACL VS SG:-
  if a SG has allwoed the request from point A to Point B then the response flow from B to A will automatically granted access.
  But if NACL allwoed the request from point A to Point B then the response flow from B to A can be denied.
  
+ SG do not have any way to specifically deny any source or destination IP but NACL can do this.
+ 
+ By default all traffic is deny by SG, you have to go and allow it.
+ 
  The inbound/outbound rule of SG state that who can initiate the request 
   - if he can then the reverse response will be permitted automatically
  The inbound/outbound rule of NACL state that in which direction the packed can flow
