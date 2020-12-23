@@ -26,7 +26,11 @@ An AMI includes the following:
           What about Type: t2.micro etc. This do not come from AMI. you should select it as your requirment
 
           Say you have a EC2(Orignal) running which has some files and software installed.
-          What will be the start state of any EC2 created for AMI of the orignal EC2 
+          What will be the start state of any EC2 created for AMI of the orignal EC2
+	  
+    AMI and Region:-
+    	AMI are region specific, you can create EC2 out of AMI only in the region where AMI lies. Though you can copy AMI from one region to other region.
+	  
           
 Instance		  root files     EC2-user files		start-script		node	apache	web-server Running
 Orignal		          Yes		Yes	        	Yes	          	Yes	Yes	Yes						
