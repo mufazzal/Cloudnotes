@@ -25,6 +25,8 @@ EBS:-
 			 2.2   SC1 :  Cold HDD  
 							Lowest cost - less frequently accessed 
 							Best for file server.	
+			 2.3 	 EBS Magnetic:
+			 					Legacy
 
 				#						GP2												IO1										ST1									SC1
 				IOPS				3 to 16000 IOPS						64000 IOPS						500 IOPS
