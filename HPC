@@ -1,0 +1,23 @@
+HPC means High Performance Compute, When you need extereme of anything then we go for HPC.
+
+Data Transefer:-
+  Suppose you wants to transfer lot of data to AWS then yiu can ues
+  - Snowball, Snowmobil (to S3)
+  - AWS DataSynch (to S3, EFS)
+  - Direct Connect
+Compute
+  - GPU, CPU optimized EC2
+  - EC2 Fleet
+  - Placement Group
+Network
+  - Elastic Network Adapter
+  - Elastic Fabric Adapter
+Storage
+  Block Based
+    - EBS with Provisioned IOPs (~64000 IOPS)
+    - Instance Store (millions IOPS)
+    - EFS (Dynamic size)
+  Object Based:-
+    - S3
+  
+  
