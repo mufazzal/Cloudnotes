@@ -281,6 +281,28 @@ EC2 CURL for meta-data and user-data:-
 
 
 	
+----------------------
+
+
+Reserved Instances:-
+	When you reserved the instance you need to decide first
+	- Instance Type, t2, m4 etc
+	- Region, 
+	- Tenancy, Dedicated or shared
+	- Platform, window or linux
+	
+	Pricing are also region dependednt once reseved you cannot change Region.
+	
+	There is two type of reserved instances
+	1. Standared
+		- low cost
+		- Once purcahse you can modify it but cannot excahnge it
+	2. Covertible
+		- high cost
+		- Once purcahse you can modify and excahnge it
+	
+	
+	
 	
 	
 
