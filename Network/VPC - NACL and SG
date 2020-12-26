@@ -55,6 +55,8 @@ NACL VS SG:-
  
  SG do not have any way to specifically deny any source or destination IP but NACL can do this.
  
+ you can deny specific ip via NACL but its not possible with SG.
+
  By default all traffic is deny by SG, you have to go and allow it.
  
  The inbound/outbound rule of SG state that who can initiate the request 
