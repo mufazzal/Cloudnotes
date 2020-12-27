@@ -15,3 +15,6 @@ Concepts:-
   CIDR (Classless Inter Domain Routing )
   IPV4 vs IPV6
   reserved IP addresses
+
+Storage gateway
+ALB routing by header and ip
