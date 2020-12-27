@@ -18,8 +18,13 @@ Storage
     - EFS (Dynamic size)
   Object Based:-
     - S3
+
+
 Connection
   Storage gateway
   Direct Connect
 
   
+Global reach
+  cloudfronf
+  global accelerator
