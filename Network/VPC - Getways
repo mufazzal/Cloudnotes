@@ -86,7 +86,11 @@ NAT Getway:-
   
   
   
+ Bastion host
+  this is nothing but a ec2 instance sitting in public subnet and used to do ssh into the insurances in private subnet
+  from the internet you first need to ssh in the bastion host and then into the private instance.
   
-  
-  
-  
+
+ Bastion host vs NAT getway
+  NG used for accessing internet from private subnet instance
+  Bastion used for sshing from the internet to private subnet instances
