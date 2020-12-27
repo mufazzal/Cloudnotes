@@ -4,7 +4,6 @@ Data Transefer:-
   Suppose you wants to transfer lot of data to AWS then yiu can ues
   - Snowball, Snowmobil (to S3)
   - AWS DataSynch (to S3, EFS)
-  - Direct Connect
 Compute
   - GPU, CPU optimized EC2
   - EC2 Fleet
@@ -19,5 +18,8 @@ Storage
     - EFS (Dynamic size)
   Object Based:-
     - S3
-  
+Connection
+  Storage gateway
+  Direct Connect
+
   
