@@ -37,3 +37,12 @@ The storage Gateway can cutomize the S3 sevice to provide you storage of belw ty
   Tape Getway:-
     Tape Gateway offers a durable, cost-effective solution to archive your data in the AWS Cloud.
     This will archive the data in Glacier or Glacier Deep Archive
+    
+    
+    
+  Direct Connect VS STG VS DataSynch:-
+    Direct connect is a dadicated connection between ur premise and AWS. This will proved ultra low latancy between any on-premise system and AWS system.
+    STG is solution for hybrid solution where u keed compute on-premise and storage(for back up or back up + live both) at AWS
+    Data synch is used for data migration from on-premise to AES.
+  
+  
