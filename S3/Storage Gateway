@@ -1,0 +1,33 @@
+STG is very useful for building the hybrid cloud where you keep your compute capasity in on-premise and storage or back up at AWS.
+
+Storage gateway is the service build over the S3 to provide ready to use storage solution for your on-premise compute system.
+
+The storage Gateway can cutomize the S3 sevice to provide you storage of belw type
+  1. File Gateway
+  2. Volume Gateway
+    2.1 Stored Volme
+    2.2 Cached Volume
+  3. Tape Gateway
+  
+  To use the STG the first thing you need to do is to install the STG virtual machine in your on premise.
+  This machine should also contain the storage at on-premise (How much? it depends upon you requirment) 
+  
+  File Gateway:-
+    File gateway provide you the NFS kind of file storage which is backed up by S3. The storage gateway take care of all the implementation between 
+    NFS client and S3.
+    With this you can add/edit/delete any file with NFS client. this cahnges will be done on S3 actully. data is stored in S3 so you can have versioning, lifecycle, analytics from S3.
+    With this you do not have to have large storage at your premise.
+     Files written to a file share become objects in Amazon S3, with the path as the key. There is a one-to-one mapping between files and objects, and the gateway asynchronously updates the objects in Amazon S3 as you change the files
+    
+  Volume Gateway:-  
+    This give Block-Based storage to your on premise solution. Here data is stored in S3 in form of EBS snapshot. 
+    You can attach storage gateway as simple Hard disk in your computer,
+    you can use two stratagy here
+    2.1  Stored Volume [live data in premise and backup at S3] :-
+      Here you keep all the data set at your on premise(storage attach to STG virtual machine) but save the back up at S3 too. 
+      The storage gateway take care of taking the back up from time to time. The back up of datset at on-premise is taken in form of EBS snapshot.
+      This gives low latency for entire data set
+    2.2  Cached Volume [Cached data in premise and live + backup at S3] :-
+      Here you keep all the data set at S3 but keep the recently accessed file at on-premise(storage attach to STG virtual machine). 
+      The storage gateway take care of taking the back up from time to time. The back up of datset at on-premise is taken in form of EBS snapshot.
+      This gives low latency for recelntly accessed but high for non frequently accessed one. 
