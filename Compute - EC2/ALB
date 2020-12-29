@@ -36,4 +36,15 @@ Rule condition:-
  https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html
 
 
-  
+ When ALB redirect the traffic to other target like EC2 or url, the designated target will take the ALB as source
+ so the IP, port and protocol he receive is of ALB
+ Then how could the destination will know the Ip, port and protocol of orognal client
+ For this the ALB add three extra header in request
+    X-Forwarded-For
+    X-Forwarded-Proto
+    X-Forwarded-Port
+This three will have informarion about how the client connected to the ALB
+ 
+ 
+ 
+ 
