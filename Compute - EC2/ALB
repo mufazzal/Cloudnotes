@@ -1,0 +1,22 @@
+Application load balancer is way too useful and easy to use.
+
+ALB support only two protocol HTTP and HTTPS (not TCP)
+Supported Port: 1-65535
+
+The ALB can route the traffic to desired target after checking underline requets params.
+ALB work at Application layer so it has exposure to lot of request detail.
+ALB has set of rule and each rule has three part
+  - Prority 
+  - Condition
+  - Action
+ALB must have one default rule that will have least priority  
+
+Action:-
+  Once the condition is matched, ALB can perform below action
+  ALB can redirect the request to 
+    - fixed-response
+        The ALB will return the status code (2XX, 4XX, 5XX) with messageBody. 
+    - target
+        The ALB will redirect the traffic to EC2 target group
+    - redirect
+        Will redirect to another url
