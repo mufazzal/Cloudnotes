@@ -10,6 +10,7 @@ ALB has set of rule and each rule has three part
   - Condition
   - Action
 ALB must have one default rule that will have least priority  
+The rule with higher priority execute first and then the lesser one. 
 
 Action:-
   Once the condition is matched, ALB can perform below action
@@ -20,3 +21,19 @@ Action:-
         The ALB will redirect the traffic to EC2 target group
     - redirect
         Will redirect to another url
+        
+Rule condition:-
+  ALB can route the traffic based on one of below item in requets. You can use only one of then in each rule.
+    host-header
+    http-header
+    http-request-method
+    query-string
+    source-ip
+    
+ You can take the diffrent action based on the condition match with gived params.
+ 
+ see
+ https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html
+
+
+  
