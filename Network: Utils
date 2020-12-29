@@ -1,0 +1,5 @@
+Direct Connect:-
+  The direct connect gives you the physical fiber-optic connection from your premise to AWS.
+  You can byforget the internet completely to react to any AWS service via direct connect.
+  You ca reach to S3, DynamoDB, VPC etc via this.
+  This is highly costly but it reduce the latency between premise and AWS considerably.
