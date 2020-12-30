@@ -1,0 +1,55 @@
+VPC Peering [VPC-to-VPC]:-
+  with VPC peering you can conect two VPC, this VPC can be from diffrent account and region.
+  This allow to do the bidirectional connectivity.
+  To do this you have to first create the peering connection and then update rout table with proper CIDR of connction VPC.
+  This have some limitation
+    - both VPC should not have overlapping CIDR
+    - VPC peering is point-to-point connectivity, and it does not support transitive routing
+    - There is a maximum limit of 125 peering connections per VPC
+    - More the connection more the complexity will be
+  Charges:
+    VPC peering only incurs costs for traffic traveling over the connection (there is no hourly infrastructure fee). 
+
+  VPC Peering VS Endpoint Service:-
+    - VPC peering connect two VPC and allow communication from both direction
+      EPS is connection between PRovider and Consumer. consumer can consume the exposed sevice of Provider. not vice versa.
+    - Any service in both VPC will be exposed to each other by peering
+      Only exposed service of provider will be accessible to consumer
+    - If you wants to peer two VPC, they must not have overlapping CIDR block.
+      CIDR overlapping doesn't matter  
+  
+Transit VPC:-
+  The drawack of VPC-peering is to not to have the transic communication.
+  To solve this issue comes a Transit VPC concpt.
+  Here you have one central VPC (Hub) and other connected VPC (Spoke).
+  The Hub need to have one EC2 running all the time with proper routing software to perform transit.
+  This will bear the cost of running EC2.
+  
+VPN[VPC-to-site]:-
+  VPG is used for buinding a VPN netwprk between VPC and ur on-premise infra.
+  for creating VPN connction betwen VPC and site you need below item
+  At site:-
+    Customer gateway device: A physical device or software application on your side of the Site-to-Site VPN connection
+  At AWS
+    Virtual private gateway or Transit gateway
+  Setting them up is not in scope here.
+
+  
+VPN Clodhub:-
+  When you have single site-data-center the connecting it with VPC is easy 
+  but if you have multiple data center and wants transit communication with each other too the VPN cloudhib is very useful
+    
+  
+Transit Gateway:-
+  This help you build your network Topology. As you know VPC can hae many connection like
+    VPC peering with 100s of VPC
+    Direct Connect with many on-premise
+    VPN connection with many on-premise
+  The TG will help you to build this with ease
+      
+   
+Direct Connect:-
+  The direct connect give you a dadicated fiber connection between ur premise and nearest AWs Hub.
+  This is highly costly and you need to work with one of AWs network partner. 
+  This give you very low latency fpr connecting to AWS from ur premise. 
+  you can connect any AWS public service like S3, DynamoDB or your private network like VPC with direct connect.
