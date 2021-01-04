@@ -166,15 +166,21 @@ What happen over CFT When
       
 
 
- Q: Does bkt must have all BPAF as off for CloudFront to work: 
-    No, its value doesnt matter here.
-   
- Q: Doest bucket must be public ?
-    No, not neccesarily
+ Q: Impact of bucket Policy?
+    BP must not explicitly DENY the GETObject to public user. 
+    So below BP will dissallow the CDN to work on bucket
+    
+     "Effect": "Deny",
+      "Principal": "*",
+      "Action": [ "s3:GetObject" ],
+      "Resource": "arn:aws:s3:::mufa-test-cdft-bucket-2021/*"
+    also note that Empty BP will allow the CDN to work.
  
  Q: Does OBject also has to have a public access
-    No, not neccesarily
- 
+    No, doesnt matter here.
+    
+ Q: Does bkt must have all BPAF as off for CloudFront to work: 
+    Yes, it has to be off
 
 CFT url and Access:-
   Suppose a CFt is destribuction is created over a bucket that is protected by BP or IAL or ACL and user has to pass the Auth info with url.
@@ -188,6 +194,12 @@ Invalidate Cache on CFT:-
   synch it with ortigin. use invalidate option for this.
   
   
+CFN add below header in the response too
+  X-Amz-Cf-Id
+  X-Amz-Cf-Pop
+  X-Cache
+  
+ for any GET request if CDN has the data in cache then it will deliver it with response code 304 otherwise with 200.
 
 
  CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
