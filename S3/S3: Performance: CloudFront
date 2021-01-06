@@ -296,14 +296,24 @@ CFN add below header in the response too
             PathPattern: api/*
             .....  
   
+  origin:-
+    it has detail about origin 
+        "DomainName" : This will tell the origin url. it could be url of S3, EC2, ELB, webserver,
+        "OriginPath" : This path will be added to domain name by CDN,
+        "Id" : we will use this in as refrence,
+        "CustomOriginConfig" : USe this for all other origin(S3, ELB, EC2, weserver) except non-static S3 website,
+        "S3OriginConfig" :  Use this for S3 bucket who is not the static website. 
+        "OriginCustomHeaders" : [ OriginCustomHeader, ... ],
+  
   DefaultCacheBehavior and CacheBehaviors define that how CDN will connect to the origin
       "TargetOriginId"
       "PathPattern": 
       "MaxTTL" : Double,
       "MinTTL" : Double,
-       "ForwardedValues"
-       "CachedMethods"
-  
+      "ForwardedValues"
+      "CachedMethods"
+      "ViewerProtocolPolicy"  The protocol that viewers can use to access the files in the origin specified by TargetOriginId, http, https
+      
  - for any GET request if CDN has the data in cache then it will deliver it with response code 304 otherwise with 200.
  - CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
  - PUT/POST on CDN: This operation are also supported in CDN. you need to simply do this operation with valid data.
