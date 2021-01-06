@@ -274,10 +274,38 @@ CFN add below header in the response too
   X-Amz-Cf-Pop
   X-Cache
   
- for any GET request if CDN has the data in cache then it will deliver it with response code 304 otherwise with 200.
-
-
- CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
- PUT/POST on CDN: This operation are also supported in CDN. you need to simply do this operation with valid data.
+  Cloudformation for CDN
+  
+   CDFTDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties: 
+      DistributionConfig: 
+        Enabled: 'true'
+        DefaultRootObject: index.html
+        DefaultCacheBehavior: <origin id for origin 1 or 2, on which you wats traffic to routed if no path pattern matches at CacheBehaviors.PathPattern>
+          "TargetOriginId" 
+          <setting for default cache behavior>
+        Origins:
+          - <origin 1>
+          - <origin 2>
+        CacheBehaviors:
+          - TargetOriginId: <origin id for origin 1>
+            PathPattern: site/*  <id url put by user is http://CDNURL/site/* then route it to origin 1>
+            ...
+          - TargetOriginId: <origin id for origin 2>
+            PathPattern: api/*
+            .....  
+  
+  DefaultCacheBehavior and CacheBehaviors define that how CDN will connect to the origin
+      "TargetOriginId"
+      "PathPattern": 
+      "MaxTTL" : Double,
+      "MinTTL" : Double,
+       "ForwardedValues"
+       "CachedMethods"
+  
+ - for any GET request if CDN has the data in cache then it will deliver it with response code 304 otherwise with 200.
+ - CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
+ - PUT/POST on CDN: This operation are also supported in CDN. you need to simply do this operation with valid data.
  
      
