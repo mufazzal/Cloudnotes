@@ -177,15 +177,72 @@ What happen over CFT When
     also note that Empty BP will allow the CDN to work.
  
  Q: Does OBject also has to have a public access
-    No, doesnt matter here.
+    Yes, It has to be public.
     
  Q: Does bkt must have all BPAF as off for CloudFront to work: 
     Yes, it has to be off
+    
+    
+  Origin Access Identity:-
+    The very big security challange with the S3+CDN is that you have to make the bucket and object both public. you BP and ACL in no way can deny access to any object for CDN to work accordingly.
+    This make the bucket vlnurable.
+    To sovle this issue comes the concept of OAI.
+    
+    The OAI is kind os pseudo identity that provide a kind of identification (Principle) for CDN.
+    By using OAI you can provide the access of Bucket for this OAI and deny the access for other identities(including public)
+    
+    With OAI, you can restrict the bucket to be readable by CDN only not with public S3 url.
+    How:
+      1.  in the bucket set the BPAF to off
+      2.  ACL for the inner object = private
+      3.  write BP
+            "Sid": "1",
+            "Effect": "Allow",
+            "Principal": { "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E11YOP9QR1NZ7Q" },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::mufa-test-cdft-bucket-2021/*"
+    Now bucket content will be accessible via CDN only and bucket and its content will not be public. 
+    IMP: you do not have to make any changes in the CDN url for this. the OAI provide the the identity to CDN distribution not the oerson who is using this url.
+    
+    
+    CDN Signed url:-
+      As discussed above with the OAI you can make the Bucket conetent private and restrict the content access via CDN only but still there is one flaw here
+      if someone has the CDN url he can have the unlimited access of the content.
+      to limit this CDN provide the mechanics of Signed URL, instaed of providing the user direct CDN url give him the signed url.
+      
+      The signed url is created with orignal CDN url with below factor
+        1. key-pair-id
+        2. Private Key
+        3. valid till
+        
+      How:-
+        For this first you have to create the CDN key RSA key pair
+          AWS console > Login with Root accont > My Security Credential > Cloud frony Key > Create
+          save the private key and note the accesskey id.
+        Now you can use CLI. SDK etc to create the signed url
+          use below command for CLI
+            aws cloud front sign
+            --url <value>                   EG. http://d15uraiww9uj93.cloudfront.net/site/muf.html
+            --key-pair-id <value>               the one you noted down
+            --private-key <value>               the path of pravate key 
+            --date-less-than <value>            till when you want user to have access
+            [--date-greater-than <value>]
+            [--ip-address <value>]              
+          
+      
+      aws cloudfront sign \
+            --url https://d111111abcdef8.cloudfront.net/private-content/private-file.html \
+            --key-pair-id APKAEIBAERJR2EXAMPLE \
+            --private-key file://cf-signer-priv-key.pem \
+            --date-less-than 2020-01-01
+    
+    
+    
+    
 
-CFT url and Access:-
-  Suppose a CFt is destribuction is created over a bucket that is protected by BP or IAL or ACL and user has to pass the Auth info with url.
-  To achive this you can use CloudFront Signed URL.
-  For this simply sign a CFT url as given in  https://medium.com/roam-and-wander/using-cloudfront-signed-urls-to-serve-private-s3-content-e7c63ee271db
+
+
+
   
 
 
