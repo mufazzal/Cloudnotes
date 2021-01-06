@@ -33,6 +33,21 @@ S3 and CloudFront(CDN) :-
   so create couple of folder including 'myDistItems'. also create 'mufWebsite' and 'mufPriv'
   There is no single setting you have to do here for CFT, it all will be done on AWS > CFT page itself.  
   
+  CDN with other then S3:-
+    CDN provide service not only to S3 but many other system.
+    you can use CDN for S3, LB, webserver, EC2.
+    At a time of creating the CDN destribution you need to set the Domain name. The Domain name is in diffrent formate for diffrent service 
+    EG:
+          Amazon S3 bucket configured as a website – awsexamplebucket.s3-website.us-west-2.amazonaws.com
+          Amazon S3 bucket not configured as a website – awsexamplebucket.s3.amazonaws.com
+          MediaStore container – examplemediastore.data.mediastore.us-west-1.amazonaws.com
+          MediaPackage endpoint – examplemediapackage.mediapackage.us-west-1.amazonaws.com
+          Amazon EC2 instance – ec2-203-0-113-25.compute-1.amazonaws.com
+          Elastic Load Balancing load balancer – example-load-balancer-1234567890.us-west-2.elb.amazonaws.com
+          Your own web server – https://example.com
+
+    
+  
   lets create the distribution-
   Steps:-
     Simply go to AWS > Cloud Front > Create > web
@@ -238,18 +253,21 @@ What happen over CFT When
     
     
     
-    
-
-
-
-
-  
-
-
 Invalidate Cache on CFT:-
   As you know that after the TTL passes out the cache of file/object will get to be synched with origin, but you can also forcefully
   synch it with ortigin. use invalidate option for this.
   
+  
+  
+CDN and Multiple Origin:-
+  CDN can support the multiple origin. you can distiguoish them based in path.
+  
+Caching Policy:-
+  For each origin you can set the cache policy this define how
+    CDN will request to origin and how long it will hold it.
+
+Default Caching Policy:-
+  Thers is a default caching policy apply if no cache policy given for specific origin.
   
 CFN add below header in the response too
   X-Amz-Cf-Id
@@ -260,11 +278,6 @@ CFN add below header in the response too
 
 
  CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
- 
- 
  PUT/POST on CDN: This operation are also supported in CDN. you need to simply do this operation with valid data.
  
- 
- CDN signed URL: ???????????????????????
-       
      
