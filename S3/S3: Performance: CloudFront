@@ -251,6 +251,20 @@ What happen over CFT When
             --private-key file://cf-signer-priv-key.pem \
             --date-less-than 2020-01-01
     
+    Restrict the origin Access via signed url only:-
+      You have provided user the signed url but unsigned url still can access the CDN so the last thing we do is to restric user from accessing the origin(via CDN) 
+      with unsigned url. and also allow him only if url is signed from the set of correct .
+      for this
+        in Console:- 
+          go to
+            Cloud Front > Distribition > 'ypu distribution' > Behaviour > 'Behaviour for your origin' > Edit
+            Restrict Viewer Access > Yes
+            Trusted Key Groups or Trusted Signer > choss any
+            Select signer or key group.
+            done.
+          The signer could be   
+            your aws account or other aws account too.
+         At a time of GET CDN will check if url is signed with proper key or not which is from correct set of signer.
     
     
 Invalidate Cache on CFT:-
@@ -313,6 +327,7 @@ CFN add below header in the response too
       "ForwardedValues"
       "CachedMethods"
       "ViewerProtocolPolicy"  The protocol that viewers can use to access the files in the origin specified by TargetOriginId, http, https
+      "TrustedSigners" Use this if you wants to allow Signed url only. specify the key if of cloud front key pair here.
       
  - for any GET request if CDN has the data in cache then it will deliver it with response code 304 otherwise with 200.
  - CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
