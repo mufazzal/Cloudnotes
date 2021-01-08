@@ -111,23 +111,7 @@ Network LB???????????
           it should be HTTP:3000
     
     
-    
-    ----------------------                           
-                          ------HTTP--------      --|            |--        ---HTTP--- 3000 - EC2 1  
-    world wide web        ------HTTP--------      --- 3000 - LB-------      ---HTTP--- 3000 - EC2 2
-                          ------HTTP--------      --|            |--        ---HTTP--- 3000 - EC2 3                               
- -----------------------      
-
-
--------------
-
-Once the LB is setup then in the that LB provide the endpoint for internet.
-generally its in this form
-  
-  https://<LB NAme>-<LB id>.<Region>.elb.amazonaws.com
-  EG:-
-    mynodelb-585968286.us-east-1.elb.amazonaws.com
-  
+    I
   if you have user the port 80 then you do not have to give the port because HTTP has it default but if you setuo at t port 30000 then use
         mynodelb-585968286.us-east-1.elb.amazonaws.com:3000
   
@@ -143,4 +127,11 @@ also each ENI will have an public ip attached to it.
 LB Health Check ???????????/
  
  
- 
+---------------------------
+
+LB and EIP:-
+  LB do not have any EIP or public IP. the ELB is reaccable by its own DNS name lookup that is '<elb name>.us-east-1.elb.amazonaws.com '
+
+LB and ENI:-
+  LB do has the private IP and assosiated ENI in each of selected subnet.
+
