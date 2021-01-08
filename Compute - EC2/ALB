@@ -46,5 +46,66 @@ Rule condition:-
 This three will have informarion about how the client connected to the ALB
  
  
+ ------------
+ 
+ The ALB do the filtering at two stage:-
+  First at Listener level based on Protocol and Port [AWS::ElasticLoadBalancingV2::Listener]
+  Second at Listener Rule level based on [AWS::ElasticLoadBalancingV2::ListenerRule]
+    host-header
+    http-header
+    http-request-method
+    query-string
+    source-ip
+  Once both are passed then the desired action will be taken.
+  
+  
+  What if first filter not passed EG. the port and protocol of request in not passed
+  - then the request goes to not honoured.
+  What if second filter doens nor pass
+  - then every first filter has the default action that will be performed.
+ 
+ Can a request satisfy two first pass:
+  impossible because set of port and protocol is unique amont al listener.
+ Can a request satisfy two second pass:
+  Yes. but they ran in order of priority so the first one who has high prority win.
+  
+  
+It strucre like belo
+  ALB
+    Listenet1 [HTTP:80]
+      - Rule 1
+        - Actions
+        - Conditions
+        - priority
+      - Rule 2
+        - Actions
+        - Conditions
+        - priority
+      - Rule 3
+        - Actions
+        - Conditions
+        - priority
+      - Default Action
+    Listenet1 [HTTP:3000]
+      - Rule 1
+        - Actions
+        - Conditions
+        - priority
+      - Rule 2
+        - Actions
+        - Conditions
+        - priority
+      - Rule 3
+        - Actions
+        - Conditions
+        - priority
+      - Default Action      
+  
+
+
+
+  
+  
+ 
  
  
