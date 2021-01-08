@@ -72,7 +72,7 @@ This three will have informarion about how the client connected to the ALB
   
 It strucre like belo
   ALB
-    Listenet1 [HTTP:80]
+    Listener1 [HTTP:80]
       - Rule 1
         - Actions
         - Conditions
@@ -86,7 +86,7 @@ It strucre like belo
         - Conditions
         - priority
       - Default Action
-    Listenet1 [HTTP:3000]
+    Listener2 [HTTP:3000]
       - Rule 1
         - Actions
         - Conditions
@@ -103,9 +103,26 @@ It strucre like belo
   
 
 
+-------------------------
 
+
+
+
+ALB  vs NLB :-
+  ALB work on layr 7 and can use many HTTP params port, protocol like ip, header, quertstring etc for action to be taken.
+  NLB work on layer 4 and so can use only port and protocol for taking action. no other param can be used
+  So its clear that in NLB you can use only  Listener with default action  but not the listener rule because you can use only first filter with port and protocol.
   
-  
+  ALB:-
+    rout the traffic to listener by port and protocol and then take action based on rule in the alistener
+  NLB
+    rout the traffic to listener by port and protocol
  
- 
+
+  NLB structure
+   NLB
+    Listener1 [TCP:22]
+      - Default Action
+    Listener2 [TCP:456]
+      - Default Action   
  
