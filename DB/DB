@@ -16,12 +16,10 @@ Supporting SQL DB:
   2. Read Replica: for performance boost AWS keep multiple read only copy
       AWS write the one DB, and may keep multiple copy for fast reading
       
- No Relation DB: 
-  <<< How to connect MangoDB king of open source NRBD >>>
+  NoSqlDB:-
   
-  AWS provide its own NRD: DynamoDB
-  
-  
+    AWS provide its own NRD: DynamoDB
+    
   Data Warehousing: 
     Database is a central comp of any app. so the production DB shopuld always be fast and swift to generate result of query.
     Generally application run the small queries on the DB but analytics work run very complex and time taking query.
@@ -32,16 +30,19 @@ Supporting SQL DB:
     AWS tool for Data warehousing: RedShift
     
     
-    Cache: AWS also provide a way to cache the DB in the memory. So retrive the data from memory instead of a disk
+  Caching: 
+    AWS also provide a way to cache the DB in the memory. So retrive the data from memory instead of a disk
     this is mostly use for frequetly identical query (eg. Select * from todaysTop10Song)
+    
+    AWS tool for Caching: ElasticCache
+    
     AWS support two open source in-memory cache tecnique.
     1. MeMCached
     2. redis
     
     
-    Table:
-    RDB                 Aurora
-    NRDB                DnnamoDB
+    RDB                 RDS
+    NoSql               DnnamoDB
     Data Warehosing:    RedShift
     Cache:              ElasticCache
     
