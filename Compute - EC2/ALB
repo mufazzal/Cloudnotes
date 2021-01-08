@@ -111,7 +111,7 @@ ALB  vs NLB :-
   NLB work on layer 4 and so can use only port and protocol for taking action. no other param can be used
   So its clear that in NLB you can use only  Listener with default action  but not the listener rule because you can use only first filter with port and protocol.
   
-  NLB can have the static IP and can be assigned with EIP. not possible with ALB.
+  NLB preserve the IP address and so destination get the IP of source not the NLB. in ALB the IP is of ALB and destination has to use X-Forwarded-Port to get the port of source.
   
   ALB:-
     rout the traffic to listener by port and protocol and then take action based on rule in the alistener
