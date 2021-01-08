@@ -118,6 +118,10 @@ ALB  vs NLB :-
   NLB
     rout the traffic to listener by port and protocol
  
+  The network load balancer just forward requests whereas the application load balancer examines the contents of the HTTP request header to determine where to route the request
+  Network load balancing cannot assure availability of the application, where as Application load balancing can.
+
+
 
   NLB structure
    NLB
