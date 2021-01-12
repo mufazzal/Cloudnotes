@@ -551,8 +551,40 @@ Querying the DDB :-
 ----------------
 	
 	DDB and Charges:-
-		
+		- Capacity [on demand pr provisoned]
+		- DAX
+		- GSI
+		- Global table
+		- Stream
+		- Point if time recovery
+--------------------
 
+	DDB Stream:-
+		This is not enabled by default and its chargable.
+		The stream is the record of all the changes (add/edit/delete) in the DDB for the last 24 hour.
+		This will help you to build the functionality aroud it.
+	
+-------------------	
+		
+	Back up:-
+		Manual Back up:-
+			You can create a Back up of your DB any time and restore it later whenever you wants. This is very useful for archiving the data
+		Point if time recovery:-
+			You can enable this feture if you wants to back up the data at any point of time till last 35 days.
+			For this the DDB keep the incremental back of last 35 days so that ant accidently write or delete can be restored.				
+		
+-------------------		
+	
+	DDB Global Table:-
+		For this 'DDB Stream' must be enabled.
+		Any DDB table by region specific and lie only in that region. but if you wants to replicate it in other rergion then you have to use the global table
+		But for this first you have to enable the 'Stream'
+		Once enabled then to set the Global table 
+		simply go to table > Global table Add Region
+		Now selecc the region and then you can see the same table in that region.
+		This table will stay in synch with the orignal one.
+		
+	
 ------------
 	ElastiCache:-
 		This provide same service as DAX, but DAX is specifically for DDB. and Elasticache for mny other.
