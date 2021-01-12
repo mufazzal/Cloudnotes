@@ -132,15 +132,14 @@ Scalling Policy:-
       - You set the spans of uasges and set how many instance will be launched or taken down if usage is in respective range.
         also you need to set the cloudwatch metrics that will be use for this. 
     
-    
-    
+  
+    -------+-----------
   
   
-  
-  
-  
+  Schedule Action of ASG:-
+   
+    Scheduled scaling allows you to set your own scaling schedule. For example, let's say that every week the traffic to your web application starts to increase on Wednesday, remains high on Thursday, and starts to decrease on Friday. You can plan your scaling actions based on the predictable traffic patterns of your web application. Scaling actions are performed automatically as a function of time and date
 
-    
     
     
 
