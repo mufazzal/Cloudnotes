@@ -492,7 +492,13 @@ Networking Config:
           Then replica can be encrypted or unencrypted. Its users choice
         If source DB is encrypted :-  
           Then will always be encrypted! user cannot change it.
-      
+    -------------------
+  Point-in-time recovery:-
+    Point-in-time recovery (PITR) is the process of restoring a database to the state it was in at a specified date and time.
+    When automated backups are turned on for your DB instance, Amazon RDS automatically performs a full daily snapshot of your data. 
+    The snapshot occurs during your preferred backup window. 
+    It also captures transaction logs to Amazon S3 every 5 minutes (as updates to your DB instance are made). 
+    Archiving the transaction logs is an important part of your DR process and PITR. When you initiate a point-in-time recovery, transactional logs are applied to the most appropriate daily backup in order to restore your DB instance to the specific requested time  
       
     
     
