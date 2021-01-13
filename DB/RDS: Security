@@ -1,0 +1,16 @@
+Encryption :- 
+  You can sekect if you wants to eencrypt the DB or not. if yes you also must select the key for AWS KMS [key management syatem]
+  once done the RDS take care of rest pof the things.
+
+
+  snap shot, Automated back up :-
+    If source DB is not encrypted :-
+      Then restored one will also be remain un-encrypted and cannot be changed to encrypted.
+    If source DB is encrypted :-  
+       Then restored one will also be remain encrypted and cannot be changed to un-encrypted
+
+  Read-Replica :-
+      If source DB is not encrypted :-
+        Then replica can be encrypted or unencrypted. Its users choice
+      If source DB is encrypted :-  
+        Then will always be encrypted! user cannot change it.
