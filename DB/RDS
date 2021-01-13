@@ -1,6 +1,4 @@
 RDS is the service that provide a way to integrate the Relation Databse.
-
-
   
 Lets create a RDS instance with SQLServer :-
   
@@ -516,7 +514,10 @@ Networking Config:
     ??????????????????????????
     
     
+    ---------
     
+    
+   Max storage size for MySql: 16TB 
     
 
   
