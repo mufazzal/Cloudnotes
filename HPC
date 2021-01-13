@@ -19,7 +19,12 @@ Storage
   Object Based:-
     - S3
 
-
+ Caching:-
+  S3: use cloudfront
+  DyanamoDB: use DAX
+  API Gateway: use API Gatewa Caches
+  For cutomize cache solution: use ElasticCache
+  
 Connection
   Storage gateway
   Direct Connect
