@@ -55,6 +55,7 @@ Supporting SQL DB:
        > AWS-cloud to AWS-cloud
        > AWS-cloud to On-Premise
        > On-Premise to On-Premise
+  - in a nutsheel DMS nothing but a EC2 instance running a Replication software.
   
   Below are the possible source 
     On-premise or EC2 database
@@ -73,10 +74,9 @@ Supporting SQL DB:
     Kenesis
     DocumentDB    
   
-  it support homogenous[eg SQL -> SQL] and heterogenous[SQL->Aurora] migration.
-    
-    
-
+  it support homogenous[eg SQL -> SQL] and heterogenous[SQL->Aurora] heterogenous.
+  for heterogenous heterogenous you will nedd SCT (Schema conversion tool)
+  
 
 
 
