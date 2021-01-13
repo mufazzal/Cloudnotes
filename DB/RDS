@@ -451,9 +451,10 @@ Networking Config:
     IMP Notes : 
     - All read replica have diffrent DNS endpoint, so in theory they are completely diffrent and independent DB.
     - You can have a RR of RR DB [but letecy will be low]
-    - 
+    - Data transfer in same region is free. but if replica is in diffrent region then its chargable.
     
-    You can create read replica in diffrent region.
+    Cross Region Replication:-   
+      You can create read replica in diffrent region. But here data transfer will e chargable. 
     
     Read Replica vs Multi AZ :-
       In multi AZ, the prime and sec has 0 leg. data written on prime will also reflect on sec and then operation suppose to be completed.
