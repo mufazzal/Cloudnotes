@@ -40,3 +40,22 @@
     Read replica is for performance boost
     Read replica is asynchronus [one after other]
     AZ is synchronus [in paralel]
+
+------------
+
+  IOPS:-
+    Instead of General purpose SSD use the PRovisioned IOPS SSD. which will give higher IOPS perfprmance.
+    You can cahnge it on the fly but the DB will face the down time.
+    Better if you do in in maintainace window and best if you have the Multi-AZ available so app will not be impacted much.
+
+-----------
+
+  Compute:-
+      You can change the DB instance class, You have option to choose when this change must apply
+      either immidatly or at maintainance window.
+      FOr this scalling opertation there will be an downtime.
+      In Single AZ DB the downtime is large.
+      IN Multi AZ its minimal, becoz the secondy on frst fail and updated, second now act as prime and then prime start updating
+      Changing DB instance class is straighforward, you just have to know about its impact.  
+  
+
