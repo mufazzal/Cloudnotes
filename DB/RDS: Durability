@@ -1,0 +1,94 @@
+Miti AZ:-
+      If you enable this then, you will have two diffrent DB instance under the hood. one is primary and 
+      other is secondry and copy of primary. AWS take care to keep the secondry in synch to primary.
+      In case of any failover the secondery will becom the primary.
+      When you choose the Multi AZ then, you can see the subnet group in connectivity detail od DBs aws page.
+      In Multi AZ env there is two DB host, The primary and secondry.
+      Primary handle all the traffic and answer it. For any write operation the wrote forst happen over prime one
+      and then on sec one. after write on prime and sec both are successful, the user will be acknolaged with success
+      otherwise with failure.
+      IMP: The Multi AZ not at improve a bit of your performance. It do not handle any traffic. 
+      Its only is to keep a secondry one ready in case of failover at primary one.
+      On the contrary it actully increase the time for write operation on DB. bcoz now write has to perform on two 
+      diffrent isolate host
+      cost is also high.
+      It give one additional advantage at back uo time, noe 
+      taken from secondry not primary.
+      Multi AZ and DNS :-
+        In the Multi AZ DB the DNS play a major role, when the prime DB fails then its duty of DNS to resolve the 
+        DNS name to proper working DB instance either prime or sec.
+        Lets say you have a Multi AZ DB (mufdatabase) with End point is 
+           'mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com'                 ....DNS_name1
+        the DNS_name1 is DNS name but it does not have any IPv4 address attached to it.
+        instead its just an entry in AWS DNS registery syatem which is mapped wth underneath EC2 instance.
+        This DNS either resolve to prime or sec DB instance depends on the scenario.        
+        Lets say two DB host (prim+sec) underneath this DB instance are
+          ec2-35-172-176-105.compute-1.amazonaws.com   OR   35.172.176.105        
+        And 
+          ???????????
+        In that ase the infra would be -
+                                                                                  Prime
+                                      |------------------------- ec2-35-172-176-105.compute-1.amazonaws.com
+                                      |                                     OR   35.172.176.105
+                                      |                                              . 
+                                      |                                              .
+       DNS_name1  --------------------                                               .
+                                                                                     .
+                                                                                     .
+                                                                                     .
+                                                                                    Sec
+                                                                  ec2-34.200.143.202-compute-1.amazonaws.com
+                                                                           OR   34.200.143.202         
+        
+        
+        In a good time the DNS_name1 will point to 'ec2-35-172-176-105.compute-1.amazonaws.com'. 
+        you can test it via nslookup or host commande in ubuntu and windows.
+        if you rum command 
+          >> host mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
+        You will get 
+        Name: ec2-35-172-176-105.compute-1.amazonaws.com
+        IP:   35.172.176.105 
+        Aliases: mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
+        
+        the dotted vertical link between prime and sec DB in the ultra low latency connection which keep the 
+        sec in synch with prime.
+      What happen at Multi AZ Failover - 
+        When a failover occure in prime one, The aws DNS will do neccesary changes and start pointing to sec one 
+        against the DNS_name1. Now sec will start behaving like prime
+        onece the failled DB instane is up again, it remain as sec and stay the up to date with prime one.
+        Now the infra would be -
+                                                                                            
+                                                                                    sec
+                                                               ec2-35-172-176-105.compute-1.amazonaws.com
+                                                                           OR   35.172.176.105
+                                                                                    . 
+                                                                                    .
+       DNS_name1  --------------------                                              .
+                                      |                                             .
+                                      |                                             .
+                                      |                                             .
+                                      |                                            Prime
+                                      |------------------------ ec2-34-200-143-202.compute-1.amazonaws.com
+                                                                           OR   34.200.143.202         
+        
+        
+        
+
+     Now if you rum command 
+          >> host mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
+        You will get 
+        Name: ec2-34-200-143-202.compute-1.amazonaws.com
+        IP:   34.200.143.202
+        Aliases: mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
+      
+      
+    IPs of Multi AZ RDS:- For the DNS name of RDS endpoint(DNS_Name1) there is no IP, instead DNS_Name1 is nothing but an alias
+    the real endpoint is actully those prime or sec Ec2 instance.
+    The layer of alias (DNS_Name1) is added to build the feature od multi AZ support.
+    The ailas could either point to prime or sec, depending on if failover happen or not.
+    
+    If you rum thi command
+    >> host ec2-34-200-143-202.compute-1.amazonaws.com
+    the output will be-
+       Name: ec2-34-200-143-202.compute-1.amazonaws.comhas 
+       IP:   34.200.143.202
