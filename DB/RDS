@@ -384,6 +384,8 @@ Networking Config:
     4. chose other thing
     5. Done
     
+    IMP: When back up is in progress then at that time DB will face some IOPS leg because backup process consume IOPS.
+    
 --------
 
   Snapshot:-
