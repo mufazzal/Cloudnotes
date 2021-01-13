@@ -496,11 +496,12 @@ Networking Config:
   Point-in-time recovery:-
     Point-in-time recovery (PITR) is the process of restoring a database to the state it was in at a specified date and time.
     When automated backups are turned on for your DB instance, Amazon RDS automatically performs a full daily snapshot of your data. 
-    The snapshot occurs during your preferred backup window. 
+    The snapshot occurs during your preferred backup window. and this snap are saved till max of 35 days.
     It also captures transaction logs to Amazon S3 every 5 minutes (as updates to your DB instance are made). 
-    Archiving the transaction logs is an important part of your DR process and PITR. When you initiate a point-in-time recovery, transactional logs are applied to the most appropriate daily backup in order to restore your DB instance to the specific requested time  
+    Archiving the transaction logs is an important part of your DR process and PITR. When you initiate a point-in-time recovery, 
+    transactional logs are applied to the most appropriate daily backup in order to restore your DB instance to the specific requested time  
       
-    
+    So Point-in-time recovery is possible for max number of days for which you retain your automated back up.
     
     Encrypt the pre-existing un-encrypted DB :-
       Currently not supported buth there is a trick
