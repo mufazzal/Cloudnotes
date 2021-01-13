@@ -78,6 +78,10 @@ Supporting SQL DB:
   for heterogenous heterogenous you will nedd SCT (Schema conversion tool)
   
 
+---------------------
+
+  EMR [Elastic Map REduce]:-
+    This service is used for Big Data Analytics. This is in compition wuth Apche Spark etc.
 
 
     
