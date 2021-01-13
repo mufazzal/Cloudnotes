@@ -159,100 +159,7 @@ Publicly accessible:-
           High Networking performance
           >> Great query intesnsive work and higher connection workload.
                  
-    Miti AZ:-
-      If you enable this then, you will have two diffrent DB instance under the hood. one is primary and 
-      other is secondry and copy of primary. AWS take care to keep the secondry in synch to primary.
-      In case of any failover the secondery will becom the primary.
-      When you choose the Multi AZ then, you can see the subnet group in connectivity detail od DBs aws page.
-      In Multi AZ env there is two DB host, The primary and secondry.
-      Primary handle all the traffic and answer it. For any write operation the wrote forst happen over prime one
-      and then on sec one. after write on prime and sec both are successful, the user will be acknolaged with success
-      otherwise with failure.
-      IMP: The Multi AZ not at improve a bit of your performance. It do not handle any traffic. 
-      Its only is to keep a secondry one ready in case of failover at primary one.
-      On the contrary it actully increase the time for write operation on DB. bcoz now write has to perform on two 
-      diffrent isolate host
-      cost is also high.
-      It give one additional advantage at back uo time, noe 
-      taken from secondry not primary.
-      Multi AZ and DNS :-
-        In the Multi AZ DB the DNS play a major role, when the prime DB fails then its duty of DNS to resolve the 
-        DNS name to proper working DB instance either prime or sec.
-        Lets say you have a Multi AZ DB (mufdatabase) with End point is 
-           'mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com'                 ....DNS_name1
-        the DNS_name1 is DNS name but it does not have any IPv4 address attached to it.
-        instead its just an entry in AWS DNS registery syatem which is mapped wth underneath EC2 instance.
-        This DNS either resolve to prime or sec DB instance depends on the scenario.        
-        Lets say two DB host (prim+sec) underneath this DB instance are
-          ec2-35-172-176-105.compute-1.amazonaws.com   OR   35.172.176.105        
-        And 
-          ???????????
-        In that ase the infra would be -
-                                                                                  Prime
-                                      |------------------------- ec2-35-172-176-105.compute-1.amazonaws.com
-                                      |                                     OR   35.172.176.105
-                                      |                                              . 
-                                      |                                              .
-       DNS_name1  --------------------                                               .
-                                                                                     .
-                                                                                     .
-                                                                                     .
-                                                                                    Sec
-                                                                  ec2-34.200.143.202-compute-1.amazonaws.com
-                                                                           OR   34.200.143.202         
-        
-        
-        In a good time the DNS_name1 will point to 'ec2-35-172-176-105.compute-1.amazonaws.com'. 
-        you can test it via nslookup or host commande in ubuntu and windows.
-        if you rum command 
-          >> host mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
-        You will get 
-        Name: ec2-35-172-176-105.compute-1.amazonaws.com
-        IP:   35.172.176.105 
-        Aliases: mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
-        
-        the dotted vertical link between prime and sec DB in the ultra low latency connection which keep the 
-        sec in synch with prime.
-      What happen at Multi AZ Failover - 
-        When a failover occure in prime one, The aws DNS will do neccesary changes and start pointing to sec one 
-        against the DNS_name1. Now sec will start behaving like prime
-        onece the failled DB instane is up again, it remain as sec and stay the up to date with prime one.
-        Now the infra would be -
-                                                                                            
-                                                                                    sec
-                                                               ec2-35-172-176-105.compute-1.amazonaws.com
-                                                                           OR   35.172.176.105
-                                                                                    . 
-                                                                                    .
-       DNS_name1  --------------------                                              .
-                                      |                                             .
-                                      |                                             .
-                                      |                                             .
-                                      |                                            Prime
-                                      |------------------------ ec2-34-200-143-202.compute-1.amazonaws.com
-                                                                           OR   34.200.143.202         
-        
-        
-        
-
-     Now if you rum command 
-          >> host mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
-        You will get 
-        Name: ec2-34-200-143-202.compute-1.amazonaws.com
-        IP:   34.200.143.202
-        Aliases: mufdatabase.c1eagwg2tuyz.us-east-1.rds.amazonaws.com
-      
-      
-    IPs of Multi AZ RDS:- For the DNS name of RDS endpoint(DNS_Name1) there is no IP, instead DNS_Name1 is nothing but an alias
-    the real endpoint is actully those prime or sec Ec2 instance.
-    The layer of alias (DNS_Name1) is added to build the feature od multi AZ support.
-    The ailas could either point to prime or sec, depending on if failover happen or not.
     
-    If you rum thi command
-    >> host ec2-34-200-143-202.compute-1.amazonaws.com
-    the output will be-
-       Name: ec2-34-200-143-202.compute-1.amazonaws.comhas 
-       IP:   34.200.143.202
     
       
     After creating a DB in RDS, The AWS only give you the DNS name for that DB to connect.
@@ -363,56 +270,7 @@ Networking Config:
       DB Monitoring:
         
 ------
-   Automated-back-up:-
-    Here you will set two imp things
-    Backup Window:-
-      The time window when the back up should be taken. EG: 24 hour
-    Retenstion priode:-
-      How long you wants to keep the back up. EG: 35 days
-     EG: Take back up after every 24 hour and keep this back up file for next 35 days.
-     
-     The snapshot of the back up will be shown at 
-     RDS > snapshot
-     you can see the type of the snapshot will be 'Automated'
-     
-   Restoring from back up :-
-    1. for this simply select the DB > Action > restore point in time.
-    2. Select time 
-    3. choose DB identifier [must and should be non existubg one]
-    4. chose other thing
-    5. Done
-    
-    IMP: When back up is in progress then at that time DB will face some IOPS leg because backup process consume IOPS.
-    
---------
 
-  Snapshot:-
-    Other way to take the back up is via snap shot. This is totally manual process for backing up.
-    to take it :-
-      1. for this simply select the DB > Action > take snapshot
-      2. type name
-      3. save
-      You will be able to see the snap in 'snapshot' page
-     Restore :-
-      1. got to snapshot
-      2. Action > restore
-      3. choose DB identifier [must and should be non existubg one]
-      4. chose other thing
-      5. Done
-
-  
-  Snapshot vs Automated-back-up :-
-    Simillarity - 
-      1. Both are way to take back up and restore
-      2. Whenever  you restore the DB from snapshot or from Automated-back-up, the process is very same
-         and in both the DNS endpoint get changes. you have to choose the other identifier.
-         So orignal.bala.blabal.aws.com  may changed to   snappy.bla.bla.aws.com
-      3. For both of them the snapshot of back up will be visible at 'snapshot' page
-     Diffrence :-
-      1.  in Automated-back-up the back time and retention is configured, after that taking back is totally automatic proceess
-          in snapshot you take a snap whenever you need. so here backing up is not automated with time
-      2. The type of snapshot will ne 'manual' for one and 'automated' for other.
-      
  -----
   
   
@@ -432,77 +290,12 @@ Networking Config:
       Changing DB instance class is straighforward, you just have to know about its impact.
         
      
-  Read Replica:-
-    Suppose in your app you see at a time there is only 5 write operation but 500 read operations. So lot of read but very few write
-    If you have only one DB answering all of those then there may be lot of leg.
-    For this comes a read replica.
-    Here you craete a additinal databases which are remain in synch with its master database.
-    The write operation will happen on master db and later those changes will be synch up with other read replica.
-    This feature reduced the time for reading data too much.
-    Though the read replica could remain few minute behind of master data. So developer has to be careful
-    it may be possible that data written on master may not be available immidiety on read replica
-    
-    Actully read replica in itslef a complete standalone DB instance execpt it is remain sych with master.
-    In your app, you can connect with master or replica DB. both have their diffrent endpoint.
-    But you should use master for write and replica for read.
-    
-    IMP Notes : 
-    - All read replica have diffrent DNS endpoint, so in theory they are completely diffrent and independent DB.
-    - You can have a RR of RR DB [but letecy will be low]
-    - Data transfer in same region is free. but if replica is in diffrent region then its chargable.
-    
-    Cross Region Replication:-   
-      You can create read replica in diffrent region. But here data transfer will e chargable. 
-    
-    Read Replica vs Multi AZ :-
-      In multi AZ, the prime and sec has 0 leg. data written on prime will also reflect on sec and then operation suppose to be completed.
-      In read replica, the write happen on master and operaton marker as done. after some time those changes will be transmitted to all read replicas.
-    
-    How-
-      1. Aws > RDS > instance > check 'mufdb' > modify > create Read Replica 
-      2. now set all values, this is just like creating a new standalone DB actully, name it say 'muf_1_DbReplica'
-      3. Done
-      
-      Now in the app you should do write operation on endpoint of 'mufdb' and for read you can use any of 'muf_#_DbReplica'.
-      
-      for good prformance one should create multiple readreplica in diffrent AZ to keep.
-      
-    ------
-    
-    Read Replica VS Multi AZ:
-    AZ is for disaster recovery only, and for mainainace time backup.
-    Read replica is for performance boost
-    Read replica is asynchronus [one after other]
-    AZ is synchronus [in paralel]
+
     
     ----------
     
-    Encryption :- 
-      You can sekect if you wants to eencrypt the DB or not. if yes you also must select the key for AWS KMS [key management syatem]
-      once done the RDS take care of rest pof the things.
-      
-      
-      snap shot, Automated back up :-
-        If source DB is not encrypted :-
-          Then restored one will also be remain un-encrypted and cannot be changed to encrypted.
-        If source DB is encrypted :-  
-           Then restored one will also be remain encrypted and cannot be changed to un-encrypted
-    
-    Read-Replica :-
-        If source DB is not encrypted :-
-          Then replica can be encrypted or unencrypted. Its users choice
-        If source DB is encrypted :-  
-          Then will always be encrypted! user cannot change it.
     -------------------
-  Point-in-time recovery:-
-    Point-in-time recovery (PITR) is the process of restoring a database to the state it was in at a specified date and time.
-    When automated backups are turned on for your DB instance, Amazon RDS automatically performs a full daily snapshot of your data. 
-    The snapshot occurs during your preferred backup window. and this snap are saved till max of 35 days.
-    It also captures transaction logs to Amazon S3 every 5 minutes (as updates to your DB instance are made). 
-    Archiving the transaction logs is an important part of your DR process and PITR. When you initiate a point-in-time recovery, 
-    transactional logs are applied to the most appropriate daily backup in order to restore your DB instance to the specific requested time  
-      
-    So Point-in-time recovery is possible for max number of days for which you retain your automated back up.
+ 
     
     Encrypt the pre-existing un-encrypted DB :-
       Currently not supported buth there is a trick
