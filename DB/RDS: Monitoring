@@ -1,0 +1,34 @@
+To Monitor the health of your RDS instancs their are many thing
+
+Cloudwatch:-
+  Their are many metrics available for RDS in CW, RDS send the detail of metrices in every 1 minute to the CW. also its free
+  below are some useful metrices in CW for each DB
+    CPUUtilization
+    CPUCreditUsage
+    DatabaseConnections
+    CPUCreditBalance
+    ReadThroughput
+    ReadIOPS
+      ...etc
+
+DB logs File:-
+  At this level you can see
+    the DB user who ran the query
+    the query itself
+    timeand date of query
+    time taken by query
+  This logs are saved for 3 days by default but you can change it but the max retention preiode is 7 days. 
+  
+  Exporting logs to CW:-  
+      You can set the DB to send the detail DB logs to CW group for detail analysis of quries.
+      
+      
+ Enhanced Monitoring:-
+  ????
+  
+ Performance Insight:-
+  ??????
+
+
+  
+  
