@@ -46,6 +46,9 @@
     Instead of General purpose SSD use the PRovisioned IOPS SSD. which will give higher IOPS perfprmance.
     You can cahnge it on the fly but the DB will face the down time.
     Better if you do in in maintainace window and best if you have the Multi-AZ available so app will not be impacted much.
+    
+    When you select the Provisioned IOPS as SSD then you also havre to set the value of IOPS/second you are going to need.
+    This much IOPS will be allocated to you for that instances even though you use it to full capacity or not.
 
 -----------
 
@@ -69,5 +72,17 @@
     You can schedule the changes for maintainance window or apply immediatly.
     Remeber it may bear some Downtime and this downtime will be minimal if DB is Muti-AZ
     
+---------------
+
+Storage Autoscalling:-
+  You can enable the autoscalling of storage at time of creation or later via modify button.
+  If it is enabled then your storage will be anuomatically increase in case of less sapce left.
+  If you enable this then you also need to set up the value of 'Maximum storage threshold'. 
+  The Sutoscalling will increase the storage once storage reach near to 'Maximum storage threshold'. 
+  
+  
+  
+  
+  
 
 
