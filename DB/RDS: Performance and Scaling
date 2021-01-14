@@ -57,4 +57,17 @@
       IN Multi AZ its minimal, becoz the secondy on frst fail and updated, second now act as prime and then prime start updating
       Changing DB instance class is straighforward, you just have to know about its impact.  
   
+-----------
+
+  In a running DB you can change below items for performance and scale tuning:-
+    - DB Engin version
+    - Instance class
+    - Storage allocation
+    - Storage type
+    - Multi AZ
+    
+    You can schedule the changes for maintainance window or apply immediatly.
+    Remeber it may bear some Downtime and this downtime will be minimal if DB is Muti-AZ
+    
+
 
