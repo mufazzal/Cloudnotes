@@ -1,0 +1,27 @@
+
+Dyanamo DB is the NpoSql solution by AWS
+
+------------
+
+	DDB and Region:-
+		DDB is region dependent.
+		if you have a table called People in the us-east-2 Region and another table named People in the us-west-2 Region, these are considered two entirely separate tables
+
+	DDB and AZ:-
+		Data automatically replicated across multiple Availability Zones in an AWS Region
+	
+	DDB and Storage:-
+		All of your data is stored on solid-state disks (SSDs)
+
+----------------
+	
+	DDB and Charges:-
+		- Capacity [on demand pr provisoned]
+		- DAX
+		- GSI
+		- Global table
+		- Stream
+		- Point if time recovery
+    
+---------
+    
