@@ -1,0 +1,218 @@
+
+Querying the DDB :- 
+  Once authentiacation is successful the you can query the data via below code:-              
+	var docClient = new AWS.DynamoDB.DocumentClient();
+	var params = { TableName: "MufUser",  ...... };
+	docClient.get(params, function(err, data) { console.log(err, data) });    
+	Params here define that what the data you will get afetr the calling get function.
+    
+ There is three diffrent technique to read the data. for this you have to provide proper values in params
+	and in all three way you have to provide TableName (of course)
+	Now lets see those 3 :-
+  1 : get By the Primary Key (partition or Sort) :-
+        Just provide the partition-key 
+        var params = { TableName: "MufUser",  Key:{ "userID": "10" } };	
+        This will gives you all the attributes stored against the key '34'. This is most efficient and fastest way.
+	out :-
+			"Item": {
+			    "company": "Amdocs",
+			    "name": "Mufazzal",
+			    "salary": "200",
+			    "userID": "10"
+			  }	
+        This only work with PK not with other attribute
+        So below params will give error in 'get' function
+     var params = { TableName: "MufUser",  Key:{ "name": "mufa" } };	  
+     Basioclly 'key' in params accept only and only promary key.
+     
+     PK as Sort Key :-
+        ??????????????????
+	
+     This is most widely used way to get the data because it give whole data for that PK. 
+     But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key
+     then its useless.
+     
+  2 : Query:-
+      Query is very useful when you are using the sort key with the partition key. Here once you get the data via your partion key, then 
+      you can apply some filter comparison over the sort key.
+      For now lets say you hace the Partition-key as 'userID'
+      Then thwe query will go-
+           var paramsQuery = {
+              TableName: "MufUser",
+              KeyConditionExpression: "userID = :a",
+              ExpressionAttributeValues: { ":a": "34" }
+            }     
+        Out:
+          [ { name: 'eee', genger: 'male', userID: '34' } ]         
+          
+        KeyConditionExpression and Partition-key :- 
+          VVVIMP: in the query function param you can use ONLY ONLY and ONLY 'equal' operatior for Partition-key. you cannot ever use
+                  any other operator with partition-key.
+                  You can use any operator with 'sort-ket' though. How ????????????????
+		So all blow statement simply give an error
+		...
+		KeyConditionExpression: "userID > :a",
+		ExpressionAttributeValues: { ":a": "34" }
+		...
+		OR
+		...
+		KeyConditionExpression: "userID IN :a",
+		ExpressionAttributeValues: { ":a": {SS: [34, 78, 67]} }
+		...
+     Query and sort key:-
+     	This is the real germ of query. its most useful with sort key. we will see it later
+	The first thing you must remeber that in the query you can give one and only one partition-key with equal comparator
+	So the 'query' function can only play with the sort-key-combination which lies in that partition-key
+	in simple:-
+		for the database in fig '#DDB_FIG_PK_SORT' you run the 'qyuery' function and provide the 
+		partition-key = 'muffy' then you can play only with r1, r2, or r1=3 but not at all with r4, r5. 
+		partition-key = 'fattu' then you can not play with r1, r2, or r3 but only with r4, r5. 
+	EG:-
+		var paramsQueryWithSort = {
+		    TableName: "UserOrder",
+		    KeyConditionExpression: "userID = :a",
+		    ExpressionAttributeValues: { ":a": "muffy" }
+		}
+		docClient.query(paramsQueryWithSort, function(err, data) {console.log(err, data)});		
+     	The above function will return r1, r2 and r3.
+     	Now make a little change:-
+		...
+	    	KeyConditionExpression: "userID = :a and OrderID = :b",
+	    	ExpressionAttributeValues: { ":a": "muffy", ":b": "mob1" }
+		...
+	This will give only r1
+	
+		...
+		KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
+	    	ExpressionAttributeValues: { ":a": "muffy", ":t": "mob", }
+     		...
+	this will give r1 and r2 but nor r3
+	
+		...
+		KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
+		ExpressionAttributeValues: { ":a": "muffy", ":t": "mob", }
+		...
+	this will give r3 only.	
+
+	...
+	KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
+	ExpressionAttributeValues: { ":a": "fattu", ":t": "mob", }
+	...
+	this will give r4 and r5
+	
+	The KeyConditionExpression accept only the partition-key or sort-key. no one else so below will throw error
+	...
+	KeyConditionExpression: "userID = :a and price = :b",
+	ExpressionAttributeValues: { ":a": "fattu", ":b": "100", }
+	...	
+
+	Q: can we design the query in such a way that we can get r1 and r5
+	A: Impossible! because r1 and r5 have diffrent partition-key and 'query' methode support only single value of partition-key
+	
+	Q: So partition-key support only '=', but what operation sort-key do support. Does it support all
+	A: NO! it support only following
+		sortKeyName = :sortkeyval - true if the sort key value is equal to :sortkeyval.
+		sortKeyName < :sortkeyval - true if the sort key value is less than :sortkeyval.
+		sortKeyName <= :sortkeyval - true if the sort key value is less than or equal to :sortkeyval.
+		sortKeyName > :sortkeyval - true if the sort key value is greater than :sortkeyval.
+		sortKeyName >= :sortkeyval - true if the sort key value is greater than or equal to :sortkeyval.
+		sortKeyName BETWEEN :sortkeyval1 AND :sortkeyval2 - true if the sort key value is greater than or equal to :sortkeyval1, and less than or equal to :sortkeyval2.
+		begins_with ( sortKeyName, :sortkeyval ) - true if the sort key value begins with a particular operand. (You cannot use this function with a sort key that is of type Number.) Note that the function name begins_with is case-sensitive.
+	sort-key do not support 'IN()', =%***%, contains(*) etc.
+	
+		
+     Common between 'get' and 'query' both
+       - You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
+        	eg: ProjectionExpression: 'name, company, cid'
+      
+     Filter(NOT QUERY) by attribute :-
+		you can furthure filter the result based on the attribute also. for this you must use 'FilterExpression'
+		How ???????????????????????
+		VVIMP: A filter expression cannot contain partition key or sort key attributes. 
+			You need to specify those attributes in the 'KeyConditionExpression', not the 'FilterExpression'
+			In 'query' and 'get' both function 'KeyConditionExpression' in required and you have to provide proper condition
+			for the the key. but 'FilterExpression' is optional. it just do tyhe after operation of furthur filtering
+			So
+			A filter expression is applied after a Query finishes, but before the results are returned. 
+			Therefore, a Query consumes the same amount of read capacity, regardless of whether a filter expression is present.
+	
+	
+      
+          
+  3. Scan:
+  	To read data this way is exterely resource sensitive. it should be used in very rare case.
+	Unlike query it do not need any primary key to run. 
+	it run over all the data items in the table. and provide the conditioned filtering on basd of any kind of attribute.
+	Though you can provide the 'FilterExpression' However, the filter is applied only after the entire table has been scanned.
+	will see it later
+	EG:-
+			var paramsScan = {
+			    TableName: "UserOrder",
+			    FilterExpression: 'contains(device,:gen)',
+			    ExpressionAttributeValues: {
+				":gen": "e"
+			    }
+			}
+			docClient.scan(paramsScan, function(err, data) {console.log(err, data)});	
+	This will produce all the data cell which has in its attribute 'device' a letter 'e'. the device is a simple attr not a key.
+	in scan the primary key are useless.
+	Out:-
+		[ {... device: 'samsung'},
+		  {... device: 'oneplus'},
+		  {... device: 'dell'},
+		]
+	you can get r1, r2, r3, r4, r5, .... the entire data in below scan
+			var paramsScan = { TableName: "UserOrder", }	  
+	  
+	 Wronglty written scan will produce large data which cant be shipped in an api response. for that the DDB 
+	 automatically add the pagination feature in result. in the result if you get the 'LastEvaluatedKey' it means there is more data left
+	 to read. 
+	 
+   Add/Edit data item :-
+	For this use 'put' function
+	See the example below
+		var paramsPut = {
+		    TableName: "MufUser",
+		    Item: {
+			userID: "20",
+			name: 'abbas',
+			city: "Pune"
+		    }
+		}
+		docClient.put(paramsPut, function(err, data) {console.log(err, data)});	
+          
+         The main thing here is again param, you must must provide 'tableName' and 'Item' key 
+	 In the 'Item' you have to neccesarily provide the partition-key. otherwise there will be an error.
+	 
+	 put wuth PArtition Key + Sort Key:-
+	 	This is almost 99% same as above, exept you also have to provide the Sort-Key 
+		if youu do not provide it then it will give an Error.
+		EG:
+			var paramsPutUOTable = {
+			    TableName: "UserOrder",
+			    Item: {
+				userID: "fattu",
+				OrderID: "fattuEaring1",
+				metal: 'gold',
+				city: "Pune",
+				price: 900
+			    }
+			}
+			docClient.put(paramsPutUOTable, function(err, data) {console.log(err, data)});		
+		
+		You do not have to provide the keys in any special param, just it has to be in the 'Item' above 'userID' and 'OrderID'
+		are partition and Sort keys. fail to provide any single of them cause Error.
+	
+	
+	Q: What will happen if the primary key (partition key OR partition key + Srt key) provided in 'put' is already exist
+	A: It will be updated with new data.    
+          
+	Q: Can you insert a data cell in the DDB without Partition-key (along woth sort-key if applicable)?
+	A: NO. you have to provide each one if table is design to have them. 
+  	
+	Quering the data via Attribute :- 
+		Either by 'query' or 'get' function you can query the data by partition key OR partition key + Srt key
+		but not with any other attributee.
+		But if you still wants to make the query possible with any non-partition, non-sort attribute, you have to use 
+		GSI (Global Secondry Index) or LSI(Local Secondry Index).
+		
