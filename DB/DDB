@@ -1,6 +1,7 @@
 
 Dyanamo DB is the NoSql solution by AWS
-Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, SINGLE DIGIT MILISECOND LATENCY at ANY SCALE
+Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, SINGLE DIGIT MILISECOND LATENCY at ANY SCALE.
+Availibility and scalabilty of DDB is handled by AWS itself and is exteremly high.
 ------------
 
 	DDB and Region:-
