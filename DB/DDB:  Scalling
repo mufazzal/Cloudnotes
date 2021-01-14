@@ -1,0 +1,48 @@
+PRovision CApicity:-
+   This is used to configure hom much dat can be write or read per second. This value should be chosse on the basis of
+   how much user uses the DDB table at a given time and what is the pattern of usage.
+   You can set it at the time of table creation or later when created already.
+   For new table , its at first form only
+   for exisying table  AWS > DDB > table > 'your table' > capacity.
+   Some fundamental:- 
+     In DDB you generally write data in the cell and the data containg of couple of Attribute with keys.
+     Now first thing you have to figure out is to answer this 4 question
+       A. How much the size of your each data item that you are going to read and write.
+       B. How many read operation you need to do in a second
+       C. How many wtrite operation you do in a second
+       D. You need Eventually-consistent read or Strongly-consistent read 
+     This is solely depend on your app load.
+
+   There is two way to set them
+   1. Pre assigned (with auto scalling if you wants)		   
+         Now when you were create the table in AWS console, you can see a calculator to calculate the provision there.
+         fill all four value there and you will see 3 numbers in output
+          1. The read capacity unit you need 
+          2. The write capacity unit you need
+          3. The cost you are going to bear for this.
+            - So if size your data is large you have to provision higher capascity and have to bear higher cost.
+            - If you have lot of data read operation then give higher capacity to read and lesser to write and vise-versa
+            - Strongly consistent read will bear the higher cost.
+        Now what will happen if suddenly load increase for any read or write operation, For this you set the 
+        Auto-Scalling for read:-
+          Simply set if to allot minimum   <MNMNMN> unit 
+          for read capacity anf if utilization goes above   <PPPP> percentage 
+          then add  one more unit and keep it going till the allotment reach to       <MXMXMX> unit
+          After that let the thing crash or performance dipped.
+
+        Auto-Scalling for write:-
+          Simply set if to allot minimum   <MNMNMN> unit 
+          for write capacity anf if utilization goes above   <PPPP> percentage  
+          then add  one more unit and keep it going till the allotment reach to       <MXMXMX> unit
+          After that let the thing crash or performance dipped.
+
+   2. On demand
+      This is new and the best one. just enbale it and you do not need to set anything . AWS will take care of all things.
+
+
+  PRovision	VS On demand:
+    PRovision is best if you know the traffic pattern and load on the DB because you can  proviosn capacity and pay less.
+    On demand if you do not know the traffic pattern and load on the DB and also your app is new in market so you belive low traffic.
+    
+-------------------    
+    
