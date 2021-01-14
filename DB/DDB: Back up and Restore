@@ -1,0 +1,15 @@
+
+	DDB Stream:-
+		This is not enabled by default and its chargable.
+		The stream is the record of all the changes (add/edit/delete) in the DDB for the last 24 hour.
+		This will help you to build the functionality aroud it. The straem can be used to analyze what are changing currently in system
+	
+-------------------	
+		
+	Back up:-
+		Manual Back up:-
+			You can create a Back up of your DB any time and restore it later whenever you wants. This is very useful for archiving the data
+		Point if time recovery:-
+			You can enable this feture if you wants to back up the data at any point of time till last 35 days.
+			For this the DDB keep the incremental back of last 35 days so that ant accidently write or delete can be restored.				
+		
