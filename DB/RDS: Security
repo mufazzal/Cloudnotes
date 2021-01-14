@@ -1,7 +1,9 @@
 Encryption :- 
   You can sekect if you wants to eencrypt the DB or not. if yes you also must select the key for AWS KMS [key management syatem]
   once done the RDS take care of rest pof the things.
-
+  
+  VVIMP:-
+    Remeber that not all the db instance type support the Encryption. so if you wants the encrypt your DB at rest then you must select proper db instance type.
 
   snap shot, Automated back up :-
     If source DB is not encrypted :-
