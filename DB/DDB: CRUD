@@ -215,4 +215,61 @@ Querying the DDB :-
 		but not with any other attributee.
 		But if you still wants to make the query possible with any non-partition, non-sort attribute, you have to use 
 		GSI (Global Secondry Index) or LSI(Local Secondry Index).
-		
+
+-------------
+	DDB transactoion:-
+		Transcation is aset of query which should be all-or-nothing-run.
+		This will run all the query or none at all.
+		This is useful for operation like credit from A and debit to B.
+
+
+
+--------------------
+
+	TTL Attribute:-
+		One of the issue with very large database is too keep deleting useless data. For this DDB provide a excellent feature.
+		You ca set any particular attribute in the Table as 'TTL Attriute' 
+		The data cell will automatically deleted when the time set in that attribute reach
+		For this :-
+			AWS > DDB > Table > 'your table' > Action > Manage TTL
+			Set the attribute that you prefer should consist the value of TTL timestamp.
+			lets say you set the attribute 'ExpirationTime'
+			Done
+		Now entry made by below 'put' request will be deleted after the time reached to '4234234344'	
+			var paramsPutExpirationTime = {
+			    TableName: "MufUser",
+			    Item: {
+				userID: "34",
+				name: 'ttttt',
+				city: "yyyyy",
+				ExpirationTime: '4234234344'
+			    }
+			}			
+
+-------
+
+For AWS-JS-SDK :-
+	any dynamoDB function can be conver in promise simply by calling the promise() function.
+	the function
+			docClient.get(params, function(err, data) {console.log(err, data)});
+	is same as below
+			docClient.get(params)
+			.promise()
+			.then(function(data, err) {console.log(err, data)});
+
+----------
+	DDB and Data Consistency:-
+		The DDB have two type of data consistency and 
+			1. Eventual Consistent Reads
+					The atest PUT may not reflect in the READ. and you may get minute or two older data
+			2. Strongly Consistent Reads
+					All the latest PUT till the moment will be reflected, so data read will always be the latest till the point in time.
+					
+		it not set at time of creation of DB instead it is depend on how the request is made for read.
+			If you want any read operation to be 'Strongly Consistent Reads' then pass the parameter 'ConsistentRead' in GetItem, Query, and Scan.
+--------------------------
+
+	DDB API:-
+		Just like SDK where you call the function, there is also exposed API of DDB which you can call.
+		??????????????????????????/
+
