@@ -83,43 +83,6 @@ Publicly accessible:-
       
 
     
-    
- ----------------
- EC2 and RDS relative location in VPC :-
-  If EC2 and RDS both are liying in same VPC, then there is chances that 
-  1. Affect of RDS publicaly accessible
-      > It has no effect, Doesnt matter id RDS is publically accesible or not (means RDS has an public IPv4)
-        If other things are right then the EC2 will be able to connect and communicate.
-  2. Affect of RDS living in public or private subnet :-
-      > It also has no effect, Doesnt matter if living in public or private subnet
-          If other things are right then the EC2 will be able to connect and communicate. becaue the public/private subnet decide
-          weather the internet traffic generated from outside VPC will be able to reach to component living inside subnets or not.
-          If both the part EC2 and RDS are inside the same VPC then subnet doesnt matter.
-  3. Affect of EC2 living in public or private subnet :-
-    ?????????????
-    I think thi also shouldnt have any affect, because both live inside same VPC.
-  4. Affect od security group of EC2 :-
-      This do has a effect.
-      It must allow the outbound TCP traffic at proper port
-        eg. for mysql 3306, for postgress ***
- 5. Affect of SG of RDS
-      It also do have effect
-      It must allow the SG of EC2 to connect at at proper port in inbound rule (eg. for mysql 3306, for postgress ***) 
-      [
-        Note: will simply seting up the inbound rule wiht port and 'any IP' work ?
-        No!, This is useful when we are connecting the RDS from outsde the VPC, like when we connect the RDS from local machine from home or office.
-        or we wants to connect from webserver outside the AWS ecosystem.
-      ]
-      
-      
-     --------
-     Scenario when webserver is outside the VPC -
-     ??????
-      
-        
-        
-        
- ---------------------------
  
  DB Engine and version-
   There is 6 RDB supported
@@ -269,48 +232,26 @@ Networking Config:
       DB Encryption:
       DB Monitoring:
         
-------
+-----------------
 
- -----
+DB parameter groups:-
+  There is many of the parameter DB need to fill to work properly.
+  This param depend on instance class, storage type etc. there are 100s of such param for each DB type(Postgress, Mysq etc.)
+  AWS here help ypu out and provise default set of this parameter readt-to-use.\
+  For each DB Engine and its version there exist a default param group. RDS use this default param group for the created DB.
+  This default param group is read only and if you wants to use customized values then you have to create new param group and use it for your DB.
+  You can change vaues in cutomized group. The changes om the cutomized group may apply immediatly or need a reboot.
+  
+DB Option Group:-
+  This also quite same as 'parameter groups' except it is specific for any DB. This give way to handle specific feture of given DB.
   
   
-  Maintainance:-
-    Select the time and proide for this. DB will automatically down in this window.
   
-    -----------
-    
-    DB Scalling :-
-    here is 3 way to scale it, depend on what dimension you wants to scale -
-    Scalling Compute :-
-      You can change the DB instance class, You have option to choose when this change must apply
-      either immidatly or at maintainance window.
-      FOr this scalling opertation there will be an downtime.
-      In Single AZ DB the downtime is large.
-      IN Multi AZ its minimal, becoz the secondy on frst fail and updated, second now act as prime and then prime start updating
-      Changing DB instance class is straighforward, you just have to know about its impact.
-        
-     
+  
 
-    
-    ----------
-    
-    -------------------
- 
-    
-    Encrypt the pre-existing un-encrypted DB :-
-      Currently not supported buth there is a trick
-        ?????????
-    
-    
-    ------_----
-    RDS and ElastiCache
-    ??????????????????????????
-    
-    
-    ---------
-    
-    
-   Max storage size for MySql: 16TB 
-    
+
+
+
+
 
   
