@@ -38,6 +38,9 @@ Creating the Lembda:-
  ---------
 Q:  How many lambda can be call cocurrently
 A:  1000
+
+Q   Max time a lambda can take for execution?
+A.  5 minutes. after that it fail.
 -----------------------------
 
 
