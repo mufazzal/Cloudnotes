@@ -1,0 +1,9 @@
+DDB stream: you can use stream to analyze what happen to
+DDB in last 24 hour. it has detail about CRUD operation 
+
+DDB is nicely integrated with lambda.
+you can set lambda trigger on stream event. once you do it
+ttgen Cloudwatch set a polling mechanism in background
+and triiger the lambda if new event or events prsent in stream.
+
+its very much like SQS.
