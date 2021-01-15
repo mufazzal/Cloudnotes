@@ -88,7 +88,7 @@ Lambda and VPC:
           Because even though the Lambda function is running inside a public subnet of a VPC, 
           But the Lambda functions do not, and cannot, have public IP addresses. 
           You cannot send traffic to the internet, via the VPC's Internet Gateway, 
-          unless you have a public IP. You would need to route through a NAT Getway.
+          unless you have a IP(private). You would need to route through a NAT Getway.
           Lambda in public subnet can only access the nodes lieing in VPC not the internet. so its vert limiting.
           
    sol2: Placing the Lambda in Private Subnet without NAT getway:-           
