@@ -322,7 +322,17 @@ LAmbda and Pricing:-
     3. Memory allocated.
      
 
+-----------
 
+LAmbda Integration with other services:-
+  Many of the AWS services can trigger the LAmbda on certain event.
+    Like S3 on object copy/put, SNS or SQS on message, ClodWatc, API Gateway, Autoscalling Group etc.
+  But some are not at all integrated with Lambda 
+    EG: EC2, RDS. there is no way to trigger an lambda when an EC2 turn shut or stop, RDS goes oerloaded.
+      ** Though you can set a Clogwatch event for those scenario and trigger the lambda by CW.
+    
+    
+    
 
 
 
