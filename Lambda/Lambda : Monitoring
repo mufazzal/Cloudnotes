@@ -1,0 +1,3 @@
+AWS X-Ray:-
+  Lambda is nicely integrated with AWS X-Ray. 
+  You can use X-Ray SDK in the code of lambda and add annotation etc than can be viewd in X-Ray dasboard.
