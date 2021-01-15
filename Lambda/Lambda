@@ -313,7 +313,14 @@ LAmbda and SetTimeout():-
   Lambda functions life time is limited with 300 seconds, after 300 seconds, your function dies. 
 
 
+-----------------------
 
+LAmbda and Pricing:-
+  You will be charge on two factor
+    1. No of lambda: First 1 million is free and thereafter you will be charged 0.025 per 1 million request.
+    2. Time taken by lambda for execution
+    3. Memory allocated.
+     
 
 
 
