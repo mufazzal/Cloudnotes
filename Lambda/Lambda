@@ -136,6 +136,11 @@ Lambda and VPC:
         So any node the AWS network must have a security group that can tell what destination are safe for inbound and outbound communication
         
         
+
+
+
+       Lambda functions can't connect directly to a VPC with dedicated instance tenancy. 
+       To connect to resources in a dedicated VPC, peer it to a second VPC with default tenancy
 ---------------
 
 Lambda's IAM Role/Permissions at local development at you PC:-
