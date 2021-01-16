@@ -254,7 +254,11 @@ API key
 
 Throttle Request
 
-AG and EC2/RDS
-      
+AG and EC2/RDS/DDB
+
+
+AG api cache
+
+AG request response interpretation       
    
    
