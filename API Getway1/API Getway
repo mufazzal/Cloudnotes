@@ -59,8 +59,29 @@ API Gateway Integration [forwarding request]:-
 				Now the request coming to AG [from anywhere] will be forwared to NLB of VPC.	
 					
 					
+------------------
+
+Usage Plan and API Key:-
+	When you create a apis in AG. they can be public and people can use it for many number of time at any rate.
+	Now suppose you wants to limit the number of request per second and total number of request for some set of users.
+	say tou wants to give 5000 request call and 10 requets call max per sec for any of your client. How would you do it.
+	For this use the 'Usage Plan' and 'API key':-
+	Usage Plan:-
+		Usage plan has 3 values:
+			Rate: max request per secong after which request throttle.
+			Burst: ???
+			quota: Max number of request in given time preiod[day, week, month]
+	API Key:-
+		The api key is mapped to one and only one Usage Plane. 
+	Source of API Key:-	
+		At the time of request caller can sent the Api key at two places 
+			HEADER: in the header 'X-API-Key'
+			AUTHORIZER: use cutom lambda authorier and have it return the API Key in response agaibst key 'usageIdentifierKey'
+		AG Setting:-
+			You need to set this in setting at AG > your api > Setting, from which you will read the API key.
+
 		
-		
+	One usage plan can map to many API Key. but one api key can have only one Usage plan
 		
 		
 
