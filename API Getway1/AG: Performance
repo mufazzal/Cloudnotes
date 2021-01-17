@@ -1,0 +1,6 @@
+API Caching:-
+  You can set to cache the api response for quick response.
+  Caching enable AG to answer the request from cache rather reaching to integration point all the time.
+  
+  This is enabled for stage and API level [not at resource level]:-
+    once enable you also need to give TTL and cache capacity.
