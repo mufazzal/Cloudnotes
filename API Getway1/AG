@@ -87,9 +87,18 @@ Usage Plan and API Key:-
 		
 	One usage plan can map to many API Key. but one api key can have only one Usage plan
 		
-		
-
 -------------
+
+AG and Stage:-
+	At stage level you can set below items for APIs [not api resource]
+		- Caching
+		- Default Method Throttling
+		- WAF
+		- Client Certificate
+		- Stage Variable
+		- Monitering mechanics
+
+------------
 API GEtway and Versioning and stage variable.
       
 
