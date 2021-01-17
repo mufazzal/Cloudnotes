@@ -76,10 +76,14 @@ Usage Plan and API Key:-
 	Source of API Key:-	
 		At the time of request caller can sent the Api key at two places 
 			HEADER: in the header 'X-API-Key'
-			AUTHORIZER: use cutom lambda authorier and have it return the API Key in response agaibst key 'usageIdentifierKey'
+			AUTHORIZER: use cutom lambda authorier and have it return the API Key in response agaibst key 'usageIdentifierKey'. 
 		AG Setting:-
 			You need to set this in setting at AG > your api > Setting, from which you will read the API key.
-
+		No finally ar resource level:
+			Go to 
+				AWS > AG > APIs > your api > select proper api resource > Methode Request > 
+				set API Key Required = true.
+				So at this point you can set what resousrce need to have api key in request and wha not.
 		
 	One usage plan can map to many API Key. but one api key can have only one Usage plan
 		
