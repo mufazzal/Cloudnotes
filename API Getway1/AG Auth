@@ -1,18 +1,29 @@
-There is multiple way to autheticate that if caller has valid request and has proper access. 
-The choce is your that what level of security you wants.
 
-Verify (not authenticate) if API is in correct form:-
-
-  Verify if API caller has provided proper structure like body, header, query param
+There is two places where you can check it
+	- At Apigetway by the apigetway itself
+	- At Apigetway but by the Authorizer
+ 
+At Apigetway by the apigetway itself:-
+	Verify (not authenticate) if API is in correct form:-
+	Verify if API caller has provided proper structure like body, header, query param
       This will check if the caller has proper params in the API. it does not verify if he has the access to that api or not.
       How:-
         at your  Api > Method Request 
           set 'URL Query String Parameters', 'HTTP Request Headers', 'Request Body'
       This is very basic level of check.
-
+		How:-
+			go to AWS > API GEtway > API collection > api > methode > MEthode Request
+			Now set the 'Request Validator' as such that what parts in api you wants to check
+			Now you can configure belo three things
+				Query String ->  www.*******.com?uName=Muf                    Here you setup qery in api must look like  
+				Header       ->  www.*******.com {Header:{ uname: "Muf"}}     Here you setup headers must look like  
+				Query String ->  www.*******.com?{body:{ uname: "Muf"}}       Here you setup body model must look like  
+			This authoization can work only upto request formate level.
+			It n verify if required data prsent in the call or not. But there is no way that it can verify that whoever
+			is accessing this api have permission/authority to go into it.
 
 #APIGETAUTH
-Authenticate the caller:-
+At Apigetway but by the Authorizer:-
   There are 3 way to authenticate if caller has access to API or not
   1. custom authorizer + Cognito user-pool
   2. AWS_IAM with Cognito id-pool
@@ -143,9 +154,22 @@ Authenticate the caller:-
     
   3. custom authorizer + Lambda:-
       This is extremly fine grain way to give access at a runtime.
-      In this approach you have to create a lambda who take the input for the api and return the IAM policy
-      for detail see 'API Getway.txt'
-      
+      In this approach you have to create a lambda who take the input for the api and return the IAM policy like this
+          var effect = 'deny'
+              if(event.authorizationToken === 'muf')
+                  effect = 'allow'
+
+              const po = {
+                  principalId: 'user',
+                  policyDocument: { 
+                      Version: '2012-10-17', 
+                      Statement: {
+                          Action: 'execute-api:Invoke',
+                          Effect: effect,
+                          Resource: 'arn:aws:execute-api:us-east-1:388412347424:r3k1ggk9s7/Dev/GET/personalinfo'
+                        } 
+                  }
+              }         
       
       
 ----      
@@ -192,14 +216,4 @@ API Getway and CORS:-
 		}
 		return res;      
       
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
