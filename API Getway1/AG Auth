@@ -170,9 +170,28 @@ Authorizer of API Getway   VS   Lambda Role
     This define that what kind of operation on what kind of resource does the lambda has permission to perform
     So this access is actully depend on the previllage level of Lambda [not user]
     
+---------------------------------------------------
+
+      
+=----------------
+
+API Getway and CORS:-
+  By default all the api in the API getway has the cors disabled. It can be enecbled easily by 
+    AWS > API Getway > you api > resources > Select Action in DD > Enable CORS.
     
+  API Getway and CORS and Lambda:-
+    If lambda is integrated as the response generator in the APPI then above step is not enough for cors. 
+    for this you havr to take care of additional headers in the reponse of lambda.
     
-  
+    So the response of lambda should have this header:-
+      
+ 	  res = { 
+          statusCode: ****, 
+          body: *******,
+          headers: {'Access-Control-Allow-Origin': '*'}
+		}
+		return res;      
+      
   
   
   
