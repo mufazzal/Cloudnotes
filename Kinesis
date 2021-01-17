@@ -1,0 +1,37 @@
+Amazon Kinesis is a massively scalable and durable rad:-real-time data streaming service
+It can capture gigabytes of data per second from hundreds of thousands of sources such as
+  website clickstreams, 
+  financial transactions, 
+  social media feeds, 
+  IT logs, 
+  location-tracking events
+  
+  Kinesis Data stream:-
+    KDS collect the data from diffret stream of sources and place in Shrads. This data can remain in the stream for 24 hour to 7 days.
+    you can create a consumer application to read and intrpret this data from stream.
+    Generally you can use this stream of data to enable real-time analytics use cases such as real-time dashboards, real-time anomaly detection, dynamic pricing.
+    KDS has its own data storage.
+    
+    Shrad:-
+      A shard is a uniquely identified sequence of data records in a stream. A stream is composed of one or more shards, each of which provides a fixed unit of capacity
+      Each shrad can have capacity of
+        5 transaction per sec for read [limited to 2MB per sec]
+        1000 transaction per sec for write [limited to 1MB per sec]
+        The total capacity of the stream is the sum of the capacities of its shards. To increase the capacity of Stream you can increase the number of shrads.
+    GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of orocessing capacity.
+        
+  Kinesis Data Firehose:-
+    This too collect the data from multiple stream but instead of storing them in Shrads it deliver the data to any AWS storrage service like S3, RDS, Redshift, Amazon Elastic search
+    KDF do not have any of its own storage or shrads. it just deliver the data to storage service.
+    Later you can use feature of that service to analyze the data.
+  
+  Kinesis Data Analytics:-
+    Amazon Kinesis Data Analytics is the easiest way to transform and analyze streaming data in real time with Apache Flink. 
+    Apache Flink is an open source framework and engine for processing data streams. 
+    Amazon Kinesis Data Analytics reduces the complexity of building, managing, and integrating Apache Flink applications with other AWS services.
+
+
+        
+        
+        
+    
