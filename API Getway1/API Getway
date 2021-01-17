@@ -1,249 +1,68 @@
-The API getway provide you the way to write an API.
 
-Lets say you wants to have an api which will take userid and return the user detail.
-Also it has an third party authorization and all the data lie in another server(not in aws)
-
-For servverless arch you should write small picess of runnable code and deploy them as lembda function
-
-writre one lembda function which will take input as 'accessToken' and 'domainUrl' 
-  - accessToken has all ids for user and will be passed from 'event' variable if lembda fumction
-  - domainUrl will configured in env variable of this lambda function 
-Name of this lembda function is 'get-user-profile'   
-  [accessToken] -> Lembda 'get-user-profile' { call www.{domainUrl}.com/userProfile } -> profile Json
-  
-Now the above lembda function is sitting somewhere inside the AWS system. 
-If you wants to call this lambda function via outside you have to write the API to invoke it.
-
-Creating an API :>
-  This API will actully expose the lembda function.
-  1. AWS > APIs Getway > Create APIs
-      Its is 'Create APIs' not 'Create API', It is IMP because what you are creatin here is not an actuly a end point
-      its is a collection of APIs
-      It look like this
-        APIs->
-          User APIs
-          Payment APIs
-          Shopping APIs
-          Admin APIs
-  2. Now once you have created APIs, now its time to creat a resource in it. 
-      The recourse is actully a path of Rest API, You can create the nested resource too.
-      2.1 AWS > API Getway > 'Collection Name' APIs > get focus at '/' > Action > Create Resource
-      2.1 Select Resource name (eg. user-profile or user-history, user-location) and enable CORS
-      Save
-      Now it will look like this
-        APIs->
-          User APIs  [its id is 0uckbsi8pd, which will be later appear again in API end point]
-            /user-profile 
-            /user-history
-            /user-location
-          Payment APIs
-            /payment-start 
-            /payment-status
-            /payment-profile          
-          Shopping APIs
-          ...
-           Admin APIs
-          ...
-          Why focus '/' :> It will make sure that the api resource will look like this
-              www.aws..mufvpc******.com/user-profile 
-    3. Now you have created resources so next step is to create a methods to access this resources
-       Of course this methodes are HTTP methods like GET, POST, PUT, DELETE, OPTION
-       3.1 Gain the focus on the resource (eg. user-profile, user-history, payment-status ...) 
-       3.2 Action > Create Methode > Select one from Drop Down 
-       3.3 Integration Type:-
-            This will define what this API will expose, If this this api is called then the call will be forwarded to
-            the item that you have selected for integration. this item could be Lembda, HTTP, AWS sevice, mock etc.
-            For now we will see how we can integrate the lembda function(get-user-profile) with this API
-            -->lets gaiin focus of 'user-profile' in step 3.1
-            3.3.1 Now chose Integration Type 'lembda function'
-            3.3.2 enable 'Use Lambda Proxy integration' if you wants to get detail of API request available in
-                  'event' variable of the handler function of lembda. This is very useful because now you can get
-                  all the input header, body etc information are aviable in 'get-user-profile' lembda function.
-            3.3.3 Select the lambda function you wants to integrate 
-      Save
-      Now you have a API which is connected to lembda. So basically 
-        www.aws..mufvpc******.com/user-profile  is exposing 'get-user-profile' lembda function.
-            
- 4. Deploy API:-
-      Till now you have created the API, but now ou shoulfd deploy it.
-      4.1 AWS > APIs Getway > 'Collection' APIs [User APIs] > API [user-profile ] > Methode [GEt/POST..]
-      4.2 Action > Deploy API
-      4.3 Selct stage {dev, prod, uat..}, create one if none
-      Deploy
-      
-      At this point you will have a file URL which look like belo
-      
-      GET       https://    0uckbsi8pd              .execute-api.us-east-1.amazonaws.com/     dev     /user-profile
-      <Methode>             <ID of APIs Collection>                                         <stage>     <resource>
-      
- 5.  Authorization of API :-
-       Before reaching to any resources that the API has integrated in step 3.3 it must be validated that caller has proper permission 
-       for it.
-       
-       There is two places where you can check it
-       - At Apigetway by the apigetway itself
-       - At Apigetway but by the lembda function
-       
-       For fisrt one-
-        go to AWS > API GEtway > API collection > api > methode > MEthode Request
-        Now set the 'Request Validator' as such that what parts in api you wants to check
-        Now you can configure belo three things
-          Query String ->  www.*******.com?uName=Muf                    Here you setup qery in api must look like  
-          Header       ->  www.*******.com {Header:{ uname: "Muf"}}     Here you setup headers must look like  
-          Query String ->  www.*******.com?{body:{ uname: "Muf"}}       Here you setup body model must look like  
-        This authoization can work only upto request formate level.
-        It n verify if required data prsent in the call or not. But there is no way that it can verify that whoever
-        is accessing this api have permission/authority to go into it.
-        
-        There are 3 way to authenticate if caller has access to API or not
-        1. custom authorizer + Cognito user-pool
-        2. AWS_IAM with Cognito id-pool
-        3. custom authorizer + Lambda
-       We will use 3rd option 
-       
-       custom authorizer  :-
-       
-       The custom Authorizer is with Lembda function  takes the input as 'AuthorizationToken' and return a IAM policy document.
-       What is IAM Policy doc-
-        Its a statement saying if the caller XXX has permission to perform operation YYY over resource ZZZ.
-        Its formate is same as as what we do in IAM of AWS.
-       For now just note two thing
-        if a lembda is integrated with al api then the authenticatoe lembda can allow or deny the access of futher lembda
-        by returning likr this
-          var effect = 'deny'
-              if(event.authorizationToken === 'muf')
-                  effect = 'allow'
-
-              const po = {
-                  principalId: 'user',
-                  policyDocument: { 
-                      Version: '2012-10-17', 
-                      Statement: {
-                          Action: 'execute-api:Invoke',
-                          Effect: effect,
-                          Resource: 'arn:aws:execute-api:us-east-1:388412347424:r3k1ggk9s7/Dev/GET/personalinfo'
-                        } 
-                  }
-              }        
-
-       How and where they applied :-
-        Authorizer are written below APIs collection and you can create more than one Authorizer there.
-        This authorizer later can be set over the API in that APIs collection.
-        So it will look like this-
-        APIs->
-          User APIs
-            <--api-->
-                /user-profile 
-                /user-history
-                /user-location
-            <--authorizer-->
-                userAutho
-                userEditAutho
-                userDeleteAutho
-                userMigrateAutho
-              ...
-          Payment APIs
-             <--api-->
-                /payment-start 
-                /payment-status
-                /payment-profile 
-             <--authorizer-->
-                startPayAutho
-                getStatusPAyAutho
-                ...
-          Here you can appy the any <Authorizer> of particular <APIs Collection> to any of its <API>
-                                     userAutho                       User APIs                  /user-profile 
-                                     userEditAutho                   User APIs                  /user-history
-                                     userEditAutho                   Payment APIs               /payment-start  
-                                     getStatusPAyAutho               Payment APIs               /payment-status 
-                    Impossible->     getStatusPAyAutho               User APIs                  /user-profile 
-
-        When exactly it will be called->
-          When any user make an API call(with useful tokens), if an Authorizer is attached with this api 
-          then the call will first lands in Authorizer with useful authentication token. 
-        
-        How to create->
-        5.1 The first step of wrinting an authorizer is to write an lembda function(mufAuthorizerLmbd) such as
-            [authorizationToken] -> Lembda mufAuthorizerLmbd() {}  -> IAM Policy JSON doc
-            We will later see how we setup the 'authorizationToken' to recive the auth token, When we set this lembda to fire at a time of this api call 
-            The IAM policy return from this lembda will tell the sysytem should he allow the CALLER to perform certain
-            OPERATION on the called RESOURCE.
-            Now lest suppose 'mufAuthorizerLmbd' is reday in AWS > compute > Lembda > 'mufAuthorizerLmbd'
-        
-        Now time to set this 'mufAuthorizerLmbd' lembda s authorizer of any api.
-        
-        5.2 go to AWS > API Getway > APIs-Collectin [eg User APIs or Payment APIs] > Authorizers > create Authorizers
-        5.3 type name you wants, lets say it is 'mufAuthorizer'
-        5.4 Select the Lembda function written in step 5.1 
-        5.5 'Token Source' should be the header perameter which contains the information about accessibility (eg Authorization, muAuthToken etc)
-                The value coming in this token will later be avialable in Lembda of Authorizer [mufAuthorizerLmbd] 
-                at 'event.authorizationToken' and can be used to calculate the acccessibilty.
-            So set the value of 'Token Source' as header key, which contains accessibity info.
-            the value of this header later can be read in Authorizer lembda (mufAuthorizerLmbd) at 'event.authorizationToken' [no matter what its real key in actual request]
-        5.6 Create
-        
-        Now Authorizer are created and ready to use, Its time to attach it to actual API
-        
-        5.7 first lets go the exact rnd point of api
-            AWS > API Getway > APIs-Collectin [eg User APIs or Payment APIs] 
-                  > Resource [eg user-profile, user-history,  payment-start] > Methode [eg GET, POST] > click 'Method Request'
-        5.8 In dropdown Authorizer choose the authorizer you created in step 5.6
-        5.9 As you know the API that user call first lands in Authorizer(eg mufAuthorizer) before landing in to what it integrate, at this point we can 
-            also set what information are must to have and then what information should be passed in authorizer.
-            5.9.1 Set 'URL Query String Parameters'
-                  click 'Add Query String' and type the name of parameter which must be in url string
-                  Suppose accessToken is coming in url string then for its prsense validation you can add this and check isReqiured.
-                  eg. www.*****.com/accessToken/12345
-                  Leter this query string param can be read in any subsquent lamba function (authorizer or exposed one) at 'event.queryStringParameters'  
-           5.9.2 Set HTTP Request Header-
-                  Click 'Add Header' and add the header which you wants that the API should carry and forward it to authorizer (mufAuthorizer) 
-                  eg. www.*****.com/accessToken/12345
-                      {header: {Authorization: "Bearer blablabla..."}}
-                  Leter this header param can be read in any subsquent lamba function (authorizer or exposed one) at 'event.???????????????'  
-           5.9.3 Set Body model
-                  ???????????
-           
-        
-        
-        
-        
-        
-Jsu Remember : 
-  in Auth0- accessToken has info about is user is logged or not and his ids
-            AuthorizationToken has info about what kind of permissions that user has. 
-              
-              
-   ---------------
-   
-   API getway and Regio:- 
-      This is regional dependent service, The APIs created in one region will not be availiable if youi change the region in AWS console.
-      Do not confuse that you cannnot call the API in diffrent region, you can call them but the it will take greated time to respond.
-      Ther best region will always be the one where you have most of ur users.
-      
-=----------------
-
-API Getway and CORS:-
-  By default all the api in the API getway has the cors disabled. It can be enecbled easily by 
-    AWS > API Getway > you api > resources > Select Action in DD > Enable CORS.
-    
-  API Getway and CORS and Lambda:-
-    If lambda is integrated as the response generator in the APPI then above step is not enough for cors. 
-    for this you havr to take care of additional headers in the reponse of lambda.
-    
-    So the response of lambda should have this header:-
-      
- 	  res = { 
-										statusCode: ****, 
-										body: *******,
-										headers: {'Access-Control-Allow-Origin': '*'}
-						}
-				return res;      
-      
-    
-  
-  
-  
-
+API Gateway Endpoint [Reaching ti API]:-
+	When you create API [Not API resource] you can how user can reach to those APIs
+	There is 3 way
+		1. Regional
+		2. Edge Optimized
+		3. Private
+		
+		Regional:-
+			Here the API are deployed to specific AWS region. Though user can access those apis from any where in worls but its faster for the user of the region  where this API lies.
+			This is useful if you user are clustred in specifiv region.
+		Edge Optimized:-
+			Here AG utilize the Edge location for fast respionse to anywhere in the world. This is useful if you user are spread globally.
+		Private:-
+			This useful if you wants the APIS to be callable from your VPC only. It cannot be called form outside of VPC by public internet.
+			This is very useful when you have many private component in your VPV which do not has the Internet but need to execute the underlined APIs.
+			This is bit tricky and setting it up need some proper mechanics.
+			At VPC side:-
+				As we mentioned that VPC component may be private and do not has internet access so if they want to use the API Gateway for calling those API,
+				They must use AG service by 'Service Endpoint' of AG.
+				So create a Service end point in the VPC for AG.
+			At AG:-
+				At a time of creation of AG select the 'Endpoint' as private. There by restrict any public access of those apis.
+				Now once created, then set up the rersource policy to selectivly allow which VPC can access those resources in APIs.
+				
+			So now no one from the public can use those api, but anyone in 	the VPC can call them[via VPCs Service Endpoint  of AG]. 
+							
+			
+API Gateway Integration [forwarding request]:-
+	This is applicable at resource level of API. 
+	You can configure how a request will be handle for any resource of any methode type.
+	You forward the request to
+		Lambda
+		HTTP
+		AWS service 
+		Private link
+	Most of those forward are easy to understand but one of them is tricky that is 'Private link'
+	
+	
+	Private link [Forwarding to Private VPC component]:-
+		Suppose if you wants to forward the request to any VPC component then again you need a proper set up
+		[Do No Confuse]: Private Endpoint means APi can be called from inside the VPC only. and Private Link is for forwarding the request to internal VPC component.
+			Private Endpoint:  VPC to AG
+			Private Link:			 AG to VPC
+			How:-
+				At VPC side:-
+					If this VPC need to handle the integration with AG then it must must must have a working Network Load Balancer in it.
+					So set up the NLB here.
+				At AG:-
+					1. Create the VPC link 
+							Go to AG > VPC link
+							Select the NLB created at VPC side
+					2. Integrate VPC Link to apis:- 
+							Go to AG > your apis > 'select resource' > integration
+							select integration = 'VPC Link'
+							slect the VPC link you created in step 1
+							Also fill the Endpont value with DNS of NLB created at VPC side.
+					Done.
+				Now the request coming to AG [from anywhere] will be forwared to NLB of VPC.	
+					
+					
+		
+		
+		
+		
 
 -------------
 API GEtway and Versioning and stage variable.
