@@ -1,0 +1,9 @@
+The monitering prefrences are set the the satge and API level [not at resource level]
+  For setting the monitoring you can
+  
+  1. Enable CloudWatch Logs:
+    This give you access and debug log and les chargable
+  2. Enable Detailed CloudWatch Metrics
+    This eill give you detail like
+      Latency, integrationm latency, 400, 500 error
+  3. Enable X-Ray Tracing
