@@ -112,4 +112,12 @@ Code to generate the pseudo IAM user for userpool user
      MufuserPool  ---------  AppClent2    ---------  MufIDPool
                   ---------  AppClent3    
   
+  ------------------------------
+  
+  User-Pool VS Identity-Pool:-
+    User pool is used for Identification and user management. It generate the access and id tokens.
+    Identity-Pool is used for authorization to determine if user has access to AWS resource or not. It generate the IAM ke and id pair.
+  
+  
+  
   
