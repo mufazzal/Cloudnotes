@@ -1,6 +1,7 @@
 When it comes to encryption and decryption the KMS play the central role in AWS ecosystem.
-
-The KMS is mpotre than just a primitive en-dc system. its a complete managed service.
+The KMS is more than just a primitive en-dc system. its a complete managed service.
+KMS is regional service, means key lie in one region can en-de the resource of that region only.
+like s3 object, EBS volume etc.
 
 Its so strongle integrated with other system that with just few setting you can use this to en-dc the file/dat/object of below items
   1. S3
