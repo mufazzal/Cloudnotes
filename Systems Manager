@@ -1,0 +1,43 @@
+AppConfig:-
+  Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. 
+  You can use AWS AppConfig with applications hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS Lambda, containers, mobile applications, or IoT devices.
+  
+  In appconfig you dan create the Application then creat Enviorment in the Application.
+  for each Enviorment you can have the source of configuration data[Configuration profile]. this source could be
+  - S3 object [in yaml or json form]
+  - Parameter Store
+  - YAML, JSON, or text documents in the AWS AppConfig hosted configuration store
+  - SSM document.
+  
+  Values of Appconfig can be get into EC2, ECS, Lamda for use.
+  
+  Deploment of Appconfug:-
+    For changing the any value in configuration you will have to first change in AppConfig and creat Deployment in Appconfig.
+    after that new configuration will take effect.
+
+Parameter Store:-
+  Parameter store is way to store the configuration data and password as shred resources in your AWS account.
+  once stored ity can be used via CLI, SDK, Cloudformation template etc.
+  This give you centralized location for managing the configuration level changes in the diffrent AWS services.
+  Data arestored in herarical form and has versioning for each param.
+  
+  The param are stored in below formamte [naming convension]
+  
+  prod/app/db/url           db.hostname.com
+  prod/app/db/psd           lkdasdsad
+  prod/app/db/user          Mufazzal
+  prod/app/regions          EU,APAC,AUS
+  dev/app/db//url    
+  dev/app/db/user
+  
+  Data type:-
+    There can be three data type
+      String, StringList, SecureString
+      Fierst two are not encrypted at rest. the last one is encrypted using the Aws managed or Customer managed KMS key
+  
+  How and where to use this:-
+    You can use this data in EC2, Lambda, CloudFormation, CodeDeploy et.
+    fir SDF you need 'ssm' library.Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. You can use AWS AppConfig with applications hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS Lambda, containers, mobile applications, or IoT devices.
+
+
+
