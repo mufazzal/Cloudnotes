@@ -1,0 +1,5 @@
+SSM is used for doing the bulk operation on EC2s.
+like running the particular command on many ec2 instances
+ttogether.
+for this go to
+aws - ssm - run command
