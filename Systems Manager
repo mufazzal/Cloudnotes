@@ -11,9 +11,12 @@ AppConfig:-
   
   Values of Appconfig can be get into EC2, ECS, Lamda for use.
   
-  Deploment of Appconfug:-
+  Deploment of Appconfig:-
     For changing the any value in configuration you will have to first change in AppConfig and creat Deployment in Appconfig.
     after that new configuration will take effect.
+ 
+ Reading:-
+    To read this params you can use 'GetConfiguration' api, 'aws appconfig get-configuration' in SDK,  
 
 Parameter Store:-
   Parameter store is way to store the configuration data and password as shred resources in your AWS account.
