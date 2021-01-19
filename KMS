@@ -157,4 +157,15 @@ But there is couple of serious issue with this straightforward approach
     will be decrypted with older vesrion of key.
   
   
-  
+ ---------------------------------
+ 
+ CloudHSM:-
+  Cloud HSM is Hardware Secutity Module solution from AWS.
+  This is simmillar to KMA with below exception
+    - It ran on dadicated Hardaware unlike KMS which ran on shared hardware
+    - This has more security complience as hardware is not shared with other.
+    - It run inside the VPC.
+ 
+ 
+ 
+ 
