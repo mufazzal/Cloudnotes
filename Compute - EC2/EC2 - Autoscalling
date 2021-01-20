@@ -113,11 +113,16 @@ ASG Lifecycle Hook:-
 
 Scalling Policy:-
   This define on what condition the instances will be launched or taken down.
-  There is below policy to do it.
+  There is below way to do it.
   
-  Manual
+  Manual:-
     - You set the desired capacityby yourself whnever you need to increase or decrease the capacity.
-  By Policy
+  Scheduled:-
+    - Scheduled scaling allows you to set your own scaling schedule. 
+      For example, let's say that every week the traffic to your web application starts to increase on Wednesday, 
+      remains high on Thursday, and starts to decrease on Friday. 
+      You can plan your scaling actions based on the predictable traffic patterns of your web application. 
+  Automation: By Policy
     There is 3 kind od policy
     1. Target Tracking
       - You set a target say 70% CPU usage and ASG take care of adding/removing instances to acive this target.
@@ -136,10 +141,8 @@ Scalling Policy:-
     -------+-----------
   
   
-  Schedule Action of ASG:-
    
-    Scheduled scaling allows you to set your own scaling schedule. For example, let's say that every week the traffic to your web application starts to increase on Wednesday, remains high on Thursday, and starts to decrease on Friday. You can plan your scaling actions based on the predictable traffic patterns of your web application. Scaling actions are performed automatically as a function of time and date
-
+    
     
     
 
