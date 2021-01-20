@@ -6,8 +6,8 @@ A lod balancer simply route the application request or network traffic to the di
 
 AWS provide three king of LB :-
   1. Application LB : for general purpos HTTP/HTTPS LB
-  2. Network LB : for ultra efficient
-  3. previous gener
+  2. Network LB : for ultra efficient and have performance of million request per sec
+  3. Classic LB: previous gener
   
   <<Detail diffrence come later>>
 
