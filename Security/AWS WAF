@@ -1,0 +1,35 @@
+Web Application Firwwall:
+  AWS WAF is the service to secure the HTTP or HTTPS expose compenent on layer 6 and 7.
+  WAF can be used for 
+    CDN
+    ELB
+    API Gateway
+  You can create the rule to deny the accessto those resources based on filterinf by
+    IP Addresss
+    Query String param
+    Originating country of request
+    Size of request
+    Header
+    
+ It protect you against
+    SQL Query injection
+    Cross side scripting
+    DDOS attack on layer 6 and 7
+    
+ Rule:-
+  You can create rule to 
+    - Allow all except the one specify by rule
+    - Deny all  except the one specify by rule
+    - Count the request matching the rule    
+
+  # With WAFF you block the app access to entire contery.
+  
+  Charges:-
+    There are no upfront commitments. AWS WAF charges.
+    But you will be charged for 
+      - Web ACL you create in WAF
+      - Number of Rule in Web ACL
+      - Number of request
+  
+  AWS Firewall Manager:-
+    This used to manage WAF
