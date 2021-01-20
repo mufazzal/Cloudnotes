@@ -1,4 +1,5 @@
 SSM is to managed service for doing Configuaration , MAnagement on large group of aws resource like EC2, lambda etc. 
+Whenever you need to perform some maintainace or patch on many EC2 instance together then think of SSM.
 
 AppConfig:-
   Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. 
