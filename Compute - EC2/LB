@@ -135,3 +135,18 @@ LB and EIP:-
 LB and ENI:-
   LB do has the private IP and assosiated ENI in each of selected subnet.
 
+--------------------------------
+
+Sticky Session:-
+  Sticky session foe LB is used when you want a session on any user to handled by a specific EC2.
+  Only classic LB support it properly. if you enable thhen all the request in particular user session will be deliver to one specific EC2.
+  
+  ALB also support ot but the request will be deliver to one of the ECw in specific Target group,
+  
+  
+  
+
+
+
+
+
