@@ -338,12 +338,6 @@ Update Stack:-
       Nothing on the Stack will be actully changes here. it only find that what could be change if we execute the new template over this stack.
     
     
-    
-    
-      
-      
-      
-      
       
    When you update the stack with new template then for each resource the CF will do one of the following
    - Replace the existing resource with new one if change in the template is as such
@@ -353,15 +347,30 @@ Update Stack:-
    - Add a new resource if there is one in template but not in stack
    - Delete the one if it is in stcak but not in template
   
-  
-  
-  
-  
-  
-  
-
       
 -----------
+  
+  Resource Attribute:-
+    CFR provide some speciale attribute that can be use to make behavioral of resource creation/delete/update by stack.
+    Creation Policy:-
+      This can be used to define the stste when we can consider the resource to be created.
+      Associate the CreationPolicy attribute with a resource to prevent its status from reaching create complete 
+      until AWS CloudFormation receives a specified number of success signals or the timeout period is exceeded 
+      CloudFormation resources that support creation policies are 
+        AWS::AutoScaling::AutoScalingGroup, 
+        AWS::EC2::Instance, and 
+        AWS::CloudFormation::WaitCondition.
+
+    Deletion Policy:-
+      With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted. 
+      You specify a DeletionPolicy attribute for each resource that you want to control. 
+      If a resource has no DeletionPolicy attribute, AWS CloudFormation deletes the resource by default.
+      [This policy comes in picture when stack is deleted not when stack is updated anddue to update the underline resource is delted]
+      DeletionPolicy options:-
+        
+
+
+
 TODO: 
     Set cloudwatch alarm for stack creation
     Creation Policy
