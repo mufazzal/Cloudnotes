@@ -367,8 +367,23 @@ Update Stack:-
       If a resource has no DeletionPolicy attribute, AWS CloudFormation deletes the resource by default.
       [This policy comes in picture when stack is deleted not when stack is updated anddue to update the underline resource is delted]
       DeletionPolicy options:-
+        Delete: This is default value
+        Retain: AWS CloudFormation keeps the resource without deleting the resource or its contents when its stack is deleted
+        Snapshot: For resources that support snapshots, AWS CloudFormation creates a snapshot for the resource before deleting it.
+        Resources that support snapshots include:
+            AWS::EC2::Volume
+            AWS::ElastiCache::CacheCluster
+            AWS::RDS::DBCluster
+            AWS::RDS::DBInstance
+
+
+
         
 
+-------
+
+IMP
+  ### For Amazon S3 buckets, you must delete all objects in the bucket for deletion to succeed
 
 
 TODO: 
