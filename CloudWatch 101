@@ -1,32 +1,100 @@
 This is monitering PERFORMANCE in services for all your AWS resources and Application
 It can monitor EC2, S3, Auto scalling  Group, ELB, Route53, EBSs, Storage getway ETC.
 
-  
- Integeration of Cloudwatch with diffrent aws service is heavily very ith diffrent services. But there is some common things that we should know.
- 
+Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real time. 
+You can use CloudWatch to collect and track metrics, which are variables you can measure for your resources and applications.
 
-Metrics:-
-  Metric is a set of data which is collected over the proide of time. For many of the services AWS provide the default data metrics 
- 
- Integaration with EC2: see ec2.txt
- 
- How long Cloudwatch retain the data
- A: indefinatly. but you can set it to be deleted after sometime.
- 
- 
- What thing cloudwatch moniter on diffrent s3 services
-  https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/aws-services-cloudwatch-metrics.html
-    
-              
- Cloud watch Alarm:
-  You can set the cloud watch alarm for any data metrics. this alarm one in triggerd it can send an SNS, trigger Lembda, send Email etc.
+With this data in CW you can
+  - Create the Custom dashboard for monitering
+  - get statistics grapf for system performance
+  - Create alarm and notification for specific CW event
   
-  Its very useful to detect if something you wnat to benotified about for any perfirmance issue.
-         
-         
-          
-          
-          
+
+Concept:- 
+  To understand the CW you must know nelow terminology
+  
+  NameSpace:-
+    This is the top level sagregation of monitering data. The data are partitioned in this name space are isolated from eachother
+    AWS has unique CW Namespace for each AWS Service
+    EG:
+      EC2: AWS/EC2
+      S3: AWS/S3
+      Lambda: AWS/LAmbda.
+  
+  Metrics:-
+    Metrics are the Monitering values that are in the form of Time Ordered Data-Point. 
+    Each Data point is the state of monitering values in that moment of time.
+    For each AWS resource typethere many Metrics are available to track. Some of them are free and some are paid.
+    
+    Time Stamps:
+      Each data point in the metrics contain the timestamp that reprsent the time when sate of monitering values are captured. 
+    Metrics Resolution:
+      The data metrics can have the two resolution
+        Standard[By Default]: data point are taken ini one minute granularity
+        High resolution:      data point are taken ini one second granularity
+    Metrics Retention:-
+      There is no way to delete the data metrics manually. instead this metrics are stayed for specific prode of time and then deleted automatically.
+      - For data with priode < 1 minute its 3 hour [High resolution]
+      - For data with priode = 1 minute its 15 days
+      - For data with priode < 5 minute its 63 days
+      - For data with priode < 60 minute its 455 days
+    
+  Dimension:-
+    A dimension is a name/value pair that is part of the identity of a metric. You can assign up to 10 dimensions to a metric.
+    Every metric has specific characteristics that describe it, and you can think of dimensions as categories for those characteristics. 
+    For each AWS resource there are certain charachtristic which are reprsented in CW by the dimention
+    
+  Metrics VS Dimention:-
+    Metric is the param to be moniter
+    Dimension is the way to filtering and indexing those Metrics.
+
+    Metrcis data keep on generating till AWS resource is there.
+    Dimesion is the chrachtristic, assosiated at the time of that AWS resource created/Updated.
+    
+  
+AWS Service - NameSpace <> Metrics <> Dimensions. 
+ Below is the example of some IMP data metrics in CW-
+  
+  EC2:-
+    Namespace: AWS/Ec2
+    Metrics:-
+      CPUUtilization, DiskReadOps, DiskWriteOps, NetworkIn, NetworkOut, CPUCreditUsage, StatusCheckFailed	 
+    Dimensions:-
+      InstanceId, AutoScalingGroupName, ImageId, InstanceType
+    
+  S3:-
+    Namespace: AWS/S3
+    Metrics:-
+      BucketSizeBytes, NumberOfObjects, AllRequests, GetRequests, OperationsPendingReplication
+    Dimensions:-
+      BucketName, StorageType
+    
+  Lambda:-
+    Namespace: AWS/Lambda
+    Metrics:-
+      Invocations, Errors, ProvisionedConcurrencyInvocations, Duration  
+    Dimensions:-
+      FunctionName, ExecutedVersion
+    
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+      
+      
+      
+    
+ 
           
       
       
