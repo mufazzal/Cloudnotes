@@ -32,11 +32,15 @@ Below are the exclusive Aurora features:-
     this is decided based on load.
 
     for aurora serverless you need to set below params
-     max ACU (aurora compute unit)
-     min ACC
-       max and min value of compite capacity
-     AutoPause
+      max ACU (aurora compute unit)
+      min ACC
+        max and min value of compite capacity
+      AutoPause
        if true then compute element(ec2) will be disassociate from db.
-     SecondsUntilAutoPause
+      SecondsUntilAutoPause
        after how much time of no a ativity, compute should be removed.
      
+    use case for serverless db:
+      this is best when you do not need the rds instance up and running all the time.
+      when load on the db has pattern cycle and fluctuate considerably.
+      also when lot of time there is no activity on db yhen feature of compite shut down will save u lpt of money
