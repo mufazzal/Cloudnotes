@@ -1,0 +1,21 @@
+Aurora is In house RDB product from AWS.
+and so Amazon provide many special feature with this DB. This DB give almost all the thing that MYSQL and Postgress gave but also add lot other things.
+Even some of the tool design for MYSQL and Postgress ccan be used with Aurora
+
+Below are the exclusive Aurora features:-
+  Back Tracking DB:-
+    If you enable this feature in Aurora DB then you can backtrack the DB clusted to the point in time easily in few seconds. 
+    In other RDS point in time recovery take lot of time.
+    When you enable it then you need to set the Time provide the MAx Window time for backtracking. max value is 72 hour.  
+  High Avialibility:-
+    By default Aurora keep the 6 copies of data. they spread in 3 AZ wirh each has 2 nodes so 3*2 = 6.
+    So no need to to have the MultiAz here as data is alreday fault tolerant higly available.
+    Non aurora RDS take some time in case of failover and move to secondery storage[only if Multi-AZ is on]
+    but Aurora do it whithine a minute only.
+ Read Replica:-
+    RDS provide max 5 replica. Aurora give you 15.
+    Replication process is also way faster in aurora.
+    Read Replica Load Balancing:-
+      In Aurora you can create a load balancer to distribute the reading load across the read replicas.
+      In RDS there is no way to do this.
+      
