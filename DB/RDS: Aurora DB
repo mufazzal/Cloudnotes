@@ -20,7 +20,8 @@ Below are the exclusive Aurora features:-
       In RDS there is no way to do this.
   Performance:-
     Amazon Aurora provides five times the throughput of standard MySQL or twice the throughput of standard PostgreSQL
-  Aurora Serverless : This is germ of aurora.
+  Aurora Serverless: 
+    This is germ of aurora.
     With aurora serverless you do not have to worry about compute capacity of instance.
     this will be taken care by aws hself based on load on db
     load here will be function of number of connections and cpu utilisation.
