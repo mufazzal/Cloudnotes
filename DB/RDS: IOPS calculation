@@ -37,4 +37,5 @@ Provisioned IOPS:-
 	IF you need the consistent IOPS capacity and do not want to rely on all those if and buts.
 	Then simply use Provisionde IOPS. This will cost you high but give you consistent performance.
 	You can select how much IOPS you need,
-	
+	Maximum IOPS of 64,000 is guaranteed only on Nitro-based instances that are on the m5, r5, and z1d instance types. 
+        Other instance families guarantee performance up to 32,000 IOPS
