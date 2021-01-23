@@ -85,6 +85,7 @@ EN: Enhanced network:-
 
 EFA: Elastic Fabric adapter:-
   This is useful for ultra high throughput like machine lerning or Big data
+ best choice for HPC apps.
 
 --------------------
 
