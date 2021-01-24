@@ -182,6 +182,11 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 		Simply delete the delete marker
 
 
+
+        Cross region replication: destination bucket could be from different region too.
+          this is useful if u wants reduced latency in different geographical area.
+          do remember that u will have to bear the cost of data transfer charges from one region to other. 
+
 ------------------------------------------
 
 Object Lock:-
