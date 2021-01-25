@@ -60,27 +60,49 @@ PRovision CApicity:-
    
 --------------------------
 
-	DDB Accelerator [DAX] :-
-		DAX in in-memory cache for DDB. 
-		DAX provide you way to let the frenetly accessed data to remain in cache.
-		For this you 
-			set up the DAX, 					[HOW ????????????????????????????]
-			Point all your API to DAX instead of DDB table		[HOW ????????????????????????????]
-		then AWS DDS system take care
-		if your API reach to DAX and try to get some data but DAX do not find it then
-		DAX make a getItem call to DDB table get it
-		Store it in DAX cache
-		and return it to api response
-		NExt time if some api ask for same data then it will just return from the pre-stored cache.
-	   Advantages :-
-	   	remove many read overload from DDB and so you may need less read-capacity on DDB table
-		Make read fater
-	   Limits:-
-	   	Not major improvement if data is changing frequently
-			If data change in origin DDB table it still may remain unupdated in cache   
-			so its only suitable for eventually consistent read. not suitable for Strongly-consistent read
+DDB Accelerator [DAX] :-
+	DAX in in-memory cache for DDB. 
+	DAX provide you way to let the frenetly accessed data to remain in cache.
+	For this you 
+		set up the DAX, 					[HOW ????????????????????????????]
+		Point all your API to DAX instead of DDB table		[HOW ????????????????????????????]
+	then AWS DDS system take care
+	if your API reach to DAX and try to get some data but DAX do not find it then
+	DAX make a getItem call to DDB table get it
+	Store it in DAX cache
+	and return it to api response
+	NExt time if some api ask for same data then it will just return from the pre-stored cache.
+   Advantages :-
+	remove many read overload from DDB and so you may need less read-capacity on DDB table
+	Make read fater
+   Limits:-
+	Not major improvement if data is changing frequently
+		If data change in origin DDB table it still may remain unupdated in cache   
+		so its only suitable for eventually consistent read. not suitable for Strongly-consistent read
          
 ----------------------
+
+
+Hot Parttion Key Issue:-
+
+	When an Amazon DynamoDB table is created, you can specify the desired throughput in Reads per second and Writes per second. 
+	The table will then be provisioned across multiple servers (partitions) sufficient to provide the requested throughput.
+
+	You do not have visibility into the number of partitions created -- it is fully managed by DynamoDB. 
+	Additional partitions will be created as the quantity of data increases or when the provisioned throughput is increased.
+
+	Let's say you have requested 1000 Reads per second and the data has been internally partitioned across 10 servers (10 partitions). 
+	Each partition will provide 100 Reads per second. If all Read requests are for the same partition key, the throughput will be limited to 100 Reads per second. 
+	If the requests are spread over a range of different values, the throughput can be the full 1000 Reads per second.
+
+
+
+
+
+
+
+
+
 
 
    
