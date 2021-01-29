@@ -144,6 +144,10 @@ Sticky Session:-
   ALB also support ot but the request will be deliver to one of the ECw in specific Target group,
   
   
+--------------------
+
+LB - Traget - AZ relations:-
+  When you create the LB you first select the AZ where the LB will work. in background AWS place an ENI in each AZ you selected.
   
 
 
