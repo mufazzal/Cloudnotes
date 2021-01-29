@@ -243,6 +243,16 @@ EC2 Hibernate:-
 		- for instance store data in RAM will not be preserve
 		- do not work for spot instances.
 		- you cannot keep a instance in hibernate for more then 60 days.
+		
+		
+	Hibernate and spot instance:-
+		This feature is very useful for spot instances.
+		you can change behaviour of Inturuption to 'hibernate' so instance will hibernate rather then stop. 
+		so when instance is re-accuired, you can resume the process from the point where the instance was lost due to price rise. 
+		Thogh to use this feature in spot instance
+			- For a Spot Instance request, the type must be persistent
+			- For an EC2 Fleet or Spot Fleet request, the type must be maintain
+		
 -----------------
 
 EC2 Placement Group:-
@@ -338,8 +348,7 @@ Reserved Instances:-
 			- Reatin the static EIP and you will be charged for that [EIP id free if its assosiated with running instance]
 			- for instance-store type EC2 data will be lost.
 			- Instance may start again on new underlying Hardware Host
-			- SPot instace do not has this feature.
-		
+	
 		
 		Rebbot Instance:-
 			Here all thing remain attached
