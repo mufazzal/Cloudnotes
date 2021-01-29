@@ -353,6 +353,8 @@ Reserved Instances:-
 		Rebbot Instance:-
 			Here all thing remain attached
 			public and private IP, volumes, all remian. you also bear all the charges.
+			Rebooting instance-store instance:-
+				Data will persist 
 		
 		
 		
