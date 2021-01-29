@@ -43,6 +43,15 @@ Pricing-
     Very costly
 
 
+	On-Demand instance Pricing model:-
+		You will be charged(for compute power) for strat instance only not for the stop or hibernate instance.
+		For started instance you will be charged 
+			for minmum 1 minute if up time < 60 sec
+			for exact number of second if up time > 60
+		EG:
+			for up time = 30 sec charges will be for 1 mnt
+			for up time = 1 mnt 30 sec charges will be for 1 mnt 30 sec
+		
 EBS:-
   Snapshot:-
   
