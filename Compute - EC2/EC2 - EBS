@@ -99,6 +99,7 @@ Instance Store:-
 	The Ec2 with instance store as root cannot be stoped. it can either be start or terminated.
 	once terminated all the data in the EC2 instance store will vanish.
 	Instance Store can be attach ata time in EC2 launch only. it cannot be add later.
+	This gives you insanly high IOPS up to millions IOPS per sec.
 
 Multi Attach Enable Volume:-
 	There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
