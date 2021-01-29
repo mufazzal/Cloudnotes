@@ -95,11 +95,18 @@ Volume:-
 Instance Store:-
 	The alternative to EBS-Volume is to Instance Store.
 	With any Ec2 you can either use Instance store or EBS. not both
-	This is the Ephameral storage of Ec2 instance. this exist only when EC2 is in start mode.
-	The Ec2 with instance store as root cannot be stoped. it can either be start or terminated.
-	once terminated all the data in the EC2 instance store will vanish.
-	Instance Store can be attach ata time in EC2 launch only. it cannot be add later.
-	This gives you insanly high IOPS up to millions IOPS per sec.
+	- This is the Ephameral storage of Ec2 instance. this exist only when EC2 is in start mode.
+	- The Ec2 with instance store as root cannot be stoped. it can either be start or terminated.
+	- once terminated all the data in the EC2 instance store will vanish.
+	- Instance Store can be attach ata time in EC2 launch only. it cannot be add later.
+	- This gives you insanly high IOPS up to millions IOPS per sec.
+	- To create AMI from instance store you have to use OS command with ALI tool. not possible with console, sdk or CLI.	
+	- Instance store backed Instances cannot be upgraded
+	- For EC2 instance store-backed instances AWS recommends to:
+			1. Distribute the data on the instance stores across multiple AZs
+			2. Back up critical data from the instance store volumes to persistent storage on a regular basis
+
+	
 
 Multi Attach Enable Volume:-
 	There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
