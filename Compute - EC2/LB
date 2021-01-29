@@ -148,6 +148,26 @@ Sticky Session:-
 
 LB - Traget - AZ relations:-
   When you create the LB you first select the AZ where the LB will work. in background AWS place an ENI in each AZ you selected.
+  It may be possiblr that target group spread over az1, az2, az3 and az4. But LB is attached in az1 and az2 only.
+  in that case even though target group has instances running in az3 and az4 and LB has this target group listening still LB will 
+  not be able to route any traffic to instances in az3, az4.
+  ALB route traffic equally in all the AZ and after that this traffic is distributed in targets.
+  
+Cross-region load balancing:-
+  As you know LB sent thetraffic to multiple AZ. and TG is spread oer many AZ.
+  When LB sent the traffic to AZ and then to TG. it may be possible some AZ has more instances then other.
+  EG:-
+    say AZ1 has 8 EC2 of TG1
+    and AZ2 has 2 EC2 of TG2
+    The LB will send 50% traffic to AZ1 and 50% to AZ2. so 8 EC2 of AZ1 will have 50/8 = 6.25% and 2 EC2 of AZ2 has 50/2 = 25% traffic.
+    to resolve this comes the cross-region balancing.
+    if its enable then ALB will send 100/10 = 10% traffic to each EC2 across the both AZ. 
+    Actully in the background LB-node [ENI of LB in AZ2] in AZ2 send prpotional traffic to AZ1
+  For ALB this enable by default. for other two you have to enable it.
+  
+  
+  
+  
   
 
 
