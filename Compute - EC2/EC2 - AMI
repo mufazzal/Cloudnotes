@@ -13,6 +13,8 @@ An AMI includes the following:
           When you create an AMI from EC2 then the snapshots of each attached EBS-Volume will be created.
           So AMI = EBS-Snapshot + OS + Software + Configs
           You can see your AMI in EC2 > AMI
+	  			By default EC2 will stop and then AMI is created and then EC2 will start again. but you can chose the 'No Reboot' option to avoid this.
+	  			but 'No Reboot' option may give you un working AMI 
 
           Creating instace via AMI:-
           On AWS consolse when you create a EC2 you can select the AMI you created in step 1.
@@ -27,7 +29,18 @@ An AMI includes the following:
 
           Say you have a EC2(Orignal) running which has some files and software installed.
           What will be the start state of any EC2 created for AMI of the orignal EC2
-	  
+	 
+		AMI Sharing:-
+			By default AMI is used only in the account in which its created but you ca
+			- Share it with specific AWS account
+			- with piblic
+			By CLI:-
+			aws ec2 modify-image-attribute --image-id ami-0abcdef1234567890 --launch-permission "Add=[{UserId=123456789012}]"
+			aws ec2 modify-image-attribute --image-id ami-0abcdef1234567890 --launch-permission "Add==[{Group=all}]"
+			
+
+			
+	 
     AMI and Region:-
     	AMI are region specific, you can create EC2 out of AMI only in the region where AMI lies. Though you can copy AMI from one region to other region.
 	  
