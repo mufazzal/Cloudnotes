@@ -275,7 +275,7 @@ EC2 Placement Group:-
 				Here the CLUSTER of some EC2-instances are placed in isolated PARTITION of hardware. So that failing of one clusted do not impact other partitions.
 
 	You can place the instances in placement group at a time of creating instances or after creation.
-	Once instance is created then also it can be
+	Once instance is created then also it can be [but first instance has to put in stopped state]
 		- Move to a placement group
 		- Move from one placement group to another
 		- Remove from a placement group
