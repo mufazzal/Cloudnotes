@@ -102,6 +102,8 @@ Instance Store:-
 	- This gives you insanly high IOPS up to millions IOPS per sec.
 	- To create AMI from instance store you have to use OS command with ALI tool. not possible with console, sdk or CLI.	
 	- Instance store backed Instances cannot be upgraded
+	- It can attached as root or additional device but only at launch time not after instance is started or stopped.
+	- This is slower to boot then EBS
 	- For EC2 instance store-backed instances AWS recommends to:
 			1. Distribute the data on the instance stores across multiple AZs
 			2. Back up critical data from the instance store volumes to persistent storage on a regular basis
