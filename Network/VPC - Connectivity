@@ -27,13 +27,39 @@ Transit VPC:-
   
 VPN[VPC-to-site]:-
   VPG is used for buinding a VPN netwprk between VPC and ur on-premise infra.
+  When you set this up you will be able to use the private IPs of your VPC components and on-premise component in each other.
   for creating VPN connction betwen VPC and site you need below item
+  
   At site:-
-    Customer gateway device: A physical device or software application on your side of the Site-to-Site VPN connection
+    1. Customer gateway device: A physical device or software application on your side of the Site-to-Site VPN connection
+    2. Create 'Customer gateway' at aws console and attach it to the VPC.
   At AWS
-    Virtual private gateway or Transit gateway
-  Setting them up is not in scope here.
-
+    Ask this two thing from Networks adminstrator of on=premise side
+      1. CIDR of ypur on-premise network.
+      2. Public IP of your on premise Router
+      Now create Virtual private gateway or Transit gateway with this two thing. This will stand at AWS side and reprsent the On-Premise.
+  Funally:-
+    Map both of the two thing you made and create 'VPN Connection'
+    to create it
+    1. Select the Customer gateway
+    2. select the Virtual private gateway
+    3. give full CIDR of complete network
+    DONE
+  After creation:-
+    Once created you can see
+    there is two IPSeC channel created fot higher availibilty and each chanel has a Public IP attach to it.
+    No via this channel you can communicate between the components of bothe side with their private IP
+  
+  VPN Charges:-
+    You will be charged for 
+    1. Till the vpn connection is active, For each hour you will be charged.
+    2. First GB of data transfer is free then its chargable.
+  
+  
+    
+    
+    
+    
   
 VPN Clodhub:-
   When you have single site-data-center the connecting it with VPC is easy 
