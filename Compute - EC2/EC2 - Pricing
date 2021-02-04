@@ -48,7 +48,9 @@ Reserved:
 		Limit:-
 			Max Regional-instance you can reserve = 20
 			Max Zonal-instance per AZ you can reserve = 20
-			
+		Reserved instance Marketplace:-
+			This is like a secondry market of RI. If in case you no longed need the instance then you can sell them here.
+		
 		Modifing the instace:-
 			once purchased you can change some param of the capacity like
 			-	Instance Size in same instance Type(family), EG you can chage t2.micro to t2.small or t2.large etc. but cannot chage it to m2.micro. 
@@ -71,7 +73,7 @@ Reserved:
 				- Convertible Reserved Instances can only be exchanged for other Convertible Reserved Instances.
 				- You can exchange ONE OR MORE Convertible Reserved Instances at a time for ONLY ONE Convertible Reserved Instance only
 				- Total value of instance to be exchange must be  <= 	Total value of new instances for exchange [You can go high or atesame but not low in price scale] 
-
+			
 				
 Spot:
       AWS most of the time have spare capacity inntheir data center and so after fulfilling all on demand request remaing hardware is available for spot.
