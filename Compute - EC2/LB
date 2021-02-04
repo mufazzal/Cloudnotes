@@ -175,7 +175,14 @@ LB and Health Check:-
   If the health checks exceed UnhealthyThresholdCount consecutive failures, the load balancer takes the target out of service. 
   But LB do not just deregister it instead it keep sending signal and 
   When the health checks exceed HealthyThresholdCount consecutive successes, the load balancer puts the target back in service.
-  
+ There is 4 possible stage of a target
+ 1. Initial
+ 2. Healthy
+ 3. Unhealthy
+ 4. Unused:
+      The target is not registered with a target group either 
+      - the target is in an Availability Zone that is not enabled, 
+      - or the target is in the stopped or terminated state.
   
   
   
