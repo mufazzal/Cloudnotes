@@ -50,8 +50,20 @@ Via AMI   	   Yes						Yes								No		   			Yes		Yes				No
 
 Export/Import VM:-
 	This is a useful service which is used to migrate the Virtual MAchines to and from On-premise and Cloud.
-	- You can create the AMI from your on-premise virtualization environment and store this AMI in S3. LAter you can use this AMI to launch the EC2.
+	- You can create the AMI from your on-premise virtualization environment and Later you can use this AMI to launch the EC2.
 			This is very helpful to migrate the On-premise machines to Cloud.
+			Steps:-
+				1. Create VM image formm machine of On-premise say [mufImage.ova]
+				2. store this in S3 and run comand
+						aws ec2 import-image --description "My server VM" --disk-containers "file://C:\import\containers.json"
+						containers.json :-
+							[{
+									"Description": "My Server OVA",
+									"Format": "ova",
+									"UserBucket": { "S3Bucket": "my-import-bucket", "S3Key": "vms/mufImage.ova"}
+							}]
+							This will create the AMI.
+				3. Use the AMI created above for launching EC2. 
 	- You can also create the VM image from EC2 and use this image to create the machine in on-premise.
 
 
