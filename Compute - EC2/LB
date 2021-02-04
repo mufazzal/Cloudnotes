@@ -165,6 +165,17 @@ Cross-region load balancing:-
     Actully in the background LB-node [ENI of LB in AZ2] in AZ2 send prpotional traffic to AZ1
   For ALB this enable by default. for other two you have to enable it.
   
+-------------------------------
+
+
+LB and Health Check:-
+  YOu need to configure the Health check for each Target Group and this healthc check has
+  Port, Protocol and path.
+  LB keep sending the signals to the targets in that groups in each HealthCheckIntervalSeconds  interval.
+  If the health checks exceed UnhealthyThresholdCount consecutive failures, the load balancer takes the target out of service. 
+  But LB do not just deregister it instead it keep sending signal and 
+  When the health checks exceed HealthyThresholdCount consecutive successes, the load balancer puts the target back in service.
+  
   
   
   
