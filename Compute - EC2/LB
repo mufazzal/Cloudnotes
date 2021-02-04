@@ -184,8 +184,9 @@ LB and Health Check:-
       - the target is in an Availability Zone that is not enabled, 
       - or the target is in the stopped or terminated state.
   
-  
-  
+---------------------------------------
+  LB Target group of LAmbda:-
+    It is also possible that to have a Target group whise traget are lambda. LB will invoke tha lambda on that requests
   
 
 
