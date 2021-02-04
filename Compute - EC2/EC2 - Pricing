@@ -32,28 +32,37 @@ Reserved:
 			2. Convertible:-
 						Here you can modify and convert the instance.
 						
-			Modifing the instace:-
-				once purchased you can change some param of the capacity like
-				-	Instance Size in same instance Type(family), EG you can chage t2.micro to t2.small or t2.large etc. but cannot chage it to m2.micro. 
-				- AZ
-				You can also modify a reservation to divide it into two or more reservations. 
-				EG: t2.medium instance (2 units). You can divide the reservation into two reservations, 1 * t2.nano instances (.5 units) and 3 * t2.micro instances (1.5 units).
-				Below items are not mioifiable, this are all the item that factor into the pricing
-					1. Instance type(or family)
-					2. Region
-					3. Tenancy
-					4. Platform(Linux/windows)
-					
-			Converting the instance:-
-				This will cost you higher but this gave you flexibilty to excahnge the instance with diffrent set of
-					1. Instance type(or family)
-					2. Tenancy
-					3. Platform(Linux/windows)
-				Below are the rules:-
-					- both the isntaces must be from same region
-					- Convertible Reserved Instances can only be exchanged for other Convertible Reserved Instances.
-					- You can exchange ONE OR MORE Convertible Reserved Instances at a time for ONLY ONE Convertible Reserved Instance only
-		
+		Regional and Zonal Instance:-
+			In regional you have flexibility fir changing AZ and zonal you need select AZ and that cannot be nodified later.
+			
+		Limit:-
+			Max Regional-instance you can reserve = 20
+			Max Zonal-instance per AZ you can reserve = 20
+			
+		Modifing the instace:-
+			once purchased you can change some param of the capacity like
+			-	Instance Size in same instance Type(family), EG you can chage t2.micro to t2.small or t2.large etc. but cannot chage it to m2.micro. 
+			- AZ
+			You can also modify a reservation to divide it into two or more reservations. 
+			EG: t2.medium instance (2 units). You can divide the reservation into two reservations, 1 * t2.nano instances (.5 units) and 3 * t2.micro instances (1.5 units).
+			Below items are not mioifiable, this are all the item that factor into the pricing
+				1. Instance type(or family)
+				2. Region
+				3. Tenancy
+				4. Platform(Linux/windows)
+
+		Converting the instance:-
+			This will cost you higher but this gave you flexibilty to excahnge the instance with diffrent set of
+				1. Instance type(or family)
+				2. Tenancy
+				3. Platform(Linux/windows)
+			Below are the rules:-
+				- both the isntaces must be from same region
+				- Convertible Reserved Instances can only be exchanged for other Convertible Reserved Instances.
+				- You can exchange ONE OR MORE Convertible Reserved Instances at a time for ONLY ONE Convertible Reserved Instance only
+				- Total value of instance to be exchange must be  <= 	Total value of new instances for exchange [You can go high or atesame but not low in price scale] 
+
+				
 Spot:
       AWS most of the time have spare capacity inntheir data center and so after fulfilling all on demand request remaing hardware is available for spot.
       this instances are available at spot price to highest bidder.
