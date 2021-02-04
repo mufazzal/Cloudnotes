@@ -1,10 +1,20 @@
 Pricing-
- On Demand:
-    You pay by usage/hour or per second
-    Best For -
-      If you do not need any long term contract
-      Low Cost
-      Short live application
+On Demand:
+	You pay by usage/hour or per second
+	Best For -
+		If you do not need any long term contract
+		Low Cost
+		Short live application
+		
+	On-Demand Capacity Reservations:-
+		If you wants to make sure that you will have some capacity always avaialble to use. you can use this.
+		Here the charges per hour will be aplied as per on-Demand price. unlike 'Reseved instance' you do not have to go to a long term contract of 1 or 3 year.
+		you can cancel it any time if you no longer need it.
+		This is very useful if you wants to make sure that you will surely have a instance for small priode of time
+		On-damnd capacity can be reserved with below param
+		- Number of instances
+		- AZ, Type, Tanancy, Platfors 
+		
 Reserved:
     You reserve the capasity for a certain time (for a 1 yera to 100s of year).
     You are locked in a contract. AWS generally provide yuo discount if you contract for longer time. You also need to pay some amount upfront.
