@@ -86,16 +86,52 @@ Spot:
          Finance: We do not have much money for R and D. 
          Me: Ok! lets go to Spot pricing, when it cost low buy some, work on it, release if it get costly, and  keep doing it at very low cost.
          Finance: smart guy.
-     To get the Spot instance you must set request with below items
+    To get the Spot instance you must set request with below items
        1. Max price
        2. no of instances
        3. type   on-time | persistent. if you wants to lanuch only at once or you wants repetative launch on favourable price.
        4. Launch config
        5. valid from - to
-    the spot instance can be taken back in brlow condotion
+    Spot Inturuption:-
       1. if demand of on-denmand instances are higher then aws can immediately terminatethe instance and take it back
             in this case you do not hve to pay for partial hour
       2. if ur bidded price is lesser then current spot price then your instance will be terminated after full hoir passed 
+		Interruption behaviors:
+			There is 3 way to handle the inturruption
+			1. Terminate: This is by default and it terminate the iunstance.
+			2. Stop: 
+					- For this EC2-Fleet requets must be 'Maintain' and Spot requets must be 'Persistent'
+					- Root volunme should be EBS not instance store.
+			3. Hibernate:-
+					- For this EC2-Fleet requets must be 'Maintain' and Spot requets must be 'Persistent'
+					- Root volunme should be EBS not instance store.
+		Handling Inturuption:-
+			AWS send you two kind of signal (simply a cloudwatch alarm) if their is chances of or surity of inturution
+			1. Rebalance Recommendation:-
+					Whenever their is chances of inturruption, The AWS system sent the Cloudwatch Event to the Amazon EventBridge.
+					Also it set some specific values in instance meta data. You can use this event to rebalance the capacity. 
+					like launching new instance or saving data.
+					Use below filter for such kind of Event-
+							{		"source": [ "aws.ec2" ],
+									"detail-type": [ "EC2 Instance Rebalance Recommendation" ]
+							}
+			2. Inturuption Notice:-
+					When its sure that instance going to inturuptted, the AWS emit Event which can be detected in Cloudwatch Event (Event bridge).
+					You can use this event to do the necessary task like saving data and state. 
+					{
+							"detail-type": "EC2 Spot Instance Interruption Warning",
+							"source": "aws.ec2",
+							"version": "0",
+							"detail": {
+									"instance-id": "i-1234567890abcdef0",
+									"instance-action": "hibernate or stop or terminate"
+							}
+							.....
+					}					
+					
+					
+					
+					
 	 
   Dedicated Host:
     Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
