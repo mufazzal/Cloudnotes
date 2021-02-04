@@ -9,7 +9,15 @@ VPC Peering [VPC-to-VPC]:-
     - More the connection more the complexity will be
   Charges:
     VPC peering only incurs costs for traffic traveling over the connection (there is no hourly infrastructure fee). 
-
+  You can peer VPC:-
+    Form diffrent account or same account
+    From diffrent region or same region
+  Step:-
+    At Requestee side: get id of VPC whom you wants to peer with    
+    At Requester side: Accept the request in Peering connection
+    At both: both of them must ensure that CIDR should not overlap
+      both should modify their route table with peering id {vpcx-******} 
+      
   VPC Peering VS Endpoint Service:-
     - VPC peering connect two VPC and allow communication from both direction
       EPS is connection between PRovider and Consumer. consumer can consume the exposed sevice of Provider. not vice versa.
