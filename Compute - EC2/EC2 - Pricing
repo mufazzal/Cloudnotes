@@ -5,17 +5,28 @@ Pricing-
       If you do not need any long term contract
       Low Cost
       Short live application
- Reserved:
+Reserved:
     You reserve the capasity for a certain time (for a 1 yera to 100s of year).
     You are locked in a contract. AWS generally provide yuo discount if you contract for longer time. You also need to pay some amount upfront.
-    Best For -
-      App that need steady and predictable usages (So you calculate the computing power well in advance, 
-                                                        so pay upfront in advance and get good discount from AWS)
-      Type of Reserved :-
-        1. Standard:    You cant change the EC2 instance type
-        2. Convertible: You can change the EC2 instance type      
-        2. Schedule
-  Spot:
+    This is not a special type of in stance oinstead its just a Discoup applied on bill if below criterion matched
+			- User has purchased th reserved capacity
+			- The region and instance type of purchased capacity matched the region and instance type of Instance type. 
+		Best For -
+      App that need steady and predictable usages (So you calculate the computing power well in advance, so pay upfront in advance and get good discount from AWS)
+		Pricing:-
+			There thre model here
+			All Upfront: 			Once paid fully, you wont be charged for using it at all.
+			Partial Upfront: 	You pay partial ammount and then you will be charged  with discounted rate for each hour for remaing priode. no matter you are using instance or not. 
+			No Upfront: 		You pay full ammount and then you will be charged  with discounted rate for each hour for remaing priode. no matter you are using instance or not. 
+		Factor for price determination:-
+			1. Instance type(or family)
+			2. Region
+			3. Tenancy
+			4. Platform(Linux/windows)
+		Terms:-
+			1 or 3 yesr. it does not renew automatically. instead you will start bearing charges for On-Demand
+		
+Spot:
       AWS most of the time have spare capacity inntheir data center and so after fulfilling all on demand request remaing hardware is available for spot.
       this instances are available at spot price to highest bidder.
       remember that if demand increase then aws can take back the allocated instance.
