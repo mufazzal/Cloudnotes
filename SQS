@@ -40,14 +40,11 @@ SQS and S3:-
   see at S3 > S3 Events.txt
   
 
-SQS Pricing ?????????/
+SQS Pricing:-
+  You get the 1st million of request for each month free. then it start charging.
+  
+  
 Dead Letter Que?????????????
-
-
-
-
-
-
 
 --------------------------
 WHen exaclty we may need it :-
@@ -112,8 +109,6 @@ WHen exaclty we may need it :-
       It not a pullbased mechansn like SNS, the worker do not have any way to know that a new message if delivered in the queue.
       
       
-      
-      
       Type of Queue :-
         At the time of creation you can select the kind of que you wants to use for SQS. 2 choices
         1. Standard: This que guarantee that the message will be dilivere at least once but it may deliver the more than one copy
@@ -147,7 +142,15 @@ WHen exaclty we may need it :-
     So either do not give QueueName or give new name each time of update [so basically replace on each update] 
   
   
-  
-
+  Long Poling and Short Poling:-
+    Whenever you poll the SQS que, you will get the unreaded message from the que.
+    By default this return immedietly whichmns when you place the request, it check for new message if there is any they will be returned otherwise empty response will come.
+    If there is fewer message in que the you will get the lot of empty response. This will bear higher cost on SQS as well as higher load on server. 
+    To resolve this issue comes the long poling:-
+      In the long polling instaed of returning result immedietly it will wait for few seconds for new messages. if there are new message then return it.
+      max time it can wait is 20 sec. after that empty response will come.
+      To enable the long pollint just pass the non-zero value in ReceiveMessageWaitTimeSeconds.
+      its default value is 0. and sp by default this will be a Short poll. 
+      
 
     
