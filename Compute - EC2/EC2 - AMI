@@ -2,49 +2,56 @@
 AMI:-
 An Amazon Machine Image (AMI) provides the information required to launch an instance. You must specify an AMI when you launch an instance	
 An AMI includes the following:
-          - One or more EBS snapshots
-          - Launch permissions that control which AWS accounts can use the AMI to launch instances.
-          - A block device mapping that specifies the volumes to attach to the instance when it's launched.          
-          
-      Creating AMI from EC2-    
-          You can create a AMI from the instance. the AMI will take the Snap of 
-          attached EBS + OS + Software installed + Software Configuration
-          and store it as AMI in S3.
-          When you create an AMI from EC2 then the snapshots of each attached EBS-Volume will be created.
-          So AMI = EBS-Snapshot + OS + Software + Configs
-          You can see your AMI in EC2 > AMI
-	  			By default EC2 will stop and then AMI is created and then EC2 will start again. but you can chose the 'No Reboot' option to avoid this.
-	  			but 'No Reboot' option may give you un working AMI 
+		- One or more EBS snapshots
+		- Launch permissions that control which AWS accounts can use the AMI to launch instances.
+		- A block device mapping that specifies the volumes to attach to the instance when it's launched.          
 
-          Creating instace via AMI:-
-          On AWS consolse when you create a EC2 you can select the AMI you created in step 1.
-          The below thing thing will be copued to new instance
-          1. OS
-          2. Virtlization type HVM or ??
-          3. EBS from the snapshots of that AMI
-                    - Here the root EBS can not be deselected but other mounted EBS can be deselec.
-                    - For each EBS-snapshot a volume will be created and will be attached to launched EC2.
+		Creating AMI from EC2-    
+				You can create a AMI from the instance. the AMI will take the Snap of 
+				attached EBS + OS + Software installed + Software Configuration
+				and store it as AMI in S3.
+				When you create an AMI from EC2 then the snapshots of each attached EBS-Volume will be created.
+				So AMI = EBS-Snapshot + OS + Software + Configs
+				You can see your AMI in EC2 > AMI
+				By default EC2 will stop and then AMI is created and then EC2 will start again. but you can chose the 'No Reboot' option to avoid this.
+				but 'No Reboot' option may give you un working AMI 
 
-          What about Type: t2.micro etc. This do not come from AMI. you should select it as your requirment
+				Creating instace via AMI:-
+				On AWS consolse when you create a EC2 you can select the AMI you created in step 1.
+				The below thing thing will be copued to new instance
+				1. OS
+				2. Virtlization type HVM or ??
+				3. EBS from the snapshots of that AMI
+									- Here the root EBS can not be deselected but other mounted EBS can be deselec.
+									- For each EBS-snapshot a volume will be created and will be attached to launched EC2.
 
-          Say you have a EC2(Orignal) running which has some files and software installed.
-          What will be the start state of any EC2 created for AMI of the orignal EC2
-	 
-		AMI Sharing:-
-			By default AMI is used only in the account in which its created but you ca
-			- Share it with specific AWS account
-			- with piblic
-			By CLI:-
-			aws ec2 modify-image-attribute --image-id ami-0abcdef1234567890 --launch-permission "Add=[{UserId=123456789012}]"
-			aws ec2 modify-image-attribute --image-id ami-0abcdef1234567890 --launch-permission "Add==[{Group=all}]"
-			
+				What about Type: t2.micro etc. This do not come from AMI. you should select it as your requirment
 
-			
-	 
-    AMI and Region:-
-    	AMI are region specific, you can create EC2 out of AMI only in the region where AMI lies. Though you can copy AMI from one region to other region.
+				Say you have a EC2(Orignal) running which has some files and software installed.
+				What will be the start state of any EC2 created for AMI of the orignal EC2
+
+	AMI Sharing:-
+		By default AMI is used only in the account in which its created but you ca
+		- Share it with specific AWS account
+		- with piblic
+		By CLI:-
+		aws ec2 modify-image-attribute --image-id ami-0abcdef1234567890 --launch-permission "Add=[{UserId=123456789012}]"
+		aws ec2 modify-image-attribute --image-id ami-0abcdef1234567890 --launch-permission "Add==[{Group=all}]"
+
+	AMI and Region:-
+		AMI are region specific, you can create EC2 out of AMI only in the region where AMI lies. Though you can copy AMI from one region to other region.
 	  
           
 Instance		  root files     EC2-user files		start-script		node	apache	web-server Running
-Orignal		          Yes		Yes	        	Yes	          	Yes	Yes	Yes						
-Via AMI   	          Yes		Yes			No		   	Yes	Yes	No
+Orignal		     Yes						Yes	        			Yes	          Yes		Yes				Yes						
+Via AMI   	   Yes						Yes								No		   			Yes		Yes				No
+
+-------------------------------
+
+Export/Import VM:-
+	This is a useful service which is used to migrate the Virtual MAchines to and from On-premise and Cloud.
+	- You can create the AMI from your on-premise virtualization environment and store this AMI in S3. LAter you can use this AMI to launch the EC2.
+			This is very helpful to migrate the On-premise machines to Cloud.
+	- You can also create the VM image from EC2 and use this image to create the machine in on-premise.
+
+
