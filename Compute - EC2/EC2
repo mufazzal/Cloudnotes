@@ -1,22 +1,21 @@
-What is rackspace
-
-
 Why EC2: because purchasing a server and maintaining them is a hell.
           Now with EC2 you buy a machine and ready to go.
  
     
-Type of Ec2 instances-
-  There are couple of EC2 instances which are design to achive a specific goal
+Instance Type(Faimily) and Instance Size-
+  There are couple of EC2 instances which are design to achive a specific goal. they are called Instance Type or instance Faimily
   EG
-    T3    Low Cost-Genral purpose     web server/small DB
-    G3    Graphics intensive          video
-    I3    High speed storage          NoSql, DBs
-    R5    Memory optimized            Memory intensive
-    M5    General Purpose             App Server
+	Faimily/Type		Best for										Use case
+	--------------------------------------------------------------
+    T3    				Low Cost-Genral purpose     web server/small DB
+    G3    				Graphics intensive          video
+    I3    				High speed storage          NoSql, DBs
+    R5    				Memory optimized            Memory intensive
+    M5    				General Purpose             App Server
     ...
     ...
     
-Subtype of instances:-
+instances Size:-
    Each above type of instance is design to support and handle specific type of requirment. Like one is best for
    DB and other is optimized for game. 
    After selecting a type nest thing is how intensive you wants to use your system.
@@ -31,22 +30,6 @@ Subtype of instances:-
           diffrence comes in Memory-size (RAM not EBS), vCPU count, Storage type (EBS or other).
       
   
-  >> Type and SubType is two most fundamental decesion you must take before selecting an instance.
-  
-  Setting instance configuration:-
-   Once you decided waht type and subtype you wants, next comes the configuration
-   This are the peramter you set before launcing, Some example are
-   1. No of instances
-   2. Autoscalling
-   3. spot price config if needed
-   4. network and VPC ???
-   5. subnet: decide in which AZ the instance will lie
-   6. assign public IP: aws has a pool of public IP avialable to use. If you need one then it will be assign to your EC2.
-                        With Public IP you can access the Ec2 instance over public internet
-   7. Capacity reservation if needed
-   .....etc.
-   
-
 
 The next IMP thing comes in EC2 is Hard Disk Drive, You need to devide how much storage you need for any EC2 instance
 The storage in EC2 is EBS    
@@ -110,74 +93,7 @@ EC2 and Other AWS services ->
        For this Once login is successful, You can use the comands to create S3 bucket at location '  ec-user@1.1.1.1 >_ '
                     >  'aws s3 mb s3://muf12decbuck'
 
-    ------------------
-    
-Using EC2 As Apache Web Server :-
-	Till now we have seen that how we can configure the EC2 instance to listen the SSH traffic on Port 22, We see hoe we create the 
-	Security group with inbound rule of (SSH-22-0.0.0.0) setup.
-	Now when we wants to creat a Apache webserver also out of this EC2, The first thing we need to do is to 
-	let the HTTP traffic to be listened at port 80 so first step to create a web server is to creat a security group with 
-	inboud : 
-						SSH  22   0.0.0.0/0   -> because you may also need it to access by SSH
-						HTTP 80   0.0.0.0/0
-
-	nest thing you require to use EC2 as web server 
-	1. A proper webserver to be installed like Apache, websphere etc.
-	2. A proper war or html deplo on it    
-
-	Lets create one vert tiny web server from EC2 :-
-	create EC2 with proper security group 
-	Connect to EC2 by SSH
-	> yum update : to update ec2 libs
-	> yum install httpd -y : install the appache server
-	> service httpd start : strat the servert
-	> cd /var/www/html : go to the server directory which will be visible to internet
-	> Create a file 'index.html' [how> CLI.txt #CreatFile]
-	> DONE : go to the IP of EC2. EG : http://15.206.125.146/ or http://15.206.125.146/muf.html
-
-	Selecting source as another Security Group:-
-				Instead of the CIDR block you can also select another security group as source.
-				EG: say a EC2-muf has SG as
-					SSH  22     sg-1
-				This will allow all the EC2 whos securyty group is 'sg-1' will be able to establish connection with EC2-muf. 
-
-
-	Ec2 and Nodejs web server:-
-				When you use the EC2 for NodeJs webserver you may use diffrent port then 80 EG.
-													http.createServer(function (req, res) {
-														res.write('Hello World! version 1'); 
-														res.end(); 
-													}).listen(3000);
-			So here in SG instead of opening 80 you should open 3000 
-								SSH  22     0.0.0.0/0   -> because you may also need it to access by SSH
-								HTTP 3000   0.0.0.0/0
-    
-    ----
-    
-    EC2 Bootstap script : 
-          https://acloud.guru/course/aws-certified-cloud-practitioner/learn/Cloud-Concepts-And-Technology/lets-use-a-load-balancer/watch?backUrl=~2Fcourses&backUrl=~2Fcourses
-          at 5:52
-     
-     
-    ----------
-    
-    EC2 - web server install wordpress script : 
-          #!/bin/bash
-          yum install httpd php php-mysql -y
-          cd /var/www/html
-          wget https://wordpress.org/wordpress-5.1.1.tar.gz
-          tar -xzf wordpress-5.1.1.tar.gz
-          cp -r wordpress/* /var/www/html/
-          rm -rf wordpress
-          rm -rf wordpress-5.1.1.tar.gz
-          chmod -R 755 wp-content
-          chown -R apache:apache wp-content
-          service httpd start
-          chkconfig httpd on
-
-                   
  -------------------
-
 
 User Data:
 	In the user data you can provide the script that can ran at the initilization of the EC2 insyance.
@@ -298,27 +214,6 @@ EC2 CURL for meta-data and user-data:-
 
 	
 ----------------------
-
-
-Reserved Instances:-
-	When you reserved the instance you need to decide first
-	- Instance Type, t2, m4 etc
-	- Region, 
-	- Tenancy, Dedicated or shared
-	- Platform, window or linux
-	
-	Pricing are also region dependednt once reseved you cannot change Region.
-	
-	There is two type of reserved instances
-	1. Standared
-		- low cost
-		- Once purcahse you can modify it but cannot excahnge it
-	2. Covertible
-		- high cost
-		- Once purcahse you can modify and excahnge it
-	
-	
-----------------------------------------------------------------------
 
 	Start / Stop / Hibernate/ Reboot instance:-
 		
