@@ -46,8 +46,7 @@ S3 and CloudFront(CDN) :-
           Elastic Load Balancing load balancer – example-load-balancer-1234567890.us-west-2.elb.amazonaws.com
           Your own web server – https://example.com
 
-    
-  
+      
   lets create the distribution-
   Steps:-
     Simply go to AWS > Cloud Front > Create > web
@@ -333,4 +332,14 @@ CFN add below header in the response too
  - CloudFront VS Transfer-Acceleration : Cloud front is for CDN, Both uses AWS backbone network for data transfer but CDN also cache the data at EL but TAX dont
  - PUT/POST on CDN: This operation are also supported in CDN. you need to simply do this operation with valid data.
  
+ 
+  DistributionConfig.DefaultRootObject:-
+    This is very usefukl if you do not wants to expose the materials when user try tio access the root url of CFT distrbution.
+    EG: if orgin is S3 then CFT url may expose the list of object at root level in s3. So its better to set the default root object.
+    
+    
+    
+    
+    
+    
      
