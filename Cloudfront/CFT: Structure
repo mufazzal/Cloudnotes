@@ -21,8 +21,7 @@ Cloudfront Distribution
           [TargetOriginId, PathPattern, DefaultTTL, MaxTTL, MinTTL, AllowedMethods, CachedMethods, CachePolicyId or ForwardedValues, Compress, 
             LambdaFunctionAssociations, OriginRequestPolicyId, TrustedSigners, ViewerProtocolPolicy]
   
-  
-  
+    
   In a Bird eye view, the CDF dist has the multiple Origin and multiple CacheBehaviors along with a one DefaultCacheBehavior.
   Each CacheBehavior has two important param TargetOriginId and PathPattern.
   The TargetOriginId is mapped to the one of the origin in the 'Origin'
@@ -30,11 +29,45 @@ Cloudfront Distribution
   The first one who got the match, it TargetOriginId is now used to determine the target origin. 
   Now CFT will first look in its cache if it has the response of asked request in cache otherwise it will go to the origin whose ID match with the  
   TargetOriginId of the CacheBehaviors[i].
+  If none of the CacheBehavior matches the path pattern criterion then it will be taken by 'DefaultCacheBehavior'
   The order of the CacheBehaviors is very important here. if the multiple CacheBehavior matches the PathPattern, then the first one will always win.
     
   When the request arrive at CFT like 'mufcft.cloudfront.com/<my path string>' 
   EG:-
-    <my path string> === 'site/*'   The selelect 'cache_behavior_origin_static_website'
+    <my path string> === 'site/*'   The selected origin will be 'cache_behavior_origin_static_website'
+    <my path string> === 'api/*'    The selected origin will be 'cache_behavior_origin_elb_app'
+    
+    
+  The distribution has many setting which is applied over all the origins 
   
-  
-  
+  CustomErrorResponses:-
+    If CFT do get the error 4XX or 5XX from the origin server, you can mask this error with customize response. This give you good control for error handling.
+    Here you have to specify:
+      ErrorCode: The code that you wants to return to the viewer.
+      ErrorCachingMinTTL: How long this error will be cached.
+      ResponsePagePath: This will be the path of page that you wants user to show when the error for the origin is masked.
+        This path is then passed form all the CacheBehaviors and once the pathpattern matched the customized error page is taken from that Origin only.
+        
+  DefaultRootObject:-
+    If user requested the root of CFT, not a specific file EG: 'mufcft.cloudfront.com', This request will be sent to the origin of matching path pattern.
+    But you can override this behavior for root access and return the other object.
+    EG: DefaultRootObject: 'index.html'
+    Now for root url the ruturn object will be mufcft.cloudfront.com/index.html. This url will also pass from all the cachebehaviour path pattern and the first one who matches, wins.
+    
+  PriceClass:-
+    The edge loacation of CFT is spread across the world. Depending on the budget you have you can choose to use some edge location only.
+    For this AWS has created 3 group of Edge location 
+    1. PriceClass_All: Use all the Edge location
+    2. PriceClass_200: use 200 least expensive Edge location
+    3. PriceClass_100: use 100 least expensive Edge location
+    
+  Restrictions:
+    You can configure the distribution to either whitelist or blacklist certain countries from the disrtribution.
+    This help you to either block some countries or to allow content in selected countries only
+    CloudFront geo restriction feature to do one of the following:
+      - Allow your users to access your content only if they're in one of the countries on a whitelist of approved countries.
+      - Prevent your users from accessing your content if they're in one of the countries on a blacklist of banned countries.
+    Geo restriction applies to an entire web distribution. 
+    If you need to apply one restriction to part of your content and a different restriction (or no restriction) to another part of your content, 
+    you must either create separate CloudFront web distributions or use a third-party geolocation service
+
