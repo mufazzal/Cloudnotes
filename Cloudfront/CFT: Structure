@@ -1,0 +1,40 @@
+
+Cloudfront Distribution
+  [Aliases, CustomErrorResponses, DefaultRootObject, DefaultCacheBehavior, Enabled, Logging, PriceClass, Restrictions]
+  |
+  |------Origin
+  |       |
+  |       |-------------origin_static_website
+  |       |-------------origin_elb_app
+  |       |-------------origin_myserver
+  |       |-------------origin_media_store
+  |       |-------------origin_dummy
+  |       [DomainName, OriginPath, Id, ConnectionAttempts, ConnectionTimeout, CustomOriginConfig, S3OriginConfig]
+  |
+  |
+  |------CacheBehaviors
+  |       |
+  |       |-------------cache_behavior_origin_static_website  [PathPattern = 'site/*' id=<id of origin_static_website>]
+  |       |-------------cache_behavior_origin_elb_app         [PathPattern = 'api/*' id=<id of origin_elb_app>]
+  |       |-------------cache_behavior_origin_myserver        [PathPattern = 'apilegacy/*' id=<id of origin_myserver>]
+  |       |-------------cache_behavior_origin_media_store     [PathPattern = 'images/*' id=<id of origin_media_store>]
+          [TargetOriginId, PathPattern, DefaultTTL, MaxTTL, MinTTL, AllowedMethods, CachedMethods, CachePolicyId or ForwardedValues, Compress, 
+            LambdaFunctionAssociations, OriginRequestPolicyId, TrustedSigners, ViewerProtocolPolicy]
+  
+  
+  
+  In a Bird eye view, the CDF dist has the multiple Origin and multiple CacheBehaviors along with a one DefaultCacheBehavior.
+  Each CacheBehavior has two important param TargetOriginId and PathPattern.
+  The TargetOriginId is mapped to the one of the origin in the 'Origin'
+  CFT system will start matchint the CacheBehaviors[i].PathPattern with path of the requets that received at CFT domain.
+  The first one who got the match, it TargetOriginId is now used to determine the target origin. 
+  Now CFT will first look in its cache if it has the response of asked request in cache otherwise it will go to the origin whose ID match with the  
+  TargetOriginId of the CacheBehaviors[i].
+  The order of the CacheBehaviors is very important here. if the multiple CacheBehavior matches the PathPattern, then the first one will always win.
+    
+  When the request arrive at CFT like 'mufcft.cloudfront.com/<my path string>' 
+  EG:-
+    <my path string> === 'site/*'   The selelect 'cache_behavior_origin_static_website'
+  
+  
+  
