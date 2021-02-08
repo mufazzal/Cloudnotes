@@ -76,6 +76,8 @@ This control many things about the cache and origin. all setting of cache behavo
     
     OriginRequestPolicy and CachePolicy, none of them can add the new Header, Query String or Cookie in the request forwared to Origin. 
     They only can control to let it flow from Viwer to CFT to Origin and decide weather to use it for Cache key or not. 
+    They both are reusable component, you can create and attach it to multiple CacheBehaviour.
+    You just need to give refrence of their id in CacheBehaviour. They are created at Distribution level not at CacheBehaviour level.  
     
         
         
