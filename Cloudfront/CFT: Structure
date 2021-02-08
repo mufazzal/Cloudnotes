@@ -70,4 +70,8 @@ Cloudfront Distribution
     Geo restriction applies to an entire web distribution. 
     If you need to apply one restriction to part of your content and a different restriction (or no restriction) to another part of your content, 
     you must either create separate CloudFront web distributions or use a third-party geolocation service
-
+  
+  Logging:-
+    You can set the to deliver the Access Log to the S3 bucket with this param. pass value of bucket and prefix.
+  
+  
