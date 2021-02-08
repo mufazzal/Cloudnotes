@@ -3,6 +3,9 @@ The request on CFT always comes first on CacheBehaviour. Here it cgheck if respo
 if yes then with the value of PathPattern it decide to which origin the request will be sent to.
 
 This control many things about the cache and origin. all setting of cache behavoiur is applied on the cache and origin of matched PathPattern:-
+
+  PathPattern: The path in the url for which this Cachebehaviour will be applied to.
+  TargetOriginId: The id of origin for forwarding request if no cache is available for asked object.  
   AllowedMethods:- 
     This decide which HTTP methods will be allowed to be forwarded from CFT -> Origin.
     There is only three option
@@ -31,4 +34,45 @@ This control many things about the cache and origin. all setting of cache behavo
     - this lambda must have below IAM role settint
         - Trust relation with 'edgelambda.amazonaws.com' and 'lambda.amazonaws.com'
         - Permission for 'lambda:GetFunction', lambda:EnableReplication*, cloudfront:UpdateDistribution or cloudfront:CreateDistribution etc.
+        
+  ViewerProtocolPolicy:-
+    This is used to restrict user to use either HTTP, HTTPS or both for connecting Viewer and CFT. This has no impact on CFT-->Origin connection
+    you can set it to
+      - allow-all: Viewers can use HTTP or HTTPS.
+      - redirect-to-https: If a viewer submits an HTTP request, CloudFront returns an HTTP:301 (Moved Permanently) to the viewer along with the HTTPS URL.
+      - https-only: If a viewer sends an HTTP request, CloudFront returns an HTTP status code of 403 (Forbidden).
+  
+  TrustedSigners: This is the list aws account whose OAI key pair are allowed to have access to this distribution.
+  
+  CachePolicy: 
+    This is where we define 
+      - How long we will retain the cached object by MinTTL, MaxTTL and defaultTTL.
+      - Shoud we or should we not cached the object based on. [The chossed param wil be used to create the cache key] 
+        > The Query params in request
+        > The header in request
+        > The cookie in REquest.
+     So with this you can return the same or diffrent object if request is
+      mufcft.cloudfront.com/imahes?name=muf&size=190
+      mufcft.cloudfront.com/imahes?name=hus&size=190
+      mufcft.cloudfront.com/imahes?name=hus&size=340
+     The headers, cookies, and query strings that are included in the cache key are automatically included in requests that CloudFront sends to the origin.
+     If you wants to send the values of any Header, QueryString or cookie to Origin but not wants them in Cache key then use 'OriginRequestPolicy'
+     To do this use 
+      QueryStringsConfig {
+        QueryStringBehavior: all | allExcept | none | whitelist
+        QueryStrings: []
+      }
+      - Use simmillar [atter for Cookie and HEader too.
+      - This help you reduce the load on origin significantly 
+      none: no param will be used in key and no one will be sent to Origin [except the ones whitlested by OriginRequestPolicy will be sent]
+      all: All will be sent
+      allExcept: all will be sent expect the one listed in 'QueryStrings'
+      whitelist: send only those mentioned in 'QueryStrings'
+      
+  OriginRequestPolicy:
+    You can use this to define what Header, QueryString and Cookie tou want to forward to Origin.
+    This differ from CachePolicy in a manner that the one define in 'CachePolicy' will be used or not used for Creating key and sending or not sending to Origin.
+    The ones in 'OriginRequestPolicy' will be sent or not sent to Origin.
+    
+        
         
