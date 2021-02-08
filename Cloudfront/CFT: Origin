@@ -1,0 +1,35 @@
+In the distribution there can be more then one Origin. The requets first analyze by CacheBehaviour and then based on CacheBehaviour[i].Pathpattern the correct origin will be 
+used to get the uncahed data object.
+This is mostly provide mechanics how the CFT will connect the the Origin.
+  
+  ConnectionAttempts and ConnectionTimeout: As name suggeest they define how many time and ho long CFT will attaempt to connect to Origin before considering faillure.
+  CustomOriginConfig:-
+    Use this for custom origin and static S3 website. THis contains info about how the CFT will connect to Origin.
+    You need to set here belo main items
+      "HTTPPort" : Integer,
+      "OriginKeepaliveTimeout" : Integer,
+      "OriginProtocolPolicy" : http-only | https-only | match-viewer,
+    OriginProtocolPolicy: This define by what protocol CFT will connect to Origin. match-viewer means that CFT will use same protocol as of Viwer-->CFT.
+    
+    OriginProtocolPolicy VS ViwerProtocolPolicy: 
+      ViwerProtocolPolicy is for Viewer--->CFT and define at CacheBehaviour[i]
+      OriginProtocolPolicy is for CFT----->Origin and define at Origins[i].CustomOriginConfig.
+      
+   DomainName: 
+    Domain name of Origin 
+   Origin Path: 
+    The subdirectory of origin for root of requests.
+    EG:-
+      CFTDomain: mufcft.cloudfront.com
+      Origin Domain Name – An Amazon S3 bucket named myawsbucket  
+      Origin Path – /production
+    When a user enters 
+    mufcft.cloudfront.com/acme/index.html in a browser, CloudFront sends a request to Amazon S3 for 
+    <originDomainame:port>/production/acme/index.html      
+
+  Id:
+    A unique identifier for the origin. This value must be unique within the distribution.
+    Use this value to specify the TargetOriginId in a CacheBehavior or DefaultCacheBehavior
+  
+  OriginCustomHeaders: IF you wants to add the additional header for request from CFT to Origin.
+    You have to specify the name and value of header here. This is specific to parent Origin only not for al the origin in distribution.
