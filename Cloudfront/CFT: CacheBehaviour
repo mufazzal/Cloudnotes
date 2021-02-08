@@ -1,0 +1,27 @@
+The CAche behavoiur define how CFT will manage the cache of diffrent origin.
+The request on CFT always comes first on CacheBehaviour. Here it cgheck if response is there in cache for that response 
+if yes then with the value of PathPattern it decide to which origin the request will be sent to.
+
+This control many things about the cache and origin. all setting of cache behavoiur is applied on the cache and origin of matched PathPattern:-
+  AllowedMethods:- 
+    This decide which HTTP methods will be allowed to be forwarded from CFT -> Origin.
+    There is only three option
+      - forwards only GET and HEAD requests.
+      - forwards only GET, HEAD, and OPTIONS requests.
+      - forwards GET, HEAD, OPTIONS, PUT, PATCH, POST, and DELETE requests
+  CachedMethods:-
+    This decide response of which HTTP methods will be cached in the CFT. There is two option here
+      - forwards only GET and HEAD requests.
+      - forwards only GET, HEAD, and OPTIONS requests.    
+    IMP: CFT can never cache the PUT, PATCH, POST, and DELETE requests. because it make no sense at all.
+    
+  LambdaFunctionAssociations:-
+    The CFT can call the lambda function at specific event fo better handling. you can fire the lambda at 4 specific events
+    1. Viewer Request               
+    2. Origin Request
+    3. Origin Response
+    4. Viewer Response
+        V---1-->C---2-->O
+        V<--4--C<---3---O
+    It not necessary that each lambda call for each requets.
+    EG: if request is honored for cache
