@@ -1,0 +1,13 @@
+For CFT Below are the chargable matrices
+1. Data Transfer out:-
+    You will be charged for data trasfer from CFT to viewers client. Charges are PEr GB basis.
+2. Data Transfer in by submitting data to your origin:
+    You will charged for DELETE, OPTIONS, PATCH, POST, and PUT requests. Charges are PEr GB basis.
+3. No of HTTP Request:-
+    You will be charged for each 10,000 request.
+    chrges will be higher if you are using 'Origin Shield'
+4. Invalidation requests
+    No additional charge for the first 1,000 paths requested for invalidation each month. Thereafter, $0.005 per path requested for invalidation
+5. Field Level Encryption requests
+6. Price classes
+    Based on requirment you can chose to tap less amount of Edge location. this will cost less but give higher latency.
