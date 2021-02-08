@@ -53,6 +53,9 @@ Cloudfront Distribution
     But you can override this behavior for root access and return the other object.
     EG: DefaultRootObject: 'index.html'
     Now for root url the ruturn object will be mufcft.cloudfront.com/index.html. This url will also pass from all the cachebehaviour path pattern and the first one who matches, wins.
+    When you create a new distribution, the value of Path Pattern for the default cache behavior is set to * (all files) and cannot be changed. 
+    This value causes CloudFront to forward all requests for your objects to the origin that you specified in the Origin Domain Name field
+    
     
   PriceClass:-
     The edge loacation of CFT is spread across the world. Depending on the budget you have you can choose to use some edge location only.
