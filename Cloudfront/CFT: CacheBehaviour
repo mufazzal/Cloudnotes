@@ -15,7 +15,7 @@ This control many things about the cache and origin. all setting of cache behavo
       - forwards only GET, HEAD, and OPTIONS requests.    
     IMP: CFT can never cache the PUT, PATCH, POST, and DELETE requests. because it make no sense at all.
     
-  LambdaFunctionAssociations:-
+  LambdaFunctionAssociations [Lambda@Edge]:-
     The CFT can call the lambda function at specific event fo better handling. you can fire the lambda at 4 specific events
     1. Viewer Request               
     2. Origin Request
@@ -23,5 +23,12 @@ This control many things about the cache and origin. all setting of cache behavo
     4. Viewer Response
         V---1-->C---2-->O
         V<--4--C<---3---O
-    It not necessary that each lambda call for each requets.
-    EG: if request is honored for cache
+    - if request is honored from the cache Origin Request and Origin Response plug will not be called.
+    - Also note that each lambda run in synchnous manner so it add latency in responses. so be careful to have time taking lambda.
+    - This lambda can customize the response based on the request headers.
+    - This lambdas run at Edge location instead of AZ. so it save the time to conect with AZ. 
+    - With Lambda at 'Viewer Request' you can serve the contaent from the lambda itself and reduce load on Origin server.
+    - this lambda must have below IAM role settint
+        - Trust relation with 'edgelambda.amazonaws.com' and 'lambda.amazonaws.com'
+        - Permission for 'lambda:GetFunction', lambda:EnableReplication*, cloudfront:UpdateDistribution or cloudfront:CreateDistribution etc.
+        
