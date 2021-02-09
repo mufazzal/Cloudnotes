@@ -1,0 +1,42 @@
+Below mechanism you can use for securing the content of Distribution
+
+1. Signed URL/Cookie:-
+    One of the issue with CFT is if somone have Distribution url he may have unrestricted access to the content of dstribution.
+    So directly accessing the contet via CFT url is not a good idea.
+    IF you wants to give access to the user for specific time priode yoy can use Signed URL/Cookies.
+    For this first you have to create the CDN key RSA key pair
+      AWS console > Login with Root accont > My Security Credential > Cloud frony Key > Create
+      save the private key and note the accesskey id. 
+    The signed url is created with orignal CDN url with below factor
+      1. key-pair-id
+      2. Private Key
+      3. valid till          
+      use below command for CLI
+        aws cloud front sign
+              --url <value>                   EG. http://d15uraiww9uj93.cloudfront.net/site/muf.html
+              --key-pair-id <value>               the one you noted down
+              --private-key <value>               the path of pravate key 
+              --date-less-than <value>            till when you want user to have access
+              [--date-greater-than <value>]
+              [--ip-address <value>]              
+
+        aws cloudfront sign \
+              --url https://d111111abcdef8.cloudfront.net/private-content/private-file.html \
+              --key-pair-id APKAEIBAERJR2EXAMPLE \
+              --private-key file://cf-signer-priv-key.pem \
+              --date-less-than 2020-01-01      
+              
+    Restrict the origin Access via signed url only:-
+      You have provided user the signed url but unsigned url still can access the CDN so the last thing we do is to restric user from accessing the origin(via CDN) 
+      with unsigned url. and also allow him only if url is signed from the set of correct .
+      for this
+        in Console:- 
+          go to
+            Cloud Front > Distribition > 'ypu distribution' > Behaviour > 'Behaviour for your origin' > Edit
+            Restrict Viewer Access > Yes
+            Trusted Key Groups or Trusted Signer > choss any
+            Select signer or key group.
+            done.
+          The signer could be   
+            your aws account or other aws account too.
+         At a time of GET CDN will check if url is signed with proper key or not which is from correct set of signer.              
