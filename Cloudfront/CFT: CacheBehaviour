@@ -73,6 +73,12 @@ This control many things about the cache and origin. all setting of cache behavo
       It does not have Query String, Header and Cookies
       
   OriginRequestPolicy:
+    By default The origin request always includes the following information from the viewer request:
+      - The URL path (the path only, without URL query strings or the domain name)
+      - The request body (if there is one)
+      - The HTTP headers that CloudFront automatically includes in every origin request, including Host, User-Agent, and X-Amz-Cf-Id.
+    Other information from the viewer request, such as URL query strings, HTTP headers, and cookies.
+    You can use an origin request policy to control the information that’s included in an origin request
     You can use this to define what Header, QueryString and Cookie tou want to forward to Origin.
     This differ from CachePolicy in a manner that the one define in 'CachePolicy' will be used or not used for Creating key and sending or not sending to Origin.
     The ones in 'OriginRequestPolicy' will be sent or not sent to Origin.
@@ -81,6 +87,7 @@ This control many things about the cache and origin. all setting of cache behavo
     They only can control to let it flow from Viwer to CFT to Origin and decide weather to use it for Cache key or not. 
     They both are reusable component, you can create and attach it to multiple CacheBehaviour.
     You just need to give refrence of their id in CacheBehaviour. They are created at Distribution level not at CacheBehaviour level.  
-    
+        
+
         
         
