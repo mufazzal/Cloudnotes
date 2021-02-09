@@ -27,6 +27,16 @@ This is mostly provide mechanics how the CFT will connect the the Origin.
     mufcft.cloudfront.com/acme/index.html in a browser, CloudFront sends a request to Amazon S3 for 
     <originDomainame:port>/production/acme/index.html      
 
+    The formate of Domain name also define thetype of origin. CFT support below origin and those origin has specific DNM name formate
+      Amazon S3 bucket configured as a website – awsexamplebucket.s3-website.us-west-2.amazonaws.com
+      Amazon S3 bucket not configured as a website – awsexamplebucket.s3.amazonaws.com
+      MediaStore container – examplemediastore.data.mediastore.us-west-1.amazonaws.com
+      MediaPackage endpoint – examplemediapackage.mediapackage.us-west-1.amazonaws.com
+      Amazon EC2 instance – ec2-203-0-113-25.compute-1.amazonaws.com
+      Elastic Load Balancing load balancer – example-load-balancer-1234567890.us-west-2.elb.amazonaws.com
+      Your own web server – https://example.com
+ 
+
   Id:
     A unique identifier for the origin. This value must be unique within the distribution.
     Use this value to specify the TargetOriginId in a CacheBehavior or DefaultCacheBehavior
