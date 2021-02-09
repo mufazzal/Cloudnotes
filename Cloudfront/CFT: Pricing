@@ -11,3 +11,5 @@ For CFT Below are the chargable matrices
 5. Field Level Encryption requests
 6. Price classes
     Based on requirment you can chose to tap less amount of Edge location. this will cost less but give higher latency.
+7. HTTPS Request: 
+    HTTPS request bear higher charges. 
