@@ -39,4 +39,14 @@ Below mechanism you can use for securing the content of Distribution
             done.
           The signer could be   
             your aws account or other aws account too.
-         At a time of GET CDN will check if url is signed with proper key or not which is from correct set of signer.              
+         At a time of GET CDN will check if url is signed with proper key or not which is from correct set of signer.      
+         
+
+2. S3 and CDN access issue:-
+    IF you are usinf S3 bucket as origin the problem is that you have to make the Bucket public. and so it lead to unecessary data expose.
+    To resolve this special issue for S3 and CDN connection, comes a concept of Origin Access Identity (OAI)
+    for detail see. 'S3: Performance: CloudFront.txt'
+    
+3. Use Custom Header for Custom Origin:-
+    Use Custom header to be added and check it at you origin server side. honor the request only if that Header is prsent.
+
