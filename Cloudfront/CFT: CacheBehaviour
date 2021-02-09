@@ -69,6 +69,9 @@ This control many things about the cache and origin. all setting of cache behavo
       allExcept: all will be sent expect the one listed in 'QueryStrings'
       whitelist: send only those mentioned in 'QueryStrings'
       
+      By dwfault cache policy is made of 'Domain name' + 'URL path of object'.
+      It does not have Query String, Header and Cookies
+      
   OriginRequestPolicy:
     You can use this to define what Header, QueryString and Cookie tou want to forward to Origin.
     This differ from CachePolicy in a manner that the one define in 'CachePolicy' will be used or not used for Creating key and sending or not sending to Origin.
