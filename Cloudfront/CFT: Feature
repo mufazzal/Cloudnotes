@@ -1,0 +1,3 @@
+CFT Custom URl:-
+  You can use Route 53 to expose the CFT distribution. You have to create the proper alias record for this. 
+  
