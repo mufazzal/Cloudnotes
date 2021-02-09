@@ -215,6 +215,8 @@ What happen over CFT When
             "Principal": { "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E11YOP9QR1NZ7Q" },
             "Action": "s3:GetObject",
             "Resource": "arn:aws:s3:::mufa-test-cdft-bucket-2021/*"
+       4. Update Object ACL:-
+            In the ACL of object just add the 'Amazon S3 Canonical User ID' and remove public access. 
     Now bucket content will be accessible via CDN only and bucket and its content will not be public. 
     IMP: you do not have to make any changes in the CDN url for this. the OAI provide the the identity to CDN distribution not the oerson who is using this url.
     
