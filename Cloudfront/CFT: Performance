@@ -1,0 +1,13 @@
+Cache key and Cache hit:-
+  The cache hit is the ratio who told us how many times data retrived from Cache instead of Origin. To improve the Cache HIt.
+  Cache key is set by Cache Policy So
+  - Set Cache Policy smartly with proper combination of Query string, Header and Cookie
+  - Have longer TTL.
+  Benifit of good cache key:-
+    - Reduced overall latency.
+    - less load on server.
+      
+      
+Compressing the Object:-
+  CFT can deliver the compressed object to the viewer for better latency. You can enale this feature in Cache Policy.
+  Its imp that client indicate their support for these compression formats by sending 'Accept-Encoding' : gzip | br in headwer.
