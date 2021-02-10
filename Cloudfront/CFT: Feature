@@ -14,3 +14,5 @@ CFT and CORS:-
     Configure CloudFront to forward the following headers: Origin, Access-Control-Request-Headers, and Access-Control-Request-Method
   For Custom Origin:-
     Forward the Origin header along with any other headers required by your origin
+    
+    
