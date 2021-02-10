@@ -1,0 +1,77 @@
+CFT can call the lambda function at specific event fo better handling. you can fire the lambda at 4 specific events
+    1. Viewer Request               
+    2. Origin Request
+    3. Origin Response
+    4. Viewer Response
+        V---1-->C---2-->O
+        V<--4--C<---3---O
+
+This lambdas execute at the Edge location not in ant data center of AWS. so they are tpp fast.
+To create such lambda you have to deploy the lambda in US-EAST-1 only. later you can configure it to execute at Edge locations.
+AWS take care of copying this lambda to al the edge locations from Us-East-1.
+
+This are set at CacheBehaviour level. so when requets comes the CFT look for PAth patern once it matches it will execute the appropiate lambdas from CacheBehaviour[i].lambddaArns 
+
+Step:-
+  1. Write the lambda in US-East-1
+  2. Go to cloudfront console > tour distribition > Select Cache brhaviour > Lambda Function Associations
+  3. Slect event type from 4 event and add lambda ARN.
+  Done.
+  
+ IAM role for this lambda
+  - Trust relation with 'edgelambda.amazonaws.com' and 'lambda.amazonaws.com'
+  - Permission for 'lambda:GetFunction', lambda:EnableReplication*, cloudfront:UpdateDistribution or cloudfront:CreateDistribution etc.  
+  This permission will let thios function to be distributed at edge location from US-east-1
+  
+  
+This lambda trigger or may not trigger based oon 
+  Viewer Request
+    This execute all the time
+  Origin Request
+    The function executes only when CloudFront forwards a request to your origin. 
+    When the requested object is in the CloudFront cache, the function doesn’t execute.
+  Origin Response
+    The function executes after CloudFront receives a response from the origin and before it caches the object in the response. 
+    Note that the function executes even if an error is returned from the origin.
+    The function doesn’t execute in the following cases:
+      - When the requested file is in the CloudFront cache and is not expired.
+      - When the response is generated from a function that was triggered by an origin request event.
+  Viewer Response
+    The function executes before returning the requested file to the viewer. 
+    Note that the function executes regardless of whether the file is already in the CloudFront cache.
+    The function doesn’t execute in the following cases:
+      - When the origin returns an HTTP status code of 400 or higher.
+      - When a custom error page is returned.
+      - When the response is generated from a function that was triggered by a viewer request event.
+
+  The things you can accomplish with LAmbda@Edge:-
+  1. Generate Response for 'Viewer Request':-
+      Here request is directly answere by LAmbda. result is neither cached nor forwared to Origin ever.
+      How:-
+        Simply return below formatted object in lambda:
+          const response = {
+                  status: '200',
+                  statusDescription: 'OK',
+                  headers: {...},
+                  body: {...},
+              };          
+                    
+  2. Generate Response for 'Origin Request'
+      If there is cache hit then request goes to lambda here lambda generate the proper response and so requets not forwared to Origin. 
+      The response of Lambda is also cached.
+      How:-
+        Simply return below object in lambda:
+  
+  3. Edit requets param (header/queru string/cookie) in Request trigger:-
+      for this get request from 'event.Records[0].cf.request;' and update request.querystring/headers, finally return request
+      
+  4. Updating HTTP Responses in 'Origin Response':-
+      You can change the response came from the origin via thios lambda function. You change HTTP status code, add/edit/delete HTTP header and body of response.
+      How
+        get reponse from 'event.Records[0].cf.response' and change 'response.headers', finally return response
+  5. Changing the URL to load based on param in request:
+        for this get request from 'event.Records[0].cf.request;' and update request.uri, finally return request
+      
+  6. Forward to Origin based on Request content for 'Viewer-Request'
+        for this get request from 'event.Records[0].cf.request;' and update request.origin, finally return request
+  
