@@ -77,4 +77,25 @@ Cloudfront Distribution
   Logging:-
     You can set the to deliver the Access Log to the S3 bucket with this param. pass value of bucket and prefix.
   
-  
+-----------------------------
+
+CFT and Error from Origin:-
+  If there is a cache miss then CFT send requets to appropiate origin.
+  and if origin akso give error then this error can be handled a CFT level.
+  You can configure to handle the scenario of error from any origin at level of distribution for uniformity. For this use 'CustomErrorResponses'
+  EG:-
+      {
+        "ErrorCachingMinTTL" : 3000,
+        "ErrorCode" : 500,
+        "ResponseCode" : 404,
+        "ResponsePagePath" : 'ErrMuf/err-500.htm'
+      }    
+   It says that, if CFT recive Error code 500 from any origin then send the viewr the response code = 500 
+   with response body from 'mufcft.cloudfront.com/ErrMuf/err-500.htm'
+   So you also must properly configure the CacheBehaviour or DefaultCacheBehaviour to answere the Pathpattern 'ErrMuf/err-500.htm' 
+   and you must either have
+    - A single origin with all such error pages
+        > The advantage of this approach is that you do not have to worry about each and every Cache behaviour and Origin in the distribution for error handling.  
+    - Or every origin must be able to load the page 'ErrMuf/err-500.htm'.
+        > You have to take care at each origin end.
+
