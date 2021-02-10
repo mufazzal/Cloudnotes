@@ -11,3 +11,6 @@ Cache key and Cache hit:-
 Compressing the Object:-
   CFT can deliver the compressed object to the viewer for better latency. You can enale this feature in Cache Policy.
   Its imp that client indicate their support for these compression formats by sending 'Accept-Encoding' : gzip | br in headwer.
+
+Origin Shield:-
+  This give you an extra layer of caching in Distribution. so it improve the cache hit ratio
