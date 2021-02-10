@@ -8,3 +8,7 @@ Origin Group:-
   Done
   Now CFT will first send the request to primary origin and if it fail the CFT will redirect same request to Secondry origin.
   So this give you better availibilty in case of failover at primary.
+  
+  VIMP: 
+    Only failoveer with HTTP Codes mentioned in step 2 will be consider for handling not other.
+    Only GET, HEAD and OPTION request are handled not other like PUT, POST 
