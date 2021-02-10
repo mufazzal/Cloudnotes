@@ -1,0 +1,10 @@
+Origin Group:-
+  This is very useful in case of failover at Origin. 
+  1. Here you first have to create a Origin and add two origin in it.
+      A Primary Origin
+      A Secondry Origin
+  2. Set the HTTP code of primary origin which is cosidedred as failure like 5XX and 4XX
+  3. Now finally, in the Cache behavour instead of gicinf an Origin id gived the Origin Group Id.
+  Done
+  Now CFT will first send the request to primary origin and if it fail the CFT will redirect same request to Secondry origin.
+  So this give you better availibilty in case of failover at primary.
