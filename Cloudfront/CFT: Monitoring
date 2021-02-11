@@ -1,0 +1,31 @@
+Some useful Reports at console AWS provide free:-
+  Cache Statistics Reports: [for last 60 days]
+    - Total Requests [for all methodes]
+    - Percentage of Viewer Requests by Result Type: for cache miss and hit and error
+    - Bytes Transferred to Viewers
+    - HTTP Status Codes
+  Popular Objects Report: [for last 60 days]
+    - lists the 50 most popular objects and statistics about those objects
+  Top Referrers Report: [for last 60 days]
+    - top 25 referrers, the number of requests from a referrer
+  Usage Reports: [for last 60 days]
+    - Number of Requests for selected time frame
+    - Data Transferred by Protocol
+    - Data Transferred by Destination
+  Viewers Reports: [for last 60 days]
+    - By device, Browser. location.
+  Lambda@Edge function metrics:-
+    5xx error rate for Lambda@Edge
+    Lambda execution errors
+    Lambda invalid responses
+    Lambda throttles
+    
+Cloudfront Report in Cloudwatch:-
+  CFT provide 6 metric for free in CWT:
+   - Requests, Bytes downloaded, Bytes uploaded, 4xx error rate, 5xx error rate, Total error rate
+  PAid Metrices:
+   - Cache hit rate, Origin latency, Error rate by status code
+   
+   
+CloudFront logging:-
+  
