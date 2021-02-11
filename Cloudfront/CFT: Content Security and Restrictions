@@ -1,5 +1,17 @@
-Below mechanism you can use for securing the content of Distribution
+In CFT you have 3 option of Secrity
 
+  1. Encryption in Transit
+    - For this simply make CacheBehaviour[*].ViwerProtocolPolicy and Origin[*].OriginProtocolPolicy as HTTPS.
+  2. Encryption at Rest
+    - AWS uses SSD drives at Edge location and have the Encryption always enabled. so no worry for this.
+
+  3. Restrict Access to Content
+    - Use signed URLs or cookies
+    - Use OAI for S3
+    - Restrict access to content served by an Application Load Balancer with CustomHeader
+    - Use AWS WAF
+    - Use Geo Restriction
+-----------------
 1. Signed URL/Cookie:-
     One of the issue with CFT is if somone have Distribution url he may have unrestricted access to the content of dstribution.
     So directly accessing the contet via CFT url is not a good idea.
@@ -54,3 +66,9 @@ Below mechanism you can use for securing the content of Distribution
 3. Use Custom Header for Custom Origin:-
     Use Custom header to be added and check it at you origin server side. honor the request only if that Header is prsent.
 
+4. Geo Restriction:-
+    This is apply at Distribution level not at CacheBehavoiur level. 
+    You can either 
+      - deliver the content to all countries except the one listed in Blacklisted Or
+      - restrict the content to all countries except the one listed in whitelisted
+        
