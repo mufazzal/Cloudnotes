@@ -1,0 +1,209 @@
+Docker and AWS:-
+	AWS provide advance tool for managing Container and images.
+	
+	ECR[Elastic Container Registery]:-
+		ECR is the tool where you can upload the Images of Container and share with other.
+		This is simplty a repository for Comtainer images.
+		It compititor :-
+			DockerHub
+	
+	Container Orchastration tool:-
+		This is where our Containers run. here actully the Application is hosted.
+			Compititor:-
+				Docker
+		There is two tool AWS provide
+			EKS[Elastic Kubenetees service]:-
+				
+				
+			ECS[Elastic Container Service]:-
+				This tool give you the way to manage the containers and help you to do operational stuff on it like
+					Start stop containers
+					Load Balancing
+					Scheduling
+					Replication
+
+	Hosting Enviorment:-
+		On EC2:-
+			Here the container are ran on EC2s and customer is responsible for managing those EC2.
+			AWS ECS take care of running container and managong it on EC2/
+			On Each EC2 'ECS Agent' Must be installed.
+		On Fargate:-
+			Here There is no EC2 instance in picture. The Container will run on Fargate and cutomer need not to worry about 
+			managing EC2s.
+
+
+	ECS Cluster[with EC2 Hosting]:-
+		Think of ECS Cluster as the collection of EC2s in a logical group.
+		This EC2 will later be used to run multiple containers in a orchestration.
+		When you create ECS cluster you provide detail of how EC2 will be congigured
+			Networking:-
+					- VPC
+					- Subnet
+					- SG
+					- IAM Role
+							: VIMP This role must has the permission 'ecsInstanceRole' attach. 
+								Because the ECS-Agent in the EC2 instance need to make API calls for Container management in the ECS Cluster.
+			Compute Capacity:-
+				You have to provide below 
+					- Instance provisioning model [on-demand or spot]
+					- Instance type
+					- Storage
+					- No of instances.
+					- AMI id	
+							: This AMI must have proper ECS-Agent also installed. if not then you have to manually install it or all your container image are useless. 
+				The instances lanuch by ECS here are actully klanch in ASG rather then independently. ECS internally take care of this.
+				So if one goes down somhow then other come up. and then ECS-Agent take care of lanuching container in it
+							
+		The Template for Task | Task Defination:-
+			This is the json template which contain belo info
+				- Task Role
+						: This role will be futher hydrated on inner container of this task
+				-	Compatibility:
+						slect EC2 or Farget.
+				- Network Mode:-
+						it could be	
+							Bridge:-
+								In this mode of networking an one EC2 port is mapped to one Container instance.
+								[ISSUE: 
+										Biggest issue here is that the EC2 has only one port 80(for example take 8-). 
+										now what will happed if you need multiple container to listed on port 80 of Host EC2.
+										Limitation due to this issue:-
+											Due to this issue if some you need one to one mapping between EC2 and container of port 80(just for example)
+											So if you need to run 4 container and each listed to port 80 then you will have to have 4 EC2 up and running.
+											so that each container will run on each EC2. [ECS will do it for you]
+											if you have only 2 EC2 then 2 of the container will fail to start.
+									]
+
+							awsvpc:-
+								To solve this issue comes the 'Network Mode' = awsvpc.
+								Here, with each TASK[not container] ther is one ENI attached. and so each container has its own unique IP.
+								Even each container has its own SG attached.
+				- Task Size:-
+						Memory size:-
+							The total size of RAM you need for this task. this will be futher dole uot to in-running containers
+						vCPU:-
+							The total size of vCPU you need for this task. this will be futher dole uot to in-running containers
+				- Containers:-
+						You can add the list of containers images here with each image you also need to give	
+							- Image Name [from public docker repo or from ECR]
+							- Memory limit:-
+								set the limit of memory this container can have. if RAM goes above then container will be killed.
+							- Port Mapping:-
+									if you have selected the 'Network Mode' = bridge you will have to do the static port mapping here
+									This will map the EC2 port to the port of this container.
+									it will have mapping like	
+										Host EC2 port <----> Container port
+									This is advisable to use the NEtwork Mode = 'awspc' so that you can take benefit of Dynamic Port Mapping.
+						
+			Deploying Container on ECS Cluster / Task :- 
+				From the the task defiation ocreated earlier you can create the actual task in instance in the cluster.
+				Task is wherein the containers ran. A single task can have a multiple container.
+				
+			Full view of EC2 Hosted ECS Cluster:-
+				ECS Cluster		
+					|
+					|-------	EC2 Instance e1
+					|					|
+					|					|-----Task e1t1
+					|					|				|---------Container instance C1
+					|					|				|---------Container instance C1
+					|					|				|---------Container instance C3
+					|					|-----Task e1t2
+					|									|---------Container instance C2
+					|									|---------Container instance C1
+					|									|---------Container instance C1
+					|-------	EC2 Instance e2
+					|					|
+					|					|-----Task e2t1
+					|					|				|---------Container instance C2
+					|					|				|---------Container instance C3
+					|					|				|---------Container instance C1
+					|					|-----Task e2t2
+					|									|---------Container instance C2
+					|									|---------Container instance C2
+					|									|---------Container instance C1
+					|-------	EC2 Instance e3
+--------------------
+
+		Dyanamic Port Maping:-
+			Suppose you need below scenarion
+				for higher availibility, you need 3 EC2 instance each running a 2 webapp containers 
+				Now as you know the container and EC2 are also connected on port 
+				so assume that they are coneected on port 80. 
+				now there is only one port 80 on each EC2 instance. so at max you can run 1 container on each EC2. so max you can have
+				3 * 1 = 3 container in the cluster.
+				To solve this issue comes the Dynamic Port Mapping. 
+				Here the port 80 of Container will be connected to a Dynamically assign port of an EC2 instance.
+				at the time of container registration in the task instead of giving the Hodt  port = 80, give Host Port = 0.
+				Now when this container comes in the EC2 instance, it will be connected with a free avialable port of EC2 and port 80 of container.
+								
+				Now if port if EC2 is dynamically assign then hoew traffic will be routed to containers.
+				for this you have to use proper set up of ECS service with ALB.
+					
+--------------------		
+		
+		ECS Service:-
+			When you create a task and run ir in ECS cluster. This is one time activity. ECS keep runing this task.
+			But if a container in that task get failed or crash. there is no way to restart it.
+			To solve this issue comes a ECS Service.
+			ECS service is also very strongly integrated with ASG and ALB.
+			
+			The ECS service manage the task continuation and failover managment for any container in the task.
+			A service can have multiple task in it to run.
+			
+			ESC-Service are very strongly coupled with below AWS service:-
+				For Compute capacity:-
+					There is two option here, either you use the ASG or Fraget
+				For Load Balacing:-
+					You can use Application load balancer to route the traffic to ECS cluster.
+					This load balacer may take traffic from internet on ALB-port80 and the transfter it to register targetrs.
+					
+					Listener for ALB of ECS Service:-
+						When you attach a ALB to ECS service, then ECS hinself take the proper care of registering 
+						the containers in ECSService > Task to the target group of ALB.
+						At a time of set up of target group you need to set which port of ALB is listned to ECS Cluster.
+						Say you wants <ALBurl>:80 to listen bu containers in ECS service then
+						simply create the Target group with HTTP:80 and attach it to ALB.
+						
+						Now ECS cluster will take the responsibility to register the targets EC2 instances in it.
+						the mapping done by ECS will be like this						
+													
+						ALB					<-----EC2 Targets---->			<----containers--->
+													i-12345		4532							ecs-cluter-11		80
+													i-12345		7656							ecs-cluter-12		80
+													i-67890		1209							ecs-cluter-16		80
+						HTTP:80				i-12345		1235							ecs-cluter-13		80
+													i-67890		4542							ecs-cluter-14		80
+													i-67890		1245							ecs-cluter-15		80
+						
+						The SG of ALB must open 
+							inbound on HTTP:80 to 0.0.0.0/0
+							and outbound on TCP:0-6756 for SG-of-EC2s
+						The SG of EC2 must open 
+							inbound on TCP:0-6756 for SG-of-EC2s to SG-of-ASG
+						
+			
+------------------------------
+
+ECS with Fargate:-
+	Biggest issue with hosting the container in EC2 is that the customer will have to manage the EC2 instances. 
+	You have to set the 
+		Compute capacity in the ECS cluster and 
+		set the ASG in the ECS cluster service
+	This bear the extra administrative effort in the managing the ECS. 
+	To resolve tis comes the Fargate
+	In the farget there is no EC2 instance come in picture and the container run in the Fargate.
+	This fargates are manage by the AWS himself. based on resource utilization AWS add or remove fargate instances from /in ECS cluster.
+	So if you are using this then you do not have to provide and compute param in cluter creation EG.
+					- Instance provisioning model [on-demand or spot]
+					- Instance type
+					- Storage
+					- No of instances.
+					- AMI id	
+
+	This is nothing but a Serverless ECS.
+			
+			
+			
+		
+				
