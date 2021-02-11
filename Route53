@@ -1,1 +1,212 @@
-Route 53 is domain name registration service of amazon
+Route53 is the service AWS provice for doing 3 majot thing
+	- Register/migrate the domain
+	- Create Hosting zone
+	- Route hosts based on diffrent policy or health chceck
+	
+	Register/migrate the domain:
+		This is not in scope. but do remeber that this is chargable.
+		
+	Create Hosting zone:
+		You can create the private (in-VPC) or puclic (internet) Hosting zone.
+		Private one has scope only in VPC and 
+		for Public one first you have to buy a domain and then use this domain for hosting.
+
+Creating Private Hosting Zone:-
+	First you need to select some logical name for host like 'mufvpc.com' and then selexct the proper VPC.
+	you can use theis DNS name and in any EC2 running this VPC.
+	here you do not have to buy the domain. Any EC2 runing in this VPC can resolve this DNS [EC2 uses privte DNS server for this.]
+	
+Creating Public Hosting Zone:-
+	Here you have to first buy one and then create it.
+
+Hosting Zone:-
+	Suppose you have the domain mufazzal.com [for public hosting i assume you have bougth and for private you do not need to buy]
+	with this domain you can create Hosting Zone below
+		mufazzal.com
+		
+Record Set:-
+	This is the place where you map you AWS/Non-AWS resources to the domain-url or subdomain-url of hosting zone.
+	When you have a Hosting Zone[mufazzal.com] is ready you can create record set like below
+		mufazzal.com
+		www.mufazzal.com
+		info.mufazzal.com
+		app1.mufazzal.com
+		app2.mufazzal.com
+		..
+		etc.
+	
+Hosting Zone and Record Set
+	mufazzal.com, www.mufazzal.com, info.mufazzal.com, news.mufazzal.com they all are 
+	DIFFRENT RECORD SET IN A HOSTING ZONE 'mufazzal.com'
+	shabbir.com, www.shabbir.com, info.shabbir.com, news.shabbir.com they all are 
+	DIFFRENT RECORD SET IN A HOSTING ZONE 'shabbir.com'
+	
+	shabbir.com and mufazzal.com are two diffrent Hosting zone.
+	
+Hosting Zone default Record set			
+	For every Domain[] you will get two default record set. this can not be edit or delete.
+	this is used by DNS Servers for resolving traffic and authorizing domain.
+	This are
+												Type				Values
+	mufazzal.com					NS					4 urls
+	mufazzal.com					SOA					1 urls
+	
+	NS: 	Name Servers
+	SOA: 	Statement of Authority
+
+
+Record Set and Resource mapping[aws or non aws]
+	When you create a Hosting Zone you will get 2 record set which is used for DNS servers.
+	Now if you wants to map the resource to domain or subdomain, you have to creat the Record set.
+	
+	There is two type of Record map we mostly make
+	type A: 
+		again 2 type:
+			1. Mapped to an public IP
+			2. Mapped to a AWS resource [alias]
+	type CNAME:
+			MApped to other somain/subdomain
+	
+	
+Record set for domain/subdomain <---> Public IP
+	suppose you have a webservers runing on EC2s or on the primse with public IPv4. 
+	you can map those IPs in the the record set
+	say you have a EC2@1.1.1.1 and EC2@5.5.5.5 and EC2@3.3.3.3 running a main website 
+	Then create a Record set like
+		Name = mufazzal.com [you can also take www.mufazzal.com, site.mufazzal.com, app.mufazzal.com]
+		Type = A [becoz we are going to map the IPv4]
+		alias = No [Yes is Values are going to AWS services ]
+		Values = 
+			1.1.1.1
+			5.5.5.5
+			3.3.3.3
+		So AWS route53 will rout the traffic to given IPs in round robin formate 
+	
+Record set for domain/subdomain <---> AWS Resource
+	suppose you have a website/webserver running on S3 or ALB or Cloudfront etc. 
+	you can map those AWS resource in the the record set
+	say you have a S3 bucket as static website 
+	Then create a Record set like
+		Name = mufazzal.com [you can also take www.mufazzal.com, site.mufazzal.com, app.mufazzal.com]
+		Type = A [becoz we are going to map the IPv4/AWS alias]
+		alias = Yes [Yes is Values are going to AWS services ]
+		Values = 
+			bucket1.s3.amazonaws.com
+			bucket2.s3.amazonaws.com
+			bucket3.s3.amazonaws.com
+		So AWS route53 will rout the traffic to given IPs in round robin formate 
+	EG2:-
+		say you have a ELB running the webservers 
+		Then create a Record set like
+			Name = mufazzal.com [you can also take www.mufazzal.com, site.mufazzal.com, app.mufazzal.com]
+			Type = A [becoz we are going to map the IPv4/AWS alias]
+			alias = Yes [Yes is Values are going to AWS services ]
+			Values = 
+				elb2.mufalb1.amazonaws.com
+				elb2.mufalb2.amazonaws.com
+				elb2.mufalb3.amazonaws.com
+			So AWS route53 will rout the traffic to given IPs in round robin formate 
+		
+	Simillarly you can map below AWS services in Riute53 record set	
+		S3, Cloudtfront, ELB 
+		
+Record set for domain/subdomain <---> other domain/subdomain
+	Suppose you have created a Record for your blog site like below
+		NAme = blog.mufazzal.com
+		Type = A
+		alias = [yes or no]
+		values = <IP or AWS alias>
+	Now you wants that latest.mufazzal.com should behave same as blog.news,com or say you wants both url to redirect on same page.
+	you can do it by creating a CNAME[Canonical name] type record for latest.mufazzal.com 
+		NAme = latest.mufazzal.com
+		Type = CNAME
+		alias = blog.mufazzal.com
+		
+	VIMP: The public IP of EC2 in values is consider as nonalias aws resource.
+
+Full View:
+	suppose you have
+	- a ststic website hosted on S3 bucket 'mysitebucket' and you wants to expose it on 'mufazzal.com' ans 'www.mufazzal.con'
+	- a legacy site on EC2@1.1.1.1 and 2.2.2.2 and you wants to expose it on 'legacysite.mufazzal.com' 
+	- a legacy app on EC2 or on premise at 8.8.8.8 and 6.6.6.6 and you wants to expose it on 'legacyapp.mufazzal.com' 
+	- a web app hosted on ALB 'mufALB1', 'mufALB2', 'mufALB3' and you wants to expose it on 'app.mufazzal.com'
+	- a js/image/media file at clodfront distribution cfl1 and you wants to expose it on 'media.mufazzal.com'
+	- a mail server on EC2 and you wants to expose it on 'mail.mufazzal.com'
+		It will also have two additiona entry of NS and SOA by default
+		
+	Name												Type						Alias					Values
+	mufazzal.com								NS							No						4 urls
+	mufazzal.com								SOA							No						1 url
+	
+	mufazzal.com								A								Yes						s3.mysitebucket.amazonaws.com
+	www.mufazzal.com						CNAME						No						mufazzal.com
+	legacysite.mufazzal.com			A								No						1.1.1.1, 2.2.2.2						
+	legacyapp.mufazzal.com			A								No						8.8.8.8, 6.6.6.6						
+	app.mufazzal.com						A								Yes						mufALB1, mufALB2, mufALB3
+	media.mufazzal.com					A								Yes						cfl1
+	mail.mufazzal.com						MX							Yes						mailEC2Server
+	
+Routing Policy:-
+	The above struture work fine with all things idle but there is if and buts like
+	- What if a underline AWS resource like S3, ALB, CFT fail
+	- what is user living far from region of AWS resource 
+	- what is user facing very high latency
+	- what if one of AWS resource from 'values' list got higher share of workload
+		
+	To resolve all this issue comes the routing policy. Rout policy navigate thraffic to diffrent pointers basd on scenario.
+	1. Simple routing policy:-
+			This is the default one. the traffic is mapped to one set of 'values' in th record set.
+	2. Failover Policy:-
+			Here you define the primare and secondry set of 'Values' for record set. if primary fail the traffic will go to secodry one.
+			EG: suppose you hae a webserver on EC2s and you want failover on S3 static website 
+					legacysite.mufazzal.com			Policy=Simple;type=primary 		A								No						1.1.1.1, 2.2.2.2						
+					legacysite.mufazzal.com			Policy=Simple;type=secondry		A								Yes						sitedownbuctet.s3.amazonaws.com	
+			For this policy to set up, yoi also need to create the HEalth check in the route 53 fro primary resource.
+	3. Latency based policy
+			Here the traffic is routed to the region with lowest latedncy. for this first you have to create the latency record.
+			Whenever R53 receive the query, it fetch the list of latency record and then determine who will give the least latency and 
+			route the traffic to that region.
+			For this you also have to set up the record of list of latency for region your systen is hosted on.
+	4. Geolocation routing:-
+			This is useful when you wants to serve the contenst basd on region of user. 
+			like serve the content from frakfurt for all EU user and from japan for apac region.
+			This is very useful for language, complience and localaization of content.
+	5. Geoproximity: 
+	6. Weighted: Use to route traffic to multiple resources in weight that you specify. 
+	7. Multivalue: 
+	
+	
+Pricing:-
+	This is one of the costlier service.
+	DNS registration:-
+		You will be charged for DNS registration once.
+	DNS Queries non-alias:-	
+		The charges depend on routing policy and charged based on number of queries per month.
+		for simple routing:-	
+			$0.40 per million queries – first 1 Billion queries / month
+			$0.20 per million queries – over 1 Billion queries / month
+		for Latency Based Routing Queries
+			$0.60 per million queries – first 1 Billion queries / month
+			$0.30 per million queries – over 1 Billion queries / month
+	DNS Queries non-alias[AWS mapped]:-	
+		FREE.
+		
+		
+	Health check records:-
+		First 50 records are free then chargable.
+		Health check of Non-Alias records:
+			if your resource is EC2 or on premise weserver [you used IPv4 in values] then you can set up health ckeck as below
+			1. Create record in Health check and provide below
+					PRotocol, Port, Path, domain name, IP
+			2. Now assosiate this ealth check record to the Record set in Host zone.	
+		Health check of Alias[AWS resources] records:
+			Here you do not have to create the 'record in Health check' because alias (ELB, CFT, S3) have theor own health check mechanics in place.
+			
+		Type of Health check:-
+		1. Monitoring the End pointers:
+				You can configure a health check that monitors an endpoint that you specify either by IP address or by domain name. 
+				At regular intervals that you specify, Route 53 submits automated requests over the internet to your application, server, 
+				or other resource to verify that it's reachable, available, and functional.
+		2. Health checks that monitor CloudWatch alarms:
+		3. Health checks that monitor other health checks 
+
