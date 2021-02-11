@@ -152,5 +152,26 @@ WHen exaclty we may need it :-
       To enable the long pollint just pass the non-zero value in ReceiveMessageWaitTimeSeconds.
       its default value is 0. and sp by default this will be a Short poll. 
       
+--------------------------------
+
+SQS and ASG:-
+  Many of the time the SQS message are processed by the EC2. so its very logical to use ASG to launch and terminate the instance based on number messages in que.
+  By this you do not have to keep the EC2 when there is no messages. or you can keep only the EC2 which are enogh to handle load.
+  
+  But we do not use numbe of mesage in the que, rather we us avrage BAcklog on EC2s in fleet.
+  for this formula is ApproximateNumberOfMessages/running instances
+  
+  How:-
+    1. Create custom CW metrics of backlog
+    2. Make sure to publist this metric data in every 1 or 2 or n minute. 
+    3. Create target tracking policy with acceptable value of backlog
+    
+    
+  
+  
+
+
+
+
 
     
