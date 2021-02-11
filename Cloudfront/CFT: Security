@@ -1,0 +1,13 @@
+In CFT you have 3 option of Secrity
+
+  1. Encryption in Transit
+    - For this simply make CacheBehaviour[*].ViwerProtocolPolicy and Origin[*].OriginProtocolPolicy as HTTPS.
+  2. Encryption at Rest
+    - AWS uses SSD drives at Edge location and have the Encryption always enabled. so no worry for this.
+
+  3. Restrict Access to Content
+    - Use signed URLs or cookies
+    - Use OAI for S3
+    - Restrict access to content served by an Application Load Balancer with CustomHeader
+    - Use AWS WAF
+    - Use Geo Restriction
