@@ -110,11 +110,8 @@ ASG Lifecycle Hook:-
   - discard the EC2 instance if DefaultResult = ABANDON
 
 ------------------------
+Scalling:-
 
-Scalling Policy:-
-  This define on what condition the instances will be launched or taken down.
-  There is below way to do it.
-  
   Manual:-
     - You set the desired capacityby yourself whnever you need to increase or decrease the capacity.
   Scheduled:-
@@ -122,26 +119,34 @@ Scalling Policy:-
       For example, let's say that every week the traffic to your web application starts to increase on Wednesday, 
       remains high on Thursday, and starts to decrease on Friday. 
       You can plan your scaling actions based on the predictable traffic patterns of your web application. 
-  Dynamic Scalling: By Policy
-    There is 3 kind od policy
-    1. Target Tracking
-      - You set a target say 70% CPU usage and ASG take care of adding/removing instances to acive this target.
-      There are 4 preconfigured matrics which you can use for this
-          ASGAverageCPUUtilization, ASGAverageNetworkIn, ASGAverageNetworkOut, ALBRequestCountPerTarget
-      you can use those to gauge the number of EC2 in group wrt targer value.
-      For this you do not need to set any cloudwatch metrics bu you own.      
-    2. Simple Scalling
-      - You set a usage value, above wich n number of instance will be launched.
-        the value of 'n' you have to gave. also you need to set the cloudwatch metrics that will be use for this 
-    3. Step Scalling
-      - You set the spans of uasges and set how many instance will be launched or taken down if usage is in respective range.
-        also you need to set the cloudwatch metrics that will be use for this. 
-    
   Predictive Scaling
       Predictive Scaling, a feature of AWS Auto Scaling uses machine learning to schedule the right number of EC2 instances 
       in anticipation of approaching traffic changes. 
       Predictive Scaling predicts future traffic.
       Predictive Scaling’s machine learning algorithms detect changes in daily and weekly patterns, automatically adjusting their forecasts
+  Scalling Policy:-
+    This define on what condition the instances will be launched or taken down.
+    There is below way to do it.
+    Dynamic Scalling: By Policy
+      There is 3 kind od policy
+      1. Target Tracking
+        - You set a target say 70% CPU usage and ASG take care of adding/removing instances to acive this target.
+        There are 4 preconfigured matrics which you can use for this
+            ASGAverageCPUUtilization, ASGAverageNetworkIn, ASGAverageNetworkOut, ALBRequestCountPerTarget
+        you can use those to gauge the number of EC2 in group wrt targer value.
+        For this you do not need to set any cloudwatch metrics bu you own.      
+        
+        Thoug, You can use other or custom cloudwatch metrics too for Target tracking.
+        EG: You can scal up or down based on number on messages in SQS.
+                
+      2. Simple Scalling
+        - You set a usage value, above wich n number of instance will be launched.
+          the value of 'n' you have to gave. also you need to set the cloudwatch metrics that will be use for this 
+      3. Step Scalling
+        - You set the spans of uasges and set how many instance will be launched or taken down if usage is in respective range.
+          also you need to set the cloudwatch metrics that will be use for this. 
+
+
     -------+-----------
   
   
