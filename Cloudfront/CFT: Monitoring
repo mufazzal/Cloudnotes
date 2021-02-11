@@ -28,4 +28,11 @@ Cloudfront Report in Cloudwatch:-
    
    
 CloudFront logging:-
-  
+  1. Access Log:-
+      CloudFront standard logs provide detailed records about every request that’s made to a distribution
+      CloudFront standard logs are delivered to the Amazon S3 bucket of your choice. CloudFront doesn’t charge for standard logs.
+      This free but S3 storage is chargable.
+  2. Real-time logs:-
+      Ultra fast logs that deliver whithine seconds. can be handled by Kenesis stream
+  3. Cloudtrail:-
+      Via cloudtrail you canot see the log of distribution or object but you can see if somone make changes in the distribution itself via console/CLI/SDK. 
