@@ -164,6 +164,8 @@ Type of Policies:
     To craete any such kind of policy first you have to choose the AWS resource on whome you wants this policy t be mounted.
     This policies also do not has ARN because they are not reusable.
     
+    *** SOME AWS Services support the resource based policy for SOME actions
+    
     Most of the time we see that in this policy the resource tag as
       ...
       Resource : '*'
