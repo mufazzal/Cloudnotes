@@ -1,0 +1,9 @@
+Encryption at Rest:-
+  DynamoDB encryption at rest provides an additional layer of data protection by securing your data in an encrypted table
+  - Primary Key
+  - LSI, GSI table
+  - Stream
+  - Global Table
+  - DAX
+  - Back up
+  At a time of table creation you can chose to have, AWS managed or cutomer managed CMK.
