@@ -182,13 +182,25 @@ EC2 Placement Group:-
 				As they are in same hardware cluster, they have very less network latency when communicating with each other.
 				This is useful when you need high and fast EC2-to-EC2 communication. EG. HPC apps.
 				The EC2s in such kind of PG remain in single AZ.
-	2. Partition Placement Group:-
+				EG:
+					Rack-1 [EC2_1, EC2_2, EC2_3, EC2_4, EC2_5]
+	2. Spread:-
 			-	EC2 are placed in such a manner that they do not share the common hardware and so remain very much isolated (in term of hardware) from each other.
 				This is useful when you need highly distrubuted system with good fault tolerance so that failling on one hardware do not impact other.
 				The EC2s in such kind of PG can lie in in single AZ or multiple AZ.
-	3. Spread:-
+				EG:
+					Rack-1 [EC2_1]
+					Rack-2 [EC2_2]
+					Rack-3 [EC2_3]
+					Rack-4 [EC2_4]
+					Rack-5 [EC2_5]
+	3. Partition Placement Group:-
 			- This in between Clustered and Partition Placement Group
 				Here the CLUSTER of some EC2-instances are placed in isolated PARTITION of hardware. So that failing of one clusted do not impact other partitions.
+				EG:
+					Rack-1 [EC2_1, EC2_4]
+					Rack-2 [EC2_2, EC2_3]
+					Rack-3 [EC2_5]
 
 	You can place the instances in placement group at a time of creating instances or after creation.
 	Once instance is created then also it can be [but first instance has to put in stopped state]
