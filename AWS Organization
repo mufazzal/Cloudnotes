@@ -28,4 +28,19 @@ Concept:-
   Member Accounts:-
     All other account are member account.
     You can  either create a member accoun with few detail like Email, name and service role. 
-    or send the invitation to join the organization to other aws accout,
+    or send the invitation to join the organization to other aws accout. you need account id or email for invitation. Now the sendee account has to accept the request.
+  
+  OU(Organization units):-
+    This is the logical collection of account and otyher OU below the root. 
+    You can attach the SCP to a OU and that policy will be applied tpo all downward nodes. 
+    OU can have only one parent which is other OU or root. also a member account can only pe part of one OU or the root.
+    
+  SCP (Service Control Policies): 
+    Consider this asIAM for your Organization AWS account. It specify the maximum limit of access that the AWS organization account can have,
+    SCPs offer central control over your accounts to stay within your organization’s access control guidelines
+    - An SCP restricts permissions for IAM users and roles in member accounts incuding their root user.
+    - SCPs affect only member accounts in the organization. They have no effect on users or roles in the management account
+    - Users and roles must still be granted permissions with appropriate IAM permission policies
+    
+    
+    
