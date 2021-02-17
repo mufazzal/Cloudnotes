@@ -113,7 +113,10 @@ Why we need EPS:-
         
       
       
-      
+-------------------------------------
+  Inter-Region VPC end point:-
+    EPS work if client and provider (AWS service or user made) are in same region. but if they are in diffrent region then you have to use
+    VPC-Peering and private link together to use the EPS across region.
       
       
       
