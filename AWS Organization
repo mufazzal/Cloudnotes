@@ -1,1 +1,31 @@
+AWs organization is the feature that let you consolidate multiple AWS accounts into an organization that you create and centrally manage.
+With this:-
+  - You can manage the biling via only one account. So you need biling detail in only one account.
+  - You can creae new acount with very few detail (only name, email and servicerole)
+  - Create service control policies(SCP) to allow/deny access to ceratin aws resouces/service to certain aws account  
 
+VVIMP:-
+  AWS account VS IAM Account in cotext of AWS organization: When we are talking about the AWS account it means that the root account. not at all the IAM account
+  All IAM account are just a resource inside the rrot account. The aws Organization recognizes only Root Accounts.
+
+How to create:-
+  You do not have to be in AWS root(h.mufazzal@gmail.com) account to create the AWS organization. You can crweate it via IAM account too (Mufazzal_Hussain).
+  Though the AWS organization make the relation with the root(h.mufazzal@gmil.com) account only. later point of time you can even delete the Mufazzal_Hussain but
+  organization persist
+    
+Concept:-
+  Master/management  Account:-
+    In any AWS Organization there is only one master account and that is the one with which it is created. 
+    in our case its root(h.mufazzal.com) account.
+    This account can
+      - Create accounts in the organization
+      - Invite other existing accounts to the organization
+      - Remove accounts from the organization
+      - Manage invitations
+      - Apply policies to entities (roots, OUs, or accounts) within the organization
+      - The management account has the responsibilities of a payer account and is responsible for paying all charges that are accrued by the member accounts
+    
+  Member Accounts:-
+    All other account are member account.
+    You can  either create a member accoun with few detail like Email, name and service role. 
+    or send the invitation to join the organization to other aws accout,
