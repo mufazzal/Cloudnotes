@@ -1,0 +1,12 @@
+AWS RAM is the service with which you can share the resource with
+  - Other AWS account
+  - In AWS Organization
+  - In AWS Organization OU
+
+Creator of resource has full access on the resource's actions. the one with whome it shared can perform action based on type f resource.
+Not all the resource are sharable. some example are
+  - Capacity Reservations
+  - Dedicated Hosts
+  - EC2 Images
+  - Aurora DB cluster
+  - VPC subnet
