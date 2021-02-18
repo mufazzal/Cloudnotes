@@ -42,5 +42,11 @@ Concept:-
     - SCPs affect only member accounts in the organization. They have no effect on users or roles in the management account
     - Users and roles must still be granted permissions with appropriate IAM permission policies
     
-    
-    
+  Back Up Policy:-
+    - Backup policies give you granular control over backing up your resources at whatever level your organization requires
+    - It can be attached to OU or root.
+    EG:-
+      Policy that DynamoDB table must be back up each week. 
+ 
+  Tag Policy:-
+    You can use this to create rule for tagginr the resources across al the account in AWS organization.
