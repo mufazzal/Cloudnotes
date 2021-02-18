@@ -46,4 +46,7 @@ Parameter Store:-
     fir SDF you need 'ssm' library.Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. You can use AWS AppConfig with applications hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS Lambda, containers, mobile applications, or IoT devices.
 
 
-
+----------
+Bulk operation on EC2
+  SSM is used for doing the bulk operation on EC2s. like running the particular command on many ec2 instances together.
+  for this go to : aws > ssm > run command
