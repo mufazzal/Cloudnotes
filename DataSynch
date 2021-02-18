@@ -1,0 +1,13 @@
+The AWS Data Synch is used to migrate the data 
+- to and from the AWS cloud to on-premise.
+- to and from between diffrent cloud services.
+
+The source and destination could be:-
+  - On premise Network File System (NFS), 
+  - On premise Server Message Block (SMB) file servers, 
+  - On premise self-managed object storage
+  - S3/Glacier
+  - EFS
+  - FSX
+  
+   
