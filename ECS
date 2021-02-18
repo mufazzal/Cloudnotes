@@ -203,7 +203,16 @@ ECS with Fargate:-
 
 	This is nothing but a Serverless ECS.
 			
-			
-			
+--------------------------------------------------
+
+ECS Security:-
+	IAM Role:-
+		In ECS there IAM role are at 2 level
+		1. EcsInstanceRole: This is at ECS cluster level. and this is applied to all the EC2 instances in that ECS cluster
+		2. Task Role: This is applied at task level. and this role is applied to all the container inside that task (not EC2 or cluster)
+	SG:-		
+		In ECS there SG are at 2 level
+		1. On Ec2 instance.
+		2. On Task.
 		
 				
