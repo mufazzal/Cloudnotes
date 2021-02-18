@@ -56,7 +56,19 @@ Supporting SQL DB:
        > AWS-cloud to AWS-cloud
        > AWS-cloud to On-Premise
        > On-Premise to On-Premise
-  - in a nutsheel DMS nothing but a EC2 instance running a Replication software.
+  - in a nutsheel DMS nothing but a EC2 instance running a Replication software. This instance is called Replication instance.
+  
+  High Level Step:-
+    1. Create a replication server
+    2. Create source and target endpoints
+    3. Create one or more migration tasks to migrate data
+  Thereis 3 phase of migration:-
+    1. The full load of existing data: 
+          Data are moved from spource to destination. and any ongoing chages in source data are cached in replication server
+    2. The application of cached changes
+          Once first phase finis, it apply the cached changes to target DB
+    3. Ongoing replication
+          Now any ongoing changes will be applied to target as transacction
   
   Below are the possible source 
     On-premise or EC2 database
@@ -75,8 +87,9 @@ Supporting SQL DB:
     Kenesis
     DocumentDB    
   
-  it support homogenous[eg SQL -> SQL] and heterogenous[SQL->Aurora] heterogenous.
+  it support homogenous[eg SQL -> SQL] and heterogenous[SQL->Aurora, SQL -> Oracle] heterogenous.
   for heterogenous heterogenous you will nedd SCT (Schema conversion tool)
+  With SCT you can migrate in between Sql to NoSql, chnage DB engine etc.
   
 
 ---------------------
