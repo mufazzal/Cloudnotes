@@ -44,12 +44,12 @@ How To create Bucket :-
 
 
 S3 and Data Consistency :-
-1: Read after Write for PUT: its consistent, mns you will be able to read the file immdietly after writing it. So when upload a new object the upload reuest finish 
+1: Read after Write for PUT/OverWrite PUT: its consistent, mns you will be able to read the file immdietly after writing/updating it. So when upload/update reuest finish 
         when object is uploaded to all the destination with succes otherwise the upload wil fail and you will not be able to read after PUT.
-        So after successful PUT you will surely get the data
-2: Eventual Consistency for UPDATE/DELETE: This may take some time to reflect, so if you read immedietly after then you may get the previouse version. So when you delete or update the 
-        objevt then the request finish even when the object is not yet update/deleted to all destinations. 
-        So after successful DELETE/UPDATE you may or may not get the new data
+        So after successful PUT/Update you will surely get the data on LIST or GET
+2: Eventual Consistency for DELETE: This may take some time to reflect, so if you read immedietly after then you may get the previouse version. So when you delete the 
+        objevt then the request finish even when the object is not yet deleted to all destinations. 
+        So after successful DELETE you may get the data yet.
 
 -----------------------------
 
