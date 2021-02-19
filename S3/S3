@@ -107,6 +107,8 @@ Limits:-
     - 5 TB
   MAx tag on object
     - 10
+  Max limit for PUT:
+    - 5GB
     
 --------------------   
 Charges:
