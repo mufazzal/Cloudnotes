@@ -63,6 +63,9 @@ S3 Monitoring:-
         2. Select the bucket 'mylogbucket' in target bucket
         3. set prefix for the log for easy filtering EG. for 'murbucket' set 'murbucketLogs-',  for 'mufbucket' set 'mufbucketLogs-'
         Done
+        You do not need any special permission in bucket policy, 
+        but Adding deny conditions to a bucket policy might prevent Amazon S3 from delivering access logs.
+
     Viewing log:-
       Simply go to 'mylogbucket' and you will see files containing logs. this logs has info like
     Charges:-
@@ -80,7 +83,8 @@ S3 Monitoring:-
       - How many PUT/GET/POT request were there on this bucket
       - How many 4XX kind of error we dot today.    
       - The full requets body and response
-  
+ 
+
   The formate of this logs are:-
       f9da3b5bec57f4601a1d29654ffc1d8983ff413d534b9cd13b9a05a1343dbd2a muf-aws-tuto-acl-public-rw [05/Aug/2020:14:57:55 +0000] 10.246.191.124 arn:aws:iam::388412347424:user/Mufazzal_Hussain F1EDCEB81EBCDFF0 REST.PUT.TAGGING - "PUT /?tagging HTTP/1.1" 204 - - - 155 99 "-" "AWS CloudFormation, aws-internal/3" - XBDaseYr8wAQvrSvoEHAbY673VNI0WNuXPKKh6pgolqpfNCqwlpOB4JvqETYFL3WGRD2LfO7Zog= SigV4 ECDHE-RSA-AES128-SHA AuthHeader muf-aws-tuto-acl-public-rw.s3.us-east-1.amazonaws.com TLSv1.2  
   
@@ -97,8 +101,7 @@ S3 Monitoring:-
               Properties:
                 BucketName: "mufbucketLogs"
                 AccessControl: LogDeliveryWrite    
-                   
-    
+ 
   By Cloudtrail + Cloudwatch/S3:-
     This is the deepest level of logging that can give you the Request and response of the APIs that are being called in/out of S3.
     here you can do the object level logging(optional and costly) for the bucket.
