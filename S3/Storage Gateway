@@ -18,12 +18,14 @@ The storage Gateway can cutomize the S3 sevice to provide you storage of belw ty
     With this you can add/edit/delete any file with NFS client. this cahnges will be done on S3 actully. data is stored in S3 so you can have versioning, lifecycle, analytics from S3.
     With this you do not have to have large storage at your premise.
     Files written to a file share become objects in Amazon S3, with the path as the key. There is a one-to-one mapping between files and objects, and the gateway asynchronously updates the objects in Amazon S3 as you change the files
-    
+    You can even access the files with s3 api and s3 console.
+
   Volume Gateway:-  
     This give Block-Based storage to your on premise solution. Here data is stored in S3 in form of EBS snapshot. 
     You can attach storage gateway as simple Hard disk in your computer,
     The on-premise STG storage is connected to on premise compute capacity with ISCSI protocol. (simply a hardisk drive)
-    you can use two stratagy here
+    you can use two stratagy here.
+    you cannot access this data with s3 api or s4 console.
     2.1  Stored Volume [live data in premise and backup at S3] :-
       Use on-premise as db and s3 as cached.
       Here you keep all the data set at your on premise(storage attach to STG virtual machine) but save the back up at S3 too. 
