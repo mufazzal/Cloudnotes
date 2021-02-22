@@ -63,3 +63,21 @@ NACL VS SG:-
   - if he can then the reverse response will be permitted automatically
  The inbound/outbound rule of NACL state that in which direction the packed can flow
   - if he can flow in one direction then still the reverse response can be allowed or denied
+
+
+---------------
+
+Default SG of VPC:-
+  All open to all port
+Default NACL of VPC:-
+  All open to all port
+
+Newly created SG of VPC:-
+  None open to None port
+Newly created NACL of VPC:-
+  None open to None port
+  
+  
+  
+
+
