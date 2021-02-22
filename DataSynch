@@ -10,4 +10,38 @@ The source and destination could be:-
   - EFS
   - FSX
   
-   
+Mechanics:
+  Data transfer between On-premise and AWS:-
+    You need to install the AWS Synch Agent at on-premise
+  Between two AWS service in Same Account [inter or intra-regoin]:-
+    You do not need to Synch Agent
+  Between two AWS service in diffrent Account [inter or intra-regoin]:-
+    You need DataSync EC2 agent deployed in a Region
+
+Componment:-  
+  Agent, Locations, Task, Task execution
+  
+VerifyMode:-
+  You can enable or disble it. if enable then DataSynch will verify all the transfer data after completion of transfer.
+Phases:-
+LAUNCHING: 
+  DataSync initializes the task execution
+PREPARING: 
+  DataSync examines the source and destination file systems to determine which files to sync. 
+  It does so by recursively scanning the contents and metadata of files on the source and destination file systems for differences
+TRANSFERRING:
+  After the scanning is done and the differences are calculated, DataSync transitions to the TRANSFERRING status. it copy the diffrence of data and metadata.
+  When DataSync transfers data, it always performs data integrity checks during the transfer.
+VERIFYING: 
+  This phase will come only if verify mode is enabled.
+  You can enable additional verification to compare source and destination at the end of a transfer.
+SUCCESS/ERROR:
+  You know it.
+  
+How AWS DataSync verifies data integrity:-
+  AWS DataSync locally calculates the checksum of every file in the source file system and the destination and compares them. Additionally, 
+  DataSync compares the metadata of every file in the source and destination and compares them
+ 
+ 
+  
+  
