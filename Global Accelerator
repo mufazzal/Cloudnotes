@@ -1,0 +1,80 @@
+Why we need Global Accelarator?
+
+Suppose you have the application that has the Global user base and you need low latency with higher availibility in all region.
+EG: PUBG.
+If you deploy the app stack in one region, it may faster in that region and slower in rest on the world.
+So you need to deploy in many region. But this also bring one more challange.
+This is to maintain the emdoints in many region. 
+EG.  you need to maintain the multiple ALB, EC2, RDS etc in diffrent region. and in the application code you wil have 
+			lot of enpoint url, IP, to mainyains.
+
+To resolve this issue comes a 'Global Accelerator'.
+
+GA provide the single point entry for all the users in the world, irrespective of where the user is.
+GA do this by assigning the two Anycast IP (1 for use and 1 for failover of first) and also a DNS mapped to that IP.
+AnycastIP: This are the special kinf public IP which can be assign to multiple server. 
+
+You can use this DNS for reaching into the system. The GA will then analyze certain factor and navigte the request to preferable region.
+
+Ingredient of GA:-
+	Listener:-
+		GA listen the internet traffic on the listener. The listener tells the port and protocol to listen.
+		You can have multiple listener ifyou need to listen multiple port and lrotocol.
+		EG: you can create listener to listen TCP:80, TCP:3000 etc.
+	Endpoint:-
+		The endpoint is running aws service or instances of service in the given region. This could be 
+		ALB, NLB, EC2, EIP
+	Endpoint Group:-
+		EPG is the logical collection of endpoints from the SAME REGION which perform the same kind of task(or host same apps).		
+		
+	Suppose in US-east-1 you have  
+		- A webserver runing at EC2s@TCP:80 and exposed by 2 ALB (us1_ws_alb1 and us1_ws_alb2)
+		- A appserver runing at EC2s@TCP:30 and exposed by 2 ALB (us1_as_alb1 and us1_as_alb2)
+		- A EC2 for monitoring at EC2s@TCP:22:11.11.11.11
+	You have same infra in india as
+		- A webserver runing at EC2s@TCP:80 and exposed by 2 ALB (in1_ws_alb1 and in1_ws_alb2)
+		- A appserver runing at EC2s@TCP:30 and exposed by 2 ALB (in1_as_alb1 and in1_as_alb2)
+		- A EC2 for monitoring at EC2s@TCP:22:13.13.13.13
+		
+	As you ca imagine there are 4 ALB fro a webserver and 4 for appserver. 
+	So in typicla infra you have to manage the DNS of this 8 ALB in code of appserver and webserver.
+	Chaging the ALB dnam name will take heavy toll. and also you have to take care of traffic ditribution among them.
+	
+	With GA you can avoid this overheads.
+	
+	Steps:-
+		Create the GA, it will gives you a DNS name and twi anycast IP. say its mufga.globalaccelerator.amazonaws.com.
+		Now create three LISTENER in this GA for  
+			- first for the webserver. 	 use port and protocol as TCP and 80. say LIS_WS (you can have diffrent port if you wants to do port overriding)
+			- second for the appserver.  use port and protocol as TCP and 30. say LIS_AS (you can have diffrent port if you wants to do port overriding)
+			- third for the maintanance. use port and protocol as TCP and 22. say LIS_MT (you can have diffrent port if you wants to do port overriding)
+				So now your GA will listen to 
+					http://mufga.globalaccelerator.amazonaws.com:80, http://mufga.globalaccelerator.amazonaws.com:30, SSH:mufga.globalaccelerator.amazonaws.com:10
+		Now create the END POINT GROUP, Create 3 EPG, 1 for each server
+			- for webserver in US-east-1 say EPG_WS_US and attach it to LIS_WS
+			- for webserver in india say EPG_WS_IN and attach it to LIS_WS
+			- for appserver in US-east-1 say EPG_AS_US and attach it to LIS_AS
+			- for appserver in india say EPG_AS_IN and attach it to LIS_AS
+			- for webserver in US-east-1 say EPG_AS_US and attach it to LIS_AS
+			- for webserver in india say EPG_AS_IN and attach it to LIS_AS			
+		Now finaly add Endpoint to each of this EPG. In the each EPG you will have the endpoint which will have common region and common listener.
+			So the EPGs will look like below
+			EPG_WS_US:-
+				us1_ws_alb1, us1_ws_alb2
+			EPG_WS_IN:-
+				in1_ws_alb1, in1_ws_alb2
+			So now you can see that that the Webserver is exposed via GA throght 
+				1 listener 'LIS_WS'
+				2 EPG (listening on same listener LIS_WS)
+				4 Endoint (spread in 2 region via 2 EPG). 
+				So now you WS is highly available im multiple region. 
+			Now for App server
+			EPG_AS_US:-
+				us1_as_alb1, us1_as_alb2
+			EPG_AS_IN:-
+				in1_as_alb1, in1_as_alb2
+			So now you can see that that the Appserver is exposed via GA throght 
+				1 listener 'LIS_AS'
+				2 EPG (listening on same listener LIS_AS)
+				4 Endoint (spread in 2 region via 2 EPG). 
+				So now you AS is highly available im multiple region. 			
