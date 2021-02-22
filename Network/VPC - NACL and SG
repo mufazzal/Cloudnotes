@@ -73,9 +73,11 @@ Default NACL of VPC:-
   All open to all port
 
 Newly created SG of VPC:-
-  None open to None port
+  Inbound: None open to None port
+  Outbound: All open to all.
 Newly created NACL of VPC:-
-  None open to None port
+  Inbound: All DEny
+  Outboud: All Deny
   
   
   
