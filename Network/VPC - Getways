@@ -21,8 +21,10 @@ Internet Getway:-
         Impossible. no one from internet can reach to a node who do not has the public IPv4
       Outbound traffic:-
         For all such node this work as intermediatory to redirct the response of the request(generated from inside the node) to proper node 
-  Basically all the internet traffic flow from IG.
-
+  
+    - Basically all the internet traffic flow from IG.
+    - It does not cause availability risks or bandwidth constraints on your network traffic
+    - There's no additional charge for having an internet gateway in your account
 
 Egress only IGW:-
   IF your VPC is using IPv6 then. there is one issue here. the IPv6 do not distiguish between public and private IP. all ip are public in IPv6.
@@ -69,18 +71,19 @@ NAT Getway:-
     By default any route table do not redirect any internally generated internet traffic to the NAT Getway.
       to do this you have to add this entry in Rout Table
         0.0.0.0./0  - nat-*******
-      This entry will route the traffic generated in assosiated subnet into to the NAT getway.
+      This entry will route the traffic generated in assosiated subnet into to the NAT getway.      
       
-      
-  One NAT Getway can be attached to many route table and so can handle traffic from many Subnets at a time.
-  The natgetway by default have 5GBPS bandwith but can scaled up to 45 Gbps.
-  So many instances in many private subnet may share this bandwith for nternet access.
+  - One NAT Getway can be attached to many route table and so can handle traffic from many Subnets at a time.
+  - NAT gateways are not supported for IPv6 traffic—use an outbound-only (egress-only) internet gateway instead
+  - The natgetway by default have 5GBPS bandwith but can scaled up to 45 Gbps, So many instances in many private subnet may share this bandwith for nternet access.
+  - NAT Getway is chargable, u will be charged for per hour basis. its generally at $0.1 / hr
+  - Though NAT Gateway has EIP but, you cant attach the SG on it. 
+  - You can associate exactly one Elastic IP address with a NAT gateway. You cannot disassociate an Elastic IP address from a NAT gateway after it's created. To use a different Elastic IP, you must create another one.
   
-  If you have multiple private subnet and they all access the internet via single NAT getway, then it may leads to high traffic on it and risk of single point of failure.
-  To avoid this its good pactice to have one NAT getway for each private subnet.
-  
-  Charges for NAT Getway:-
-    NAT Getway is chargable, u will be charged for per hour basis. its generally at $0.1 / hr
+  Natgetway Performance and Scalling:-
+    it can scaled up to 45 Gbps but
+    If you have multiple private subnet and they all access the internet via single NAT getway, then it may leads to high traffic on it and risk of single point of failure.
+    To avoid this its good pactice to have one NAT getway for each private subnet.
   
  --------------
  
