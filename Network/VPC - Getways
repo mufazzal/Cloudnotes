@@ -72,19 +72,30 @@ NAT Getway:-
       to do this you have to add this entry in Rout Table
         0.0.0.0./0  - nat-*******
       This entry will route the traffic generated in assosiated subnet into to the NAT getway.      
-      
-     
+           
   - One NAT Getway can be attached to many route table and so can handle traffic from many Subnets at a time.
   - NAT gateways are not supported for IPv6 traffic—use an outbound-only (egress-only) internet gateway instead
   - The natgetway by default have 5GBPS bandwith but can scaled up to 45 Gbps, So many instances in many private subnet may share this bandwith for nternet access.
   - NAT Getway is chargable, u will be charged for per hour basis. its generally at $0.1 / hr
-  - Though NAT Gateway has EIP but, you cant attach the SG on it. 
+  - Though NAT Gateway has EIP but, you can nott attach the SG on it. it also has an private IP allocated from the subnet where it reside. 
   - You can associate exactly one Elastic IP address with a NAT gateway. You cannot disassociate an Elastic IP address from a NAT gateway after it's created. To use a different Elastic IP, you must create another one.
-  
+  - You cannot route traffic to a NAT gateway through a 
+      VPC peering connection, 
+      Site-to-Site VPN connection, 
+      AWS Direct Connect. 
+    A NAT gateway cannot be used by resources on the other side of these connections
+
   Natgetway Performance and Scalling:-
     it can scaled up to 45 Gbps but
     If you have multiple private subnet and they all access the internet via single NAT getway, then it may leads to high traffic on it and risk of single point of failure.
     To avoid this its good pactice to have one NAT getway for each private subnet.
+  
+  Charges:-
+    You will be charged hourly for the up time of NAT gateway. you will also bear the charges for data processing.
+    
+  TIP:- If your private subnet need only to talk inside the VPC and wuth the AWS services then its better to use the Endpoint Service for AWS services to avoid the use of NAT gateway  
+    
+  
   
  --------------
  
