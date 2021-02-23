@@ -72,17 +72,22 @@ NACL (Network Access Control List):-
               Outbound: If it is the public subnet the #NACL_RULE_3 will allow traffic for this.
         NACL for Private Subnet where NAT Gateway is attached to:-
           This NACL must 
-            - allow the request generated from the private subnet to internet 
+            - allow the request generated from the private subnet to internet via NAT device 
                 Outbound:
                   100   -   HTTP   -   TCP  -    80   -   0.0.0.0/0   -   ALLOW
-            - Allows return response from the NAT device in the public subnet for requests originating in the private subnet
+            - Allows return response from the internet (via NAT device) in the public subnet for requests originating in the private subnet
                 Inbound:
                   100   -   HTTP   -   TCP  -    1024-65535   -   0.0.0.0/0   -   ALLOW
-            - allow the request generated from the public subnet to private subnet 
+                  
+            - Allow the request generated from the public subnet to private subnet 
                 Inbound:
                  100   -   HTTP   -   TCP  -    PRT   -   CIDR_pub   -   ALLOW     
                  PRT: This could be any port specific to the node like RDS, Aurora(3306), Mysql(3306), Postgress(5432), webserver(3000, 8080, 8085) etc.
                  CIDR_pub: CIDR range of public subnet.
+            - Allows return response from the private subnet requests originating in the public subnet
+                Outbound:
+                  100   -   HTTP   -   TCP  -    32768-65535   -   CIDR_pub   -   ALLOW
+                  
             - deny the traffic generated from the internet to private subnet             
           
   NACL VS SG:-
