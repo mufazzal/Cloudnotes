@@ -7,7 +7,6 @@ Internet Getway:-
     For Node without public IPv4:-
       Use rote table to route the internet traffic to the destination node.
 
-
   Suppose there is a node that has the public IPv4
     EG: EC2 with IPv4 Enable, RDS with IPv4, NAT Getway
     say the reserved public IP is 87.9.8.7
@@ -22,9 +21,14 @@ Internet Getway:-
         Impossible. no one from internet can reach to a node who do not has the public IPv4
       Outbound traffic:-
         For all such node this work as intermediatory to redirct the response of the request(generated from inside the node) to proper node 
-
-
   Basically all the internet traffic flow from IG.
+
+
+Egress only IGW:-
+  IF your VPC is using IPv6 then. there is one issue here. the IPv6 do not distiguish between public and private IP. all ip are public in IPv6.
+  For this comes the Egress-only IGW. This will allow the internet bound IPv6 request generated from the VPC to flow out to internet 
+  but IPV6 request generated from the internet to the VPC is prohibited.
+  So Egress only IGW work as NAT gateway for IPv6. 
 
   Can a VPC have mutiple IG
   ?????????/
