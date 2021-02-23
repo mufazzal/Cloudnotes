@@ -1,0 +1,8 @@
+Charges:
+  small hourly charge when 
+    - they aren't associated with a running instance, 
+    - they are associated with a stopped instance 
+    - assosiated to the unattached network interface. 
+    
+    While your instance is running, you aren't charged for one Elastic IP address associated with the instance, 
+    but you are charged for any additional Elastic IP addresses associated with the instance
