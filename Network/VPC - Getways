@@ -73,6 +73,7 @@ NAT Getway:-
         0.0.0.0./0  - nat-*******
       This entry will route the traffic generated in assosiated subnet into to the NAT getway.      
       
+     
   - One NAT Getway can be attached to many route table and so can handle traffic from many Subnets at a time.
   - NAT gateways are not supported for IPv6 traffic—use an outbound-only (egress-only) internet gateway instead
   - The natgetway by default have 5GBPS bandwith but can scaled up to 45 Gbps, So many instances in many private subnet may share this bandwith for nternet access.
