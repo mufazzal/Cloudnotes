@@ -7,63 +7,75 @@ NACL (Network Access Control List):-
   The NACL control what kind of traffic on which port is allowed or denied.
   One Subnet can be attached to only one NACL but one NACL can be assosiated with many subnet.
   The NACL is wrapped aroud the Subnet so that this. NACL now control what type of Traffice can move in and out of that SUBNET.
-  
   If EC2 lies in any subnet then traffic first has to pass out from NACL test and then SG of EC2 will be tested. if both pass then traffice pass through.
   Any trafiic prohibited by NACL will not reach to SG and further network comp at all.
   
-  Just like EC2 in NACL we also set in and out bound rule
-  Below param you need to crete the inbound rule  
-    Rule - Protocol  - Port Range  - Source   -  Allow / Deny
-    100     HTTP         80          0.0.0.0/0       Allow 
-    200     HTTPS        443         0.0.0.0/0       Allow 
-    300     SSH          22          45.7.8.5        Allow 
-  Below param you need to crete the outbound rule  
-    Rule - Protocol  - Port Range  - Source  - Allow / Deny
-    100     HTTP         80           0.0.0.0/0       Allow 
-    100     HTTPS        443          0.0.0.0/0       Allow 
-
   How Rule evaluated:-
     The rule with lower number will evaluate first and keep going till
       - the matching rule come
-      - or denied
+      - or denied by the last rule *
 
-  When you craete A VPC it will also create a Default NACL created.
-    This NACL simply has one entery
-      100   -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   ALLOW
+  Default NACL of VPC:-
+    When you craete A VPC it will also create a Default NACL created.
+    This NACL simply this two entery in inbound and outbound both
+        100   -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   ALLOW
+        *     -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   Deny
     This NACL has all traffic of all type (from internet or inside VPC) open for in and outbound
-
-
-one subnet can only connect with one NACL
-but one NACL can be connected to multiple subnet
-So its relation is like below
-                                Subnet 1      
-        NACL 1---------------   Subnet 2
-                                Subnet 3  
-
-But not like
-    
-        NACL 1------------
-        NACL 2------------  Subnet 1
-        NACL 3------------
-
-NACL VS SG:-
-  The SG us statful and NACL is stateless.
-  This means that NACL work at packet level and SG work at Request level.
   
- if a SG has allwoed the request from point A to Point B then the response flow from B to A will automatically granted access.
- But if NACL allwoed the request from point A to Point B then the response flow from B to A can be denied.
- 
- SG do not have any way to specifically deny any source or destination IP but NACL can do this.
- 
- you can deny specific ip via NACL but its not possible with SG.
+  Cutom NACL:-
+    When you create the custom NACL, it it has all the traffic in and out bound denied. 
+    Newly created NACL simply has one entery in inbound and outbound both
+        *     -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   Deny
+  
+  -> The rule with the * cannot be edoted or deleted. 
+  -> one subnet can only connect with one NACL. but one NACL can be connected to multiple subnet
+  -> It support IPv6. and AWS automatically add the rule for IPv6 block if VPC has IPv6 enabled.  
+  
+  EGs:-
+    Allowing only SSH traffic into the subnets from all over the internet
+    Place this in inbound and outboud
+        100   -   SSH          -   TCP  -    22   -   0.0.0.0/0   -   ALLOW
+        *     -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   Deny    
+    If you give it inly in inound then the packet will reach to instances from internet-client but the response will not be able to reach to the internet-client.
+    For any such non-http/https traffic like SSH, RDP etc in and out port are same so inbound and outboud rule are set on same port.
+    But for HTTP and  HTTPs its bit tricky
+    
+    NACL and HTTP Request:-
+      Remember one thing: The request Packets comes/go on port 80 and response Packets come/go on Ephameral-ports
+      
+      Allowing HTTP Originated from internet into the subnet:- For this you have to       
+        Inbound: enable inbound on port 80 for HTTP to allow the incoming packet 
+          100   -   HTTP         -   TCP  -    80   -   0.0.0.0/0   -   ALLOW
+          *     -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   Deny                
+        Outbound: enable outbound on Ephameral ports for HTTP to allow the response to reach to internet 
+          100   -   HTTP         -   TCP  -   32768-65535    -   0.0.0.0/0   -   ALLOW
+          *     -   ALL Traffic  -   ALL  -   ALL            -   0.0.0.0/0   -   Deny
 
- By default all traffic is deny by SG, you have to go and allow it.
- 
- The inbound/outbound rule of SG state that who can initiate the request 
-  - if he can then the reverse response will be permitted automatically
- The inbound/outbound rule of NACL state that in which direction the packed can flow
-  - if he can flow in one direction then still the reverse response can be allowed or denied
+      Allowing HTTP Originated from Subnet to the internet:- For this you have to       
+        Inbound: enable inbound on Ephameral ports for HTTP to allow the response to reach into subnet 
+          100   -   HTTP         -   TCP  -   32768-65535    -   0.0.0.0/0   -   ALLOW
+          *     -   ALL Traffic  -   ALL  -   ALL            -   0.0.0.0/0   -   Deny
+        Outbound: enable Outbound on port 80 for HTTP to allow the outgoing packet from subnet
+          100   -   HTTP         -   TCP  -    80   -   0.0.0.0/0   -   ALLOW
+          *     -   ALL Traffic  -   ALL  -   ALL   -   0.0.0.0/0   -   Deny                
+      
+  NACL VS SG:-
+    The SG us statful and NACL is stateless.
+    This means that NACL work at packet level and SG work at Request level.
 
+    if a SG has allwoed the request from point A to Point B then the response flow from B to A will automatically granted access.
+    But if NACL allwoed the request from point A to Point B then the response flow from B to A can be denied.
+
+    SG do not have any way to specifically deny any source or destination IP but NACL can do this.
+
+    you can deny specific ip via NACL but its not possible with SG.
+
+    By default all traffic is deny by SG, you have to go and allow it.
+
+    The inbound/outbound rule of SG state that who can initiate the request 
+      - if he can then the reverse response will be permitted automatically
+    The inbound/outbound rule of NACL state that in which direction the packed can flow
+      - if he can flow in one direction then still the reverse response can be allowed or denied
 
 ---------------
 
@@ -76,10 +88,5 @@ Newly created SG of VPC:-
   Inbound: None open to None port
   Outbound: All open to all.
 Newly created NACL of VPC:-
-  Inbound: All DEny
+  Inbound: All Deny
   Outboud: All Deny
-  
-  
-  
-
-
