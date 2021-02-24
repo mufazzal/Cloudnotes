@@ -35,10 +35,10 @@ Why we need EPS:-
       Alex will login to his AWS account and Go to VPC > End point
       1. Alex will Enter the DNS name of Mufazzal's service and search.
       2. Alex will Select VPC in which he wants consumption
-      3. After Alex selected the VPC he will see the supported AZs
-         This suppored AZs are super set of 'AZ of NLB of Mufazzal`s Service' and 'AZ of Alex`s VPC'
-        3.1 In those supported AZ, Alex can select/unselect the AZ in which he wants to create the End point.
-            for higher availability Alaex shoud select more then one AZ. [VVIMP: This does not effect access of endpoint in any unselected subnet/AZ]
+      3. After Alex selected the VPC he will see the supported AZs or Subnet
+         This suppored AZ/Subnet are super set of 'AZ of NLB of Mufazzal`s Service' and 'AZ of Alex`s VPC'
+        3.1 In those supported Subnet, Alex can select/unselect the Subnet in which he wants to create the End point.
+            for higher availability Alaex shoud select more then one Subnet. [VVIMP: This does not effect access of endpoint in any unselected subnet]
       4. Alex will now choose the SG for this EP. 
       Done.
       
@@ -66,7 +66,14 @@ Why we need EPS:-
       EP and background:-
         Actully when you create the EP, it will create the ENI in each subnet selected in step 3.1
         This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give getway to reach the Mufazzal's service.
-             
+                          
+     EP and Private DNS:-
+      By default PRivate DNS is enabled for below kind of EP
+        - AWS Services
+        - Partener Matketplace aws services
+      By this you can access the AWS services via the EP with their orignal DNS name rather then EP-specific DNS name.
+      So no matter you wants to access 'ec2.us-east-1.amazonaws.com' or 'ep-123.ec2.us-east-1.amazonaws.com' both will rersolve the the Private Ip of ENI of that EP.
+      
  
  So via this set up Alex' VPC and Mufazzal's service can communicate without internet via AWS backbone.
 ---------------------
