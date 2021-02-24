@@ -2,6 +2,14 @@ VPC Peering [VPC-to-VPC]:-
   with VPC peering you can conect two VPC, this VPC can be from diffrent account and region.
   This allow to do the bidirectional connectivity.
   To do this you have to first create the peering connection and then update rout table with proper CIDR of connction VPC.
+  You may also need to update the SG of instances for allowing the traffic. 
+  if both VPC in same region then you can reference a security group from the peer VPC as a source or destination for ingress or egress rules in your security group rules.
+  
+  - It does not rely on a separate piece of physical hardware. There is no single point of failure for communication or a bandwidth bottleneck
+  - For inter or intra region peering, traffic between peering VPC remain in AWS backbone network 
+  - By default, if instances on either side of a VPC address each other using a public DNS hostname, the hostname resolves to the instance's public IP address.
+      To Change this just enable 'DNS hostname resolution' for peering connection. now it will resolve to private IPv4.
+  
   This have some limitation
     - both VPC should not have overlapping CIDR
     - VPC peering is point-to-point connectivity, and it does not support transitive routing
@@ -17,6 +25,15 @@ VPC Peering [VPC-to-VPC]:-
     At Requester side: Accept the request in Peering connection
     At both: both of them must ensure that CIDR should not overlap
       both should modify their route table with peering id {vpcx-******} 
+      
+  Unicast reverse path forwarding:-
+    This is not supported in VPC peerfing due o this the problem come in below scenario.
+    You have 3 VPC. A, B, C. 
+    Peering is  A<-->B and A<--->C
+    So AB and AC do not have overlapping CIDR but BC can have the overlapping CIDR.
+    In this case you have to take care that who will have the more precidence for routing the traffic to givec VPC.
+    In rote table Higher pecidence will be given to highest Prefix match to the CIDR.
+          
       
   VPC Peering VS Endpoint Service:-
     - VPC peering connect two VPC and allow communication from both direction
