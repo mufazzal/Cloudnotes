@@ -34,6 +34,12 @@ VPC Peering [VPC-to-VPC]:-
     In this case you have to take care that who will have the more precidence for routing the traffic to givec VPC.
     In rote table Higher pecidence will be given to highest Prefix match to the CIDR.
           
+  Below connection/Reosource/Edges can not be used in peered VPCs:-
+    - AWS Direct connect
+    - VPN connection
+    - IGW
+    - NGW
+    - Gatway VPC endpoint foe S3 and DDB
       
   VPC Peering VS Endpoint Service:-
     - VPC peering connect two VPC and allow communication from both direction
