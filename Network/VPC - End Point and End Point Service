@@ -51,12 +51,12 @@ Why we need EPS:-
           NO! becoz the traffic never leave the AWS ecosystem. this generate in VPC of alex and reach to Mufazzal's NLB via AWS backbon network.
             it never touches the iternet. So no IGW needed for Alex and mufazzal both.
         - EP is created at VPC level (not at subnet level) so it can be use in any EC2 lying in any subnet of that VPC.
-        - The EP and EPS both must lies in same region so provider and client must e in same region and at least one AZ of both must overlap.
+        - The EP and EPS both must lies in same region so provider and client must be in same region and at least one AZ of both must overlap.
         - This mechanics of connection between EP and EPS is called 'AWS Private Link'
-        - Also its way too fast the typical internet.
-      
-
-                          
+        - Also its way too fast the typical internet.  
+        - A service provider can configure their service to accept interface endpoint requests automatically or manually
+        - A service provider cannot delete an interface endpoint to their service. Only the service consumer that requested the interface endpoint connection can delete the interface endpoint
+        
  
  So via this set up Alex' VPC and Mufazzal's service can communicate without internet via AWS backbone.
 ---------------------
@@ -104,10 +104,15 @@ Why we need EPS:-
       
       - In background Actully when you create the EP, it will create the ENI in each subnet selected in step 3
       - This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by Service name in step 1.  
-      
+      - For each interface endpoint, you can choose only one subnet per Availability Zone
+      - each interface endpoint can support a bandwidth of up to 10 Gbps per Availability Zone. and bursts of up to 40Gbps
+      - An interface endpoint supports TCP and IPv4 traffic only
+      - Endpoints are supported within the same Region only. You cannot create an endpoint between a VPC and a service in a different Region
+          So in us-east-1 you can configure 'com.amazonaws.us-east-1.ec2' not 'com.amazonaws.us-west-1.ec2'
     Interface EP:  
       - For higher availability you shoud select more then one Subnet in step 2. 
       - This does not effect access of endpoint in any unselected subnet
+      - You do not need to update any RT here. because traffic will routed to ENI 
 
       Private DNS name of 'Interface EP':-
         This is enabled by default for 'AWS services' and 'AWS Marketplace Services'.
@@ -129,7 +134,7 @@ Why we need EPS:-
     Gateway EP:  
       Private DNS name of 'Gateway EP':-
         This is not supported with Gateway EP.    
-    
+   
    Special case of S3 and Dynamo DB:-
     This two service has sligh diffrent mechnism for EP. They do not use mechanism of 'AWS Private Link' instead they use Getway 
     rest of all services are type of 'Interface Endpoint' this two is type of 'Getway Endpoint'
