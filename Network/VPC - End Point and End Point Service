@@ -55,9 +55,7 @@ Why we need EPS:-
         - This mechanics of connection between EP and EPS is called 'AWS Private Link'
         - Also its way too fast the typical internet.
       
-      EP and background:-
-        Actully when you create the EP, it will create the ENI in each subnet selected in step 3.1
-        This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give getway to reach the Mufazzal's service.
+
                           
  
  So via this set up Alex' VPC and Mufazzal's service can communicate without internet via AWS backbone.
@@ -107,14 +105,19 @@ Why we need EPS:-
       - For higher availability you shoud select more then one Subnet in step 2. 
       - This does not effect access of endpoint in any unselected subnet
       
-    Mechanics:-
-      if you are using AWs apis or AWS sdk in the EC2s of you system. then Amazons provided EPS will give you better and fast speed and you do not even have to 
-      attach the internet getway for this.
-      you can access any aws provided EPS service without internet.
-      EG:-
-        you can do  sns.Publish() or ec2.createInstance() 
-        or curl GET sns.sws.com/ques 
-        or > aws ec2 describe-instances   etc without internet or NAT getway.
+    Interface EP:  
+      Interface EP in background:-
+        Actully when you create the EP, it will create the ENI in each subnet selected in step 3
+        This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by DNS name in step 1.  
+
+      Mechanics:-
+        if you are using AWs apis or AWS sdk in the EC2s of you system. then Amazons provided EPS will give you better and fast speed and you do not even have to 
+        attach the internet getway for this.
+        you can access any aws provided EPS service without internet.
+        EG:-
+          you can do  sns.Publish() or ec2.createInstance() 
+          or curl GET sns.sws.com/ques 
+          or > aws ec2 describe-instances   etc without internet or NAT getway.
     
     
     
