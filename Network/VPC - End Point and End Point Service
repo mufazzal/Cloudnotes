@@ -83,8 +83,8 @@ Why we need EPS:-
     2. Gateway EP
     
     Creation: To Creat the EP you will need 
-      1. DNS name of service:-
-          This DNS name identify from the 100s of services. This could be from 
+      1. Service name of service:-
+          This Service name[not DNS name] identify from the 100s of services. This could be from 
             - AWS provided services like EC2, Kenesis, SNS.
             - AWS Market place Services
             - Custom made services like one of Mufazzal's service.
@@ -100,28 +100,35 @@ Why we need EPS:-
             Select SG to define what instances in the VPC can or cannot send traffic to this EP.
       5. For Gateway EP:-
           Select the RT where so that the attched subnet can use this Gateway
-      6. Write EP policy to define who can and cannot access this EP.
-        
-      - For higher availability you shoud select more then one Subnet in step 2. 
-      - This does not effect access of endpoint in any unselected subnet
+      6. Write EP policy to define who can and cannot access this EP.      
+      
+      - In background Actully when you create the EP, it will create the ENI in each subnet selected in step 3
+      - This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by Service name in step 1.  
       
     Interface EP:  
-      Interface EP in background:-
-        Actully when you create the EP, it will create the ENI in each subnet selected in step 3
-        This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by DNS name in step 1.  
+      - For higher availability you shoud select more then one Subnet in step 2. 
+      - This does not effect access of endpoint in any unselected subnet
 
-      Mechanics:-
-        if you are using AWs apis or AWS sdk in the EC2s of you system. then Amazons provided EPS will give you better and fast speed and you do not even have to 
-        attach the internet getway for this.
-        you can access any aws provided EPS service without internet.
-        EG:-
-          you can do  sns.Publish() or ec2.createInstance() 
-          or curl GET sns.sws.com/ques 
-          or > aws ec2 describe-instances   etc without internet or NAT getway.
-    
-    
-    
-    
+      Private DNS name of 'Interface EP':-
+        This is enabled by default for 'AWS services' and 'AWS Marketplace Services'.
+        Their is two kind of DNS name here for each EP. say you have created the Endpoinr for EC2 in us-west-2 region. then this are
+        1. EP-specific DNS names: 
+            For a given EP you select the multiple subnet. in each selected subnet their lies a ENI and with each ENI there is a DNS name and private IP attached.
+            So if you have selected 2 suubnet in two AZ. you will have 2 private IP and 2(+1) DNS name like below. 
+             vpce-0c65661aa4fb28c7f-2egumams.ec2.us-west-2.vpce.amazonaws.com
+             vpce-0c65661aa4fb28c7f-2egumams-us-west-2c.ec2.us-west-2.vpce.amazonaws.com
+             vpce-0c65661aa4fb28c7f-2egumams-us-west-2a.ec2.us-west-2.vpce.amazonaws.com
+        2. Default DNS name for service:
+            ec2.us-west-2.amazonaws.com
+            
+        If private DNS option is enabled then all the DNS listed above will resolve the IP of ENI of the EP. and so for all those DNS calls the request will pass through the EP.
+        But if you disable the private DNS option then request via 'Default DNS name for service' will pass from the IGW or NAT Gateway not from EP. 
+          for 'EP-specific DNS names' it will pass from EP.
+        Note: aws-sdk/CLI/console they all in the end make the api calls by 'Default DNS name' of that service. so if Private DNS is enabled then request will pass from 'EP'
+        
+    Gateway EP:  
+      Private DNS name of 'Gateway EP':-
+        This is not supported with Gateway EP.    
     
    Special case of S3 and Dynamo DB:-
     This two service has sligh diffrent mechnism for EP. They do not use mechanism of 'AWS Private Link' instead they use Getway 
