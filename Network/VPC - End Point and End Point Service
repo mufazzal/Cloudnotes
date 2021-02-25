@@ -32,17 +32,9 @@ Why we need EPS:-
       A. Alex need to creat the Endpoint and request Mufazzal to allow him to use the Service.
       
       Now How Alex will create the Endpoint?
-      Alex will login to his AWS account and Go to VPC > End point
-      1. Alex will Enter the DNS name of Mufazzal's service and search.
-      2. Alex will Select VPC in which he wants consumption
-      3. After Alex selected the VPC he will see the supported AZs or Subnet
-         This suppored AZ/Subnet are super set of 'AZ of NLB of Mufazzal`s Service' and 'AZ of Alex`s VPC'
-        3.1 In those supported Subnet, Alex can select/unselect the Subnet in which he wants to create the End point.
-            for higher availability Alaex shoud select more then one Subnet. [VVIMP: This does not effect access of endpoint in any unselected subnet]
-      4. Alex will now choose the SG for this EP. 
-      Done.
+        Please see Interface EP.
       
-      Now AWs will send a request to Mufazzal saying, Het Alex wants to use ur service.
+      Now AWS will send a request to Mufazzal saying, Het Alex wants to use ur service.
       once mufazzal accept. its status comes available for Alex.
       
       In the end you will get the 'DNS names' of EP and its formate is
@@ -67,13 +59,6 @@ Why we need EPS:-
         Actully when you create the EP, it will create the ENI in each subnet selected in step 3.1
         This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give getway to reach the Mufazzal's service.
                           
-     EP and Private DNS:-
-      By default PRivate DNS is enabled for below kind of EP
-        - AWS Services
-        - Partener Matketplace aws services
-      By this you can access the AWS services via the EP with their orignal DNS name rather then EP-specific DNS name.
-      So no matter you wants to access 'ec2.us-east-1.amazonaws.com' or 'ep-123.ec2.us-east-1.amazonaws.com' both will rersolve the the Private Ip of ENI of that EP.
-      
  
  So via this set up Alex' VPC and Mufazzal's service can communicate without internet via AWS backbone.
 ---------------------
@@ -93,8 +78,36 @@ Why we need EPS:-
     
     So to use any of the AWS backed service you do not need the internet of internet getway.
     you can simply create the endpoint for those service (just like alex did above) and use that endpoint for those services.
+    You wil not even need the Internet or NAT getway to reach to those AWS services if you use EP.
     
-    Advantage:-
+    There is two kind of End point here
+    1. Interface EP
+    2. Gateway EP
+    
+    Creation: To Creat the EP you will need 
+      1. DNS name of service:-
+          This DNS name identify from the 100s of services. This could be from 
+            - AWS provided services like EC2, Kenesis, SNS.
+            - AWS Market place Services
+            - Custom made services like one of Mufazzal's service.
+      2. Select VPC
+      3. For Interface EP only: 
+          Select AZ/Subnet:
+            You need to select the VPC and then the subnet/AZ. You will see the list of supported AZs only. and you can select only one subnet per AZ.
+            In case of Custom made services:
+              Suppored AZ/Subnet are super set of 'AZ of NLB of Mufazzal`s Service' and 'AZ of Alex`s VPC'.
+            In case of AWS provided services:
+              They are of course supported in all the AZs.            
+      4. For Interface EP only:-
+            Select SG to define what instances in the VPC can or cannot send traffic to this EP.
+      5. For Gateway EP:-
+          Select the RT where so that the attched subnet can use this Gateway
+      6. Write EP policy to define who can and cannot access this EP.
+        
+      - For higher availability you shoud select more then one Subnet in step 2. 
+      - This does not effect access of endpoint in any unselected subnet
+      
+    Mechanics:-
       if you are using AWs apis or AWS sdk in the EC2s of you system. then Amazons provided EPS will give you better and fast speed and you do not even have to 
       attach the internet getway for this.
       you can access any aws provided EPS service without internet.
@@ -102,6 +115,9 @@ Why we need EPS:-
         you can do  sns.Publish() or ec2.createInstance() 
         or curl GET sns.sws.com/ques 
         or > aws ec2 describe-instances   etc without internet or NAT getway.
+    
+    
+    
     
     
    Special case of S3 and Dynamo DB:-
