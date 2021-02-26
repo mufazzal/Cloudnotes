@@ -102,7 +102,6 @@ Why we need EPS:-
           Select the RT where so that the attched subnet can use this Gateway
       6. Write EP policy to define who can and cannot access this EP.      
       
-      - For each interface endpoint, you can choose only one subnet per Availability Zone
       - each interface endpoint can support a bandwidth of up to 10 Gbps per Availability Zone. and bursts of up to 40Gbps
       - An interface endpoint supports TCP and IPv4 traffic only
       - Endpoints are supported within the same Region only. You cannot create an endpoint between a VPC and a service in a different Region
@@ -110,11 +109,13 @@ Why we need EPS:-
 
     Interface EP:  
       - For higher availability you shoud select more then one Subnet in step 2. 
+      - For each interface endpoint, you can choose only one subnet per Availability Zone
       - This does not effect access of endpoint in any unselected subnet
       - You do not need to update any RT here. because traffic will routed to ENI 
       - In background Actully when you create the EP, it will create the ENI in each subnet selected in step 3
       - This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by Service name in step 1.  
-
+      - Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering
+      
       Private DNS name of 'Interface EP':-
         This is enabled by default for 'AWS services' and 'AWS Marketplace Services'.
         Their is two kind of DNS name here for each EP. say you have created the Endpoinr for EC2 in us-west-2 region. then this are
@@ -146,11 +147,21 @@ Why we need EPS:-
       - It does not have EP-specific DNS name
       - This is used for S3 and DynamoDb only. 
       - You cannot use 'AWS prefix list ID' in CIDR of NACL. but you can use it in CIDR of SGs
-      - You must update the SG of your instances to allow outbound traffic flow to 'AWS prefix list ID'.
+      - You must update the SG of your instances to allow OUTBOUND traffic flow to 'AWS prefix list ID' as DESTINATION CIDR.
+      - Not Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering     
       - you cannot have multiple endpoint routes to the same service in a single route table. 
       - you can    have multiple endpoint routes to the same service in a diffrent route table
       - you can    have multiple endpoint routes to the same or diifrent service in a diffrent route table
       
+      
+  EP Security:-
+    EP Policy:-
+      Tou can attache the policy with EP which can restrict the certain principle to certain actions on certain resounce. 
+      If you do not specify it then, By default it will be allowed for all for all action and resource. Not all the services support the EP policy.
+      This work for both Inteface and Gateway EP.
+    SG:-  
+      This work for Inteface EP only. The SG is attached to the ENI of the EP. 
+      You should properly configure this SG to allow Inbound traffic from the internal VPC resources to the ENI. and outbound traafic from ENI to the AWs service.
 -------------------------------------
   Inter-Region VPC end point:-
     EPS work if client and provider (AWS service or user made) are in same region. but if they are in diffrent region then you have to use
