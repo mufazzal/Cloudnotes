@@ -1,4 +1,4 @@
-Why we need EPS:-
+Why we need EPS [End Point Service]:-
   Suppose mufazzal make a application that do certain task. now he wants other to use it.
   How?
   - He can simply setup a typical model of Load balancer and expose the system to Internet.
