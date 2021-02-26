@@ -96,12 +96,18 @@ Why we need EPS:-
 
 ---------------
   EPS Permission setting:-
-      
-    
+      You can set what set of Principles will be allowed to create the EP for your EPS. 
+      you can set it as
+        1. AWS account. give ARN of root account
+        2. IAM user of any AWS account: give ARN of IAM User
+        3. IAM Role of any AWS account: give ARN of IAM role
+        4. Anyone: open for all
+        
   EPS Acceptance Setting:-
-  
+    You can set it to allow the EP request automatically or need manual allow.
       
-      
+  Note: There is dangours seeting of Permission=all and Acceptance=automatically
+  This will open your EPS for all in world.
       
       
       
