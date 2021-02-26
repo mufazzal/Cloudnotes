@@ -102,17 +102,18 @@ Why we need EPS:-
           Select the RT where so that the attched subnet can use this Gateway
       6. Write EP policy to define who can and cannot access this EP.      
       
-      - In background Actully when you create the EP, it will create the ENI in each subnet selected in step 3
-      - This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by Service name in step 1.  
       - For each interface endpoint, you can choose only one subnet per Availability Zone
       - each interface endpoint can support a bandwidth of up to 10 Gbps per Availability Zone. and bursts of up to 40Gbps
       - An interface endpoint supports TCP and IPv4 traffic only
       - Endpoints are supported within the same Region only. You cannot create an endpoint between a VPC and a service in a different Region
           So in us-east-1 you can configure 'com.amazonaws.us-east-1.ec2' not 'com.amazonaws.us-west-1.ec2'
+
     Interface EP:  
       - For higher availability you shoud select more then one Subnet in step 2. 
       - This does not effect access of endpoint in any unselected subnet
       - You do not need to update any RT here. because traffic will routed to ENI 
+      - In background Actully when you create the EP, it will create the ENI in each subnet selected in step 3
+      - This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by Service name in step 1.  
 
       Private DNS name of 'Interface EP':-
         This is enabled by default for 'AWS services' and 'AWS Marketplace Services'.
@@ -132,24 +133,23 @@ Why we need EPS:-
         Note: aws-sdk/CLI/console they all in the end make the api calls by 'Default DNS name' of that service. so if Private DNS is enabled then request will pass from 'EP'
         
     Gateway EP:  
-      Private DNS name of 'Gateway EP':-
-        This is not supported with Gateway EP.    
-   
-   Special case of S3 and Dynamo DB:-
-    This two service has sligh diffrent mechnism for EP. They do not use mechanism of 'AWS Private Link' instead they use Getway 
-    rest of all services are type of 'Interface Endpoint' this two is type of 'Getway Endpoint'
-    Getway Endpoint is scoped at Rout Table level instead of VPC level. So the EP of S3 and DD will available only on those subnet which has RT with one special route for S3 and DD   
-    
-    Creating Endpoint for S3 and DyanamoDb:-
-      All thing same but in step 3, you will not see the list of AZs instead you will see the list of all RT in selected VPC.
-      Now you can choose in which RTs you wants this EP to be available. selected RT will provide access of S3 and DD's EP service to attached subnet.
-      once selected the aws sytem will add below(either for s3 or DD) routes in thosse Route Table
-        pl-<some random>	vpce-<id of getway>
+      The Gateway EP work diffrent then Interface EP. here No ENI comes in picture instead traffic is routed through the Rout table.
+      When you select the RT in step 5, Those RT will be updated with below entery.
+      pl-xxxxxxx:   vpce-id
+      Here pl-xxxxxxx reprsent the collection of public IP for selected AWS Service in that region. Amazon take care of managing those IP collection.
+      So any traffic destined for that AWS service will now routed through the EP[only if attached RT of that subnet is appropiate]. 
       
-      How to use this service:-
-        usage is 100% same as the one above. the only diifrence is that you can use it only in the subnet that has proper RT attached to it.
-        
+      Note: pl-xxxxxxx is called 'AWS prefix list ID' and reprsent the IPs of that service in given region.
       
+      - Private DNS is not supported with Gateway EP. traffic routed through route in RT. 
+      - Unlike Interface EP here no ENI is created. So no SG, Subnet, AZ need to be selected.
+      - It does not have EP-specific DNS name
+      - This is used for S3 and DynamoDb only. 
+      - You cannot use 'AWS prefix list ID' in CIDR of NACL. but you can use it in CIDR of SGs
+      - You must update the SG of your instances to allow outbound traffic flow to 'AWS prefix list ID'.
+      - you cannot have multiple endpoint routes to the same service in a single route table. 
+      - you can    have multiple endpoint routes to the same service in a diffrent route table
+      - you can    have multiple endpoint routes to the same or diifrent service in a diffrent route table
       
 -------------------------------------
   Inter-Region VPC end point:-
