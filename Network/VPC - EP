@@ -97,3 +97,9 @@ A VPC endpoint enables private connections between your VPC and
     SG:-  
       This work for Inteface EP only. The SG is attached to the ENI of the EP. 
       You should properly configure this SG to allow Inbound traffic from the internal VPC resources to the ENI. and outbound traafic from ENI to the AWs service.    
+      
+  Inter-Region VPC end point:-
+    EPS work if client[EP] and provider (EPS) are in same region. but if they are in diffrent region then you have to use
+    VPC-Peering and private link(only of Interface type) together to use the EPS across region.      
+      
+      
