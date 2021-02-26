@@ -1,0 +1,99 @@
+A VPC endpoint enables private connections between your VPC and
+  - AWS service like S3, SNS, EC2, SQS etc.
+  - AWS partner marketplace services
+  - Custom made services by providers
+  with private link.
+
+  PrivateLink: 
+    AWS PrivateLink is a technology that enables you to privately access services by using private IP addresses. 
+    Traffic between your VPC and the other service does not leave the Amazon network.
+    To access the Endpoint service via EP tou do not need IGW or NAT Gatwway.
+  
+  EP:-
+    VPC endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components. 
+    This provide implementaion of Private link between EPS and VPC.
+    
+    There is two kind of End point here
+      1. Interface EP
+      2. Gateway EP
+    
+    Creation: To Creat the EP you will need 
+      1. Service name of service:-
+          This Service name[not DNS name] identify from the 100s of services. This could be from 
+            - AWS provided services like EC2, Kenesis, SNS.
+            - AWS Market place Services
+            - Custom made services like one of Mufazzal's service.
+      2. Select VPC
+      3. For Interface EP only: 
+          Select AZ/Subnet:
+            You need to select the VPC and then the subnet/AZ. You will see the list of supported AZs only. and you can select only one subnet per AZ.
+            In case of Custom made services:
+              Suppored AZ/Subnet are super set of 'AZ of NLB of Mufazzal`s Service' and 'AZ of Alex`s VPC'.
+            In case of AWS provided services:
+              They are of course supported in all the AZs.            
+      4. For Interface EP only:-
+            Select SG to define what instances in the VPC can or cannot send traffic to this EP.
+      5. For Gateway EP:-
+          Select the RT where so that the attched subnet can use this Gateway
+      6. Write EP policy to define who can and cannot access this EP.      
+      
+      - Endpoints are supported within the same Region only. You cannot create an endpoint between a VPC and a service in a different Region
+          So in us-east-1 you can configure 'com.amazonaws.us-east-1.ec2' not 'com.amazonaws.us-west-1.ec2'
+
+    Interface EP:  
+      - For higher availability you shoud select more then one Subnet in step 2. 
+      - For each interface endpoint, you can choose only one subnet per Availability Zone
+      - This does not effect access of endpoint in any unselected subnet
+      - You do not need to update any RT here. because traffic will routed to ENI 
+      - In background Actully when you create the EP, it will create the ENI in each subnet selected in step 3
+      - This ENI will never do not have public IP, this ENI simply connect the AWS backbone network and give path to reach to the service specify by Service name in step 1.  
+      - each interface endpoint can support a bandwidth of up to 10 Gbps per Availability Zone. and bursts of up to 40Gbps
+      - An interface endpoint supports TCP and IPv4 traffic only
+      - Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering
+      
+      Private DNS name of 'Interface EP':-
+        This is enabled by default for 'AWS services' and 'AWS Marketplace Services'.
+        Their is two kind of DNS name here for each EP. say you have created the Endpoinr for EC2 in us-west-2 region. then this are
+        1. EP-specific DNS names: 
+            For a given EP you select the multiple subnet. in each selected subnet their lies a ENI and with each ENI there is a DNS name and private IP attached.
+            So if you have selected 2 suubnet in two AZ. you will have 2 private IP and 2(+1) DNS name like below. 
+             vpce-0c65661aa4fb28c7f-2egumams.ec2.us-west-2.vpce.amazonaws.com
+             vpce-0c65661aa4fb28c7f-2egumams-us-west-2c.ec2.us-west-2.vpce.amazonaws.com
+             vpce-0c65661aa4fb28c7f-2egumams-us-west-2a.ec2.us-west-2.vpce.amazonaws.com
+        2. Default DNS name for service:
+            ec2.us-west-2.amazonaws.com
+            
+        If private DNS option is enabled then all the DNS listed above will resolve the IP of ENI of the EP. and so for all those DNS calls the request will pass through the EP.
+        But if you disable the private DNS option then request via 'Default DNS name for service' will pass from the IGW or NAT Gateway not from EP. 
+          for 'EP-specific DNS names' it will pass from EP.
+        Note: aws-sdk/CLI/console they all in the end make the api calls by 'Default DNS name' of that service. so if Private DNS is enabled then request will pass from 'EP'
+        
+    Gateway EP:  
+      The Gateway EP work diffrent then Interface EP. here No ENI comes in picture instead traffic is routed through the Rout table.
+      When you select the RT in step 5, Those RT will be updated with below entery.
+      pl-xxxxxxx:   vpce-id
+      Here pl-xxxxxxx reprsent the collection of public IP for selected AWS Service in that region. Amazon take care of managing those IP collection.
+      So any traffic destined for that AWS service will now routed through the EP[only if attached RT of that subnet is appropiate]. 
+      
+      Note: pl-xxxxxxx is called 'AWS prefix list ID' and reprsent the IPs of that service in given region.
+      
+      - Private DNS is not supported with Gateway EP. traffic routed through route in RT. 
+      - Unlike Interface EP here no ENI is created. So no SG, Subnet, AZ need to be selected.
+      - It does not have EP-specific DNS name
+      - This is used for S3 and DynamoDb only. 
+      - You cannot use 'AWS prefix list ID' in CIDR of NACL. but you can use it in CIDR of SGs
+      - You must update the SG of your instances to allow OUTBOUND traffic flow to 'AWS prefix list ID' as DESTINATION CIDR.
+      - An interface endpoint supports IPv4 traffic only
+      - Not Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering     
+      - you cannot have multiple endpoint routes to the same service in a single route table. 
+      - you can    have multiple endpoint routes to the same service in a diffrent route table
+      - you can    have multiple endpoint routes to the same or diifrent service in a diffrent route table
+      
+  EP Security:-
+    EP Policy:-
+      Tou can attache the policy with EP which can restrict the certain principle to certain actions on certain resounce. 
+      If you do not specify it then, By default it will be allowed for all for all action and resource. Not all the services support the EP policy.
+      This work for both Inteface and Gateway EP.
+    SG:-  
+      This work for Inteface EP only. The SG is attached to the ENI of the EP. 
+      You should properly configure this SG to allow Inbound traffic from the internal VPC resources to the ENI. and outbound traafic from ENI to the AWs service.    
