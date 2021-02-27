@@ -1,0 +1,73 @@
+A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses. 
+Instances in either VPC can communicate with each other as if they are within the same network
+
+You can peer VPC:-
+  Form diffrent account or same account
+  From diffrent region or same region
+  
+- It does not rely on a separate piece of physical hardware. There is no single point of failure for communication or a bandwidth bottleneck
+- For inter or intra region peering, traffic between peering VPC remain in AWS backbone network 
+- If both VPC in same region then you can reference a security group from the peer VPC as a source or destination for ingress or egress rules in your security group rules.
+- By default, if instances on either side of a VPC address each other using a public DNS hostname, the hostname resolves to the instance's public IP address.
+    To Change this just enable 'DNS hostname resolution' for peering connection. now it will resolve to private IPv4.
+    If you do not enable it then the traafic will flow from internet via IGW or NGW for public DNS hostname(not private IP)
+
+Use Case:-
+  This is most useful when you want communication betwwen the 
+  Intsnces/RDS/Lambda residing in private or public subnet
+  In two VPC(in same/diffrent account/region) 
+  Over the AWS backone network 
+  Via Private IP
+  Without need of VPN/IGW/NGW.
+
+This have some limitation
+  - both VPC should not have overlapping CIDR
+  - VPC peering is point-to-point connectivity, and it does not support transitive routing
+  - There is a maximum limit of 125 peering connections per VPC
+  - More the connection more the complexity will be
+Charges:
+  VPC peering only incurs costs for traffic traveling over the connection (there is no hourly infrastructure fee). 
+
+Step:-
+  At Requestee side: get id of VPC whom you wants to peer with    
+  At Requester side: Accept the request in Peering connection
+  At both:  both of them must ensure that CIDR should not overlap
+            both should modify their route table with peering id {vpcx-******} 
+                The RT of both side should have a entry appear like below
+                <CIDR of A>  pcx-AB
+                and 
+                <CIDR of B>  pcx-AB
+            if needded they must also update their NACL and SG to allow traffic flow over peering CIDR range.
+                For Inbound and Outbound rule 
+                if vpc are in same region 
+                  they can refer each others SG via <AWSAccounId>/<SG-Id> 
+                if not then 
+                  you have to use the CIDR of couterpart VPC. 
+              
+Inter-Region VPC:-
+  - An inter-region peering request must be accepted in the region of the accepter VPC
+  - You cannot refer the SG of peered inter-region VPC in SG rules.
+  - Charges of inter-region data transfer will apply.
+
+Unicast reverse path forwarding:-
+  This is not supported in VPC peerfing due o this the problem come in below scenario.
+  You have 3 VPC. A, B, C. 
+  Peering is  A<-->B and A<--->C
+  So AB and AC do not have overlapping CIDR but BC can have the overlapping CIDR.
+  In this case you have to take care that who will have the more precidence for routing the traffic to givec VPC.
+  In rote table Higher pecidence will be given to highest Prefix match to the CIDR.
+
+Below connection/Reosource/Edges can not be used in peered VPCs:-
+  - AWS Direct connect
+  - VPN connection
+  - IGW
+  - NGW
+  - Gatway VPC endpoint foe S3 and DDB
+
+VPC Peering VS Endpoint Service:-
+  - VPC peering connect two VPC and allow communication from both direction
+    EPS is connection between PRovider and Consumer. consumer can consume the exposed sevice of Provider. not vice versa.
+  - Any service in both VPC will be exposed to each other by peering
+    Only exposed service of provider will be accessible to consumer
+  - If you wants to peer two VPC, they must not have overlapping CIDR block.
+    CIDR overlapping doesn't matter  
