@@ -8,9 +8,12 @@ You can peer VPC:-
 - It does not rely on a separate piece of physical hardware. There is no single point of failure for communication or a bandwidth bottleneck
 - For inter or intra region peering, traffic between peering VPC remain in AWS backbone network 
 - If both VPC in same region then you can reference a security group from the peer VPC as a source or destination for ingress or egress rules in your security group rules.
-- By default, if instances on either side of a VPC address each other using a public DNS hostname, the hostname resolves to the instance's public IP address.
-    To Change this just enable 'DNS hostname resolution' for peering connection. now it will resolve to private IPv4.
-    If you do not enable it then the traafic will flow from internet via IGW or NGW for public DNS hostname(not private IP)
+
+DNS hostname resolution:-
+  By default, if instances on either side of a VPC address each other using a public DNS hostname, the hostname resolves to the instance's public IP address.
+  To Change this just enable 'DNS hostname resolution' for peering connection. now it will resolve to private IPv4.
+  If you do not enable it then the traafic will flow from internet via IGW or NGW for public DNS hostname(not private IP).
+  Both VPCs must be enabled for DNS hostnames and DNS resolution.
 
 Use Case:-
   This is most useful when you want communication betwwen the 
