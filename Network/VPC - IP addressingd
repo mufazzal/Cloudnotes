@@ -1,0 +1,23 @@
+A subnet lies in single AZ only.
+
+Can a two node in VPC (in any same or diffrent subnet) may have same private IP ?
+	NO. Bold No. Impossible
+	Two subnet can never have a overlapping CIDR block. and each node must has a unique Private IP assosiated with that node. No other can have that again.
+	So if any route table look to naviagtion for any private IP then it will have have one and one unique destination for that private IP.
+  
+For each Subnet there is 5 pre-reserved private IPs by AWS for there inmternal Use:-
+  This are
+    1. ????????????/
+    2.
+    3.
+    4.
+  That is why you always see 5 IP less in available IP colum of the subnet.
+  This 5 ips are the first 4 from the start and 1 from the last.
+   eg if subnet start from 10.0.3.0 then
+   resetved are 
+      10.0.3.0, 10.0.0.1, 10.0.0.2, 10.0.0.3 and 10.0.0.2555 
+
+Public Subnet:- 
+  Any Subnet will become a public subnet if an 'Internet Getway' is attached to it.
+  Or more preciecly, a subnet who is attached to routatble which is assosiated with 'Internet Getway'
+  By default all the Subnet created are prvate and has no internet getway attached.
