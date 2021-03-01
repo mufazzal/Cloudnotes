@@ -49,3 +49,6 @@ Securing the connection:
       For detail on RDP: Study later
    
 Outbound rule of security group: it will tell to whome the EC2 can iniate the communication [will see later] ????
+
+  Instances associated with a security group can't talk to each other unless you add rules allowing the traffic 
+   (exception: the default security group has these rules by default).
