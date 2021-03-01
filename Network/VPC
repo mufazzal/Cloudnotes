@@ -63,7 +63,17 @@ Which AWS resources could lie inside the VPC and which cannot:-
       How: see lambda.txt.
 --------------------
 
-
+VPC Resizing/Secondry CIDR:-
+  In case due the CIDR size enoughp IP not left for infrastructure overhaul. you can add the secondru CODR for extra bunck of IPs.
+  Now you can create the subnet out of those CIDR. This CIDR will automatically added in all the route table of that VPC. 
+  So now you will have thos 2 entry by default and noneditabled in all the RT of this VPC
+  <Primary CIDR>    Local
+  <Secondry CIDR>   Local
+  Rules for addinf this CIDR:-
+    - This must not overlap with prime CIDR
+    - This must not overlap with peered VPC.
+  
+  
   
 
 
