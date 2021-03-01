@@ -12,3 +12,29 @@ When you create Subnet with this two info it has
 Subnet is of two type
   a.  Public Subnet: those who are connected to internet
   b.  Private Subnet: those who are not connected to internet
+
+----------
+
+Subnet Sharing:-
+  You can share the Subnet across the AWS-Organization or Organization Unit.
+  For this you first have to create the Resource sahre and add subnet in it. 
+  The account that owns the VPC (owner) shares one or more subnets with other accounts (participants) that belong to the same organization from AWS Organizations
+  
+  Owner permissions:
+    VPC owners are responsible for creating, managing and deleting all VPC-level resources
+      subnets, route tables, network ACLs, peering connections, gateway endpoints, interface endpoints, 
+      internet gateways, NAT gateways, virtual private gateways, and transit gateway attachments
+    VPC owners cannot modify or delete participant resources
+      SG, Amazon EC2 instances, Amazon RDS databases, and load balancers
+    VPC owners can view the details for all the network interfaces, and the security groups.
+  
+  Participant permissions:
+    Participants that are in a shared VPC are responsible for the creation, management and deletion of their resources including 
+    Amazon EC2 instances, Amazon RDS databases, and load balancers
+    Participants can view but not edit the details of the route tables, and network ACLs that are attached to the subnets shared with them
+    
+  - Owners cannot share subnets that are in a default VPC
+  - Participants cannot launch resources using security groups that are owned by other participants that share the VPC, or the VPC owner
+  - Owners cannot launch resources using security groups that are owned by other participants
+  
+    
