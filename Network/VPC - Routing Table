@@ -11,20 +11,13 @@ When you craete A VPC it will also create a Default Route Table.
   route table can never stop it. though u can stop one node to reach to other via DG or NACL.
   The value 16 can be very depend on the CiDR range of the VPC. Also the internet traffic will be cutted off completely.
 
-
   one subnet can only connect with one route table
   but one route table can be connected to multiple subnet
-  So its relation is like below
+	So its relation is like below 				    But not like
+                              Subnet 1      RT 1------------
+    Routing Table	--------   	Subnet 2      RT 2------------  Subnet 1
+                              Subnet 3      RT 3------------
 
-                                Subnet 1      
-        Routing Table--------   Subnet 2
-                                Subnet 3  
-
-      But not like
-
-              RT 1------------
-              RT 2------------  Subnet 1
-              RT 3------------
 
 The entries in Route Table contains 2 main values that define the routing mechanism. one is the IP CIDR range and other is The destination.
 The destination could be
@@ -45,7 +38,18 @@ Any IP falling in that CIDR range will be routed to the given destination.
 Any newly create route table will have at least one entry that is
 10.0.0.0/16	                Local  
 You cannot delete it or edit it.
-
-  What is minimum and Maximum possible CIDR block for an Subnet
-  ???????????/
   
+-------------------------  
+
+Route priority:- 
+  For a given IP, if match is between two entried in RT. The one with long prefix match will win.
+  10.0.0.0/16	    Local
+  172.31.0.0/16	  <rt_1>
+  172.31.3.4/32	  <rt_2>
+  0.0.0.0/0	      <rt_3>
+  If address is '172.31.3.4' then rt_2 will win because prifix is 32. even though the match is in rt_2 and1 and rt_3 as well.
+  If address is '172.31.a.b' where a and b != 3 and 4 then rt_1 will win because prifix is 16. even though the match is in rt_3 as well.
+  For other if match is '10.0.0.0/16' then Local will win. even though the match is in rt_3 as well.
+  For all other '0.0.0.0/0' will win.
+  
+
