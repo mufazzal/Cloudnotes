@@ -63,7 +63,6 @@ Unicast reverse path forwarding:-
   In this case you have to take care that who will have the more precidence for routing the traffic to givec VPC.
   In rote table Higher pecidence will be given to highest Prefix match to the CIDR.
 
-
 VPC Peering VS Endpoint Service:-
   - VPC peering connect two VPC and allow communication from both direction
     EPS is connection between PRovider and Consumer. consumer can consume the exposed sevice of Provider. not vice versa.
@@ -71,3 +70,55 @@ VPC Peering VS Endpoint Service:-
     Only exposed service of provider will be accessible to consumer
   - If you wants to peer two VPC, they must not have overlapping CIDR block.
     CIDR overlapping doesn't matter  
+
+
+VPC Peering Possibilities:-
+  You can peer VPCs 
+    - With their full CIDR block with each other
+		- With specific CIDR of VPC if VPC has the Secondry CIDR
+    - With part of CIDR with each other
+    - with specific private IP(instance level) with each other.
+    
+  Suppose you have a 3 VPC, A, B, C and You wants to peer A it with B and C
+    
+		conf 1:
+    Full peering with B and C
+    RT of A															RT of B															RT of C
+    <A VPC CIDR>      Local							<B VPC CIDR>      Local       			<C VPC CIDR>      Local
+    <B VPC CIDR>      pcx-ab      			<A VPC CIDR>      pcx-ab      			<A VPC CIDR>      pcx-ac
+    <C VPC CIDR>      pcx-ac
+    
+		conf 2:
+    B and C with specific Subnet in A
+		RT for A's subnet peer with B							RT of B												RT of C
+    <A VPC CIDR>      Local										<B VPC CIDR>      Local       <C VPC CIDR>      Local
+    <B VPC CIDR>      pcx-ab--------------|		<A SBB CIDR>      pcx-ab      <A SBC CIDR>      pcx-ac
+    RT for A's subnet peer with C					|											 |															|
+    <B VPC CIDR>      Local       				|----------------------|															|
+    <C VPC CIDR>      pcx-ac--------------------------------------------------------------------|          
+		RT for A's subnet peer with B and C both
+		<A VPC CIDR>      Local	
+		<B VPC CIDR>      pcx-ab
+		<C VPC CIDR>      pcx-ac
+     
+			In the configuration 1 and 2 you must handle scenario below
+			What if <B VPC CIDR> === <C VPC CIDR>.
+			In that case conf 1 is not possible and in conf 2 'RT for A's subnet peer with B and C both' is not possible.
+			
+			What if <B VPC CIDR> and <C VPC CIDR> has overlapping CIDR
+			In that case at A, the one with longest prefix match will win.
+		
+		conf 3:
+		One Subnet in B and C	each peered with one subnet in A 
+		RT for A's subnet peer with B							RT of B												RT of C
+    <A VPC CIDR>      Local										<B VPC CIDR>      Local       <C VPC CIDR>      Local
+    <B SB  CIDR>      pcx-ab									<A SB  CIDR>      pcx-ab      <A SB  CIDR>      pcx-ac
+    <C SB  CIDR>      pcx-ac					
+		
+		in conf 3 if  <B SB  CIDR> === <C SB  CIDR> then it will give error.
+		in conf 3 if  <B SB  CIDR> and <C SB  CIDR> has overlaping CIDR then at A the one with longest prefix will match.
+		
+		Conf 4:
+			You can peer the specific instance ro the VPC. for this just use the private IP of that instance in RTs.
+		    
+    
