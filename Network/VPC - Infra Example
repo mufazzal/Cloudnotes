@@ -1,0 +1,183 @@
+CN_CIDR:    Public IP cidr of home or corporate trusted network.
+vpc_CIIDR:  cidr of VPC
+pb_CIDR:    cidr of public subnet
+pr_CIDR:    cidr of private subnet
+dbPt:     	Databse port[ 3306 for Mysql, 5432 for Potgress, 1521 fro OracleDB etc]
+EP1:				Ephameral port 1024-65535. This is tyhe largest Ephameral port range that allow all the client such as
+							window OS, Linux carnel, ELB, NAT, AWS Lambda.
+sg_ws:			SG of webserver instance
+sg_db:			SG of Database/non-public instance [any running server which host app that is not exposed to internet]
+sg_bs				SG of bastion host
+
+Infra Goal:
+  - A Public Subnet and Private Subnet in VPC with.
+	- Webserver in public subnet
+  - Webserver instances open to internet
+  - Webserver instances allowing SSHing from corporate network
+	- A NAT Gateway in public subnet
+	- RDS instance in private subnet
+	- A bastio host instance in public subnet.  
+  
+  RT of pub_sub:
+    vpc_CIIDR       Local
+    0.0.0.0/0       igw-***
+
+	SG of Webserver SG[sg_ws]:
+																	Protocol
+      -----------------                       :				
+      |								|					              :				
+      |               |80	  <-----TCP-------	:					0.0.0.0/0         # SG_R_1 
+      |               |443  <-----TCP--------	:					0.0.0.0/0         # SG_R_2  
+      |       Inbound	|				                :				
+      |               |22   <-----TCP--------	:					CN_CIDR           # SG_R_3  
+      |               |3389 <-----TCP--------	:					CN_CIDR           # SG_R_4  
+      |               |                       :
+      |               |                       :
+      |               |											  :	Port		DestIP
+      |               |-----------TCP-------->:	80			0.0.0.0/0         # SG_R_5   
+      |               |-----------TCP-------->:	443			0.0.0.0/0         # SG_R_6   
+      |      Outbound |                       :                              
+      |               |-----------TCP-------->: dbPt		sg_db/pr_CIDR			# SG_R_7
+      |               |-----------TCP-------->: 22			pr_CIDR						# SG_R_8  
+      |               |                       :
+      -----------------                       :    
+			
+			SG_R_1: Allowing any HTTP  requets originating from INTERNET to ENI. Allow return response too from ENI to INTERNET.
+			SG_R_2: Allowing any HTTPS requets originating from INTERNET to ENI. Allow return response too from ENI to INTERNET
+			SG_R_3: Allowing any SSH   requets originating from CN_CIDR to ENI. Allow return response too from ENI to CN_CIDR
+			SG_R_4: Allowing any RDP   requets originating from CN_CIDR to ENI. Allow return response too from ENI to CN_CIDR
+			SG_R_5: Allowing any HTTP  requets originating from ENI to INTERNET. Allow return response too from INTERNET to ENI .
+			SG_R_6: Allowing any TCP 	 requets originating from ENI to DB servers. Allow return response too from DB servers to ENI.
+			SG_R_7: Allowing any DB specific requets originating from ENI to DB servers or Private Subnet. Allow return response too from DB servers to ENI.
+			SG_R_8: Allowing any SSH	 into the private subnet via banstion in public sunet
+			
+			
+			0.0.0.0/0		TCP		80			
+			0.0.0.0/0		TCP		443			
+			0.0.0.0/0		TCP		22			
+			0.0.0.0/0		TCP		3389	
+			Outbound
+			0.0.0.0/0		TCP		80			
+			0.0.0.0/0		TCP		443			
+			sg_db				TCP		dbPt			
+		
+	
+	NACL of Public Subnet:	
+																			Protocol
+					-----------------                       :				
+					|								|					              :					SourceIP
+		100   |               |80	  <-----TCP-------- :					0.0.0.0/0         # NA_R_1 
+		110   |               |443  <-----TCP--------	:					0.0.0.0/0         # NA_R_2  
+					|       Inbound	|				                :				
+		120   |               |22   <-----TCP--------	:					CN_CIDR           # NA_R_3  
+		130   |               |3389 <-----TCP--------	:					CN_CIDR           # NA_R_4  
+		140   |               |EP1	<=====TCP========	:					0.0.0.0/0         # NA_R_5
+					|               |                       :
+					|               |                       :
+					|               |											  :	Port		DestIP
+		100		|               |-----------TCP-------->:	80			0.0.0.0/0     		# NA_R_6    
+		110   |               |-----------TCP-------->:	443			0.0.0.0/0         # NA_R_7
+					|      Outbound |                       :
+		130   |               |-----------TCP-------->:	22			pr_CIDR		        # NA_R_9
+		140   |               |-----------TCP-------->:	dbPt		pr_CIDR		        # NA_R_10
+		120   |               |===========TCP========>:	EP1			0.0.0.0/0         # NA_R_8
+					|               |                       :
+					-----------------                       :    
+      
+      NA_R_1: Allowing any HTTP  requets originating from INTERNET to ENI. 
+      NA_R_2: Allowing any HTTPS requets originating from INTERNET to ENI. 
+      NA_R_3: Allowing any SSH   requets originating from CN_CIDR to ENI. 
+      NA_R_4: Allowing any RDP   requets originating from CN_CIDR to ENI. 
+			
+      NA_R_6: Allowing any HTTP  requets originating from ENI to INTERNET. 
+      NA_R_7: Allowing any HTTPS requets originating from ENI to INTERNET. 
+			
+			NA_R_8: Allow return responses from ENI to INTERNET for the request originated from INTERNET/CN_CIDR/0.0.0.0/0.
+								This rule is complementint the rule NA_R_1, NA_R_2, NA_R_3, NA_R_4.
+			NA_R_5: Allow return responses from INTERNET to ENI for the request originated from ENI.
+								This rule is complementint the rule NA_R_6, NA_R_7.		
+			NA_R_9: Allow SSHing into the intances residing in private subnet from bastion host living in this public subnet.
+			NA_R_10:Allow connecting the DB instances at DB specific port in private subnet.
+			
+			Inbound
+			100		0.0.0.0/0		TCP		80		ALLOW
+			110		0.0.0.0/0		TCP		443		ALLOW
+			120		0.0.0.0/0		TCP		22		ALLOW
+			130		0.0.0.0/0		TCP		3389	ALLOW
+			140		0.0.0.0/0		TCP		EP1		ALLOW
+			*			0.0.0.0/0		ALL		ALL		DENY
+
+			Outbound
+			100		0.0.0.0/0		TCP		80		ALLOW
+			110		0.0.0.0/0		TCP		443		ALLOW
+			120		0.0.0.0/0		TCP		EP1		ALLOW			
+			130		pr_CIDR			TCP		22		ALLOW			
+			140		pr_CIDR			TCP		dbPt	ALLOW			
+			*			0.0.0.0/0		ALL		ALL		DENY
+	
+-----------------------------------
+	
+	RT of prv_sub:
+    vpc_CIIDR       Local
+    0.0.0.0/0       nat-***
+	
+	SG of DB SG[sg_db]:
+																	Protocol
+      -----------------                       :				
+      |								|					              :				
+      |               |dbPt <-----TCP-------	:					pb_CIDR/sg_ws     # SG_R_1
+      |       Inbound	|				                :				
+      |               |22   <-----TCP--------	:					pb_CIDR/sg_bs      # SG_R_2
+      |               |3389 <-----TCP--------	:					pb_CIDR/sg_bs      # SG_R_3  
+      |               |                       :
+      |               |                       :
+      |               |											  :	Port		DestIP
+      |               |-----------TCP-------->:	80			0.0.0.0/0         # SG_R_4   
+      |               |-----------TCP-------->:	443			0.0.0.0/0         # SG_R_5   
+      |      Outbound |                       :                              
+      |               |                       :
+      -----------------                       :    	
+			
+			SG_R_1: Allowing DB specific TCP   requets originating from Public Subnet or Webserver Instance to ENI. Allow return response too.
+      SG_R_2: Allowing any SSH   requets originating from Public Subnet or Bastion Host to ENI. Allow return response too
+      SG_R_3: Allowing any RDP   requets originating from Public Subnet or Bastion Host to ENI. Allow return response too
+				IMP Note: In case of RDS instance NA_R_2 and NA_R_3 become redundant because AWS do not allow SSHing into RDS instances.
+			SG_R_4: Allowing any HTTP  requets originating from ENI to INTERNET(via NG). Allow return response too from INTERNET to ENI(via NG).
+			SG_R_5: Allowing any HTTPS requets originating from ENI to INTERNET(via NG). Allow return response too from INTERNET to ENI(via NG).
+			
+			pb_CIDR/sg_ws		TCP		dbPt	
+			pb_CIDR/sg_bs		TCP		22			
+			pb_CIDR/sg_bs		TCP		3389				
+			Outbound
+			0.0.0.0/0				TCP		80			
+			0.0.0.0/0				TCP		443			
+	
+	
+	NACL of Private Subnet:	
+																			Protocol
+					-----------------                       :				
+					|								|					              :					SourceIP
+					|       				|				                :				
+		110   |               |dbPt <-----TCP--------	:					pb_CIDR           # NA_R_1
+		120   |     	Inbound	|22   <-----TCP--------	:					pb_CIDR           # NA_R_2  
+		130   |               |3389 <-----TCP--------	:					pb_CIDR           # NA_R_3  
+		140   |               |EP1	<=====TCP========	:					0.0.0.0/0         # NA_R_4
+					|               |                       :
+					|               |                       :
+					|               |											  :	Port		DestIP
+		100		|               |-----------TCP-------->:	80			0.0.0.0/0     		# NA_R_5    
+		110   |               |-----------TCP-------->:	443			0.0.0.0/0         # NA_R_6
+					|      Outbound |                       :
+		120   |               |===========TCP========>:	EP1			0.0.0.0/0         # NA_R_7
+					|               |                       :
+					-----------------                       :    
+
+			NA_R_1: Allowing DB specific TCP   requets originating from Public Subnet or Webserver Instance to ENI. 
+      NA_R_2: Allowing any SSH   requets originating from Public Subnet(from Bastion Host) to ENI.
+      NA_R_3: Allowing any RDP   requets originating from Public Subnet(from Bastion Host) to ENI.
+			NA_R_4: Allow return responses from INTERNET to ENI for the request originated from ENI.
+								This rule is complementint the rule NA_R_5, NA_R_6.		
+      NA_R_5: Allowing any HTTP  requets originating from ENI to INTERNET. 
+      NA_R_6: Allowing any HTTPS requets originating from ENI to INTERNET. 
+			NA_R_7: Allow return responses from ENI to INTERNET for the request originated from INTERNET/pb_CIDR/0.0.0.0/0.
+								This rule is complementint the rule NA_R_1, NA_R_2, NA_R_3.
