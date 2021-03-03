@@ -1,8 +1,4 @@
-   
-    
-    
-    
-  
+ 
 VPN Clodhub:-
   When you have single site-data-center the connecting it with VPC is easy 
   but if you have multiple data center and wants transit communication with each other too the VPN cloudhib is very useful
