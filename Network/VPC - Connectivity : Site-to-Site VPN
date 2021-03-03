@@ -1,4 +1,3 @@
- 
 VPG is used for buinding a VPN netwprk between VPC and ur on-premise infra.
 When you set this up you will be able to use the private IPs of your VPC components and on-premise component in each other.
 for creating VPN connction betwen VPC and site you need below item
@@ -8,7 +7,7 @@ At site:-
   2. Create 'Customer gateway' at aws console and attach it to the VPC.
 At AWS
   Ask this two thing from Networks adminstrator of on=premise side
-    1. CIDR of ypur on-premise network.
+    1. CIDR of your on-premise network.
     2. Public IP of your on premise Router
     Now create Virtual private gateway or Transit gateway with this two thing. This will stand at AWS side and reprsent the On-Premise.
 Funally:-
@@ -17,7 +16,23 @@ Funally:-
   1. Select the Customer gateway
   2. select the Virtual private gateway
   3. give full CIDR of complete network
-  DONE
+  DONE  
+    
+    vpg1 = f(CIDR of CD1, Public IP of router of CD1)
+    vpg2 = f(CIDR of CD2, Public IP of router of CD2)
+															-----------
+															|					| Corporate Data center 1 [CD1]
+	|-------------|							|					|
+	|				vpg1	|-------------|	CTG1		|	
+	|							|							|					|
+	|							|							-----------
+	|		VPC   		|							-----------
+	|							|							|					| Corporate Data center 2 [CD2]
+	|							|             |					|
+	|				vpg2	|-------------|	CTG2		|	
+	|-------------|             |					|
+                              -----------
+  
 After creation:-
   Once created you can see
   there is two IPSeC channel created fot higher availibilty and each chanel has a Public IP attach to it.
@@ -28,5 +43,7 @@ VPN Charges:-
   1. Till the vpn connection is active, For each hour you will be charged.
   2. First GB of data transfer is free then its chargable.
 
-  
+Accelerated VPN connection:-
+  You can enable this featre. This ses the AWs Global accelerator to rote the traffic via edge location to AWS via AWS backbone network.
+  You have to use Transit Gateway for this. VPG do not support it.
  
