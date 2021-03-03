@@ -8,7 +8,7 @@ Transit Gateway:-
   This help you build your network Topology. As you know VPC can hae many connection like
     VPC peering with 100s of VPC
     Direct Connect with many on-premise
-    VPN connection with many on-premise
+    VPN connection with many on-premise. We can use Transit Gateway in place of Virtual Private Gateway
   The TG will help you to build this with ease
       
    
