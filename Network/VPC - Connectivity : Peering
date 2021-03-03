@@ -122,3 +122,11 @@ VPC Peering Possibilities:-
 			You can peer the specific instance ro the VPC. for this just use the private IP of that instance in RTs.
 		    
     
+----------------------
+ 
+Transit VPC:-
+  The drawack of VPC-peering is to not to have the transic communication.
+  To solve this issue comes a Transit VPC concpt.
+  Here you have one central VPC (Hub) and other connected VPC (Spoke).
+  The Hub need to have one EC2 running all the time with proper routing software to perform transit.
+  This will bear the cost of running EC2.
