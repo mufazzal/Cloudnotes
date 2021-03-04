@@ -83,6 +83,7 @@ A VPC endpoint enables private connections between your VPC and
       - This is used for S3 and DynamoDb only. 
       - You cannot use 'AWS prefix list ID' in CIDR of NACL. but you can use it in CIDR of SGs
       - You must update the SG of your instances to allow OUTBOUND traffic flow to 'AWS prefix list ID' as DESTINATION CIDR.
+      - You must update the NACL of your instances to allow OUTBOUND traffic flow to IP range of AWS service (S3 or DDB) as DESTINATION CIDR.
       - An interface endpoint supports IPv4 traffic only
       - Not Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering     
       - you cannot have multiple endpoint routes to the same service in a single route table. 
