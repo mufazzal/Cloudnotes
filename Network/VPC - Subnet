@@ -37,4 +37,7 @@ Subnet Sharing:-
   - Participants cannot launch resources using security groups that are owned by other participants that share the VPC, or the VPC owner
   - Owners cannot launch resources using security groups that are owned by other participants
   
-    
+-------------
+
+By default the newly created Subnet is attached with Main Route table. you need to change it if you wants more. 
+
