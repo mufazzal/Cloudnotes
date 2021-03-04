@@ -33,6 +33,25 @@ Funally:-
 	|-------------|             |					|
                               -----------
   
+	A single VPG can conect to multiple Customer Gateway (data center)
+																																-----------
+                                                                |					| Corporate 
+											------------------------------------------|					|	Data center 3
+											|	                                        |	CTG3		|	[CD3]
+											|                                         |					|
+											|				-----------												-----------
+											|				|					| Corporate 
+	|-------------|			|				|					|	Data center 1 
+	|				vpg1	|-------------|	CTG1		|	[CD1]
+	|							|							|					|
+	|							|							-----------
+	|		VPC   		|							-----------
+	|							|							|					| Corporate Data center 2 [CD2]
+	|							|             |					|
+	|				vpg2	|-------------|	CTG2		|	
+	|-------------|             |					|
+                              -----------	
+	
 After creation:-
   Once created you can see
   there is two IPSeC channel created fot higher availibilty and each chanel has a Public IP attach to it.
