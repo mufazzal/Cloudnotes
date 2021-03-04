@@ -50,6 +50,16 @@ A VPC endpoint enables private connections between your VPC and
       - each interface endpoint can support a bandwidth of up to 10 Gbps per Availability Zone. and bursts of up to 40Gbps
       - An interface endpoint supports TCP and IPv4 traffic only
       - Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering
+          [Because you only have to reach to that ENI with private IP and all othem can do it.]
+      
+      Mechanics of Interface EP:-
+        Some VPC's element(EC2, Lambda) call the api of EP service like ec2.start(), sns.push() etc.
+        This will in nutshell call the API like 'POT ec2.us-east-1.amazonaws.com'
+        The host will resolve to private IP of ENI created for this EP
+        RT will always have entry   '<VPC_CIDR> :  Local'.   so it will direct the request to that ENI properly.
+        Request will reach to ENI.
+        ENI wil propgate the reuest to AWS backbone network. 
+        Response will travel in reverse.
       
       Private DNS name of 'Interface EP':-
         This is enabled by default for 'AWS services' and 'AWS Marketplace Services'.
@@ -86,9 +96,20 @@ A VPC endpoint enables private connections between your VPC and
       - You must update the NACL of your instances to allow OUTBOUND traffic flow to IP range of AWS service (S3 or DDB) as DESTINATION CIDR.
       - An interface endpoint supports IPv4 traffic only
       - Not Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering     
+          [Because there is no ENI here so no private IP to reach]
       - you cannot have multiple endpoint routes to the same service in a single route table. 
       - you can    have multiple endpoint routes to the same service in a diffrent route table
       - you can    have multiple endpoint routes to the same or diifrent service in a diffrent route table
+      
+      Mechanics of Gateway EP:-
+        Some VPC's element(EC2, Lambda) call the api of EP service like S3.getObject(), ddb.scan(), 'http://s3.us-east-1.amazonaws.com/mufazzal/pic.png' etc.
+        This will in nutshell call the API like 'POT s3.us-east-1.amazonaws.com'
+        The host will resolve to some Public IP fo that AWS service in that region
+        RT will have entry   '<prefix IP for that aws service> :  ep-***'.   so it will direct the request to that EP.
+        Request will reach to EP.
+        EP wil propgate the reuest to AWS backbone network. 
+        Response will travel in reverse.      
+      
       
   EP Security:-
     EP Policy:-
@@ -116,6 +137,3 @@ A VPC endpoint enables private connections between your VPC and
       - All types of policies — IAM, EP policies, bucket policies, ACL(if any) — must grant the necessary permissions for access to Amazon S3 to succeed
     
     
-    f
-
-
