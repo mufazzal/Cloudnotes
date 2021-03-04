@@ -29,7 +29,9 @@ This have some limitation
   - There is a maximum limit of 125 peering connections per VPC
   - More the connection more the complexity will be
   - Below connection/Reosource/Edges can not be used in peered VPCs:-
-      AWS Direct connect, VPN connection, IGW, NGW, Gatway VPC endpoint foe S3 and DDB
+      AWS Direct connect, VPN connection, IGW, NGW, Gatway VPC endpoint foe S3 and DDB 
+			[All of those services bear charge for holding infra or for data transfer. so it would be economic disaster of some malicious person 
+			peered with your VPC and start using you NAT, IGW etc to save his own money]
   - Below connection can be used in peered VPC
   		Interface Endpoint
       
@@ -40,17 +42,17 @@ Step:-
   At Requestee side: get id of VPC whom you wants to peer with    
   At Requester side: Accept the request in Peering connection
   At both:  both of them must ensure that CIDR should not overlap
-            both should modify their route table with peering id {vpcx-******} 
-                The RT of both side should have a entry appear like below
-                <CIDR of A>  pcx-AB
-                and 
-                <CIDR of B>  pcx-AB
-            if needded they must also update their NACL and SG to allow traffic flow over peering CIDR range.
-                For Inbound and Outbound rule 
-                if vpc are in same region 
-                  they can refer each others SG via <AWSAccounId>/<SG-Id> 
-                if not then 
-                  you have to use the CIDR of couterpart VPC. 
+		both should modify their route table with peering id {vpcx-******} 
+				The RT of both side should have a entry appear like below
+				<CIDR of A>  pcx-AB
+				and 
+				<CIDR of B>  pcx-AB
+		if needded they must also update their NACL and SG to allow traffic flow over peering CIDR range.
+				For Inbound and Outbound rule 
+				if vpc are in same region 
+					they can refer each others SG via <AWSAccounId>/<SG-Id> 
+				if not then 
+					you have to use the CIDR of couterpart VPC. 
               
 Inter-Region VPC:-
   - An inter-region peering request must be accepted in the region of the accepter VPC
