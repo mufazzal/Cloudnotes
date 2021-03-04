@@ -66,3 +66,8 @@ Accelerated VPN connection:-
   You can enable this featre. This ses the AWs Global accelerator to rote the traffic via edge location to AWS via AWS backbone network.
   You have to use Transit Gateway for this. VPG do not support it.
  
+ 
+Transit Gateway:-
+	Trsansit gateway can be used in place of Virtual Private Gateway in AWS side.
+	This give you better option to connect the VPC with other element like peering, direct connect and multiple VPN connection.
+	TG also can be used to communicate between the sites.
