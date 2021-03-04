@@ -59,7 +59,7 @@ Main Route Table:-
 	It has only one entry at creation and that is <VPC_CIDR> : Local
 	This RT by default assosiated with Newly created subnet.
 	You can add, remove, and modify routes in the main route table
-		
+	You can change the MAin Route table and set any other Custom RT as Main RT. all future subnet will have the new RT attached.
 
 
 
