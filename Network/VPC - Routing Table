@@ -15,7 +15,7 @@ When you craete A VPC it will also create a Default Route Table.
   but one route table can be connected to multiple subnet
 	So its relation is like below 				    But not like
                               Subnet 1      RT 1------------
-    Routing Table	--------   	Subnet 2      RT 2------------  Subnet 1
+    Routing Table--------			Subnet 2      RT 2------------  Subnet 1
                               Subnet 3      RT 3------------
 
 
