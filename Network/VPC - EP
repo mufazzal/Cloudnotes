@@ -7,7 +7,7 @@ A VPC endpoint enables private connections between your VPC and
   PrivateLink: 
     AWS PrivateLink is a technology that enables you to privately access services by using private IP addresses. 
     Traffic between your VPC and the other service does not leave the Amazon network.
-    To access the Endpoint service via EP tou do not need IGW or NAT Gatwway.
+    To access the Endpoint service via EP tou do not need IGW or NAT Gatwway or Virtual PRivate Gateway.
   
   EP:-
     VPC endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components. 
