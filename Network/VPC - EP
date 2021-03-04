@@ -102,4 +102,19 @@ A VPC endpoint enables private connections between your VPC and
     EPS work if client[EP] and provider (EPS) are in same region. but if they are in diffrent region then you have to use
     VPC-Peering and private link(only of Interface type) together to use the EPS across region.      
       
-      
+-------------------------
+
+  Gateway EP for S3 and DDB:-
+    Tou can reduce significant amount of data transfer cost if you use S3 and DDB endpoint. With EP the Data from this service and VPC traverse the 
+    AWS backbone network and you dont haver to pay the data out charges. You do not enven have to use the NAT gateway and Internet gateway too.
+    So for private subnet you can even reduce the cost of NAT gateway.
+    Thoug you have to take care:-
+      - For S3 the EP policy by default all action on all object and bucket. you can restrict the EP policy 
+      - Endpoints currently do not support cross-Region requests—ensure that you create your endpoint in the same Region as your bucket
+          [If you stil wants to use it thenm use S3 Interface Endpoint instead of Gateway EP]
+      - All types of policies — IAM, EP policies, bucket policies, ACL(if any) — must grant the necessary permissions for access to Amazon S3 to succeed
+    
+    
+    
+
+
