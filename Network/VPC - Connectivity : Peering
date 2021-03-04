@@ -30,6 +30,8 @@ This have some limitation
   - More the connection more the complexity will be
   - Below connection/Reosource/Edges can not be used in peered VPCs:-
       AWS Direct connect, VPN connection, IGW, NGW, Gatway VPC endpoint foe S3 and DDB
+  - Below connection can be used in peered VPC
+  		Interface Endpoint
       
 Charges:
   VPC peering only incurs costs for traffic traveling over the connection (there is no hourly infrastructure fee). 
