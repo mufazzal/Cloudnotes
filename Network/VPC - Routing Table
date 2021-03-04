@@ -52,4 +52,15 @@ Route priority:-
   For other if match is '10.0.0.0/16' then Local will win. even though the match is in rt_3 as well.
   For all other '0.0.0.0/0' will win.
   
+-----------------------------
+
+Main Route Table:-
+	This is tghe default RT created with the VPC and it cannot be delted.
+	It has only one entry at creation and that is <VPC_CIDR> : Local
+	This RT by default assosiated with Newly created subnet.
+	You can add, remove, and modify routes in the main route table
+		
+
+
+
 
