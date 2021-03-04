@@ -57,6 +57,19 @@ After creation:-
   there is two IPSeC channel created fot higher availibilty and each chanel has a Public IP attach to it.
   No via this channel you can communicate between the components of bothe side with their private IP
 
+VPG and Route Table:-
+	Once created the VPN connection. you have to update the RT so that assosiated subnet camn use this connection.
+	Its entery should like
+	<CIDR of VPC>						Local	
+	<CIDR of Data center>		vpg-****
+	0.0.0.0/0								NAT-*** or IGW-***
+	IF you wants that the internet must also be accessed via the data center for better security or compliance the you should change the last entry to
+	0.0.0.0/0								vpg-***
+	
+	Route PRopogation:-
+		AWS provide smart way to enable the VPN for you RT. simply go to RT > Enable Propogation > Select the VPG and done.
+		This will add the route entry in that RT for that VPG with its correct CIDR.
+
 VPN Charges:-
   You will be charged for 
   1. Till the vpn connection is active, For each hour you will be charged.
