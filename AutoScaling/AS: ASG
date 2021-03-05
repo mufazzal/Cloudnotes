@@ -23,3 +23,5 @@ In ASG you set
   Param related to Health Check:-
     
   
+MaxInstanceLifetime:
+  In ASG you set this time. So that instance will be replaced after this much amount of time. This will be useful for complience purposes. 
