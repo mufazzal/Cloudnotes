@@ -1,0 +1,25 @@
+This will set the scenario and capacity, that in which condition we should launch the instances and how many of them.
+
+In the LT/LC you define the params of Instance and its purchase model. Those values are very specific to instance.
+But in ASG you values that are collectivly apply on them.
+
+In ASG you set
+  Param related Instances Infrastructre:-
+    - VPC 
+    - Subnet and AZ: Slect multiple of them for higher availability
+    - Enable if you wants Public IP for each instance
+  Param related to Load balancing:
+    - You can slect LB and Target Group if you wants to launched instance behind the LB.
+  Param related to Capacity:-
+    Min Capacity: This the minimum number of instances that must be up all the time. even if Scalling policy assert capacity reduction, number will not go down below to this.
+    Min Capacity: This the maximun number of instances that must be up all the time. even if Scalling policy assert capacity increase,  number will not go above to this.
+    Desired Capacity: This is the number of instances at any point of time required to meet the capacity.
+      At begining user set it to some value of his choice. later this is adjusted throug the scalling policy.
+      EG: suppose user set it to 10 when he create the ASG. he also place some Scalling policy in that ASG. 
+      The ASG will launch the 10 instances in the begining. after sometime Scalling policy may fell to reduce or increase the capacity 
+      so it will change the value of desired capacity to either 8 ot 12.  
+  Param related to Scaling:-
+    Here you can define the logic of scalling. it could be Dynamic Scalling or Scheduled Scalling.
+  Param related to Health Check:-
+    
+  
