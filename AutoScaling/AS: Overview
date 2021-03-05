@@ -1,0 +1,10 @@
+Amazon EC2 Auto Scaling helps you ensure that you have the correct number of Amazon EC2 instances available to handle the load for your application
+It has 3 main component
+  1. Auto scalling Group:-
+      Define MAx, Min and desored capacity.
+  2. Launch Template or Configuration
+      Define how a indivisual instance look. also what will be the purchase model.
+  3. Scalling Policy
+      Define scalling based on event (Dynamic) or schedule.
+     
+  
