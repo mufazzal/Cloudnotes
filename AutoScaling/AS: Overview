@@ -2,9 +2,9 @@ Amazon EC2 Auto Scaling helps you ensure that you have the correct number of Ama
 It has 3 main component
   1. Auto scalling Group:-
       Define MAx, Min and desired capacity.
-  2. Launch Template or Configuration
+  2. Launch Template(LT) or Launch Configuration(LC):-
       Define how a indivisual instance look. also what will be the purchase model.
-  3. Scalling Policy
+  3. Scalling Policy:-
       Define scalling based on event (Dynamic) or schedule.
      
   
@@ -51,8 +51,16 @@ Limits:-
   SNS topics per Auto Scaling group: 10
 
 
-  
-  
+LC VS LT:-
+  AWS recommend to use the LT instead of LC because
+    - LT can have multiple version and you do not have to change the ASG if you make any chnages in LT. In LC you have to modify the ASG because.
+    - With LT you can use both On-Demand and Spot instance in your ASG. with LC you can only one pricing model at a time.
+    - With LT you can use multiple instance type in you ASG with LC its not possible.
+    - With LT you can also use Volume Tagging, elastic inference, Dedicated Hosts.
+    
+    You can copy the LC into the LT. 
+    You can change the ASG to use LT instead of LC. 
+      
   
   
   
