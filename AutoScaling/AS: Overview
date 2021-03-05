@@ -1,10 +1,58 @@
 Amazon EC2 Auto Scaling helps you ensure that you have the correct number of Amazon EC2 instances available to handle the load for your application
 It has 3 main component
   1. Auto scalling Group:-
-      Define MAx, Min and desored capacity.
+      Define MAx, Min and desired capacity.
   2. Launch Template or Configuration
       Define how a indivisual instance look. also what will be the purchase model.
   3. Scalling Policy
       Define scalling based on event (Dynamic) or schedule.
      
+  
+Benefits:
+  Better fault tolerance: 
+      Replace unhealthy instances with new one.
+  Availibility:    
+    Span to multiple AZ for better availibility
+    
+    
+Scaling Event:-  
+  Scalling Out: ASG will LAUNCH new instances if
+    - You manually increase the size of the group
+    - Scalling policy can cause it to maintain its poolicy value
+    - Scalling Schedule can cause it.
+    
+    The isntance launch based on LC/LT. 
+    New Instance first remain in 'Pending' state. 
+      Here also the LAUNCHING lifcycle Hook ran. and state change to 'Pending:Wait'
+      Then it pass through ELB/EC2 Healthcheck
+    Then instance passed into 'InService' state.
+
+  Scalling In: ASG will TERMINATE the running instances if
+    - You manually decrease the size of the group
+    - Scalling policy can cause it to maintain its poolicy value
+    - Scalling Schedule can cause it.
+    
+    ASG use its 'Termination Policy' to find out which instance should be terminate first.
+    Those instance goes in 'Terminating' state.
+      Those instance are now detached and shutting down
+      Here also the TERMINATING lifcycle Hook ran. and state change to 'Terminating:Wait
+      
+  
+StandBy Instance:-
+  You can temporarily place the instance in 'InService' to 'StandBy'.
+  This enable you to perform some maintainance operation on EC2. but kept that EC2 in the ASG as well.
+  Once you mainatainance dome Exit the standby.
+  
+  
+Limits:-
+  Launch configurations per Region: 200
+  Auto Scaling groups per Region: 200
+  Scaling policies per Auto Scaling group: 50
+  SNS topics per Auto Scaling group: 10
+
+
+  
+  
+  
+  
   
