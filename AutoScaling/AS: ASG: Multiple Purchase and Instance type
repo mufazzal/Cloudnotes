@@ -33,8 +33,7 @@ Set Up:-
     
   Instance Pool Calculation:-
     totl pool = total type of instance-type * total selected subnet. 
-    
-    
+        
   Allocation Stratagy for On-Demand:-
     There is only one stratagy here and that is 'prioritized'. So the one who has higest priority will be launched first.
   Allocation Stratagy for On-Demand:-
@@ -43,6 +42,55 @@ Set Up:-
         This is useful when cost of restarting the instance is higher.
       lowest-price: The instances will be launched from the pool which gave you least price. This have the higher chance of inturuption.
         
-      
-  
+  Overrides:
+    You can creat the overrides for three paramenter:
+      1. Instance type
+      2. Weight: This will reflect in desired capacity.
+      3. Launch Template: 
+    So in the ASG you can have the instances with varying Instance type and also instances with completly diffrent lanch template.
+ 
+ 
+ Creating ASG with Spot and On-Demand instances:-
+ 
+ aws autoscaling create-auto-scaling-group --cli-input-json file://~/config.json
+
+ {
+    "AutoScalingGroupName": "my-asg",
+    "MixedInstancesPolicy": {
+        "LaunchTemplate": {
+            "LaunchTemplateSpecification": {
+                "LaunchTemplateName": "my-launch-template",
+                "Version": "$Default"
+            },
+            "Overrides": [
+                {
+                    "InstanceType": "c5.large",
+                    "WeightedCapacity": "5"
+                },
+                {
+                    "InstanceType": "c5a.large",
+                    "WeightedCapacity": "10"
+                },
+                {
+                    "InstanceType": "rd.large",
+                    "WeightedCapacity": "10",
+                    "LaunchTemplateSpecification": {
+                      "LaunchTemplateName": "my-launch-template-for-arm",
+                      "Version": "$Latest"
+                    }                    
+                }
+            ]
+        },
+        "InstancesDistribution": {
+            "OnDemandBaseCapacity": 1,
+            "OnDemandPercentageAboveBaseCapacity": 50,
+            "SpotAllocationStrategy": "capacity-optimized"
+        }
+    },
+    "MinSize": 10,
+    "MaxSize": 50,
+    "DesiredCapacity": 20,
+    "VPCZoneIdentifier": "subnet-5ea0c127,subnet-6194ea3b,subnet-c934b782"
+}
+
  
