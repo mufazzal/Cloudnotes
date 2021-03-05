@@ -1,0 +1,8 @@
+The launch tamplate has all the detail related to Instance that going tolaunched via ASG.
+- Instance AMI
+- SG
+- IAM Role 
+- ENI if any
+etc.
+
+You can create multiple version of LT.
