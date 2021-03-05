@@ -6,3 +6,5 @@ The launch tamplate has all the detail related to Instance that going tolaunched
 etc.
 
 You can create multiple version of LT.
+
+In launch tamplate you chosse single value of Instance type and Pricing model. but in the ASG later you have multiple values of those which will override them. 
