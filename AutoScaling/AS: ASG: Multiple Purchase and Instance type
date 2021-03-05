@@ -4,4 +4,45 @@ With this you ca
   - Use Spot instances
   - Utilize the Reserve capacity
   - Utilize Saving plane
+
+Set Up:-
+  When you create the ASG, you gve the proper LT. All the commom param will be taken from this LT.
+  But you can ovveride some param in the tamplate with below options:
+  Instance types: 
+    You can chosse multiple instace type here. this types will ovride the Instance type in LT. 
+    You can also assign weight to each instance type. High-end Instance can have higher weight in capacity.
+    You can also set the Priority of instance [in console the priority is in order of the list ]
+    EG:-
+      #   Type         Weight 
+      1   t2.small     1  
+      2   t2.large     3
+      3   t2.xlarge    4    
+    Here the priority with be 1,2,3 and weight are 1,3,4.
+  On-Demand base capacity:-
+    Specify how much On-Demand capacity must be there. This value make sure that you will have certain fixed capacity always up which is independent of spot price and inturuption
+  On-Demand percentage above base:
+    Once 'On-Demand base capacity' is fufilled via On-Demand, this value define what will be the propotion of Spot and On-Demand instances for additional capacity. 
+  Spot allocation strategy per Availability Zone
+    Which allocation stratagy must be used for capacity fullfiling via Spot Instabnces. 
+    it could be 'Capacity-Optimized' or 'lowest-price'
+  Maximum price for your Spot Instances:
+    This is optional. By default this is same as On-Demand price of given instance type. But you can adjust it for your budget constraint.
+    
+  Capacity rebalance
+    ??????????????????????
+    
+  Instance Pool Calculation:-
+    totl pool = total type of instance-type * total selected subnet. 
+    
+    
+  Allocation Stratagy for On-Demand:-
+    There is only one stratagy here and that is 'prioritized'. So the one who has higest priority will be launched first.
+  Allocation Stratagy for On-Demand:-
+    There is two option here:
+      Capacity-Optimized: The instances will be lanched from the pool which has the higest availibility and lowest chances of inturuption.
+        This is useful when cost of restarting the instance is higher.
+      lowest-price: The instances will be launched from the pool which gave you least price. This have the higher chance of inturuption.
+        
+      
+  
  
