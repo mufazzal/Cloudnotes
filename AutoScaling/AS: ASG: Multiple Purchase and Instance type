@@ -1,0 +1,7 @@
+You can configure the ASG to launche the Instance  of diffrent instance type with diffrent purchasing model. 
+This help ypu reduce the cost signoficaltly
+With this you ca
+  - Use Spot instances
+  - Utilize the Reserve capacity
+  - Utilize Saving plane
+ 
