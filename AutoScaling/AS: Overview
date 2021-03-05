@@ -57,6 +57,7 @@ LC VS LT:-
     - With LT you can use both On-Demand and Spot instance in your ASG. with LC you can only one pricing model at a time.
     - With LT you can use multiple instance type in you ASG with LC its not possible.
     - With LT you can also use Volume Tagging, elastic inference, Dedicated Hosts.
+    - In single ASG you can use multiple LT but only one LC.
     
     You can copy the LC into the LT. 
     You can change the ASG to use LT instead of LC. 
