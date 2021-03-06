@@ -36,6 +36,8 @@ Modifying ASG:-
     If you wants you can add the AZ (and one subnet in it) in the ASG later. 
     If you are also using the LB then you should make sure that you have enable that AZ for LB.
 
-
+ASG health check grace periode: 
+  This is the time in seconds which asg give to newly registered instance
+  before starting its health check.
 
 
