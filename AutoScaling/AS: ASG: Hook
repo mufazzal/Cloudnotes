@@ -1,0 +1,30 @@
+ASG also provide the lofecycle hook for launched and terminated instances. 
+In ASG you can set the hook to trigger when any instance is launched or terminated. This trigger could be a SNS or SQS.
+Whenver the ASG launch or terminate the instance the respective hook run. it send the message to SQS or SNS.
+
+CFR for hook:-
+  EC2LaunchHook: 
+    Type: AWS::AutoScaling::LifecycleHook
+    Properties: 
+      AutoScalingGroupName: 
+        Ref: ASG
+      LifecycleTransition: "autoscaling:EC2_INSTANCE_LAUNCHING"
+      NotificationTargetARN: 
+        Ref: EC2WebsServerLaunchSNSTopic
+      RoleARN: 
+        Fn::GetAtt: 
+          - ATSRoleForSNSAccess
+          - Arn  
+
+ ATSRoleForSNSAccess:
+  This is the role created for ASG service(autoscaling.amazonaws.com) which give SNS:Publish permission of SNS topic. 
+
+There is two hook one for launch and one fo terminating. 
+When hook is running then at that time the instance is not in service state instaed it is in either Pending:Wait or Terminating:Wait state.
+
+What happed if hook fail with some error, then u r given the two param to handle such failure.
+    DefaultResult: "CONTINUE" OR "ABANDON"
+    HeartbeatTimeout: 120
+So if hook fail or hook take more then 120 second then the instance will
+- continue to process in service sate if DefaultResult = CONTINUE
+- discard the EC2 instance if DefaultResult = ABANDON
