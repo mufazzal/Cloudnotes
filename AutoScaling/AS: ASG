@@ -6,7 +6,8 @@ But in ASG you values that are collectivly apply on them.
 In ASG you set
   Param related Instances Infrastructre:-
     - VPC 
-    - Subnet and AZ: Slect multiple of them for higher availability
+    - AZ: Slect multiple of them for higher availability
+    - Subnet: You have to select one subnet from each selected AZ. You can at most select one and only one subnet in each AZ.
     - Enable if you wants Public IP for each instance
   Param related to Load balancing:
     - You can slect LB and Target Group if you wants to launched instance behind the LB.
