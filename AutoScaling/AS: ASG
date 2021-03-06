@@ -25,3 +25,7 @@ In ASG you set
   
 MaxInstanceLifetime:
   In ASG you set this time. So that instance will be replaced after this much amount of time. This will be useful for complience purposes. 
+
+Instance Refresh:-
+  This is very useful funtion of ASG. If you have make any changes in the ASG settng like change in LT or LC and you wants it to reflect in the ASG.
+  You can refresh the instance and ASG will roll-down the running instances and roll-up their in the phase manner so you do not face the capacity issue. 
