@@ -1,1 +1,72 @@
+Amazon EC2 Auto Scaling provides a number of ways to adjust scaling to best meet the needs of your applications.
 
+Limit of Capacity:-
+  The the ASG you define the Min and Max value of capacity. No matteer how you scale in or out the ASG. 
+  Number of instances will always remain in between this two. if you try to launch more or less instance in the ASG then the request will fail.
+
+Desired Capacity:-
+  All the scalling play around this value only. Its value can neever goes above or below of min and max va;ue of capacity.
+  This value
+    - Set first at a time of creating the ASG. The ASG wil launch this much instances in the beging.
+    - Later it can be changed manually toincreace or decrease the capacity
+    - Later it can dynamically changed via 'Dynamic Scalling Policy' to meet certain policy criterion
+    - Later it can dynamically changed via 'Schedule Scalling Policy' to meet certain capacity of certain time frame
+  So number of instance(=desired capacity) remian in between min and max. and it keep changing via Manual, Dynamic or Schedule scalling.  
+
+Scalling Techniques:-
+  No Scalling:-
+    Here you do not wants to increase or decrease the capacity. so you just set the desire capacity and done.
+    Now ASG will keep rolling own the UnHealthy instance and replace them with new one.
+  Manual:-
+    - You set the desired capacity by yourself whnever you need to increase or decrease the capacity.
+    - You can also remove or attach the instances manually from ASG. remeber if this operation set number of instance above or below the max and min capacity then requets will fail
+      How:-
+        Simply set the desired value in ASG.
+  Scheduled:-
+    - Scheduled scaling allows you to set your own scaling schedule. 
+      For example, let's say that every week the traffic to your web application starts to increase on Wednesday, 
+      remains high on Thursday, and starts to decrease on Friday. 
+      You can plan your scaling actions based on the predictable traffic patterns of your web application. 
+      How:
+        To set this you have to create the schduling action in the ASG. in this Scheduing action you must set 
+         - Date and Time frame
+         - Min, Max, or Desired capacity for that time frame.
+         - Recurence or on-time
+        
+  Predictive Scaling
+      Predictive Scaling, a feature of AWS Auto Scaling uses machine learning to schedule the right number of EC2 instances 
+      in anticipation of approaching traffic changes. 
+      Predictive Scaling predicts future traffic.
+      Predictive Scaling’s machine learning algorithms detect changes in daily and weekly patterns, automatically adjusting their forecasts
+  Scalling Policy:-
+    This define on what condition the instances will be launched or taken down.
+    There is below way to do it.
+    Dynamic Scalling: By Policy
+      There is 3 kind od policy
+      1. Target Tracking
+        - You set a target say 70% CPU usage and ASG take care of adding/removing instances to acive this target.
+        There are 4 preconfigured matrics which you can use for this
+            ASGAverageCPUUtilization, ASGAverageNetworkIn, ASGAverageNetworkOut, ALBRequestCountPerTarget
+        you can use those to gauge the number of EC2 in group wrt targer value.
+        For this you do not need to set any cloudwatch metrics bu you own.      
+        
+        Thoug, You can use other or custom cloudwatch metrics too for Target tracking.
+        EG: You can scal up or down based on number on messages in SQS.
+                
+      2. Simple Scalling
+        - You set a usage value, above wich n number of instance will be launched.
+          the value of 'n' you have to gave. also you need to set the cloudwatch metrics that will be use for this 
+      3. Step Scalling
+        - You set the spans of uasges and set how many instance will be launched or taken down if usage is in respective range.
+          also you need to set the cloudwatch metrics that will be use for this. 
+------------------------------------
+Suspending Autoscalling:  
+  When you create the ASG it immediatly start creating the EC2's to reach for the minimum capacity.
+  So it may be not a optimal. you may wants to create ASG but not wants to run the EC@ just now for this
+  go to 
+  AWS > EC2 > ASG > 'tour group' > Action > Edit
+  in this forn set 'Suspended Processes' to 'Terminate'  
+  
+  
+  
+  
