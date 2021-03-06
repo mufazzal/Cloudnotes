@@ -1,6 +1,7 @@
 ASG also provide the lofecycle hook for launched and terminated instances. 
 In ASG you can set the hook to trigger when any instance is launched or terminated. This trigger could be a SNS or SQS.
 Whenver the ASG launch or terminate the instance the respective hook run. it send the message to SQS or SNS.
+You can also use the Lambda as trugger but for this you have to use the Event-Bridge.
 
 CFR for hook:-
   EC2LaunchHook: 
@@ -28,3 +29,9 @@ What happed if hook fail with some error, then u r given the two param to handle
 So if hook fail or hook take more then 120 second then the instance will
 - continue to process in service sate if DefaultResult = CONTINUE
 - discard the EC2 instance if DefaultResult = ABANDON
+
+heartbeat timeout for:-
+  You cas set this value so that instance remain in Wait state for that time and you get time to execute this hook.
+  This time is diffrent from CoolDown time.
+  If you are no finised in 'heartbeat timeout' then you can extend this time via 'record-lifecycle-action-heartbeat' command
+  If you are doe earlier then you end the heartbeat timeout by 'complete-lifecycle-action' command
