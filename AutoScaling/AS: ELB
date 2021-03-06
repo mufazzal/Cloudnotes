@@ -10,6 +10,8 @@ State of LB:-
 ASG Helth Check for LB:-
   By Default AG check the health of EC@ rather but not the Aplication hosted in it. You can change it to 'ELB' so that the ASG will check the helth of EC@ as well as via ELB.
   So any EC2 which is considered as UnHealthy by LB will also be considered as UnHealthy by ASG.
+  you should also use HealthChechGracePriode to give newly register instace enough time
+  to set up himself for passing out the health check.
 
 
   AutoScalling and LB: 
