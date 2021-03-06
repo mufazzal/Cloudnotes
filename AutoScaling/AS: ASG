@@ -37,3 +37,12 @@ Suspending Autoscalling:
   go to 
   AWS > EC2 > ASG > 'tour group' > Action > Edit
   in this forn set 'Suspended Processes' to 'Terminate'  
+
+Modifying ASG:-
+  Adding AZ:-
+    If you wants you can add the AZ (and one subnet in it) in the ASG later. 
+    If you are also using the LB then you should make sure that you have enable that AZ for LB.
+
+
+
+
