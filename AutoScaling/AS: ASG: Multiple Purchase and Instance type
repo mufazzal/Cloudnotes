@@ -29,7 +29,9 @@ Set Up:-
     This is optional. By default this is same as On-Demand price of given instance type. But you can adjust it for your budget constraint.
     
   Capacity rebalance
-    ??????????????????????
+    This is very useful feature at ASG level and use only for Spot instances.
+    If enable then if any Spot EC2 instance is at elevated risk of interruption then the ASG will start replacement process of that instance even before that instance terminate.
+    This help the ASG to bring up the new indtance in advance and share the work load on lt.
     
   Instance Pool Calculation:-
     totl pool = total type of instance-type * total selected subnet. 
