@@ -12,3 +12,15 @@ Health check grace period:-
   HealthCheckGracePeriod for the ASG to determine how long to wait before checking the health status of the instance.  
   ensure that the health check grace period covers the expected startup time for your application, from when an instance comes into service to when it can receive traffic. 
   If you add a lifecycle hook, the grace period does not start until the lifecycle hook actions are completed and the instance enters the InService state
+  
+  
+  
+ASG and CW:-
+  ASG publish many CW metrics FREE in 1-Minut granularity.
+  Below are some ASG mterices
+    GroupDesiredCapacity, GroupInServiceInstances, GroupPendingInstances, GroupTotalInstances etc.
+    GroupInServiceCapacity, GroupStandbyCapacity
+    StatusCheckFailed, StatusCheckFailed_Instance etc.
+  Below are the dimentions:-
+    AutoScalingGroupName 
+  
