@@ -1,0 +1,36 @@
+This define on what condition the instances will be launched or taken down. The desired Capacity ofASG is controlled via thia policy
+  There is below way to do it, There is 3 kind of policy
+    1. Target Tracking
+      - You set a target say 70% CPU usage and ASG take care of adding/removing instances to acive this target.
+      There are 4 preconfigured matrics which you can use for this
+          ASGAverageCPUUtilization, ASGAverageNetworkIn, ASGAverageNetworkOut, ALBRequestCountPerTarget
+      you can use those to gauge the number of EC2 in group wrt targer value.
+      For this you do not need to set any cloudwatch metrics bu you own.      
+
+      Thoug, You can use other or custom cloudwatch metrics too for Target tracking.
+      EG: You can scal up or down based on number on messages in SQS.
+
+    2. Simple Scalling
+      - You set a usage value, above wich n number of instance will be launched.
+        the value of 'n' you have to gave. also you need to set the cloudwatch metrics that will be use for this 
+    3. Step Scalling
+      - You set the spans of uasges and set how many instance will be launched or taken down if usage is in respective range.
+        also you need to set the cloudwatch metrics that will be use for this. 
+    4. SQS based scalling:-
+          See SQS.txt for this.
+
+----------------
+  Multiple Scalling Policy:-
+    You can use more then one Scalling policy in Dynamic Scalling. You can use use 
+      - more then one for scale in 
+      - more then one for scale out 
+      - diffrent policy for scale in and out
+    In any case if two policy insist for two diffrent value of capacity then the one who give large number of capacity will will.
+-------------------
+
+Cooldown Priode:-
+  This is specifically use for Sinmple Scaling only. it cannot be ised with any other.
+  A scaling cooldown helps you prevent your Auto Scaling group from launching or terminating additional instances before the effects of previous activities are visible.
+  This help you to prevent the launch of additional capacity or termination of extra capacity before effect of last Scalling activity took place.
+  This can be set at ASG level or can ne override in Scalling policy.
+  
