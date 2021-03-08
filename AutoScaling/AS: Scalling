@@ -76,8 +76,26 @@ Suspending Autoscalling:
   in this forn set 'Suspended Processes' to 'Terminate'  
 ---------------------------------
 
-
-
+Cooldown Priode:-
+  A scaling cooldown helps you prevent your Auto Scaling group from launching or terminating additional instances before the effects of previous activities are visible.
+  This help you to prevent the launch of additional capacity or termination of extra capacity before effect of last Scalling activity took place.
+  This can be set at ASG level or can ne override in Scalling policy.
+  
+  Cooldown Priode VS Health Check Grace Priode:-
+    CP is the time given to Scalling activity to makeits impact visible. Se at ASG level and can be overriden by Policy. 
+    This should cosider the time 
+      - To add/remove instances
+      - If added then time taken for Health check pass for that instance + Time required to have enoght data on metrics for calculting load on 'InService' EC2s
+      - If remove then Time required to have enoght data on metrics for calculting load on 'InService' EC2s
+    HCGP is time given to Instance to make hiself capable to handle the traffic and pass the health check. Set at ASG level only.
+      This Health check could e of ELB or EC2 type.
+      - You should consider that how long the EC2 will take to handle trafic from its launch.
+      
+------------------------------------      
+    
+    
+    
+  
 
   
   
