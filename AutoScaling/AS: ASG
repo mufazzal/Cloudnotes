@@ -39,5 +39,8 @@ Modifying ASG:-
 ASG health check grace periode: 
   This is the time in seconds which asg give to newly registered instance
   before starting its health check.
+----------
 
+Attached EBS and EIP of Terminated EC2 instance:-
+  This 2 resource do not attached to replacement automatically. you have to do it by yourself.
 
