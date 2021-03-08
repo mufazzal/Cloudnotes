@@ -51,8 +51,28 @@ Suspending Autoscalling:
 ---------------------------------
 
  Termination Policy:-
+  Termination policy detrmine which instance will be terminted first in case of Scale-In. 
+  AWS use default policy for this but you can customize some of his behaviour.
   
- 
+  Below isthe steps for determining the instance for termination-
+    1. Detemine if there is Imbalance in the AZ. 
+        if yes then apply the step 2 on the instances running on AZ which has higest number of EC2 running
+        if no then apply step 2 to all the instances running in all tyhe AZ.
+    2. Amonsg the instahnces selected in step 1, 
+        2.1 Determine which instance if terminated then the Allocation stratagy for Spoty or On-Demand will remian aligned.
+        2.2 If in step 2.1 all remian same then it determine which instances has the oldest Lauch Template or Laucnh Configuration
+        2.3 If in step 2.2 all remian same then detemine who is closest to the next billing hour
+        2.4 If in step 2.3 all remian same then close one among then randomly.
+    IMP: All above rule are apllid on Instance who do not have 'Scale-In Termination Protection' Enabled. because those instance can be terminated in scale-in.
+    
+   Customizing Termination Policy:-
+    You cannot cusomize the step 1 but you can customize the step 2 with below option:-
+      DEfault
+      AllocationStrategy
+      OldestLaunchTemplate
+      NewestInstance
+      ldestInstance
+    
     
 --------------------------------- 
  Scale-In Termination Protection:-
