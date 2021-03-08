@@ -57,7 +57,8 @@ Scalling Techniques:-
       3. Step Scalling
         - You set the spans of uasges and set how many instance will be launched or taken down if usage is in respective range.
           also you need to set the cloudwatch metrics that will be use for this. 
-          
+      4. SQS based scalling:-
+          See SQS.txt for this.
 
     Multiple Scalling Policy:-
       You can use more then one Scalling policy in Dynamic Scalling. You can use use 
