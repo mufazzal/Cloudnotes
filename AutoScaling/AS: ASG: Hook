@@ -17,6 +17,12 @@ CFR for hook:-
           - ATSRoleForSNSAccess
           - Arn  
 
+  There are 4 kind of Notification ASG can trigger:-
+    - autoscaling:EC2_INSTANCE_LAUNCH, 
+    - autoscaling:EC2_INSTANCE_LAUNCH_ERROR
+    - autoscaling:EC2_INSTANCE_TERMINATE
+    - autoscaling:EC2_INSTANCE_TERMINATE_ERROR
+
  ATSRoleForSNSAccess:
   This is the role created for ASG service(autoscaling.amazonaws.com) which give SNS:Publish permission of SNS topic. 
 
