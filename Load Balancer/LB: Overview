@@ -1,0 +1,11 @@
+ELB automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones. 
+It monitors the health of its registered targets, and routes traffic only to the healthy targets.
+
+There is 3 kind of this
+  - Application Load Balancers, 
+  - Network Load Balancers, 
+  - Gateway Load Balancers, 
+  - Classic Load Balancers
+  
+  
+
