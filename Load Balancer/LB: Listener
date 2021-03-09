@@ -1,0 +1,124 @@
+A listener is a process that checks for connection requests, using the protocol and port that you configure. 
+The rules that you define for a listener determine how the load balancer routes requests to its registered targets
+Listener must have one default rule that will have least priority. The rule with higher priority execute first and then the lesser one. 
+
+  In case of ALB:
+    The ALB can route the traffic to desired target after checking underline requets params. ALB work at Application layer so it has exposure to lot of request detail.
+    ALB support only two protocol and ports
+      HTTP and HTTPS (not TCP)
+      Port: 1-65535    
+  In case of NLB:
+    NLB work at layer 3 so it do not have access to the request param. so for NLB you can not have diffrent condition check in the NLB.
+    Even though if you have it then it will go in vain. 
+    NLB support below protocol and ports
+      Protocols: TCP, TLS, UDP, TCP_UDP
+      Ports: 1-65535
+
+  Default Rule:-
+    Each listener must have a default Rule. This rule do not have any condition.
+    The Action of This Rule execute if none other rule satisfy their conditions.
+    [ IN case of NLB only this rule execute always ]
+
+  Listener Rule:-
+    Each listener has a default rule, and you can optionally define additional rules. 
+    Listener Rule play Role 
+    Each rule consists of a 
+      - priority, 
+      - one or more actions, 
+      - one or more conditions
+      
+    Action:-
+      Once the condition is matched, ALB can perform below action
+      ALB can redirect the request to 
+        - fixed-response
+            The ALB will return the status code (2XX, 4XX, 5XX) with messageBody. 
+        - target
+            The ALB will redirect the traffic to EC2 target group
+        - redirect
+            Will redirect to another url
+
+    Condition:-
+      ALB can route the traffic based on one of below item in requets. You can use only one of then in each rule.
+        host-header
+        http-header
+        http-request-method
+        query-string
+        source-ip
+
+     You can take the diffrent action based on the condition match with gived params.
+     see  https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html
+
+-------------  
+
+It strucre like belo
+  ALB
+    Listener1 [HTTP:80]
+      - Rule 1
+        - Actions
+        - Conditions
+        - priority
+      - Rule 2
+        - Actions
+        - Conditions
+        - priority
+      - Rule 3
+        - Actions
+        - Conditions
+        - priority
+      - Default Action
+    Listener2 [HTTP:3000]
+      - Rule 1
+        - Actions
+        - Conditions
+        - priority
+      - Rule 2
+        - Actions
+        - Conditions
+        - priority
+      - Rule 3
+        - Actions
+        - Conditions
+        - priority
+      - Default Action     
+
+-------------
+ 
+  What if first filter not passed EG. the port and protocol of request in not passed
+  - then the request goes to not honoured.
+  What if second filter doens not pass
+  - then every first filter has the default action that will be performed.
+ 
+ Can a request satisfy two first pass:
+  - impossible because set of port and protocol is unique amont al listener.
+ Can a request satisfy two second pass:
+  - Yes. but they ran in order of priority so the first one who has high prority win.
+  
+------------------------
+  
+ X-Forwarded-** Header:
+   When LB redirect the traffic to other target like EC2 or url, the designated target will take the ALB as source
+   so the IP, port and protocol he receive is of ALB
+   Then how could the destination will know the Ip, port and protocol of orognal client
+   For this the ALB add three extra header in request
+      X-Forwarded-For
+      X-Forwarded-Proto
+      X-Forwarded-Port
+  This three will have informarion about how the client connected to the ALB
+  
+ 
+  
+----------------------------------------------------
+
+ The ALB do the filtering at two stage:-
+  First at Listener level based on Protocol and Port [AWS::ElasticLoadBalancingV2::Listener]
+  Second at Listener Rule level based on [AWS::ElasticLoadBalancingV2::ListenerRule]
+    host-header
+    http-header
+    http-request-method
+    query-string
+    source-ip
+  Once both are passed then the desired action will be taken.
+ The NLB do the filtering at only one stage:-
+  At Listener level based on Protocol and Port [AWS::ElasticLoadBalancingV2::Listener]  
+
+
