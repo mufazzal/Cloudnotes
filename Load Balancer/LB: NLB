@@ -1,0 +1,5 @@
+Network Load Balancers support connections from clients over 
+  VPC peering, 
+  AWS managed VPN, 
+  AWS Direct Connect, 
+  third-party VPN solutions
