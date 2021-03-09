@@ -11,28 +11,53 @@ There is 3 kind of this
 Think of ELB as the point where you recive and accept the traffic from internet or inside aws and then forwrd this traffic to the point of your choose.
 
 LB has below component common among any type
-  SG:-
-    The LB has the SG attach which allowinbound and outbound traffic for source and destination. 
-    Here you open the port and protocol of LB for incoming traffic and
-    allow flow of traffic at outbound for targets.
-  AZ:-
-    When you create the ALB, You must specify The AZ. Ror this you also have to select the one subnet from that AZ. 
-    LB will forward the traffic to that AZ only. so any target leave outside those AZs will not receve the traffic even though he is registered in targt group.
-    In case of ALB:
-        You have to select the Two Subnet, and each from diffrent AZ.   
-    
-  Components of ELB:-
-    1. Listener:-
-        Listeners check the incoming traffic to the LB on Port and Protocol.
-        Each listener have coulpe of listener rule that specify on which TARGET to route the traffic bsed on specified CONDITION in that rule. 
-        A LB can have the Multiple Listener.
-    2. Target Group 
-        The target group routes requests to one or more registered targets, such as EC2 instances, using the protocol and port number that you specify.
-        TG is attached to any particular Listener as default action or at any Listener Rule.
-        The listener route the traffic to port of this TG via specified protocol.
+  1. Listener:-
+      Listeners check the incoming traffic to the LB on Port and Protocol.
+      Each listener have coulpe of listener rule that specify on which TARGET to route the traffic bsed on specified CONDITION in that rule. 
+      A LB can have the Multiple Listener.
+  2. Target Group 
+      The target group routes requests to one or more registered targets, such as EC2 instances, using the protocol and port number that you specify.
+      TG is attached to any particular Listener as default action or at any Listener Rule.
+      The listener route the traffic to port of this TG via specified protocol.
+      
+  4. SG:-
+      The LB has the SG attach which allowinbound and outbound traffic for source and destination. 
+      Here you open the port and protocol of LB for incoming traffic and
+      allow flow of traffic at outbound for targets.
+      There is two SG comes in the picture when we use LB and EC2 as RG.
+      SG of ELB:-
+        Must allow client(the end user) to connect on ELBport and ELBprotocol on INBOUND.
+        Must allow OUTBOUD connection[for traffic and Health check port/protocol] from ELB to 'SGs of EC2' or 'IPs of EC2'
+        INBOUND
+          0.0.0.0/0     ELBPort1          ELBProtocol1     
+          0.0.0.0/0     ELBPort2          ELBProtocol2           
+        OUTBOUND
+          SG1 of EC2    TG1Port           TG1Protocol  
+          SG1 of EC2    TG1HealthPort     TG1Healthrotocol  
+          SG2 of EC2    TG2Port           TG2Protocol  
+          SG2 of EC2    TG2HealthPort     TG2Healthrotocol  
         
-    Flow:-
-      The Client go to url http://<DNS of ELB>:<port>
+      SG of EC2:-
+        Must allow 'SG of ELB' to connect over the TGPort and TGProtocol of EC2s.
+        Must allow 'SG of ELB' to connect over the Health Port and Protocol of EC2s.
+    AZ:-
+      When you create the ALB, You must specify The AZ. Ror this you also have to select the one subnet from that AZ. 
+      LB will forward the traffic to that AZ only. so any target leave outside those AZs will not receve the traffic even though he is registered in targt group.
+      In case of ALB:
+          You have to select the Two Subnet, and each from diffrent AZ.       
+
     
+    
+---------------------------------------------
+
+
+    Flow:-
+      The Client go to url <ELBProtocol>:<DNS of ELB>:<ELBPort>
+      he request reach to the ELB
+      ELB get its Listener and detemine which lister will honour the request for ELBProtocol and ELBPort
+      Now Listener will get it RULES in order of their PRIORITY.
+      It check the CONDITION in each RULE and the first one who matches will be chossed.
+      Now the traffic will be forwarded to TARGET of that chossed RULE 
+      Now target will handle the traffic at TGPort and TGProtocol.  
   
 
