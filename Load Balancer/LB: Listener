@@ -93,20 +93,6 @@ It strucre like belo
  Can a request satisfy two second pass:
   - Yes. but they ran in order of priority so the first one who has high prority win.
   
-------------------------
-  
- X-Forwarded-** Header:
-   When LB redirect the traffic to other target like EC2 or url, the designated target will take the ALB as source
-   so the IP, port and protocol he receive is of ALB
-   Then how could the destination will know the Ip, port and protocol of orognal client
-   For this the ALB add three extra header in request
-      X-Forwarded-For
-      X-Forwarded-Proto
-      X-Forwarded-Port
-  This three will have informarion about how the client connected to the ALB
-  
- 
-  
 ----------------------------------------------------
 
  The ALB do the filtering at two stage:-
