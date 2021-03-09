@@ -7,5 +7,32 @@ There is 3 kind of this
   - Gateway Load Balancers, 
   - Classic Load Balancers
   
+
+Think of ELB as the point where you recive and accept the traffic from internet or inside aws and then forwrd this traffic to the point of your choose.
+
+LB has below component common among any type
+  SG:-
+    The LB has the SG attach which allowinbound and outbound traffic for source and destination. 
+    Here you open the port and protocol of LB for incoming traffic and
+    allow flow of traffic at outbound for targets.
+  AZ:-
+    When you create the ALB, You must specify The AZ. Ror this you also have to select the one subnet from that AZ. 
+    LB will forward the traffic to that AZ only. so any target leave outside those AZs will not receve the traffic even though he is registered in targt group.
+    In case of ALB:
+        You have to select the Two Subnet, and each from diffrent AZ.   
+    
+  Components of ELB:-
+    1. Listener:-
+        Listeners check the incoming traffic to the LB on Port and Protocol.
+        Each listener have coulpe of listener rule that specify on which TARGET to route the traffic bsed on specified CONDITION in that rule. 
+        A LB can have the Multiple Listener.
+    2. Target Group 
+        The target group routes requests to one or more registered targets, such as EC2 instances, using the protocol and port number that you specify.
+        TG is attached to any particular Listener as default action or at any Listener Rule.
+        The listener route the traffic to port of this TG via specified protocol.
+        
+    Flow:-
+      The Client go to url http://<DNS of ELB>:<port>
+    
   
 
