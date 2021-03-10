@@ -51,14 +51,14 @@ LB has below component common among any type
 ---------------------------------------------
 
 
-    Flow:-
-      The Client go to url <ELBProtocol>:<DNS of ELB>:<ELBPort>
-      he request reach to the ELB
-      ELB get its Listener and detemine which lister will honour the request for ELBProtocol and ELBPort
-      Now Listener will get it RULES in order of their PRIORITY.
-      It check the CONDITION in each RULE and the first one who matches will be chossed.
-      Now the traffic will be forwarded to TARGET of that chossed RULE 
-      Now target will handle the traffic at TGPort and TGProtocol.  
+  Flow:-
+    The Client go to url <ELBProtocol>:<DNS of ELB>:<ELBPort>
+    he request reach to the ELB
+    ELB get its Listener and detemine which lister will honour the request for ELBProtocol and ELBPort
+    Now Listener will get it RULES in order of their PRIORITY.
+    It check the CONDITION in each RULE and the first one who matches will be chossed.
+    Now the traffic will be forwarded to TARGET of that chossed RULE 
+    Now target will handle the traffic at TGPort and TGProtocol.  
   
 
 ------------------------------------------------
@@ -80,4 +80,19 @@ LB has below component common among any type
 Cookies reserved by LB:-
   AWSALB, AWSALBAPP, or AWSALBTG
   
+-------------------------------
+
+Cross-region load balancing:-
+  As you know LB sent thetraffic to multiple AZ. and TG is spread oer many AZ.
+  When LB sent the traffic to AZ and then to TG. it may be possible some AZ has more instances then other.
+  EG:-
+    say AZ1 has 8 EC2 of TG1
+    and AZ2 has 2 EC2 of TG2
+    The LB will send 50% traffic to AZ1 and 50% to AZ2. so 8 EC2 of AZ1 will have 50/8 = 6.25% and 2 EC2 of AZ2 has 50/2 = 25% traffic.
+    to resolve this comes the cross-region balancing.
+    if its enable then LB will send 100/10 = 10% traffic to each EC2 across the both AZ. 
+    Actully in the background LB-node [ENI of LB in AZ2] in AZ2 send prpotional traffic to AZ1
+  For ALB this enable by default. for other two you have to enable it.
+  
+----------------------------------
 
