@@ -75,4 +75,9 @@ LB has below component common among any type
       X-Forwarded-Port
   This three will have informarion about how the client connected to the ALB
   
+-------------------------------
+
+Cookies reserved by LB:-
+  AWSALB, AWSALBAPP, or AWSALBTG
+  
 
