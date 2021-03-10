@@ -1,0 +1,10 @@
+target group is used to route requests to one or more registered targets. 
+When you create each listener rule, you specify a target group and conditions. When a rule condition is met, traffic is forwarded to the corresponding target group
+
+You define below thingsin the TG:-
+  For traffic:-
+    Port and Protocol for the traffic to route on Register targets
+  For Healthcheck:-
+    Port, Protocol, and HealthCheck Cinfiguration for targets
+
+Single EC2 can lies in multiple TG.
