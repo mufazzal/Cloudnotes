@@ -32,13 +32,38 @@ You define below things in the TG:-
   Overriding Port and Protocol for Target:-
     You can overried the Port and Protocol of TG for specific Target. So other targets in the TG will receive the traffic at TGPort:TGProtocol 
     but this one will receive at overrided one. 
-  
-  Deregistered instance VS Unheathy Instance:-
-    This are two diffrent thing. DEregiteration means instance no longer in the TG itself. 
-    but Unhealthy means that instance is not in healthy state but still part of TG. 
-      
-      
+---------------
+  Health Check for TG:-
+    Your Load Balancer periodically sends requests to its registered targets to test their status. These tests are called health checks.
+    
+    - Each load balancer node checks the health of each target, using the health check settings for the target groups with which the target is registered.
+    - After your target is registered, it must pass one health check to be considered healthy
+    
+    Health check settings:-
+      The load balancer sends a health check request to each registered target every 'HealthCheckIntervalSeconds' seconds, 
+      using the specified 'TG.HealthCheckPort', 'TG.HealthCheckPort', at path 'TG.HealthCheckPath'
+      for maximum waiting time of 'TG.HealthCheckTimeoutSeconds'
+      in each 'TG.HealthCheckIntervalSeconds'
+      If the health checks exceed 'TG.UnhealthyThresholdCount' consecutive failures, the load balancer takes the target out of service. 
+      But LB do not just deregister it instead it keep sending signal and 
+      When the health checks exceed 'TG.HealthyThresholdCount' consecutive successes, the load balancer puts the target back in service.
+    
+---------------
+  Target Status:-
+    There are the possible stage of a target
+     1. Initial: The Target registering or its initial Health Check is in progress.
+     2. Healthy: All ok and traffic is hadled by this target.
+     3. Unhealthy: The target did not respond to a health check or failed the health check
+     4. draining: The Target registering. and connections are draining from this target.
+     5. Unused:
+          The target is not registered with a target group either
+          - the target is in an Availability Zone that is not enabled, 
+          - or the target is in the stopped or terminated state.  
 
+     Unused instance VS Unheathy Instance:-
+       This are two diffrent thing. Unused means instance no longer in the TG itself. but Unhealthy means that instance is not in healthy state but still part of TG. 
+
+    
 ---------------
   Target as IP:-
     If you target is IP then you can
