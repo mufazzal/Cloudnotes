@@ -62,7 +62,30 @@ You define below things in the TG:-
 
      Unused instance VS Unheathy Instance:-
        This are two diffrent thing. Unused means instance no longer in the TG itself. but Unhealthy means that instance is not in healthy state but still part of TG. 
+--------------------------
 
+Sticky Session:-
+  This work only for ALB and CLB not for NLB.
+  you can use the sticky session feature to enable the LB to bind a user's session to a specific target. 
+  This ensures that all requests from the user during the session are sent to the same target.
+  Sticky sessions are enabled at the target group level.
+  Mshanics:-  
+    The first request of the user is redirected to target based on the Routing Algorithm.
+    The target then set some cookies for sesion.
+    Now next request from that session will deliver to target who handle the first request. irrespective of Routing Algorithm.
+  To determining how long your load balancer should consistently route the user's request to the same target you can use two approch
+    1. duration-based stickiness:-
+        The load balancer route the request with same cookie to same target(The one who handled the first request) for specified time.
+        For this AS use the Cookie name 'AWSALB' and set its value himself.
+        Use 'stickiness.enabled' and 'stickiness.lb_cookie.duration_seconds' attributes for this.
+    2. application-based stickiness:-
+        This give you better control. The target has to set the Cookie value on the first request. Next request with same value of that cookie will be deliver to same target.
+        Though LB also set the cookie name 'AWSALBAPP' for is use.
+        Use below param for this
+          stickiness.enabled
+          stickiness.type
+          stickiness.app_cookie.cookie_name
+          stickiness.app_cookie.duration_seconds
     
 ---------------
   Target as IP:-
@@ -72,8 +95,14 @@ You define below things in the TG:-
     - Private IP of any Peered VPC
     - Onprmise resource connected with Direct-connet or Site-to-site VPN 
     - not use Public routable IP
+---------------
 
-  
+Target as LAmbda:-
+    It is also possible that to have a Target group whise traget are lambda. LB will invoke tha lambda on that requests.
+    Elastic Load Balancing must have permissions to invoke the Lambda function.
+---------------------
+
+
 
 
 Single EC2 can lies in multiple TG.
