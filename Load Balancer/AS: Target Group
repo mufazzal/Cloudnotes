@@ -5,6 +5,50 @@ You define below things in the TG:-
   1. Routing configuration:-
       You specify the Port and Protocol at the tile of creation the TG. 
       load balancer routes requests to its targets using this protocol and port number.
-      Port and Protocol are useless if tarhet type is 'Lambda' 
+      Port and Protocol are useless if target type is 'Lambda'.
+  2. Target Type:-
+      This define what kind of target this Target group can registed. In any TG there is only single type of Target Type can be registered.
+      it could be
+      - EC2
+      - IP [Private only, not Public]
+      - Lambda [Does Not work with NLB ]
+  3. Routing Algorithm:-
+      This define how the Target will be selected for traffic. Ir coud be 'round_robin' or 'least_outstanding_requests'. The default is round_robin.
+      You can control it by 'load_balancing.algorithm.type'.
+       - Least outstanding requests is good when the requests for your application vary in complexity or your targets vary in processing capability. 
+       - Round robin is a good choice when the requests and targets are similar, or if you need to distribute requests equally among targets
+      If you enable sticky sessions, the routing algorithm of the target group is overridden after the initial target selection
+  4. Slow Start:-
+      When you registed the target with TG and it passes it Health Check, the Target(of any type) will start reciving the traffic. But if you enable the slow start
+      then it will give the Target some time to warm itself up after passing out from Health Check.
+      This is control by 'slow_start.duration_seconds'
+  5. Deregistration delay:-
+      When you deregister the target, it may be possible that there some unhoured request pending in its queue. you can set some valyue of 'Deregistration delay' so that
+      when you deregister it, it will wait for somtime before the target is reregistering from TG.
+      By default it is 300 sec. but you can change it via 'deregistration_delay.timeout_seconds'
+      
+--------------      
+  
+  Overriding Port and Protocol for Target:-
+    You can overried the Port and Protocol of TG for specific Target. So other targets in the TG will receive the traffic at TGPort:TGProtocol 
+    but this one will receive at overrided one. 
+  
+  Deregistered instance VS Unheathy Instance:-
+    This are two diffrent thing. DEregiteration means instance no longer in the TG itself. 
+    but Unhealthy means that instance is not in healthy state but still part of TG. 
+      
+      
+
+---------------
+  Target as IP:-
+    If you target is IP then you can
+    - use any private IP in CIDR of VPC
+    - Private IP of instance or RDS
+    - Private IP of any Peered VPC
+    - Onprmise resource connected with Direct-connet or Site-to-site VPN 
+    - not use Public routable IP
+
+  
+
 
 Single EC2 can lies in multiple TG.
