@@ -5,8 +5,7 @@ There is 3 kind of this
   - Application Load Balancers, 
   - Network Load Balancers, 
   - Gateway Load Balancers, 
-  - Classic Load Balancers
-  
+  - Classic Load Balancers  
 
 Think of ELB as the point where you recive and accept the traffic from internet or inside aws and then forwrd this traffic to the point of your choose.
 
@@ -44,12 +43,9 @@ LB has below component common among any type
       When you create the ALB, You must specify The AZ. Ror this you also have to select the one subnet from that AZ. 
       LB will forward the traffic to that AZ only. so any target leave outside those AZs will not receve the traffic even though he is registered in targt group.
       In case of ALB:
-          You have to select the Two Subnet, and each from diffrent AZ.       
-
-    
-    
+          You have to select the Two Subnet, and each from diffrent AZ.      
+        
 ---------------------------------------------
-
 
   Flow:-
     The Client go to url <ELBProtocol>:<DNS of ELB>:<ELBPort>
@@ -58,11 +54,9 @@ LB has below component common among any type
     Now Listener will get it RULES in order of their PRIORITY.
     It check the CONDITION in each RULE and the first one who matches will be chossed.
     Now the traffic will be forwarded to TARGET of that chossed RULE 
-    Now target will handle the traffic at TGPort and TGProtocol.  
-  
+    Now target will handle the traffic at TGPort and TGProtocol.    
 
 ------------------------------------------------
-
   
  X-Forwarded-** Header:
    This is applicable for ALB only not for NLB.
@@ -81,6 +75,22 @@ Cookies reserved by LB:-
   AWSALB, AWSALBAPP, or AWSALBTG
   
 -------------------------------
+
+LB and ENI: 
+  just like an ec2 the networking unit of LB is ENI. The SG of LB is also attached to that ENI.
+  if LB can span to N number of AZ then it will have N number of ENI. 
+  also each ENI will have an public ip attached to it if it is internet facing.
+    Incase of ALB: The ALB always need at least two subnet each in diffrent AZ. so it at least has 2 ENI in diffrent AZ.
+    
+-------------------------------
+LB - Traget - AZ relations:-
+  When you create the LB you first select the AZ where the LB will work. in background AWS place an ENI in each AZ(actully in selected subnet of AZ) you selected.
+  It may be possiblr that target group spread over AZ1, AZ2, AZ3 and AZ4. But LB is attached in az1 and az2 only.
+  in that case even though target group has instances running in AZ3 and AZ4 and LB has this target group listening still LB will 
+  not be able to route any traffic to instances in AZ3, AZ4.
+  ALB route traffic equally in all the AZ and after that this traffic is distributed in targets.
+  
+---------------
 
 Cross-region load balancing:-
   As you know LB sent thetraffic to multiple AZ. and TG is spread oer many AZ.
