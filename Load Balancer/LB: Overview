@@ -78,8 +78,7 @@ Cookies reserved by LB:-
 
 LB and ENI: 
   just like an ec2 the networking unit of LB is ENI. The SG of LB is also attached to that ENI.
-  if LB can span to N number of AZ then it will have N number of ENI. 
-  also each ENI will have an public ip attached to it if it is internet facing.
+  if LB can span to N number of AZ then it will have N number of ENI. Also each ENI will have an Pivate IPv4 attached to it.
     Incase of ALB: The ALB always need at least two subnet each in diffrent AZ. so it at least has 2 ENI in diffrent AZ.
     
 -------------------------------
