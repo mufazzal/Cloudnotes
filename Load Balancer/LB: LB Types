@@ -7,6 +7,7 @@ Benifits of NLB
       AWS managed VPN, 
       AWS Direct Connect, 
       third-party VPN solutions
+   - ENI of NLB can have the EIP attached which do not change for lifetime of NLB.
 
 Limits of NLB
   - No fenct routing based on HTTP/HTTPS Header/Query/Path 
