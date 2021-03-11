@@ -6,6 +6,18 @@ ASG can determine the health status of an instance using one or more of the foll
     Instances for groups that use ELB health checks are considered healthy if they are in the running state and they are reported as healthy by the load balancer
   - Your custom health checks.
   
+Initial Health Check flow:-
+  > Scalling Policy dictate the Capacity increase
+  > ASG launch the new instances
+  > If LB is also selected then instance also regitered in the target.
+  > Health check grace priode start now
+  > If Health chech type is EC2 then ASG will chekh instance health till 
+  > If Health chech type is ELB then ASG will chekh instance and Load balacner health chech both.
+  > Idily you Grace priode elapse when this health check produce result
+  > if in the Grace priode health check passed then the instance comes in 'InService'
+  > if in the Grace priode health check failed then the instance replaced with new
+  > if in the Grace priode elapse then the instance replaced with new
+  
   
 Health check grace period:-
   This is applicabe for ELB and EC2 both kind of Health Check.
