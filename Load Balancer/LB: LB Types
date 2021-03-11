@@ -1,0 +1,25 @@
+NLB work on layer 3 and so it has its own advantages and limitations
+Benifits of NLB
+  - It operate on Layer 3 so it can handle millions of request per sec.
+  - Support for static IP addresses for the load balancer. You can also assign one Elastic IP address per AZ(subnet) enabled for the load balancer
+  - Network Load Balancers support connections from clients over 
+      VPC peering, 
+      AWS managed VPN, 
+      AWS Direct Connect, 
+      third-party VPN solutions
+
+Limits of NLB
+  - No fenct routing based on HTTP/HTTPS Header/Query/Path 
+  - NLB do not support the SG.
+  - Cannot route traffic to Lambda
+  - Cannot return the custom HTTP Response.
+  - You canot remove AZ after the creation of NLB. though you can add new one.
+
+Specific to NLB:-
+  - You can register the target of type Ip and EC2. 
+    if it is IP  then the IP address of Client will not be preserved. and the source IP address will be of LB itself
+    if it is EC2 then the IP address of Client will be preserved. and the source IP address will be of the client
+  - NLB route the traffic to Default Action of the Listener. Other Listener rule are useless for NLB.
+
+
+  
