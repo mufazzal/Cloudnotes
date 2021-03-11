@@ -82,17 +82,27 @@ LB and ENI:
 
   For internet-facing load balancers. It will have
       - A Private IP and Private Routable DNS name. addresses are assigned from the subnet CIDR 
-      - A Public IP and Public Routable DNS name. addresses of the nodes are assigned by AWS
+      - A Public IP and Public Routable DNS name. addresses of the nodes are assigned by AWS 
 
   For internal load balancers, It will have
       - A Private IP and Private Routable DNS name. addresses are assigned from the subnet CIDR    
-  Also The Public/Private IP assign to ALB ENIs are suseptible to change overtime so its good idea if you use the DNS name.
+  All above IP either for NLB or ALB either for internet facing or internal facing either Private or Public can change over time because they are not Elastic IP.
+  so its good idea if you use the DNS name.
   
   Incase of NLB: 
-    Each AZ has an ENI. and you can also attach the elastic IP to it.
+    Each AZ has an ENI. When you create an internet-facing load NLB, you can optionally 
+      - specify one Elastic IP address per subnet. 
+      - If you do not choose one of your own Elastic IP addresses, Elastic Load Balancing provides one Elastic IP address per subnet for you. 
+    These Elastic IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer. 
+    You cannot change these Elastic IP addresses after you create the load balancer
   Incase of ALB: 
-    ALB can or cannot have ENI in each enbled AZ.
-
+    ALB can or cannot have ENI in each enbled AZ. You canot use Elastic IP with this.  
+    ALB and issue of static IP:-
+      ALB cannot have the elastic IP assosiated. and public IP assosiated can change over time.
+      to have the elastic IP for you ALB you either
+      - use NLB and place the ALB behind it.
+      - Use Global Accelerator.    
+    
 -------------------------------
 LB - Traget - AZ relations:-
   When you create the LB you first select the AZ where the LB will work. in background AWS place an ENI in each AZ(actully in selected subnet of AZ) you selected.
@@ -116,4 +126,7 @@ Cross-region load balancing:-
   For ALB this enable by default. for other two you have to enable it.
   
 ----------------------------------
+
+
+
 
