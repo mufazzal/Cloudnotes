@@ -15,6 +15,7 @@ Limits of NLB
   - Cannot route traffic to Lambda
   - Cannot return the custom HTTP Response.
   - You canot remove AZ after the creation of NLB. though you can add new one.
+  - For internet-facing load balancers, the subnets that you specify must have at least 8 available IP addresses
 
 Specific to NLB:-
   - You can register the target of type Ip and EC2. 
