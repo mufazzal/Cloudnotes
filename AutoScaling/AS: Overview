@@ -5,8 +5,7 @@ It has 3 main component
   2. Launch Template(LT) or Launch Configuration(LC):-
       Define how a indivisual instance look. also what will be the purchase model.
   3. Scalling Policy:-
-      Define scalling based on event (Dynamic) or schedule.
-     
+      Define scalling based on event
   
 Benefits:
   Better fault tolerance: 
