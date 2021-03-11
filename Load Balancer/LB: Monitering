@@ -1,0 +1,20 @@
+
+1. By Cloudwatch: 
+  AWS/ApplicationELB has below metrics in CW for ELB
+    - ActiveConnectionCount
+    - HTTPCode_ELB_4XX_Count
+    - HTTPCode_ELB_5XX_Count
+    - RequestCount
+      etc
+  AWS/ApplicationELB has below metrics in CW for TG
+    - HealthyHostCount
+    - UnHealthyHostCount
+    - HTTPCode_Target_2XX_Count
+    etc.
+   Dimensions are:-
+    AvailabilityZone, LoadBalancer, TargetGroup
+2. Access Log:-
+  You can enable this feature for detail monitoring of request in the ELB. you have to set the S3 bucket wherein this logs will be delivered.
+  This is free but you will be charged for stprage in S3.
+  This give pocket level info of incpoming and outgoing traffic on layer 3.
+3. X-Amzn-Trace-Id: ALB add or udpdate the Header 'X-Amzn-Trace-Id' in the request from client to targets. You can use this for debugnig    
