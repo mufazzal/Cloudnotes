@@ -1,7 +1,4 @@
-This will set the scenario and capacity, that in which condition we should launch the instances and how many of them.
-
-In the LT/LC you define the params of Instance and its purchase model. Those values are very specific to instance.
-But in ASG you values that are collectivly apply on them.
+An Auto Scaling group contains a collection of Amazon EC2 instances that are treated as a logical grouping for the purposes of automatic scaling and management
 
 In ASG you set
   Param related Instances Infrastructre:-
