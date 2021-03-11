@@ -3,3 +3,5 @@ Network Load Balancers support connections from clients over
   AWS managed VPN, 
   AWS Direct Connect, 
   third-party VPN solutions
+
+NLB do not support the SG.
