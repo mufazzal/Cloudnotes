@@ -79,8 +79,17 @@ Cookies reserved by LB:-
 LB and ENI: 
   just like an ec2 the networking unit of LB is ENI. The SG of LB is also attached to that ENI.
   if LB can span to N number of AZ then it will have N number of ENI. Also each ENI will have an Pivate IPv4 attached to it.
-    Incase of ALB: The ALB always need at least two subnet each in diffrent AZ. so it at least has 2 ENI in diffrent AZ.
-    
+
+  For internet-facing load balancers. It will have
+      - A Private IP and Private Routable DNS name. addresses are assigned from the subnet CIDR 
+      - A Public IP and Public Routable DNS name. addresses of the nodes are assigned by AWS
+
+  For internal load balancers, It will have
+      - A Private IP and Private Routable DNS name. addresses are assigned from the subnet CIDR    
+  
+  Incase of ALB: 
+    The ALB always need at least two subnet each in diffrent AZ. so it at least has 2 ENI in diffrent AZ.
+    Also The Public/Private IP assign to ALB ENIs are suseptible to change overtime so its good idea if you use the DNS name.
 -------------------------------
 LB - Traget - AZ relations:-
   When you create the LB you first select the AZ where the LB will work. in background AWS place an ENI in each AZ(actully in selected subnet of AZ) you selected.
