@@ -7,7 +7,7 @@ EBS:-
 	EBs is very useful in system where you need lot of read and write(by throughput) on certain DB or filesystem.
 	
 	Features:-
-		1. Data Redundency: Behind the scene AWs replicated the EBS to diffrent hardwares in case one component failed for improved data redundency
+		1. Data Redundency: Behind the scene AWs replicated the EBS to diffrent hardwares(In same AZ) in case one component failed for improved data redundency
 		2. In live enviormet you can change below properties of EBS whithot detaching from instance
 				Storage type, Storage size, IOPS capacity.
 		3. Encryption: This is well integrated with KMS for encryption at rest. 
