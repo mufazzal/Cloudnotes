@@ -49,6 +49,13 @@ Type of EBS :-
 		In some of the instance type you can enable this feture called 'EBS-Optimization' at launch or after launch.
 		If you enable this then EC2 make some karnel level changes to give more dadicated CPU time to EBS opereation to get max out of attached EBS.
 
+	Multi Attach Enable Volume:-
+		There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
+		It Enables you to attach a single Provisioned IOPS SSD (io1) volume to up to 
+			16 Nitro-based instances that are in the same Availability Zone
+		- Multi-Attach enabled volumes can't be created as boot volumes
+		- You can't enable or disable Multi-Attach after volume creation.
+		-	You can't change the volume type, size, or Provisioned IOPS of a Multi-Attach enabled volume.
 -------------------------------
 
 IOPS Calculation for EBS:-
