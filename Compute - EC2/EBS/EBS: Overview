@@ -40,8 +40,16 @@ Type of EBS :-
     IOPS					3 to 16000 IOPS		64000 IOPS		500IOPS
     Throughput		250MiB/sec				1000MiB/sec		500MiB/sec
     Multi-attach	No								Yes or No			No	
--------------------------------
 
+
+	EBS Optimized instance:-
+		Suppose you wants to use the provision IOPS for high IOPS operation. The EBS you have provision give you high IOPS and throuput 
+		But what about the compute unit. it may be possible that this compute unit do not have way to take advatage of this EBS speed.
+		For this comes a EBS-Optimized EBS
+		In some of the instance type you can enable this feture called 'EBS-Optimization' at launch or after launch.
+		If you enable this then EC2 make some karnel level changes to give more dadicated CPU time to EBS opereation to get max out of attached EBS.
+
+-------------------------------
 
 IOPS Calculation for EBS:-
 
@@ -91,3 +99,4 @@ IOPS Calculation for EBS:-
 	Ultra high IOPS:-
 		If you need IOPS > 64000 or in milliions iops oer sec. 
 		Then you have to go for InstanceStore.
+
