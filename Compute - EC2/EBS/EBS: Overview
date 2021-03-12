@@ -1,0 +1,43 @@
+The EBS is like a Hard disk device attach to the EC2. This is Raw formatted BLOCK STORAGE. 
+The EBS is the Memory attached to the EC@ at extremly nearest location.
+The EBS can be used (without any alternative) for installing OS, DB, Software on EC2 machine.
+An EBS can be attach to ant EC2 that lie in same AZ only. 
+becoz it need to have extremly low latency between EC2 processer and Physical EBS device.
+EBs is very useful in system where you need lot of read and write(by throughput) on certain DB or filesystem.
+
+Features:-
+  1. Data Redundency: Behind the scene AWs replicated the EBS to diffrent hardwares(In same AZ) in case one component failed for improved data redundency
+  2. In live enviormet you can change below properties of EBS whithot detaching from instance
+      Storage type, Storage size, IOPS capacity.
+  3. Encryption: This is well integrated with KMS for encryption at rest. 
+
+Why not S3:-
+  S3 is suitable for storing objects. and it have way to low throuhput and high latency when compare to EBS.
+
+Type of EBS :-
+  1. SSD
+      1.1 GP2 : General Purpos SSD:- 
+          balanced price, good performance
+          Best for : general purpose, Virtual desktops, System boot volumes, Development and test environments
+      1.2 IO1 : Provisioned IOPS SSD:- 
+          Highest performance, High price
+          Best for: mission-critical, low latancy and high throuput work. best for main DB's of your app
+   2. Megnetic
+      2.1  ST1 :  Throughput optimize 
+            Low cost - frequently accessed
+            Usage: Streaming workloads requiring consistent, fast throughput at a low price
+            EG. Big data, Data warehouses, Log processing
+     2.2   SC1 :  Cold HDD  
+            Lowest cost - less frequently accessed 
+            Best for file server.	
+     2.3 	 EBS Magnetic:
+              Legacy
+
+    IMP:-
+      SC1 and EBS Magnetic cannot be used as root device. 
+
+    #							GP2								IO1						ST1									SC1
+    IOPS					3 to 16000 IOPS		64000 IOPS		500IOPS
+    Throughput		250MiB/sec				1000MiB/sec		500MiB/sec
+    Multi-attach	No								Yes or No			No	
+
