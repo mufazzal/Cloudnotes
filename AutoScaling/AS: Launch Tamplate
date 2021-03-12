@@ -5,8 +5,8 @@ The launch tamplate has all the detail related to Instance that going tolaunched
 - ENI if any
 etc.
 
-You can create multiple version of LT.
-
+You can create multiple version of LT. 
+You can either use default version or any specific version of LT in the ASG.
 In launch tamplate you chosse single value of Instance type and Pricing model. but in the ASG later you have multiple values of those which will override them. 
 
 
@@ -18,6 +18,18 @@ LC VS LT:-
     - With LT you can use multiple instance type in you ASG with LC its not possible.
     - With LT you can also use Volume Tagging, elastic inference, Dedicated Hosts.
     - In single ASG you can use multiple LT but only one LC.
+    
+  Operational Advatange on LT over LC:-
+    If you are using the LC in the ASG then any changes in the instance configuration is not possible. because youi cannot edit the LC.
+    and if you wants to change the EC2 configuration then first you have to create the new LC and update the ASG to use this LC.
+    So changes are a two place first to create new LC then updating ASG.
+    
+    If you are using the LT then you have option to use either
+    - Specific version of LT
+    - or Default version of LT.
+    Now if you wants to change any configuration of EC2 then you just have to create the new version of LT. and then
+    - If you are ASG is Default version of LT. then set the new version of template as default one.
+    - If you are ASG is specific version of LT. then replace the current version in the ASG with newly created version.
     
     You can copy the LC into the LT. 
     You can change the ASG to use LT instead of LC. 
