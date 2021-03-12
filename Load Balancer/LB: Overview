@@ -43,7 +43,11 @@ LB has below component common among any type
       LB will forward the traffic to that AZ only. so any target leave outside those AZs will not receve the traffic even though he is registered in targt group.
       In case of ALB:
           You have to select the Two Subnet, and each from diffrent AZ.      
-        
+      Subnet of AZ:-
+        You must ensure that if you are going to have the 
+          - Internet facing LB then the Subnet must be public
+          - Internal facing LB then the Subnet could be public or private
+          
 ---------------------------------------------
 
   Flow:-
