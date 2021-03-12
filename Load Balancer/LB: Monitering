@@ -14,7 +14,8 @@
    Dimensions are:-
     AvailabilityZone, LoadBalancer, TargetGroup
 2. Access Log:-
-  You can enable this feature for detail monitoring of request in the ELB. you have to set the S3 bucket wherein this logs will be delivered.
-  This is free but you will be charged for stprage in S3.
-  This give pocket level info of incpoming and outgoing traffic on layer 3.
-3. X-Amzn-Trace-Id: ALB add or udpdate the Header 'X-Amzn-Trace-Id' in the request from client to targets. You can use this for debugnig    
+    You can enable this feature for detail monitoring of request in the ELB. you have to set the S3 bucket wherein this logs will be delivered.
+    This is free but you will be charged for stprage in S3.
+    This give pocket level info of incpoming and outgoing traffic on layer 3.
+3. Request Tracing
+    X-Amzn-Trace-Id: ALB add or udpdate the Header 'X-Amzn-Trace-Id' in the request from client to targets. You can use this for debugnig    
