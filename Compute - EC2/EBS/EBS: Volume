@@ -25,7 +25,7 @@ Changing Volume configuration:-
 Attaching Volume:-
   For attaching you will need below things-
     1. the volume id: The volume that you wants to attach.
-    2. Instance Id: the instance on which you wants to attach.
+    2. Instance Id: the instance on which you wants to attach. it must be from same AZ
     3. Device:-
         The device is the mount point where the HDD will be mounted. this is like the entry point for this disk.
         The list of avialable mount points are at
