@@ -98,6 +98,14 @@ Volume:-
 				If ES device is root then you first have to stop the instance then detach it.
 				if it is non root then you do not have to stop theinstance
 		
+Limitation on EBS volume Size:-
+	Therotically you can have 16TIB of volume size. but this varies depending on
+	1. Service limitations
+	2. Partitioning schemes
+	3. Data block sizes
+	
+---------------------------------------------------		
+		
 Instance Store:-
 	The alternative to EBS-Volume is to Instance Store.
 	With any Ec2 you can either use Instance store or EBS. not both
@@ -114,8 +122,6 @@ Instance Store:-
 			1. Distribute the data on the instance stores across multiple AZs
 			2. Back up critical data from the instance store volumes to persistent storage on a regular basis
 
-	
-
 Multi Attach Enable Volume:-
 	There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
 	It Enables you to attach a single Provisioned IOPS SSD (io1) volume to up to 
@@ -123,7 +129,6 @@ Multi Attach Enable Volume:-
 	- Multi-Attach enabled volumes can't be created as boot volumes
 	- You can't enable or disable Multi-Attach after volume creation.
 	-	You can't change the volume type, size, or Provisioned IOPS of a Multi-Attach enabled volume.
-
 
 Full process of create->attach->mount->[In Use]->unmount->detach->delete the EBS volume on EC2-linux>
 		see 'EBS - linux full cycle.txt'
@@ -166,9 +171,8 @@ EBS-Snapshot VS Volume:-
 	The EBS-Snapshot is the photo or bit-by-bit copy of volume at a time of taking that snap. This is stored in S3 but managed in Ec2.
 	The Volume is the real hard-distk device that either attached toEc2 or ready-to-attached to EC2.
 	
+------------------
 
-
------------------
 
 IOPS Calculation for EBS:-
 
