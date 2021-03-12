@@ -1,0 +1,60 @@
+The volume is actual Hard disk in the system. 
+You can create volume either from snapshot or without it.
+The Volume is ready-to-attach hardisk device that can be attach to Ec2. 
+
+EC2 region and Volume Region:-
+  Both of them are created in AZ of your choice. both of them must lies in same AZ otherwise there will be hell of the latancy
+
+Root-Volume:-
+  When you create a EC2 the root volume will automatically be created. you can though change it if wants.
+
+Creating Volume:-
+  you can create the volume with below choices
+  1. AZ: where you wants to create it. remember you will be able attach this volume to only EC2s which lie in this AZ.
+  2. EBS-Snap: if you wants you can choose the snapshot to get the initial data.
+  3. Type
+  4. Size
+  5. Encryption
+When you create a volume but do no attah it to any EC2 it like you buy a Hard disk but not attachh it to Computer.
+You will be charged for allocating EBS wrt its type and storage. 
+
+Changing Volume configuration:-
+  you can dynamically increase size, modify the provisioned IOPS capacity, and change volume type on live production volumes.
+  You do not even have to detach the volume ot stop the instance
+
+Attaching Volume:-
+  For attaching you will need below things-
+    1. the volume id: The volume that you wants to attach.
+    2. Instance Id: the instance on which you wants to attach.
+    3. Device:-
+        The device is the mount point where the HDD will be mounted. this is like the entry point for this disk.
+        The list of avialable mount points are at
+          https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html
+        most of the AMI we use are HVM(not PV) and attached HDD are EBS (not instance store) so the range of device mapping are
+        /dev/sd[f-p]
+        For root device the resrved lovcation are generally
+        /dev/sda1 or /dev/xvda
+        But it could vary by AMI type.
+      - EBS volume can be attach only on the stopped instances.
+
+  Detaching Volume:-
+      If ES device is root then you first have to stop the instance then detach it.
+      if it is non root then you do not have to stop theinstance
+
+Limitation on EBS volume Size:-
+  Therotically you can have 16TIB of volume size. but this varies depending on
+  1. Service limitations
+  2. Partitioning schemes
+  3. Data block sizes
+
+On EC2 termination: 
+  The root EBS device is by default deleted.
+  But any other EBS device will not be deleted by default.
+
+Encryption:-
+  You can choose to encrypt the volume at time of creation. the snap created from encrrypted are also encrypted.
+  you can use AWS managed CMK or cutomer managed CMK for encryption.
+  Not all the instance type can support the Encryption of EBS.  
+
+Monitoring:-
+  Performance metrics, such as bandwidth, throughput, latency, and average queue length is free in cloudwatch.	
