@@ -32,12 +32,14 @@ How to make it-
     See at https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html#how_snapshots_work
 
   Creating Volune from Snapshot:-
-    You can create the Volume in from the Snapshot in the same region where snapshot lies.
-    You can create volune in any AZ but in same region.
-    Volumes created from snapshots load lazily in the background. 
-      so there is no need to wait for all of the data to transfer from S3 to your volume before the instance can start accessing an attached volume and all its data
-      so in start you may face some latency in IO. Volume performance is achieved after all blocks are downloaded and written to the volume
-
+    - You can create the Volume in from the Snapshot in the same region where snapshot lies.
+    - You can create volune in any AZ but in same region.
+    - Volumes created from snapshots load lazily in the background. 
+        so there is no need to wait for all of the data to transfer from S3 to your volume before the instance can start accessing an attached volume and all its data
+        so in start you may face some latency in IO. Volume performance is achieved after all blocks are downloaded and written to the volume
+    - If snapshot were encrypted then created volume will also be encrypted.
+    
+    
 EBS-Snapshot VS Volume:-
 The EBS-Snapshot is the photo or bit-by-bit copy of volume at a time of taking that snap. This is stored in S3 but managed in Ec2.
 The Volume is the real hard-distk device that either attached toEc2 or ready-to-attached to EC2.
