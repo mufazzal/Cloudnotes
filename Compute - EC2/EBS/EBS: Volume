@@ -56,5 +56,17 @@ Encryption:-
   you can use AWS managed CMK or cutomer managed CMK for encryption.
   Not all the instance type can support the Encryption of EBS.  
 
+
+Multi Attach Enable Volume:-
+  There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
+    - Multi-Attach is supported exclusively on Provisioned IOPS SSD volumes.
+    - Multi-Attach is available in the following Regions only:
+      volumes—us-east-2, eu-central-1, and ap-south-1, us-east-1, us-west-2, eu-west-1, and ap-northeast-2.
+
+
+  - Multi-Attach enabled volumes can't be created as boot volumes
+  - You can't enable or disable Multi-Attach after volume creation.
+  -	You can't change the volume type, size, or Provisioned IOPS of a Multi-Attach enabled volume.
+
 Monitoring:-
   Performance metrics, such as bandwidth, throughput, latency, and average queue length is free in cloudwatch.	
