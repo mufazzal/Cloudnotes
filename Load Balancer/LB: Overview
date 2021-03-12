@@ -1,7 +1,7 @@
 ELB automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones. 
 It monitors the health of its registered targets, and routes traffic only to the healthy targets.
 
-There is 3 kind of this
+There is 3 kind of this 
   - Application Load Balancers, 
   - Network Load Balancers, 
   - Gateway Load Balancers, 
@@ -13,14 +13,13 @@ LB has below component common among any type
   1. Listener:-
       Listeners check the incoming traffic to the LB on Port and Protocol.
       Each listener have coulpe of listener rule that specify on which TARGET to route the traffic bsed on specified CONDITION in that rule. 
-      A LB can have the Multiple Listener.
+      A LB can have the Multiple Listener. And each listener can have the multiple rule with a one default rule
   2. Target Group 
       The target group routes requests to one or more registered targets, such as EC2 instances, using the protocol and port number that you specify.
       TG is attached to any particular Listener as default action or at any Listener Rule.
-      The listener route the traffic to port of this TG via specified protocol.
-      
+      The listener route the traffic to port of this TG via specified protocol.      
   4. SG:-
-      The LB has the SG attach which allowinbound and outbound traffic for source and destination. 
+      The LB has the SG attach which allow inbound and outbound traffic for source and destination. 
       Here you open the port and protocol of LB for incoming traffic and
       allow flow of traffic at outbound for targets.
       There is two SG comes in the picture when we use LB and EC2 as RG.
@@ -78,12 +77,10 @@ Cookies reserved by LB:-
 
 LB and ENI: 
   just like an ec2 the networking unit of LB is ENI. The SG of LB is also attached to that ENI.
-  if LB can span to N number of AZ then it will have N number of ENI. Also each ENI will have an Pivate IPv4 attached to it.
 
   For internet-facing load balancers. It will have
       - A Private IP and Private Routable DNS name. addresses are assigned from the subnet CIDR 
       - A Public IP and Public Routable DNS name. addresses of the nodes are assigned by AWS 
-
   For internal load balancers, It will have
       - A Private IP and Private Routable DNS name. addresses are assigned from the subnet CIDR    
   All above IP either for NLB or ALB either for internet facing or internal facing either Private or Public can change over time because they are not Elastic IP.
