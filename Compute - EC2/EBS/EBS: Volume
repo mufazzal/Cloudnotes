@@ -35,7 +35,7 @@ Attaching Volume:-
         For root device the resrved lovcation are generally
         /dev/sda1 or /dev/xvda
         But it could vary by AMI type.
-      - EBS volume can be attach only on the stopped instances.
+      - EBS volume can be attach only on the running instances.
 
   Detaching Volume:-
       If ES device is root then you first have to stop the instance then detach it.
