@@ -1,22 +1,12 @@
 You can take the snapshot of any Attached EBS-volume at any point of time. The snapshot is just a bit-by-bit copy of 
 attached volume. this copied file then stored in S3 with some special formate.
 The snapshot will just preserve the state of EBS at the point of taking the snap.
-The snapshot are stored in S3(in the same region) but can be viewed in Ec2 > Snapshots.
-How to make it-
-  EC2 > EBS > Snapshot > Create
-  Here you can create by Instance or by Volume.
-  IF you choose 'Volume', then a copy of that EBS volume will be created in S3.
-  Volume belongs to a single Disk so a one and only one snap shot will be created.
-  IF you choose the Instance then, the instance can have multiple EBS(root + other) attached to it.
-  So here you can create snapshot of each of them or select from it.
-  So one or more than one snap will be created.
-
-  Snapshot is mapped to EBS disk. not the EC2 instance.
-
-  By CLI:-
-    use command 'create-snapshots' for creating via EC2 instance
-    use command 'create-snapshot' for creating via volume
-
+  - The snapshot are stored in S3(in the same region) but can be viewed in Ec2 > Snapshots.
+  - To take snap of Root device , You have to stop it first
+  - You cannot create the Snapshot from Hibernated instance- 
+  - Although you can take a snapshot of a volume while a previous snapshot of that volume is in the pending status, 
+    but it can result in reduced volume performance until the snapshots complete
+  
   EBS Snapshot and Region:-
     You can create the napshot from the EBS-Volume, from EC2 itself or from another EBS-snapshot. 
     The snapshot created from those will stored in S3 and avilable to the region of its creator device(EC2, Volume, EBS-snap).
@@ -38,8 +28,17 @@ How to make it-
         so there is no need to wait for all of the data to transfer from S3 to your volume before the instance can start accessing an attached volume and all its data
         so in start you may face some latency in IO. Volume performance is achieved after all blocks are downloaded and written to the volume
     - If snapshot were encrypted then created volume will also be encrypted.
-    
-    
+
+  Multi Volume Snapshot:-
+    You can create the snapshot of all the atached EBS volume of an Instance. You can then manage them collectivly.
+    If any one snapshot for the volume set fails, all of the other snapshots display an error status
+
+  Deleting the Snapshot:-
+    - Snapshot are incremental so deleted snapshot may not remove all the data instaed data rtefer by other older snap will be retain. 
+        data refect exclusivly by this snap only will be deleted.
+    - You can create, retain, and delete snapshots manually, or you can use Amazon Data Lifecycle Manager to manage your snapshots for you
+    - You can't delete a snapshot of the root device of an EBS volume used by a registered AMI. You must first deregister the AMI before you can delete the snapshot
+        
 EBS-Snapshot VS Volume:-
 The EBS-Snapshot is the photo or bit-by-bit copy of volume at a time of taking that snap. This is stored in S3 but managed in Ec2.
 The Volume is the real hard-distk device that either attached toEc2 or ready-to-attached to EC2.
