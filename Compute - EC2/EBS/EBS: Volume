@@ -35,7 +35,7 @@ Attaching Volume:-
         For root device the resrved lovcation are generally
         /dev/sda1 or /dev/xvda
         But it could vary by AMI type.
-      - EBS volume can be attach only on the running instances.
+      - EBS volume can be attach on the running instances.
 
   Detaching Volume:-
       If ES device is root then you first have to stop the instance then detach it.
@@ -59,14 +59,20 @@ Encryption:-
 
 Multi Attach Enable Volume:-
   There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
-    - Multi-Attach is supported exclusively on Provisioned IOPS SSD volumes.
-    - Multi-Attach is available in the following Regions only:
-      volumes—us-east-2, eu-central-1, and ap-south-1, us-east-1, us-west-2, eu-west-1, and ap-northeast-2.
-
-
+  - Multi-Attach is supported exclusively on Provisioned IOPS SSD volumes.
+  - Multi-Attach is available in the following Regions only:
+    volumes—us-east-2, eu-central-1, and ap-south-1, us-east-1, us-west-2, eu-west-1, and ap-northeast-2.
   - Multi-Attach enabled volumes can't be created as boot volumes
   - You can't enable or disable Multi-Attach after volume creation.
   -	You can't change the volume type, size, or Provisioned IOPS of a Multi-Attach enabled volume.
 
 Monitoring:-
-  Performance metrics, such as bandwidth, throughput, latency, and average queue length is free in cloudwatch.	
+  Performance metrics:
+    such as bandwidth, throughput, latency, and average queue length is free in cloudwatch.	
+  Status checks:
+    This are automated tests that run every 5 minutes and return a pass or fail status. 
+    OK:                 If all checks pass, the status of the volume is ok. 
+    Impaired:           If a check fails, the status of the volume is impaired. 
+    insufficient-data:  If the status is insufficient-data, the checks may still be in progress on the volume. 
+    You can view the results of volume status checks to identify any impaired volumes and take any necessary actions.
+
