@@ -39,6 +39,26 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
     - You can create, retain, and delete snapshots manually, or you can use Amazon Data Lifecycle Manager to manage your snapshots for you
     - You can't delete a snapshot of the root device of an EBS volume used by a registered AMI. You must first deregister the AMI before you can delete the snapshot
         
+  Copy Snapshot:-
+    You can copy the snapshot in and out of the region. Remember
+    - If account and region both are same then no actual data is copied.
+    - If you copy the snapshot to new region then it could be
+        Increamental if below condition are met
+          > The snapshot was copied to the destination Region or account previously
+          > The most recent snapshot copy still exists in the destination Region or account
+          > All copies of the snapshot in the destination Region or account are either unencrypted or were encrypted using the same CMK
+        Or Completely new otherwise 
+     - If orignal snap is Encrypted then the copied must also be encrypted however you can change the CMK for copied one. 
+       
+  Sharing Snapshot:-
+    Share with specific AWS Account:-
+      - You can share the the snapshot with specific aws account. those user can create the Volume from that Snap.
+        If the snap is encrypted then you also have to make the CMK public.
+      - You cannot share the snap that are created with default CMK.
+    Share with Public:-
+      - You can share the snap publically too. 
+      - You cannot share the encrypted snap publically
+        
 EBS-Snapshot VS Volume:-
 The EBS-Snapshot is the photo or bit-by-bit copy of volume at a time of taking that snap. This is stored in S3 but managed in Ec2.
 The Volume is the real hard-distk device that either attached toEc2 or ready-to-attached to EC2.
