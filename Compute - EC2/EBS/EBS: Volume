@@ -21,6 +21,7 @@ You will be charged for allocating EBS wrt its type and storage.
 Changing Volume configuration:-
   you can dynamically increase size, modify the provisioned IOPS capacity, and change volume type on live production volumes.
   You do not even have to detach the volume ot stop the instance
+  If you increase the size of volume then you may also have to make OS aware of new storage.
 
 Attaching Volume:-
   For attaching you will need below things-
