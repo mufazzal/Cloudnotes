@@ -53,7 +53,7 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
   Sharing Snapshot:-
     Share with specific AWS Account:-
       - You can share the the snapshot with specific aws account. those user can create the Volume from that Snap.
-        If the snap is encrypted then you also have to make the CMK public.
+        If the snap is encrypted then you also have to share the CMK.
       - You cannot share the snap that are created with default CMK.
     Share with Public:-
       - You can share the snap publically too. 
