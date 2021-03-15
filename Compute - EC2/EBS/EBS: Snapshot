@@ -60,6 +60,13 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
       - You can share the snap publically too. 
       - You cannot share the encrypted snap publically
         
+  Fast SnapShot Restore:-
+    When you create the volume from snapshot, it is lazily loaded. so you may face latency in begining when you read data from volume for first time.
+    to resolve this you can Enable the 'Fast SnapShot Restore' for specific AZs.
+    Volumes that are created using fast snapshot restore instantly deliver all of their provisioned performance immedietly.
+    When you create a volume from one of these snapshots in one of its enabled Availability Zones, the volume is restored using fast snapshot restore.
+    You can enable the 'Fast SnapShot Restore' in multiple AZ for a given snapshot
+  
 EBS-Snapshot VS Volume:-
-The EBS-Snapshot is the photo or bit-by-bit copy of volume at a time of taking that snap. This is stored in S3 but managed in Ec2.
-The Volume is the real hard-distk device that either attached toEc2 or ready-to-attached to EC2.
+  The EBS-Snapshot is the photo or bit-by-bit copy of volume at a time of taking that snap. This is stored in S3 but managed in Ec2.
+  The Volume is the real hard-distk device that either attached toEc2 or ready-to-attached to EC2.
