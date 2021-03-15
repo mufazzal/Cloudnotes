@@ -42,13 +42,14 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
   Copy Snapshot:-
     You can copy the snapshot in and out of the region. Remember
     - If account and region both are same then no actual data is copied.
+    - If orignal snap is Encrypted then the copied must also be encrypted however you can change the CMK for copied one. 
+    - If you change the Encryption setting of copied snapshot then a complete Non-incremental copy of snapshot will be created.  
     - If you copy the snapshot to new region then it could be
-        Increamental if below condition are met
+        Increamental if all below condition are met
           > The snapshot was copied to the destination Region or account previously
           > The most recent snapshot copy still exists in the destination Region or account
           > All copies of the snapshot in the destination Region or account are either unencrypted or were encrypted using the same CMK
         Or Completely new otherwise 
-     - If orignal snap is Encrypted then the copied must also be encrypted however you can change the CMK for copied one. 
        
   Sharing Snapshot:-
     Share with specific AWS Account:-
