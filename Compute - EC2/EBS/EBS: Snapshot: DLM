@@ -1,0 +1,33 @@
+You can use Amazon Data Lifecycle Manager to automate the creation, retention, and deletion of EBS snapshots and EBS-backed AMIs. 
+When you automate snapshot and AMI management, it helps you to
+  - Protect valuable data by enforcing a regular backup schedule.
+  - Create standardized AMIs that can be refreshed at regular intervals.
+  - Retain backups as required by auditors or internal compliance.
+  - Reduce storage costs by deleting outdated backups.
+
+A lifecycle policy consists of these core settings:
+  Policy type:-
+    Defines the type of resources that the policy can manage. It could be
+      1. Snapshot       lifecycle policy:   Used to automate the lifecycle of EBS snapshots.  These policies can target EBS volumes and instances
+      1. EBS-backed AMI lifecycle policy:   Used to automate the lifecycle of EBS-backed AMI. These policies can target instances only
+  Resource type:-
+    It could be 'INSTANCE' or 'VOLUME'. 
+    If it is INSTANCE then the policy will generate the Multi-Volume snapshot. otherwise it will be simple snaphot.
+  Target tags:-
+    The TAG of the resource on which this policy will be applied. So if you want to manage back up of any Instance or Volume with this Policy 
+    then you must attach those tag to that instance and volume.
+  Schedules: 
+    The start time and interval for creating the back ups. It must have one mandatory interval with three optional one.
+    With Multiple schedule in single policy, you can create snapshot daily, weekly, mothly etc. and you no longer has to have multiple policy.
+    Each schedule can define its own fast snapshot restore settings (snapshot lifecycle policies only), cross-Region copy rules, and tags(not Target Tag but tag that will be attached to created AMI/Snap). 
+  Retention:-
+    Specifies how snapshots or AMIs are to be retained. You can retain snapshots or AMIs based either on their total count (count-based), or their age (age-based)
+  Enable cross Region copy: 
+    Applicable only for AMI lifecycle policy. You also copy the newly created AMI via this policy up to 3 region.
+  Enable cross-account sharing:-
+    Applicable only for Snapshot lifecycle policy. If you enable it then you should provide AWS account id of targated account.
+    You must also provode the CMK permission if snap is encrypted.
+    
+ - Initiaing backup on schedule time may have up to 1 hour of delay.
+ - If you remove the tag from policy then instances/volume with those tag will no longer be managed with this policy.
+ 
