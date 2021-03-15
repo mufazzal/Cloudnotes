@@ -53,10 +53,21 @@ On EC2 termination:
   But any other EBS device will not be deleted by default.
 
 Encryption:-
-  You can choose to encrypt the volume at time of creation. the snap created from encrrypted are also encrypted.
-  you can use AWS managed CMK or cutomer managed CMK for encryption.
-  Not all the instance type can support the Encryption of EBS.  
-
+  You can choose to encrypt the volume at time of creation.
+  - Not all the instance type can support the Encryption of EBS. So if you wants to encrypt the volume, it must be attached to proper Instance. 
+  - Encryption happen into the instance and with the data key created via CMK. and data key lies in the EBS itself.
+  - Wnen you attach the encrypted volume to instance then instance send th 'Decrypt' command to amazom KMS
+  When you encrypt the volume then
+    > Data in the volume at rest will be encrypted
+    > Data in transit to and from EBS and instance will be encrypted
+    > Snapsot created from this volume is encrypted [Though you can change the CMK/DEfault Key] 
+    > Volume created from that snap is also encrypted [Though you can change the CMK/DEfault Key]
+  Encryption Key: You can use either
+    - Default EBs key created for your AWS account 'alias/aws/ebs'
+    - Create your own master key as CMK    
+  Modifying Encryption setting of volume:-
+    Once volume is create with or without encryption, it cannot be changed.
+    Though you can create new Snapshot with desired encryption from orignal volume and then create new volume from created encrypted snapshot.
 
 Multi Attach Enable Volume:-
   There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
