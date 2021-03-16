@@ -88,4 +88,17 @@ Monitoring:-
     Impaired:           If a check fails, the status of the volume is impaired. 
     insufficient-data:  If the status is insufficient-data, the checks may still be in progress on the volume. 
     You can view the results of volume status checks to identify any impaired volumes and take any necessary actions.
+  EBS volume events:-
+    If EBS volume is in impaired state then it can susend the IO operation temporarily and you may face outage.
+    This events are loggeg in aws.
+    
+
+If you face latency in IO operation of Volume then reason could be:-
+  - creating a snapshot of a volume during peak usage, 
+  - running the volume on an instance that cannot support the I/O bandwidth required, 
+  - accessing data on the volume for the first time
+
+
+    
+    
 
