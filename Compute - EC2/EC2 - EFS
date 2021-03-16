@@ -14,6 +14,7 @@ Say you have a use case:-
  So you can place the user-created imgaes in the Elastic file system and so all other EC2 who has the EFS attached can use it.
  Also incase of low on remaining space, the size of EFS automatically increase.
  
+EFS cant be used as root device
  
  EFS VS EBS 
   - EFS has auto grow/shrink
