@@ -65,6 +65,13 @@ Type of EBS :-
 		- You can't enable or disable Multi-Attach after volume creation.
 		-	You can't change the volume type, size, or Provisioned IOPS of a Multi-Attach enabled volume.
 		
+		
+	Performance of EBS-Volume:-	
+		To improve the performance of EBS voluem AWS suggest to
+		-	Use EBS-Optimized volume
+		- Use RAID 0 Configuration
+		- Use Modern Linux karnel
+		
 -------------------------------
 
 IOPS Calculation for EBS:-
