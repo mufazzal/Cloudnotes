@@ -7,6 +7,15 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
   - Although you can take a snapshot of a volume while a previous snapshot of that volume is in the pending status, 
     but it can result in reduced volume performance until the snapshots complete
   
+  
+  Source Volume Encryption and Snapshot:-
+    If source volume is encrypted then the snapshot will also be encrypted with same CMK.
+    If source volume is unencrypted then the snapshot will also be unencrypted. Though you can create a copy of snap and encrypt it.
+    
+  Snapshot Encryption and Target Volume:-
+    If Snapshot is encrypted then target volume will also be encrypted with same CMK  
+    If Snapshot is unencrypted then target volume will also be unencrypted  
+  
   EBS Snapshot and Region:-
     You can create the napshot from the EBS-Volume, from EC2 itself or from another EBS-snapshot. 
     The snapshot created from those will stored in S3 and avilable to the region of its creator device(EC2, Volume, EBS-snap).
