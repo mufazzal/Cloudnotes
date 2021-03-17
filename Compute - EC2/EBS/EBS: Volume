@@ -60,8 +60,10 @@ Encryption:-
   When you encrypt the volume then
     > Data in the volume at rest will be encrypted
     > Data in transit to and from EBS and instance will be encrypted
-    > Snapsot created from this volume is encrypted [Though you can change the CMK/DEfault Key] 
-    > Volume created from that snap is also encrypted [Though you can change the CMK/DEfault Key]
+    > Snapsot created from this volume is encrypted with same key 
+    > Volume created from that snap is also encrypted with same key
+    > Snapsot Copied from the created snapshot is also encrypted with same key or diffrent CMK. 
+    
   Encryption Key: You can use either
     - Default EBs key created for your AWS account 'alias/aws/ebs'
     - Create your own master key as CMK    
