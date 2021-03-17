@@ -102,7 +102,10 @@ If you face latency in IO operation of Volume then reason could be:-
   - running the volume on an instance that cannot support the I/O bandwidth required, 
   - accessing data on the volume for the first time
 
-
-    
+Performance of EBS-Volume:-	
+  To improve the performance of EBS voluem AWS suggest to
+  -	Use EBS-Optimized volume
+  - Use RAID 0 Configuration
+  - Use Modern Linux karnel
     
 
