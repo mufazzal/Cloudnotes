@@ -20,18 +20,26 @@ Type of EBS :-
           balanced price, good performance
           Best for : general purpose, Virtual desktops, System boot volumes, Development and test environments
       1.2 IO1 : Provisioned IOPS SSD:- 
-          Highest performance, High price
-          Best for: mission-critical, low latancy and high throuput work. best for main DB's of your app
+          Highest performance, High price. 
+					When You need more transaction per seconds and transactions is smaller in size [So IOPS is dominant parameter] 
+          Best for: mission-critical, low latancy and high throuput work. best for main DB's of your app.
    2. Megnetic
-      2.1  ST1 :  Throughput optimize 
+      2.1  ST1 :  Throughput optimize [Data transfer rate in MiB/Sec optimized]
             Low cost - frequently accessed
             Usage: Streaming workloads requiring consistent, fast throughput at a low price
+						When You need average transaction per seconds and but transactions are bigger in size [So Throuput is dominant parameter] 
             EG. Big data, Data warehouses, Log processing
      2.2   SC1 :  Cold HDD  
             Lowest cost - less frequently accessed 
             Best for file server.	
      2.3 	 EBS Magnetic:
               Legacy
+
+		Throughput  VS  IOPS:-
+			Throughput means data transfer rate. 	How faster it can transfer the data for each IO. 	No matter how may IO take place in each second.
+				So it must be better if you need big size of output data in eacg IO
+			IOPS means Input/Output per sec. 			How many IO it can do in each second. 						No matter how big or small the output size of data in each IO.
+				So it must be good if you need lot of IO operation in each second.
 
     IMP:-
       SC1 and EBS Magnetic cannot be used as root device. 
