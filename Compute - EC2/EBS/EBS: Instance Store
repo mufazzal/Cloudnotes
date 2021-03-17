@@ -4,6 +4,7 @@ With any Ec2 you can either use Instance store or EBS. not both
 - This gives you insanly high IOPS up to millions IOPS per sec as well as Througput with ultra low latency.
 - To create AMI from instance store you have to use OS command with ALI tool. not possible with console, sdk or CLI.	
 - This is slower to boot then EBS
+- Some instances types do not suppot Instance Store
 - For EC2 instance store-backed instances AWS recommends to:
     1. Distribute the data on the instance stores across multiple AZs
     2. Back up critical data from the instance store volumes to persistent storage on a regular basis
