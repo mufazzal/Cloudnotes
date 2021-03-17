@@ -41,6 +41,13 @@ Type of EBS :-
 			IOPS means Input/Output per sec. 			How many IO it can do in each second. 						No matter how big or small the output size of data in each IO.
 				So it must be good if you need lot of IO operation in each second.
 
+			EG: 
+				You need to honour 1,000 requets per sec and each request can have 4KB output. in this case
+				You need IOPS = 1,000 IOPS
+				Throuput = No of request in a each sec * data in each request = 1,000 * 4KB = 4,000 KB/Sec
+				Now if you system has IOPS < 1000 and Througput = anythig then you surely face latency due to IOPS
+				If you system has IOPS >= 1000 but Througput < 4,000KB/sec then also you will face latency due to Throughput
+
     IMP:-
       SC1 and EBS Magnetic cannot be used as root device. 
 
@@ -64,13 +71,6 @@ Type of EBS :-
 		- Multi-Attach enabled volumes can't be created as boot volumes
 		- You can't enable or disable Multi-Attach after volume creation.
 		-	You can't change the volume type, size, or Provisioned IOPS of a Multi-Attach enabled volume.
-		
-		
-	Performance of EBS-Volume:-	
-		To improve the performance of EBS voluem AWS suggest to
-		-	Use EBS-Optimized volume
-		- Use RAID 0 Configuration
-		- Use Modern Linux karnel
 		
 -------------------------------
 
