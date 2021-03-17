@@ -55,7 +55,7 @@ Type of EBS :-
 		But what about the compute unit. it may be possible that this compute unit do not have way to take advatage of this EBS speed.
 		For this comes a EBS-Optimized EBS
 		In some of the instance type you can enable this feture called 'EBS-Optimization' at launch or after launch.
-		If you enable this then EC2 make some karnel level changes to give more dadicated CPU time to EBS opereation to get max out of attached EBS.
+		If you enable it, the instance uses the optimized stack which give additional capacity of EBS-IO
 
 	Multi Attach Enable Volume:-
 		There is way to anable the multi attach so that we can attach the single EBS to multiple EC2.
