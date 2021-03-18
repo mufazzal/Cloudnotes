@@ -48,3 +48,4 @@ Below are the exclusive Aurora features:-
       
   Aurora with Other DB:-
     Currently You can use MySql and PostgresSql also with Aurora. You cannot use other.
+    But Aurora DB is not compatible with Microsoft SDQ, OracleDB, MariaDB etc
