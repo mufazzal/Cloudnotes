@@ -44,3 +44,7 @@ Below are the exclusive Aurora features:-
       this is best when you do not need the rds instance up and running all the time.
       when load on the db has pattern cycle and fluctuate considerably.
       also when lot of time there is no activity on db yhen feature of compite shut down will save u lpt of money
+      
+      
+  Aurora with Other DB:-
+    Currently You can use MySql and PostgresSql also with Aurora. You cannot use other.
