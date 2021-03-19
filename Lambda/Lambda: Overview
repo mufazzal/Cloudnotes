@@ -1,0 +1,9 @@
+
+Execution Role:-
+  Lambda must carry a role. This role should have the required permission if he is doing any operation on aws resources.
+  Also it must carry the trust policy so that Function can assume it.
+  Trust Policy:-
+    "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
