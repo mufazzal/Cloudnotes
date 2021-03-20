@@ -23,7 +23,13 @@ Resource Policy:-
   - which AWS service can or cannot make changes and invoke the lambda function
   - Access to other AWS account
   - allow lambda for certain condition only
- 
+
+------------------------
+
+Fuction Version and Alias:-
+  
+
+
       
       
       
