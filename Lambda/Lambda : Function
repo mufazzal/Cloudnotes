@@ -87,7 +87,8 @@ Version and Alias:-
 Layer:-
   You can configure your Lambda function to pull in additional code and content in the form of layers. 
   A layer is a .zip file archive that contains libraries, a custom runtime, or other dependencies. 
-  With layers, you can use libraries in your function without needing to include them in your deployment package
+  With layers, you can use libraries in your function without needing to include them in your deployment package and keep development package small.
+  Layers are versioned and you can use ARN in the Lambda to point to specific version. 
   
 
 
