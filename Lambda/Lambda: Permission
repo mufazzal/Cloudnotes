@@ -27,6 +27,10 @@ Resource Policy:-
   - which AWS service can or cannot make changes and invoke the lambda function
   - Access to other AWS account
   - allow lambda for certain condition only
+  
+IAM Role/User:-
+  As like any other AWS resourceif you want to make any operation on Lambda then that user/role must have the permission in IAM.
+  Even to call the Invoke function either from console or CLI via cred of Mufazzal_Hussain, it must have permission to call it.
 
 ------------------------
 
