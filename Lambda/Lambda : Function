@@ -1,0 +1,12 @@
+Function is a part which has the executable code.
+
+Function can be define as:-
+  - A source code 
+  - A Container image file
+  
+Function as image file:-
+  - For this you have to provide the Amazon ECR url.
+  - You can also override beow configuration for image. Entrypoint, Command, Working directory
+  - When you deploy code as a container image to a Lambda function, the image undergoes an optimization process for running on Lambda. 
+    This process can take a few seconds, during which the function is in pending state. When the optimization process completes, the function enters the active state
+  - You must ensure that the Role/User who create this lambda (not Execution Role) must have the permission 'GetRepositoryPolicy and SetRepositoryPolicy'
