@@ -18,6 +18,10 @@ Execution Role:-
     Apart from this if you wants to do things like
       adding message in SQS, uploading to S3 buckett, terminate the instance then you have to add proper permission inthe policy.
       
+  Lambda's Execution Role at local development at you PC:-
+    The lambda get it role when it is deployed over AWS. But in time of local development at you PC he can not have any role.
+    For at a time of development if you wants to access the previlged resource then you have to onfigure the AWS user locally.
+
 Resource Policy:-
   LAmbda support the Resource based policy too. with this you can control
   - which AWS service can or cannot make changes and invoke the lambda function
