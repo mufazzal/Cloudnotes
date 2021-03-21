@@ -90,7 +90,13 @@ Layer:-
   With layers, you can use libraries in your function without needing to include them in your deployment package and keep development package small.
   Layers are versioned and you can use ARN in the Lambda to point to specific version. 
   
+------------------------------
 
+Lambda and Memory:-
+  To configure the memory for your function, set a value between 128 MB and 10,240 MB in 1-MB increments
+  
+  
+  
 
 
 
