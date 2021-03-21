@@ -1,3 +1,0 @@
-A Function is a part of lambda which has the executable code. You can define the function as
-  - Execuitable code in supported runtime
-  - Container image in ECR.
