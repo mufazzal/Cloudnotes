@@ -26,18 +26,19 @@ Asynchronus calling:-
     aws lambda invoke --function-name my-function  --invocation-type Event --payload '{ "key": "value" }' response.json
 
 Trigger:-
-  A trigger is a Lambda resource or a resource in another service that you configure to invoke your function in response to lifecycle events, external requests, or on a schedule.
-  Each event that Lambda passes to your function only has data from one trigger. Each event trigger one Invoke.
-  Here the resource who configure the Lambda event must have permission to perform 'Invoke' API. 
-  EG: in case of S3 event for lambda, S3-Event-Notification must have permission 'Invoke'  
+  - A trigger is a Lambda resource or a resource in another service that you configure to invoke your function in response to lifecycle events, external requests, or on a schedule.
+  - Each event that Lambda passes to your function only has data from one trigger. Each event trigger one Invoke.
+  - Here the resource who configure the Lambda event must have permission to perform 'Invoke' API. 
+      EG: in case of S3 event for lambda, S3-Event-Notification must have permission 'Invoke'  
       
 Event Source Mpping:-
   Here the AWS-Lambda-Resource that keep polling certain AWS resource for new event(s). and if there is one then call the lambda for those events.
-  You can use event source mappings to process items from a stream or queue in services that don't invoke Lambda functions directly
-  Here the Lambda must have permission to read the AWS resource in use. 
+  - You can use event source mappings to process items from a stream or queue in services that don't invoke Lambda functions directly.
+  - An event source mapping uses permissions in the function's execution role to read and manage items in the event source
+  - Here the Execution role of Lambda must have permission to read the AWS resource in use. 
+  - Supported AWS servoce for Event Source Mpping:-
+      SQS, DynamoDB Stream, Kenesis Stream. 
   EG: You can use SQS queue or Stream to be read by LAmbda's Event-Source-Mpping and call it if needed. So Lambda must have permission to read SQS/Kenesis.
-  Supported AWS servoce for Event Source Mpping:-
-    SQS, DynamoDB Stream, Kenesis Stream. 
   
   
 
