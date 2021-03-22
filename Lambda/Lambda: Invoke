@@ -39,6 +39,10 @@ Event Source Mpping:-
   - Supported AWS servoce for Event Source Mpping:-
       SQS, DynamoDB Stream, Kenesis Stream. 
   EG: You can use SQS queue or Stream to be read by LAmbda's Event-Source-Mpping and call it if needed. So Lambda must have permission to read SQS/Kenesis.
-  
+   Batch size for Event Source Mpping:-
+    - Event source mappings read items from a stream or queue in batches. They include multiple items in the event that your function receives
+    - You can configure the size of the batch that the event source mapping sends to your function, up to a maximum that varies by service
+    - The number of items in the event can be smaller than the batch size if there aren't enough items available, or if the batch is too large to send in one event and has to be split up
+    
   
 
