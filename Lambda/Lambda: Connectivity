@@ -72,3 +72,25 @@ Lambda and VPC:
        - AWS can connect multiple Lambda in same subnet with single ENI.
        - If the function is not used for longer time then AWS can release the ENI. and put the LAmbda in 'Pending' state
         
+--------------------
+  
+  Interface Endpiont for Lambda:-
+    Suppose your infra is private and you wants to invoke the lambda without having the IG, NAT gateway, VPG.
+    for this you can create the Interface EP for lambda.
+    The link for this is 'com.amazonaws.<region>.lambda'
+    
+----------------------
+  RDS Proxie Databases:-
+    If you are connecting to any RDS DB from the LAmbda and if you create a DB connection for each invoked lambda then there will hell lot of connection.
+    So it is imprctical to have a connection for each lambda. To solve this comes Amazon RDS Proxy.
+    This is manages a pool of database connections.
+    You create it for a lambda function. and all the invoked instances use connections from this proxies pool.
+    This enables a function to reach high concurrency levels without exhausting database connections
+----------------------
+  EFS mount point:-
+    You can configure a function to mount an EFS system to a local directory. 
+    With Amazon EFS, your function code can access and modify shared resources safely and at high concurrency
+    You create it for a lambda function. and all the invoked instances use this mount point for file access.
+    
+    
+    
