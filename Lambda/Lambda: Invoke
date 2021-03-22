@@ -3,7 +3,7 @@ You can invoke the lambda function by
   - AWS SDK
   - AWS CLI
   - Trigger on other AWS services
-  - Stream and SQS polling
+  - Event Source Mapping: Stream and SQS polling
 
 Synchronus calling:-
   If you call the lambda invoke Synchronusly then it will first process the lambda and generate the response and producce result.
@@ -25,4 +25,19 @@ Asynchronus calling:-
   EG:  
     aws lambda invoke --function-name my-function  --invocation-type Event --payload '{ "key": "value" }' response.json
 
+Trigger:-
+  A trigger is a Lambda resource or a resource in another service that you configure to invoke your function in response to lifecycle events, external requests, or on a schedule.
+  Each event that Lambda passes to your function only has data from one trigger. Each event trigger one Invoke.
+  Here the resource who configure the Lambda event must have permission to perform 'Invoke' API. 
+  EG: in case of S3 event for lambda, S3-Event-Notification must have permission 'Invoke'  
+      
+Event Source Mpping:-
+  Here the AWS-Lambda-Resource that keep polling certain AWS resource for new event(s). and if there is one then call the lambda for those events.
+  You can use event source mappings to process items from a stream or queue in services that don't invoke Lambda functions directly
+  Here the Lambda must have permission to read the AWS resource in use. 
+  EG: You can use SQS queue or Stream to be read by LAmbda's Event-Source-Mpping and call it if needed. So Lambda must have permission to read SQS/Kenesis.
+  Supported AWS servoce for Event Source Mpping:-
+    SQS, DynamoDB Stream, Kenesis Stream. 
   
+  
+
