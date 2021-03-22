@@ -1,0 +1,28 @@
+You can invoke the lambda function by 
+  - Expicitly call Invoke Lambda API via any client
+  - AWS SDK
+  - AWS CLI
+  - Trigger on other AWS services
+  - Stream and SQS polling
+
+Synchronus calling:-
+  If you call the lambda invoke Synchronusly then it will first process the lambda and generate the response and producce result.
+  By default AWS SDK, CLI and API call the lambda Synchronusly
+  - When the function completes, Lambda returns the response from the function's code with additional data
+  Eg: 
+    aws lambda invoke --function-name my-function --payload '{ "key": "value" }' response.json
+
+
+Asynchronus calling:-
+  If you call the lambda invoke Asynchronusly then it will deliver the enevt and return immediatly. it do not wait for result to be produced.
+  you don't wait for a response from the function code. You hand off the event to Lambda and Lambda handles the rest.
+  - For asynchronous invocation, Lambda places the event in a queue and returns a success response without additional information.
+  - In background, Lambda manages the function's asynchronous event queue and attempts to retry on errors
+  - If the function can't keep up with incoming events, events might also be deleted from the queue without being sent to the function. So do handle it in code.
+  - Below AWS service call the lambda Asynchronusly:-
+      S3, SNS, SQS, Eventbridge.
+  - Event 
+  EG:  
+    aws lambda invoke --function-name my-function  --invocation-type Event --payload '{ "key": "value" }' response.json
+
+  
