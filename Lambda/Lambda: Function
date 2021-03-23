@@ -118,10 +118,42 @@ Error Handling:-
     Intially lambda will rery the event and keep retrying with increasinf interval. but if it fail yet them
     You can use dead letter queue for handling the discarded event.
       
-    
+----------------------------------
+
+Lambda Execution Lifecycle:-
+  THere is 3 phases of lambda execution.
+  1. Init:-
+      In this phase the container get initilize. 
+      The Init phase happens either during the first invocation, or in advance of function invocations if you have enabled provisioned concurrency.
+      In this phase lambda 
+        > configured resources, 
+        > downloads the code for the function and all layers, 
+        > initializes any extensions, 
+        > initializes the runtime
+  2. Invoke:-
+      Here the function code get executed. once done with the handled. it become ready for another execution.
+  3. Shutdown:-
+      This phase is triggered if the Lambda function does not receive any invocations for a period of time. 
+      In the Shutdown phase, Lambda terminates the runtime, alerts the extensions to let them stop cleanly, and then removes the environment
+      
+  Between Init and Shutdown, there could be multiple trigger of Invoke for multiple invocation.
+  After the function and all extensions have completed, Lambda maintains the execution environment for some time in anticipation of another function invocation. 
+  In effect, Lambda freezes the execution environment. When the function is invoked again, Lambda thaws the environment for reuse
   
-
-
+  Timeout Setting:-
+    This setting limit the maximum time the handler function can take for execution. if it goes above this limit then function get terminated. 
+     
+  Object outside Handler:-
+    Objects declared outside of the function's handler method remain initialized, providing additional optimization when the function is invoked again.
+    EG: you can create the DB connection outside the Handler and reuse this connection for all invocation handled by this Execution environment.
+    
+  Temp Disk Space:-
+    Each execution environment provides 512 MB of disk space in the /tmp directory. 
+    The directory content remains when the execution environment is frozen, providing a transient cache that can be used for multiple invocations.
+  
+  Callbacks in Handler:-
+    Using callack in handler is very risky. LAmbda return immediatly and do not wait for callback to be executed. in this if your Execution Enviorment got vanished
+    then your callback goes in vain or not executed at all.
   
     
     
