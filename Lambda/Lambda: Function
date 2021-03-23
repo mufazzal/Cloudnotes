@@ -84,7 +84,7 @@ Version and Alias:-
     
     Weighted alias:-
       With weighted alias you can creat custom routing to delivercertain portion of traffic to certain version of Lambda.
-      Thi is usful for beta testing.
+      This is usful for beta testing. You can set like send 10% of traffic to version 10 and 90% to version 11 for alias :PROD 
     
 ------------------------------
 
