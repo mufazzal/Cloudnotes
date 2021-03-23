@@ -162,7 +162,8 @@ Lambda Execution Lifecycle:-
     Using callack in handler is very risky. LAmbda return immediatly and do not wait for callback to be executed. in this if your Execution Enviorment got vanished
     then your callback goes in vain or not executed at all.
   
-    
+  Q   Max time a lambda can take for execution?
+  A.  5 minutes. after that it fail.  
     
     
     
