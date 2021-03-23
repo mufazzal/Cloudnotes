@@ -8,7 +8,18 @@ CW Metrics:-
   Dimensions:-
     Function Name, Resource [specific function version], Across All Functions 
     
-    
+Function Insight:-
+  If you wnats to have information regarding runtime metrices of the function then enable this.
+  Lambda Insights uses a CloudWatch-Lambda-Insights-extension, which is provided as a Lambda layer. When you enable this extension on a Lambda, 
+  it collects system-level metrics and emits a single performance log event for every invocation of that Lambda function
+    CPU time, memory, disk and network usage, Cold start 
+  - If you enable this then it will cost you.
+
+Function Log:-
+  You can insert logging statements into your code to help you validate that your code is working as expected. 
+  Lambda automatically integrates with CloudWatch Logs and pushes all logs from your code to a CloudWatch Logs group associated with a Lambda function, 
+  which is named /aws/lambda/<function name>.
+  
 
 AWS X-Ray:-
   Lambda is nicely integrated with AWS X-Ray. 
