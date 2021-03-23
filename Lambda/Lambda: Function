@@ -27,6 +27,7 @@ Cocurrency:-
   if more lambda execution are requested then it will be denied and a response with 'TooManyRequestException' error with code 549 will be received.
     - This limit is on the account across all the lambda not for each lambda.
     - You increase the account level reserve from 1000. but for this you have to raise the support ticket at aws.
+    - if there is more invocation of lambda (all lambda in account inculding there version) then limit then it get throttle. 
    
   Reserved Cocurrency:-
     As you know there is a limit on overall account and so on all the lambada combined. 
@@ -37,6 +38,7 @@ Cocurrency:-
       AWS > Lambda > 'you lambda' > in section Concurrency set the value of reserved cocurency.
       The rest of the cocurrency will be left for the rest of the lambda functions.    
     - Reserved Cocurrency applies to the function as a whole, including versions and aliases
+    - Value of Reserved Cocurrency also limit max the number of lambda executed cocurrently. if there is more invocation of this lambda then reserved limit then it get throttle. 
 
   Provisioned Cocurency :-
     To handle the issue in Cold Start or Warm Up AWS provided the 'provisioned cocurency'
@@ -55,7 +57,7 @@ Cocurrency:-
     reserved VS provisioned:-
       reserved cocurrency will be reserved for designated lambda but containers will not be initiated. Free
       provisioned cocurrency will reserved for designated lambda along with containers initiated. Chargable
-
+    
 ----------------------
 
 Version and Alias:-
