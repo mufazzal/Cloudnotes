@@ -58,6 +58,11 @@ Cocurrency:-
       reserved cocurrency will be reserved for designated lambda but containers will not be initiated. Free
       provisioned cocurrency will reserved for designated lambda along with containers initiated. Chargable
     
+    Throttle:-
+      The lambda get throttle if either:-
+        - Reserved limit of specific lambda reached
+        - account limit for all lambdas is reached.
+    
 ----------------------
 
 Version and Alias:-
