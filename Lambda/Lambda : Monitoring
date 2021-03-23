@@ -1,3 +1,15 @@
+CW Metrics:-
+  Namespace:- 
+    'AWS/Lambda'
+  Metrics:-
+    Invocation metrics: Invocations, Errors[Function error not Invocation error], Throttles 
+    Performance metrics: Duration 
+    Concurrency metrics: ConcurrentExecutions, ProvisionedConcurrentExecutions, 
+  Dimensions:-
+    Function Name, Resource [specific function version], Across All Functions 
+    
+    
+
 AWS X-Ray:-
   Lambda is nicely integrated with AWS X-Ray. 
   You can use X-Ray SDK in the code of lambda and add annotation etc than can be viewd in X-Ray dasboard.
