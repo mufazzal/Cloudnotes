@@ -82,6 +82,10 @@ Version and Alias:-
     Advatange of using Alias is that you can create new version of the Lambda and adjust the pointer of alias [PROD/DEV/APAC etc] to new version.
     and so wherver if you have used the alias ARN of this lambda, will have new version of the lambda to be executed.
     
+    Weighted alias:-
+      With weighted alias you can creat custom routing to delivercertain portion of traffic to certain version of Lambda.
+      Thi is usful for beta testing.
+    
 ------------------------------
 
 Layer:-
