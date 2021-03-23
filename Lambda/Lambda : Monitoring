@@ -14,12 +14,13 @@ Function Insight:-
   it collects system-level metrics and emits a single performance log event for every invocation of that Lambda function
     CPU time, memory, disk and network usage, Cold start 
   - If you enable this then it will cost you.
-
+  - You must have CloudWatchLambdaInsightsExecutionRolePolicy policy to your function’s execution role.
+  
 Function Log:-
   You can insert logging statements into your code to help you validate that your code is working as expected. 
   Lambda automatically integrates with CloudWatch Logs and pushes all logs from your code to a CloudWatch Logs group associated with a Lambda function, 
   which is named /aws/lambda/<function name>.
-  
+  - Your execution role needs permission to upload logs to CloudWatch Logs.  
 
 AWS X-Ray:-
   Lambda is nicely integrated with AWS X-Ray. 
