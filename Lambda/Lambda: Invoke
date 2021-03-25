@@ -90,6 +90,7 @@ Trigger:-
         - S3 Batch
         - Lambda@Edge
         - Kenesis Data Firehose
+        - Step functions
       > ASynchronus:
         - S3 Event notification
         - SNS and SES
