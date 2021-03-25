@@ -30,6 +30,19 @@ Trigger:-
   - Each event that Lambda passes to your function only has data from one trigger. Each event trigger one Invoke.
   - Here the resource who configure the Lambda event must have permission to perform 'Invoke' API. 
       EG: in case of S3 event for lambda, S3-Event-Notification must have permission 'Invoke'  
+  - This could be 
+      > Synchronus: 
+        - Integrated with API Gateway
+        - As target of Application Load Balancer
+        - S3 Batch
+        - Lambda@Edge
+        - Kenesis Data Firehose
+      > ASynchronus:
+        - S3 Event notification
+        - SNS and SES
+        - Cloudformation
+        - CodeCommit and CodePipeline
+        - Cloudwatch Event and Log
       
 Event Source Mpping:-
   Here the AWS-Lambda-Resource that keep polling certain AWS resource for new event(s). and if there is one then call the lambda for those events.
@@ -44,5 +57,7 @@ Event Source Mpping:-
     - You can configure the size of the batch that the event source mapping sends to your function, up to a maximum that varies by service
     - The number of items in the event can be smaller than the batch size if there aren't enough items available, or if the batch is too large to send in one event and has to be split up
     
-  
+  Synchronus/ASynchronus Event Source Mpping: 
+    This is batch kind of operation. here lambda itself keep polling the resource for events unlike the lambda being called explicitly by SDK/CLI or any AWS service.
+    So there is no question that has it been called Synchronusly or ASynchronusly by the caller [because caller is lambda polling mechanics itself]
 
