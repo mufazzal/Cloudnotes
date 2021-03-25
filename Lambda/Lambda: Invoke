@@ -2,6 +2,26 @@ You can invoke the lambda function by
   - Expicitly call Invoke Lambda API, AWS SDK, AWS CLI  [Synchronusly or ASynchronusly controlled by 'InvocationType' param]
   - Trigger on other AWS services                       [Synchronusly or ASynchronusly depend on implementation in service]
   - Event Source Mapping: Stream and SQS polling        [Synchronusly or ASynchronusly not applicabe here]
+---------------------------
+Error Handling:-
+  In lambda there could be two kind of error.
+  1. Invocation Error
+      Invocation errors occur when the invocation request is rejected before your function receives it.
+      Causes:-
+         - Requset too large
+         - Caller User/Role do not has permission for 'Invoke'
+         - Cocurrency limit reach [429 error code]
+      This produce result with 4XX or 5XX code.
+  2. Function Error:-
+      Once Invocation of function is passe then, Function Error occure inside the function's code. and it could cause Runtime error.
+      Causes:-
+        - Unhandled exception occure in function code and so handler executed partilly and terminated.
+        - Memory limit reached and lambda terminated
+        - Max Timeout reached and lambda terminated
+      This produce result with 200 success. 
+      Lambda indicates this errors by including a header named 'X-Amz-Function-Error', and a JSON-formatted response with the error message and other details
+      
+-------------------------------
 
 Synchronus calling:-
   If you call the lambda invoke Synchronusly then it will first process the lambda and generate the response and producce result.
@@ -9,7 +29,15 @@ Synchronus calling:-
   - When the function completes, Lambda returns the response from the function's code with additional data
   Eg: 
     aws lambda invoke --function-name my-function --payload '{ "key": "value" }' response.json
-
+  
+  Error Behaviour/Handling Synchronus calling:-
+    If error occure then that erro will be return as response. and The caller is responsible for making the retry.
+    Lambda by itself has no way to do the retry.
+    Example of Asynchronus callers and their Error handling:-    
+      - Invoke API: If called by Invoke api directly then there is no retry and any erro will be deliver to client without any retry attempt
+      - CLI or SDK: For Timeout, Throttle error and non-bad request it make retry attempts. for other it simply forward the error without retry.
+      -
+    
 Asynchronus calling:-
   If you call the lambda invoke Asynchronusly then it will deliver the enevt and return immediatly. it do not wait for result to be produced.
   you don't wait for a response from the function code. You hand off the event to Lambda and Lambda handles the rest.
@@ -24,24 +52,6 @@ Asynchronus calling:-
 
 -------------------------------
 
-Error Handling:-
-  In lambda there could be two kind of error.
-  1. Invocation Error
-      Invocation errors occur when the invocation request is rejected before your function receives it.
-      Causes:-
-         - Requset too large
-         - Caller User/Role do not has permission for 'Invoke'
-         - Cocurrency limit reach
-      This produce result with 4XX or 5XX code.
-  2. Function Error:-
-      Once Invocation of function is passe then, Function Error occure inside the function's code. Runtime error.
-      This produce result with 200 success. 
-      Lambda indicates this by including a header named X-Amz-Function-Error, and a JSON-formatted response with the error message and other details
-      
-  Error handling for Asynchronus Invoke:-
-    Intially lambda will rery the event and keep retrying with increasinf interval. but if it fail yet them
-    You can use dead letter queue for handling the discarded event.
-      
 
 Trigger:-
   - A trigger is a Lambda resource or a resource in another service that you configure to invoke your function in response to lifecycle events, external requests, or on a schedule.
