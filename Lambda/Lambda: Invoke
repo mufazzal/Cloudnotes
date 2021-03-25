@@ -33,23 +33,50 @@ Synchronus calling:-
   Error Behaviour/Handling Synchronus calling:-
     If error occure then that erro will be return as response. and The caller is responsible for making the retry.
     Lambda by itself has no way to do the retry.
-    Example of Asynchronus callers and their Error handling:-    
-      - Invoke API: If called by Invoke api directly then there is no retry and any erro will be deliver to client without any retry attempt
-      - CLI or SDK: For Timeout, Throttle error and non-bad request it make retry attempts. for other it simply forward the error without retry.
-      -
+    Example of Synchronus callers and their Error handling:-    
+      - Invoke API:   If called by Invoke api directly then there is no retry and any erro will be deliver to client without any retry attempt
+      - CLI or SDK:   For Timeout, Throttle error and non-bad request it make retry attempts. for other it simply forward the error without retry.
+      - API Gateway:  It forward error without any retry.
+      - S3 Batch:     retries the operation if the Lambda function returns a TemporaryFailure response code. no retry otherwise 
+      - Lambda@Edge:  It forward error without any retry.
+      - ALB:          It forward error without any retry.  
     
 Asynchronus calling:-
   If you call the lambda invoke Asynchronusly then it will deliver the enevt and return immediatly. it do not wait for result to be produced.
   you don't wait for a response from the function code. You hand off the event to Lambda and Lambda handles the rest.
   - For asynchronous invocation, Lambda places the event in a queue and returns a success response without additional information.
   - In background, Lambda manages the function's asynchronous event queue and attempts to retry on errors
+  - If the function doesn't have enough capacity to handle all incoming requests, events might wait in the queue for hours or days to be sent to the function
   - If the function can't keep up with incoming events, events might also be deleted from the queue without being sent to the function. So do handle it in code.
   - Below AWS service call the lambda Asynchronusly:-
       S3, SNS, SQS, Eventbridge.
   - Event 
   EG:  
     aws lambda invoke --function-name my-function  --invocation-type Event --payload '{ "key": "value" }' response.json
-
+  
+  Error Behaviour/Handling ASynchronus calling:-
+    In the ASynchronus calling the event is delivered to Event Que and response immediatly sent to the caller. The Invoke will be called later point ot time.
+    So if any error happen while calling Invoke or inside Handler, there is no way the caller comes to know about it.
+    So in case of ASynchronus calling, caller cannot handle error for retry. for this lambda provide DLQ (Dead letter Queue)
+    Behaviour:-
+      Throttle(429) and 5XX Error:-
+        Throttle Error and 5XX is handled diffrently. 
+        for this Lambda returns the event to the queue and attempts to run the function again for up to 'Maximum age of event' priode and maximum  'Retry attempts' times
+        The retry interval increases exponentially from 1 second after the first attempt to a maximum of 5 minutes.
+        If all retry fails then event is delivered to DLQ(if configured)
+      Other Error:-
+        If there is error other then Throttle(429) and 5XX for an event then Lambda retry the event 2 more times in gap of 3 mnt to 66 hour. 
+        and if it still failed then it deliver the event to the DLQ(if configured)
+      Cofiguration:-
+        For the behaviour you can change two parameter for customized handling
+        1. Maximum age of event: 
+        2. Retry attempts:
+      
+      
+      DLQ for Asynchronus Lambda call:-
+        For a lambda function you can create the DLQ, if any enent from the event queue is not successful after all retry attempts then the evnet will be deliver to DLQ. 
+        DLQ is made of either SQS or SNS.
+        
 -------------------------------
 
 
