@@ -105,26 +105,6 @@ Layer:-
 
 Lambda and Memory:-
   To configure the memory for your function, set a value between 128 MB and 10,240 MB in 1-MB increments
--------------------------------
-
-Error Handling:-
-  In lambda there could be two kind of error.
-  1. Invocation Error
-      Invocation errors occur when the invocation request is rejected before your function receives it.
-      Causes:-
-         - Requset too large
-         - Caller User/Role do not has permission for 'Invoke'
-         - Cocurrency limit reach
-      This produce result with 4XX or 5XX code.
-  2. Function Error:-
-      Once Invocation of function is passe then, Function Error occure inside the function's code. Runtime error.
-      This produce result with 200 success. 
-      Lambda indicates this by including a header named X-Amz-Function-Error, and a JSON-formatted response with the error message and other details
-      
-  Error handling for Asynchronus Invoke:-
-    Intially lambda will rery the event and keep retrying with increasinf interval. but if it fail yet them
-    You can use dead letter queue for handling the discarded event.
-      
 ----------------------------------
 
 Lambda Execution Lifecycle:-
