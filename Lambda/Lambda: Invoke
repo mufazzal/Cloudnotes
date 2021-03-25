@@ -61,24 +61,22 @@ Asynchronus calling:-
     Behaviour:-
       Throttle(429) and 5XX Error:-
         Throttle Error and 5XX is handled diffrently. 
-        for this Lambda returns the event to the queue and attempts to run the function again for up to 'Maximum age of event' priode and maximum  'Retry attempts' times
+        for this Lambda returns the event to the queue and attempts to run the function again for up to 'Maximum age of event' priode and maximum 'Retry attempts' times
         The retry interval increases exponentially from 1 second after the first attempt to a maximum of 5 minutes.
-        If all retry fails then event is delivered to DLQ(if configured)
+        If all retry fails or event expires then event is delivered to DLQ(if configured)
       Other Error:-
-        If there is error other then Throttle(429) and 5XX for an event then Lambda retry the event 2 more times in gap of 3 mnt to 66 hour. 
-        and if it still failed then it deliver the event to the DLQ(if configured)
+        If there is error other then Throttle(429) and 5XX for an event then Lambda retry the event 'Retry attempts' more times in gap of 3 mnt to 'Maximum age of event' priode. 
+        If all retry fails or event expires then event is delivered to DLQ(if configured)
       Cofiguration:-
         For the behaviour you can change two parameter for customized handling
-        1. Maximum age of event: 
-        2. Retry attempts:
-      
-      
+        1. Maximum age of event: how long you wants the event to be in que. after that event will be expired and deleted withot processing. max value is 6 hour
+        2. Retry attempts: MAx number of times a event will be retried in case of error. it could e 0-2
+            
       DLQ for Asynchronus Lambda call:-
         For a lambda function you can create the DLQ, if any enent from the event queue is not successful after all retry attempts then the evnet will be deliver to DLQ. 
         DLQ is made of either SQS or SNS.
         
 -------------------------------
-
 
 Trigger:-
   - A trigger is a Lambda resource or a resource in another service that you configure to invoke your function in response to lifecycle events, external requests, or on a schedule.
@@ -116,3 +114,10 @@ Event Source Mpping:-
     This is batch kind of operation. here lambda itself keep polling the resource for events unlike the lambda being called explicitly by SDK/CLI or any AWS service.
     So there is no question that has it been called Synchronusly or ASynchronusly by the caller [because caller is lambda polling mechanics itself]
 
+  Error Behaviour/Handling for Event Source Mpping:-
+    
+    
+    
+    
+    
+  
