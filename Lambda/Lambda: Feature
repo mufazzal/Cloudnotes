@@ -23,7 +23,8 @@ Enviorment Variable[EV]:-
   - Reserved environment variables: _HANDLER, AWS_REGION, _X_AMZN_TRACE_ID, AWS_EXECUTION_ENV, AWS_LAMBDA_FUNCTION_NAME, AWS_LAMBDA_FUNCTION_VERSION, LAMBDA_RUNTIME_DIR  etc.
   - By default EV is encrypted at rest with AWS managed CMK.  You can use diffrent CMK also.
       For default CMK you do not need AWS KMS permission but for other CMK user/Execution role needs AWS KMS permission for that CMK.
-  
+  Sensitive info in EV:-
+    AWS recommend to use encrypted cipher text in EV for info like password etc. and then use dechipher code in in function code to decrypt it. 
 ------------------------------
 
 Layer:-
