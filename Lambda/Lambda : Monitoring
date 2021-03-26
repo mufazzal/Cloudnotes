@@ -20,7 +20,7 @@ Function Log:-
   You can insert logging statements into your code to help you validate that your code is working as expected. 
   Lambda automatically integrates with CloudWatch Logs and pushes all logs from your code to a CloudWatch Logs group associated with a Lambda function, 
   which is named /aws/lambda/<function name>.
-  - Your execution role needs permission to upload logs to CloudWatch Logs.  
+  - Your execution role needs permission to upload logs to CloudWatch Logs.  CreateLogGroup, CreateLogStream, PutLogEvent
   By default eacj call generate three Log lines
   1. START:   START <req ID> <fuhnction version>
   2. END:     END <req ID>
