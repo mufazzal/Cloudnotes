@@ -27,6 +27,7 @@ Layer:-
   A layer is a .zip file archive that contains libraries, a custom runtime, or other dependencies. 
   With layers, you can use libraries in your function without needing to include them in your deployment package and keep development package small.
   Layers are versioned and you can use ARN in the Lambda to point to specific version. 
+  For any lambda you can have max 5 layers.
   
 ------------------------------
 
@@ -76,9 +77,30 @@ Lambda Execution Lifecycle:-
     then your callback goes in vain or not executed at all.
    fail.  
     
-    
-    
-    
+-----------------------------------    
+
+Limits:-
+  Timeout:    900 sec(5 minute)
+  Memory:     128MB - 10240 MB in 1 MB increment
+  Layers:     5
+  Disk space: 512 MB
+  EV:         4 KB
+  
+------------------------------------
+  
+Function Orchestration[step function]:-
+  AWS Step Functions is an orchestration service that lets you connect Lambda functions together into serverless workflows.
+  Use Step Functions to orchestrate serverless applications workflows. This orchestrate support human intervention as well.
+  With step function you can:-
+    Chaining          – Connect functions into a series of steps, with the output of one step providing the input to the next step.
+    Catch and retry   – Handle errors using sophisticated catch-and-retry functionality.
+    Branching         – Design your workflow to choose different branches based on Lambda function output.
+    Parallelism       – Run functions in parallel, or use dynamic parallelism to invoke a function for every member of any array.
+
+
+  
+
+
     
 
 
