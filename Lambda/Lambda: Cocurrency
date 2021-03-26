@@ -1,0 +1,40 @@
+In AWS lambda there is overall limit for number of paraller execution count for any aws account and that is 1000
+It means combining all lembda function the max possible run at a time is 1000.
+if more lambda execution are requested then it will be denied and a response with 'TooManyRequestException' error with code 429 will be received.
+  - This limit is on the account across all the lambda not for each lambda.
+  - You increase the account level reserve from 1000. but for this you have to raise the support ticket at aws.
+  - if there is more invocation of lambda (all lambda in account inculding there version) then limit then it get throttle. 
+
+Reserved Cocurrency:-
+  As you know there is a limit on overall account and so on all the lambada combined. 
+  But lets say there is some funcvtions that you think are mission critical na dyou wants them to when needed.
+  But you knw that there is a overall limit.
+  To solve this we can reserve the cocurency for those function. This will actully keep some cocurucy reserved for mission critical lambda
+  How:
+    AWS > Lambda > 'you lambda' > in section Concurrency set the value of reserved cocurency.
+    The rest of the cocurrency will be left for the rest of the lambda functions.    
+  - Reserved Cocurrency applies to the function as a whole, including versions and aliases
+  - Value of Reserved Cocurrency also limit max the number of lambda executed cocurrently. if there is more invocation of this lambda then reserved limit then it get throttle. 
+
+Provisioned Cocurency :-
+  To handle the issue in Cold Start or Warm Up AWS provided the 'provisioned cocurency'
+  By this you can keep number of cotainer of this lambda alive even when there is 0 traffic. the advantage is you not have to worry about cold start. 
+  - This is chargable and more the provisioned capacity more the charges will be. 
+  - There is maximum limit of overall capacity across any account and that is 1000
+  - Provisioned amount will be deducted from reserved capacity.
+  - Provisioned Cocurrency can be applied to the versions or aliases of the function
+  - You can't allocate more provisioned concurrency than reserved concurrency for a function
+
+  Auto Scalling of Provision Capacity:-
+    Lambda also integrates with Application Auto Scaling. You can configure Application Auto Scaling to manage provisioned concurrency based on   
+      - Schedule
+      - Scalling Policy
+
+  reserved VS provisioned:-
+    reserved cocurrency will be reserved for designated lambda but containers will not be initiated. Free
+    provisioned cocurrency will reserved for designated lambda along with containers initiated. Chargable
+
+  Throttle:-
+    The lambda get throttle if either:-
+      - Reserved limit of specific lambda reached
+      - account limit for all lambdas is reached.
