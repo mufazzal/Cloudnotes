@@ -27,6 +27,7 @@ Resource Policy:-
   - which AWS service can or cannot make changes and invoke the lambda function
   - Access to other AWS account
   - allow lambda for certain condition only
+  - To grant permissions to other accounts or services that aren't available in the Lambda console, you can use the AWS CLI
   
 IAM Role/User:-
   As like any other AWS resourceif you want to make any operation on Lambda then that user/role must have the permission in IAM.
