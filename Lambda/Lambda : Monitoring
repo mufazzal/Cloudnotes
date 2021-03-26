@@ -21,6 +21,10 @@ Function Log:-
   Lambda automatically integrates with CloudWatch Logs and pushes all logs from your code to a CloudWatch Logs group associated with a Lambda function, 
   which is named /aws/lambda/<function name>.
   - Your execution role needs permission to upload logs to CloudWatch Logs.  
+  By default eacj call generate three Log lines
+  1. START:   START <req ID> <fuhnction version>
+  2. END:     END <req ID>
+  3. REPORT:  REPORT <req ID> <duration>
 
 AWS X-Ray:-
   Lambda is nicely integrated with AWS X-Ray. 
