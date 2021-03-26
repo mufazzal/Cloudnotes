@@ -1,0 +1,26 @@
+Version:-
+  You can publish the diffrent version of Lambda. This is immutable copy of latest unpublished version.
+  Once you publish the lambda it locks below item for created version
+  - Function code and all associated dependencies.
+  - The Lambda runtime that invokes the function.
+  - Function settings, including the environment variables.
+  - A unique Amazon Resource Name (ARN) to identify the specific version of the function
+
+  ARN of Publised version function:-
+    arn:aws:lambda:aws-region:acct-id:function:helloworld:42
+  ARN of UnPublised version function:-
+    arn:aws:lambda:aws-region:acct-id:function:helloworld
+    arn:aws:lambda:aws-region:acct-id:function:helloworld:$LATEST
+
+Alias:-
+  Alias is a pointer to the specific version of Lambda. You can update an alias to point to a new version of the function.
+  At a time alias can point to any single version of lamda.
+  You can access that version of fuction using alia too.
+  like ARN:-
+     arn:aws:lambda:aws-region:acct-id:function:helloworld:PROD
+  Advatange of using Alias is that you can create new version of the Lambda and adjust the pointer of alias [PROD/DEV/APAC etc] to new version.
+  and so wherver if you have used the alias ARN of this lambda, will have new version of the lambda to be executed.
+
+  Weighted alias:-
+    With weighted alias you can creat custom routing to delivercertain portion of traffic to certain version of Lambda.
+    This is usful for beta testing. You can set like send 10% of traffic to version 10 and 90% to version 11 for alias :PROD 
