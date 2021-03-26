@@ -38,3 +38,14 @@ Provisioned Cocurency :-
     The lambda get throttle if either:-
       - Reserved limit of specific lambda reached
       - account limit for all lambdas is reached.
+      
+    Handling Throttle:-
+      1. Synchronus calling:        Error message with Code (429) will be return to caller
+      2. ASynchronus calling:       Retry for configuret amount of time and priode, after that deliverd to DLQ
+      3. Trigger by AWS services:   Depends on service
+      3. Event Source:              For Straem it will be retried till data expire or success. for sqs message will reapear after visibility timeout. 
+      
+      
+      
+      
+      
