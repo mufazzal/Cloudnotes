@@ -123,6 +123,15 @@ Event Source Mpping:-
     Error Behaviour/Handling for SQS:-
       For this you can configure Visibility Timeout and Redrive Policy.       
     
-    
-    
+---------------------------
+
+Handler function:-
+  Handler function receive three argument in the runtime
+  1. Event: This has information abput invoker of the lambda. EG. S3 bucket name in case of S3 event, Request param in case of API gateway.
+  2. Context:- This has information about the invocation, function, and execution environment. EG: function name, version.
+  3. Callback: It is a function that you can call in non-async handlers to send a response. The callback function takes two arguments: an Error and a response. When you call it
   
+------------------------    
+
+
+
