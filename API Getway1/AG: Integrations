@@ -1,2 +1,3 @@
 AG with Lambda:-
-  You must first provide AG permission to call Invoke api of LAmbda 
+  - You must first provide AG permission to call Invoke api of LAmbda 
+  - Resource policy of lambda must grant permission to this AG api to invoke the Lambda
