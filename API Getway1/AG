@@ -40,8 +40,8 @@ API Gateway Integration [forwarding request]:-
 	Private link [Forwarding to Private VPC component]:-
 		Suppose if you wants to forward the request to any VPC component then again you need a proper set up
 		[Do No Confuse]: Private Endpoint means APi can be called from inside the VPC only. and Private Link is for forwarding the request to internal VPC component.
-			Private Endpoint:  VPC to AG
-			Private Link:			 AG to VPC
+			Private Endpoint:  VPC to AG without internet via VPC-EP
+			Private Link:			 form internet to AG and then AG to VPC via NLB of VPC  
 			How:-
 				At VPC side:-
 					If this VPC need to handle the integration with AG then it must must must have a working Network Load Balancer in it.
