@@ -1,6 +1,77 @@
 API Caching:-
   You can set to cache the api response for quick response.
   Caching enable AG to answer the request from cache rather reaching to integration point all the time.
+  This is enabled for stage level but can ne overried for Specific HTTP Methode. This is applicable for all the resouce coming in the API.
+  - You also have to set the TTL and maximun storage capacity.
+  - You can also turn on or off the encryption. though encryption will add a latency and increase storage.
+  - By default only GET methode is cached if caching is enabled. but you can change this behaviour bu override for Methode.
+  - for monitoring you can Inspect the CloudWatch metrics of CacheHitCount and CacheMissCount for your API and stage
+  - For cache key you can use all or some of below items in diffrent combination
+      - Query param
+      - Headers
+      - Url Path
+    
+-----------------------
+
+Throttling:-
+  In API gateway you can set the Throttle value for an API. This save your API and Back-end from overwhelming.
+  This is enabled for stage level but can ne overried for Specific HTTP Methode. This Throttle limit is shared among all the resouce coming in the API.
+  You set 2 value here
+  1. Rate:  The maximim request per sec it can handle [for given stage and for among all the resources]
+  2. Burst: Maximum request in 1 milisecond it can handle [for given stage and for among all the resources]
   
-  This is enabled for stage and API level [not at resource level]:-
-    once enable you also need to give TTL and cache capacity.
+  After that the request will be throttled for that second priode.
+  EG: Rate: 1000 and Burst: 6000. then
+  If 10000 request will come in one sec evenly then all will be served.
+  If 12000 request will come in one sec evenly then 10000 will be served. and 2000 will throttle.
+  If 10000 request will come in one sec but in first milisec it is 4000 and rest 999 sec it is 6000 then all will be served
+  If 10000 request will come in one sec but in first milisec it is 8000 and rest 999 sec it is 2000 then 2000(=8000-6000) from those 8000 will throttle rest will be served. 
+  
+  - Throttling value can be override for specific Methode type.
+  - After limit the the request will be throttled with error '$29 too many request'
+  
+-------------------------
+
+Usage Plan and API Key:-
+	When you create a apis in AG. they can be public and people can use it for many number of time at any rate.
+	Now suppose you wants to limit the number of request per second and total number of request for some set of users.
+	say tou wants to give 5000 request call and 10 requets call max per sec for any of your client. How would you do it.
+	For this use the 'Usage Plan' and 'API key':-
+	Usage Plan:-
+		Usage plan has 3 values:
+			Rate: max request per second, the client can send. after which request throttle.
+			Burst: max request in 1 milisecond it can send
+			quota: Max number of request in given time preiod[day, week, month]
+	API Key:-
+		The api key is mapped to one and only one Usage Plane. 
+	Source of API Key:-	
+		At the time of request caller can sent the Api key at two places 
+			HEADER: in the header 'X-API-Key'
+			AUTHORIZER: use cutom lambda authorier and have it return the API Key in response agaibst key 'usageIdentifierKey'. 
+		AG Setting:-
+			You need to set this in setting at AG > your api > Setting, from which you will read the API key.
+		No finally ar resource level:
+			Go to 
+				AWS > AG > APIs > your api > select proper api resource > Methode Request > 
+				set API Key Required = true.
+				So at this point you can set what resousrce need to have api key in request and wha not.
+		
+	  One usage plan can map to many API Key. but one api key can have only one Usage plan  
+  
+ Usage Plan and API Key  VS  Throttle Limits:-
+  'Usage Plan and API Key' limits the specific client (who use that API key) for per sec and pe milisec use of APIs. It cannot be ovveride for a methode.
+  'Throttle Limits' limits all the client for per sec and per milisec use of APIs. It can be override for a methode.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
