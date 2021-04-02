@@ -10,6 +10,12 @@ API Caching:-
       - Query param
       - Headers
       - Url Path
+  Flush cache: you can clear all the cache for a given stage.
+    you can do it at the stage level.
+  Invalidate Cache via clent:
+    client of your API can invalidate an existing cache entry and reload it from the integration endpoint for individual requests.
+    The client must send a request that contains the Cache-Control: max-age=0 header. The client receives the response directly from the integration endpoint instead of the cache
+  
     
 -----------------------
 
