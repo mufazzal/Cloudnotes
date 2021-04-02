@@ -15,7 +15,7 @@ API Caching:-
 
 Throttling:-
   In API gateway you can set the Throttle value for an API. This save your API and Back-end from overwhelming.
-  This is enabled for stage level but can ne overried for Specific HTTP Methode. This Throttle limit is shared among all the resouce coming in the API.
+  This is enabled for stage level but can be overried for Specific HTTP Methode. This Throttle limit is shared among all the resouce coming in the API.
   You set 2 value here
   1. Rate:  The maximim request per sec it can handle [for given stage and for among all the resources]
   2. Burst: Maximum request in 1 milisecond it can handle [for given stage and for among all the resources]
@@ -35,9 +35,10 @@ Throttling:-
 Usage Plan and API Key:-
 	When you create a apis in AG. they can be public and people can use it for many number of time at any rate.
 	Now suppose you wants to limit the number of request per second and total number of request for some set of users.
+  This is enabled for stage level but can be overried for Specific HTTP Methode. This Throttle limit is shared among all the resouce coming in the API.
 	say tou wants to give 5000 request call and 10 requets call max per sec for any of your client. How would you do it.
 	For this use the 'Usage Plan' and 'API key':-
-	Usage Plan:-
+	Usage Plan:-	
 		Usage plan has 3 values:
 			Rate: max request per second, the client can send. after which request throttle.
 			Burst: max request in 1 milisecond it can send
@@ -50,28 +51,22 @@ Usage Plan and API Key:-
 			AUTHORIZER: use cutom lambda authorier and have it return the API Key in response agaibst key 'usageIdentifierKey'. 
 		AG Setting:-
 			You need to set this in setting at AG > your api > Setting, from which you will read the API key.
-		No finally ar resource level:
+		Now finally ar resource level:
 			Go to 
 				AWS > AG > APIs > your api > select proper api resource > Methode Request > 
 				set API Key Required = true.
 				So at this point you can set what resousrce need to have api key in request and wha not.
-		
-	  One usage plan can map to many API Key. but one api key can have only one Usage plan  
+		One usage plan can map to many API Key. but one api key can have only one Usage plan  
   
  Usage Plan and API Key  VS  Throttle Limits:-
-  'Usage Plan and API Key' limits the specific client (who use that API key) for per sec and pe milisec use of APIs. It cannot be ovveride for a methode.
-  'Throttle Limits' limits all the client for per sec and per milisec use of APIs. It can be override for a methode.
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  'Usage Plan and API Key' limits the specific client (who use that API key) for per sec and pe milisec use of APIs. 
+  'Throttle Limits' limits all the client for per sec and per milisec use of APIs. 
+	Flow of applicable limits:-
+		1. Per-client per-method throttling limits that you set for an API stage in a 'usage plan'
+		2. Per-client throttling limits that you set in a 'usage plan'.
+		3. Per-stage Per-Methode limit that you set in 'API stage settings'
+		4. Per-stage limit that you set in 'API stage settings'
+		5. Account-level throttling per Region.
+
   
   
