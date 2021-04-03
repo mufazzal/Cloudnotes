@@ -1,0 +1,50 @@
+Validation:-
+	You can set it at Method Request. 
+	You can make certain params necessary for client to send and Verify (not authenticate) if API is in correct form:-
+	Verify if API caller has provided proper structure like body, header, query param
+      This will check if the caller has proper params in the API. it does not verify if he has the access to that api or not.
+      How:-
+        at your  Api > Method Request 
+          set 'URL Query String Parameters', 'HTTP Request Headers', 'Request Body'
+      This is very basic level of check.
+		How:-
+			go to AWS > API GEtway > API collection > api > methode > MEthode Request
+			Now set the 'Request Validator' as such that what parts in api you wants to check
+			Now you can configure belo three things
+				Query String ->  www.*******.com?uName=Muf                    Here you setup qery in api must look like  
+				Header       ->  www.*******.com {Header:{ uname: "Muf"}}     Here you setup headers must look like  
+				Query String ->  www.*******.com?{body:{ uname: "Muf"}}       Here you setup body model must look like  
+			This authoization can work only upto request formate level.
+			It n verify if required data prsent in the call or not. But there is no way that it can verify that whoever
+			is accessing this api have permission/authority to go into it.
+      
+---------------------      
+
+Access:-
+	Resource policies:-
+		You can set the resource policy at API collection and set the it to access or denied 
+			- Users from a specified AWS account.
+			- Specified source IP address ranges or CIDR blocks.
+			- Specified virtual private clouds (VPCs) or VPC endpoints (in any account).
+			You must provide them access to the 'arn:aws:execute-api' action.
+	      
+=----------------
+
+API Getway and CORS:-
+  By default all the api in the API getway has the cors disabled. It can be enecbled easily by 
+    AWS > API Getway > you api > resources > Select Action in DD > Enable CORS.
+    
+  API Getway and CORS and Lambda:-
+    If lambda is integrated as the response generator in the APPI then above step is not enough for cors. 
+    for this you havr to take care of additional headers in the reponse of lambda.
+    
+    So the response of lambda should have this header:-
+      
+ 	  res = { 
+          statusCode: ****, 
+          body: *******,
+          headers: {'Access-Control-Allow-Origin': '*'}
+		}
+		return res;      
+      
+  
