@@ -27,7 +27,11 @@ Access:-
 			- Specified source IP address ranges or CIDR blocks.
 			- Specified virtual private clouds (VPCs) or VPC endpoints (in any account).
 			You must provide them access to the 'arn:aws:execute-api' action.
-	      
+	IAM Policy:-
+		Its is used to grant or deny below access to IAM users
+		- To create, deploy, and manage an API in API Gateway
+		- Controlling who can create and manage your APIs, as well as who can invoke them.
+		
 =----------------
 
 API Getway and CORS:-
