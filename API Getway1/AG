@@ -13,17 +13,6 @@ API Gateway Endpoint [Reaching ti API]:-
 			Here AG utilize the Edge location for fast respionse to anywhere in the world. This is useful if you user are spread globally.
 		Private:-
 			This useful if you wants the APIS to be callable from your VPC only. It cannot be called form outside of VPC by public internet.
-			This is very useful when you have many private component in your VPV which do not has the Internet but need to execute the underlined APIs.
-			This is bit tricky and setting it up need some proper mechanics.
-			At VPC side:-
-				As we mentioned that VPC component may be private and do not has internet access so if they want to use the API Gateway for calling those API,
-				They must use AG service by 'Service Endpoint' of AG.
-				So create a Service end point in the VPC for AG.
-			At AG:-
-				At a time of creation of AG select the 'Endpoint' as private. There by restrict any public access of those apis.
-				Now once created, then set up the rersource policy to selectivly allow which VPC can access those resources in APIs.
-				
-			So now no one from the public can use those api, but anyone in 	the VPC can call them[via VPCs Service Endpoint  of AG]. 
 							
 			
 API Gateway Integration [forwarding request]:-
