@@ -52,3 +52,14 @@ Usage Plan and API Key:-
 		3. Per-stage Per-Methode limit that you set in 'API stage settings'
 		4. Per-stage limit that you set in 'API stage settings'
 		5. Account-level throttling per Region.
+--------------------
+
+AWS WAF:-
+	You can enable WAF ptotection of API at Stge level. You have to select the proper Web ACL for this.
+	With this you can protect your API from:
+	- Malicious IP address ranges, 
+	- Malicious CIDR blocks, 
+	- block requests that originate from a specific country or region, 
+	- requests that contain malicious SQL code or script
+	- You can also create rules that match a specified string or a regular expression pattern in HTTP headers, method, query string, URI, and the request body
+	
