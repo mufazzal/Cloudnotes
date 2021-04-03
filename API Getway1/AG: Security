@@ -63,3 +63,18 @@ AWS WAF:-
 	- requests that contain malicious SQL code or script
 	- You can also create rules that match a specified string or a regular expression pattern in HTTP headers, method, query string, URI, and the request body
 	
+--------------------------
+
+Private API:-
+	Private APIs are the API which is accessible to only a slected VPC of authorized AWS account.
+	and even traffic from that VPC to API gateway only travel in AWS boundry not on public internet.
+	For this you have to set your Endpoint as 'Private' at time of API creation. and then
+	At AG:-
+		Set up the rersource policy to selectivly allow which VPC can access those resources in APIs.
+	At VPC side:-
+		Create Interface VPC endpoint.
+	- You can access multiple API gateway endpoint from sigle Interface EP in VPC.
+	- You can also use AWS Direct Connect to establish a connection from an on-premises network to Amazon VPC and access your private API over that connection.
+	- This is very useful when you have many private component in your VPC which do not has the Internet but need to execute the underlined APIs.
+
+
