@@ -1,0 +1,78 @@
+There are 3 way to authenticate if caller has access to API or not
+1. custom authorizer + Cognito user-pool
+2. AWS_IAM with Cognito id-pool
+3. custom authorizer + Lambda
+  
+  
+1. custom authorizer + Cognito user-pool:- called on behalf of an appclient with valid user id_token
+    When you want to restrict the access of API only to the user who has valid id_token of the selected user-pool.
+    So here in the api you have to pass the valid id_token.
+    go to 
+      Authorizers > Create 
+      Choose Type = Cognito
+      Select the user-pool of you choice.
+      Type the key of Header param who has the id_token in 'Token Source'
+      Apply this authorizer to API that you wants to authenticate.
+      Done
+    Now at the time of calling the caller has to provide the valid id_token and api getway take care if it is valid for the give user-pool
+    if yes then the api get executed or else it fail.
+    EG:-
+      see 'getUsers-US pool' api in postman and provide the valid id_token in Authorization param.
+      
+      When to use it:-
+        This approch is good when you wants to give the balncate access to all the user of certain user-pool.
+        It say 'if caller has valid id_token then gothrough'
+        Actully here the call is placed on behalf of certain AppClient that is registerd at cognito portal. The id token has 
+        the information about on whose(AppClient) behalf this call took place.
+      
+2. AWS_IAM with Cognito id-pool :- 
+    called on behalf of an cognito user with valid user key and secret
+    In above approch you give access to the user if it has the valid id_token
+    Suppose you wants to write a IAM kind of access management where you write a policy for any authenticated cognito-user to tell
+    if he has access to set of api or not.
+    For this you have to add the IAM policy in the role of authenticated user of the identity pool
+      go to Cognito > Identity Pool > your pool > Edit
+      check the role of 'Authenticated role' say 'autr1'
+      Now go to IAM > Role > select role 'autr1'
+        Add policy 
+          "Effect": Allow
+          "Action": "execute-api:Invoke",
+          "Resource": ["arn:aws:execute-api:us-east-1:388412347424:di4smva06m/*/GET/getUsers", ...]
+      So now the authenticated user will have acces to the APi listed in 'Resource'
+      
+      Now cofiguring the API for this identity pool- 
+      For this first you need to set the identity poll and then 
+        Resources > your api > METHODE > Method Request
+          in 'Authorization' select AWS_IAM
+        Done
+      
+      Actully here the call is placed on behalf of cognito-user directly. you have to provide the identity of that cognito user 
+      in form of Access key and Secret.
+      Unlike approch 1 here you do not have to create the Authorizer.
+      
+      At the time of calling first you have to generate the access-key, secret and session_token via id_token for given identity pool.
+      once generated then we will call the api with the signature v 4 params with access-key, secret, session_token
+      EG:-
+        'getUsers-ID pool' in postman
+      The AWS system automatically determine the identiti pool from the params passed in signature-v-4-params.
+      So you do not have to provide it at the time of set up.
+      
+    
+  3. custom authorizer + Lambda:-
+      This is extremly fine grain way to give access at a runtime.
+      In this approach you have to create a lambda who take the input for the api and return the IAM policy like this
+          var effect = 'deny'
+              if(event.authorizationToken === 'muf')
+                  effect = 'allow'
+
+              const po = {
+                  principalId: 'user',
+                  policyDocument: { 
+                      Version: '2012-10-17', 
+                      Statement: {
+                          Action: 'execute-api:Invoke',
+                          Effect: effect,
+                          Resource: 'arn:aws:execute-api:us-east-1:388412347424:r3k1ggk9s7/Dev/GET/personalinfo'
+                        } 
+                  }
+              }         
