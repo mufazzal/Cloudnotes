@@ -13,7 +13,88 @@ API Gateway Endpoint [Reaching ti API]:-
 			Here AG utilize the Edge location for fast respionse to anywhere in the world. This is useful if you user are spread globally.
 		Private:-
 			This useful if you wants the APIS to be callable from your VPC only. It cannot be called form outside of VPC by public internet.
-							
+
+
+-----------------------------------
+
+Over all lookout:-
+
+API Gateway
+  |
+  |------API_MyApp
+  |       |---------/users
+  |       |            |-----GET											IMPL_1
+  |       |            |-----PUT											IMPL_2
+  |       |            |---------id
+	|       |            |           |-----GET					IMPL_3
+	|       |            |           |-----POST					IMPL_4
+	|				|						 |
+	|				|						 |
+  |       |            |---------{proxy+}
+  |       |                        |-----GET					IMPL_5
+  |       |                        |-----POST					IMPL_6
+	|				|												 |	
+	|				|												 |
+	|				|												color or {type+}		IMPL_11	 --INVALID
+	|				|
+  |       |---------/products
+  |       	            |-----GET											IMPL_7
+  |       	            |-----POST										IMPL_8
+  |       	            |---------{proxy+}
+  |       	                        |-----GET					IMPL_9
+  |       	                        |-----POST				IMPL_10
+  |------API_MyApp1
+  |------API_MyApp2
+  |------API_MyApp3
+                      
+
+API:-
+	This is are the APIs
+	API_MyApp, API_MyApp1, API_MyApp2, API_MyApp3
+	each api has it own id and hostname so for
+	API_MyApp:		https://<id of API_MyApp>.execute-api.us-east-1.amazonaws.com/<stage>
+	API_MyApp1:		https://<id of API_MyApp1>.execute-api.us-east-1.amazonaws.com/<stage>
+	API_MyApp2:		https://<id of API_MyApp2>.execute-api.us-east-1.amazonaws.com/<stage>
+	
+	
+Resource:-
+	In each of the APIs you create the resources. This resources could be of proxy or non proxy resources.
+	Resources can be accessed with Hostname + resource path
+	for API_MyApp:-
+		https://<id of API_MyApp>.execute-api.us-east-1.amazonaws.com/<stage>/users						IMPL_1, IMPL_2
+		https://<id of API_MyApp>.execute-api.us-east-1.amazonaws.com/<stage>/users/id				IMPL_3, IMPL_4
+		https://<id of API_MyApp>.execute-api.us-east-1.amazonaws.com/<stage>/users/bla/bla		IMPL_5, IMPL_6
+		https://<id of API_MyApp>.execute-api.us-east-1.amazonaws.com/<stage>/products				IMPL_7, IMPL_8
+		
+	Methode:-
+		Each resource can have diffrent HTTP methode implemented.
+		this could be GET, POST, PUT etc.
+		for proxy resources their is additional one name 'ANY'
+		
+	Proxy resource:-
+		The proxy resource is made of the greedy parameter which will mask all the rights side parameters in url path.
+		in the above diagram all below url path will resoulve to either IMPL_5 or IMPL_6
+		- users/**/**/**..
+		- users/type
+		- users/class
+		- users/type/data
+		- users/id/45			 	:yes! even 'id' exist as saperate resource but that one is not greedy.
+		
+		Though below will not resolve to IMPL_5 or IMPL_6, because if exact name of resource match then proxy resource will not be taken.
+		- users/id
+		
+		DEfault methode ANY for proxy resurce:-
+			For proxy resource you have to provide defalut implementation which will be used if the specific HTTP methode is not implemented.
+			When you deploy the proxy resource all the HTTP methode also deployed for that proxy resource.
+			The implementation could be user defined of default (define via ANY)
+		
+		Proxy parameter cannot have a child resource. so you cannot have below herarchy
+		So 'IMPL_11' is not possible.
+		
+		You can also the heirarchy like 	/users/{userId}/orders/{orderId}
+		but not like   /users/{userId+}/<any string>
+		
+------------------------------------
 			
 API Gateway Integration [forwarding request]:-
 	This is applicable at resource level of API. 
@@ -23,32 +104,7 @@ API Gateway Integration [forwarding request]:-
 		HTTP
 		AWS service 
 		Private link
-	Most of those forward are easy to understand but one of them is tricky that is 'Private link'
-	
-	
-	Private link [Forwarding to Private VPC component]:-
-		Suppose if you wants to forward the request to any VPC component then again you need a proper set up
-		[Do No Confuse]: Private Endpoint means APi can be called from inside the VPC only. and Private Link is for forwarding the request to internal VPC component.
-			Private Endpoint:  VPC to AG without internet via VPC-EP
-			Private Link:			 form internet to AG and then AG to VPC via NLB of VPC  
-			How:-
-				At VPC side:- 
-					If this VPC need to handle the integration with AG then it must must must have a working Network Load Balancer in it.
-					So set up the NLB here.
-				At AG:-
-					1. Create the VPC link 
-							Go to AG > VPC link
-							Select the NLB created at VPC side
-					2. Integrate VPC Link to apis:- 
-							Go to AG > your apis > 'select resource' > integration
-							select integration = 'VPC Link'
-							slect the VPC link you created in step 1
-							Also fill the Endpont value with DNS of NLB created at VPC side.
-					Done.
-				Now the request coming to AG [from anywhere] will be forwared to NLB of VPC.	
-					
-					
--------------
+----------------------------------
 
 AG and Stage:-
 	At stage level you can set below items for APIs [not api resource]
@@ -58,21 +114,3 @@ AG and Stage:-
 		- Client Certificate
 		- Stage Variable
 		- Monitering mechanics
-
-------------
-API GEtway and Versioning and stage variable.
-      
-
-API key
-
-
-Throttle Request
-
-AG and EC2/RDS/DDB
-
-
-AG api cache
-
-AG request response interpretation       
-   
-   
