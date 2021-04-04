@@ -32,7 +32,7 @@ API Gateway Integration [forwarding request]:-
 			Private Endpoint:  VPC to AG without internet via VPC-EP
 			Private Link:			 form internet to AG and then AG to VPC via NLB of VPC  
 			How:-
-				At VPC side:-
+				At VPC side:- 
 					If this VPC need to handle the integration with AG then it must must must have a working Network Load Balancer in it.
 					So set up the NLB here.
 				At AG:-
