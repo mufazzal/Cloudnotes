@@ -106,11 +106,33 @@ API Gateway Integration [forwarding request]:-
 		Private link
 ----------------------------------
 
-AG and Stage:-
-	At stage level you can set below items for APIs [not api resource]
+
+Binary Payload:-
+	The request from client and response from Interation can have a binary data like image, GZIP file etc.
+	To handle this in API gateway
+	For Proxy-Integration:-
+		To handle binary payloads for AWS Lambda proxy integrations, you must base64-encode your function's response
+	For non-proxy:-
+		Use The contentHandling value can be CONVERT_TO_BINARY, CONVERT_TO_TEXT, or undefined
+-----------------
+Stage:-
+	A stage is a named reference to a deployment. you can configure stage settings to enable 
 		- Caching
 		- Default Method Throttling
 		- WAF
 		- Client Certificate
 		- Stage Variable
 		- Monitering mechanics
+
+	Stage VAriable:-
+		Stage variables are name-value pairs that you can define as configuration attributes associated with a deployment stage of a REST API. 
+		They act like environment variables and can be used in 
+		-  the mapping templates, 
+		-  pass configuration parameters to your AWS Lambda or HTTP backend
+		-  USe in HTTP endpoint like 'http://${stageVariables.url}'
+		-  USe in LAmbda function name like 'http://${stageVariables.function}'
+		
+----------------------
+HTTP API:-
+	HTTP API is next version of REST API. This provide fater and low latency.
+	But it still not has all the feature. 
