@@ -1,3 +1,158 @@
-AG with Lambda:-
-  - You must first provide AG permission to call Invoke api of LAmbda 
-  - Resource policy of lambda must grant permission to this AG api to invoke the Lambda
+Methode Execution:-
+	For each resource you have a diffrent HTTP methode.and for each methode you can have a execution.
+	The execution has 4 part
+	
+				
+																				
+		|--->---->---------Methode Request---->--------->-----Integration Request----->---------->------|	
+		|																																																|
+Client																																														Integration			
+		|																																																|
+		|---<----<---------Methode Response---<---------<-----Integration Response----<----------<------|	
+
+
+Client:-
+	This could be any system like browser, server, Postman etc.
+	They reach to the Endpoint of specific resource with specific Methode.
+	
+Methode-Request:-
+	The methode-request define how the client will reach to the API gateway.
+	This has	
+		- Authorization:															See Authorization topic
+		- Request Validator: 													See Request Validation topic
+		- API Key Required or not: 										See API Key and USage topic
+		- Header, Query pram and request body model:	See Request Validation topic
+	
+Integration-Request:-
+	This part set how the request will the API Gateway connect to Integration
+	Integration Type:-
+		The Integration could be type of
+		- Lambda
+			> LAmbda Proxy
+			> Lambda non-proxy
+		- HTTP
+			> HTTP Proxy
+			> HTTP non-Proxy
+		- AWS Service
+		- Mock
+		- VPC Endpoint
+			> VPC Endpoint Proxy
+			> VPC Endpoint non-Proxy
+	
+	Data passing from Methode-Request to Integration-Request
+	Non-proxy integration:-
+		In this kind of integration, request params recived from client in Method-Request do not automatically passed to Integration via Integration-Request.
+		You have to set proper mapping for this to work.
+			- set parameter mappings to map predefined Method-Request HEADER 			to appropriate Integration-Request HEADER/Query-Param/Path-Param
+			- set parameter mappings to map predefined Method-Request Query-Param to appropriate Integration-Request HEADER/Query-Param/Path-Param
+			- set parameter mappings to map predefined Method-Request Path-Param 	to appropriate Integration-Request HEADER/Query-Param/Path-Param
+			- set body 			mappings to map Method-Request body of a given content type according to the specified mapping template
+			- specify the condition under which the incoming Method-Request data is passed through to the backend as-is.
+		
+		if Client is sending 'page. and integration is expectin '_page'
+		EG: 
+			_page : method.request.querystring.page
+			_loginId : method.request.header.loginId
+			_loginId : method.request.header.loginId
+			
+	Proxy Integration:-
+		Here the request param passed to integration automatically and you do not have to provide any mapping.
+
+Integration-Response:-
+	The output from integration is first handled by 'Integration-Response'. This may or may not transform the output in appropiate formate
+	which can be handled by API gateway [The transformed/untransformed data not transmitted to client but only to API gateway itself]
+	For Proxy Integration:-
+		Integration-Response do nothing and pass the output as it is to API gateway.
+	For non-Proxy Integration:-
+		To set up the Integration-Response  you need to do below
+		1. Identifying the response status code with regex
+				- for Lambda integration, the regex pattern is applied to a Lambda error message. 
+				- for HTTP or AWS service proxy integration, the regex pattern is applied to the status code.
+		2. Once stsus code is fixed then create mapping template for expected content-type
+
+Methode-Response:-
+	For Proxy Integration:-
+		Methode-Response do nothing and pass the output from integration as it is to Client.
+	For non-Proxy Integration:-
+		Method responses are responsible for two things:
+			- Defining the status codes that will be returned by your API to Client.
+			- Defining the response bodies that are returned by your API to Client.
+			- To create SDK and documentation for API
+			
+		By default, the only status code that API Gateway will return is a 200 OK. 
+		If you want to use HTTP status codes to provide sanity around your HTTP responses, you’ll need to define them in a method response
+		
+		Once you’ve defined your method response, then you create your integration response in the to use a regex to map a particular response to your status code
+		
+		
+-------------------------------
+
+Lambda Integration:-
+	To invoke lambda you must provide IAM role of that must have policies allowing the apigateway service to invoke Lambda functions
+	Lambda Proxy integration:-
+		This is simple and sweet. just rember that 
+		The input formate of event in lambda is
+				{
+				"resource": 					"Resource path",
+				"path": 							"Path parameter",
+				"httpMethod": 				"Incoming request's method name"
+				"headers": 						{String containing incoming request headers}
+				"multiValueHeaders": 	{List of strings containing incoming request headers}
+				"queryStringParameters": {query string parameters }
+				"multiValueQueryStringParameters": {List of query string parameters}
+				"pathParameters":  		{path parameters}
+				"stageVariables": 		{Applicable stage variables}
+				"requestContext": 		{Request context, including authorizer-returned key-value pairs}
+				"body": 							"A JSON string of the request payload."
+				"isBase64Encoded": 		"A boolean flag to indicate if the applicable request payload is Base64-encoded"
+			}
+		The oupput of lambda must be in below formate
+			{
+					"isBase64Encoded": true|false,
+					"statusCode": httpStatusCode,
+					"headers": { "headerName": "headerValue", ... },
+					"multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
+					"body": "..."
+			}
+			
+	Lambda non-Proxy integration:-		
+		Too complex
+		Async Invocation:-
+			In non-Proxy integration you can do the Asynch invocation of lambda by adding  X-Amz-Invocation-Type header with a static value of 'Event' in Integration-Request, 
+    
+	Required Permission Model:-
+    - You must first provide AG permission to call Invoke api of LAmbda 
+    - Resource policy of lambda must grant permission to this AG api to invoke the Lambda
+
+-----------------------
+
+HTTP Integration:-
+	You can integrate an API method with an HTTP endpoint 
+	Proxy:-
+		With proxy integration, setup is simple. You only need to set the HTTP method and the HTTP endpoint URI, according to the backend requirements.
+	Non-Proxy:-
+		With custom integration, setup is more involved. In addition to the proxy integration setup steps, 
+		you need to specify how the incoming request data is mapped to the integration request and how the resulting integration response data is mapped to the method response.
+
+------------------------
+
+Private Integration:-
+	The API Gateway private integration makes it simple to expose your HTTP/HTTPS resources within an Amazon VPC for access by clients outside of the VPC
+	Private link [Forwarding to Private VPC component]:-
+	Suppose if you wants to forward the request to any VPC component then again you need a proper set up
+		[Do No Confuse]: Private Endpoint means APi can be called from inside the VPC only. and Private Link is for forwarding the request to internal VPC component.
+			Private Endpoint:  VPC to AG without internet via VPC-EP
+			Private Link:			 form internet to AG and then AG to VPC via NLB of VPC  
+		How:-
+		At VPC side:- 
+			If this VPC need to handle the integration with AG then it must must must have a working Network Load Balancer in it.
+		At AG:-
+			Create the VPC link at  AG > VPC link and Select the NLB created at VPC side
+		Integration of VPC Link to apis:- 
+			Go to AG > your apis > 'select resource' > integration and select integration = 'VPC Link'
+			slect the VPC link you created in step 1
+			Also fill the Endpont value with DNS of NLB created at VPC side.
+		Done.
+		Now the request coming to AG [from anywhere] will be forwared to NLB of VPC.
+	
+-------------
