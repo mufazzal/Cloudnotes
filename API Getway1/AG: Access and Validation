@@ -25,7 +25,7 @@ Access:-
 		You can set the resource policy at API collection and set the it to access or denied 
 			- Users from a specified AWS account.
 			- Specified source IP address ranges or CIDR blocks.
-			- Specified virtual private clouds (VPCs) or VPC endpoints (in any account).
+			- Specified virtual private clouds (VPCs) or VPC endpoints (in any account). [For private Endpoint implementation]
 			You must provide them access to the 'arn:aws:execute-api' action.
 	IAM Policy:-
 		Its is used to grant or deny below access to IAM users
