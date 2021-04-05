@@ -71,7 +71,7 @@ AWS WAF:-
 	
 --------------------------
 
-Private API:-
+Private Endpoint API:-
 	>> Making Sure that only authorized client make calls. and no internet involve anywhere.
 
 	Private APIs are the API which is accessible to only a slected VPC of authorized AWS account.
