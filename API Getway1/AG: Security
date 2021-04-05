@@ -15,8 +15,8 @@ Throttling:-
   If 10000 request will come in one sec but in first milisec it is 8000 and rest 999 sec it is 2000 then 2000(=8000-6000) from those 8000 will throttle rest will be served. 
   
   - Throttling value can be override for specific Methode type.
-  - After limit the the request will be throttled with error '$29 too many request'
-  
+  - After limit the the request will be throttled with error '429 too many request'
+  - This limit cannot exceed from Accpunt level limit of Rate and Burst
 -------------------------
 
 Usage Plan and API Key:-
