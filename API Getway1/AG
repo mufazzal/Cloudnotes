@@ -118,7 +118,7 @@ Binary Payload:-
 Stage:-
 	A stage is a named reference to a deployment. you can configure stage settings to enable 
 		- Caching
-		- Default Method Throttling
+		- Default Method Throttling [Not Usage Plane]
 		- WAF
 		- Client Certificate
 		- Stage Variable
