@@ -140,9 +140,6 @@ Private Integration [VPC Private Link]:-
 	The API Gateway private integration makes it simple to expose your HTTP/HTTPS resources within an Amazon VPC for access by clients outside of the VPC
 	Private link [Forwarding to Private VPC component]:-
 	Suppose if you wants to forward the request to any VPC component then again you need a proper set up
-		[Do No Confuse]: Private Endpoint means APi can be called from inside the VPC only. and Private Link is for forwarding the request to internal VPC component.
-			Private Endpoint:  VPC to AG without internet via VPC-EP
-			Private Link:			 form internet to AG and then AG to VPC via NLB of VPC  
 		How:-
 		At VPC side:- 
 			If this VPC need to handle the integration with AG then it must must must have a working Network Load Balancer in it.
@@ -154,5 +151,9 @@ Private Integration [VPC Private Link]:-
 			Also fill the Endpont value with DNS of NLB created at VPC side.
 		Done.
 		Now the request coming to AG [from anywhere] will be forwared to NLB of VPC.
-	
+		
+		Private Endpoint		VS		Private Link:-
+			Private Endpoint:  VPC to AG without internet via VPC-EP. Make the APIs private by overridind resource policy of API.
+			Private Link:			 Form internet to AG and then AG to VPC via NLB of VPC. Integrate the EP of VPC in Integration-Request.  
+
 -------------
