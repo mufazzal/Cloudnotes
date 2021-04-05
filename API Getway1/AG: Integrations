@@ -136,7 +136,7 @@ HTTP Integration:-
 
 ------------------------
 
-Private Integration:-
+Private Integration [VPC Private Link]:-
 	The API Gateway private integration makes it simple to expose your HTTP/HTTPS resources within an Amazon VPC for access by clients outside of the VPC
 	Private link [Forwarding to Private VPC component]:-
 	Suppose if you wants to forward the request to any VPC component then again you need a proper set up
