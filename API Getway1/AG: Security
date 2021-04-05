@@ -1,4 +1,6 @@
-Throttling:-
+Throttling:- 
+	>> Making Sure that certain API do not get out of control call. and protect back-end from overwhelming.
+	
   In API gateway you can set the Throttle value for an API. This save your API and Back-end from overwhelming.
   This is enabled for stage level but can be overried for Specific HTTP Methode. This Throttle limit is shared among all the resouce coming in the API.
   You set 2 value here
@@ -18,6 +20,8 @@ Throttling:-
 -------------------------
 
 Usage Plan and API Key:-
+	>> Making Sure that certain Client do not make out of control calls for certain APIs. and protect back-end from overwhelming by that client.
+
 	When you create a apis in AG. they can be public and people can use it for many number of time at any rate.
 	Now suppose you wants to limit the number of request per second and total number of request for some set of users.
   This is enabled for stage level but can be overried for Specific HTTP Methode. This Throttle limit is shared among all the resouce coming in the API.
@@ -55,6 +59,8 @@ Usage Plan and API Key:-
 --------------------
 
 AWS WAF:-
+	>> Making Sure that certain Client do not make malicious calls.
+
 	You can enable WAF ptotection of API at Stge level. You have to select the proper Web ACL for this.
 	With this you can protect your API from:
 	- Malicious IP address ranges, 
@@ -66,6 +72,8 @@ AWS WAF:-
 --------------------------
 
 Private API:-
+	>> Making Sure that only authorized client make calls. and no internet involve anywhere.
+
 	Private APIs are the API which is accessible to only a slected VPC of authorized AWS account.
 	and even traffic from that VPC to API gateway only travel in AWS boundry not on public internet.
 	For this you have to set your Endpoint as 'Private' at time of API creation. and then
@@ -76,5 +84,14 @@ Private API:-
 	- You can access multiple API gateway endpoint from sigle Interface EP in VPC.
 	- You can also use AWS Direct Connect to establish a connection from an on-premises network to Amazon VPC and access your private API over that connection.
 	- This is very useful when you have many private component in your VPC which do not has the Internet but need to execute the underlined APIs.
+
+------------------------------
+
+Client Certificate:-
+	>> Making Sure that bacck-end accept calls from API gateway only. and no one else.
+	
+	You can use API Gateway to generate an SSL certificate and then use its public key in the backend to verify that HTTP requests to your backend system are from API Gateway. 
+	This allows your HTTP backend to control and accept only requests that originate from Amazon API Gateway, even if the backend is publicly accessible
+	
 
 
