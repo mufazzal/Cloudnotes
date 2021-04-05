@@ -33,3 +33,8 @@ The monitering prefrences are set the the satge and API level [not at resource l
      
   4. Enable X-Ray Tracing
       You can use AWS X-Ray to trace and analyze user requests as they travel through your Amazon API Gateway REST APIs to the underlying services
+      
+  5. Cloudtrail:-
+      With this you can track who make changes in the API. like creating new API, Resource, Methode etc. or delete any of that.
+      It do not track the API call by clients
+        
