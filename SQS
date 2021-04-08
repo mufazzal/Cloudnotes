@@ -145,9 +145,10 @@ WHen exaclty we may need it :-
     To resolve this issue comes the long poling:-
       In the long polling instaed of returning result immedietly it will wait for few seconds for new messages. if there are new message then return it.
       max time it can wait is 20 sec. after that empty response will come.
-      To enable the long pollint just pass the non-zero value in ReceiveMessageWaitTimeSeconds.
       its default value is 0. and sp by default this will be a Short poll. 
-      
+      It can be configured :-
+        -  At queue level for the read by any consumer by setting in Queue param.
+        - For specofic read operation by passing in 'WaitTimeSeconds' param 'ReceiveMessage' api
       
 ---------
 
