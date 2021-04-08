@@ -36,10 +36,6 @@ Lambda:-
 AccessPolicy of SQS : QuePolicy:-
   This is very much simillar to bucket policy. This can use to allow/deny the certain Principle for Certain operation on certain resources if certain condition is met.
 
-SQS and S3:-
-  see at S3 > S3 Events.txt
-  
-
 SQS Pricing:-
   You get the 1st million of request for each month free. then it start charging.
   
@@ -151,6 +147,18 @@ WHen exaclty we may need it :-
       max time it can wait is 20 sec. after that empty response will come.
       To enable the long pollint just pass the non-zero value in ReceiveMessageWaitTimeSeconds.
       its default value is 0. and sp by default this will be a Short poll. 
+      
+      
+---------
+
+Message:-
+  It contains below element
+    1. Message Body
+    2. Message Attribute: up to 10 max 
+    3. MessageId: This is generated when message is pushed in queue.
+  For FIFO Queue there is additional Param:-
+    1. Message deduplication ID
+    2. Sequence number
 
 ---------
 Purging Queue:
