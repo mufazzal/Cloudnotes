@@ -32,16 +32,6 @@ Lambda:-
   if you wants to limit the number of record to read in on go then you can set the parameter  'batchSize' in lambda sqs event source. 
 
 
-
-AccessPolicy of SQS : QuePolicy:-
-  This is very much simillar to bucket policy. This can use to allow/deny the certain Principle for Certain operation on certain resources if certain condition is met.
-
-SQS Pricing:-
-  You get the 1st million of request for each month free. then it start charging.
-  
-  
-Dead Letter Que?????????????
-
 --------------------------
 WHen exaclty we may need it :-
   WHen you need to make system that process hell lot of messages that lie one after another. 
@@ -195,4 +185,20 @@ Size and Time constraint of message:
   For Message > 256KB
     For large message you can use 'Amazon SQS Extended Client Library for Java' which uses S3 to point the payload of the message 
     and could handle message of up to 2GB. Only JAva sdk work here. it only work though with AWS SDK. not with any ither.
-    
+
+--------    
+
+QuePolicy:-
+  This is very much simillar to bucket policy. This can use to allow/deny the certain Principle for Certain operation on certain resources if certain condition is met.
+
+--------
+
+SQS Pricing:-
+  You get the 1st million of request for each month free. then it start charging.
+  
+----------
+
+Dead Letter Que:-
+  ??????????????????????
+
+
