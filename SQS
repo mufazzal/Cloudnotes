@@ -103,19 +103,18 @@ WHen exaclty we may need it :-
       
       This is polling-based ,echanism. so the worker have to keep polling for the news message.
       It not a pullbased mechansn like SNS, the worker do not have any way to know that a new message if delivered in the queue.
-      
-      
-      Type of Queue :-
-        At the time of creation you can select the kind of que you wants to use for SQS. 2 choices
-        1. Standard: This que guarantee that the message will be dilivere at least once but it may deliver the more than one copy
-            of the same message and message may not pe processed in the same order as they are delivered.
-            This is because the SQS system is highly distributed.
-        2. FIFO: This que do some overhead work in background and make sure that messages are delivered onlty once and remain in the 
-            exact order also. This is chargable abd can handle only up to 300 message/sec
-      
-      
-      - max size of message is 256 KB
-      - msg can kept in the que from 1 mnt to 14 days, default is 4 days. after this time it will be auto deleted.
+
+-------
+
+Type of Queue :-
+  At the time of creation you can select the kind of que you wants to use for SQS. 2 choices
+  1. Standard: 
+      This que guarantee that the message will be dilivere at least once but it may deliver the more than one copy
+      of the same message and message may not pe processed in the same order as they are delivered.
+      This is because the SQS system is highly distributed.
+  2. FIFO: 
+      This que do some overhead work in background and make sure that messages are delivered onlty once and remain in the 
+      exact order also. This is chargable abd can handle only up to 300 message/sec
 
 -------
 
@@ -188,16 +187,12 @@ Issue of QueueName in cloudformation:-
    So either do not give QueueName or give new name each time of update [so basically replace on each update] 
 
 -------        
-Size constraint of message:
-  max allowed size is 256 KB
-  For large message you can use 'Amazon SQS Extended Client Library for Java' which uses S3 to point the payload of the message 
-  and could handle message of up to 2GB. Only JAva sdk work here. it only work though with AWS SDK. not with any ither.
-    
-  
-  
 
+Size and Time constraint of message:
+  - max size of message is 256 KB.  
+  - msg can kept in the queue from 1 mnt to 14 days, default is 4 days. after this time it will be auto deleted.
 
-
-
-
+  For Message > 256KB
+    For large message you can use 'Amazon SQS Extended Client Library for Java' which uses S3 to point the payload of the message 
+    and could handle message of up to 2GB. Only JAva sdk work here. it only work though with AWS SDK. not with any ither.
     
