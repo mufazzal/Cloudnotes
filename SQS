@@ -33,66 +33,32 @@ Lambda:-
 
 
 --------------------------
-WHen exaclty we may need it :-
-  WHen you need to make system that process hell lot of messages that lie one after another. 
-  Suppose you need to process any upcoming image in S3 and process its metadat or create a meme or resize the image.
-  and all this operations do not need to produce a response for the user.
-  Its like user uploaded it and once uploading done user will goet the success response.
-  But behind the picture after some time we will do that operation.
-  
-  How we can do it:-
-    By lembda: yes you can. it has its advantage and disadvantage. thr disadvantage is if many people keep uploading then lot of lembda keep 
-    invoking for this small operation.
-    By SNS -
-      ????????????
-    By SQS:-
-      This would be very suitable here. it goes like this
-      1. First you need to create a message queue at  AWS > SQS > Create New > standard. 
-      2. When S3 upload successful you deliver a message in that queue via this code
-              [it may be uploaded by any melbda itself or you can confiure a lembga that will trigger once the upload is done 
-                and this lembda will hvve below code]
-          
-          const params = {
-            MessageBody: JSON.stringify({name: Mufazzal}),
-            QueueUrl: "https://sqs.us-east-1.amazonaws.com/388412347424/mufQue"
-          };
-          sqs.sendMessage(params, (err, data) => { console.log(data, err); });          
-      
-        You can see this message in AWS console at 
-          AWS > SQS > 'mufQue' > Action > view/delete message
-       
-       3. Now create Worker : You can use EC2-Auto scalling or Lembda to create a worker
-          Worker will keep looking for the new messages and process it and delte it if you wants
-            For EC2-Autoscalluing ??????????????
-            For Lembda:  AWS > SQS > 'mufQue' > Action > configure Lembda
-          USe this code         
-          
-              const params = {
-                QueueUrl: "https://sqs.us-east-1.amazonaws.com/388412347424/mufQue",
-                MaxNumberOfMessages: 1,
-                VisibilityTimeout: 30,
-                WaitTimeSeconds: 0
-              };
-              sqs.receiveMessage(params, (err, data) => {
 
-                  const orderData = JSON.parse(data.Messages[0].Body);
-                  const deleteParams = {
-                    QueueUrl: queueUrl,
-                    ReceiptHandle: data.Messages[0].ReceiptHandle
-                  };
-                  sqs.deleteMessage(deleteParams, (err, data) => {console.log(err, data;});
-              }                                                                                                                                              });          
-        
-      Done.
-      
-      So the main usage of SQS is that when you have a stream of jobs coming for processing and you not need to process them in real time 
-      you can do it later 
-      for this you should create a SQS and deliver this jobs in that SQS in formate of a message which will have all the required info 
-      for processing it.
-      Now the worker thread will read it and process it.
-      
-      This is polling-based ,echanism. so the worker have to keep polling for the news message.
-      It not a pullbased mechansn like SNS, the worker do not have any way to know that a new message if delivered in the queue.
+Mechanics:-
+  Pushing message in Queue:-
+      const params = {
+        MessageBody: JSON.stringify({name: Mufazzal}),
+        QueueUrl: "https://sqs.us-east-1.amazonaws.com/388412347424/mufQue"
+      };
+      sqs.sendMessage(params, (err, data) => { console.log(data, err); });          
+
+  Now create Consumer and read messages: 
+      You can use EC2-Auto scalling or Lembda to create a worker. USe this code         
+          const params = {
+            QueueUrl: "https://sqs.us-east-1.amazonaws.com/388412347424/mufQue",
+            MaxNumberOfMessages: 1,
+            VisibilityTimeout: 30,
+            WaitTimeSeconds: 0
+          };
+          sqs.receiveMessage(params, (err, data) => {
+
+              const orderData = JSON.parse(data.Messages[0].Body);
+              const deleteParams = { QueueUrl: queueUrl, ReceiptHandle: data.Messages[0].ReceiptHandle};
+              sqs.deleteMessage(deleteParams, (err, data) => {console.log(err, data;});
+          }
+
+  This is polling-based ,echanism. so the worker have to keep polling for the news message.
+  It not a pullbased mechansn like SNS, the worker do not have any way to know that a new message if delivered in the queue.
 
 -------
 
@@ -198,7 +164,21 @@ SQS Pricing:-
   
 ----------
 
-Dead Letter Que:-
-  ??????????????????????
+SQS Error HAndling:-
+  When Consumer start processing the message it may success and delete the message of fail and not able to delete the message in the end.
+  In this case message may appear in the queue after VisibilityTimeOut. 
+  Now in case of Standard Queue, SQS will retry this message later and keep trying it till message reetention priode passed out or message succesd.
+  And in case of FIFO queue, that message group remain unavaialble and keep retrying. 
+  This retries of failed message can shoot the hardware usage and overhead. To resolve this comes
+
+  Redrive policy and Dead Letter Que:-
+    DLQ is a another queue which has the message which are failed. To configure it you must set up the redrive policy.
+    in redrive policy you set
+     - DLQ url 
+     - max fail count after which message will move to DLQ.
+    
+    
+    
+-----------
 
 
