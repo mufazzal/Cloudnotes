@@ -116,40 +116,40 @@ WHen exaclty we may need it :-
       
       - max size of message is 256 KB
       - msg can kept in the que from 1 mnt to 14 days, default is 4 days. after this time it will be auto deleted.
-      
-      VisibilityTimeout: When the worker start processing the message we need to make sure that at a time of processing no one 
-        accidently pick it again and start processing it in paraller.
-        So we set this time to make this message incvisible for 30 sec so after 30 sec the message will re-apear in the que unless you have deleted it.
-       So if you processing gona take more time then set this value accordingly  
+
+-------
+
+VisibilityTimeout: 
+  When the worker start processing the message we need to make sure that at a time of processing no one accidently pick it again and start processing it in paraller.
+  So we set this time to make this message incvisible for 30 sec so after 30 sec the message will re-apear in the que unless you have deleted it.
+  So if you processing gona take more time then set this value accordingly.
+  It can be configured :-
+    - At queue level for the read by any consumer by setting in Queue param.
+    - For specefic read operation by passing in 'VisibilityTimeout' param 'ReceiveMessage' api
         
-        
- Size constraint of message:
-  max allowed size is 256 KB
-  For large message you can use 'Amazon SQS Extended Client Library for Java' which uses S3 to point the payload of the message 
-  and could handle message of up to 2GB. Only JAva sdk work here. it only work though with AWS SDK. not with any ither.
+------
   
-  
-  Delay Que:-
-    You can use delay que to keep the message invisible for certain amount of time.
-    
-  
-   Issue of QueueName in cloudformation:-
-    In CFL template if you specify the QueueName then you will not be able to perform any further update via CFL template on the que.
-    So either do not give QueueName or give new name each time of update [so basically replace on each update] 
-  
-  
-  Long Poling and Short Poling:-
-    Whenever you poll the SQS que, you will get the unreaded message from the que.
-    By default this return immedietly whichmns when you place the request, it check for new message if there is any they will be returned otherwise empty response will come.
-    If there is fewer message in que the you will get the lot of empty response. This will bear higher cost on SQS as well as higher load on server. 
-    To resolve this issue comes the long poling:-
-      In the long polling instaed of returning result immedietly it will wait for few seconds for new messages. if there are new message then return it.
-      max time it can wait is 20 sec. after that empty response will come.
-      its default value is 0. and sp by default this will be a Short poll. 
-      It can be configured :-
-        -  At queue level for the read by any consumer by setting in Queue param.
-        - For specofic read operation by passing in 'WaitTimeSeconds' param 'ReceiveMessage' api
-      
+Delay Que:-
+  You can hide the message from the consumers of queue for certain amount of time after its delivered to queue.
+  This gave you some time to do certain operations between delivering message to queue and processing it by consumer.
+  It can be configured :-
+    - At queue level.
+    - For specefic message by setting 'message timer' for that message in 'SendMessage' API. 
+
+------
+
+Long Poling and Short Poling:-
+  Whenever you poll the SQS que, you will get the unreaded message from the que.
+  By default this return immedietly whichmns when you place the request, it check for new message if there is any they will be returned otherwise empty response will come.
+  If there is fewer message in que the you will get the lot of empty response. This will bear higher cost on SQS as well as higher load on server. 
+  To resolve this issue comes the long poling:-
+    In the long polling instaed of returning result immedietly it will wait for few seconds for new messages. if there are new message then return it.
+    max time it can wait is 20 sec. after that empty response will come.
+    its default value is 0. and sp by default this will be a Short poll. 
+    It can be configured :-
+      - At queue level for the read by any consumer by setting in Queue param.
+      - For specofic read operation by passing in 'WaitTimeSeconds' param 'ReceiveMessage' api
+
 ---------
 
 Message:-
@@ -162,6 +162,7 @@ Message:-
     2. Sequence number
 
 ---------
+
 Purging Queue:
   If you don't want to delete an Amazon SQS queue but need to delete all of the messages from it, purge the queue. 
   The message deletion process takes up to 60 seconds. We recommend waiting for 60 seconds regardless of your queue's size.
@@ -180,6 +181,17 @@ SQS and ASG:-
     2. Make sure to publist this metric data in every 1 or 2 or n minute. 
     3. Create target tracking policy with acceptable value of backlog
     
+---------
+
+Issue of QueueName in cloudformation:-
+   In CFL template if you specify the QueueName then you will not be able to perform any further update via CFL template on the que.
+   So either do not give QueueName or give new name each time of update [so basically replace on each update] 
+
+-------        
+Size constraint of message:
+  max allowed size is 256 KB
+  For large message you can use 'Amazon SQS Extended Client Library for Java' which uses S3 to point the payload of the message 
+  and could handle message of up to 2GB. Only JAva sdk work here. it only work though with AWS SDK. not with any ither.
     
   
   
