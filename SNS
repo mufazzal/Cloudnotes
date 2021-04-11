@@ -43,3 +43,39 @@ Message:-
       For large message you can use 'Amazon SQS Extended Client Library for Java' which uses S3 to point the payload of the message 
       and could handle message of up to 2GB. Only JAva sdk work here. it only work though with AWS SDK. not with any ither.
       
+----------------------
+
+Message Filtering:-
+  By default, an Amazon SNS topic subscriber receives every message published to the topic. To receive a subset of the messages, a subscriber must assign a filter policy to the topic subscription.
+  A filter policy is a simple JSON object containing attributes that define which messages the subscriber should receives. 
+  When you publish a message to a topic, Amazon SNS compares the message attributes to the attributes in the filter policy for each of the topic's subscriptions. 
+  If any of the attributes match, Amazon SNS sends the message to the subscriber. Otherwise, Amazon SNS skips the subscriber without sending the message. 
+  - If a subscription doesn't have a filter policy, the subscription receives every message published to its topic.
+  - This help you to avoid writing filtering logic at publisher or subscriber end. and also reduce the cost as less message now has to send
+  - This is set at Subscription level nor at topic level.
+  - filtering logic is applied over Message Attribute not on message body.
+  
+  Example of FP:-
+    Suppose the Topic has attributes in the message Customer's interests, Store name, Event state, Purchase price in USD
+    Then you can write policy like
+      {
+         "store": ["example_corp"],
+         "event": [{"anything-but": "order_cancelled"}],
+         "customer_interests": [ "rugby", "football", "baseball" ],
+         "price_usd": [{"numeric": [">=", 100]}]
+      }
+    You can write logic to:-
+      - Exact matching
+      - Prefix matching
+      - Anything-but matching
+      - prefix with the anything-but operator
+      - IP address matching: You can use the cidr operator to check whether an incoming message originates from a specific IP address or subnet
+      - Value range matching
+      - ANd and OR logic
+      
+  
+
+
+  
+  
+  
