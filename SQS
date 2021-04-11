@@ -57,8 +57,9 @@ Mechanics:-
               sqs.deleteMessage(deleteParams, (err, data) => {console.log(err, data;});
           }
 
-  This is polling-based ,echanism. so the worker have to keep polling for the news message.
-  It not a pullbased mechansn like SNS, the worker do not have any way to know that a new message if delivered in the queue.
+  - This is polling-based ,echanism. so the worker have to keep polling for the news message.
+  - It not a pullbased mechansn like SNS, the worker do not have any way to know that a new message if delivered in the queue.
+  - You must delete the message otherwise it will re-appear once visibilityTimeOut elapsed.
 
 -------
 
