@@ -1,70 +1,24 @@
-SNS is a mechanism of push based notifications.
+Amazon SNS provide Fan Out mechanics for messages. You can send message to Topics and subscribe topics to process this messages.
 
-This system helps to build the mechanism to send the notification to diffrent medium like
-  SMS
-  Email
-  Lambda
-  Mobile App
-  etc.
-  
-  
-  There is two main part in SNS
-  1. SNS Topic
+There is two main part in SNS
+  1. SNS Topic:-
+      A topic design to fan out the messages sent to this topic to all of its subscriber. one topic can have many subscriber.
+      you can publish messages to the topic. When a message is published, Amazon SNS attempts to deliver the message to the subscribed endpoints
   2. SNS subscription
+      A endpoint where the messages will be dilivered. So you first create the topic and add subscriptions to it.
   
-  You can create the SNS topic in aws console itself or by SLF template.
-  Once created the topic you can add subsctription to that topic in diffrent ways.
-  
-  LAmbda and SNS topic subscription:-
-    do it via aws console or by SLF template
-    
-  Lambda and sMS/Email subscription:-
-    see code in 'SNSTuto' folder
-    
- Sending sns notification to the subscriber:-
-    see code in 'SNSTuto' folder
-
-Pricing and Limits:-
-  ?????????????????????
-
-SNS and AccessPolicy / TopicPolicy:-
-  This is very much simillar to bucket policy. This can use to allow/deny the certain Principle for Certain operation on certain resources if certain condition is met.
-SNS and S3:-
-  see at S3 > S3 Events.txt
-
-SNS and redrive policy : Dead Letter Que
-  It may be posible that sns message is failed to deliver. this failure can happen at diffrent level
-  deliveryu of message on lambda or SQS subscription mau fail if thta lambda failed to insytantiate or SQS is inactive.
-  OR
-  SMS, Email wtc also may failed to deliver.
-  
-  To handle this you can set the Dead Etter Que at subscription level.
-  HoW
-  see code in SNSTuto.
-  
-  Dead letter que is nothing but a simple SQS que that have messages of failed SNS deliveries.
-  
-  
-  Issue of TopicName in cloudformation:-
-    In CFL template if you specify the TopicName then you will not be able to perform any further update via CFL template on the SNS Topic.
-    So either do not give TopicName or give new name each time of update [so basically replace on each update]
-  
-  
-  
-  Subscribe LAmbda function to a SNS Topic:-
-    If you susbscribe a Lambda function to any SNS topic then you also mist set the proper Resource Policy of that Lambda so that SNS service can invoke the target Lambda function.
-    So if you wants to subscribe the lambda 'myLambda' with SNS topic 'myTopic' the Lambda must have Resource Policy like:-
-        {
-          "Version": "2012-10-17",
-          "Id": "default",
-          "Statement": [{
-              "Sid": "Allow SNS to invoke this Lambda",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "sns.amazonaws.com"
-              },
-              "Action": "lambda:InvokeFunction"
-            }]
-        }      
+Event Source:-
+  Many AWS services can Publish the event like S3, AWS Athena, EC2 etc on certain event.
+  You can also send event via AWS sdk with 'sns.Publish' API.
+Event Subscriber:-
+  It could be Application-to-Application:-
+    - Lamda
+    - SQS
+    - Kenesis
+    - HTTP/HTTPS
+  Or Application-to-Person:-
+    - Email
+    - SMS
+    - Mobile Push Notification
   
   
