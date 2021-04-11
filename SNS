@@ -86,6 +86,60 @@ SNS FIFO Queue:-
     
 ----------------------
 
+Message Delivery Status:-
+  Amazon SNS provides support to log the delivery status of notification messages sent to topics with the following Amazon SNS endpoints:
+  > HTTP
+  > Kinesis Data Firehose
+  > Lambda
+  > Push Notification
+  > SQS
+
+  - log entries are sent to CloudWatch Logs 
+  - You must provide the proper Role for cretaing CW group.
   
+------------------
+
+Delivery Failure HAndling:-
+  AWS provide pe-configured delivery policy for each Endpoint type except HTTP/S. This cannot be override or changed.
+  AWS do certain retries if delivery failed.
+  Number of retry and gap between the retried depends on Endpoint type.
+    For AWS managed EP like LAmbda, Kenesis, SQS retry behavour is
+      Immediate retry:      3
+      Pre-backoff phase:    2 time, 1 sec apart
+      Backoff phase:        10 time with exponential backoff, from 1 second to 20 seconds
+      Post-backoff phase:   100,000 times, 20 seconds apart	
+      TOTAL:                100,015 times, over 23 days
+  
+    For Customer managed EP like EMAIL, SMS, Push notification retry behavour is
+      Immediate retry:      0
+      Pre-backoff phase:    2 time, 10 sec apart
+      Backoff phase:        10 time with exponential backoff, from 10 second to 600 seconds
+      Post-backoff phase:   38 times, 600 seconds apart	
+      TOTAL:                50 times, over 6 hour
+  
+  For HTTP/S you can customize this policy for othr you cannot.
+  
+  When the delivery policy is exhausted, Amazon SNS stops retrying the delivery and then 
+    - either discards the message 
+    - or send message to dead-letter queue if it is attached to the subscription
+
+  Dead Letter Queue:-
+    DLQ is attached to the Subscription not the Topic.
+    A dead-letter queue is an Amazon SQS queue that an Amazon SNS subscription can target for messages that can't be delivered to subscribers successfully
+    - Amazon SNS subscription and Amazon SQS queue must be under the same AWS account and Region
+    - For a FIFO topic, use an Amazon SQS FIFO queue as a dead-letter queue for the Amazon SNS subscrption.
+    
+ ------------
+ 
+  
+  
+  
+  
+  
+  
+  
+
+
+
   
   
