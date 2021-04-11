@@ -73,8 +73,18 @@ Message Filtering:-
       - Value range matching
       - ANd and OR logic
       
-  
+----------------------
 
+SNS FIFO Queue:-
+  You can use Amazon SNS FIFO topics and Amazon Simple Queue Service (Amazon SQS) FIFO queues together to provide strict message ordering and message deduplication
+  SNS FIFO Topic only support the FIFO SQS queue as subscriber. no other type of subscription(like lambda, SMS, Email) is possible. 
+  
+  An Amazon SNS FIFO topic delivers messages to subscribed Amazon SQS FIFO queues in the exact order that the messages are published to the topic. 
+  and then in SQS FIFO queue, the queues' consumers receive the messages in the exact order that the messages are sent to the queue
+  
+  - When you publish messages to an Amazon SNS FIFO topic, you set the message group ID. al the message of same group id are arranged in order.
+    
+----------------------
 
   
   
