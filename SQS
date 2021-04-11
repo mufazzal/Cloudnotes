@@ -107,6 +107,16 @@ Long Poling and Short Poling:-
 
 ---------
 
+Max Batch size: 
+  define how many maximum message can be read in single read operation by any consumer.
+  It can be configured :-
+    - At queue level for the read by any consumer by setting in Queue param.
+    - For specefic read operation by passing in 'MaxNumberOfMessages' param 'ReceiveMessage' api
+        
+
+
+----------
+
 Message:-
   It contains below element
     1. Message Body
