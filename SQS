@@ -219,7 +219,8 @@ SQS Encryption:-
     Now it will be decrypted and send when ant authorized consumer read it. yiu can use CMK for encryption.
     - SSE encrypts the body of a message not attriobute and metadata
     - When Amazon SQS moves a message from an encrypted source queue to an unencrypted dead-letter queue, the message remains encrypted
-    
+  Encryption at transit:-
+    For this use TLS
   
   
   
