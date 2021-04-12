@@ -209,8 +209,17 @@ Batch Action:-
   3. ChangeMessageVisibilityBatch
   - This will reduce the cost and load as you will need less API call for those operation.
   - As you always read message in batches, its is good idea to delete then in single API call rather then deleting each message indivisiually.
+  - A batch can contain max 10 messages.
   
-  
+---------------
+
+SQS Encryption:-
+  Encryption at rest:-
+    You can enable SQS to encrypt the message in the queue. This message will be encrypted as soon as it arrive and then stored in hardware.
+    Now it will be decrypted and send when ant authorized consumer read it. yiu can use CMK for encryption.
+    - SSE encrypts the body of a message not attriobute and metadata
+    - When Amazon SQS moves a message from an encrypted source queue to an unencrypted dead-letter queue, the message remains encrypted
+    
   
   
   
