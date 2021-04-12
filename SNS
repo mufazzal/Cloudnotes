@@ -129,10 +129,16 @@ Delivery Failure HAndling:-
     - Amazon SNS subscription and Amazon SQS queue must be under the same AWS account and Region
     - For a FIFO topic, use an Amazon SQS FIFO queue as a dead-letter queue for the Amazon SNS subscrption.
     
- ------------
- 
-  
-  
+------------
+
+SNS Encryption:-
+  Encryption at rest:-
+    You can enable SNS to encrypt the message in the queue. SSE encrypts messages as soon as Amazon SNS receives them. 
+    The messages are stored in encrypted form and Amazon SNS decrypts messages only when they are sent
+    - SSE encrypts the body of a message not attriobute and metadata
+  Encryption at transit:-
+    For this use TLS
+    
   
   
   
