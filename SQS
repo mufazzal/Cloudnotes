@@ -200,8 +200,18 @@ SQS Error HAndling:-
      - DLQ url 
      - max fail count after which message will move to DLQ.
     
-    
-    
 -----------
 
-
+Batch Action:-
+  There are three operation you can do on the batch of the messages. 
+  1. SendMessageBatch
+  2. DeleteMessageBatch
+  3. ChangeMessageVisibilityBatch
+  - This will reduce the cost and load as you will need less API call for those operation.
+  - As you always read message in batches, its is good idea to delete then in single API call rather then deleting each message indivisiually.
+  
+  
+  
+  
+  
+  
