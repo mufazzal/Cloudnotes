@@ -180,7 +180,7 @@ Docker and AWS:-
 							inbound on HTTP:80 to 0.0.0.0/0
 							and outbound on TCP:0-6756 for SG-of-EC2s
 						The SG of EC2 must open 
-							inbound on TCP:0-6756 for SG-of-EC2s to SG-of-ASG
+							inbound on TCP:0-6756 for SG-of-ALB
 						
 			
 ------------------------------
