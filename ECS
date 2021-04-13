@@ -94,7 +94,13 @@ Docker and AWS:-
 									it will have mapping like	
 										Host EC2 port <----> Container port
 									This is advisable to use the NEtwork Mode = 'awspc' so that you can take benefit of Dynamic Port Mapping.
-						
+				- The command the container should run when it is started
+				- Any data volumes that should be used with the containers in the task			
+				- The logging configuration to use for your tasks
+				- Whether the task should continue to run if the container finishes or fails
+
+
+				
 			Deploying Container on ECS Cluster / Task :- 
 				From the the task defiation ocreated earlier you can create the actual task in instance in the cluster.
 				Task is wherein the containers ran. A single task can have a multiple container.
@@ -149,8 +155,13 @@ Docker and AWS:-
 			ECS service is also very strongly integrated with ASG and ALB.
 			
 			The ECS service manage the task continuation and failover managment for any container in the task.
-			A service can have multiple task in it to run.
-			
+			Task and Service relation:-
+				A service can run multiple instance of any task defination. But A service cannot run diffrent task defination  
+				While creating service you set the Task ARN as string not array of string and then set how many instance you need of that task defination. 
+				So service has 
+					one-to-one relation with task defination and 
+					one-to-many relation with task defination instance of that task defination. 
+				
 			ESC-Service are very strongly coupled with below AWS service:-
 				For Compute capacity:-
 					There is two option here, either you use the ASG or Fraget
@@ -183,6 +194,20 @@ Docker and AWS:-
 							inbound on TCP:0-6756 for SG-of-ALB
 						
 			
+			Below are the param you define for creating Service:-
+				serviceName:					Name of your service
+				launchType:  					EC2 | FARGATE
+				taskDefinition:				The ARN of tasf defnation
+				desiredCount:					The number of instantiations of the specified task definition to place and keep running on your cluster
+				cluster:							Cluster ARN in which service will run
+				schedulingStrategy:		REPLICA | DAEMON
+				networkConfiguration:	This parameter is required for task definitions that use the awsvpc network mode to receive their own ENI, 
+															It is not supported for other network modes.
+															Below items you provide in it:-
+																subnets, securityGroups, assignPublicIP
+				loadBalancers:				Config related to LB. you must gibe below:-
+																targetGroupArn, loadBalancerName, containerPort [This is the port of container that wil be assosiated with EC2 ports]
+				role:									A role that allows Amazon ECS to make calls to your load balancer on your behalf.
 ------------------------------
 
 ECS with Fargate:-
