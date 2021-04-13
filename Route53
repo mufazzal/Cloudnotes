@@ -220,3 +220,21 @@ Pricing:-
 		2. Health checks that monitor CloudWatch alarms:
 		3. Health checks that monitor other health checks 
 
+-------------------------
+
+Routing to diffrent AWS services:-
+	API Gateway						
+		Type: 		A
+		Alias: 		Yes
+		Value: 		List of APIs custom domain name
+		Comment:	Only APIs with custom domain with sameas specified in value are allowed.
+	CloudFront						A									Yes								Name of CFT distribution
+	
+	
+	
+	
+	
+	
+	
+
+
