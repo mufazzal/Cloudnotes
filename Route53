@@ -229,6 +229,7 @@ Routing to diffrent AWS services:-
 		Record name:	The domain/subdomain that you have registred [ It must also be set as custom domain name of API gateway's API]
 		Value: 				List of APIs custom domain name
 		Comment:			Only APIs with custom domain with same as specified in value are allowed.
+                Health Check:.  Target
 	CloudFront						
 		Type: 				A
 		Alias:				Yes
@@ -245,6 +246,7 @@ Routing to diffrent AWS services:-
 		Alias:				Yes
 		Record name:	The domain/subdomain that you have registred
 		Value:				Name of LB
+                Health Check:.  Target
 	RDS
 		Type: 				CNAME
 		Alias:				No
@@ -255,12 +257,13 @@ Routing to diffrent AWS services:-
 		Alias:				Yes
 		Record name:	The domain/subdomain that you have registred [ It must be same as the bucket that you wants to expose]
 		Value:				Choose the bucket that has the same name that you specified for Record name [The bucket must be configured as static website]
+                Health Check:.  Target
 	VPC Private Link
 		Type: 				A
 		Alias:				Yes
 		Record name:	Enter the domain name that you want to use to route traffic to your Amazon VPC interface endpoint
 		Value:				Then choose the DNS name of the interface endpoint that you want to route internet traffic to
-		
+		Health Check:.  Target
 		
 	
 	
