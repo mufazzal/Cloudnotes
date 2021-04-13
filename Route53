@@ -5,11 +5,21 @@ Route53 is the service AWS provice for doing 3 majot thing
 	
 	Register/migrate the domain:
 		This is not in scope. but do remeber that this is chargable.
-		
-	Create Hosting zone:
-		You can create the private (in-VPC) or puclic (internet) Hosting zone.
-		Private one has scope only in VPC and 
-		for Public one first you have to buy a domain and then use this domain for hosting.
+
+Route53 can route the traffic to below AWS services:-
+	- API Gateway
+	- S3
+	- cloudfront
+	- RDS
+	- EC2
+	- LB
+	- Elastic Beanstalk
+	- AWS Private link
+
+Create Hosting zone:
+	You can create the private (in-VPC) or puclic (internet) Hosting zone.
+	Private one has scope only in VPC and 
+	for Public one first you have to buy a domain and then use this domain for hosting.
 
 Creating Private Hosting Zone:-
 	First you need to select some logical name for host like 'mufvpc.com' and then selexct the proper VPC.
