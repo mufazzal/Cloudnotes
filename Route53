@@ -265,8 +265,20 @@ Routing to diffrent AWS services:-
 		Value:				Then choose the DNS name of the interface endpoint that you want to route internet traffic to
 		Health Check:.  Target
 		
-	
-	
+---------------------
+
+Rote 53 Monitoring:	Below is the things you can monitor:
+	- DNS query logging via Cloudwatch Logs:-
+			In this log you will have
+				Domain or subdomain that was requested, DNS record type, Date Time, DNS response code, such as NoError or ServFail
+	- Status and list of Domain registration in Route 53 dashboard 
+	- CW metrics related to Health check in namespace 'AWS/Route53'
+			ChildHealthCheckHealthyCount, ConnectionTime, HealthCheckStatus, 
+			Dimension: HealthCheckId 
+	- CW metrics related to Health check in namespace 'AWS/Route53'
+			Metrics: DNSQueries
+			Dimension: HostedZoneId
+	- CW metrics related to Health check in namespace 'AWS/Route53Resolver'
 	
 	
 	
