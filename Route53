@@ -182,7 +182,7 @@ Routing Policy:-
 			like serve the content from frakfurt for all EU user and from japan for apac region.
 			This is very useful for language, complience and localaization of content.
 	5. Geoproximity: 
-	6. Weighted: Use to route traffic to multiple resources in weight that you specify. 
+	6. Weighted: Use to route traffic to multiple resources in weight that you specify. create Record name and assign weight to each record name. useful for A/B testing. 
 	7. Multivalue: 
 	
 	
@@ -246,7 +246,7 @@ Routing to diffrent AWS services:-
 		Alias:				Yes
 		Record name:	The domain/subdomain that you have registred
 		Value:				Name of LB
-                Health Check:.  Target
+		Health Check:.  Target
 	RDS
 		Type: 				CNAME
 		Alias:				No
@@ -257,7 +257,7 @@ Routing to diffrent AWS services:-
 		Alias:				Yes
 		Record name:	The domain/subdomain that you have registred [ It must be same as the bucket that you wants to expose]
 		Value:				Choose the bucket that has the same name that you specified for Record name [The bucket must be configured as static website]
-                Health Check:.  Target
+		Health Check:.  Target
 	VPC Private Link
 		Type: 				A
 		Alias:				Yes
