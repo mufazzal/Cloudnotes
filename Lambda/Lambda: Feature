@@ -103,10 +103,10 @@ Function Orchestration[step function]:-
     Parallelism       – Run functions in parallel, or use dynamic parallelism to invoke a function for every member of any array.
 
 
-  
+------------------------------
 
-
-    
-
-
-
+Pricing:-
+  You will be charged for
+  - Number of invoke
+  - Memory cinsuption * time for lamba ran
+  - Provisioned cocurency if it is set up
