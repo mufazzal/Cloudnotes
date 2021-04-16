@@ -5,7 +5,7 @@ For CFT Below are the chargable matrices
     You will charged for DELETE, OPTIONS, PATCH, POST, and PUT requests. Charges are PEr GB basis.
     
                     POST Charge                          POST charge
-             -------------->------------------------------>-------------  
+             -------------->--------------    ----------->-------------  
     Internet                              CFT                             Origin
              --------------<-------------    --------------<-------------      
                     GET charge                          GET free
