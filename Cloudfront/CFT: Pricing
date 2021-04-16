@@ -3,6 +3,12 @@ For CFT Below are the chargable matrices
     You will be charged for data trasfer from CFT to viewers client. Charges are PEr GB basis.
 2. Data Transfer in by submitting data to your origin:
     You will charged for DELETE, OPTIONS, PATCH, POST, and PUT requests. Charges are PEr GB basis.
+    
+                    POST Charge                          POST charge
+             -------------->------------------------------>-------------  
+    Internet                              CFT                             Origin
+             --------------<-------------    --------------<-------------      
+                    GET charge                          GET free
 3. No of HTTP Request:-
     You will be charged for each 10,000 request.
     chrges will be higher if you are using 'Origin Shield'
