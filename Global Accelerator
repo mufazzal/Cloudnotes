@@ -36,7 +36,7 @@ Ingredient of GA:-
 		- A appserver runing at EC2s@TCP:30 and exposed by 2 ALB (in1_as_alb1 and in1_as_alb2)
 		- A EC2 for monitoring at EC2s@TCP:22:13.13.13.13
 		
-	As you ca imagine there are 4 ALB fro a webserver and 4 for appserver. 
+	As you ca imagine there are 3 ALB fro a webserver and 3 for appserver. 
 	So in typicla infra you have to manage the DNS of this 8 ALB in code of appserver and webserver.
 	Chaging the ALB dnam name will take heavy toll. and also you have to take care of traffic ditribution among them.
 	
@@ -50,13 +50,13 @@ Ingredient of GA:-
 			- third for the maintanance. use port and protocol as TCP and 22. say LIS_MT (you can have diffrent port if you wants to do port overriding)
 				So now your GA will listen to 
 					http://mufga.globalaccelerator.amazonaws.com:80, http://mufga.globalaccelerator.amazonaws.com:30, SSH:mufga.globalaccelerator.amazonaws.com:10
-		Now create the END POINT GROUP, Create 3 EPG, 1 for each server
+		Now create the END POINT GROUP, Create 3 EPG, 1 for each server and for each region
 			- for webserver in US-east-1 say EPG_WS_US and attach it to LIS_WS
 			- for webserver in india say EPG_WS_IN and attach it to LIS_WS
 			- for appserver in US-east-1 say EPG_AS_US and attach it to LIS_AS
 			- for appserver in india say EPG_AS_IN and attach it to LIS_AS
-			- for webserver in US-east-1 say EPG_AS_US and attach it to LIS_AS
-			- for webserver in india say EPG_AS_IN and attach it to LIS_AS			
+			- for maint server in US-east-1 say EPG_MS_US and attach it to LIS_MS
+			- for maint server in india say EPG_MS_IN and attach it to LIS_MS			
 		Now finaly add Endpoint to each of this EPG. In the each EPG you will have the endpoint which will have common region and common listener.
 			So the EPGs will look like below
 			EPG_WS_US:-
