@@ -145,7 +145,7 @@ Docker and AWS:-
 								
 				Now if port if EC2 is dynamically assign then hoew traffic will be routed to containers.
 				for this you have to use proper set up of ECS service with ALB.
-					
+				
 --------------------		
 		
 		ECS Service:-
@@ -187,6 +187,9 @@ Docker and AWS:-
 													i-67890		4542							ecs-cluter-14		80
 													i-67890		1245							ecs-cluter-15		80
 						
+						- Only ALB and NLB support the dynamic host port mapping not CLB. 
+						- in case of NLB and awsvpc network mode, when you create a target group for your service, you must choose ip as the target type, not instance
+												
 						The SG of ALB must open 
 							inbound on HTTP:80 to 0.0.0.0/0
 							and outbound on TCP:0-6756 for SG-of-EC2s
