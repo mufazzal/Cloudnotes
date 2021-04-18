@@ -29,8 +29,17 @@ This define on what condition the instances will be launched or taken down. The 
 -------------------
 
 Cooldown Priode:-
-  This is specifically use for Sinmple Scaling only. it cannot be ised with any other.
+  - cooldown applies to both scale in and scale out
+  - cooldown applies for Sinmple Scaling only. it cannot be used with any other.
   A scaling cooldown helps you prevent your Auto Scaling group from launching or terminating additional instances before the effects of previous activities are visible.
   This help you to prevent the launch of additional capacity or termination of extra capacity before effect of last Scalling activity took place.
   This can be set at ASG level or can ne override in Scalling policy.
   
+-------------------
+
+Warm up priode:-
+  - warm-up applies only to scale out
+  - Warm-up period applies to target and step-scaling policies.
+  With step scaling policies, you can specify the number of seconds that it takes for a newly launched instance to warm up. 
+  Until its specified warm-up time has expired, an instance is not counted toward the aggregated metrics of the Auto Scaling group
+
