@@ -63,33 +63,29 @@ Transfer Acceleration:-
     The CFT use the globally spreaded EdgeLocations to cache the bucket content and deliver the object from nearest EdgeLocation instead of bucket.    
 
     More on CFT:- see 'S3: Performance: CloudFront.txt'
-       
-        
-        
-  MultiPart Upload:-
-    For a very lagrge object The AWS can split it into small piece and upload thenm in parallel. 
-    The SDK be default do it. If size > 10MB then SD/CLI splitthen in pieces of 10MB and upload them all in parallel.
-    so for 100MB file there will be 10 request of 10MB each.
+
+MultiPart Upload:-
+   For a very lagrge object The AWS can split it into small piece and upload thenm in parallel. 
+   The SDK be default do it. If size > 10MB then SD/CLI splitthen in pieces of 10MB and upload them all in parallel.
+   so for 100MB file there will be 10 request of 10MB each.
     
-    If you wants you can change the default chuck size from 10MB to other value.
-    How ?????????
-    There is some limit here
-      max size: 5TB
-      max possible parts: 10000
-      part size: 5MB to 5GB
+  If you wants you can change the default chuck size from 10MB to other value.
+  How ?????????
+  There is some limit here
+    max size: 5TB
+    max possible parts: 10000
+    part size: 5MB to 5GB
       
- S3 Inventory:-
-   You can set the inventory to get quick snapshot of detail of objects in the S3 bucket. 
-   This will give you info about all the object or of some special prefix in CSV formate. 
-   You can set to generate weekly or daily.
+S3 Inventory:-
+  You can set the inventory to get quick snapshot of detail of objects in the S3 bucket. 
+  This will give you info about all the object or of some special prefix in CSV formate. 
+  You can set to generate weekly or daily.
    
 
 S3 Select:
   S3 select is design to query deep inside the object with SQL alike query. With this you do not have to load the whole object instead a littile imp data from Object you can load.
   Currently it support onlu CSV, JSON and ZIP formated objects.
-  
   Suppose you have a object user.csv in S3 then you ca use S3 select like-
-  
     const query = ;
     const bucket = 'test-bucket-for-s3-select-tutorial';
     const key = 'planets.json';
@@ -110,7 +106,9 @@ S3 Prefix:- Any string comes between the bucket name and Object key is Prefix.
   So if you have more prefix you can have more number of request per second limit for you.
   
   
-      
+Avoid expensive List operation:-
+  AWS recommend to use any other AWS service like DDB, ElasticSearch, S3 Inventory etc for getting the list of all or filtered object from S3.
+  Direct List operation take heavy toll
     
     
     
