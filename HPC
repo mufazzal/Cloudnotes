@@ -1,0 +1,72 @@
+You can design your HPC application with AWS service for high performance.
+
+ParallelCluster (PC):-
+  AWS ParallelCluster is an AWS supported open source cluster management tool that helps you to deploy and manage high performance computing (HPC) clusters in the AWS Cloud. 
+  Built on the open source CfnCluster project, AWS ParallelCluster enables you to quickly build an HPC compute environment in AWS
+  It automatically set up:-
+    > Cpmpute Resource
+    > Shared File System
+    > Batch schedulers, such as AWS Batch and Slurm
+    
+  Commands for managing PC:-
+    pcluster [ -h ] ( create | update | delete | start | stop | status | list | instances | ssh | dcv | createami | configure | version ) .
+    
+  Network Configuration for PC:-
+    > It uses VPC for networking
+    > VPC must have DNS Resolution = yes, DNS Hostnames = yes, DHCP options with the correct domain-name for the Region
+    > It support 2 high level config
+        1. One subnet for both head and compute nodes: Use internet gateway for internet access
+        2. A Public Subnet for head nodes and A private subnet for Compute nodes: Use IG and NAT gateway for internet access
+    > Nodes may or may not gave Public IP
+    > You can use AWS Direct connect for connecting On-Premise servers    
+  
+  Custom Bootstrap Actions:-
+    You can run certain commands before and after installint the PC.
+    Pre-install actions are called before any cluster deployment bootstrap action is started, such as configuring NAT, Amazon Elastic Block Store (Amazon EBS) or the scheduler
+    Post-install actions are called after the cluster bootstrap processes are complete. Post-install actions serve the last actions to occur before an instance is considered fully configured and complete
+    
+  PC and S3:-
+    You can access Amazon S3 from within AWS ParallelCluster. 
+    You control the access to Amazon S3 through the s3_read_resource and s3_read_write_resource parameters in the AWS ParallelCluster configuration
+    EG:-
+      s3_read_resource = arn:aws:s3:::my_corporate_bucket*
+      s3_read_write_resource = arn:aws:s3:::my_corporate_bucket/*
+    
+  PC and Spot instance:-
+    For cost effectiveness try to use Spot instance for nodes. for this set
+      cluster_type = spot
+    
+  IAM role of Node:-
+    AWS will create the IAM Role when its create the PC. It carry all neccessary permission too.
+  
+  Scheduer:-
+    PC suport below Scheduler
+      > Son of Grid Engine (sge)
+      > Slurm Workload Manager (slurm)
+      > Torque Resource Manager (torque)
+      > AWS Batch
+  
+  CW Dashboard and Log:-
+    PC create the CW dashboard for detail abut PC and also place log in log group
+    CW dashboard name: parallelcluster-ClusterName-Region.ClusterName 
+    CW log group: aws/parallelcluster/cluster-name 
+  
+  Enable EFA:-
+    To enable EFA for ultra low-latency in same subnet instances, just pass 'enable_efa = compute' 
+    It is supported on specifice instance type only.
+    
+  Placement Group:-
+    A cluster placement group should be used to minimize latencies between instances
+  
+  Shared file system:-
+    You can set the Fsx or EFS file system for shared file system in PC
+    
+  EBS and PC:-
+    You can set the config like snapshotId, volume type, storage size etc for EBS for the nodes.
+  
+----------------------  
+  
+  
+  
+  
+  
