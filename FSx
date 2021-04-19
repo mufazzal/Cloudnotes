@@ -1,0 +1,48 @@
+FSx is used for two purpose 
+1. FSx window file server
+2. Luster file system
+
+FSx window file server:
+  Amazon FSx for Windows File Server provides fully managed Microsoft Windows file servers, backed by a fully native Windows file system.
+  - It support industry-standard Server Message Block (SMB) protocol to access file storage over a network
+  - its made of 'one or more Windows file servers and storage volumes'
+  - With file storage on Amazon FSx, the code, applications, and tools that Windows developers and administrators use today can continue to work unchanged
+  - It eliminate the need of setting up and provisioning file servers and storage volumes
+  - You can use Single-AZ or Multi-AZ support depends on what level of Availability and Durability you need
+  - data encrypted at rest (for both file systems and backups) using keys that you manage in KMS. Data in transit is also automatically encrypted using SMB Kerberos session keys
+  - You can use SSd or HDD depenneds on your budget and prformance need. 
+  
+  Back up:-
+    FSx for Windows File Server backups are file-system-consistent, highly durable, and incremental
+    Automatic daily backups are turned on by default when you create a file system, and you can also take additional manual backups at any time
+  
+  Accessing Files Servser:-
+    You can access it via
+    - Any SMB client
+    - Windows Server and Window machine
+    - EC2
+    - on-premises compute instances using AWS Direct Connect or AWS VPN
+    - different Amazon VPC, account, or Region using VPC peering or transit gateways
+    
+    
+Luster file system:-
+  Amazon FSx for Lustre eliminates the traditional complexity of setting up and managing Lustre file systems. 
+  enabling you to spin up and run a battle-tested high-performance file system in minutes
+  Luster is the file system that gives you insane performance for HPC and ML apps. it gives
+  > Submillisecond latencies
+  > Hundreds of GBps of throughput
+  > Mmillions of IOPS
+  
+  - Amazon FSx for Lustre is POSIX-compliant, so you can use your current Linux-based applications
+  - You can use SSD(for better latency) or HDD(for better throuput)
+  
+  FSx for Lustre and Data Repositories:-
+    S3:-
+      Once Amazon FSx for Lustre integrates with Amazon S3. It then reprsent the S3 objects as a files.
+      The file system also enables you to write file system data back to S3
+    On-Premises:-
+      For this you need to use AWS Direct Connect or AWS VPN. Withe this you can give immense processing power to data stored in your premise.
+    
+  Accessing File Systems:-
+    - EC2 in same VPC
+    - ECS, EKS
