@@ -20,3 +20,18 @@ Encryption :-
 IAM and RDS connection:-
   IAM play no role here. if you wants to conneect to RDS theyou must have hosu, username and password along with access to RDS instance via SG,NACL or RDS in public subnet.
   
+DB connection string/Password and Secret Manager:-
+  It is advisable to use the AWs secret manager to store the DB password and other string in AWS Secret manager instead of in Code.
+  This give you safty from compromising this info.
+  
+  Also for the password you can enable the rotation.
+  
+  Secret Manager is integrated with:
+    - Amazon Aurora on Amazon RDS
+    - MySQL on Amazon RDS
+    - PostgreSQL on Amazon RDS
+    - Oracle on Amazon RDS
+    - MariaDB on Amazon RDS
+    - Microsoft SQL Server on Amazon RDS
+    - Amazon DocumentDB
+    - Amazon Redshift
