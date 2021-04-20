@@ -145,6 +145,7 @@ EN: Enhanced network:-
 	- It uses single root I/O virtualization (SR-IOV)
 	- This is supported on specific instance types not on all.
 	- To enable it the instance must be in stopped state.
+	- This is not a replacement of Primary ENI. Primary ENI will have to be attached with EC2.
   
   This is of two type-
     1. ENA: Enhanced Network Adapter - provide up to 100 GBps
@@ -161,7 +162,7 @@ EFA: Elastic Fabric adapter:-
 	- It support Message Passing Interface (MPI) 
 	- EFA OS-bypass traffic is limited to a single subnet. EFA traffic cannot be sent from one subnet to another. 
 		Normal IP traffic from the EFA can be sent from one subnet to another
-	
+	- - This is not a replacement of Primary ENI. Primary ENI will have to be attached with EC2.
 	
 	
 	
