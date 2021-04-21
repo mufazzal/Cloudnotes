@@ -238,7 +238,7 @@ EC2 CURL for meta-data and user-data:-
 			- Lost the public IPv4 but retain the Private IPv4
 			- Reatin the static EIP and you will be charged for that [EIP id free if its assosiated with running instance]
 			- You can change below param of EC2 when it is stopped
-					Instance type, User data, RAM disk, EBS-Optimization
+					Instance type, User data, RAM disk, EBS-Optimization, Placement group
 					you cannot change above thing when EC2 is running.
 			- Instance-store type instance cannot be stoped.
 			- Instance may start again on new underlying Hardware Host
