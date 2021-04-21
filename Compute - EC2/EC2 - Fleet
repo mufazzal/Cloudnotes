@@ -56,6 +56,7 @@ OnDemandOptions.AllocationStrategy:
     This can have two value lowest-price and prioritized.
     lowest-price: This will make sure that on-damnd EC2 are launched in such a manner that cost is minimal. 
     The fleet determine in which AZ, type, priority(in override section) etc bear the lowest public-on-demand price. 
+    prioritized: Fleet will lanch the instnace with highest priority first.
 OnDemandOptions.MaxTotalPrice:   
     If you specify the max price per hour here then fleet will stop launchig spot instances if the total prices for spot instances goes above the mentioned per/hour charge. 
     Even thoug you TargetCapacity is not met the fleet will not overbudget you.  
