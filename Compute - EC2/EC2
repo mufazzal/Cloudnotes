@@ -267,7 +267,10 @@ EC2 CURL for meta-data and user-data:-
 			Rebooting instance-store instance:-
 				Data will persist 
 		
-		
+----------------
+
+AWS System Manager:-
+	You can use this service to run the command on multiple EC2 together.
 		
 		
 		
