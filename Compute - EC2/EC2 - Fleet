@@ -55,15 +55,15 @@ Type: maintain | request | instant.
 OnDemandOptions.AllocationStrategy: 
     This can have two value lowest-price and prioritized.
     lowest-price: This will make sure that on-damnd EC2 are launched in such a manner that cost is minimal. 
-    The fleet determine in which AZ, type, priority(in override section) etc bear the lowest public-on-demand price. 
+    The fleet determine in which AZ, type, priority (in override section) etc bear the lowest public-on-demand price. 
     prioritized: Fleet will lanch the instnace with highest priority first.
 OnDemandOptions.MaxTotalPrice:   
-    If you specify the max price per hour here then fleet will stop launchig spot instances if the total prices for spot instances goes above the mentioned per/hour charge. 
+    If you specify the max price per hour here then fleet will stop launchig on-demande instances if the total prices for on-demande instances goes above the mentioned per/hour charge. 
     Even thoug you TargetCapacity is not met the fleet will not overbudget you.  
 SpotOptions.AllocationStrategy
     Valid values are lowest-price, diversified, and capacity-optimized.
     lowest-price: EC2 from the overrides are launch in such a manner that cost is minimal
-      The fleet determine in which AZ, type, priority(in override section) etc bear the lowest spot price. 
+      The fleet determine in which AZ, type (in override section) etc bear the lowest spot price. 
     diversified: EC2 from the overrides are launch in such a manner that it cover most of the possible configuration given in override.
     capacity-optimized: As the price of spot instance increase the instances may terminate. to minimize this impact we use  this. 
       The fleet launches the instances in AZ which has the highest capacity so that fluctuation is lessand so instances teminate less frequently due to price .
