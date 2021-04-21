@@ -1,7 +1,7 @@
 Charges:
   small hourly charge when 
     - they aren't associated with a running instance, 
-    - they are associated with a stopped instance 
+    - they are associated with a stopped or Hiberated instance 
     - assosiated to the unattached network interface. 
     
     While your instance is running, you aren't charged for one Elastic IP address associated with the instance, 
