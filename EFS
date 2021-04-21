@@ -1,0 +1,168 @@
+EFS provides a simple, serverless, set-and-forget elastic file system. 
+EFS is the file system that can be attcahed to many EC2 instances at a time 
+It automatically grow and shrink in size based on avilabale empty space in disk.
+
+	- It can be use with AWS Cloud services and on-premises resources.
+	- It can grow up to petabyte.
+	- It support NFSv4.1 and NFSv4.0 protocol
+	- It is highly scalable, highly available, and highly durable
+	- you pay only for the storage used by your file system and there is no minimum fee or setup cost
+	- EFS with Microsoft Windows–based Amazon EC2 instances is not supported
+	- Data is redundently stored in multiple Storage Servers for higher availibility and any device failure.
+	- EFS cant be used as root device
+	
+	With this you can do read and write operation simulteniuosly on 
+	 > Multiple EC2 isntances
+	 > Multiple ECS Containers
+	 > Lambdas
+	 
+Storage classes: 
+	EFS provide below classes for the diffrent use case:-
+		1. EFS Standard:	
+				- Offer multi-AZ resilience and the highest levels of durability and availability
+				- Data will available in case of single AZ outage
+				- It bear highest cost
+		2. EFS Standard–Infrequent Access 
+				- Offer multi-AZ resilience and the highest levels of durability and availability
+				- Data will available in case of single AZ outage
+		3. EFS One Zone
+				- Offer customers the choice of additional savings by choosing to save their data in a single AZ’	
+				- Data will be unavailable in case of AZ outage
+		4. EFS One Zone–Infrequent Access 
+				- Offer customers the choice of additional savings by choosing to save their data in a single AZ’
+				- Data will be unavailable in case of AZ outage
+				- It bear lowest cost
+
+Mount Target (MT):-
+	In a nutshell, The MTs are the ports of the EFS. to connect with the EFS you must need a MT.
+	MT are created in VPC > AZ > Subnet.
+	When you create the EFS, you must also chose the VPC. All the MT will remian in this VPC for that EFS.
+	All the VPC node now have to use one of those MT in order to reach to EFS.
+	- This is nothing but an ENI. Now if any resource in the VPC need to access the EFS then he can reach it via that MT {ENI}
+	- A MT provides an IP address and DNS for an NFSv4 target at which you can mount an Amazon EFS file system
+	- A single MT can provide connection to multiple VPC nodes for mounting. 
+	- You can create only one MT per Availability Zone
+	- Remeber, EFS is the primary resource. MT is the sub-resource of EFS. 
+	- you can create MTs for the file system in one VPC at a time. so You can use a file system only in one VPC at a time
+	- If you want to access the EFS from another VPC, first delete the MTs from the current VPC. Then create new MTs in another VPC
+
+	Delete and Edit the MT:-
+		Once created and in use, if you delete the MT then it will disturb the existing mount points. you have to remount them with new MT.
+		Once created, You can change the SG of MT but cannot change IP of MT.
+		
+	Accesibility of MT:-
+		Once MT is created, it can be used to mount  
+		- Amazon EC2 instances in the same VPC
+		- EC2 instances in a VPC connected by VPC peering
+		- On-premises servers by using AWS Direct Connect 
+		- On-premises servers over an AWS virtual private network (VPN).
+		
+	A MT has below properties:-
+		> MT ID, 
+		> the subnet ID in which it is created, 
+		> the file system ID for which it is created, 
+		> an IP address of ENI at which the file system may be mounted, 
+		> DNS name in formate 'file-system-id.efs.aws-region.amazonaws.com'
+		> VPC security groups, 
+		> MT state
+		
+	How many MTs are created are depends on Storage class.
+	For Standard storage classes[Reginal]:
+		For this MT[A ENI basically] will be created in each AZ of the VPC. It will be created in any single subnet of those AZ.
+		In this case it is advisable that yous should use the MT in same AZ for communicating between any node of VPC and EFS.
+		It will give you better latency and low cost.
+	For One Zone storage classes:-
+		For this MT[A ENI basically] will be created in only one AZ of the VPC. It will be created in any single subnet of those AZ.
+		Remeber that you need to bear the data tranfer charges and high latency if node of other AZ(without MT) need to access the EFS.
+	
+	MT and On-premises:-
+		If your VPC is conected with On-premises data center via VPN and Directconnect 
+		then you can mount the EFS in your local data center with any MTs of that VPC.
+		With 		Directconnect + VPN + DataSynch + MT 		in place, you can transfer data from on-premise and AWS EFS and vice versa.
+	
+	SG of MT:-
+		A MT also must be assign with the SG. This can control which IP/SG can conect(at Inbound) to the the EFS via this MT.
+		Must allow Inbound 	NFS port 2049 for EC2-IP or SG-of-EC2.
+	SG-of-EC2
+		Must allow Inbound  SSH port 22   for trusted IP as this port will be used to run the mount commands on EC2.
+		Must allow outbound NFS port 2049 for SG-of-MT.
+		
+		
+Creaing EFS process in nutshell:-
+	Set general setting
+		> Storage class [availability and durability]
+		> Lifecycle management, 
+		> Performance mode and throughput modes, 
+		> Encryption of data at rest.
+	Set network setting
+		> Select VPC
+		> Create MTs and for each MT set
+				> Availability Zone, 
+				> Subnet, 
+				> IP address, 
+				> Security groups
+	Set Resource policy if you wants restricted access.
+		
+	
+Data Consistency:-
+	??????
+
+Encryption:-
+	Encryption at rest:-
+		You create a file system that uses encryption at rest, data and metadata are encrypted at rest.
+		- You can use Customer managed CMK or AWS managed CMK (aws/elasticfilesystem )
+		- This is enabled at EFS level and can be enable only at a time of creation not later.
+		- But remeber
+				The contents of your files is encrypted at rest using the Customer or AWS managed CMK
+				But Metadata—file names, directory names, and directory contents is encrypted by a AWS managed CMK.
+	Encryption at transit:-
+		This is enabled at Mount Point level not at EFS ot Mount Target level.
+		Fot this you have to enable the TLS at time of Mounting your EFS at any instance or ECS.
+		for changing encryption configuration, You need to unmount, create new MT with encryption enabled and re-mount to new MT.
+		
+Performance:-
+	EFS file systems are distributed across an unconstrained number of storage servers and can grow in PetaByte.
+	It also enables massively parallel access from EC2, ECS and Lambda. So it is design to deliver insanly high IOPS and Throughput.
+	Performance modes:-
+		To support a wide variety of cloud storage workloads, Amazon EFS offers two performance modes
+		> General Purpose mode: 
+				Best for latency-sensitive usage like webserver,Home Directory, file system.
+		> Max I/O: 
+				Best for higher throughput and operations per second. but ok with slightly low latency. best for big data and analytics
+				This is not available for file systems using One Zone storage classes
+	There is no extra cost for any of them.
+		
+	Throughput Mode:-
+		There are two throughput modes to choose from for your file system, 
+		> Bursting Throughput:
+				The throuput capacity of EFS scale up or down as data stored in the EFS grow or shrink.
+				EFS keep accumlating the bursting credit also with time which can be used in peak load time
+		> Provisioned Throughput:
+				This is suful when you need cosistency in delivered throughput irrespective of storage size.
+	
+EFS Lifecycle:-
+	Like S3, EFS also provide this feature but it is not as advance as of S3. 
+	With this you can set to move the data from one storage class to other after some specific time.
+	You can make below transition only
+		- move data from Standard to Standard-IA 
+		- move data from One-Zone to One-Zone-IA
+	You can have below vlue of yime priode only
+		AFTER_7_DAYS, AFTER_14_DAYS, AFTER_30_DAYS, AFTER_60_DAYS, AFTER_90_DAYS
+	You cannot delete object via lifecycle policy.		
+	
+	
+Back Up:-
+	You can use AWS Backup service to back up the EFS. It do the incremental back up
+	You can asls enable the automated back up at timeof creation or later.
+	Restore:-
+		you can restore a recovery point to a new EFS file system or to the source file system.
+		You can perform a Complete restore, which restores the entire file system. Or, you can restore specific files and directories using a Partial restore
+		
+EFS VS EBS 
+  - EFS has auto grow/shrink
+  - EFS is attchable to many EC2
+	- EBS has slgtly lower latency then EFS
+  
+EFS VS S3:-
+  - One is blockk other is object storage.
+  - EFS has very high througput and IOPS.
