@@ -9,14 +9,8 @@ ENI (Elastic Network Interface):-
     - the SG you attach to EC2 is actully apply at the Primary ENI created in scope of that EC2. 
     - the IPs (public and private) is actully apply at the Primary ENI created in scope of that EC2. 
     - The default primary ENI can have a public IP assigned antomatically if subknet allow it.
+		-	You can assosiate additional private IP to the ENI and for each private IP you can also map a public IP via Elastic IP. 
     
- Creating ENI:-   
-   Though you can attach the additional ENI in the EC2 if you need ore complex Networking operations. 
-   You can create and configure network interfaces in your account and attach them to instances in your VPC
-  
- Monitoring IP traffic
-  Simply enable VPC flow log on your network interface and then you can see monitered data in cloudwatch
- 
 Private IPv4 and ENI:-
   By default ENI has one private IPv4 address attached to it. but you can assosiate more IPv4 address from the CIDR of the VPC.
   to add new private IP use 'ec2 assign-private-ip-addresses '
@@ -32,44 +26,48 @@ Public IPv4 and ENI:-
 		primary_private_IP_1 [cant be deassosiated from ENI]	<---------->	public_ip		[By default mapped to primary_private_IP_1 but can be changed]
 		private_IP_2 [can be deassosiated from ENI]					
 		private_IP_3 [can be deassosiated from ENI]
-		private_IP_4
+		private_IP_4	
+	
+	EIP and ENI:-
+		You can attach one or more then one EIP to the ENI. Each EIP must be assosiated with one private IP.	
 
+Creating ENI:-   
+	Though you can attach the additional ENI in the EC2 if you need ore complex Networking operations. 
+  You can create and configure network interfaces in your account and attach them to instances in your VPC
+		When you creat an EC2 by default a single ENI(Primary ENI) device is attached to that EC2. This ENI device will give following service to EC2
+			- One public IPv4 address (if allowed)
+			- at least One(Primary private IP) or more private IPv4 addresses from the CIDR range of your VPC
+			- A MAC address
+			- One or more security groups
+			A primary private IP and public IP of ENI is mapped with each other. 
 
-  When you creat an EC2 by default a single ENI(Primary ENI) device is attached to that EC2. This ENI device will give following service to EC2
-    - One public IPv4 address (if allowed)
-    - at least One(Primary private IP) or more private IPv4 addresses from the CIDR range of your VPC
-    - A MAC address
-    - One or more security groups
-    A primary private IP and public IP of ENI is mapped with each other. 
-    
- when you create the new ENI at ENI page in console then it will have
-  - No public IP
-  - only one private IP (primary)
-    
-    
-For creating ENI you need to have decesion on
-  1. Subnet: The ENI will lie in this subnet and will be attacahble to any EC2 in this subnet only. Also it will get an Private IP from pool of CIDR of this subnet
-  2. SG: You will be able to select only the SG that are in the VPC of above selected Subnet.
-      This SG will later determimne the traffic flow accessibility in and out of this ENI.
-  3. Private IP: You can left it empty to auto assign or fill by yourself with proper value from Subnet CIDR.
+		When you create the new ENI at ENI page in console then it will have
+			- No public IP
+			- only one private IP (primary)
+
+	For creating ENI you need to have decesion on
+		1. Subnet: The ENI will lie in this subnet and will be attacahble to any EC2 in this subnet only. Also it will get an Private IP from pool of CIDR of this subnet
+		2. SG: You will be able to select only the SG that are in the VPC of above selected Subnet.
+				This SG will later determimne the traffic flow accessibility in and out of this ENI.
+		3. Private IP: You can left it empty to auto assign or fill by yourself with proper value from Subnet CIDR.
   
+Monitoring IP traffic
+  Simply enable VPC flow log on your network interface and then you can see monitered data in cloudwatch
   
-  Use cases:-
-    The MAnagemant networ:-
-      You can create a additional ENI which will allow the traffic inside the VPC and by SSH only and let primary ENI gave allower the traffic from internet.
-      So you can have better secured network syste.
-      So just create ENI with proper SG and with private IPv4 (no need of public IPv4) and attach it to EC2.
-      Now use the IP from secondry ENI for management tasks.
-    For failover:-
-      Have a secodry ENI for traffic. now in case the EC2 failed then simply detach and re-attach the secndory ENI to standby EC2.
+Use cases:-
+	The MAnagemant networ:-
+		You can create a additional ENI which will allow the traffic inside the VPC and by SSH only and let primary ENI gave allower the traffic from internet.
+		So you can have better secured network syste.
+		So just create ENI with proper SG and with private IPv4 (no need of public IPv4) and attach it to EC2.
+		Now use the IP from secondry ENI for management tasks.
+	For failover:-
+		Have a secodry ENI for traffic. now in case the EC2 failed then simply detach and re-attach the secndory ENI to standby EC2.
       
 If my EC2 is doing lot of networking task then should i add more and more ENI:-
   No! the ENI is the building block for Logical Network building. it should not be us for more throuhghput. for this use EN.
   
   
-  Assosiating IPs:-
-    You can assosiate additional private IP to the ENI and for each private IP you can also map a public IP via Elastic IP. 
-  
+		
 --------------------
 
 ENI and EC2 limits:-
@@ -135,9 +133,7 @@ EC2 - ENI and VPC:-
 	Even its also possible that two ENI livingf in two diffrent subnet can point to a same EC2 computing unit.
 	Therby a sigle EC2 can live in two diffrent subnet.
         though a single ec2 can have multiple eni in different subnet but those subnets must lie in same AZ of default ENI.
-	
-	
-	
+		
 -----------------------------------------
 
 EN: Enhanced network:-
@@ -162,7 +158,7 @@ EFA: Elastic Fabric adapter:-
 	- It support Message Passing Interface (MPI) 
 	- EFA OS-bypass traffic is limited to a single subnet. EFA traffic cannot be sent from one subnet to another. 
 		Normal IP traffic from the EFA can be sent from one subnet to another
-	- - This is not a replacement of Primary ENI. Primary ENI will have to be attached with EC2.
+	- This is not a replacement of Primary ENI. Primary ENI will have to be attached with EC2.
 	
 	
 	
