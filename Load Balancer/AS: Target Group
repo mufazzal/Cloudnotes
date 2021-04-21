@@ -48,6 +48,7 @@ You define below things in the TG:-
       But LB do not just deregister it instead it keep sending signal and 
       When the health checks exceed 'TG.HealthyThresholdCount' consecutive successes, the load balancer puts the target back in service.
     
+    
 ---------------
   Target Status:-
     There are the possible stage of a target
