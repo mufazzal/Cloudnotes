@@ -1,11 +1,19 @@
-Pricing-
 On Demand:
 	You pay by usage/hour or per second
 	Best For -
 		If you do not need any long term contract
 		Low Cost
 		Short live application
-		
+
+	On-Demand instance Pricing model:-
+		You will be charged(for compute power) for strat instance only not for the stop or hibernate instance.
+		For started instance you will be charged 
+			for minmum 1 minute if up time < 60 sec
+			for exact number of second if up time > 60
+		EG:
+			for up time = 30 sec charges will be for 1 mnt
+			for up time = 1 mnt 30 sec charges will be for 1 mnt 30 sec
+
 	On-Demand Capacity Reservations:-
 		If you wants to make sure that you will have some capacity always avaialble to use. you can use this.
 		Here the charges per hour will be aplied as per on-Demand price. unlike 'Reseved instance' you do not have to go to a long term contract of 1 or 3 year.
@@ -14,7 +22,9 @@ On Demand:
 		On-damnd capacity can be reserved with below param
 		- Number of instances
 		- AZ, Type, Tanancy, Platfors 
-		
+
+----------
+
 Reserved:
     You reserve the capasity for a certain time (for a 1 yera to 100s of year).
     You are locked in a contract. AWS generally provide yuo discount if you contract for longer time. You also need to pay some amount upfront.
@@ -73,7 +83,9 @@ Reserved:
 				- Convertible Reserved Instances can only be exchanged for other Convertible Reserved Instances.
 				- You can exchange ONE OR MORE Convertible Reserved Instances at a time for ONLY ONE Convertible Reserved Instance only
 				- Total value of instance to be exchange must be  <= 	Total value of new instances for exchange [You can go high or atesame but not low in price scale] 
-						
+
+----------
+
 Saving Plane:-
 	Saving plan provide most flexibility in term of usages. you can buy a compute saving plane for 1 or 3 year.
 	once purchased you can use it for ECS, EC2, Farget and lambda all.
@@ -87,86 +99,15 @@ Saving Plane:-
 		- also applies to AWS Fargate and AWS Lambda usage
 	
 	So this has significace advantage over Reserved instances, as it is very flexible and for EC2 it provide flexibility over region, OS and tenenncy too.
-				
-				
+
+-----------
+
 Spot:
-      AWS most of the time have spare capacity inntheir data center and so after fulfilling all on demand request remaing hardware is available for spot.
-      this instances are available at spot price to highest bidder.
-      remember that if demand increase then aws can take back the allocated instance.
-      This work like a biding in stock market, you bid for a any instacne with many others. 
-      The best one get the deal, and if sombody again ready to pay more then you lose (after some agreed time) this instance.
-      Best For:-
-         Me: Hey! i want to do this task its kind of R and D, but it will take fair computing power so buy some Ec2. no specific strat or end time required
-         Finance: We do not have much money for R and D. 
-         Me: Ok! lets go to Spot pricing, when it cost low buy some, work on it, release if it get costly, and  keep doing it at very low cost.
-         Finance: smart guy.
-    To get the Spot instance you must set request with below items
-       1. Max price
-       2. no of instances
-       3. type   on-time | persistent. if you wants to lanuch only at once or you wants repetative launch on favourable price.
-       4. Launch config
-       5. valid from - to
-    Spot Inturuption:-
-      1. if demand of on-denmand instances are higher then aws can immediately terminatethe instance and take it back
-            in this case you do not hve to pay for partial hour
-      2. if ur bidded price is lesser then current spot price then your instance will be terminated after full hoir passed 
-		Interruption behaviors:
-			There is 3 way to handle the inturruption
-			1. Terminate: This is by default and it terminate the iunstance.
-			2. Stop: 
-					- For this EC2-Fleet requets must be 'Maintain' and Spot requets must be 'Persistent'
-					- Root volunme should be EBS not instance store.
-			3. Hibernate:-
-					- For this EC2-Fleet requets must be 'Maintain' and Spot requets must be 'Persistent'
-					- Root volunme should be EBS not instance store.
-		Handling Inturuption:-
-			AWS send you two kind of signal (simply a cloudwatch alarm) if their is chances of or surity of inturution
-			1. Rebalance Recommendation:-
-					Whenever their is chances of inturruption, The AWS system sent the Cloudwatch Event to the Amazon EventBridge.
-					Also it set some specific values in instance meta data. You can use this event to rebalance the capacity. 
-					like launching new instance or saving data.
-					Use below filter for such kind of Event-
-							{		"source": [ "aws.ec2" ],
-									"detail-type": [ "EC2 Instance Rebalance Recommendation" ]
-							}
-			2. Inturuption Notice:-
-					When its sure that instance going to inturuptted, the AWS emit Event which can be detected in Cloudwatch Event (Event bridge).
-					You can use this event to do the necessary task like saving data and state. 
-					{
-							"detail-type": "EC2 Spot Instance Interruption Warning",
-							"source": "aws.ec2",
-							"version": "0",
-							"detail": {
-									"instance-id": "i-1234567890abcdef0",
-									"instance-action": "hibernate or stop or terminate"
-							}
-							.....
-					}					
-					
-					
-					
-					
-	 
-  Dedicated Host:
-    Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
-    This physically hosted server do lies in AWS building but unlike other EC2, this are solely assign to you.
-    Very costly
+	You will be charged bsed in spot price.
 
+----------
 
-	On-Demand instance Pricing model:-
-		You will be charged(for compute power) for strat instance only not for the stop or hibernate instance.
-		For started instance you will be charged 
-			for minmum 1 minute if up time < 60 sec
-			for exact number of second if up time > 60
-		EG:
-			for up time = 30 sec charges will be for 1 mnt
-			for up time = 1 mnt 30 sec charges will be for 1 mnt 30 sec
-		
-EBS:-
-  Snapshot:-
-  
-  Volume:-
-  
-Load Balancer:-
-
-EIP:+
+Dedicated Host:
+	Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
+	This physically hosted server do lies in AWS building but unlike other EC2, this are solely assign to you.
+	Very costly
