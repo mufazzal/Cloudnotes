@@ -9,11 +9,10 @@ With any Ec2 you can either use Instance store or EBS. not both
     1. Distribute the data on the instance stores across multiple AZs
     2. Back up critical data from the instance store volumes to persistent storage on a regular basis
 
-Instance store as root or additiona device:-
-  - once terminated, Stopped, Hibernated all the data in the EC2 instance store(either root or non-root) will vanish.
+Instance store as additional or root device:-
+  In instance store storage unit lies into the compute unit itself. anf if compute unit got dis-assosiated then all data from Instance storre will vanish
+  that is why once terminated, Stopped, Hibernated all the data in the EC2 instance store(either root or non-root) will vanish.
     
 Instance store as root:-
 - The Ec2 with instance store as root cannot be stoped. it can either be start or terminated.
 - Instance store backed Instances cannot be upgraded [cannot change the instance type]
-
-
