@@ -55,7 +55,7 @@ Diffret Time priodes:-
   1. ASG.HealthCheckGracePriode:-
       - For Scale out only
       - For all Scalling Policy
-      - Grace Time given to instance for    starting the App + comes behing LB + capable to handle the traffic.
+      - Grace Time given to instance for    starting the App + comes behing LB + capable to handle the traffic   before doing the first Health Check
       - This time start after  EC2 started and Hooks are ran and instance comes to 'InSevice' state. 
   2. ASG.<Hook>.heartBeatTimeOut:-
       - For Scale out only
@@ -65,10 +65,10 @@ Diffret Time priodes:-
       - For Scale out and in both
       - For Simple Scalling Policy only
       - A time given to last scalling activity to take effect, before that all the scalling trigger will be subdued.
-      - This time start after instacne comes into the service
+      - This time start after instacne comes into the service and Healthcheck has passed
   4. ASG.<Step_or_TargetTracking_ScallingPolicy>.WarmUpTime:-
       - For Scale out only
       - For Step and TargetTracking Scalling Policy only
       - A time given in which, the LB will distribute the traffic to newly up instance. till that time all the scalling trigger will be subdued.
-      - This time start after instacne comes into the service
+      - This time start after instacne comes into the service and Healthcheck has passed
 
