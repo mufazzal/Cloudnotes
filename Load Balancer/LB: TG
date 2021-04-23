@@ -1,2 +1,0 @@
-When the load balancer detects an unhealthy target, it stops routing traffic to that target. 
-It then resumes routing traffic to that target when it detects that the target is healthy again
