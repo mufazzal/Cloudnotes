@@ -38,17 +38,13 @@ Set Up:-
         
   Allocation Stratagy for On-Demand:-
     There is only one stratagy here and that is 'prioritized'. So the one who has higest priority will be launched first.
-  Allocation Stratagy for On-Demand:-
-    There is two option here:
-      Capacity-Optimized: The instances will be lanched from the pool which has the higest availibility and lowest chances of inturuption.
-        This is useful when cost of restarting the instance is higher.
-      lowest-price: The instances will be launched from the pool which gave you least price. This have the higher chance of inturuption.
         
   Overrides:
     You can creat the overrides for three paramenter:
       1. Instance type
       2. Weight: This will reflect in desired capacity.
-      3. Launch Template: 
+      3. Launch Template
+      4. Priority
     So in the ASG you can have the instances with varying Instance type and also instances with completly diffrent lanch template.
  
  
