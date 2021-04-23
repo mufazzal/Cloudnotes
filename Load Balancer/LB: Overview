@@ -12,7 +12,8 @@ Think of ELB as the point where you recive and accept the traffic from internet 
 LB has below component common among any type
   1. Listener:-
       Listeners check the incoming traffic to the LB on Port and Protocol.
-      Each listener have coulpe of listener rule that specify on which TARGET to route the traffic bsed on specified CONDITION in that rule. 
+      Litenet Rule:-
+        Each listener have coulpe of listener rule that specify on which TARGET to route the traffic bsed on specified CONDITION in that rule.         
       A LB can have the Multiple Listener. And each listener can have the multiple rule with a one default rule
   2. Target Group 
       The target group routes requests to one or more registered targets, such as EC2 instances, using the protocol and port number that you specify.
@@ -39,11 +40,12 @@ LB has below component common among any type
         Must allow 'SG of ELB' to connect over the TGPort and TGProtocol of EC2s.
         Must allow 'SG of ELB' to connect over the Health Port and Protocol of EC2s.
     AZ:-
-      When you create the ALB, You must specify The AZ. Ror this you also have to select the one subnet from that AZ. 
+      When you create the ALB, You must specify The AZ. Ror this you also have to select the one(only one) subnet from that AZ.
       LB will forward the traffic to that AZ only. so any target leave outside those AZs will not receve the traffic even though he is registered in targt group.
       In case of ALB:
           You have to select the Two Subnet, and each from diffrent AZ.      
       Subnet of AZ:-
+        The selected subnet is the node point(ENI basically) of LB for this AZ. All EC2 in this AZ (no matter which subnet) will be reachable via this node point (ENI). 
         You must ensure that if you are going to have the 
           - Internet facing LB then the Subnet must be public
           - Internal facing LB then the Subnet could be public or private
