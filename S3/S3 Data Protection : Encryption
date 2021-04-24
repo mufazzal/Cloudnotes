@@ -308,15 +308,20 @@ Enforce HTTPS:-
 										}]
 						}	
 
--------------------------------------------------------------------------
+---------------------------------------------
 
-Encryption over entire bucket:- 
-    Actully there is no way to set up somthing like 'encrypt all the file with this key'
-    also there is no straight forward way to set up somthing like 'encrypt each uploading file with this key'
+Default Encryption on Bucket:-
+	You can set the default encryption on the bucket. this could be of SSE-S3 or SSE-KMS.
+	This confuguration can be overrided by config in object upload api.
+	
+	Encrypting existing object:
+		For this you have to use the S3 batch operation
+
+---------------------------------------------
+
+Enforcing Encryption on object:- 
     
-    Encryption occure only over the objevt not on bucket itself.
-    
-    But thate is couple of tricks in BP, through wich you can configure the bucket behavior wrt encryption of its contents.
+    You can configure the bucket behavior wrt encryption of its contents.
     
     How we do it?
     Simply in BP you must place some restriction/conditions as such that bkt will accept only if those condition got fullfiled.
