@@ -1,4 +1,4 @@
-PRovision CApicity:-
+PRovision Throughput CApicity:-
    This is used to configure hom much dat can be write or read per second. This value should be chosse on the basis of
    how much user uses the DDB table at a given time and what is the pattern of usage.
    You can set it at the time of table creation or later when created already.
