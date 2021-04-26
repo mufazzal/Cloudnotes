@@ -11,7 +11,7 @@ API Gateway Endpoint [Reaching ti API]:-
 			This is useful if you user are clustred in specifiv region.
 		Edge Optimized:-
 			Here AG utilize the Edge location for fast respionse to anywhere in the world. This is useful if you user are spread globally.
-		Private:-
+		Private API:-
 			This useful if you wants the APIS to be callable from your VPC only. It cannot be called form outside of VPC by public internet.
 
 
