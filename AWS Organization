@@ -51,6 +51,35 @@ Concept:-
   Tag Policy:-
     You can use this to create rule for tagginr the resources across al the account in AWS organization.
 
+------------------------------------------
+Resource Access Manager
+
+AWS RAM is the service with which you can share the resource with
+  - Other AWS account
+  - In AWS Organization
+  - In AWS Organization OU
+  
+ Consderation: 
+  - share the resource with other aws account in aws-organization, you first have to enable it. for sharing with other aws account its not needed to be enabled.
+  - The resources are shared at root(h.mufazzal@gmail.com) account level of independent AWS accountot Organization acount.
+  - you can only shared the resource you own not the one you are shared with.
+ 
+ Sharing mechnics:-
+ For sharing the resource you first have to create the tesource sare and thern add resource in it.
+ Now for sahring
+  With independent AWS account:-  
+    First you have to sent the invitation to that account by email or aws account id. then he will accept it and done. He also can leave the sahring whenever he wants.
+  With AWs Organization or OU: 
+    It has to be enable if yes then those resources will utomatically apear in all suordinate accounts. no need to acceting. 
+    
+
+Creator of resource has full access on the resource's actions. the one with whome it shared can perform action based on type f resource.
+Not all the resource are sharable. some example are
+  - Capacity Reservations
+  - Dedicated Hosts
+  - EC2 Images
+  - Aurora DB cluster
+  - VPC subnet
 
 
 
