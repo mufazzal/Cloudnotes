@@ -52,11 +52,14 @@ Ingredient of GA:-
 					http://mufga.globalaccelerator.amazonaws.com:80, http://mufga.globalaccelerator.amazonaws.com:30, SSH:mufga.globalaccelerator.amazonaws.com:10
 		Now create the END POINT GROUP, Create 3 EPG, 1 for each server and for each region
 			- for webserver in US-east-1 say EPG_WS_US and attach it to LIS_WS
-			- for webserver in india say EPG_WS_IN and attach it to LIS_WS
+			- for webserver in india say EPG_WS_IN and attach it to 		LIS_WS
+			
 			- for appserver in US-east-1 say EPG_AS_US and attach it to LIS_AS
-			- for appserver in india say EPG_AS_IN and attach it to LIS_AS
-			- for maint server in US-east-1 say EPG_MS_US and attach it to LIS_MS
-			- for maint server in india say EPG_MS_IN and attach it to LIS_MS			
+			- for appserver in india say EPG_AS_IN and attach it to 		LIS_AS
+			
+			- for maint server in US-east-1 say EPG_MS_US and attach it to 	LIS_MS
+			- for maint server in india say EPG_MS_IN and attach it to 			LIS_MS			
+		
 		Now finaly add Endpoint to each of this EPG. In the each EPG you will have the endpoint which will have common region and common listener.
 			So the EPGs will look like below
 			EPG_WS_US:-
