@@ -223,5 +223,13 @@ SQS Encryption:-
     For this use TLS
   
   
-  
+----------------------
+
+
+
+Amazon MQ:-
+  MQ is used if you are using any other message API or message broker service apart from SQS.
+  You can migrate that messaging service to cloud via Amazon MQ. 
+  MQ simplty provide a way to integrate the third party service that are in direct competision of SQS, into the AWS cloud 
+
   
