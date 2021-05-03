@@ -10,20 +10,30 @@ Web Application Firwwall:
     Originating country of request
     Size of request
     Header
-    
- It protect you against
-    SQL Query injection
-    Cross side scripting
-    DDOS attack on layer 6 and 7
-    
- Rule:-
-  You can create rule to 
-    - Allow all except the one specify by rule
-    - Deny all  except the one specify by rule
-    - Count the request matching the rule    
 
-  # With WAFF you block the app access to entire contery.
+Mechnics:-
+  In WAF, you define the Web ACL. The Web ACL is a collection of rule or rule group.
+  If any request pass all the STATMENTS of the RULES or Rule Group then attcached ACTION of that Web ACL will take place.
+  This Actioncould be Allow, Block or Count.
   
+  - A web ACL can connect to many AWS service.
+  - A Web ACL can have multiple rule and each has a priority attached.
+  - Each rule can have multiple Statement with AND/OR/NOT combunation.
+  - Each rule can have one and only one action that could be Allow, Deny, Count
+
+Components of WAF:-
+  Web ACL:-
+  
+  
+  Rules:-
+    
+    Rule.Statements:-
+    
+    Rule.Action:-
+
+  Rule Group:-
+  
+
   Charges:-
     There are no upfront commitments. AWS WAF charges.
     But you will be charged for 
