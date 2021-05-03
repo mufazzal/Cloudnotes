@@ -23,17 +23,41 @@ Mechnics:-
 
 Components of WAF:-
   Web ACL:-
-  
+    The Web ACL is the packaged security configuration that is attacjale to AWS web exposed resources.
+    You can attach it to ELB, CFT, API Gateway.
+    Web acl is composed of number of rules that. The rqeust is analyzed by all the rule in the web ACL. Each rule has the proirity attach.
   
   Rules:-
+    The rule are made of number of Statements and a Action. The statement analyze certain params in the request.
+    This statment execute in form of al OR, or all AND or all NOT.
     
     Rule.Statements:-
-    
+      The statment can analyze
+      - Country from where request generated
+      - Set of IP in form if IP set [Further you can set if you need check IP of source of IP in header like X-Forw-Source]
+      - Any pattern in REquest Methode, Header, QueryString, URL Path, Body
+      
     Rule.Action:-
-
-  Rule Group:-
+      Once all the Statment in Rule pass then the selcted Action will be taken place
+      This action could be
+      1. Allow
+          Simply let the request pass through. also you can set to add certain header here.
+      2. Deny
+          Deny the request. Also you can set the custon resouce code and header too.
+      3. Count
+          Count the request and let it pass.
   
-
+  Rule.Type:-
+    Regular Rule:-
+      Here the staemets are executed and action will be taken based on passed result for each request.
+    Rate Based Rule:-
+      Here also the statment are evaluated on each request but action will not be taken on that request instead the requests from a single IP address are allowed in a five-minute period. 
+      This value is continually evaluated, and requests will be blocked once this limit is reached. The IP address is automatically unblocked after it falls below the limit
+      You can set which IP is taken either source of Header.
+      
+  Rule Group:-
+    This is the reusable group of rule that can be attached to any Web ACL.
+ 
   Charges:-
     There are no upfront commitments. AWS WAF charges.
     But you will be charged for 
