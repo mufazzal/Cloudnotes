@@ -54,6 +54,7 @@ Components of WAF:-
       Here also the statment are evaluated on each request but action will not be taken on that request instead the requests from a single IP address are allowed in a five-minute period. 
       This value is continually evaluated, and requests will be blocked once this limit is reached. The IP address is automatically unblocked after it falls below the limit
       You can set which IP is taken either source of Header.
+      You can set statment list to evaluate if request should be consider for counting or not.
       
   Rule Group:-
     This is the reusable group of rule that can be attached to any Web ACL.
