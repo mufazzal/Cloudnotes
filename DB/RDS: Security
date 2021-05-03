@@ -35,3 +35,30 @@ DB connection string/Password and Secret Manager:-
     - Microsoft SQL Server on Amazon RDS
     - Amazon DocumentDB
     - Amazon Redshift
+
+------------
+
+IAM DB Authentication:-
+  Whenever you wants to connect to the DB for queryig you first has to provide the Username and Password of DB user.
+  But in case of MySql nad PostgresQl there is one advance and more secure way, that is IAM DB Authentication.
+  
+  For this first you have to genrate the Auth token via the IAM role or user and then use this token for connecting to DB.
+  This token has max liftime of 15 minute and so access will be till that time only. 
+  So this access is very personal and time bounded.
+  
+  Advantage:-
+  - IAM database authentication tokens are generated using your AWS access keys or EC2 instance profile. You don't need to store database user credentials
+  - Authentication tokens have a lifespan of 15 minutes, so you don't need to enforce password resets
+  - IAM database authentication requires a secure socket layer (SSL) connection
+ 
+  Prerequisite:-
+  - It must be enabled first.
+  - database must has the database user account that uses an AWS authentication token.
+  - The Role or user must allow "rds-db:connect"
+
+ 
+ 
+    
+  
+
+
