@@ -36,6 +36,8 @@ Components of WAF:-
       - Country from where request generated
       - Set of IP in form if IP set [Further you can set if you need check IP of source of IP in header like X-Forw-Source]
       - Any pattern in REquest Methode, Header, QueryString, URL Path, Body
+      - Any missing or prsent value in REquest Methode, Header, QueryString, URL Path, Body
+      - Any suspicious prsence of SQL Injection or XSS Script in the Header, QueryString, URL Path, Body.
       
     Rule.Action:-
       Once all the Statment in Rule pass then the selcted Action will be taken place
@@ -58,6 +60,10 @@ Components of WAF:-
       
   Rule Group:-
     This is the reusable group of rule that can be attached to any Web ACL.
+    This is of 3 kind
+    1. AWS managed
+    2. AWS Marketplace Managed
+    3. you own
  
   Charges:-
     There are no upfront commitments. AWS WAF charges.
@@ -67,4 +73,20 @@ Components of WAF:-
       - Number of request
   
   AWS Firewall Manager:-
-    This used to manage WAF
+    AWS Firewall Manager simplifies your administration and maintenance tasks across multiple accounts and resources for a variety of protections, including 
+      AWS WAF, 
+      AWS Shield Advanced, 
+      Amazon VPC security groups, 
+      AWS Network Firewall, 
+      Route 53 Resolver DNS Firewall. 
+    
+    - With Firewall Manager, you set up your protections just once and the service automatically applies them across your accounts and resources, even as you add new resources.
+    - Helps to protect resources across accounts
+    - Helps to protect all resources of a particular type, such as all Amazon CloudFront distributions
+    - Helps to protect all resources with specific tags
+    - Automatically adds protection to resources that are added to your account
+    - Allows you to subscribe all member accounts in an AWS Organizations organization to AWS Shield Advanced, and automatically subscribes new in-scope accounts that join the organization
+    - Allows you to apply security group rules to all member accounts or specific subsets of accounts in an AWS Organizations organization, and automatically applies the rules to new in-scope accounts that join the organization
+
+
+
