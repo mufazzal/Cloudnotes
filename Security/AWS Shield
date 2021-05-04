@@ -14,3 +14,6 @@ AWS Shield:-
       - Mitigation varies based on characteristics like the type of instance you use, your instance size, and whether the instance type supports enhanced networking
       
       
+AWS WAF vs AWS Shield:
+  WAF is used for common attack like sql injection or xss scripting etc. but it not handle DDOS
+  Shield used for mainly to protect against DDOS attack.
