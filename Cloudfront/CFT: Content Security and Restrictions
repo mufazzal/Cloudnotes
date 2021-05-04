@@ -56,6 +56,7 @@ In CFT you have 3 option of Secrity
      Signed URL vs Cookie:-
         Use Signed URL if You want to restrict access to individual file.
         Use Signed Cookie if You want to restrict access to multiple files.
+        Use Signed Cookie if You don't want to change your current URLs
         
 
 2. S3 and CDN access issue:-
