@@ -1,7 +1,12 @@
 AWS Shield:-
   This give you DDOS protection at layer 3 and 4.
   A distributed denial of service (DDoS) attack is an attack in which multiple compromised systems attempt to flood a target, such as a network or web application, with traffic
-  
+  Type of DDOS that can be hadle by shield 
+   - DNY flood
+   - HTTP flood
+   - UDP reflections
+
+
   There is two option
     Statdard:-
       Enable by default and Free 
