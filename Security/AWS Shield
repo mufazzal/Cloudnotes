@@ -1,11 +1,16 @@
 AWS Shield:-
   This give you DDOS protection at layer 3 and 4.
+  A distributed denial of service (DDoS) attack is an attack in which multiple compromised systems attempt to flood a target, such as a network or web application, with traffic
   
   There is two option
     Statdard:-
       Enable by default and Free 
+      AWS Shield Standard defends against the most common, frequently occurring network and transport layer DDoS attacks that target your website or applications
     
     Advance Shield:-
-      Chargable
-      Give advance protection to ELB, CDN, EC2, Global Accelarator
+      - Chargable and you have to add resurces that you wants to protect.
+      - Give advance protection to ELB, CDN, EC2s EIP, Global Accelarator, 
+      - The point at which Shield Advanced detects attacks and places mitigations depends on the architecture you use for your web applications. 
+      - Mitigation varies based on characteristics like the type of instance you use, your instance size, and whether the instance type supports enhanced networking
+      
       
