@@ -24,13 +24,28 @@ DB logs File:-
       
       
  Enhanced Monitoring:-
-  You can enable it and set the interval for taking this metrics and can monitor the operating system of your DB instance in real time
+  You can enable it and set the interval for monitoring the operating system level metrices of your DB instance in real time
   This give you more advance PROCESS and THREAD level information about CPU amd Memory consumtion of DB instance.
   
   
  Performance Insight:-
-  ??????
-
+  CW gives you Instance leven metrices.
+  EM gives you OS level metrices.
+  The PI gives you the most depth metrices of DB engine level.
+  
+  PI monitor the database engine unlike other two who monitor the Instances or OS in which DB is hosted.
+  
+  Top Load Table Charts:
+    The Top load table shows the top items contributing to database load. You can choose any of the following dimension tabs:
+      - Top SQL
+      - Top User
+      - Top Wait
+      - Top Hosts
+  
+  Top SQL: With this you can also figure out which SQL is causing the highesr load on DB engine
+  Average Active Sessions: shows the database load in average active sessions over the last five minutes 
+  
+  
 
   
   
