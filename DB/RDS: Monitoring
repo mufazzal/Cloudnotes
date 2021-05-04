@@ -24,7 +24,9 @@ DB logs File:-
       
       
  Enhanced Monitoring:-
-  ????
+  You can enable it and set the interval for taking this metrics and can monitor the operating system of your DB instance in real time
+  This give you more advance PROCESS and THREAD level information about CPU amd Memory consumtion of DB instance.
+  
   
  Performance Insight:-
   ??????
