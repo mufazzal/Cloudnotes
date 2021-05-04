@@ -15,7 +15,7 @@ Why not S3:-
   S3 is suitable for storing objects. and it have way to low throuhput and high latency when compare to EBS.
 
 Type of EBS :-
-  1. SSD
+  1. SSD: best for random and small IO.
       1.1 GP2 : General Purpos SSD:- 
           balanced price, good performance
           Best for : general purpose, Virtual desktops, System boot volumes, Development and test environments
@@ -23,7 +23,7 @@ Type of EBS :-
           Highest performance, High price. 
 					When You need more transaction per seconds and transactions is smaller in size [So IOPS is dominant parameter] 
           Best for: mission-critical, low latancy and high throuput work. best for main DB's of your app.
-   2. Megnetic
+   2. Megnetic HDD: best for sequential and large IO
       2.1  ST1 :  Throughput optimize [Data transfer rate in MiB/Sec optimized]
             Low cost - frequently accessed
             Usage: Streaming workloads requiring consistent, fast throughput at a low price
