@@ -60,3 +60,13 @@ Aurora DB Cluster:-
 						1. READER: Only DB instances that are read-only Aurora Replicas can be part of a READER custom endpoint
 						2. ANY: Both read-only Aurora Replicas and the read/write primary instance can be part of an ANY custom endpoint
 						3. WRITER: this type applies only to multi-master clusters, because those clusters can include multiple read/write DB instances
+
+
+		Failover of primary-DB-instance:-
+			To handle the failover of primary DB instacne it is advisable to use the 'cluster endpoint' rather then endpoint of primary-DB-instance.
+			because cluster endpoint provide failover support.
+			If primary-DB-instance got failed then a new primary-DB-instance got up either by 
+				promoting other Aurora-replica which can take up to 120 second or by 
+				launching new instance which can take up to 10 minutes
+			and then the cluster endpoint automatcally start pointing to the new primary-DB-instance.
+
