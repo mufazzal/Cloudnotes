@@ -24,7 +24,10 @@ Enviorment Variable[EV]:-
   - By default EV is encrypted at rest with AWS managed CMK.  You can use diffrent CMK also.
       For default CMK you do not need AWS KMS permission but for other CMK user/Execution role needs AWS KMS permission for that CMK.
   Sensitive info in EV:-
-    AWS recommend to use encrypted cipher text in EV for info like password etc. and then use dechipher code in in function code to decrypt it. 
+    Though you can use aws KMS for encryption of Environment variables. But it will still shown as decrypted plain text in aws console and aws lambda APIs.
+    If you wants to safty from this then you should use the encryption helper.
+    Encrypt the variable at client side and set it in EV. 
+    now in lambda code use Function code for decryption.
 ------------------------------
 
 Layer:-
