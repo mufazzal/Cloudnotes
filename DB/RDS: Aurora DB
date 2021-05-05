@@ -12,14 +12,26 @@ Below are the exclusive Aurora features:-
     So no need to to have the MultiAz here as data is alreday fault tolerant higly available.
     Non aurora RDS take some time in case of failover and move to secondery storage[only if Multi-AZ is on]
     but Aurora do it whithine a minute only.
- Read Replica:-
-    RDS provide max 5 replica. Aurora give you 15.
-    Replication process is also way faster in aurora.
+  
+  Aurora-Replicas or Reader-Instances:-
+		You can create this for handling the read only traffic and can bring up to max 15 readed instances.
+		This is nothing but the EC2 instances and the storage unit is one of the 6 storage node of aurora cluster.
+		When a problem affects the primary instance, one of these reader instances takes over as the primary instance. 
+    RDS provide max 5 replica. Aurora give you 15. Replication process is also way faster in aurora.
+		Aurora-Replicas Priority:-
+			Each Replica can have the priority value from 0 to 15 which define which replica will be consider first for promoting to 
+			primary instance in case of primary instance failover.
     Read Replica Load Balancing:-
       In Aurora you can create a load balancer to distribute the reading load across the read replicas.
       In RDS there is no way to do this.
+  
   Performance:-
     Amazon Aurora provides five times the throughput of standard MySQL or twice the throughput of standard PostgreSQL
+
+  Capacity type:	
+    Provisioned: You have to select the DB instance size and take care of changing it if load increase.
+    Serverless: You just have to select the mis and max ACU and then Aurora will take care of capacity allocation or de-alocation on load change
+
   Aurora Serverless: 
     This is germ of aurora.
     With aurora serverless you do not have to worry about compute capacity of instance.
@@ -44,6 +56,13 @@ Below are the exclusive Aurora features:-
       this is best when you do not need the rds instance up and running all the time.
       when load on the db has pattern cycle and fluctuate considerably.
       also when lot of time there is no activity on db yhen feature of compite shut down will save u lpt of money
+      
+      
+  Aurora global databases:-
+    you can set up Aurora global databases and AWS keep primary AWS Region and each of the secondary Regions in synch.
+    this gives you
+    - low latency global reads capability
+    - disaster recovery from outages across an AWS Region
       
       
   Aurora with Other DB:-
