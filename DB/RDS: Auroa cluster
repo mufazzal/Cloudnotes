@@ -1,0 +1,62 @@
+Aurora DB Cluster:-
+	Aurora mostly formed in form of cluster which has the 
+		1. 6 storage node spread across 3 AZ 
+		2. One primary-DB-instance
+		3. none or many reader-instance
+		
+		- All the instances are lies in the 3 AZ that has the storage units.
+		- You can have si ngle primary instance and as many reader-instance as you need 
+		- All the instances are conncted to one of the storage unit.
+		- All the storage unit remain in synch with each other.
+		- You can prform erite operation only one primary-DB-instance not on reader-instances
+		
+		Cluster Endpoints:-
+			There are multiple endpoints the Aurora cluster has.
+			1. cluster endpoint or writer endpoint:- 
+					This endpont connect to the primary-DB-instance. only This endpoint (along with endpoint of primary-DB-instance) do support the WRITE operation.
+					- Each Aurora DB cluster has one cluster endpoint and one primary-DB-instance and both resolve to same instance.
+					- This endpoint provides the failover support if primary DB instacne got failed. 
+					- Each Aurora cluster has a single built-in cluster endpoint managed by Aurora. You can't create, delete, or modify this.
+					- Formate:-
+							<db cluster name>.cluster-<cluster id>.<region>.rds.amazonaws.com:3306
+			2. Reader Endpoint:-
+					A reader endpoint for an Aurora DB cluster provides load-balancing support for reader-instances to the DB cluster. 
+					Use the reader endpoint for read operations like SELECT.
+					- It this endpoint reduces the overhead on the primary instance
+					- It helps the cluster to scale the capacity to handle simultaneous SELECT queries on diffrent read instnces.
+					- Each Aurora DB cluster has one reader endpoint.
+					- Each Aurora cluster has a single built-in reader endpoint managed by Aurora. You can't create, delete, or modify this.
+					- If cluster has at least one replica the this endpoint will not have primary DB instacne as his candidate
+							but the cluster only contains a primary instance and no Aurora Replicas, the reader endpoint connects to the primary instance.
+					- Formate:-
+							<db cluster name>.cluster-ro-<cluster id>.<region>.rds.amazonaws.com:3306
+				
+			3. Instance Endpoints:-
+					Each DB instance is the EC2 in itself. be it Primary or replica. and so each of the instance also its own endpoint.
+					You can also use those endpoint if you wants to reach to any specific DB instance.
+					But it not recommended as a faillure of any such instance will cause this endpiont to blackhole.
+					Formate:-
+						<db cluster name>.<cluster id>.<region>.rds.amazonaws.com:3306
+
+			4. Custom endpoint:-
+					You can create your own endpoints as per your need. for creating the custom endpoint you must select the DB instances
+					(primary or replica) that will fall behind this endpoint. 
+					EG: You can create the two cutom endpoint 
+						one for production related query and having some IOPS optimized instances behing this custom endpoint and 
+						other for analytics related query and having some Througput optimized instances behing this custom endpoint.
+						
+					- For each Custom endpoint Aurora performs load balancing and chooses one of the instances in the group to handle the request
+					- You can create up to five custom endpoints for each provisioned Aurora cluster
+					- You can't use custom endpoints for Aurora Serverless clusters.
+					- It can also do the write operation if primary DB instacne is also in the group.
+					- By default there is no Custom Endpoint for any DB. you have to create one
+					- You can associate a DB instance with more than one custom endpoint
+					- Formate:-
+							<db cluster name>.cluster-custom-<cluster id>.<region>.rds.amazonaws.com:3306
+					
+					Custom endpoint Type:-
+						When you create the 'Custom endpoint' you also need to set it type which detrmine which instances can be included in group
+						there is 3 type:-
+						1. READER: Only DB instances that are read-only Aurora Replicas can be part of a READER custom endpoint
+						2. ANY: Both read-only Aurora Replicas and the read/write primary instance can be part of an ANY custom endpoint
+						3. WRITER: this type applies only to multi-master clusters, because those clusters can include multiple read/write DB instances
