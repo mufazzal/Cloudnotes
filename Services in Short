@@ -7,3 +7,10 @@ Active Directory service:-
         AD Connector is your best choice when you want to use your existing on-premises directory with compatible AWS services
     3. Simple AD:
         Low cost and trim down version of 'AWS Microsoft Active Directory' for basic usage.
+
+
+AWS OpsWork:-
+  AWS OpsWorks is a configuration management service that helps you configure and operate applications in a cloud enterprise by using Puppet or Chef.
+  1. AWS OpsWorks for Puppet Enterprise: To create the Pupet master server that manages all configuration and facts about the nodes in infra.
+  2. AWS OpsWorks for Chef Automate: automated workflow for continuous deployment and compliance checks
+  3. AWS OpsWorks Stacks: AWS OpsWorks Stacks lets you deploy and monitor applications in your stacks
