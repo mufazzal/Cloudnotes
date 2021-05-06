@@ -64,9 +64,11 @@ S3 Storage Classes:-
       Retrival Fee: NA
       - Best for any general data that need frequent access.
   2. S3 Standard_IA (infrequently Access) : long-lived, but less frequently accessed data
-      Low Latancy - High Throughput -  >= 3 AZ  -  
+      Low Latancy - High Throughput -  >= 3 AZ  -  all same as standard.
       Storage Fee:  Yes but lower then S3-Standard
       Retrival Fee: Yes
+      S3 Standard-IA costs less than S3 Standard in terms of storage price, while still providing the same high durability, throughput, and low latency of S3 Standard.
+      But S3 Standard-IA have cost for data retrieval.
       Minimum retention priode and objecte size is 30 days and 128kb. mns even you store a 5kb object for 10 days, u will be charged with 128kb for 30 days. 
       - Best for storing data, that need to access less frequently like at a time of year end or some festival
   3. S3 Standard_IA_one_zone (infrequently Access) : long-lived, but less frequently accessed data, Ok to being in service outage
