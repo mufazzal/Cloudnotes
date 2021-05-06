@@ -156,6 +156,10 @@ Full View:
 	media.mufazzal.com					A								Yes						cfl1
 	mail.mufazzal.com						MX							Yes						mailEC2Server
 	
+IPv6 Support:-
+	This is also pretty simple. The type 'A' gives you support for IPv4.
+	If you wants IPv6 too, then simply add one more entry set with type = 'AAAA' 
+	
 Routing Policy:-
 	The above struture work fine with all things idle but there is if and buts like
 	- What if a underline AWS resource like S3, ALB, CFT fail
