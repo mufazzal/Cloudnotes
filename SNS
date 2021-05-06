@@ -138,8 +138,12 @@ SNS Encryption:-
     - SSE encrypts the body of a message not attriobute and metadata
   Encryption at transit:-
     For this use TLS
-    
-  
+        
+------------------    
+ SNS (Email sub) VS SES:-
+  Use SES for sending email to typical user for thing like new item, blog, even etc. It a bulk Email Service.End user do not need to subscribe. It can be used for spamming.
+  Use SNS for mostly developer and infra related messages. The end user must also have susbscription to the topic 
+ 
   
   
   
