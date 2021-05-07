@@ -1,5 +1,7 @@
 Docker and AWS:-
 	AWS provide advance tool for managing Container and images.
+	This best suited for Batch job which are short-live and can be processed parrllal.	
+	Bsed on workload you can bring up and down the container instances quickly via altering Task.  
 	
 	ECR[Elastic Container Registery]:-
 		ECR is the tool where you can upload the Images of Container and share with other.
