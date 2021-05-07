@@ -145,4 +145,6 @@ WEbsocket API
   $disconnect
   $default
   you can also create your own custom route
+  Just like REST api each route can be integrated with
+  backend HTTP endpoints, Lambda functions, mock, or other AWS services
  
