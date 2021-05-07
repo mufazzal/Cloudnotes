@@ -92,3 +92,9 @@ Miti AZ:-
     the output will be-
        Name: ec2-34-200-143-202.compute-1.amazonaws.comhas 
        IP:   34.200.143.202
+
+--
+Multi AZ failover occure in below cases:-
+  Storage/Network/Compute unit failure of Primary instance
+  AZ failure
+
