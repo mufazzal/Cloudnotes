@@ -23,5 +23,9 @@ Specific to NLB:-
     if it is EC2 then the IP address of Client will be preserved. and the source IP address will be of the client
   - NLB route the traffic to Default Action of the Listener. Other Listener rule are useless for NLB.
 
+Classic Load Balancer:-
+  This is legacy but it give only below advantage
+  - Suport EC2-classic
+  - Support for sticky sessions using application-generated cookie
 
   
