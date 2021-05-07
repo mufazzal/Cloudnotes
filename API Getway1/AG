@@ -136,3 +136,13 @@ Stage:-
 HTTP API:-
 	HTTP API is next version of REST API. This provide fater and low latency.
 	But it still not has all the feature. 
+---------------------
+
+WEbsocket API
+  this provide the bidirectional persistent connection between server and cloent.
+  For this you have to implement three route
+  $connect
+  $disconnect
+  $default
+  you can also create your own custom route
+ 
