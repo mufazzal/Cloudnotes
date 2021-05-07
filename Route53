@@ -2,6 +2,7 @@ Route53 is the service AWS provice for doing 3 majot thing
 	- Register/migrate the domain
 	- Create Hosting zone
 	- Route hosts based on diffrent policy or health chceck
+	- Its global service
 	
 	Register/migrate the domain:
 		This is not in scope. but do remeber that this is chargable.
