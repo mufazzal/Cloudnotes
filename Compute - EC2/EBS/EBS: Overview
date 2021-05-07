@@ -24,12 +24,12 @@ Type of EBS :-
 					When You need more transaction per seconds and transactions is smaller in size [So IOPS is dominant parameter] 
           Best for: mission-critical, low latancy and high throuput work. best for main DB's of your app.
    2. Megnetic HDD: best for sequential and large IO
-      2.1  ST1 :  Throughput optimize [Data transfer rate in MiB/Sec optimized]
+      2.1  ST1 : Throughput optimize [Data transfer rate in MiB/Sec optimized]
             Low cost - frequently accessed
             Usage: Streaming workloads requiring consistent, fast throughput at a low price
 						When You need average transaction per seconds and but transactions are bigger in size [So Throuput is dominant parameter] 
             EG. Big data, Data warehouses, Log processing
-     2.2   SC1 :  Cold HDD  
+     2.2   SC1 : Cold HDD  
             Lowest cost - less frequently accessed 
             Best for file server.	
      2.3 	 EBS Magnetic:
