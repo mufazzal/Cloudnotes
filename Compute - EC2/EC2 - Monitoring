@@ -7,7 +7,7 @@ Monitering via cloudwatch:-
           Disk IO
           Status
       But by default it does not moniter 
-          Disk usages
+          Disk usages [Disk Swap Utilization, disk space utilization]
           RAM utilization
         To moiter this two you need to have the custom metric.
 
