@@ -1,0 +1,8 @@
+IF you wants to make any operation on the AWS resource then you must need a IAM USer or Role to do it.
+SO you will have to create one.
+
+But STS provide you way to do operation on the AWS resource via User of some Active Directory (not IAM user or Role) 
+without needing to create a corrosponding AWS IAM User or Role for them.
+
+STS provide you the temporary AWS IAM credential with Access Key + ID + Session token to perform operation over AWS resources.
+This token are short lived and generated for specific Federated user.
