@@ -1,0 +1,41 @@
+AWS Config give you way to record and administartor the configuration and relatioship of diffrent AWS components.
+		
+	Configuration history of Resource:-
+		You can answre like 
+		 > when the resource was first created
+		 > What was its configuration last month
+		 > What changes were made yesterday in its config
+		 > The configuration history is available to you in multiple formats in selected S3 bucket
+	
+	Configuration Items:
+		A configuration item represents a point-in-time view of the various attributes of a supported AWS resource that exists in your account.
+		It include Metadata, Attribute, relationships, current configuration, event.
+		AWS config create the Configuration Item whenever it detects a change in that resource. 
+		EG: It can create a Configuration Item whenever a bucket is created, updated or deleted.
+		
+	Configuration Recorder:-
+		The configuration recorder stores the configurations of the supported resources in your account as configuration items. 
+		You must first create and then start the configuration recorder before you can start recording
+		By default, the configuration recorder records all supported resources
+		
+	Configuration Snapshot:-
+		This configuration snapshot is a complete picture of the resources that are being recorded and their configurations
+		
+	Configuration Stream:-
+		A configuration stream is an automatically updated list of all configuration items for the resources that AWS Config is recording. 
+		Every time a resource is created, modified, or deleted, AWS Config creates a configuration item and adds to the configuration stream
+	
+	Resource Relationship:-
+		AWS Config discovers AWS resources in your account and then creates a map of relationships between AWS resources
+		
+	AWS Config Rules:-
+		An AWS Config rule represents your desired configuration settings for specific AWS resources or for an entire AWS account
+		AWS Config flags the resource and the rule as noncompliant, and AWS Config notifies you through Amazon SNS
+		AWS also provide some predifined managed Rule and you can create your own Config Rule.
+		
+	Multi-Account Multi-Region Data Aggregation:-
+		Multi-account multi-region data aggregation in AWS Config allows you to aggregate AWS Config configuration and compliance data 
+		from multiple accounts and regions into a single account
+		
+	
+	
