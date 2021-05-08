@@ -46,6 +46,13 @@ DB logs File:-
   Average Active Sessions: shows the database load in average active sessions over the last five minutes 
   
   
-
+RDS event: 
+  rds provide the list of event related servel actions happen on rds instance.
+  you can view them 8n console or by api.
+  this events are related to changes in below
+   instance
+   snapshots
+   security group
+   parameter group
   
   
