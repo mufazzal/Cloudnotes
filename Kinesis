@@ -12,16 +12,43 @@ It can capture gigabytes of data per second from hundreds of thousands of source
     Generally you can use this stream of data to enable real-time analytics use cases such as real-time dashboards, real-time anomaly detection, dynamic pricing.
     KDS has its own data storage.
     
+    Producer:- 
+      A piece of software who place the dat in the stream's shrads by callint 'PutRecord' api. You can use Kenesis Producer Lib of rthis
+    
+    Consumer:-
+      an application that you build to read and process data records from Kinesis data streams.
+      The consumer could be 
+      - Lambda with Evenr Source mapping with the stream
+      - You can use an Amazon Kinesis Data Analytics application to process and analyze data in a Kinesis stream using SQL, Java, or Scala
+      - You can use Kenesis stream also if you wants to futther transform and then store the result in ny aws manged srvice.
+    
     Shrad:-
       A shard is a uniquely identified sequence of data records in a stream. A stream is composed of one or more shards, each of which provides a fixed unit of capacity
       Each shrad can have capacity of
         5 transaction per sec for read [limited to 2MB per sec]
         1000 transaction per sec for write [limited to 1MB per sec]
         The total capacity of the stream is the sum of the capacities of its shards. To increase the capacity of Stream you can increase the number of shrads.
-    GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of orocessing capacity.
+      GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of orocessing capacity.
+      You set the initial number of total shard in the stream at the rime of creation. You can later change it if you wants.
+      
+      Shard Partitin Key:-
+        Each shard must be assosiated with a unique partition key. When producer place the data record in the stream, it must also present the partition key.
+        The stram will place the data record in the shrad shrad who has matching partition key value.
+        In your application logoc you shoudl choose shrad as that it have lot more possible values then number of shrad running at a time.
+        This ways data will be spread across the shrad properly.
+      
+      ReShrading: Depending on the load on your system you may wants to change the number shard in the stream. this is called resradding. you can do it by
+      1. Chnaging value by caling api UpdateShardCount API.
+      2. By spliting the shrad to increase the number of shrad
+      3. By merging them to decrease the number of shrad
         
   Kinesis Data Firehose:-
-    This too collect the data from multiple stream but instead of storing them in Shrads it deliver the data to any AWS storrage service like S3, RDS, Redshift, Amazon Elastic search
+    This too collect the data from multiple stream but instead of storing them in Shrads it deliver the data to any AWS storrage service like 
+      > S3,
+      > Redshift, 
+      > Amazon Elastic search
+      > Splunk (non aws)
+      > HTTP endpoint (non aws)
     KDF do not have any of its own storage or shrads. it just deliver the data to storage service.
     Later you can use feature of that service to analyze the data.
   
