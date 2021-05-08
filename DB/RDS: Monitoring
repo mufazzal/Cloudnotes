@@ -54,5 +54,5 @@ RDS event:
    snapshots
    security group
    parameter group
-  
+  you can use SNS to use this event for any execution.
   
