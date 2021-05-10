@@ -72,6 +72,14 @@ Lambda and VPC:
        - AWS can connect multiple Lambda in same subnet with single ENI.
        - If the function is not used for longer time then AWS can release the ENI. and put the LAmbda in 'Pending' state
         
+      Consideraion:-
+        When you launch the lambda in the VPC, it basically create the ENI. One ENI can handle multiple execution. but if load is very high then 
+        you VPC and selected subnets must have enought unused IP to create new ENI to handle peak. Otherwise there will be invocaion error.
+        So at a time of attaching to VPC make sure that you choose multiple sunet if diffrent AZ and those subnet have enough unused IPs.
+        
+        
+        
+        
 --------------------
   
   Interface Endpiont for Lambda:-
