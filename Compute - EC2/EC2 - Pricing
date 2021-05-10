@@ -77,8 +77,13 @@ Reserved:
 			In regional you have flexibility fir changing AZ and zonal you need select AZ and that cannot be nodified later.
 			
 		Limit:-
-			Max Regional-instance you can reserve = 20
-			Max Zonal-instance per AZ you can reserve = 20
+			On-Demand Instances:-
+				For each region there ia alimit define in term of vCPU count. 
+			Reserve instances:-
+				Max Regional-instance you can reserve = 20
+				Max Zonal-instance per AZ you can reserve = 20.
+			Spot Instances:-	
+				Dynamic Spot limit per region. keep changing depending on unused capacities.
 			
 		Reserved instance Marketplace:-
 			This is like a secondry market of RI. If in case you no longed need the instance then you can sell them here.
