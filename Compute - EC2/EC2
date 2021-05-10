@@ -237,6 +237,7 @@ EC2 CURL for meta-data and user-data:-
 			- you wont bear charge for EC2 but will be charged for EBS volume
 			- Lost the public IPv4 but retain the Private IPv4
 			- Reatin the static EIP and you will be charged for that [EIP id free if its assosiated with running instance]
+			- ENI remian attached
 			- You can change below param of EC2 when it is stopped
 					Instance type, User data, RAM disk, EBS-Optimization, Placement group
 					you cannot change above thing when EC2 is running.
@@ -256,6 +257,7 @@ EC2 CURL for meta-data and user-data:-
 		Hibernate Instance:-
 			- in hibernet state EBS remain attached and RAM data stored in Root-EBS
 			- Lost the public IPv4 but retain the Private IPv4
+			- ENI remian attached
 			- Reatin the static EIP and you will be charged for that [EIP id free if its assosiated with running instance]
 			- for instance-store type EC2 data will be lost.
 			- Instance may start again on new underlying Hardware Host
