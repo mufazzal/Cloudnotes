@@ -189,7 +189,20 @@ Routing Policy:-
 	5. Geoproximity: Route the trafic based on resource location of your system.
 	6. Weighted: Use to route traffic to multiple resources in weight that you specify. create Record name and assign weight to each record name. useful for A/B testing. 
 	7. Multivalue: 
-	
+
+----------------
+	Active-Active Failover policy system:-
+		In Active-Active failover system, you have couple of primary application node which are designed for highest availibility for all the time.
+		Traffic are distributed among those node based on the choosed routing policy. if one of those stil failed then traffic wil be distributed to remianing nodes.
+		There is no any secondry back up system to handle traffic if all node goes down.
+		This can be implemented with:-
+			all the routing policy except Failover Policy.
+	Active-Passive Failover Policy System:-
+		In Active-Passive Failover system you hace some primary nodes and then secondry node. the traffic is routed to all the primary node if all is okk.
+		If primary nodes failed then traffic will moved to secondry node.
+		This can be implemented with Failover Policy.
+
+---------------
 	
 Pricing:-
 	This is one of the costlier service.
