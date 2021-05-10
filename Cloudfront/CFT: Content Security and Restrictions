@@ -62,7 +62,23 @@ In CFT you have 3 option of Secrity
 2. S3 and CDN access issue:-
     IF you are usinf S3 bucket as origin the problem is that you have to make the Bucket public. and so it lead to unecessary data expose.
     To resolve this special issue for S3 and CDN connection, comes a concept of Origin Access Identity (OAI)
-    for detail see. 'S3: Performance: CloudFront.txt'
+    The OAI is kind os pseudo identity that provide a kind of identification (Principle) for CDN.
+    By using OAI you can provide the access of Bucket for this OAI and deny the access for other identities(including public)
+
+    With OAI, you can restrict the bucket to be readable by CDN only not with public S3 url.
+    How:
+      1.  in the bucket set the BPAF to off
+      2.  ACL for the inner object = private
+      3.  write BP
+            "Sid": "1",
+            "Effect": "Allow",
+            "Principal": { "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E11YOP9QR1NZ7Q" },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::mufa-test-cdft-bucket-2021/*"
+       4. Update Object ACL:-
+            In the ACL of object just add the 'Amazon S3 Canonical User ID' and remove public access. 
+    Now bucket content will be accessible via CDN only and bucket and its content will not be public. 
+    IMP: you do not have to make any changes in the CDN url for this. the OAI provide the the identity to CDN distribution not the person who is using this url.    
     
 3. Use Custom Header for Custom Origin:-
     Use Custom header to be added and check it at you origin server side. honor the request only if that Header is prsent.
