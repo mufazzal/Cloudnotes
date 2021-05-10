@@ -1,0 +1,9 @@
+Retrival:-
+  There is 3 option to retrive it
+  
+  1. Standard: Takes around 3 to 5 hour
+  2. Expedited: Takes aroung 1 to 5 minute for lesser 250 MB data archive. You must also purchase Provisioned Capacity to tap this benifit.
+  3. Bulk: it take 5-12 hour. and best for data of very large size.
+  
+  Glacier Select:-
+    You can get the data bu running the sql like query. again you also have to chose any one retrival option from the 3. 
