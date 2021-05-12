@@ -99,6 +99,8 @@ Limits:-
 Function Orchestration[step function]:-
   AWS Step Functions is an orchestration service that lets you connect Lambda functions together into serverless workflows.
   Use Step Functions to orchestrate serverless applications workflows. This orchestrate support human intervention as well.
+  Step Functions maintains application state, tracking exactly which workflow step your application is in, and stores an event log of data that is passed between application components
+  If in the flow any component faied then flow still can pick up from the point of failure.
   With step function you can:-
     Chaining          – Connect functions into a series of steps, with the output of one step providing the input to the next step.
     Catch and retry   – Handle errors using sophisticated catch-and-retry functionality.
