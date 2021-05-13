@@ -30,6 +30,28 @@ AWS Glue:-
       Jobs consist of scripts that contain the programming logic that performs the transformation. This job triger based on event or schedule.
     Data Targets:-
       S3, RDS, JDBC, Kafka
+    Glue Data Catalog:-
+      This is the persistent metadata storage. this contains the info about data stored in data sources.
+    Crawler:-
+      This is the crawler that keet scanning, extracting and loading the metadata in the Glie Data Catalog.
       
       
+      
+ AWS Back up:-
+  This is fully managed service for creating the centralized back up plan across the Services, On-Premises, Accounts, Region.
+  It allows you to auomtate and conslidate backup tasks that were previously performed service-by-service, and removes the need to create custom scripts and manual processes
+  you can automate your data protection policies and schedules
+  Below services are supported
+    RDS, DDB, Aurora, EFS, EBS, FSx.
+  Back up plan:-
+    A backup plan is a policy expression that defines when and how you want to back up your AWS resources
+    It also define how long you wants to retain it.
+ Feature:-
+  - Centralized back up monitoring
+  - Cross Account back up and management
+  - Cross Region back up  
+    
+  
+  
+  
   
