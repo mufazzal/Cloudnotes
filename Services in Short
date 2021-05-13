@@ -14,3 +14,22 @@ AWS OpsWork:-
   1. AWS OpsWorks for Puppet Enterprise: To create the Pupet master server that manages all configuration and facts about the nodes in infra.
   2. AWS OpsWorks for Chef Automate: automated workflow for continuous deployment and compliance checks
   3. AWS OpsWorks Stacks: AWS OpsWorks Stacks lets you deploy and monitor applications in your stacks
+  
+
+AWS Glue:-
+  It is a ETL (Extract - Transform - Load) service which is used for Semi-Structured data.
+  - This is used for creating data warehouse or data lake
+  - This is erverless so you do not have to have a infra setup, instead AWS provision it based on reqirmernt
+  - It read data from 'Data Source' and perform 'Job' on it and finally write in 'Data Target'
+  - you provide the IAM role, VPC ID, subnet ID, and security group that are needed to access data sources and targets
+  Components:-
+    Data Source:-
+      S3, RDS, DDB, Kenesis
+      Kafka, MongoDB, JDBC
+    Job:-
+      Jobs consist of scripts that contain the programming logic that performs the transformation. This job triger based on event or schedule.
+    Data Targets:-
+      S3, RDS, JDBC, Kafka
+      
+      
+  
