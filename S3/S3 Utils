@@ -23,7 +23,8 @@ Athena:-
   It is nicely integrated with AWS QuickSight for analytics visulization 
   
 Athena VS S3 Slect:-
-  Athena work on stored items in S3, S3 select work on content stored inside file in S3. S3 select only work for file type CSV, ZIP, Json
+  Athena work on Multiple Objects and data stored in that Objects. Its more sophiscticated then S3 Select ad tou can use ''Join' too.
+  S3 select work on Single Object and data stored in that Object. S3 select only work for file type CSV, ZIP, Json
   
 Macie:-
   This is AI tool buld over athena which help to find if there is any sensitive info like CC detail, password stored in any S3 file.
