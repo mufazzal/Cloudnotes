@@ -28,3 +28,14 @@ Athena VS S3 Slect:-
   
 Macie:-
   This is AI tool buld over athena which help to find if there is any sensitive info like CC detail, password stored in any S3 file.
+
+S3 Batch:-
+  You can use S3 Batch Operations to perform large-scale batch operations on Amazon S3 objects. 
+  S3 Batch Operations can run a single operation or action on lists of Amazon S3 objects that you specify.
+  
+  Menifest:- This is the file that define the list of object on which you wants to do the operation. This is generally a S3 inventory list.
+  Possible Operation:-
+    Copy, Call lambda on each object, Restore from Glacier, Replace/Delete Tag, Change ACL, Object Lock.
+    
+    
+  
