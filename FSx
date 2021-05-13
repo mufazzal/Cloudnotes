@@ -33,7 +33,7 @@ Luster file system:-
   > Hundreds of GBps of throughput
   > Mmillions of IOPS
   
-  - Amazon FSx for Lustre is POSIX-compliant, so you can use your current Linux-based applications
+  - Amazon FSx for Lustre is POSIX-compliant, so you can use your current Linux-based applications. but it does not support Windows.
   - You can use SSD(for better latency) or HDD(for better throuput)
   
   FSx for Lustre and Data Repositories:-
