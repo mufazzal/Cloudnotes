@@ -7,3 +7,15 @@ Retrival:-
   
   Glacier Select:-
     You can get the data bu running the sql like query. again you also have to chose any one retrival option from the 3. 
+    
+Glacier Vault:-
+  vault is a container for storing archives. When you create a vault, you specify a vault name and the AWS Region 
+  You can store an unlimited number of archives in a vault.
+  Vault Lock:-
+    This is very useful feature of vault. 
+    S3 Glacier Vault Lock allows you to easily deploy and enforce compliance controls for individual S3 Glacier vaults with a vault lock policy.
+    This is very useful for regulatory and complience control.
+    EG:-
+      You can specify controls such as “write once read many” (WORM) in a vault lock policy and lock the policy from future edits
+    
+    
