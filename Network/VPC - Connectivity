@@ -9,8 +9,10 @@ Transit Gateway:-
     VPC peering with 100s of VPC
     Direct Connect with many on-premise
     VPN connection with many on-premise. We can use Transit Gateway in place of Virtual Private Gateway
-  The TG will help you to build this with ease
-      
+  The TG will help you to build this with ease.
+  This work on Hub and Spoke model. Where Hub is Transit Gateway and Spoke os each node in network.
+  Once connected to Hub, the spoke can conect to every other spoke in the network.
+        
    
 Direct Connect:-
   The direct connect give you a dadicated fiber connection between ur premise and nearest AWs Hub.
