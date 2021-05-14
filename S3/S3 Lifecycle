@@ -34,7 +34,7 @@ To anable it go to
     - You cannot make lifecycle rule for MFA enaled bucket
   There is some rule for size and days if you are transitioning from Standarrd or Standard-IA to Standard-IA or One-zone-IAA or Inteligent tiering 
     - Object must lie at least 30 days before it can make any transition.
-    - Minimum size of the object to transit is 128kb
+    - Minimum size of the object to transit ahould be larger then 128kb for cost effectivness
  
  
 Behaviour of Expiration Rule on unversioned/version-enable/version-suspended bucket on the CURRENT Object:-
