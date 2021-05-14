@@ -88,3 +88,10 @@ Trail:-
       
       AWS Organization Trail:-
         If you have created an organization in AWS Organizations, you can create a trail that will log all events for all AWS accounts in that organization
+        
+Encryption:-
+  By default, CloudTrail event log files are encrypted using Amazon S3 server-side encryption (SSE). 
+  You can also choose to encrypt your log files with an AWS Key Management Service (AWS KMS) key
+  
+  
+  
