@@ -159,6 +159,7 @@ EFA: Elastic Fabric adapter:-
 	- EFA OS-bypass traffic is limited to a single subnet. EFA traffic cannot be sent from one subnet to another. 
 		Normal IP traffic from the EFA can be sent from one subnet to another
 	- This is not a replacement of Primary ENI. Primary ENI will have to be attached with EC2.
+	- OS-Bypass is not supported in window and EFA behave like noral ENI with window instances.
 	
 	
 	
