@@ -51,6 +51,7 @@ A VPC endpoint enables private connections between your VPC and
       - An interface endpoint supports TCP and IPv4 traffic only
       - Available to be used outside of the VPC with VPN, Direct Connect, or VPC peering
           [Because you only have to reach to that ENI with private IP and all othem can do it.]
+      - This is hourly Chargable.
       
       Mechanics of Interface EP:-
         Some VPC's element(EC2, Lambda) call the api of EP service like ec2.start(), sns.push() etc.
@@ -100,6 +101,7 @@ A VPC endpoint enables private connections between your VPC and
       - you cannot have multiple endpoint routes to the same service in a single route table. 
       - you can    have multiple endpoint routes to the same service in a diffrent route table
       - you can    have multiple endpoint routes to the same or diifrent service in a diffrent route table
+      - This is FREE.
       
       Mechanics of Gateway EP:-
         Some VPC's element(EC2, Lambda) call the api of EP service like S3.getObject(), ddb.scan(), 'http://s3.us-east-1.amazonaws.com/mufazzal/pic.png' etc.
