@@ -52,6 +52,10 @@ AWS Glue:-
   - Cross Region back up  
     
   
+AWS Trusted Advisor:-
+  This tool provide you the real time guidence foe building your infra wrt to below
+  Cost, Security, Fault Tolerance, Service Limit,PErformance.
+  
   
   
   
