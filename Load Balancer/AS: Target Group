@@ -103,7 +103,9 @@ Target as LAmbda:-
     Elastic Load Balancing must have permissions to invoke the Lambda function.
 ---------------------
 
-
+Weighted TG:-
+  In this kind of TG you can define how much percentage of traffic should route to individual target.
+  This work only for ALB. This is very useful for A/B testing.
 
 
 Single EC2 can lies in multiple TG.
