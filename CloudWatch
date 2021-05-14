@@ -77,7 +77,22 @@ AWS Service - NameSpace <> Metrics <> Dimensions.
       FunctionName, ExecutedVersion
     
     
- 
+-------------------
+
+CW Agent:-
+  This is a software that you can install in the EC2 at the time of EC2 launch. This helpyou to get the logs of
+  - System-level metrics from Amazon EC2 instances across operating systems.
+  - Metrics for RAM and disk space.
+  - System-level metrics from on-premises servers
+  - Retrieve custom metrics from your applications or services using the StatsD and collectd protocols
+  - Collect logs from Amazon EC2 instances and on-premises servers, running either Linux or Windows Server
+  You can view this log in CW console like any other.
+  By default it has the metrics namespce = 'CWAgent' but yo can have your own.
+  
+  
+---------------  
+  
+
  
  
  
