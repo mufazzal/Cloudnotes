@@ -20,7 +20,7 @@ Scalling Techniques:-
   Manual:-
     - You set the desired capacity by yourself whnever you need to increase or decrease the capacity.
     - You can also remove or attach the instances manually from ASG. remeber if this operation set number of instance above or below the max and min capacity then requets will fail
-      The added instance must lie in AZ that is part of ASG.
+      The added instance must lie in AZ that is part of ASG and must not be a member of another Auto Scaling group
       How:-
         Simply set the desired value in ASG.
   Scheduled:-
