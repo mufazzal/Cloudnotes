@@ -13,7 +13,7 @@ The storage Gateway can cutomize the S3 sevice to provide you storage of belw ty
   This machine should also contain the storage at on-premise (How much? it depends upon you requirment) 
   
   File Gateway:-
-    File gateway provide you the NFS kind of file storage which is backed up by S3. The storage gateway take care of all the implementation between 
+    File gateway provide you the NFS or SMB kind of file storage which is backed up by S3. The storage gateway take care of all the implementation between 
     NFS client and S3.
     With this you can add/edit/delete any file with NFS client. this cahnges will be done on S3 actully. data is stored in S3 so you can have versioning, lifecycle, analytics from S3.
     With this you do not have to have large storage at your premise.
