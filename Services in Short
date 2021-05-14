@@ -55,7 +55,12 @@ AWS Glue:-
 AWS Trusted Advisor:-
   This tool provide you the real time guidence foe building your infra wrt to below
   Cost, Security, Fault Tolerance, Service Limit,PErformance.
-  
+
+AWS WorkSpace:-
+  As its name suggest it is nothing but a way to set up desktop for office work in AWS.
+  You can create as many desktop as you wants and then distribute among employees.
+  Choose your operating system (Windows or Amazon Linux) and select from a range of hardware configurations, software configurations, and AWS Regions
+  Integrated with AWS Microsoft AD, Simple AD and AD connector
   
   
   
