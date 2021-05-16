@@ -14,7 +14,7 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
     
   Snapshot Encryption and Target Volume:-
     If Snapshot is encrypted then target volume will also be encrypted with same CMK  
-    If Snapshot is unencrypted then target volume will also be unencrypted  
+    If Snapshot is unencrypted then target volume could be unencrypted or encrypted.  
   
   EBS Snapshot and Region:-
     You can create the napshot from the EBS-Volume, from EC2 itself or from another EBS-snapshot. 
@@ -37,6 +37,7 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
         so there is no need to wait for all of the data to transfer from S3 to your volume before the instance can start accessing an attached volume and all its data
         so in start you may face some latency in IO. Volume performance is achieved after all blocks are downloaded and written to the volume
     - If snapshot were encrypted then created volume will also be encrypted.
+    - If snapshot were unencrypted then created volume could be encrypted or unencrypted.
 
   Multi Volume Snapshot:-
     You can create the snapshot of all the atached EBS volume of an Instance. You can then manage them collectivly.
