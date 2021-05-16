@@ -80,6 +80,11 @@ Storage Autoscalling:-
   If you enable this then you also need to set up the value of 'Maximum storage threshold'. 
   The Sutoscalling will increase the storage once storage reach near to 'Maximum storage threshold'. 
   
+------------------
+
+RDS + MYSql best prctices:-
+  1. Use InnoDB for DB ingine not MyAISM
+  2. Keep each table size < 16 TB
   
   
   
