@@ -8,9 +8,10 @@ Instance Type(Faimily) and Instance Size-
 	Faimily/Type		Best for										Use case
 	--------------------------------------------------------------
     T3    				Low Cost-Genral purpose     web server/small DB
-    G3    				Graphics intensive          video
-    I3    				High speed storage          NoSql, DBs
-    R5    				Memory optimized            Memory intensive
+		C							Compute Optimized						high performance processors for HPC and intensive PU work 
+    R	    				Memory optimized            Memory intensive RAM. process large data sets in memory
+    G	    				Graphics intensive          video and extremly high intensive work which need GPU
+    I3    				High speed storage          NoSql, DBs. high, High sequential read and write and tens of thousands of low-latency, random I/O operations per second 
     M5    				General Purpose             App Server
     ...
     ...
