@@ -279,8 +279,13 @@ EC2 CURL for meta-data and user-data:-
 AWS System Manager:-
 	You can use this service to run the command on multiple EC2 together.
 		
-		
-		
+-----------
+
+EC2 Horizental and Vertical Scalling:-
+	HS means you add more servers of same type long with existing servers. and VS means you upgrade the existing server itself.
+	EG: You have 3 Ec2 of t2.micro and wants  more capacity
+	HS: Add 2 more of t2.micro
+	VS: Change existing t2.micro to t2.large
 		
 		
 		
