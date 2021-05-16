@@ -11,7 +11,7 @@ Below is the list of STS api that can be used to generate the Temporarry Securit
 
   1. AssumeRole:                  IAM user or IAM role with existing temporary security credentials
   2. AssumeRoleWithSAML:          Any User with passed SAML response. like ADFS user
-  3. AssumeRoleWithWebIdentity:   Any User with passed web base identity like Google, FB, Apple Id, AWS Cognito
+  3. AssumeRoleWithWebIdentity:   Any User with passed web base identity like Google, FB, Apple Id, AWS Cognito, OpenID connect
   4. GetFederationToken:          IAM user or AWS account root user
   5. GetSessionToken:             IAM user or AWS account root user
   
