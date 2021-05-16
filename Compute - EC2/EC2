@@ -185,6 +185,10 @@ EC2 Placement Group:-
 			-	The EC2s in such kind of PG remain in single AZ.
 				EG: 
 					Rack-1 [EC2_1, EC2_2, EC2_3, EC2_4, EC2_5] 	AZ_1
+		Capacity Error on Placement Group:-
+			Sometime it may possible that you are not able to launch the instance in the existing placement group because the Racks of that PG do not have enough 
+			hardware to accomodate new instance. For this you have to stop and restart all the instances again so that they all can be started in another high capacity rack.
+
 	2. Spread:-
 			-	EC2 are placed in such a manner that they do not share the common hardware and so remain very much isolated (in term of hardware) from each other.
 			-	The EC2s in such kind of PG can lie in in single AZ or multiple AZ.
@@ -211,6 +215,7 @@ EC2 Placement Group:-
 		- Move to a placement group
 		- Move from one placement group to another
 		- Remove from a placement group
+
 
 ----------------------
 
