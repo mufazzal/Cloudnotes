@@ -1,4 +1,5 @@
 Cost Minimization
-  data transferred between Amazon EC2, Amazon RDS, Amazon Redshift, Amazon ElastiCache instances, and Elastic Network Interfaces in the same Availability Zone is free
+  - Data transferred between Amazon EC2, Amazon RDS, Amazon Redshift, Amazon ElastiCache instances, and Elastic Network Interfaces in the same Availability Zone is free
+  - Data transfer between EC2 and S3 buckek in same region is free.
   
   
