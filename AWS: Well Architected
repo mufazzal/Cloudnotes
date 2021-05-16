@@ -3,3 +3,24 @@ Cost Minimization
   - Data transfer between EC2 and S3 buckek in same region is free.
   
   
+Comparision:-
+  S3
+  |
+  |
+  |-----File Gateway                  SMB and NFS
+  |
+  |-----Volume Gateway                ICSCI
+          |
+          |-----Stogare Volume
+          |-----Cached Volume
+
+  SSD/HDD
+  |
+  |
+  |--------EFS                              PSOIX     Linux only
+  |
+  |--------FSX
+            |
+            |-----FSx window File server    SMB       Window only
+            |-----FSx Luster                PSOIX     Linux only
+            
