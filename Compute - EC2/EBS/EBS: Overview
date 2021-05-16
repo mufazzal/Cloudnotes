@@ -102,6 +102,7 @@ IOPS Calculation for EBS:-
 
 		What if you need more IOPS performance then allocated. 
 		In that case IOPS Credit comes in picture.
+		
 	
 	IOPS Credit:-
 		When your RDS instance is created you will get the 5.4 million IOPS credit.
@@ -123,3 +124,10 @@ IOPS Calculation for EBS:-
 		If you need IOPS > 64000 or in milliions iops oer sec. 
 		Then you have to go for InstanceStore.
 
+------------
+
+Encryption By Default:-
+	This is region level setting that ensure any future EBS Volume or Snapshot created will be encrypted either with AWS managed default CMK or customer mnaged CMK.
+	You will be able to launch thie instances only if it support encryption
+	It do not impact existing EBS snap and volume.
+---------------		
