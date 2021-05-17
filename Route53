@@ -188,7 +188,7 @@ Routing Policy:-
 			This is very useful for language, complience and localaization of content.
 	5. Geoproximity: Route the trafic based on resource location of your system.
 	6. Weighted: Use to route traffic to multiple resources in weight that you specify. create Record name and assign weight to each record name. useful for A/B testing. 
-	7. Multivalue: 
+	7. Multivalue: Use it for route the rquest to one from the maximum 8 healthy records randomly.
 
 ----------------
 	Active-Active Failover policy system:-
