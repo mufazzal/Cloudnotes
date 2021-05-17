@@ -2,6 +2,8 @@ You can take the snapshot of any Attached EBS-volume at any point of time. The s
 attached volume. this copied file then stored in S3 with some special formate.
 The snapshot will just preserve the state of EBS at the point of taking the snap.
   - The snapshot are stored in S3(in the same region) but can be viewed in Ec2 > Snapshots.
+  - You cannot view snap in the S3 console or by AWS S3 api. so you cannot use the snap as like object in s3.
+     This is managed by AWS itself not by user.
   - To take snap of Root device , You have to stop it first
   - You cannot create the Snapshot from Hibernated instance- 
   - Although you can take a snapshot of a volume while a previous snapshot of that volume is in the pending status, 
