@@ -1,0 +1,37 @@
+Redshift:-
+	This managed service for doint analytics.
+	
+	Cluster:-
+		To use this fitrst you have to create and then load the dataset in the cluster.
+		
+	Snapshot:-
+		You can enable to take automated snapshot of undelying EBS which is stored in S3.
+		you can take manual snapshots as well
+		
+	cross-Region snapshot copy:-
+		You can configure Amazon Redshift to copy snapshots for a cluster to another AWS Region. 
+		To configure cross-Region snapshot copy, you need to enable this
+			
+	Enhanced VPC routing:
+		By using enhanced VPC routing, you can use standard VPC features, such as 
+			VPC security groups, 
+			network access control lists (ACLs), 
+			VPC endpoints, 
+			VPC endpoint policies, 
+			internet gateways, 
+			Domain Name System (DNS) servers
+	
+	VPC endpoint with Redshift:-
+		You can use a VPC endpoint to create a managed connection between your Amazon Redshift cluster in a VPC and S3
+		Currently, Amazon Redshift supports VPC endpoints only for connecting to Amazon S3
+	
+	Purchasing Amazon Redshift reserved nodes:-
+		In AWS, the charges that you accrue for using Amazon Redshift are based on compute nodes. Each compute node is billed at an hourly rate.
+		Reserved node pricing is less expensive than on-demand if you have long term usage.
+	
+	Encryption:-
+		Encryption at Rest:-		
+			Amazon Redshift optionally encrypts your data as it writes it in its data centers and decrypts it for you when you access it
+			You can use KMS or HSM
+		Encryption in transit:-
+			To support SSL connections, Amazon Redshift creates and installs AWS Certificate Manager (ACM) issued certificates on each cluster
