@@ -103,6 +103,11 @@ Saving Plane:-
 		- also applies to AWS Fargate and AWS Lambda usage
 	
 	So this has significace advantage over Reserved instances, as it is very flexible and for EC2 it provide flexibility over region, OS and tenenncy too.
+	
+	This is of 3 type to choose from:-
+		Compute saving plane: have all 
+		EC2 Saving plan: have only EC2
+		SagaMaker Saving plan
 
 -----------
 
