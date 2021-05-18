@@ -1,0 +1,110 @@
+Elastic BeanStalk is the way to plant a seed for aws insfra and let it grow.
+With EB, you can quickly deploy and manage applications in the AWS Cloud without having to learn about the infrastructure that runs those applications
+
+EB supports applications developed in Go, Java, .NET, Node.js, PHP, Python, and Ruby
+
+You can interact with EB by using the 
+	- EB console, 
+	- AWS CLI
+	- eb, a high-level CLI designed specifically for EB
+	
+	
+Applicaion:-
+	This is the logical collection of resources.
+	When you create the Application AWS do not provision any resource rather its just sittimg empty logical unit.
+	The application contains Enviorment App Version etc.
+		
+Application Version:-
+	- This refers to a specific, labeled iteration of deployable code for a web application
+	- It point to single S3 object that contains the deployable code, such as a Java WAR file
+	- Applications can have many versions and each application version is unique
+
+Environment:-
+	- An environment is a collection of AWS resources running an application version.
+	- AWS automatically provision resources when you create envirment 	
+	- Each environment runs only one application version at a time
+	- At a time you can have many environmentruning simultenousl and each having diffrent app version.
+	
+	Environment tier:-
+		The environment tier designates the type of application that the environment runs, and determines what resources EB provisions to support it
+		You have to chosse it when you create Env. it cannot be changed later.
+		There is two type:
+		1. Web server environment tier. 
+		2. Worker environment tier.
+	
+	Platform:-
+		A platform is a combination of an operating system, programming language runtime, web server, application server, and EB
+		This are preconfigured by AWS and you can choose one from 
+		Java, PHP, Node, .NEt, Docker etc.
+		- You can create env and upload docker image to begin the infra
+		
+	Application Code:-
+		You need to provide the soure code at a time of creatinf Env.
+		You can provide Git, S3 or ZIP file as source code.
+		
+	Configuring Envioment:-
+		Once the insfra is created after creatinf enviorment you can then also changes couple of item in theundeline AWS resources and Platforms
+		AWS EB provides a wide range of options for customizing the resources in your environment, and EB behavior and platform settings
+		You can change like, config of EC2, SG, LB, ASG etc.
+		S3 bucket for code repository.
+	
+	Deployment:-
+		You can deploy the latest code the EB via the EB console.
+		It support Rolling, Rolling Batch, Blue/Green deployment.
+	
+	Configuration Changes:-
+		When you modify configuration option settings in the Configuration section, EB propagates the change to all affected resources
+		Many configuration changes can be applied to a running environment without replacing existing instances
+		It type:-
+			Rolling update, Immutable Update, 
+		
+	Env Monitoring:-
+		You can monitor component in diffrent way
+		Monitoring console: The EB specif panel for monitering
+		Basic health reporting:	
+		Manage alarms: You can create alarms for metrics that you are monitoring by using the Elastic Beanstalk console
+		change history: You can use the AWS Management Console to view a history of configuration changes that have been made to your EB environments
+											It uses cloudtrain to get it. it has date and time, IAM user, Tool, config param.
+		Event and Notificatioon:
+		Monitor instances:
+		View instance logs:Logs are stored in S3 and also can be sent to CW.
+		
+		
+											
+--------		
+	Web Server Enviorment:-
+		Below are the item configured for Web Server Enviorment tier.
+		EC2 instance: 
+			Its default config is depends on the platfirm you choose. 
+		Instance security group: 
+			By default it open Inbound port 80 on HTTP and open all outbound
+		Load balancer :
+		Load balancer security group:-
+			By default it open Inbound port 80 on HTTP and open all outbound
+		Auto Scaling group:-
+	
+	Worker environments:-
+		Below are the item configured for Worker Enviorment tier.
+		All items in Web tier + SQS.
+		
+-----------
+
+Permission:-
+	see https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles-instance.html
+	Service Role:-
+		A service role is the IAM role that Elastic Beanstalk assumes when calling other services on your behalf
+	instance profile:-
+		An instance profile is an IAM role that is applied to instances launched in your Elastic Beanstalk environment.
+		It must have some predefined permissions.
+		
+--------
+
+Integrated AWS services:-
+	Once the App and Env is initiated, the basic building block is ready now still you cann add below AWS services in the infra tack of EB.
+	1. RDS
+	2. DynamoDB
+	3. ElastiCache
+	4. EFS
+	5. S3
+	6. CW log and CW agent 
+	
