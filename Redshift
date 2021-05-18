@@ -24,6 +24,7 @@ Redshift:-
 	VPC endpoint with Redshift:-
 		You can use a VPC endpoint to create a managed connection between your Amazon Redshift cluster in a VPC and S3
 		Currently, Amazon Redshift supports VPC endpoints only for connecting to Amazon S3
+		With this you can also byforgate the internet and use AWS network for data transfer
 	
 	Purchasing Amazon Redshift reserved nodes:-
 		In AWS, the charges that you accrue for using Amazon Redshift are based on compute nodes. Each compute node is billed at an hourly rate.
