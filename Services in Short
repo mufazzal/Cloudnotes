@@ -63,4 +63,8 @@ AWS WorkSpace:-
   Integrated with AWS Microsoft AD, Simple AD and AD connector
   
   
+AWS Server Migration Service:-
+  Use this to migrate the server running on-premise to AWS cloud.
+  You can migrate VMware vSphere, Microsoft Hyper-V/SCVMM, and Azure virtual machines to the AWS Cloud. 
+  AWS SMS incrementally replicates your server VMs as cloud-hosted Amazon Machine Images (AMIs) ready for deployment on Amazon EC2
   
