@@ -267,6 +267,7 @@ EC2 CURL for meta-data and user-data:-
 			- Reatin the static EIP and you will be charged for that [EIP id free if its assosiated with running instance]
 			- for instance-store type EC2 data will be lost.
 			- Instance may start again on new underlying Hardware Host
+                        - This is not supported if instace is in ASG.
 	
 		
 		Rebbot Instance:-
