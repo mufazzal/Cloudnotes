@@ -37,7 +37,8 @@ In CFT you have 3 option of Secrity
               --key-pair-id APKAEIBAERJR2EXAMPLE \
               --private-key file://cf-signer-priv-key.pem \
               --date-less-than 2020-01-01      
-              
+    - IAM user/role who run those command or code must have proper policy attched to create sign url. 
+    
     Restrict the origin Access via signed url only:-
       You have provided user the signed url but unsigned url still can access the CDN so the last thing we do is to restric user from accessing the origin(via CDN) 
       with unsigned url. and also allow him only if url is signed from the set of correct .
@@ -59,7 +60,10 @@ In CFT you have 3 option of Secrity
         Use Signed Cookie if You don't want to change your current URLs
         RTMP do not support signed cookie
         
-
+    Signed URL/Cookie VS OAI:-
+      Signed URL/Cookie used to restric the user by time, ip to get the object from CFT [USER <--> CFT ]
+      OAI restrict the bucket to expose only to CFT. [CFT <--> bucket]
+    
 2. S3 and CDN access issue:-
     IF you are usinf S3 bucket as origin the problem is that you have to make the Bucket public. and so it lead to unecessary data expose.
     To resolve this special issue for S3 and CDN connection, comes a concept of Origin Access Identity (OAI)
