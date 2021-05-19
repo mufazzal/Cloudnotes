@@ -58,7 +58,19 @@ Behaviour of Transition Rule on Delete Marker:-
 
 So in version enabled bucket the current object first become the prevoius object and then finally this previous object is deleted.
 
-  
+--------------------
+
+Lifecycle rule for deleting incomplete multipart upload:-
+  You can use Lifecycle rule for deletinf files which take too long time to upload or do not upload fully via multippart.
+  You just have to provide maximum days a file can take to finish the multipart upload. after that it deleted automatically by lifcycle policy.
+  EG:-
+    aws s3api put-bucket-lifecycle-configuration  --bucket bucketname  --lifecycle-configuration lfc.cfg 
+    lfc.cfg:-
+        {"Rules": [{ "ID": "Test Rule",
+                  "Status": "Enabled",
+                  "AbortIncompleteMultipartUpload": { "DaysAfterInitiation": 7 }
+         }]}
+    
 ------------------
 
 
