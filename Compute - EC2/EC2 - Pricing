@@ -106,7 +106,10 @@ Saving Plane:-
 	
 	This is of 3 type to choose from:-
 		Compute saving plane: have all 
-		EC2 Saving plan: have only EC2
+		EC2 Saving plan: 
+			Have only EC2. but you need to comit to Instance Type and Region.
+			You can chnage instance size but not the family and region. 
+			This is very much like Standard RI but give you more discount.	
 		SagaMaker Saving plan
 
 -----------
