@@ -305,11 +305,15 @@ S3: This is the Object-based storage. Each file stored in S3 has a own unique id
        or by fetch(..) function of JS, then you may gey the CORS error.
        TO resolve this just add the origin To the bucket it lies in.
        aws > s3 > 'your bucket' > permission > CORS.
-       
+       In each CORWS rule you need to specifu three thing:-
+        AllowedMethods: 
+         PUT, POST, DELETE, GET,HEAD. [If CORS is enabled then OPTION is allowed bu default]
+        AllowedOrigin:-
+          This list of domains to be allowed.
+        AlloweHeader:-
+          The header that are allowed in Perflight OPTION Request.
+          
        Note: The CORS config is set over the Bucket not on the Object
-       
-       How: google it.
-       
        
 --------------------
   S3 Signed URLs:-
