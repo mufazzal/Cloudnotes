@@ -51,6 +51,10 @@ Concept:-
   Tag Policy:-
     You can use this to create rule for tagginr the resources across al the account in AWS organization.
 
+  Feature Enability:-
+    All Feature:- This provide all the feature like Tag, back up, SCP policy and Consolidated billingetc.
+    Consolidated billing: This give only Consolidated billing.
+
 ------------------------------------------
 Resource Access Manager
 
