@@ -86,7 +86,9 @@ RDS + MYSql best prctices:-
   1. Use InnoDB for DB ingine not MyAISM
   2. Keep each table size < 16 TB
   
-  
+--------------
+
+- To reduce the cost you can use Reserve instance also. But you cannot use Saving plan with RDS.
   
   
 
