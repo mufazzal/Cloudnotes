@@ -17,10 +17,10 @@ SnowMobil: this is 10000 * snowball
 Athena:-
   AWS athena is SQL type analytics tool. with athena you can ryn the SQL like query on S3.
   With this you can analyze anything stored in side S3. like BLB logs, user data etc.
-  Thisis very useful for doind analytics on S3.
-  This is serverless and you need to pay for each runig qurey.
-  you do not have to setup any special mechanics for this.
-  It is nicely integrated with AWS QuickSight for analytics visulization 
+  - This is very useful for doind analytics on S3. This is serverless and you need to pay for each runig qurey.
+  - you do not have to setup any special mechanics for this.
+  - It is nicely integrated with AWS QuickSight for analytics visulization 
+  - Actuly it uses AWS Glue behind the certain. 
   
 Athena VS S3 Slect:-
   Athena work on Multiple Objects and data stored in that Objects. Its more sophiscticated then S3 Select ad tou can use ''Join' too.
