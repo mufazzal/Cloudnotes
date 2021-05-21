@@ -243,6 +243,7 @@ EC2 CURL for meta-data and user-data:-
 			- you wont bear charge for EC2 but will be charged for EBS volume
 			- Lost the public IPv4 but retain the Private IPv4
 			- Reatin the static EIP and you will be charged for that [EIP id free if its assosiated with running instance]
+			- Retain the IPv6
 			- ENI remian attached
 			- You can change below param of EC2 when it is stopped
 					Instance type, User data, RAM disk, EBS-Optimization, Placement group
@@ -251,7 +252,7 @@ EC2 CURL for meta-data and user-data:-
 			- Instance may start again on new underlying Hardware Host
 			
 		Terminate Instance:-
-			EIP, IP, private IP all will lost. 
+			EIP, IP, private IP, IPv6 all will lost. 
 			By default root volume will be deleted but it can be retain if its checked.
 			By default non-root volume will be retain but this can also be changed.
 			Termination Protection:-
@@ -263,6 +264,7 @@ EC2 CURL for meta-data and user-data:-
 		Hibernate Instance:-
 			- in hibernet state EBS remain attached and RAM data stored in Root-EBS
 			- Lost the public IPv4 but retain the Private IPv4
+			- Retain the IPv6
 			- ENI remian attached
 			- Reatin the static EIP and you will be charged for that [EIP id free if its assosiated with running instance]
 			- for instance-store type EC2 data will be lost.
