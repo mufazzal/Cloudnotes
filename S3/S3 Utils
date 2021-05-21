@@ -23,7 +23,7 @@ Athena:-
   - Actuly it uses AWS Glue behind the certain. 
   
 Athena VS S3 Slect:-
-  Athena work on Multiple Objects and data stored in that Objects. Its more sophiscticated then S3 Select ad tou can use ''Join' too.
+  Athena work on Multiple Objects and data stored in that Objects. Its more sophiscticated then S3 Select ad tou can use 'Join' too.
   S3 select work on Single Object and data stored in that Object. S3 select only work for file type CSV, ZIP, Json
   
 Macie:-
