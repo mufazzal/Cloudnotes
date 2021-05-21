@@ -167,9 +167,12 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
       	SO: in nutshell, if you wants any attribute ar a combination oftwo attribute queriable, then create GSI out of them.
 
    LSI :-
-   	This is just a subst of GSI, here you use the partition-key with GSI-Sort-Key. ???????????????????
-	You can create it only at a time of Table Creation.
-	once created it can not be edeleted also
+	 	In LSI you have the same partitition key as DDB table but the sort key is diffrent from DDB table.
+		So if you have DDB table primary key = orderId + personId
+		you can have the LSI piomary key = orderId + dateTime.
+		- Here data are indexed under same partition key but saved twice in that partition 
+		- You can create it only at a time of Table Creation.
+		- once created it can not be edeleted also
 	
 
 
