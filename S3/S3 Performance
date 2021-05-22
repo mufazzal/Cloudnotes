@@ -84,7 +84,8 @@ S3 Inventory:-
 
 S3 Select:
   S3 select is design to query deep inside the object with SQL alike query. With this you do not have to load the whole object instead a littile imp data from Object you can load.
-  Currently it support onlu CSV, JSON and ZIP formated objects.
+  Supported formats: CSV, JSON, or Apache Parquet.
+  Supported Compression: GZIP or BZIP2 (for CSV and JSON objects only)
   Suppose you have a object user.csv in S3 then you ca use S3 select like-
     const query = ;
     const bucket = 'test-bucket-for-s3-select-tutorial';
