@@ -169,6 +169,7 @@ Docker and AWS:-
 					There is two option here, either you use the ASG or Fraget
 				For Load Balacing:-
 					You can use Application load balancer to route the traffic to ECS cluster.
+                                        ALB and NLB support dynamic port mapping but nor CLB.
 					This load balacer may take traffic from internet on ALB-port80 and the transfter it to register targetrs.
 					
 					Listener for ALB of ECS Service:-
