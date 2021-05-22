@@ -65,6 +65,7 @@ S3 Monitoring:-
         Done
         You do not need any special permission in bucket policy, 
         but Adding deny conditions to a bucket policy might prevent Amazon S3 from delivering access logs.
+        Target bucket must be ftom same region and account.
 
     Viewing log:-
       Simply go to 'mylogbucket' and you will see files containing logs. this logs has info like
