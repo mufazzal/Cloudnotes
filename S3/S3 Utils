@@ -21,6 +21,10 @@ Athena:-
   - you do not have to setup any special mechanics for this.
   - It is nicely integrated with AWS QuickSight for analytics visulization 
   - Actuly it uses AWS Glue behind the certain. 
+  - Supported data formats
+      CSV, TSV, JSON, or Textfiles and also open source columnar formats such as Apache ORC and Apache Parquet. 
+  - Compression supported 
+      Snappy, Zlib, LZO, and GZIP formats.
   
 Athena VS S3 Slect:-
   Athena work on Multiple Objects and data stored in that Objects. Its more sophiscticated then S3 Select ad tou can use 'Join' too.
