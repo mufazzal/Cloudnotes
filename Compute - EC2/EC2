@@ -194,6 +194,7 @@ EC2 Placement Group:-
 			-	EC2 are placed in such a manner that they do not share the common hardware and so remain very much isolated (in term of hardware) from each other.
 			-	The EC2s in such kind of PG can lie in in single AZ or multiple AZ.
 			- Useful for applications that have a small number of critical instances that should be kept separate from each other
+			- You can have max 7 instance per AZ. so max insataces you can have in the group = 7 * number of AZ in region
 				EG:
 					Rack-1 [EC2_1]	AZ_1
 					Rack-2 [EC2_2]	AZ_1
@@ -206,6 +207,7 @@ EC2 Placement Group:-
 			- Each partition comprises multiple instances. The instances in a partition do not share racks with the instances in the other partitions
 			-	Useful for large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka
 			-	The EC2s in such kind of PG can lie in in single AZ or multiple AZ.
+			- You can have max 7 Partition per AZ. Max Number of instance in AZ limits by account limit. 
 				EG:
 					Rack-1 [EC2_1, EC2_4]		AZ_1
 					Rack-2 [EC2_2, EC2_3]		AZ_2
