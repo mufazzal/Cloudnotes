@@ -82,6 +82,7 @@ VisibilityTimeout:
   It can be configured :-
     - At queue level for the read by any consumer by setting in Queue param.
     - For specefic read operation by passing in 'VisibilityTimeout' param 'ReceiveMessage' api
+    - MAx possible value = 12 hour
         
 ------
   
