@@ -25,4 +25,6 @@ Availibility and scalabilty of DDB is handled by AWS itself and is exteremly hig
 		- Point if time recovery
     
 ---------
-    
+ 
+ Limits:-
+ 	Max size of data stored with Key + data = 400KB
