@@ -20,7 +20,7 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       The consumer could be 
       - Lambda with Evenr Source mapping with the stream
       - You can use an Amazon Kinesis Data Analytics application to process and analyze data in a Kinesis stream using SQL, Java, or Scala
-      - You can use Kenesis stream also if you wants to futther transform and then store the result in ny aws manged srvice.
+      - You can use Kenesis stream also if you wants to futther transform and then store the result in any aws manged srvice.
     
     Shrad:-
       A shard is a uniquely identified sequence of data records in a stream. A stream is composed of one or more shards, each of which provides a fixed unit of capacity
@@ -28,7 +28,7 @@ It can capture gigabytes of data per second from hundreds of thousands of source
         5 transaction per sec for read [limited to 2MB per sec]
         1000 transaction per sec for write [limited to 1MB per sec]
         The total capacity of the stream is the sum of the capacities of its shards. To increase the capacity of Stream you can increase the number of shrads.
-      GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of orocessing capacity.
+      GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of processing capacity.
       You set the initial number of total shard in the stream at the rime of creation. You can later change it if you wants.
       
       Shard Partitin Key:-
@@ -41,7 +41,7 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       1. Chnaging value by caling api UpdateShardCount API.
       2. By spliting the shrad to increase the number of shrad
       3. By merging them to decrease the number of shrad
-        
+----------------        
   Kinesis Data Firehose:-
     This too collect the data from multiple stream but instead of storing them in Shrads it deliver the data to any AWS storrage service like 
       > S3,
@@ -49,9 +49,19 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       > Amazon Elastic search
       > Splunk (non aws)
       > HTTP endpoint (non aws)
+      > MongiDB
     KDF do not have any of its own storage or shrads. it just deliver the data to storage service.
     Later you can use feature of that service to analyze the data.
-  
+    
+    Transform source records with AWS Lambda:-
+      If you do not wnats to store the data in same way as it arive and wnats to make some changes like Compressing, Fitering, Transforming
+      Then you can enable this and use the Lambda function to perform this operation on data item before saving in destination.
+      IMP: This is diffrent from KDS+Lambda as KDS+Lambda is event source mapping where lambda keep polling the KDS for data and retrive many data cell in one attempt.
+            IN KDF+Lambda, the lambda is called by KDF for each data cell of KDF. 
+            Also here the uotput of lambda must be propery formated so that it can be saved in downsteam storage system.
+    Convert record format:-
+      Use it for converting the formate of data.
+----------------  
   Kinesis Data Analytics:-
     Amazon Kinesis Data Analytics is the easiest way to transform and analyze streaming data in real time with Apache Flink. 
     Apache Flink is an open source framework and engine for processing data streams. 
