@@ -72,3 +72,22 @@ Diffret Time priodes:-
       - A time given in which, the LB will distribute the traffic to newly up instance. till that time all the scalling trigger will be subdued.
       - This time start after instacne comes into the service and Healthcheck has passed
 
+-----------------
+
+ASG scaling processes:-
+  The ASG in backgroud run mane processes. This process ran for doing the specific Job. 
+  Most of their name tells you what they do
+  There are two primary process
+    1. Launch
+    2. Terminate
+  There are below secondry proces
+    1. AddToLoadBalancer
+    2. HealthCheck
+    3. InstanceRefresh
+    4. ReplaceUnhealthy
+    5. ScheduledActions
+    
+ - Each process type can be suspended and resumed independently
+ - Keep in mind that suspending individual processes might interfere with other processes
+ 
+    
