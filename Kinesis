@@ -28,8 +28,9 @@ It can capture gigabytes of data per second from hundreds of thousands of source
         5 transaction per sec for read [limited to 2MB per sec]
         1000 transaction per sec for write [limited to 1MB per sec]
         The total capacity of the stream is the sum of the capacities of its shards. To increase the capacity of Stream you can increase the number of shrads.
-      GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of processing capacity.
-      You set the initial number of total shard in the stream at the rime of creation. You can later change it if you wants.
+      - GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of processing capacity.
+      - You set the initial number of total shard in the stream at the rime of creation. You can later change it if you wants.
+      - Number of shrad define the throuput of the Kenesis stream higher the number of shrad increase the througput.
       
       Shard Partitin Key:-
         Each shard must be assosiated with a unique partition key. When producer place the data record in the stream, it must also present the partition key.
