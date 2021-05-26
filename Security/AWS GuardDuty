@@ -1,0 +1,33 @@
+GuardDuty is a continuous security monitoring service that analyzes and processes the following Data sources:
+  - AWS CloudTrail Event Logs
+  - AWS CloudTrail Management Events
+  - AWS CloudTrail S3 Data Events
+  - VPC Flow Logs
+  - DNS logs
+
+It uses threat intelligence feeds, such as lists of malicious IP addresses and domains, and machine learning 
+to identify unexpected and potentially unauthorized and malicious activity within your AWS environment
+EG:-
+  GuardDuty can detect compromised EC2 instances serving malware or mining bitcoin
+  unauthorized infrastructure deployments, like instances deployed in a Region that has never been used, 
+  or unusual API calls, like a password policy change to reduce password strength
+  
+- You can view the findings of GuardDuty in GuardDuty-console.
+
+S3 Protection:-
+  If enable then GuardDuty can monitor object-level API operations to identify potential security risks for data within your S3 buckets.
+  
+Cost:-
+  First 30 days are free then chargable.
+  
+Suspend GuardDuty:-
+  You can do it in GuardDuty console.
+  IF you do it then GuardDuty will stop monitoring the feed and stop giving new finding. It keep the exsting findings. It can be resume any time.
+
+Disable GuardDuty:-
+  You can do it in GuardDuty console.
+  IF you do it then GuardDuty will stop monitoring the feed and stop giving new finding. It delete the exsting findings.
+
+Enable GuardDuty:-
+  You can do it in GuardDuty console.
+  IF you do it then GuardDuty will start monitoring the feed and start giving new finding. 
