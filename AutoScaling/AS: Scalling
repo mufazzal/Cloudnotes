@@ -3,6 +3,7 @@ Amazon EC2 Auto Scaling provides a number of ways to adjust scaling to best meet
 Limit of Capacity:-
   The the ASG you define the Min and Max value of capacity. No matteer how you scale in or out the ASG. 
   Number of instances will always remain in between this two. if you try to launch more or less instance in the ASG then the request will fail.
+  Use this if you wants to set the range of number of instances.
 
 Desired Capacity:-
   All the scalling play around this value only. Its value can neever goes above or below of min and max va;ue of capacity.
@@ -12,6 +13,7 @@ Desired Capacity:-
     - Later it can dynamically changed via 'Dynamic Scalling Policy' to meet certain policy criterion
     - Later it can dynamically changed via 'Schedule Scalling Policy' to meet certain capacity of certain time frame
   So number of instance(=desired capacity) remian in between min and max. and it keep changing via Manual, Dynamic or Schedule scalling.  
+  Use this if you wants to set the fix of number of instances. correct -> Desired = 10, incorrect -> min and max = 10 
 
 Scalling Techniques:-
   No Scalling:-
