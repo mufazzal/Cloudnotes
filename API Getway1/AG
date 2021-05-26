@@ -139,12 +139,14 @@ HTTP API:-
 ---------------------
 
 WEbsocket API
-  this provide the bidirectional persistent connection between server and cloent.
+  - This provide the bidirectional persistent connection between server and client.
+	- Route incoming messages based on message content
+	- It is stateful unlike REST/HTTP api which are stateless.
+	
   For this you have to implement three route
   $connect
   $disconnect
   $default
   you can also create your own custom route
-  Just like REST api each route can be integrated with
-  backend HTTP endpoints, Lambda functions, mock, or other AWS services
+  Just like REST api each route can be integrated with backend HTTP endpoints, Lambda functions, mock, or other AWS services
  
