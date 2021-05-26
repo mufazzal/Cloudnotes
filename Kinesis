@@ -31,6 +31,7 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       - GEnerally the consumer of KDS is EC2, EC2-Fleet, Lambda, EMR which can have some kind of processing capacity.
       - You set the initial number of total shard in the stream at the rime of creation. You can later change it if you wants.
       - Number of shrad define the throuput of the Kenesis stream higher the number of shrad increase the througput.
+      - In downstream you can have multiple consumer like one real-time dashboard and another for saving data in any storage.
       
       Shard Partitin Key:-
         Each shard must be assosiated with a unique partition key. When producer place the data record in the stream, it must also present the partition key.
@@ -76,7 +77,29 @@ KDS:  Ingest from source -> Put in shrads -> Process via EC2/Lambda/EMR.
 KDF:  Ingest from source -> Trasform/Filter by lamba if needed -> Store in analytics storage like S3/Reshift/ElsticSearch/MongoDB 
 KDA:  Ingest from KDF/KDS -> Run query/Apache flink -> analyze in dasborad or put reult in any destination
       
+--------------
 
+Kenesis use case:-
+  KDS:-
+    Suppose you have a bus company and have an app to trach them all. All your busses send GPS signal each minute.
+    You can create real time tracking and monitoring by kenesis
+    1. Create Kensis stream with number of shrad = average number of busses to track at a time.
+    2. Use one shrad for each indivisual bus. use busId as partition key for shrad.
+    3. Creat client app and install it in all the buses which will push GPS cordinate in the shrad with appropiate partition key.
+    4. Now the busses will push and populate the data in shrad. Data in each shrad are in proper sequence wrt timline of GPS cordinate of bus.
+    5. Now in downstream you can process data via lambda/EC2/EMR and produce some result. 
+  KDF:-
+    Here you do not need shrad because you just need to store the data (with transformation if needed).
+    1. Create the KDF 
+    2. Enbale 'transformation by lambda' and 'formate conversion' if needed and so select lambda if it is enabled.
+    3. Store data for analytics in S3, Redshift, EMR etc.
+  
+------------------  
+
+  SQS vs KDS:-
+    SQS has single que. but KDS have many que in form of shrad.
+    SQS do not guarantee order but shrad in KDS guarantee it.
+    In SQS, message can only be processed by one consumer. in KDS you can have multiple downstraem system for processing the data item. 
         
         
         
