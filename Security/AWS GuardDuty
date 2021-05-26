@@ -31,3 +31,11 @@ Disable GuardDuty:-
 Enable GuardDuty:-
   You can do it in GuardDuty console.
   IF you do it then GuardDuty will start monitoring the feed and start giving new finding. 
+
+Trusted IP:- GuardDuty do not generate findnig for this IPs.
+Threat List IP:- GuardDuty generates findings based on threat lists.
+Suppression rule: Based on some param you can ask the GuarDuty to ignore some finding.
+
+Multi Account:-
+  You can use AWS organization and set one Administrator account for GuardDduty. 
+  You can use this administrator account to enable and manage GuardDuty for any member account in the organization
