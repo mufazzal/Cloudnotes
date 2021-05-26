@@ -1,7 +1,11 @@
 Cost Minimization
   - Data transferred between Amazon EC2, Amazon RDS, Amazon Redshift, Amazon ElastiCache instances, and Elastic Network Interfaces in the same Availability Zone is free
-  - Data transfer between EC2 and S3 buckek in same region is free.
+  - Data transfer between EC2 and S3 bucket in same region is free.
   
+  EFS VS EBS VS S3:-
+    EBS: Charged for provisioned storage. HIGHEST COST. becoz you may have to pay for allocated but unused space
+    EFS: Charged based on current allocated storage size. LOWER COST. Only pay for used space
+    S3:  Charged based on current allocated storage size. LOWEST COST. Only pay for used space but cost less then EFS
   
 Comparision:-
   S3
