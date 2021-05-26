@@ -29,10 +29,9 @@ instances Size:-
           if my workload is bulky then i will go for t3.xlarge
    Whats diffrence in between this instances :-
           diffrence comes in Memory-size (RAM not EBS), vCPU count, Storage type (EBS or other).
-      
-  
 
-The next IMP thing comes in EC2 is Hard Disk Drive, You need to devide how much storage you need for any EC2 instance
+---------
+
 The storage in EC2 is EBS    
     EBS:-
     As like any normal PC/Server the virtual PC/Server also need a hard disk, EBS play this role
@@ -135,42 +134,6 @@ SG				-			-						-						SAME
 ENI				-			-						SAME				SAME
 
 ---------
-
-EC2 Hibernate:-
-	The EC2 hibernate provide fater alternative to start and stop the instances.
-	When you stop the instance then the instance RAM is evoparated and OS is lost. so when you start it again then the EC2 has to 
-	first load the OS then
-	run the user data script and then
-	run the applications again if needed.
-	And all this takes time. 
-	But if you hibernate the EC2 then the RAM conent is not loast instead it copied in the attached Root EBS and when its started back from Hibernation then 
-	the conent preserved from RAM is loaded again from EBS. and so none of the process need to be re-done.
-	To make EC2 hibernate compatible you have to have large EBS volume attach to accomodate RAM content and also you must enable it at a time of instance creation.
-	
-	By default EC2 do not enable Hibernation function. It must ne enable at a time of launch. 
-	To put EC2 in hibenation:-
-		Ec2 > your inst > state > Hibernate
-
-        Charges when ec2 in the Hibernate;
-           This is where u save money. u will be charged for EBS volume and Elastic ip (if attached).
-           u will not have to pay for EC2 itself.
-	
-	Limitation:-
-		- canot work if RAM > 150 GB
-		- for instance store data in RAM will not be preserve
-		- do not work for spot instances.
-		- you cannot keep a instance in hibernate for more then 60 days.
-		
-		
-	Hibernate and spot instance:-
-		This feature is very useful for spot instances.
-		you can change behaviour of Inturuption to 'hibernate' so instance will hibernate rather then stop. 
-		so when instance is re-accuired, you can resume the process from the point where the instance was lost due to price rise. 
-		Thogh to use this feature in spot instance
-			- For a Spot Instance request, the type must be persistent
-			- For an EC2 Fleet or Spot Fleet request, the type must be maintain
-		
------------------
 
 EC2 CURL for meta-data and user-data:-
 	A unique feature of EC2 is inside the EC2 you can do the curl to get couple of imp info of the same EC2.
