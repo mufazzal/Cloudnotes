@@ -36,6 +36,11 @@ Trusted IP:- GuardDuty do not generate findnig for this IPs.
 Threat List IP:- GuardDuty generates findings based on threat lists.
 Suppression rule: Based on some param you can ask the GuarDuty to ignore some finding.
 
+Announcement:-
+  You can subscribe to the GuardDuty Announcements SNS topic to receive notifications about newly released finding types,
+
 Multi Account:-
   You can use AWS organization and set one Administrator account for GuardDduty. 
-  You can use this administrator account to enable and manage GuardDuty for any member account in the organization
+  You can use this administrator account to enable and manage GuardDuty for any member account in the organization.
+  
+  
