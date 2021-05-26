@@ -3,6 +3,20 @@ You can invoke the lambda function by
   - Trigger on other AWS services                       [Synchronusly or ASynchronusly depend on implementation in service]
   - Event Source Mapping: Stream and SQS polling        [Synchronusly or ASynchronusly not applicabe here]
 ---------------------------
+
+Supported Languages:-
+  Node
+  Java
+  GO
+  C#/.NET
+  RUBY
+  Pythone
+Not Supported:-
+  PHP
+  C
+  R
+
+--------------------------
 Error Handling:-
   In lambda there could be two kind of error.
   1. Invocation Error
