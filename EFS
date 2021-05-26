@@ -15,7 +15,9 @@ It automatically grow and shrink in size based on avilabale empty space in disk.
 	 > Multiple EC2 isntances
 	 > Multiple ECS Containers
 	 > Lambdas
-	 
+
+--------------------------	 
+
 Storage classes: 
 	EFS provide below classes for the diffrent use case:-
 		1. EFS Standard:	
@@ -32,6 +34,8 @@ Storage classes:
 				- Offer customers the choice of additional savings by choosing to save their data in a single AZ’
 				- Data will be unavailable in case of AZ outage
 				- It bear lowest cost
+
+--------------------------	 
 
 Mount Target (MT):-
 	In a nutshell, The MTs are the ports of the EFS. to connect with the EFS you must need a MT.
@@ -87,6 +91,7 @@ Mount Target (MT):-
 		Must allow Inbound  SSH port 22   for trusted IP as this port will be used to run the mount commands on EC2.
 		Must allow outbound NFS port 2049 for SG-of-MT.
 		
+--------------------------	 
 		
 Creaing EFS process in nutshell:-
 	Set general setting
@@ -103,9 +108,7 @@ Creaing EFS process in nutshell:-
 				> Security groups
 	Set Resource policy if you wants restricted access.
 		
-	
-Data Consistency:-
-	??????
+--------------------------	 
 
 Encryption:-
 	Encryption at rest:-
@@ -139,7 +142,17 @@ Performance:-
 				EFS keep accumlating the bursting credit also with time which can be used in peak load time
 		> Provisioned Throughput:
 				This is suful when you need cosistency in delivered throughput irrespective of storage size.
-	
+
+--------------------------	 
+
+Security and Access:-
+	You can manage Access for MT/EFS/MP via:-
+	IAM: Who can create/connect EFS/MT/MP rtc.
+	SG: Which IP/SG can communicate with MT.
+	Access Point: Manage Application level access for POSIX-compliant user and group.
+
+--------------------------	 
+
 EFS Lifecycle:-
 	Like S3, EFS also provide this feature but it is not as advance as of S3. 
 	With this you can set to move the data from one storage class to other after some specific time.
@@ -157,7 +170,9 @@ Back Up:-
 	Restore:-
 		you can restore a recovery point to a new EFS file system or to the source file system.
 		You can perform a Complete restore, which restores the entire file system. Or, you can restore specific files and directories using a Partial restore
-		
+
+--------------------------	 
+
 EFS VS EBS 
   - EFS has auto grow/shrink
   - EFS is attchable to many EC2
