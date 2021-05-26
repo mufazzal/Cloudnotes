@@ -75,6 +75,7 @@ S3 Storage Classes:-
   3. S3 Standard_IA_one_zone (infrequently Access) : long-lived, but less frequently accessed data, Ok to being in service outage
       This is same as S3-IA except data lies in only one AZ. So risk if AZ goes down and cost lower
       IMP: if AZ goes down then you may face service outage for S3 bucket, but once AZ back online you again got your data and services back.
+      Minimum retention priode and objecte size is 30 days and 128kb. mns even you store a 5kb object for 10 days, u will be charged with 128kb for 30 days. 
   4. S3 Inteligent Tiering: Use AI to move data b\w diffrent tiers without your intervention
       IT has two tier, Frequent access tiering And In-Frequent access tiering : -
             If data is not fetched for last 30 days, it will move in 'In-Frequent access tiering'. but as soon as it accessed
