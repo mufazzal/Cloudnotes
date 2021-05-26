@@ -1,0 +1,47 @@
+
+The EC2 ran in the data centers and are a nothing but a hardware devices stack in the AWS  dat centers.
+The AWS provide so detailed functionality that you can configure how and whhere in the stacks the your EC2 shoud instantiate.
+By default EC2 service places the instances in any single AZ in such a manner that they are well diversified wrt underline hardware. 
+but you can change this behaviour to met your requirment
+You can create a PG and place the EC2 instances in it.  This PG can have one of below 3 placement stratagy
+1. Clustered Placement Group:-
+    - EC2s are placed very close to each other. So close that they are being placed in same stacks and share the same hardware.
+        As they are in same hardware cluster, they have very less network latency when communicating with each other.
+    - low network latency, high network throughput, or both
+    - Useful for high and fast EC2-to-EC2 communication. EG. HPC apps.
+    -	The EC2s in such kind of PG remain in single AZ.
+      EG: 
+        Rack-1 [EC2_1, EC2_2, EC2_3, EC2_4, EC2_5] 	AZ_1
+  Capacity Error on Placement Group:-
+    Sometime it may possible that you are not able to launch the instance in the existing placement group because the Racks of that PG do not have enough 
+    hardware to accomodate new instance. For this you have to stop and restart all the instances again so that they all can be started in another high capacity rack.
+
+2. Spread:-
+    -	EC2 are placed in such a manner that they do not share the common hardware and so remain very much isolated (in term of hardware) from each other.
+    -	The EC2s in such kind of PG can lie in in single AZ or multiple AZ.
+    - Useful for applications that have a small number of critical instances that should be kept separate from each other
+    - You can have max 7 instance per AZ. so max insataces you can have in the group = 7 * number of AZ in region
+      EG:
+        Rack-1 [EC2_1]	AZ_1
+        Rack-2 [EC2_2]	AZ_1
+        Rack-3 [EC2_3]	AZ_2
+        Rack-4 [EC2_4]	AZ_1
+        Rack-5 [EC2_5]	AZ_2
+3. Partition Placement Group:-
+    - This in between Clustered and Partition Placement Group
+        Here the CLUSTER of some EC2-instances are placed in isolated PARTITION of hardware. So that failing of one clusted do not impact other partitions.
+    - Each partition comprises multiple instances. The instances in a partition do not share racks with the instances in the other partitions
+    -	Useful for large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka
+    -	The EC2s in such kind of PG can lie in in single AZ or multiple AZ.
+    - You can have max 7 Partition per AZ. Max Number of instance in AZ limits by account limit. 
+      EG:
+        Rack-1 [EC2_1, EC2_4]		AZ_1
+        Rack-2 [EC2_2, EC2_3]		AZ_2
+        Rack-3 [EC2_5]					AZ_1
+
+You can place the instances in placement group at a time of creating instances or after creation.
+Once instance is created then also it can be [but first instance has to put in stopped state]
+  - Move to a placement group
+  - Move from one placement group to another
+  - Remove from a placement group
+
