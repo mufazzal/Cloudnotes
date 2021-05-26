@@ -81,3 +81,9 @@ Ingredient of GA:-
 				2 EPG (listening on same listener LIS_AS)
 				4 Endoint (spread in 2 region via 2 EPG). 
 				So now you AS is highly available im multiple region. 			
+				
+
+- AWS Global Accelerator utilizes the Amazon global network rather then internet for fast performance.
+
+
+
