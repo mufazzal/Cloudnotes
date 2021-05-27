@@ -28,13 +28,16 @@ This have some limitation
   - VPC peering is point-to-point connectivity, and it does not support transitive routing
   - There is a maximum limit of 125 peering connections per VPC
   - More the connection more the complexity will be
-  - Below connection/Reosource/Edges can not be used in peered VPCs:-
-      AWS Direct connect, VPN connection, IGW, NGW, Gatway VPC endpoint foe S3 and DDB 
-			[All of those services bear charge for holding infra or for data transfer. so it would be economic disaster of some malicious person 
-			peered with your VPC and start using you NAT, IGW etc to save his own money]
   - Below connection can be used in peered VPC
   		Interface Endpoint
-      
+
+Accessing VPC Resources via Peering:-
+	Any target which need an Route Table entry in not accesible. any target who has IP but not need the Rout table entry are accessible.
+  - Below connection/Reosource/Edges can not be used in peered VPCs:-
+      AWS Direct connect, VPN connection, IGW, NGW, Gatway VPC endpoint foe S3 and DDB 
+	- Below are possible:-
+			Interface EP, EFS mount target
+
 Charges:
   VPC peering only incurs costs for traffic traveling over the connection (there is no hourly infrastructure fee). 
 
