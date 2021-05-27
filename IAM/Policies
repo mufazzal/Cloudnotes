@@ -290,4 +290,23 @@ A one more managed policy (commonMAnagedPolicy) which is attached to roleMuf and
   then you create the policy under it.
   But in clodformation its bit of strange.
   you create the policy and in the policy itself you give refrence of any IAM identity or S3 bucket or KMS key.
+  
+-----------------------------------
+
+
+Permission Boundry:-
+  Prmission boundry set the maximum access the User/Role can have. It is attached to user or role.
+  In itself it do not provide any permission but it only set the limit of permission.
+  EG: 
+    If below permission boundry is set for user/role:-    
+      "Effect": "Allow",
+      "Action": [ "s3:*", "cloudwatch:*"],
+      "Resource": "*"
+   Then user/role at max can do operations on s3 and cloudwatch but not on other services.
+   User/Role still need the IAM policy attached to do operation on s3 and cloudwatch.
+   Even User/Role have IAM policy attached that ALLOW opearion on EC2, It will be denied due to Permission Boundry.
+  
+  
+
+
     
