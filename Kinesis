@@ -43,6 +43,9 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       1. Chnaging value by caling api UpdateShardCount API.
       2. By spliting the shrad to increase the number of shrad
       3. By merging them to decrease the number of shrad
+      
+      Scalling:-
+        You have to set the value of max number of shard in stram which defime the maximum scalling of the system throughput.
 ----------------        
   Kinesis Data Firehose:-
     This too collect the data from multiple stream but instead of storing them in Shrads it deliver the data to any AWS storrage service like 
@@ -63,6 +66,9 @@ It can capture gigabytes of data per second from hundreds of thousands of source
             Also here the uotput of lambda must be propery formated so that it can be saved in downsteam storage system.
     Convert record format:-
       Use it for converting the formate of data.
+    
+    Scalling:-
+        Unlike KDS, in KDF You do not have to set the value of max number of shard in stream. So it can scal without any manual provisioning.
 ----------------  
   Kinesis Data Analytics:-
     Amazon Kinesis Data Analytics is the easiest way to transform and analyze streaming data in real time with Apache Flink or woth SQL like queries
