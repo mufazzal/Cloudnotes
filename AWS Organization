@@ -80,10 +80,10 @@ AWS RAM is the service with which you can share the resource with
 Creator of resource has full access on the resource's actions. the one with whome it shared can perform action based on type f resource.
 Not all the resource are sharable. some example are
   - Capacity Reservations
-  - Dedicated Hosts
-  - EC2 Images
+  - Dedicated Hosts: Save cost by leveraging many accounts in one.
+  - EC2 Images: share images for fast and secure replications
   - Aurora DB cluster
-  - VPC subnet
+  - VPC subnet: Share a subnet and let other AWS account can launch EC2, RDS etc in it. therby one-VPC-shared-subnet for collaboratin aong teams resouces. 
 
 
 
