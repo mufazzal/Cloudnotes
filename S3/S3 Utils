@@ -6,9 +6,10 @@ Data Synch:-
   
 Snowball:-
   This uis a large petabyte disk that can beused to move data to and from AWS and on premises.
-  This device is available from aws o nrequest.
+  This device is available from aws on request.
   AWS will send you this device physically to store your data and then you need to send them back with your loaded data.
-  then AWS push those data in the S3 bucket of your choice
+  then AWS push those data in the S3 bucket of your choice.
+  IMP: From snowball data cannot directly be transfered to Glacier. You have to first put it in S3 then in Glacier via lifecycle.
   
 SnowMobil: this is 10000 * snowball
   a exteremly large snowball on truck.
