@@ -130,6 +130,12 @@ Cross-region load balancing:-
   
 ----------------------------------
 
-
+ALB-Cognito User Authentication:-
+  You can offload the task of user authentication to ALB. So that you can concentrate on your application logic
+  Like API gateway, the ALB is also integrated with Cognito natively.  
+  With ALB you can authenticate user of any Congnito User Pool. You sut have to set it up and ALB will do the rest.
+  If ALB is set behind the Cloudfrong Cache then set this in CFT:-
+      headers/Query string/Cookie forwarding: — Ensures that the CFT forward all the query string, headers and cookie required to authenticate the user with the IdP to LB.
+      Caching: Ensure that CFT do not cache the response of auth apis.
 
 
