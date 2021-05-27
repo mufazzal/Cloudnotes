@@ -305,6 +305,7 @@ Permission Boundry:-
    Then user/role at max can do operations on s3 and cloudwatch but not on other services.
    User/Role still need the IAM policy attached to do operation on s3 and cloudwatch.
    Even User/Role have IAM policy attached that ALLOW opearion on EC2, It will be denied due to Permission Boundry.
+   It cannot be applied over Group.
   
   
 
