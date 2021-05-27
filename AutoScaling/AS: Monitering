@@ -54,4 +54,7 @@ ASG and CW:-
     StatusCheckFailed, StatusCheckFailed_Instance etc.
   Below are the dimentions:-
     AutoScalingGroupName 
-  
+
+---------------  
+Special Case og EC2 intance Health = Impaired:-
+  In this case Instance is not trmibated instead it was given some time to get recover from it.
