@@ -131,7 +131,7 @@ Performance:-
 		> General Purpose mode: 
 				Best for latency-sensitive usage like webserver,Home Directory, file system.
 		> Max I/O: 
-				Best for higher throughput and operations per second. but ok with slightly low latency. best for big data and analytics
+				Best for higher throughput and operations per second. but ok with slightly low latency. best for big data and analytics and massive paraller operation.
 				This is not available for file systems using One Zone storage classes
 	There is no extra cost for any of them.
 		
