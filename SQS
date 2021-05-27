@@ -75,6 +75,16 @@ Type of Queue :-
 
 -------
 
+Limits:-
+  MAx size of message: 256KB.
+  Throuput limit of Standard SQS: unlimited.
+  Throuput limit of FIFO SQS: It is finite. 
+    You can have max 300 transaction per sec per api(SendMessage, ReceiveMessage, or DeleteMessage) without batch. OR
+    You can have max 3000 transaction per sec per api(SendMessageatch, ReceiveMessage, or DeleteMessageBatch) with batch
+    
+
+-------
+
 VisibilityTimeout: 
   When the worker start processing the message we need to make sure that at a time of processing no one accidently pick it again and start processing it in paraller.
   So we set this time to make this message incvisible for 30 sec so after 30 sec the message will re-apear in the que unless you have deleted it.
