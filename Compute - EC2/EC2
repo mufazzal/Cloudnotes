@@ -97,8 +97,8 @@ EC2 and Other AWS services ->
 
 User Data:
 	In the user data you can provide the script that can ran at the initilization of the EC2 insyance.
-	This script run only at once. never rerun again even if you reboot the instance.
-
+	By default, user data scripts and cloud-init directives run only during the boot cycle when you first launch an instance.
+         but You can update your configuration to ensure that your user data scripts and cloud-init directives run every time you restart your instance
 	You can provide it like this
 			#!/bin/bash
 			yum update -y
