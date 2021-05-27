@@ -19,7 +19,7 @@ Below are the exclusive Aurora features:-
 		When a problem affects the primary instance, one of these reader instances takes over as the primary instance. 
     RDS provide max 5 replica. Aurora give you 15. Replication process is also way faster in aurora.
 		Aurora-Replicas Priority:-
-			Each Replica can have the priority value from 0 to 15 which define which replica will be consider first for promoting to primary instance in case of it failover.
+			Each Replica can have the priority value from 1(highest) to 15(least) which define which replica will be consider first for promoting to primary instance in case of it failover.
 			If two replica has same value of priority them the one with larsge size will win.
     Read Replica Load Balancing:-
       In Aurora you can create a load balancer to distribute the reading load across the read replicas.
