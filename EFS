@@ -181,3 +181,9 @@ EFS VS EBS
 EFS VS S3:-
   - One is blockk other is object storage.
   - EFS has very high througput and IOPS.
+  - In S3 file are accesed via S3 API and you need internet/EP. 
+  		wheares EFS is mounted as file system so you just need the File Sementics to access the file.
+	- S3 is like files in your network drive. S3 means file in remote storage location.		
+			
+EFS VS S3-Storage Gateway-File Gateway:-
+	this can also give you file sementics for accessing the sile buts its still backed by S3 whereas EFS is backed by SSD which is ultra fast the S3.
