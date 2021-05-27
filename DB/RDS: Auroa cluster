@@ -70,4 +70,10 @@ Aurora DB Cluster:-
 				launching new instance in same AZ if there is only one instance (primary) (take up to 10 minutes)
 			and then the cluster endpoint automatcally start pointing to the new primary-DB-instance by changing the CNAME record.
 			
+----------------------
+
+Multi Master Cluster:-
+	Have you heared of High Availibility. The nest in line is Continous Availibility.
+	The Aurora DB Multi-Master-Cluster provide ypu multiple WRITE NODE. if primary get failed the immedittely without a second of downtime another write node become primary.
+	
 
