@@ -1,0 +1,6 @@
+This help you to find the vulnurability in the EC2 and Applications in it.
+It assesses applications for exposure, vulnerabilities, and deviations from best practices
+After performing an assessment, Amazon Inspector produces a detailed list of security findings that is organized by level of severity
+For this to work properly you must install agent on the EC2 instances that are included in the assessment target
+The target EC2 can be selected by Teg Key-Value pair attached to EC2s.
+It provide pre-defined rules packages mapped to common security best practices and vulnerability definitions
