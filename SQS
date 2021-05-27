@@ -137,6 +137,10 @@ Message:-
   For FIFO Queue there is additional Param:-
     1. Message deduplication ID
     2. Sequence number
+    3. Message Group Id:- Use this if you wants to specifies that a message belongs to a specific message group.
+          Message in same group will always be processed in order and by same consumer.
+          however, messages that belong to different message groups might be processed out of order
+          By default if there is not group id then message will be procesed in absolute order. 
     
   - Max size of message = 256KB 
   
