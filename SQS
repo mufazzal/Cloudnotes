@@ -81,7 +81,7 @@ Limits:-
   Throuput limit of FIFO SQS: It is finite. 
     You can have max 300 transaction per sec per api(SendMessage, ReceiveMessage, or DeleteMessage) without batch. OR
     You can have max 3000 transaction per sec per api(SendMessageatch, ReceiveMessage, or DeleteMessageBatch) with batch
-    
+    ** 3000 = 300 * MAximun message possible in Batch = 300 * 10
 
 -------
 
