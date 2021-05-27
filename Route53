@@ -182,6 +182,8 @@ Routing Policy:-
 			Whenever R53 receive the query, it fetch the list of latency record and then determine who will give the least latency and 
 			route the traffic to that region.
 			For this you also have to set up the record of list of latency for region your systen is hosted on.
+			Use this when LATENCY is you prime concern. 
+			Also remeber that a server near to region may give higher latency then server far from user location. so for latency always use this not Geolocation routing.
 	4. Geolocation routing:-
 			This is useful when you wants to serve the contenst basd on region of user. 
 			like serve the content from frakfurt for all EU user and from japan for apac region.
