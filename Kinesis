@@ -98,7 +98,7 @@ Kenesis use case:-
 
   SQS vs KDS:-
     SQS has single que. but KDS have many que in form of shrad.
-    SQS do not guarantee order but shrad in KDS guarantee it.
+    SQS do not guarantee order but shrad in KDS guarantee it in the shrad (not among the shrad).
     In SQS, message can only be processed by one consumer. in KDS you can have multiple downstraem system for processing the data item. 
         
         
