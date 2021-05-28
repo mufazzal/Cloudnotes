@@ -7,7 +7,7 @@ It can capture gigabytes of data per second from hundreds of thousands of source
   location-tracking events
   
   Kinesis Data stream:-
-    KDS collect the data from diffret stream of sources and place in Shrads. This data can remain in the stream for 24 hour to 7 days.
+    KDS collect the data from diffret stream of sources and place in Shrads. This data can remain in the stream for 24 hour(by default) to 365 days.
     you can create a consumer application to read and intrpret this data from stream.
     Generally you can use this stream of data to enable real-time analytics use cases such as real-time dashboards, real-time anomaly detection, dynamic pricing.
     KDS has its own data storage.
