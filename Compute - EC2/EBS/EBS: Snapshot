@@ -55,6 +55,7 @@ The snapshot will just preserve the state of EBS at the point of taking the snap
     You can copy the snapshot in and out of the region. Remember
     - If account and region both are same then no actual data is copied.
     - If orignal snap is Encrypted then the copied must also be encrypted however you can change the CMK for copied one. 
+    - If orignal snap is UnEncrypted then the copied could encrypted or unencrypted. 
     - If you change the Encryption setting of copied snapshot then a complete Non-incremental copy of snapshot will be created.  
     - If you copy the snapshot to new region then it could be
         Increamental if all below condition are met
