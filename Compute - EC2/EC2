@@ -151,24 +151,39 @@ EC2 CURL for meta-data and user-data:-
 
 ---------------
 
-Dadicated Host:-
-	You can purchase the dadicated host if your compience need it.
+Instance Tenancy:-
+	Theirs ia 3 kind
+	1. Default. Sared tanacy
+	2. Dadicated: Dadicated Instance tanacy
+	3. Host: Dadicated Host tanacy	
+	
+	The value of the tanacy can be set at two level:-
+		1. VPC level
+		2. Launch Configuration/Launch Template level
+		
+	
+Dadicated Host/Instance:-
+	You can purchase the dadicated host/Instance if your compience need it.
 	First you have to decide about the Instance faimily. and then their is two Options:-
 	1. Enable Support multiple instance Size:  You can change the size but not faimily
 	2. Disable Support multiple instance Size: Nothing can be change. both fixed.
 
-	- To launch instance in dadicated host you have to choose it at time of launching.
+	- To launch instance in dadicated host/Instance you have to choose it at time of launching.
 	- ASG and Dadicated Host: Only LT support it not LC. 
 	- VPC and Dadicated Host: You can set the hpst tanency at VPC level also. but it can be override bu tanact param at instance launch.
 	- You cannot change the tenacy from Dadicated/Host to Default and vice versa
 	- You can change the tenacy from Dadicated to Host and vice versa
+	
 	
 	Auto-Placement:- 
 		If enabled then matching EC2 will always launch in the dadicated host. if not enabled then Matching EC2 will launch in host only if Host Id is given in launch request.
 	Affinity:-
 		If enabled then restrted EC2 will launch in same host otherwise lauch in any avialable host.
 	
-		
+		Dadicated Host VS Dadicated Instance:-
+			Both are almost same except below two item is trimmed don in DI
+			1. DI do not give much visibility an control to underline hardwate.
+			2. DI do not allow to use existing server-bound software licenses like Windows Server etc.
 		
 	
 
