@@ -103,11 +103,20 @@ Kenesis use case:-
 ------------------  
 
   SQS vs KDS:-
-    SQS has single que. but KDS have many que in form of shrad.
-    SQS do not guarantee order but shrad in KDS guarantee it in the shrad (not among the shrad).
-    In SQS, message can only be processed by one consumer. in KDS you can have multiple downstraem system for processing the data item. 
-    SQS can scale indfinetly with number of messages in que and no need to provision capacity.
+    KDS have many que in form of shrad.
+    SQS has single que.
+    
+    KDS guarantee it in the shrad (not among the shrad).
+    SQS do not guarantee order but shrad 
+    
+    In KDS you can have multiple downstraem system for processing the data item. 
+    In SQS message can only be processed by one consumer. in 
+    
     KDS is limit by number of shrad provisioned in it. so its scallibity with number of shrad is limited. Though messages in the shrad is limitless.
+    SQS can scale indfinetly with number of messages in que and no need to provision capacity.
+    
+    KDS is best for real-time data streaming processing upto giga to prtabyte per sec. It deliver the message to the consumer in around 70 milisecond.
+    SQS is best for decoupling of an applications.
         
         
         
