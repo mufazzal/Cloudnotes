@@ -84,9 +84,25 @@ Ingredient of GA:-
 				
 
 - AWS Global Accelerator utilizes the Amazon global network rather then internet for fast performance.
-
+--------
 Traffic Distribution:-
 	You can use Traffic Dial to distribute traffic among EPG.
 	Then you can furthure use the Weight to distribute the traffic among EP in that EPG.
+--------------------
 
+Route based routing 53 VS GA based routing:-
+	
+	GA based routing is designed to solve the goal of Low latency and Anycast IP only.
+	R53 based routing provide lot many mechanichs for routing like 
+		Failover, user location, weight etc.
+	
+	GA can provide Active-Active failover
+	R53 can provide Active-Active as well as Activ-Passive failover
+	
+	In GA we assume that all the region are running exactly same code and content.
+	In R53 we assume that giffrent region may serving diffrent content based on localization etc.
+		
+	
+	
+	
 
