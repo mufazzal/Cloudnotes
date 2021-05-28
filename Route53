@@ -307,6 +307,17 @@ Rote 53 Monitoring:	Below is the things you can monitor:
 			Dimension: HostedZoneId
 	- CW metrics related to Health check in namespace 'AWS/Route53Resolver'
 	
+------------------
+
+IMP Exception:-
+	Q: How would you route traffice from muf.com to www.muf.com
+	A: CNAME. No! remember that you cannot create CNAME record for Top Node on a DNS 
+			For this you should create the alias record for 'muf.com' that rout trafic to 'www.muf.com'
+	
+	Q: How would you route traffice from blog.muf.com to muf.com/www.muf.com
+	A: CNAME. because blog.muf.com is not top node of DNS.
+	
+	
 	
 	
 	
