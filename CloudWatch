@@ -93,7 +93,12 @@ CW Agent:-
 ---------------  
   
 
- 
+ Time or Rate based CW event:-
+  You can create rules that self-trigger on an automated schedule in CloudWatch Events using cron or rate expressions.
+  This trigger in interval like
+  once a day
+  once a month
+  once a week etc.
  
  
  
