@@ -111,7 +111,9 @@ Avoid expensive List operation:-
   AWS recommend to use any other AWS service like DDB, ElasticSearch, S3 Inventory etc for getting the list of all or filtered object from S3.
   Direct List operation take heavy toll
     
-    
+TX VS CloudFront:-
+  One use caching other not.
+  TX is better choice for upload if file size < 1 GB. otherwise use TX.
     
      
     
