@@ -39,6 +39,7 @@ Concept:-
     Consider this asIAM for your Organization AWS account. It specify the maximum limit of access that the AWS organization account can have,
     SCPs offer central control over your accounts to stay within your organization’s access control guidelines
     - An SCP restricts permissions for IAM users and roles in member accounts incuding their root user.
+    - It do not impact any Service-Linked-Role on member account 
     - SCPs affect only member accounts in the organization. They have no effect on users or roles in the management account
     - Users and roles must still be granted permissions with appropriate IAM permission policies
     
