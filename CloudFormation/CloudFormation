@@ -377,7 +377,12 @@ Update Stack:-
             AWS::RDS::DBInstance
 
 
+------
 
+StakeSet:-
+  You can use StackSet _ AWS Organization to deploy the AWS resources in multipls member AWS account and region in one go.
+  Using an administrator account of an "AWS Organization", you define and manage an AWS CFR template, 
+    and use the template as the basis for provisioning stacks into selected target accounts of an "AWS Organization" across specified regions
         
 
 -------
