@@ -74,3 +74,14 @@ EC2 Hibernate:-
 		Thogh to use this feature in spot instance
 			- For a Spot Instance request, the type must be persistent
 			- For an EC2 Fleet or Spot Fleet request, the type must be maintain
+-----------------
+
+Impaired Instance:-
+	Sometime instance goes in impaired state usually due to some hardware some software issue that required AWS involvement to resolve.
+	If AWS resolve it successfully then it comes to start state again.
+	It wil keep all the item attach to it like instance ID, private IP, Public IP, Elastic IP, and all instance metadata.
+  But itr will lose all the RAM data.
+	
+	
+	
+
