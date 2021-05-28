@@ -115,8 +115,8 @@ Kenesis use case:-
     KDS is limit by number of shrad provisioned in it. so its scallibity with number of shrad is limited. Though messages in the shrad is limitless.
     SQS can scale indfinetly with number of messages in que and no need to provision capacity.
     
-    KDS is best for real-time data streaming processing upto giga to prtabyte per sec. It deliver the message to the consumer in around 70 milisecond.
-    SQS is best for decoupling of an applications.
+    KDS is best for REAL-TIME-HIGH-VOLUE data streaming processing upto giga to prtabyte per sec. It deliver the message to the consumer in around 70 milisecond.
+    SQS is best for DECOUPLING of an applications.
         
         
         
