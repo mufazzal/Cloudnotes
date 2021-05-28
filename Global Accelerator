@@ -85,5 +85,8 @@ Ingredient of GA:-
 
 - AWS Global Accelerator utilizes the Amazon global network rather then internet for fast performance.
 
+Traffic Distribution:-
+	You can use Traffic Dial to distribute traffic among EPG.
+	Then you can furthure use the Weight to distribute the traffic among EP in that EPG.
 
 
