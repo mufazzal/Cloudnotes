@@ -160,7 +160,8 @@ Dadicated Host:-
 	- To launch instance in dadicated host you have to choose it at time of launching.
 	- ASG and Dadicated Host: Only LT support it not LC. 
 	- VPC and Dadicated Host: You can set the hpst tanency at VPC level also. but it can be override bu tanact param at instance launch.
-	- You cannot change the tenacu from Dadicated/Host to Default and vice versa
+	- You cannot change the tenacy from Dadicated/Host to Default and vice versa
+	- You can change the tenacy from Dadicated to Host and vice versa
 	
 	Auto-Placement:- 
 		If enabled then matching EC2 will always launch in the dadicated host. if not enabled then Matching EC2 will launch in host only if Host Id is given in launch request.
