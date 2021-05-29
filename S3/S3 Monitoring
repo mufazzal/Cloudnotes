@@ -150,7 +150,9 @@ S3 Monitoring:-
       - How many 4XX kind of error we dot today.    
     
     
-      
+   ------------
+   
+   To moniter changes doneiver any bucket by an IAM user, Simply ise Cloudtrial.
       
         
     
