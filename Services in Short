@@ -34,6 +34,10 @@ AWS Glue:-
       This is the persistent metadata storage. this contains the info about data stored in data sources.
     Crawler:-
       This is the crawler that keet scanning, extracting and loading the metadata in the Glie Data Catalog.
+    Trigger:-
+      Te\here is two way to trigger the AWS Glue job
+      1. Event: triggetr on specific event. like arrival of now data, object on s3, DDB etc.
+      2. Time based: Simply schedule it for a specific time.
       
       
       
