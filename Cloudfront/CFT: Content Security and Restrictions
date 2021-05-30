@@ -96,4 +96,18 @@ In CFT you have 3 option of Secrity
     You can either 
       - deliver the content to all countries except the one listed in Blacklisted Or
       - restrict the content to all countries except the one listed in whitelisted
-        
+
+5. Field Level Encryption:-
+    This is used for Additional Encryption layer for POST operation.
+    It uses Asymetric encryption. The data uploaded via POST is encrypted at Edge location with private key. 
+    It remain encrypted througt the whole jounry then. Only the app or system who has public key can decrypt this data.
+    How:-
+      1. CloudFron > field level-encryption > Create Profile. It will create the public and private key
+      2. Chose public key name.
+      3. Chose the data field you want to encrypt in the request. at max you can encrypt 10 field.
+      5. Link this profile to CacheBehaviour.
+      4. Now provide the public key to all the trusted app or user whome you wants to decrypt the data.
+      
+      
+     
+    
