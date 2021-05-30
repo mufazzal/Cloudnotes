@@ -71,10 +71,11 @@ DDB Accelerator [DAX] :-
 	DAX make a getItem call to DDB table get it
 	Store it in DAX cache
 	and return it to api response
-	NExt time if some api ask for same data then it will just return from the pre-stored cache.
-   Advantages :-
-	remove many read overload from DDB and so you may need less read-capacity on DDB table
-	Make read fater
+	Next time if some api ask for same data then it will just return from the pre-stored cache.
+  Advantages :-
+		- remove many read overload from DDB and so you may need less read-capacity on DDB table
+		- Make read fater
+		- Cache the 'HotKeys' for you so that ferquetly asked data are deliver fast and consume no read capacity at DDB
    Limits:-
 	Not major improvement if data is changing frequently
 		If data change in origin DDB table it still may remain unupdated in cache   
