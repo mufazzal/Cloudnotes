@@ -90,6 +90,10 @@ Assuming Role:-
     - Give AWS access to users who already have identities defined outside of AWS, such as in your corporate directory. 
     - Grant access to your account to third parties so that they can perform an audit on your resources.
     
-  
+----------------
+
+Trust Policy:
+  this is resource-base-polocy for IAM role.
+  It define what principle can assume this role.
 
 
