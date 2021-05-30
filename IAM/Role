@@ -95,5 +95,6 @@ Assuming Role:-
 Trust Policy:
   this is resource-base-polocy for IAM role.
   It define what principle can assume this role.
-
+  The principals that you can specify in the trust policy include 
+   users, roles, accounts, and services.
 
