@@ -317,7 +317,15 @@ IMP Exception:-
 	Q: How would you route traffice from blog.muf.com to muf.com/www.muf.com
 	A: CNAME. because blog.muf.com is not top node of DNS.
 	
-	
+-----------+-+-+
+
+TTL for record: 
+   for each rrcord you can set the TTL.
+   The amount of time, in seconds, that you want DNS recursive resolvers to cache information about this record
+   if it's low then DNS server make many requests on Route 53
+   if its highet then DNS server make few requests on Route 53
+       but changes done on route 53 will take longer to take effect.
+
 	
 	
 	
