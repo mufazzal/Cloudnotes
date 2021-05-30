@@ -28,3 +28,15 @@ Comparision:-
             |-----FSx window File server    SMB       Window only
             |-----FSx Luster                PSOIX     Linux only
             
+
+---------------
+
+Disaster Recovery Mechanichs:-
+  1. Pilot Light:- In this system a trim down version of whole applcatioin with minimal enviorment set up run.
+        It keep running the critical component as well as copying the critical data for restore. 
+        In case of Distaster you can keep runing the critical part and bring up whole systen later.
+ 2.  Warm Stadby:- Here an scale down version of whole application keep running. Its costly the Pilot Light but give less RTO and RPO.
+ 3.  Multi Site:- It has Active-Active failover system. where App is running at both end. Data replication methode you use will define the RTO and RPO.
+ 4.  Backup and Restore: A typical Tape based back up on cheap storage and restore it whne needed. It can have the loss of data based on defined RPO.
+       
+
