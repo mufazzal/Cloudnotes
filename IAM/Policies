@@ -40,7 +40,7 @@ Type of Policies:
                 |-----Bucket Policy                               Attached to one AWS resource |   Has Principle tag   |  Limited Resource tag  |  No ARN    |
                 |-----KMS Policy                                  Attached to one AWS resource |   Has Principle tag   |  Limited Resource tag  |  No ARN    |
                 |-----SQS  Policy                                 Attached to one AWS resource |   Has Principle tag   |  Limited Resource tag  |  No ARN    |
-
+                |-----IAM trust  Policy
   
   
   IAM Policy:-
