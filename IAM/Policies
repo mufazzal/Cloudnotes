@@ -307,6 +307,16 @@ Permission Boundry:-
    Even User/Role have IAM policy attached that ALLOW opearion on EC2, It will be denied due to Permission Boundry.
    It cannot be applied over Group.
   
+ -----------------------
+ 
+ AdministratorAccess: 
+  This is widely used policy and it give almost all permission the user excepy
+    - change account name or root password or root email address, 
+    - change AWS support plan, 
+    - close AWS account, 
+    - enable MFA on S3 bucket delete, 
+    - create Cloudfront key pair, 
+    - register for GovCloud
   
 
 
