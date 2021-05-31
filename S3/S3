@@ -54,8 +54,6 @@ S3 and Data Consistency :-
 ----------------------------
   
 
-
-
 S3 Storage Classes:-
   Storage classes are applied to a Indivisual Object not on Bucket
   1. S3 - Standard : general-purpose storage of frequently accessed data
@@ -88,21 +86,6 @@ S3 Storage Classes:-
       Take minute and Hours for retrival, Glcier do not have any real time access.
       
     
-      
-
----------------------
-Lifecycle Policy:-
-  The life cycle policy is apply to a group of object[all in folder] or on whole bucket.
-  In lifecycle policy the user define the set of configuration to move the objects in diffrent storage class.
-  This is best if you know the lifecycle of the object.
-  The is two rule you can define
-  Transition Rule:- Rule to determine when and which storage class the object should move
-  Expiration rule: set when to delete the object.
-
-Lifecycle Policy VS Inteligent Tiering
-  Inteligent Tiering use the amazon developed algorith to move the object between the classes. In Lifecycle Policy the developer himself provide the set of rule to do this.
-  EG:-  in Inteligent Tiering the object moves between standard to stanrard_IA in 30 days. in lifecycle you can do set you own rule of time, date, size etc.
-
 -------------------------
 Limits:-  
   Default Max No of bucket you can make in AWS account
@@ -127,22 +110,6 @@ Charges:
   Cross border replication
   Object Tagging
   
----------------------  
-Transfer Acceleration: 
-  First if you wants to use it then pay for it.
-  If you wnants to accelerate the speed of UPLOADing of file on S3 bucket then use it.
-  This feature actully uses the heavyweight network of edge-location and cloudFront(instead of typical internet) 
-  to maximize the upload speed of the file.
-When to use this -
-  You have customers that upload to a centralized bucket from all over the world.
-  You transfer gigabytes to terabytes of data on a regular basis across continents.
-  You are unable to utilize all of your available bandwidth over the Internet when uploading to Amazon S3.
-
------------------
-Cross Region replication:-
-    First if you wants to use it then pay for it.
-    It simply allow the bucket to automatically copy to another bucket in diffrent region. So give you kind of data security
-
 -----------------
 
 URL of the files/object in Bcucket:-
@@ -157,17 +124,10 @@ URL of the files/object in Bcucket:-
         This style is going to be deprecated.
 
 
----------------------
-
-Object Versioning:-
-  You can enable the versioning on any object in S3. By this you can keep all the older vesion of that S3 object.
-  The versioning is enabled over the object not bucket.
-  So 
-  Bucket-Name + Object-key + Version gives you the unique s3 object in S3.
-
 -------------------------
 
-Metadata:- S3 also give you the way to store data bout data. EG content-type, content-lengh etc.
+Metadata:- S3 also give you the way to store data bout data. EG content-type, content-lengh etc. 
+            IMP: S3 do not encrypt MEtadat even if encryption is enabled so never store sensitive info in it.
 Tag:- You can also attach the tag on the Object. 
 
 --------------------------
@@ -218,7 +178,8 @@ Once a file uploaded on Bucket possible operation on File (not Bucket)
         }      
         
   The url for website be :-
-  http://mufazzalbio.s3-website.ap-south-1.amazonaws.com
+    http://<<bucket-name>>.s3-website.<<Region>>.amazonaws.com
+    http://<<bucket-name>>.s3-website-<<Region>>.amazonaws.com
   
   page/image/file created in folder of bucket will be accessible via same relative path e.g.
     http://mufazzalbio.s3-website.ap-south-1.amazonaws.com/photo/germanyPic.png
