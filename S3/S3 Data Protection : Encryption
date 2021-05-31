@@ -4,6 +4,7 @@ There is two state where you have to preserve the integrity of your data
   1. Data at rest:    
         Mns when data is stored in the disk. and so no one with physical access of disk can read it. 
         Data is Encrypted before writing and decrypted before reading.
+				IMP: S3 do not encrypt the metadat of the object so be careful storing any sensitive info in it.
   2. Data in transit: MIM attack
      
 	IMP: En/Dc applied over the object not on the bucket level. but you can cutomize the Bucket Policy in such manner that the bucket will accept only encrypted object.
