@@ -40,4 +40,7 @@ ASG health check grace periode:
 
 Attached EBS and EIP of Terminated EC2 instance:-
   This 2 resource do not attached to replacement automatically. you have to do it by yourself.
+-------
+Deleting asg running ec2
 
+ if you choose to delete the ASG, the instances will be terminated and the ASG will be deleted
