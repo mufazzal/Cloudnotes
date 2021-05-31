@@ -46,6 +46,10 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       
       Scalling:-
         You have to set the value of max number of shard in stram which defime the maximum scalling of the system throughput.
+        
+      Performance:-
+        In case yur producer is producing lot of message and consusmer is lagging to process it then you can configure the consumer to read the message in Batches
+        so that in one go you can process more messages.
 ----------------        
   Kinesis Data Firehose:-
     This too collect the data from multiple stream but instead of storing them in Shrads it deliver the data to any AWS storrage service like 
