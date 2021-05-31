@@ -97,5 +97,15 @@ Supporting SQL DB:
   EMR [Elastic Map REduce]:-
     This service is used for Big Data Analytics. This is in compition wuth Apche Spark etc.
 
+----------------------
+
+AWS Neptune:-
+  This Fully managed GraphQl Solution from AWS.
+  This is design to store the dfata set with very high degree of relationships.
+  This can be used for storing Social MEdia connectivity relations or faimily tree relations.
+  The core of Neptune is a purpose-built, high-performance graph database engine. 
+  This engine is optimized for storing billions of relationships and querying the graph with milliseconds latency
+  
+  
 
     
