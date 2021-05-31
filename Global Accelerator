@@ -88,6 +88,7 @@ Ingredient of GA:-
 Traffic Distribution:-
 	You can use Traffic Dial to distribute traffic among EPG.
 	Then you can furthure use the Weight to distribute the traffic among EP in that EPG.
+	You can use this for AB testing.
 --------------------
 
 Route based routing 53 VS GA based routing:-
@@ -102,7 +103,10 @@ Route based routing 53 VS GA based routing:-
 	In GA we assume that all the region are running exactly same code and content.
 	In R53 we assume that giffrent region may serving diffrent content based on localization etc.
 		
-	
+---------------------
+
+Failover with GA:-
+	If any EP is unhealthy then GA will stop sending traffic to it and so route traffc to healthy one.
 	
 	
 
