@@ -1,4 +1,5 @@
 Encryption at Rest:-
+  By defaulr all the data at rest in the DDB is encrypted with 'AWS owned CMK'
   DynamoDB encryption at rest provides an additional layer of data protection by securing your data in an encrypted table
   - Primary Key
   - LSI, GSI table
@@ -6,4 +7,7 @@ Encryption at Rest:-
   - Global Table
   - DAX
   - Back up
-  At a time of table creation you can chose to have, AWS managed or cutomer managed CMK.
+  At a time of table creation you can chose to have, 
+    1. AWS owned CMK. [Default]
+    2. AWS managed CMK.
+    3. Customer managed CMK.
