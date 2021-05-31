@@ -4,7 +4,10 @@ Web Application Firwwall:
     CDN
     ELB
     API Gateway
-  You can create the rule to deny the accessto those resources based on filterinf by
+  
+  IMP: It cannot secure EC2 and ECS.  
+    
+  You can create the rule to deny the accessto those resources based on filtering by
     IP Addresss
     Query String param
     Originating country of request
