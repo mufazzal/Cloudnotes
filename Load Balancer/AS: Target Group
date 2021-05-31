@@ -101,6 +101,7 @@ Sticky Session:-
 Target as LAmbda:-
     It is also possible that to have a Target group whise traget are lambda. LB will invoke tha lambda on that requests.
     Elastic Load Balancing must have permissions to invoke the Lambda function.
+    Only ALB support it not other two
 ---------------------
 
 Weighted TG:-
