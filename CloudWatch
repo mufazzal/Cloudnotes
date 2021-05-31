@@ -90,8 +90,18 @@ CW Agent:-
   By default it has the metrics namespce = 'CWAgent' but yo can have your own.
   
   
----------------  
+---------------
+
+CW Alarm:-
+  Based on CW, You can create the specific action to be taken id Alarm is on.
+  CW is nativly integrated with 3 AWs service and so can take action on those
+  1. SNS: CW can send notification to the SNS topic
+  2. EC2: CW can directlt start, Stop, Terminate or Reboot the instance without needing any lambda.
+  3. ASG: CW can take some action on Auto scalling group too directly.
   
+  IMP: Lambda is not directrly integrated with Lambda. you have to use it woith SNS.
+
+---------------  
 
  Time or Rate based CW event:-
   You can create rules that self-trigger on an automated schedule in CloudWatch Events using cron or rate expressions.
@@ -99,6 +109,8 @@ CW Agent:-
   once a day
   once a month
   once a week etc.
+ 
+ -----------------
  
  
  
