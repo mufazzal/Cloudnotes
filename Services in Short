@@ -60,6 +60,7 @@ AWS Trusted Advisor:-
   This tool provide you the real time guidence foe building your infra wrt to below
   Cost, Security, Fault Tolerance, Service Limit,PErformance.
 
+
 AWS WorkSpace:-
   As its name suggest it is nothing but a way to set up desktop for office work in AWS.
   You can create as many desktop as you wants and then distribute among employees.
@@ -72,4 +73,9 @@ AWS Server Migration Service:-
   You can migrate VMware vSphere, Microsoft Hyper-V/SCVMM, and Azure virtual machines to the AWS Cloud. 
   AWS SMS incrementally replicates your server VMs as cloud-hosted Amazon Machine Images (AMIs) ready for deployment on Amazon EC2
   
+  
+AWS SagaMaker:-
+  Amazon SageMaker is a fully managed machine learning service. 
+  With SageMaker, data scientists and developers can quickly and easily build and train machine learning models, 
+  and then directly deploy them into a production-ready hosted environment
   
