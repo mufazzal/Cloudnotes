@@ -30,14 +30,12 @@
       3. Done
       
       Now in the app you should do write operation on endpoint of 'mufdb' and for read you can use any of 'muf_#_DbReplica'.
-      
       for good prformance one should create multiple readreplica in diffrent AZ to keep.
       
-    ------
     
     Read Replica VS Multi AZ:
-    AZ is for disaster recovery and High Availibility. Read replica is for performance boost
-    AZ is synchronus [both update and then OK] and Read replica is asynchronus [primery update then OK then secondry after some time]
+      AZ is for disaster recovery and High Availibility. Read replica is for performance boost
+      AZ is synchronus [both update and then OK] and Read replica is asynchronus [primery update then OK then secondry after some time]
     
 
 ------------
@@ -70,8 +68,15 @@
     - Multi AZ
     
     You can schedule the changes for maintainance window or apply immediatly.
-    Remeber it may bear some Downtime and this downtime will be minimal if DB is Muti-AZ
+    Remeber it may bear some Downtime and this downtime will be minimal if DB is Muti-AZ.
+    Be it in maintainace window or immediatly, for Multi AZ, 
+        > changes will be applied to Stadby first and then 
+        > failover happen and so standby become primary and the
+        > primary got updated.
     
+    IMP:-
+      DB engine level chages:- 
+        In this case the primary and secondry both will be updated in same time and even in Mlti-AZ you will have significan Downtime.
 ---------------
 
 Storage Autoscalling:-
