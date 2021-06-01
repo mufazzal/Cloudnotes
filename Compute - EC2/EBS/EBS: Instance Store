@@ -16,3 +16,12 @@ Instance store as additional or root device:-
 Instance store as root:-
 - The Ec2 with instance store as root cannot be stoped. it can either be start or terminated.
 - Instance store backed Instances cannot be upgraded [cannot change the instance type]
+
+Snapshot of EBS volume:-
+  - You canot take snapshot of Instance store volume. 
+  
+Back up Instance store:-
+  - You must implement a mechnism to keep synching the data in safe place.
+
+AMI of Instance store attached EC2:-
+  AMI will not have those data. and so lanched EC2s from those AMI will also not have that data.
