@@ -20,6 +20,11 @@
     Cross Region Replication:-   
       You can create read replica in diffrent region. But here data transfer will e chargable. 
     
+    Read replica in same and diffrent AZ:-
+      In same AZ you will not be charged for inter AZ data transfer. 
+      In diffrent AZ you will be charged for inter AZ data transfer. 
+      
+    
     Read Replica vs Multi AZ :-
       In multi AZ, the prime and sec has 0 leg. data written on prime will also reflect on sec and then operation suppose to be completed.
       In read replica, the write happen on master and operaton marker as done. after some time those changes will be transmitted to all read replicas.
