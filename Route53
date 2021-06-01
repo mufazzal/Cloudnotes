@@ -26,6 +26,7 @@ Creating Private Hosting Zone:-
 	First you need to select some logical name for host like 'mufvpc.com' and then selexct the proper VPC.
 	you can use theis DNS name and in any EC2 running this VPC.
 	here you do not have to buy the domain. Any EC2 runing in this VPC can resolve this DNS [EC2 uses privte DNS server for this.]
+	In VPC you must enable 'enableDnsHostnames' and 'enableDnsSupport'
 	
 Creating Public Hosting Zone:-
 	Here you have to first buy one and then create it.
