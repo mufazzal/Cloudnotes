@@ -22,6 +22,7 @@ Athena:-
   - you do not have to setup any special mechanics for this.
   - It is nicely integrated with AWS QuickSight for analytics visulization 
   - Actuly it uses AWS Glue behind the certain. 
+  - It do not work on Glacier objects
   - Supported data formats
       CSV, TSV, JSON, or Textfiles and also open source columnar formats such as Apache ORC and Apache Parquet. 
   - Compression supported 
