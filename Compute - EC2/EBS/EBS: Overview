@@ -134,6 +134,6 @@ Encryption By Default:-
 
 RAID Configuration:-
 	With Amazon EBS, you can use any of the standard RAID configurations.
-	RAID 0: When performance is more important then Durability
+	RAID 0: When performance is more important then Durability. Adding more volume give more performance.
 	RAID 1: When Durability is more important then performance 
 	
