@@ -18,10 +18,14 @@ Glacier Vault:-
     This is very useful for regulatory and complience control.
     EG:-
       You can specify controls such as “write once read many” (WORM) in a vault lock policy and lock the policy from future edits
-    
+
+Encryption:-
+  Glacier automatically provide the AES-256 encryption at rest and SSL at transit. 
     
 Glacier deep archive:
   its 75%cheap then glacier
   it do not provide expidire retrive
   standard retrieval can take 12 hour or more
   bulk retrival can tallke 48 hour
+  
+  
