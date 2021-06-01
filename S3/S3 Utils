@@ -1,8 +1,8 @@
 Data Synch:-
   IF you have a large amount of data in on premise and wants to transfer it to S3 then Data Synch can be used.
   Just install in in ur premise and then you can start transfer of data.
-  You can also schedule to transfer it Houlrly, Daily, Weekly.
-  This is very useful for migration from on premise to AWS.
+  You can also schedule to transfer it Houlrly, Daily, Weekly. This is very useful for migration from on premise to AWS.
+  It should be use as one time data migration activity not as countinous data sysnchying between On-Premise and AWS.
   
 Snowball:-
   This uis a large petabyte disk that can beused to move data to and from AWS and on premises.
@@ -10,9 +10,12 @@ Snowball:-
   AWS will send you this device physically to store your data and then you need to send them back with your loaded data.
   then AWS push those data in the S3 bucket of your choice.
   IMP: From snowball data cannot directly be transfered to Glacier. You have to first put it in S3 then in Glacier via lifecycle.
+  Max size of Snowball: 80TB
+  AWS recommendation for use: 10TB to 10PB
   
 SnowMobil: this is 10000 * snowball
   a exteremly large snowball on truck.
+  AWS recommendation for use: More then 10PB
 
 
 Athena:-
