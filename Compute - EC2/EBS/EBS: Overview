@@ -131,3 +131,9 @@ Encryption By Default:-
 	You will be able to launch thie instances only if it support encryption
 	It do not impact existing EBS snap and volume.
 ---------------		
+
+RAID Configuration:-
+	With Amazon EBS, you can use any of the standard RAID configurations.
+	RAID 0: When performance is more important then Durability
+	RAID 1: When Durability is more important then performance 
+	
