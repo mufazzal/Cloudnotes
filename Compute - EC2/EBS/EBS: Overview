@@ -71,6 +71,7 @@ Type of EBS :-
 		- Multi-Attach enabled volumes can't be created as boot volumes
 		- You can't enable or disable Multi-Attach after volume creation.
 		-	You can't change the volume type, size, or Provisioned IOPS of a Multi-Attach enabled volume.
+		- only specific Provisioned IOPS SSD can support it 
 		
 -------------------------------
 
