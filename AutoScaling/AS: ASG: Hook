@@ -43,5 +43,7 @@ heartbeat timeout + ASG hook + user data script:-
 
   If you are not finised in 'heartbeat timeout' then you can extend this time via 'record-lifecycle-action-heartbeat' command
 
-  If you are doe earlier then you end the heartbeat timeout by 'complete-lifecycle-action' command
+  If you are done earlier then you end the heartbeat timeout by 'complete-lifecycle-action' command
+   you can end with success or failure by sending flag ine complete-lifecycle-action command.
+   this flag is "CONTINUE" OR "ABANDON".
 
