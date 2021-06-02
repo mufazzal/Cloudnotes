@@ -53,3 +53,11 @@ Handling Inturuption:-
           }
           .....
       }					
+--------++-+-----------
+Spot block
+  In order to make spot EC2 better fit for defined-duration type workload spot block is introduced.
+  with this you can request the spot instance for a defined duration from 1 to 6 hour.
+  this instance will not be terminated for that duration and one that time frame elapsed it will be terminated.
+  to launch such spot instance simply add a param BlockDuration with number of hours in the request.
+  it will surely cost u less then on demand but more then spot
+  
