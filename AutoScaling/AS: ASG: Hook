@@ -36,8 +36,12 @@ So if hook fail or hook take more then 120 second then the instance will
 - continue to process in service sate if DefaultResult = CONTINUE
 - discard the EC2 instance if DefaultResult = ABANDON
 
-heartbeat timeout for:-
-  You cas set this value so that instance remain in Wait state for that time and you get time to execute this hook.
-  This time is diffrent from CoolDown time.
-  If you are no finised in 'heartbeat timeout' then you can extend this time via 'record-lifecycle-action-heartbeat' command
+heartbeat timeout + ASG hook + user data script:-
+  You can use heartbeat timeout and ASG hook to keep instance to remain in Wait state 
+  and in this time your user data script can install the necessary dependencies and software installation.
+  so ASG hook can not only call sns or sqs or lambda but can be used in conjunction with user data script.
+
+  If you are not finised in 'heartbeat timeout' then you can extend this time via 'record-lifecycle-action-heartbeat' command
+
   If you are doe earlier then you end the heartbeat timeout by 'complete-lifecycle-action' command
+
