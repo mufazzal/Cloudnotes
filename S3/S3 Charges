@@ -6,10 +6,10 @@ Storage:-
   Pricing depend on storage class
   Standard cost higgest and glacier and deep archive cost least.
   The cost goes down as you incease the usage for every storage class.
-  Min chanrgable size for IA, one-zone-IA, Glacier, depp archive
-      - 128, 128, 40, 40 KB
-  Min chanrgable day for IA, one-zone-IA, Glacier, depp archive
-      - 30, 30, 90, 180
+  Min chanrgable size for IA, one-zone-IA, IT, Glacier, depp archive
+      - 128, 128, 128, 40, 40 KB
+  Min chanrgable day for IA, one-zone-IA, IT, Glacier, depp archive
+      - 30, 30, 30, 90, 180
 
 
 Data upload:-
