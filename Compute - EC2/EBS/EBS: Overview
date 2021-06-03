@@ -35,6 +35,10 @@ Type of EBS :-
      2.3 	 EBS Magnetic:
               Legacy
 
+		SSD VS HDD:-
+			Use SSD for Small Random I/O
+			Use HDD for Large Sequential I/O
+
 		Throughput  VS  IOPS:-
 			Throughput means data transfer rate. 	How faster it can transfer the data for each IO. 	No matter how may IO take place in each second.
 				So it must be better if you need big size of output data in eacg IO
