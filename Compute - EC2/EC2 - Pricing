@@ -28,7 +28,7 @@ On Demand:
 Reserved:
     You reserve the capasity for a certain time (for a 1 yera to 100s of year).
     You are locked in a contract. AWS generally provide yuo discount if you contract for longer time. You also need to pay some amount upfront.
-    This is not a special type of in stance oinstead its just a Discoup applied on bill if below criterion matched
+    This is not a special type of instance instead, just a Discout applied on bill if below criterion matched
 			- User has purchased th reserved capacity
 			- The region and instance type of purchased capacity matched the region and instance type of Instance type. 
 		Best For -
@@ -37,7 +37,7 @@ Reserved:
 			There thre model here
 			All Upfront: 			Once paid fully, you wont be charged for using it at all.
 			Partial Upfront: 	You pay partial ammount and then you will be charged  with discounted rate for each hour for remaing priode. no matter you are using instance or not. 
-			No Upfront: 		You pay full ammount and then you will be charged  with discounted rate for each hour for remaing priode. no matter you are using instance or not. 
+			No Upfront: 			You pay full ammount and then you will be charged  with discounted rate for each hour for remaing priode. no matter you are using instance or not. 
 		Factor for price determination:-
 			1. Instance type(or family)
 			2. Region
