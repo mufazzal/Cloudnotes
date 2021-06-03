@@ -93,7 +93,7 @@ Reserved:
 Saving Plane:-
 	Saving plan provide most flexibility in term of usages. you can buy a compute saving plane for 1 or 3 year.
 	once purchased you can use it for ECS, EC2, Farget and lambda all.
-	This is very useful if you canges your usage among EC2, ECS, Lambda.
+	This is very useful if you canges your usage among EC2, ECS, Lambda, Fargate.
 	This pricing model offers lower prices on Amazon EC2 instances usage, regardless of 
 		- instance type (family), 
 		- size, 
