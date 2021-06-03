@@ -30,6 +30,7 @@ Public IPv4 and ENI:-
 	
 	EIP and ENI:-
 		You can attach one or more then one EIP to the ENI. Each EIP must be assosiated with one private IP.	
+		IMP# You can assosiate Multiple EIP to the ENI but at max only one Public IP is assosiated to ENI.
 
 Creating ENI:-   
 	Though you can attach the additional ENI in the EC2 if you need ore complex Networking operations. 
