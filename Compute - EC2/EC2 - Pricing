@@ -109,7 +109,7 @@ Saving Plane:-
 		EC2 Saving plan: 
 			Have only EC2. but you need to comit to Instance Type and Region.
 			You can chnage instance size but not the family and region. 
-			This is very much like Standard RI but give you more discount.	
+			This is very much like Standard RI with capability of changing OS and Tenecy and even with more discount.	
 		SagaMaker Saving plan
 
 -----------
