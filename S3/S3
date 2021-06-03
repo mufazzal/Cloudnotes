@@ -140,28 +140,6 @@ Object Taging:-
     3. Cloud watch and cloudtrain metrics filtering
 
 -------------------------
-How to craete S3 Bucket and and upload file in it by aws portal:-
-  Such Spoonfeeding! really
-
-Once a Bucket is created, These are the operation we can do (Over the bucket not indivisual file)
-  1. Enable Versioning
-  2. Enable static website hosting
-  3. Transfer Acceleration
-  4. Create event to emit in case of any opration occure on bucket
-  5. Set/Unset permission of IAM user/Group
-  6. Set Bucket Policy Json
-  7. Set Lifecycle (like moving to glacier after certain time or prvius verion archiving)
-  8. Replication to another/same region
-  ...etc
-  [detail will come later]
-  
-  
-Once a file uploaded on Bucket possible operation on File (not Bucket)
-  1. Changing storage class
-  2. Changing permission
-  ...etc
-  
--------------  
   
  Static website in S3:- 
   1. Create a bucket [mufazzalbio], mark it public access, place index.html in it
@@ -187,98 +165,26 @@ Once a file uploaded on Bucket possible operation on File (not Bucket)
 
 #VVIMP: Anything you put intially in S3 in any bucket by default never be public, you have to go and set it after upload.
 
-
-----------------
-  
-S3 VS EBS VS EFS :-
-
-S3: This is the Object-based storage. Each file stored in S3 has a own unique identifier or key, for access through web requests from 
-      anywhere from internet or cloufrount. Also S3 support the Static Website Hosting.
-      S3 is not at all the traditional file system. 
-      Scalability: very high
-      Latency: Low
-      Its best to use for:-
-      storing media content for distribution
-      static website
-      Archiving
- EBS: Elastic Block Syatem
-      This is the Block-Storage 
-      In very simple term, EBS is the drive of your EC2 instance. Every EC2 instance must have a EBS attached to it.
-      Thing of this as a C or D drive of your vitual EC2 machine.
-      Its fastest among all but its scalability is very dificult and required manully attachment/dettachment of EBS (Volume)
-      Think of it like a local linux server with EBS as its SSD drive. If load goes up you have to stop server, add more SSD and restrat it.
-      Scalability: Poor
-      Latency: Lowest
-      Its best for 
-        Database: sql, nosql etc.
- EFS: Elastic File Syatem
-      At a moment just remeber that EFS is same as EBS, But EFS can be attch to multiple EC2 instace and sevices.
-      Its biggest advantage over EBS is it is auto scalable whel load fluculated ove attached EC2's.
-      Scalability: b/w both
-      Latency: b/w both
       
-      
-------------------------------------------
-   
-   Object VS block storage :-
-      To understand the behavior of S3 you musr first focus on its way of working, To understnd the doffrence lets say i wants to sve a 
-      100 MB file in storage.
-      How diffrent type of storage will behave ? 
-      1. Block based -: 
-            HEre the file will be splited in small block of 1MB (just assumed) each. then this small puices are saved in memory blocks
-            later when you need this 100mb file again, the storage system will retrive those 100 block, arrange them in proper order.
-            recreate the 100 MB file again and return it.
-            advantage - 
-              1. Block storage devices provide low latency IO, so they are suitable for use by Relationshih-databases and OS.
-              2. This is best if you wants to do an blob level operation eg. here you can easily append a single line to the end of a log file
-             disadvatages :-
-              1. if rented from any clod provider (like EC2's EBS) you will have to pay for what size you allocated.
-              2. strongly tied to db and server infrastructure strongly, increasunf size of block storage may need a complete infrastrucure overhaul.
-              3. You can only access block storage through a running server
-
-        2. Object Based :-
-            Here the file is not at splited, instead a file is saved as it is whithout any modification. once stoered it will return a key 
-            that will be a identifier of this data or file.
-            Now when you need it again you simply use this key to query and you get whole of your file back.
-            In simple word - In shoping mall before you enter you deposit your beg to gatekeeper, he gives you a token. later you use this token 
-              to get the bag back. The beg is an Data or file (doesnt matted the size or content of bag), the tokn is a key.
-            Advangate :-
-            1. The content and size of the file doesnt matter, you simply place them in storage, and get the key for later retrival.
-                 It could store json, xml, image, video, js, html, mouse(ok not a mouse) almost any kind and size of file/data
-            2. Its infinitly expandable, if you need to scale up/down the storage space then add/remove some storage devices and do not need to make any
-               changes in rest of the infrastructure.
-            3. with the key and proper HTTP api you can get anu data from storage anywhere.
-            4. lot of meta data can also be saved along with file/data.
-            5. A cost structure that means you only pay for what you use
-
-            
-            disadvantage :-
-            1. You can’t use object storage services to back a traditional database, due to the high latency of such services
-            2. Operating systems can’t easily mount an object store like a normal disk
-            3. Object storage doesn’t allow you to alter just a piece of a data blob, you must read and write an entire object at once. 
-                This has some performance implications. eg. to add one log line in a log file you have to delete, edit and put entire file again.
-      
-        
-        
---------------------------------        
+--------------------
     
-    
-    S3 Bucket and CORS:- To get any objevt from S3 we generally use GetObject web-service, now if you call it direcl=tly from 
-       browser URL or from Postman, it work fine but if we call it via any other origin eg: localhost.com or www.mufsite.com, 
-       or by fetch(..) function of JS, then you may gey the CORS error.
-       TO resolve this just add the origin To the bucket it lies in.
-       aws > s3 > 'your bucket' > permission > CORS.
-       In each CORWS rule you need to specifu three thing:-
-        AllowedMethods: 
-         PUT, POST, DELETE, GET,HEAD. [If CORS is enabled then OPTION is allowed bu default]
-        AllowedOrigin:-
-          This list of domains to be allowed.
-        AlloweHeader:-
-          The header that are allowed in Perflight OPTION Request.
-          
-       Note: The CORS config is set over the Bucket not on the Object
+S3 Bucket and CORS:- To get any objevt from S3 we generally use GetObject web-service, now if you call it direcl=tly from 
+   browser URL or from Postman, it work fine but if we call it via any other origin eg: localhost.com or www.mufsite.com, 
+   or by fetch(..) function of JS, then you may gey the CORS error.
+   TO resolve this just add the origin To the bucket it lies in.
+   aws > s3 > 'your bucket' > permission > CORS.
+   In each CORWS rule you need to specifu three thing:-
+    AllowedMethods: 
+     PUT, POST, DELETE, GET,HEAD. [If CORS is enabled then OPTION is allowed bu default]
+    AllowedOrigin:-
+      This list of domains to be allowed.
+    AlloweHeader:-
+      The header that are allowed in Perflight OPTION Request.
+
+   Note: The CORS config is set over the Bucket not on the Object
        
 --------------------
+
   S3 Signed URLs:-
     Signed url provied you an pre-authenticated url wich is generated via creds of some authorized user. this url can be used used for 2 of operation on S3
     1. GET: read/download object
