@@ -644,10 +644,10 @@ Accessing Bucket and object Anonymously:-
 	
 	Just assume that we never upload object anonymously. at best we can just read/download it.
 
-	How BP can allow/deny Anonymous access
+	How BP can allow Anonymous access
 	- BP remain empty
 	- BP say nothing for like  	Principle: *		OR		Principle: {"AWS": "*"} 	
-	- BP say "Allow" nothing for like  	Principle: *		OR		Principle: {"AWS": "*"} on "S3:GetObject" 	
+	- BP say "Allow" for like  	Principle: *		OR		Principle: {"AWS": "*"} on "S3:GetObject" 	
 	
 --------
 
