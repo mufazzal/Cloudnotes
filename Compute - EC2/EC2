@@ -174,7 +174,6 @@ Dadicated Host/Instance:-
 	- You cannot change the tenacy from Dadicated/Host to Default and vice versa
 	- You can change the tenacy from Dadicated to Host and vice versa
 	
-	
 	Auto-Placement:- 
 		If enabled then matching EC2 will always launch in the dadicated host. if not enabled then Matching EC2 will launch in host only if Host Id is given in launch request.
 	Affinity:-
@@ -184,8 +183,6 @@ Dadicated Host/Instance:-
 			Both are almost same except below two item is trimmed don in DI
 			1. DI do not give much visibility an control to underline hardwate.
 			2. DI do not allow to use existing server-bound software licenses like Windows Server etc.
-		
-	
 
 ----------------
 AWS System Manager:-
