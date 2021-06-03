@@ -64,10 +64,8 @@ EC2 Hibernate:-
 	
 	Limitation:-
 		- canot work if RAM > 150 GB
-		- for instance store data in RAM will not be preserve
-		- do not work for spot instances.
-		- you cannot keep a instance in hibernate for more then 60 days.
-		
+		- if instance store is root disk then hibernate will not work.
+		- you cannot keep a instance in hibernate for more then 60 days.		
 		
 	Hibernate and spot instance:-
 		This feature is very useful for spot instances.
