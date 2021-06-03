@@ -137,5 +137,26 @@ ALB-Cognito User Authentication:-
   If ALB is set behind the Cloudfrong Cache then set this in CFT:-
       headers/Query string/Cookie forwarding: — Ensures that the CFT forward all the query string, headers and cookie required to authenticate the user with the IdP to LB.
       Caching: Ensure that CFT do not cache the response of auth apis.
+-------------------
+
+TLS offloading:-
+  ALB and NLB support TLS offloading. With this you can terminate the HTTPS conncetion from client at LB front and then request passed down to downstream as HTTP.
+  This save the server time from doing HTTPS handshakes.
+  
+  For this
+  1. You must have the SSL certificate
+      1.1 Either create one in AWS Certificate MAnager(ACM)
+      1.2 Crete via SSL tool, sign it by CA, import to IAM or ACM
+  2. Default Certificate:-
+      You must provide one default certificate.
+  3. Certificate List:-
+      You can use it if you have multiple domain.
+      If you do not wants to have additional certificate then you must use wildcard in domain name.
+  4. Security Policy:-
+      You can define Protocol and Chipher as additional layer of sucurity between client and LB.
+  
+      
+  
+
 
 
