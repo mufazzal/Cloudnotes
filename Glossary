@@ -1,0 +1,40 @@
+
+   Object VS block storage :-
+      To understand the behavior of S3 you musr first focus on its way of working, To understnd the doffrence lets say i wants to sve a 
+      100 MB file in storage.
+      How diffrent type of storage will behave ? 
+      1. Block based -: 
+            HEre the file will be splited in small block of 1MB (just assumed) each. then this small puices are saved in memory blocks
+            later when you need this 100mb file again, the storage system will retrive those 100 block, arrange them in proper order.
+            recreate the 100 MB file again and return it.
+            advantage - 
+              1. Block storage devices provide low latency IO, so they are suitable for use by Relationshih-databases and OS.
+              2. This is best if you wants to do an blob level operation eg. here you can easily append a single line to the end of a log file
+             disadvatages :-
+              1. if rented from any clod provider (like EC2's EBS) you will have to pay for what size you allocated.
+              2. strongly tied to db and server infrastructure strongly, increasunf size of block storage may need a complete infrastrucure overhaul.
+              3. You can only access block storage through a running server
+
+        2. Object Based :-
+            Here the file is not at splited, instead a file is saved as it is whithout any modification. once stoered it will return a key 
+            that will be a identifier of this data or file.
+            Now when you need it again you simply use this key to query and you get whole of your file back.
+            In simple word - In shoping mall before you enter you deposit your beg to gatekeeper, he gives you a token. later you use this token 
+              to get the bag back. The beg is an Data or file (doesnt matted the size or content of bag), the tokn is a key.
+            Advangate :-
+            1. The content and size of the file doesnt matter, you simply place them in storage, and get the key for later retrival.
+                 It could store json, xml, image, video, js, html, mouse(ok not a mouse) almost any kind and size of file/data
+            2. Its infinitly expandable, if you need to scale up/down the storage space then add/remove some storage devices and do not need to make any
+               changes in rest of the infrastructure.
+            3. with the key and proper HTTP api you can get anu data from storage anywhere.
+            4. lot of meta data can also be saved along with file/data.
+            5. A cost structure that means you only pay for what you use
+
+            
+            disadvantage :-
+            1. You can’t use object storage services to back a traditional database, due to the high latency of such services
+            2. Operating systems can’t easily mount an object store like a normal disk
+            3. Object storage doesn’t allow you to alter just a piece of a data blob, you must read and write an entire object at once. 
+                This has some performance implications. eg. to add one log line in a log file you have to delete, edit and put entire file again.
+      
+        
