@@ -84,7 +84,7 @@ S3 Storage Classes:-
             
   5. S3 Glacier and S3 Glacier deep Archive: for long-term archive and digital preservation
       Take minute and Hours for retrival, Glcier do not have any real time access.
-      You will be charged minimum for 90 days
+      You will be charged minimum for 90 days and 40 KB
       
     
 -------------------------
