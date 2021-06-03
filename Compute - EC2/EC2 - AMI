@@ -66,4 +66,8 @@ Export/Import VM:-
 				3. Use the AMI created above for launching EC2. 
 	- You can also create the VM image from EC2 and use this image to create the machine in on-premise.
 
+-----------------
+
+AMI of Instance store attached Instance:-
+	ThisAMI will not have data of Instance store.
 
