@@ -9,8 +9,6 @@ You can create multiple version of LT.
 You can either use default version or any specific version of LT in the ASG.
 In launch tamplate you chosse single value of Instance type and Pricing model. but in the ASG later you have multiple values of those which will override them. 
 
-
-
 LC VS LT:-
   AWS recommend to use the LT instead of LC because
     - LT can have multiple version and you do not have to change the ASG if you make any chnages in LT. In LC you have to modify the ASG because.
@@ -18,6 +16,7 @@ LC VS LT:-
     - With LT you can use multiple instance type in you ASG with LC its not possible.
     - With LT you can also use Volume Tagging, elastic inference, Dedicated Hosts.
     - In single ASG you can use multiple LT but only one LC.
+    - LT support the dadicated tanency too.
     
   Operational Advatange on LT over LC:-
     If you are using the LC in the ASG then any changes in the instance configuration is not possible. because youi cannot edit the LC.
