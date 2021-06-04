@@ -63,9 +63,8 @@ S3 Monitoring:-
         2. Select the bucket 'mylogbucket' in target bucket
         3. set prefix for the log for easy filtering EG. for 'murbucket' set 'murbucketLogs-',  for 'mufbucket' set 'mufbucketLogs-'
         Done
-        You do not need any special permission in bucket policy, 
-        but Adding deny conditions to a bucket policy might prevent Amazon S3 from delivering access logs.
-        Target bucket must be ftom same region and account.
+        You do not need any special permission in bucket policy, but Adding deny conditions to a bucket policy might prevent Amazon S3 from delivering access logs.
+        Source and Target bucket must be ftom same region and account.
 
     Viewing log:-
       Simply go to 'mylogbucket' and you will see files containing logs. this logs has info like
