@@ -82,12 +82,11 @@ S3 Monitoring:-
       - How many of object are in there today, yesterday, a month ago etc.
       - How many PUT/GET/POT request were there on this bucket
       - How many 4XX kind of error we dot today.    
-      - The full requets body and response
- 
+      - The full requets body and response 
 
   The formate of this logs are:-
-      f9da3b5bec57f4601a1d29654ffc1d8983ff413d534b9cd13b9a05a1343dbd2a muf-aws-tuto-acl-public-rw [05/Aug/2020:14:57:55 +0000] 10.246.191.124 arn:aws:iam::388412347424:user/Mufazzal_Hussain F1EDCEB81EBCDFF0 REST.PUT.TAGGING - "PUT /?tagging HTTP/1.1" 204 - - - 155 99 "-" "AWS CloudFormation, aws-internal/3" - XBDaseYr8wAQvrSvoEHAbY673VNI0WNuXPKKh6pgolqpfNCqwlpOB4JvqETYFL3WGRD2LfO7Zog= SigV4 ECDHE-RSA-AES128-SHA AuthHeader muf-aws-tuto-acl-public-rw.s3.us-east-1.amazonaws.com TLSv1.2  
-  
+        <random number> <Bucket Name> [Date time] <IP> <IAM/Annmous user> <???> <API name> - "<Requets Methode>" <Response code> <Error> 
+
   Setting Access Log via cloudrormation:-
             S3TutoPublicRWBucket:
               Type: 'AWS::S3::Bucket'
