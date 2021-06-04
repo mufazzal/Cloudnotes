@@ -5,7 +5,7 @@ There are diffrent technique you can adopt for performance optimization for diff
 Technique                 Target                                    Operation            How               
 
 Transfer Acceleration     Latency minimization                      GET and PUT          Instead of simple internet, it uses Amazon backbon network                                                       
-CloudFront + S3           Latency minimization                      GET                  By caching the content in nearest edge location. and us Amazon backbon network to get object if no cache there.
+CloudFront + S3           Latency minimization                      GET and PUT          By caching the content in nearest edge location for PUT. and use Amazon backbon network(for GET and PUT both) to get object if no cache there.
 Multipart Upload          Throughput / maximise bandwith usage      PUT                  By breaking large file in small parts and upload them in paraller. remerge them in the end of operation.
 Range Based Get           Throughput / maximise bandwith usage      GET                  By breaking large file in small parts and download them in paraller. remerge them in the end of operation.      
 Parallelise
@@ -15,8 +15,7 @@ S3 Prefix                 Increase PUT/GET/DELET limits
        
 Default performance of S3:-
   3500 PUT/POST/COPY/DELET per sec per prifix
-  5500 GET/HEAD per sec per prifix
-      
+  5500 GET/HEAD per sec per prifix      
 
 Transfer Acceleration:-
   The TA uses the AWS owned global clodfront network(instead of internt) to transfer the data.
