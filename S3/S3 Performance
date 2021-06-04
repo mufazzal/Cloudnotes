@@ -112,7 +112,7 @@ Avoid expensive List operation:-
     
 TX VS CloudFront:-
   One use caching other not.
-  TX is better choice for upload if file size < 1 GB. otherwise use TX.
+  Cloudfront is better choice for upload if file size < 1 GB. otherwise use TX.
     
      
     
