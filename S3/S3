@@ -127,9 +127,18 @@ URL of the files/object in Bcucket:-
 
 -------------------------
 
-Metadata:- S3 also give you the way to store data bout data. EG content-type, content-lengh etc. 
-            IMP: S3 do not encrypt MEtadat even if encryption is enabled so never store sensitive info in it.
-Tag:- You can also attach the tag on the Object. 
+Metadata:- 
+  S3 also give you the way to store data bout data. EG content-type, content-lengh etc. 
+  There is basicaly two type of metadata
+  1. System MEta data:
+      Date, Content-Length, Content-Type
+      x-amz-server-side-encryption, x-amz-version-id, x-amz-storage-class	etc.
+  2. User defined meta:
+      define with header 'x-amz-meta-<name of meta data>'
+      
+  IMP: S3 do not encrypt MEtadat even if encryption is enabled so never store sensitive info in it
+  
+  Tag:- You can also attach the tag on the Object. 
 
 --------------------------
 
