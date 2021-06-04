@@ -28,7 +28,7 @@ The storage Gateway can cutomize the S3 sevice to provide you storage of belw ty
     you can use two stratagy here.
     you cannot access this data with s3 api or s4 console.
     2.1  Stored Volume [live data in premise and backup at S3] :-
-      Use on-premise as db and s3 as cached.
+      Use on-premise as db and s3 as back up.
       Here you keep all the data set at your on premise(storage attach to STG virtual machine) but save the back up at S3 too. 
       The storage gateway take care of taking the back up from time to time. The back up of datset at on-premise is taken in form of EBS snapshot.
       This gives low latency for entire data set.
@@ -36,7 +36,6 @@ The storage Gateway can cutomize the S3 sevice to provide you storage of belw ty
       Use S3 as primary db and on-premise as cache.
       Here you keep all the data set at S3 but keep the recently accessed file at on-premise(storage attach to STG virtual machine). 
       Storage GAteway store all the data in S3 as volume storage. STG himself take care how he maniuplate the S3(which is object based) as Bolck based.
-      You can take the snapshot of data set in form of EBS snapshot and store in S3 for disaster recovery.
       This gives low latency for recelntly accessed but high for non frequently accessed one. 
       
   Tape Getway:-
