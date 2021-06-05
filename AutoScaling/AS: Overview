@@ -101,8 +101,7 @@ ASG scaling processes:-
     
 ----------
 
-AS Instance Lifecycle:-
-  In AS the instance passes from below phases
+AS Instance Lifecycle - LB target status - timeouts:-
   1. Pending: 
       The instance is starting.
       --> LB.TG.Instance-target-status set to 'Initilize' here 
