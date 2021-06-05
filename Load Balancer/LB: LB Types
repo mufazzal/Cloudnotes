@@ -13,6 +13,7 @@ Limits of NLB
   - No fenct routing based on HTTP/HTTPS Header/Query/Path 
   - NLB do not support the SG.
   - Cannot route traffic to Lambda
+  - Sticky sessiin not supported
   - Cannot return the custom HTTP Response.
   - You canot remove AZ after the creation of NLB. though you can add new one.
   - For internet-facing load balancers, the subnets that you specify must have at least 8 available IP addresses
