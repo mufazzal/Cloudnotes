@@ -80,9 +80,9 @@ Supporting SQL DB:
     On-premise or EC2 database
     MYSQl, Oracle, PostrgressSql
     RDS
+    S3
     Redshift
     DynamoDB
-    S3
     ElasticSearch
     Kenesis
     DocumentDB    
