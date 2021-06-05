@@ -82,9 +82,13 @@ Bastin Host:
   with sufficient RDP or SSH access defined in the security group. 
   Users log on to the bastion host via SSH or RDP and then use that session to manage other hosts in the private subnets.
 
+------------
 
-
-
+VPC and Public DNS Host name support:-
+  Th instance launch in the VPC will have the public DNS name if 
+  - enableDnsSupport is true AND
+  - enableDnsHostnames is true AND 
+  - The instance has public IP.
 
 
 
