@@ -29,7 +29,7 @@ Supporting SQL DB:
     For analytics we use another DB and system, Thats called data warehousing 
     
     AWS tool for Data warehousing: RedShift
-    Elasticache is suitable for OLAP (Online Analytics platform) databse    
+    RedShift is suitable for OLAP (Online Analytics platform) databse    
     
   Caching: 
     AWS also provide a way to cache the DB in the memory. So retrive the data from memory instead of a disk
