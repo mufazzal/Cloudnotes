@@ -101,4 +101,35 @@ ASG scaling processes:-
     
 ----------
 
+AS Instance Lifecycle:-
+  In AS the instance passes from below phases
+  1. Pending: 
+      The instance is starting.
+      --> LB.TG.Instance-target-status set to 'Initilize' here 
+  2. Pending:Wait :-
+      Instance is running the Lifecycle Hook. The time given to run this hook is set by 'ASG.<Hook>.heartBeatTimeOut'.
+      ASG.<Hook>.heartBeatTimeOut start here.
+      If hook ran succesfully then instance goes to next state. otherwise it will goes in state 'Terminating';
+      --> LB.TG.Instance-target-status remain 'Initilize' here 
+  2. Pending:Proceed :-
+      --> LB.TG.Instance-target-status remain 'Initilize' here 
+  3. In-Service:-
+      At this point the isntace is ready for Health check.
+      Still you can give instance some time to cofigure itsself up for healthcheck by 'ASG.HealthCheckGracePriode'
+      ASG.HealthCheckGracePriode Start here.
+      After this time the First health check begin
+      if it fail then 
+        --> LB.TG.Instance-target-status set to 'Unhealthy'. And now ASG will start purging this instance. 
+      if it passed then 
+        --> LB.TG.Instance-target-status set to 'Healthy'. 
+        As this instance has just marked as healthy
+        
+      
+      
+  
+  
+  
+  
+
+
     
