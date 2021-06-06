@@ -27,6 +27,7 @@ Lambda:-
   This is fatest and cheapest way to this. Here you do not have to write the polling mechanism at all.
   Actully when you set the SQS as event source in lambda then the Cloudwach also get involved in it.
   The cloudwach do the pollong of the que continously in the backround and when there is a new message/messages, the lambda get triggerd by the cloudwatch.
+  You can use the SQS as source of event source mapping with lambda
   
   This lambda can have more then one messages in one call which can be retrived from 'event.body.Records[]' array.
   if you wants to limit the number of record to read in on go then you can set the parameter  'batchSize' in lambda sqs event source. 
