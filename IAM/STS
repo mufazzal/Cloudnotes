@@ -7,6 +7,9 @@ without needing to create a corrosponding AWS IAM User or Role for them.
 STS provide you the temporary AWS IAM credential with Access Key + ID + Session token to perform operation over AWS resources.
 This token are short lived and generated for specific Federated user.
 
+VIMP: To generate Faderated temprary cred you need a IAM user not role.
+
+
 Below is the list of STS api that can be used to generate the Temporarry Security Cres for diifrent kind of user
 
   1. AssumeRole:                  IAM user or IAM role with existing temporary security credentials
