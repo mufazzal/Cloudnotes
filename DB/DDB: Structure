@@ -165,6 +165,9 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
 			
 	Suppose you wants the data to be searchable by 'name' then you have to create a GSI for the attribute 'name'.  
       	SO: in nutshell, if you wants any attribute ar a combination oftwo attribute queriable, then create GSI out of them.
+        
+        Capacity Provision for GSI: Just like main DDB table you have to provision the capacity for GSI.
+          This capacity is different from the one we provisioned for our main db.
 
    LSI :-
 	 	In LSI you have the same partitition key as DDB table but the sort key is diffrent from DDB table.
@@ -174,7 +177,8 @@ r5	fattu		   mob2	->		samsung	 	J9	  67667
 		- You can create it only at a time of Table Creation.
 		- once created it can not be edeleted also
 	
-
+                Capacity Provision for LSI: You can not provision additional capacity for LSI.
+                  It eats from the capacity of main table.
 
 	When to use SI(secondry index): Though SI make the DB very queriable and dynamic but there is one very big secret here. that secret is
 	for each created SI for ant table the AWS in background have to capture almost double information and store almost double data
