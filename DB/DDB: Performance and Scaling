@@ -72,6 +72,7 @@ DDB Accelerator [DAX] :-
 	Store it in DAX cache
 	and return it to api response
 	Next time if some api ask for same data then it will just return from the pre-stored cache.
+        default cache TTL is 5 mnt but you can change it
   Advantages :-
 		- remove many read overload from DDB and so you may need less read-capacity on DDB table
 		- Make read fater
