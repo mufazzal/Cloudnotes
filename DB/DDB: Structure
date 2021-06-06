@@ -190,7 +190,7 @@ These are the possible query by index:
 
 	By Part-key
 	By Part-key + Sort-key
-	By Part-key + GSI-Sort-key		--> LSI
+	By Part-key + LSI-Sort-key		--> LSI
 	By GSI-Part-key				--> GSI
 	By GSI-Part-key + GSI-Sort-key		--> GSI
 
