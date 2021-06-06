@@ -53,7 +53,7 @@ Synchronus calling:-
       - API Gateway:  It forward error without any retry.
       - S3 Batch:     retries the operation if the Lambda function returns a TemporaryFailure response code. no retry otherwise 
       - Lambda@Edge:  It forward error without any retry.
-      - ALB:          It forward error without any retry.  
+      - ALB target:   It forward error without any retry.  
     
 Asynchronus calling:-
   If you call the lambda invoke Asynchronusly then it will deliver the enevt and return immediatly. it do not wait for result to be produced.
