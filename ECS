@@ -216,7 +216,8 @@ ECS Cluster[with EC2 Hosting]:-
 																subnets, securityGroups, assignPublicIP
 				loadBalancers:				Config related to LB. you must gibe below:-
 																targetGroupArn, loadBalancerName, containerPort [This is the port of container that wil be assosiated with EC2 ports]
-				role:									A role that allows Amazon ECS to make calls to your load balancer on your behalf.
+				role:									A service role [diifrent from role Task-Defintion and ECS-Cluster ] 
+																that allows Amazon ECS to make calls to your load balancer on your behalf.
 				capacityProviderStrategy:	
 															It could be be the ARN of ASG if you are using the EC2 or 
 															it could be FARGATE or FARGATE_SPOT if you are using the Fargate.
