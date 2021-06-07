@@ -37,6 +37,14 @@ Hosting Enviorment:-
 
 ---------------------------------------------
 
+ECS Agent:-
+	The EC2 instance on which ECS ran, must has ECS Agent install init.
+	Also that instance must have way to reach to the AWS ECS service to let ECS work properly.
+	For this the EC2 instance
+	- Either has internet acceciblitu via NATor IG.
+	- Or have a accesible Service endpoint for AWS ECS. 
+
+--------------------------------
 ECS Cluster[with EC2 Hosting]:-
 	Think of ECS Cluster as the collection of EC2s in a logical group.
 	This EC2 will later be used to run multiple containers in a orchestration.
