@@ -8,7 +8,7 @@ It automatically grow and shrink in size based on avilabale empty space in disk.
 	- It is highly scalable, highly available, and highly durable
 	- you pay only for the storage used by your file system and there is no minimum fee or setup cost
 	- EFS with Microsoft Windows–based Amazon EC2 instances is not supported
-	- Data is redundently stored in multiple Storage Servers for higher availibility and any device failure.
+	- Data is redundently stored in multiple AZ.
 	- EFS cant be used as root device
 	
 	With this you can do read and write operation simulteniuosly on 
@@ -176,8 +176,8 @@ Back Up:-
 EFS VS EBS 
   - EFS has auto grow/shrink
   - EFS is attchable to many EC2
-	- EBS has slgtly lower latency then EFS
-  
+  - EBS has slgtly lower latency then EFS
+  - ESB: data stored in single AZ redundatly. in EFS its multi AZ
 EFS VS S3:-
   - One is blockk other is object storage.
   - EFS has very high througput and IOPS.
