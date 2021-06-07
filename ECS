@@ -3,134 +3,137 @@ Docker and AWS:-
 	This best suited for Batch job which are short-live and can be processed parrllal.	
 	Bsed on workload you can bring up and down the container instances quickly via altering Task.  
 	
-	ECR[Elastic Container Registery]:-
-		ECR is the tool where you can upload the Images of Container and share with other.
-		This is simplty a repository for Comtainer images.
-		It compititor :-
-			DockerHub
-	
-	Container Orchastration tool:-
-		This is where our Containers run. here actully the Application is hosted.
-			Compititor:-
-				Docker
-		There is two tool AWS provide
-			EKS[Elastic Kubenetees service]:-
-				Use for Oprn-Source Conainer orchastration tool Kubenetis
-				
-			ECS[Elastic Container Service]:-
-				This tool give you the way to manage the containers and help you to do operational stuff on it like
-					Start stop containers
-					Load Balancing
-					Scheduling
-					Replication
+ECR[Elastic Container Registery]:-
+	ECR is the tool where you can upload the Images of Container and share with other.
+	This is simplty a repository for Comtainer images.
+	It compititor :-
+		DockerHub
 
-	Hosting Enviorment:-
-		On EC2:-
-			Here the container are ran on EC2s and customer is responsible for managing those EC2.
-			AWS ECS take care of running container and managong it on EC2/
-			On Each EC2 'ECS Agent' Must be installed.
-		On Fargate:-
-			Here There is no EC2 instance in picture. The Container will run on Fargate and cutomer need not to worry about 
-			managing EC2s.
+Container Orchastration tool:-
+	This is where our Containers run. here actully the Application is hosted.
+		Compititor:-
+			Docker
+	There is two tool AWS provide
+		EKS[Elastic Kubenetees service]:-
+			Use for Oprn-Source Conainer orchastration tool Kubenetis
+
+		ECS[Elastic Container Service]:-
+			This tool give you the way to manage the containers and help you to do operational stuff on it like
+				Start stop containers
+				Load Balancing
+				Scheduling
+				Replication
+
+------------
+
+Hosting Enviorment:-
+	On EC2:-
+		Here the container are ran on EC2s and customer is responsible for managing those EC2.
+		AWS ECS take care of running container and managong it on EC2/
+		On Each EC2 'ECS Agent' Must be installed.
+	On Fargate:-
+		Here There is no EC2 instance in picture. The Container will run on Fargate and cutomer need not to worry about 
+		managing EC2s.
+
+---------------------------------------------
+
+ECS Cluster[with EC2 Hosting]:-
+	Think of ECS Cluster as the collection of EC2s in a logical group.
+	This EC2 will later be used to run multiple containers in a orchestration.
+	When you create ECS cluster you provide detail of how EC2 will be congigured
+		Networking:-
+				- VPC
+				- Subnet
+				- SG
+				- IAM Role
+						: VIMP This role must has the permission 'ecsInstanceRole' attach. 
+							Because the ECS-Agent in the EC2 instance need to make API calls for Container management in the ECS Cluster.
+		Compute Capacity:-
+			You have to provide below 
+				- Instance provisioning model [on-demand or spot]
+				- Instance type
+				- Storage
+				- No of instances.
+				- AMI id	
+						: This AMI must have proper ECS-Agent also installed. if not then you have to manually install it or all your container image are useless. 
+			The instances lanuch by ECS here are actully klanch in ASG rather then independently. ECS internally take care of this.
+			So if one goes down somhow then other come up. and then ECS-Agent take care of lanuching container in it
+
+	The Template for Task | Task Defination:-
+		This is the json template which contain belo info
+			- Task Role
+					: This role will be futher hydrated on inner container of this task
+			-	Compatibility:
+					slect EC2 or Farget.
+			- Network Mode:-
+					it could be	
+						Bridge:-
+							In this mode of networking an one EC2 port is mapped to one Container instance.
+							[ISSUE: 
+									Biggest issue here is that the EC2 has only one port 80(for example take 8-). 
+									now what will happed if you need multiple container to listed on port 80 of Host EC2.
+									Limitation due to this issue:-
+										Due to this issue if some you need one to one mapping between EC2 and container of port 80(just for example)
+										So if you need to run 4 container and each listed to port 80 then you will have to have 4 EC2 up and running.
+										so that each container will run on each EC2. [ECS will do it for you]
+										if you have only 2 EC2 then 2 of the container will fail to start.
+								]
+
+						awsvpc:-
+							To solve this issue comes the 'Network Mode' = awsvpc.
+							Here, with each TASK[not container] ther is one ENI attached. and so each container has its own unique IP.
+							Even each container has its own SG attached.
+			- Task Size:-
+					Memory size:-
+						The total size of RAM you need for this task. this will be futher dole uot to in-running containers
+					vCPU:-
+						The total size of vCPU you need for this task. this will be futher dole uot to in-running containers
+			- Containers:-
+					You can add the list of containers images here with each image you also need to give	
+						- Image Name [from public docker repo or from ECR]
+						- Memory limit:-
+							set the limit of memory this container can have. if RAM goes above then container will be killed.
+						- Port Mapping:-
+								if you have selected the 'Network Mode' = bridge you will have to do the static port mapping here
+								This will map the EC2 port to the port of this container.
+								it will have mapping like	
+									Host EC2 port <----> Container port
+								This is advisable to use the NEtwork Mode = 'awspc' so that you can take benefit of Dynamic Port Mapping.
+			- The command the container should run when it is started
+			- Any data volumes that should be used with the containers in the task			
+			- The logging configuration to use for your tasks
+			- Whether the task should continue to run if the container finishes or fails
 
 
-	ECS Cluster[with EC2 Hosting]:-
-		Think of ECS Cluster as the collection of EC2s in a logical group.
-		This EC2 will later be used to run multiple containers in a orchestration.
-		When you create ECS cluster you provide detail of how EC2 will be congigured
-			Networking:-
-					- VPC
-					- Subnet
-					- SG
-					- IAM Role
-							: VIMP This role must has the permission 'ecsInstanceRole' attach. 
-								Because the ECS-Agent in the EC2 instance need to make API calls for Container management in the ECS Cluster.
-			Compute Capacity:-
-				You have to provide below 
-					- Instance provisioning model [on-demand or spot]
-					- Instance type
-					- Storage
-					- No of instances.
-					- AMI id	
-							: This AMI must have proper ECS-Agent also installed. if not then you have to manually install it or all your container image are useless. 
-				The instances lanuch by ECS here are actully klanch in ASG rather then independently. ECS internally take care of this.
-				So if one goes down somhow then other come up. and then ECS-Agent take care of lanuching container in it
-							
-		The Template for Task | Task Defination:-
-			This is the json template which contain belo info
-				- Task Role
-						: This role will be futher hydrated on inner container of this task
-				-	Compatibility:
-						slect EC2 or Farget.
-				- Network Mode:-
-						it could be	
-							Bridge:-
-								In this mode of networking an one EC2 port is mapped to one Container instance.
-								[ISSUE: 
-										Biggest issue here is that the EC2 has only one port 80(for example take 8-). 
-										now what will happed if you need multiple container to listed on port 80 of Host EC2.
-										Limitation due to this issue:-
-											Due to this issue if some you need one to one mapping between EC2 and container of port 80(just for example)
-											So if you need to run 4 container and each listed to port 80 then you will have to have 4 EC2 up and running.
-											so that each container will run on each EC2. [ECS will do it for you]
-											if you have only 2 EC2 then 2 of the container will fail to start.
-									]
 
-							awsvpc:-
-								To solve this issue comes the 'Network Mode' = awsvpc.
-								Here, with each TASK[not container] ther is one ENI attached. and so each container has its own unique IP.
-								Even each container has its own SG attached.
-				- Task Size:-
-						Memory size:-
-							The total size of RAM you need for this task. this will be futher dole uot to in-running containers
-						vCPU:-
-							The total size of vCPU you need for this task. this will be futher dole uot to in-running containers
-				- Containers:-
-						You can add the list of containers images here with each image you also need to give	
-							- Image Name [from public docker repo or from ECR]
-							- Memory limit:-
-								set the limit of memory this container can have. if RAM goes above then container will be killed.
-							- Port Mapping:-
-									if you have selected the 'Network Mode' = bridge you will have to do the static port mapping here
-									This will map the EC2 port to the port of this container.
-									it will have mapping like	
-										Host EC2 port <----> Container port
-									This is advisable to use the NEtwork Mode = 'awspc' so that you can take benefit of Dynamic Port Mapping.
-				- The command the container should run when it is started
-				- Any data volumes that should be used with the containers in the task			
-				- The logging configuration to use for your tasks
-				- Whether the task should continue to run if the container finishes or fails
+		Deploying Container on ECS Cluster / Task :- 
+			From the the task defiation ocreated earlier you can create the actual task in instance in the cluster.
+			Task is wherein the containers ran. A single task can have a multiple container.
 
-
-				
-			Deploying Container on ECS Cluster / Task :- 
-				From the the task defiation ocreated earlier you can create the actual task in instance in the cluster.
-				Task is wherein the containers ran. A single task can have a multiple container.
-				
-			Full view of EC2 Hosted ECS Cluster:-
-				ECS Cluster		
-					|
-					|-------	EC2 Instance e1
-					|					|
-					|					|-----Task e1t1
-					|					|				|---------Container instance C1
-					|					|				|---------Container instance C1
-					|					|				|---------Container instance C3
-					|					|-----Task e1t2
-					|									|---------Container instance C2
-					|									|---------Container instance C1
-					|									|---------Container instance C1
-					|-------	EC2 Instance e2
-					|					|
-					|					|-----Task e2t1
-					|					|				|---------Container instance C2
-					|					|				|---------Container instance C3
-					|					|				|---------Container instance C1
-					|					|-----Task e2t2
-					|									|---------Container instance C2
-					|									|---------Container instance C2
-					|									|---------Container instance C1
-					|-------	EC2 Instance e3
+		Full view of EC2 Hosted ECS Cluster:-
+			ECS Cluster		
+				|
+				|-------	EC2 Instance e1
+				|					|
+				|					|-----Task e1t1
+				|					|				|---------Container instance C1
+				|					|				|---------Container instance C1
+				|					|				|---------Container instance C3
+				|					|-----Task e1t2
+				|									|---------Container instance C2
+				|									|---------Container instance C1
+				|									|---------Container instance C1
+				|-------	EC2 Instance e2
+				|					|
+				|					|-----Task e2t1
+				|					|				|---------Container instance C2
+				|					|				|---------Container instance C3
+				|					|				|---------Container instance C1
+				|					|-----Task e2t2
+				|									|---------Container instance C2
+				|									|---------Container instance C2
+				|									|---------Container instance C1
+				|-------	EC2 Instance e3
 --------------------
 
 		Dyanamic Port Maping:-
