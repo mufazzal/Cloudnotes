@@ -241,6 +241,8 @@ Pricing:-
 			2. Now assosiate this ealth check record to the Record set in Host zone.	
 		Health check of Alias[AWS resources] records:
 			Here you do not have to create the 'record in Health check' because alias (ELB, CFT, S3) have theor own health check mechanics in place.
+			You can simply enable 'Evaluate Target Health' to use the AWS provided health chek for integrate AWS service.
+			Or you can instruct to use the custom health chech define in the HEalth checks of Route 53.
 			
 		Type of Health check:-
 		1. Monitoring the End pointers:
