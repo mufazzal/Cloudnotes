@@ -21,7 +21,7 @@ Comparision:-
   SSD/HDD
   |
   |
-  |--------EFS                              PSOIX     Linux only
+  |--------EFS                              PSOIX/NFS Linux only
   |
   |--------FSX
             |
