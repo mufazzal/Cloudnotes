@@ -1,9 +1,16 @@
 Retrival:-
   There is 3 option to retrive it. The retrived object is restored in the S3.
+    1. Standard: Takes around 3 to 5 hour
+    2. Expedited: Takes aroung 1 to 5 minute for lesser 250 MB data archive. You must also purchase Provisioned Capacity to tap this benifit.
+    3. Bulk: it take 5-12 hour. and best for data of very large size.
+  In retrival you also have to specify that how long the object remain avialable in S3. after that much day Object will no longer be in S3 and 
+  now if you again need that object then create new restore request.
+  Retrived object always remain in S3 standard
   
-  1. Standard: Takes around 3 to 5 hour
-  2. Expedited: Takes aroung 1 to 5 minute for lesser 250 MB data archive. You must also purchase Provisioned Capacity to tap this benifit.
-  3. Bulk: it take 5-12 hour. and best for data of very large size.
+  Changing Storage class / Retrive prmanently:-
+    You cannot chaange the storage c;lass of Glacier object. to retrive the object permanently you have to 
+    1. Restore the object 
+    2. once retrived then copy it to same bucket(with diffrent key) or diffrent bucket. 
   
   Glacier Select:-
     You can get the data by running the sql like query. again you also have to chose any one retrival option from the 3. 
