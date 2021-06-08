@@ -88,6 +88,7 @@ Trail:-
       
       AWS Organization Trail:-
         If you have created an organization in AWS Organizations, you can create a trail that will log all events for all AWS accounts in that organization
+        Global Service Event:- You can can choose to enable or disable event from global services such as IAM, CFT etc to avoid duplication on multiple region
         
 Encryption:-
   By default, CloudTrail event log files are encrypted using Amazon S3 server-side encryption (SSE). 
