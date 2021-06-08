@@ -110,7 +110,7 @@ Kenesis use case:-
     KDS have many que in form of shrad.
     SQS has single que.
     
-    KDS guarantee it in the shrad (not among the shrad).
+    KDS guarantee order in the shrad (not among the shrad).
     SQS do not guarantee order but shrad 
     
     In KDS you can have multiple downstraem system for processing the data item. 
