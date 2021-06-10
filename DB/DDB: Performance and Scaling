@@ -84,7 +84,10 @@ DDB Accelerator [DAX] :-
          
 ----------------------
 
+ElastiCache with DynamoDB:-
+	You can use ElastiCache too with DDB. It is also In-Memory DB like DAX 
 
+----------------------
 Hot Parttion Key Issue:-
 
 	When an Amazon DynamoDB table is created, you can specify the desired throughput in Reads per second and Writes per second. 
