@@ -37,6 +37,14 @@ To anable it go to
     - Minimum size of the object to transit ahould be larger then 128kb for cost effectivness
  
  
+ Object flow always to the botton-right:-
+  S3-Standard
+    S3-Standard-IA
+      S3-IT
+        S3-One-zone-IA
+          Glacier
+            Glacier-Deep
+ 
 Behaviour of Expiration Rule on unversioned/version-enable/version-suspended bucket on the CURRENT Object:-
   Expiration on unversioned:-
     Simply delete the object
