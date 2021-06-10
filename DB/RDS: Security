@@ -13,7 +13,7 @@ Encryption :-
 
   Read-Replica :-
       If source DB is not encrypted :-
-        Then replica can be encrypted or unencrypted. Its users choice
+        Then replica must be unencrypted. user cannot change it.
       If source DB is encrypted :-  
         Then will always be encrypted! user cannot change it.
 
