@@ -50,3 +50,11 @@ Parameter Store:-
 Bulk operation on EC2
   SSM is used for doing the bulk operation on EC2s. like running the particular command on many ec2 instances together.
   for this go to : aws > ssm > run command
+----------
+
+Secret Manager:-
+  This is good choise for storing DB Cred, API key, Serrets which  can be used in application. it has auto rotate feature of seret which Param store do not has.
+  ALso it is natuvly integrated with RDS, Redshift.
+  
+  
+  
