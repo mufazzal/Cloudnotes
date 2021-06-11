@@ -99,3 +99,7 @@ CFT and Error from Origin:-
     - Or every origin must be able to load the page 'ErrMuf/err-500.htm'.
         > You have to take care at each origin end.
   Also note that the error will be cached for 3000 seconds. so if your origin have resolve the error at their end the fresh response will be reflected only after 3000 sec.
+------------------------------
+
+IMP: CFT only support HTTP/S and RTMP. Not other TCP and UDP. For the you should consider Global Accelarator. 
+
