@@ -29,6 +29,15 @@ Comparision:-
             |-----FSx Luster                PSOIX     Linux only
             
 
+FSX Window VS S3 File Gateway:- 
+  FSX window is fully managed Window Server which can be used with On-Premise Data storage or AWS Backed Storage (SSD).
+  The storage here is not S3 but some SSD drive at aws or in on premise.
+S3 File Gateway:-
+  This is the service that gives you File-based SMB interface to access the Onbecj-baseed S3 files storage.
+  Here YOu do not have the full blown window file server but you do have 
+  - A way to access the file via SMB client 
+  - A way to perform operation with S3 API and all feature od S3. 
+
 ---------------
 
 Disaster Recovery Mechanichs:-
