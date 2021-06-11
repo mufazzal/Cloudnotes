@@ -170,7 +170,8 @@ Dadicated Host/Instance:-
 
 	- To launch instance in dadicated host/Instance you have to choose it at time of launching.
 	- ASG and Dadicated Host: Only LT support it not LC. 
-	- VPC and Dadicated Host: You can set the hpst tanency at VPC level also. but it can be override bu tanact param at instance launch.
+	- VPC and Dadicated Host: You can set the host tanency at VPC level also. 
+			In conflict of ternancy among default and Dadicated Host/Instance, the Dadicated Host/Instance will always win. 
 	- You cannot change the tenacy from Dadicated/Host to Default and vice versa
 	- You can change the tenacy from Dadicated to Host and vice versa
 	
