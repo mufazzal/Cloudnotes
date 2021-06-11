@@ -98,7 +98,12 @@ CW Alarm:-
   1. SNS: CW can send notification to the SNS topic
   2. EC2: CW can directlt start, Stop, Terminate or Reboot the instance without needing any lambda.
   3. ASG: CW can take some action on Auto scalling group too directly.
-  
+     
+    Actions for EC2
+      stop, terminate, reboot, and recover
+    Action for ASG
+     
+   
   IMP: Lambda is not directrly integrated with Lambda. you have to use it woith SNS.
 
 ---------------  
