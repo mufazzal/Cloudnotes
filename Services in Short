@@ -3,8 +3,9 @@ Active Directory service:-
 
     1. AWS Microsoft Active Directory:-
         A fully managed service of AWS which can be used to create complete Miscrosoft AD system on the cloud. it integrated with many AWS services.
+        When you wants DIRECTORY-AWARE-WORKLOAD on aws.
     2. AD Connector:-
-        AD Connector is your best choice when you want to use your existing on-premises directory with compatible AWS services
+        AD Connector is your best choice when you have an existing on-premises directory and wants those user to log into AWS apps and services
     3. Simple AD:
         Low cost and trim down version of 'AWS Microsoft Active Directory' for basic usage.
 
