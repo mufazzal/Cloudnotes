@@ -3,7 +3,7 @@ You can create volume either from snapshot or without it.
 The Volume is ready-to-attach hardisk device that can be attach to Ec2. 
 
 EC2 region and Volume Region:-
-  Both of them are created in AZ of your choice. both of them must lies in same AZ otherwise there will be hell of the latancy
+  Both of them are created in AZ of your choice. both of them must lies in same AZ otherwise EBS cannot be attached.
 
 Root-Volume:-
   When you create a EC2 the root volume will automatically be created. you can though change it if wants.
