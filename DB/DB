@@ -53,7 +53,7 @@ Supporting SQL DB:
     Data Warehosing:    RedShift
     Cache:              ElasticCache
     
-    
+    IMP: Elasticache and DDB-DAX is in-memory db. not DDB
 -----------------------------
 
   AWS DMS [Database Migration Service]:-
