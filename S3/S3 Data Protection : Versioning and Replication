@@ -154,11 +154,10 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 	
 	To handle this situation comes the Replication.
 	By default this is disabled but you can configure it. By this you can simply keep the copy of the data in one bucket to another one. 
-	Replication happen over bucket level. though you can filter object to be replicated by Tag or Prefix.
-	
+	Replication happen over bucket level. though you can filter object to be replicated by Tag or Prefix.	
 
     Prerequisites for Replication:
-      both tge bucket soirce and destination must have versioing enabled.
+      both the bucket soirce and destination must have versioing enabled.
 
 	Mechanism:-
 		If you wants to have Replication of bucket then you must first have
@@ -175,6 +174,14 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 		- Older Objects: Once configured, the replication take place for new PUTs not the older existing onject. so replication will only replicate the files when replication is activated.
 		- Delete: Deletion is not replicated at all. so if some object is deleted from spource then its replica will not be deleted. this give additional data preservness. 
 	
+	----
+	
+	Synch:-
+		As disussed above the Replication only replicatethe ongoing PUTs not the previous object.
+		If you still wants to copy all theexisting objects to the destination bucket then you can use 'Synch' comand between source and destination bucket.
+		This command actully use CopyObject API in background.
+		This will copy all the existing object to the dest bucket. Though Synch do no do the ongoing replication.
+		
 	
 	----
 	
