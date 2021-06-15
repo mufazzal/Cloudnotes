@@ -85,6 +85,7 @@ In CFT you have 3 option of Secrity
             "Resource": "arn:aws:s3:::mufa-test-cdft-bucket-2021/*"
           ACL:-
             In the ACL of object just add the 'Amazon S3 Canonical User ID' and remove public access. 
+            This is useful when you wnats restriction over certain Object only instaed of whole bucket.
     Now bucket content will be accessible via CDN only and bucket and its content will not be public. 
     IMP: you do not have to make any changes in the CDN url for this. the OAI provide the the identity to CDN distribution not the person who is using this url.    
     
