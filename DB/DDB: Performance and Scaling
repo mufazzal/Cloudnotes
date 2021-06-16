@@ -77,6 +77,7 @@ DDB Accelerator [DAX] :-
 		- remove many read overload from DDB and so you may need less read-capacity on DDB table
 		- Make read fater
 		- Cache the 'HotKeys' for you so that ferquetly asked data are deliver fast and consume no read capacity at DDB
+		- It give you 10X performance and provide Single digit Microsecond latency (10 time better then milisecond latency of DDB withot DAX)
    Limits:-
 	Not major improvement if data is changing frequently
 		If data change in origin DDB table it still may remain unupdated in cache   
