@@ -1,0 +1,117 @@
+AWS Flash
+
+Window EC2 not support:-
+  EFS, EFA, FSx Luster
+
+Instance Store backed instance cannot be Stop, Hibernate.
+
+On-Damand stratagy: lowest-price, proritized
+Spot Stratagy: lowest-price, diversified, capacity-optimized.
+
+Path based s3 url going to be deprecated
+
+UEn V ---> UEn S ---> UEn V  OR En(k) V
+                        |------> UEn S  OR En(k) S
+
+En(k) V ---> En(k) S ---> En(k) V
+                        |--------> En (C or K) S
+
+
+                 ----->En(?) RR
+En(K) RDS -----> En(k) S ----> En(K) RDS
+                           |------------> En(k) S
+                          
+                   ----->UEn(?) RR 
+UEn(K) RDS ----> UEn(k) S
+
+LB: Target type = IP, only private IP supported.
+NLB do not support Target type = Lambda.
+
+S3 S-IA, One_Zone_IA, IT: Mn charges 30 days @ 128 kb
+
+Snowbal Edge:  80 TB. : 10 TB to 10PB
+SnowMobil:     100 PB. : 10 PB to infinite  
+1 PB = 1000 TB
+
+Cross Region Copy/Replication:-
+ EBS Snapshot, S3, RDS, Aurora Globa DB, DDB global table.
+
+Limits:-
+ SQSmessage size: 256 KB
+ DDB datasize: 400KB
+
+Q:  EC2 in public Subnet without Public/Elastic IP
+         |----Access EC2 from the internet  -- Impossible becoz you do not have public IP bro.
+         |----Access internet from the EC2  -- ??????????
+
+WAF secure 3 thing only:  CDN, ELB, API Gateway. [NOT EC2]
+
+Kenesis DS: EC2, Lambd, EMR
+Kenesis FH: S3, Redshift, ElsticSearch, Spluk, HTTP, MongoDB, 
+                           RDS -> NOT supported
+
+Craete AMI: Stop instnce. 'No rebbot' may gibe unwoking AMI
+Create Snap: Non-Root volume - running. Root Volume: Stop instacne
+
+Cloudtrail data even: S3 and Lambda
+
+R53:
+AG, CFT, Bucket-website: cutom domain name, alternate domain name, bucket name must match record name.
+RDS - CNAME - Alias:NO
+S3 static website link should not be used as CNAME.
+
+ECS 
+Cluster = f(instance type, VPC, Subnet, SG, IAM Role )
+Tas Def = f (containers, Task Role, launch type, CPU-Memory, storage, commands, EV)
+Service = f(ASG, Farger. f_Spot, LB, Task Def, Cluster)
+
+CW -> SNS, EC2, ASG
+
+ENA EFA => To enable instance must stopped, Specific intance support
+
+Glacier  | 3-5 | 1-5m | 5-12 
+Glacier  | 12+| ------ | 48
+
+EBS Throuput  250  1000  500
+
+KDS: EC2, Lambda, EMR, JAva app
+KDF: S3, RDS, ElastiSearch, Splunk, MongoDB
+
+LAmbda Lang: Java C#/.Net, Node, Python,GO, Ruby,  NOT: PHP C R
+
+Guard Duty monitert: VPC FL, Cloudtrain event, DNS log, -- crypto mining
+WAF MAnager: AWS Shield, WAF, SG, 
+
+VPC Peering;: Chargable by data transfer
+
+DMS
+Source: RDS, ES2, On-Premise, S3
+Targert: Source + REdshift, DDB, DocDB, KEnesis, ElasticSearch
+
+CFR - StackSet - AWS Organization
+
+S3:-
+https://<Bucket Name>.s3.<region Name>.amazonaws.com/<Object Key>
+https://<Bucket Name>.s3.amazonaws.com/<Object Key>
+https://s3.<region Name>.amazonaws.com/<Bucket Name>/<Object Key>  
+S3 website:-
+http://<<bucket-name>>.s3-website.<<Region>>.amazonaws.com
+http://<<bucket-name>>.s3-website-<<Region>>.amazonaws.com
+
+DDB and CDN are default encrypted by AWS owner keys.
+In DDB you can change key of yours in CDN NOT.
+
+AWS organization:
+MAster can send the invite and member has to accespt it first
+
+
+CFT:-
+ViewerProtocolPolicy:  allow-all, redirect-to-https, https-only
+OriginProtocolPolicy:   match-viewer, http-only, https-only 
+
+Def NACL and SG: All Open
+New NACL and SG: All close except SG-outbound open to all
+
+ENI Attach
+Cold      Warm    Hot
+launch   stop      running
