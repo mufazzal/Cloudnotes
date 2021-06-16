@@ -60,4 +60,26 @@ Spot block
   this instance will not be terminated for that duration and one that time frame elapsed it will be terminated.
   to launch such spot instance simply add a param BlockDuration with number of hours in the request.
   it will surely cost u less then on demand but more then spot
-  
+---------------------
+
+Operations on Spot isstance:-
+  Stopping:-
+    You can MANUALLY stop the spot instance if
+    - Instance launch by Spot-request and Spot-request-type = 'Persistent'
+    - Instance launch by Spot-request and Spot-request-state != 'cancelled'
+    - Instacne is NOT a part of EC2-Fleet, ASG, Spot block
+     
+  Terminating:-
+    IF you terminate the Stopped or runing EC2 instance that was launch by Spot Requets = 'Persistent'.
+    Then it will launch the another instance.
+    
+---------------
+
+Canceling Spot Request:-
+  If you cancel it tyen it will not launch any instance but the already running instance will keep running.
+    
+   
+   
+   
+   
+
