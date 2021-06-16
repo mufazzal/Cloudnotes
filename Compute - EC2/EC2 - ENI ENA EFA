@@ -67,7 +67,13 @@ Use cases:-
 If my EC2 is doing lot of networking task then should i add more and more ENI:-
   No! the ENI is the building block for Logical Network building. it should not be us for more throuhghput. for this use EN.
   
-  
+--------
+
+Attaching ENI:-
+	There is three way to attach it
+	1. Cold Attach: Attaching when instance is launching
+	2. Warm Attach: Attaching when instance is stopped
+	3. Hot Attach: Attaching when instance is runing
 		
 --------------------
 
