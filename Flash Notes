@@ -119,3 +119,10 @@ launch   stop      running
 
 NACL 
 Lowest to higest to * or to match
+
+            Multi Site        Warm Standby        Pilot Light       Back and Restore
+Cost        Highest           Moderate            Less              Cheapest
+RTO-RPO     0                 Hour                Minute            No commitment
+Use Caase   Mission-critical  Buisness-Critical   Core-Services     NA
+Statrt      No need           No Need             Needed            -
+Scalling    No need           Needed              Needed            -
