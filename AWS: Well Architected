@@ -42,12 +42,17 @@ S3 File Gateway:-
 ---------------
 
 Disaster Recovery Mechanichs:-
-  1. Pilot Light:- In this system a trim down version of whole applcatioin with minimal enviorment set up run.
-        It keep running the critical component as well as copying the critical data for restore. 
-        You do ignore the non critical component.
-        In case of Distaster you can keep runing the critical part and bring up whole systen later.
- 2.  Warm Stadby:- Here an scale down version of whole application keep running. Its costly the Pilot Light but give less RTO and RPO.
- 3.  Multi Site:- It has Active-Active failover system. where App is running at both end. Data replication methode you use will define the RTO and RPO.
- 4.  Backup and Restore: A typical Tape based back up on cheap storage and restore it whne needed. It can have the loss of data based on defined RPO.
+  
+            Multi Site        Warm Standby        Pilot Light       Back and Restore
+Cost        Highest           Moderate            Less              Cheapest
+RTO-RPO     0                 Hour                Minute            No commitment
+Use Caase   Mission-critical  Buisness-Critical   Core-Services     NA
+Statrt      No need           No Need             Needed            -
+Scalling    No need           Needed              Needed            -
+
+ 3. Multi Site:-  Active-Active failover system. No Start and No scalling required.
+ 1. Warm Stadby:- Scaled down, but fully functional, copy of your production environment in another Region. No Start and But scalling required. 
+ 2. Pilot Light:- Simillar to Warm standby but need to take action to start it. Start and both scalling required
+ 4. Backup and Restore: A typical Tape based back up on cheap storage and restore it whne needed. It can have the loss of data based on defined RPO.
        
 
