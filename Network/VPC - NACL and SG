@@ -121,3 +121,9 @@ Newly created SG of VPC:-
 Newly created NACL of VPC:-
   Inbound: All Deny
   Outboud: All Deny
+  
+------------
+Max NACL that can be attached to a Subnet = 1
+Max SG that can be attached to a EC2 = 5
+
+
