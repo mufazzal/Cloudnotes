@@ -1,0 +1,68 @@
+AWS X-Ray is a service that collects data about requests that your application serves.
+It s used to debug the application for Performance or other issue.
+it provides tools you can use to view, filter, and gain insights into that data to identify issues and opportunities for optimization
+you can see detailed information about 
+  - the request and response, 
+  - calls that your application makes to 
+      - downstream AWS resources, 
+      - microservices, 
+      - databases and 
+      - HTTP web APIs
+      
+X-Ray Service Map:-
+  This provide you the detail flow of request in various downstream system with info like
+  - Requets response from and to the each system
+  - Latency on each system
+  - HTTP Header code
+  
+
+X-Ray and other AWS services:-
+  X-Ray is well integrated with 
+  - EC2         : You must install the x-Ray Agent and X-Ray SDK in instance
+  - ECS         : You must install the x-Ray Agent and X-Ray SDK in Docker
+  - ELB         : Always Enabled
+  - DDB
+  - E Beanstalk : You must install the x-Ray Agent and X-Ray SDK in instance
+  - API GAteway : You must enable it
+  - Lambda      : You must enable it [On runtimes with a corresponding X-Ray SDK, Lambda also runs the X-Ray daemon. ]
+  - SNS
+  - SQS
+ X-Ray and Your application:-
+  You can use Xray for the application wtitten in
+  Java, .Net, GO, Ruby, Python, Node
+  
+
+X-Ray For On-Premise or EC2 or ECS application:
+  O get data from those service you need to configurre 2 thing
+  1. X-Ray Agent:-
+      Must be installed in EC2. This Agent ran the X-Ray deamon in the background.
+  2. X-Ray SDK:-
+      - You can use this SDK to send data to the x-ray which lated you can use to view in diffrent way.
+      - It automatically capture the API call made to AWs resources. [So you do not have to worry about it]
+      - The X-Ray SDK send the data to X-Ray Deamon which send the the data to X-Ray in batches.
+    
+    
+Service Map:-
+  This is visualization tool to view the flow of the request in downstream systems.
+
+Sagment:-
+  The data sent to X-Ray is sent as sagement. 
+  This contain the info like
+  request, Header response, time, error.
+
+annotations and metadata:-
+  You can add the annotation and metadata in the Segmant which later can be used for filtering.
+  
+Tracing header:-
+  The first X-Ray-integrated service that the request hits adds a tracing header 'X-Amzn-Trace-Id'.
+  
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
