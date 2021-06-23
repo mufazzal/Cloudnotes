@@ -22,6 +22,7 @@ X-Ray and other AWS services:-
   - ECS         : X-Ray provides a Docker container image that you must deploy alongside your application
   - ELB         : Always Enabled
   - DDB
+  - S3          : Send the tracing info to downstream event subscriber like SNS, SQS, Lambda 
   - E Beanstalk : You must install the x-Ray Agent and X-Ray SDK in instance
   - API GAteway : You must enable it
   - Lambda      : You must enable it [On runtimes with a corresponding X-Ray SDK, Lambda also runs the X-Ray daemon. ]
