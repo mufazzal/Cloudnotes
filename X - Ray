@@ -19,7 +19,7 @@ X-Ray Service Map:-
 X-Ray and other AWS services:-
   X-Ray is well integrated with 
   - EC2         : You must install the x-Ray Agent and X-Ray SDK in instance
-  - ECS         : You must install the x-Ray Agent and X-Ray SDK in Docker
+  - ECS         : X-Ray provides a Docker container image that you must deploy alongside your application
   - ELB         : Always Enabled
   - DDB
   - E Beanstalk : You must install the x-Ray Agent and X-Ray SDK in instance
@@ -32,7 +32,7 @@ X-Ray and other AWS services:-
   Java, .Net, GO, Ruby, Python, Node
   
 
-X-Ray For On-Premise or EC2 or ECS application:
+X-Ray For On-Premise or EC2:
   O get data from those service you need to configurre 2 thing
   1. X-Ray Agent:-
       Must be installed in EC2. This Agent ran the X-Ray deamon in the background.
