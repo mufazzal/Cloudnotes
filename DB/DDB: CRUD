@@ -23,12 +23,10 @@ Querying the DDB :-
         This only work with PK not with other attribute
         So below params will give error in 'get' function
      var params = { TableName: "MufUser",  Key:{ "name": "mufa" } };	  
-     Basioclly 'key' in params accept only and only promary key.
+     Basically 'key' in params accept only and only promary key.
      
-     PK as Sort Key :-
-        ??????????????????
-	
      This is most widely used way to get the data because it give whole data for that PK. 
+		 Data is always sorted by sort key if it is there.
      But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key
      then its useless.
      
