@@ -20,7 +20,7 @@ Querying the DDB :-
 		 - Data is always sorted by sort key if it is there.
      - But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key then its useless.
      
-  2 : Query:-
+  2: Query:-
       Query is very useful when you are using the sort key with the partition key. Here once you get the data via your partion key, then you can apply some filter comparison over the sort key.
       For now lets say you hace the Partition-key as 'userID', Then the query will go-
       	var paramsQuery = { TableName: "MufUser", KeyConditionExpression: "userID = :a", ExpressionAttributeValues: { ":a": "34" } }     
@@ -47,84 +47,53 @@ Querying the DDB :-
 					sortKeyName BETWEEN :sortkeyval1 AND :sortkeyval2 - true if the sort key value is greater than or equal to :sortkeyval1, and less than or equal to :sortkeyval2.
 					begins_with ( sortKeyName, :sortkeyval ) - true if the sort key value begins with a particular operand. (You cannot use this function with a sort key that is of type Number.) Note that the function name begins_with is case-sensitive.
 			- sort-key do not support 'IN()', =%***%, contains(*) etc.
-	
-		
-		Common between 'get' and 'query' both
-			ProjectionExpression: 
-		 		You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
-				eg: ProjectionExpression: 'name, company, cid'
-			FilterExpression:-
-				you can furthure filter the result based on the attribute also. for this you must use 'FilterExpression'
-				- A filter expression cannot contain partition key or sort key attributes. 
-				- for the the key. but 'FilterExpression' is optional. it just do tyhe after operation of furthur filtering
-				-	A filter expression is applied after a Query finishes, but before the results are returned. 
-						Therefore, a Query consumes the same amount of read capacity, regardless of whether a filter expression is present.
-	        
-  3. Scan:
-  	To read data this way is exterely resource sensitive. it should be used in very rare case.
-	Unlike query it do not need any primary key to run. 
-	it run over all the data items in the table. and provide the conditioned filtering on basd of any kind of attribute.
-	Though you can provide the 'FilterExpression' However, the filter is applied only after the entire table has been scanned.
-	will see it later
-	EG:-
-			var paramsScan = {
-			    TableName: "UserOrder",
-			    FilterExpression: 'contains(device,:gen)',
-			    ExpressionAttributeValues: {
-				":gen": "e"
-			    }
-			}
+				        
+  3: Scan:
+  	To read data this way is exterely resource sensitive. it should be used in very rare case. Unlike query it do not need any primary key to run. 
+		it run over all the data items in the table. and provide the conditioned filtering on based of any kind of attribute.
+		Though you can provide the 'FilterExpression' However, the filter is applied only after the entire table has been scanned.
+		EG:-
+			var paramsScan = { TableName: "UserOrder", FilterExpression: 'contains(device,:gen)', ExpressionAttributeValues: { ":gen": "e"}}
 			docClient.scan(paramsScan, function(err, data) {console.log(err, data)});	
-	This will produce all the data cell which has in its attribute 'device' a letter 'e'. the device is a simple attr not a key.
-	in scan the primary key are useless.
-	Out:-
-		[ {... device: 'samsung'},
-		  {... device: 'oneplus'},
-		  {... device: 'dell'},
-		]
-	you can get r1, r2, r3, r4, r5, .... the entire data in below scan
+		This will produce all the data cell which has in its attribute 'device' a letter 'e'. the device is a simple attr not a key.
+		Out:-
+			[ {... device: 'samsung'},
+				{... device: 'oneplus'},
+				{... device: 'dell'}, ]
+				
+		Below will return the entire data in table
 			var paramsScan = { TableName: "UserOrder", }	  
 	  
-	 Wronglty written scan will produce large data which cant be shipped in an api response. for that the DDB 
-	 automatically add the pagination feature in result. in the result if you get the 'LastEvaluatedKey' it means there is more data left
-	 to read. 
+	 - Wronglty written scan will produce large data which cant be shipped in an api response. for that the DDB 
+		 automatically add the pagination feature in result. in the result if you get the 'LastEvaluatedKey' it means there is more data left
+		 to read. 
 	 
-   Add/Edit data item :-
-	For this use 'put' function
-	See the example below
-		var paramsPut = {
-		    TableName: "MufUser",
-		    Item: {
-			userID: "20",
-			name: 'abbas',
-			city: "Pune"
-		    }
-		}
+	--------------------
+	
+	Common between 'get', 'query' and 'Scan' both
+		ProjectionExpression: 
+			You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
+			eg: ProjectionExpression: 'name, company, cid'
+		FilterExpression:-
+			you can furthure filter the result based on the attribute also. for this you must use 'FilterExpression'
+			- A filter expression cannot contain partition key or sort key attributes. 
+			- for the the key. but 'FilterExpression' is optional. it just do tyhe after operation of furthur filtering
+			-	A filter expression is applied after a Query finishes, but before the results are returned. 
+					Therefore, a Query consumes the same amount of read capacity, regardless of whether a filter expression is present.
+
+	--------------------
+	 
+	Add/Edit data item :-
+	For this use 'put' function. 	See the example below
+		var paramsPut = {TableName: "MufUser", Item: { userID: "20", name: 'abbas', city: "Pune" }}
 		docClient.put(paramsPut, function(err, data) {console.log(err, data)});	
           
-         The main thing here is again param, you must must provide 'tableName' and 'Item' key 
-	 In the 'Item' you have to neccesarily provide the partition-key. otherwise there will be an error.
-	 
-	 put wuth PArtition Key + Sort Key:-
-	 	This is almost 99% same as above, exept you also have to provide the Sort-Key 
-		if youu do not provide it then it will give an Error.
-		EG:
-			var paramsPutUOTable = {
-			    TableName: "UserOrder",
-			    Item: {
-				userID: "fattu",
-				OrderID: "fattuEaring1",
-				metal: 'gold',
-				city: "Pune",
-				price: 900
-			    }
-			}
-			docClient.put(paramsPutUOTable, function(err, data) {console.log(err, data)});		
-		
-		You do not have to provide the keys in any special param, just it has to be in the 'Item' above 'userID' and 'OrderID'
-		are partition and Sort keys. fail to provide any single of them cause Error.
-	
-	
+	- The main thing here is again param, you must must provide 'tableName' and 'Item' key 
+	- In the 'Item' you have to neccesarily provide the partition-key. otherwise there will be an error.
+	- In the 'Item' you have to neccesarily provide the Sort-key if it is set in the table. otherwise there will be an error.
+	- You do not have to provide the keys in any special param, just it has to be in the 'Item' above 'userID' and 'OrderID'-
+			are partition and Sort keys. fail to provide any single of them cause Error.
+	 	
 	Q: What will happen if the primary key (partition key OR partition key + Srt key) provided in 'put' is already exist
 	A: It will be updated with new data.    
           
@@ -136,7 +105,12 @@ Querying the DDB :-
 		but not with any other attributee.
 		But if you still wants to make the query possible with any non-partition, non-sort attribute, you have to use 
 		GSI (Global Secondry Index) or LSI(Local Secondry Index).
-
+-------------
+	
+	BatchGetItem and BatchWriteItem::-
+		You can use this apis for doing operation in batch.
+		Max batch size for read = 100 and fro write = 25
+	
 -------------
 	DDB transactoion:-
 		Transcation is aset of query which should be all-or-nothing-run.
