@@ -9,31 +9,24 @@ Querying the DDB :-
  There is three diffrent technique to read the data. for this you have to provide proper values in params
 	and in all three way you have to provide TableName (of course)
 	Now lets see those 3 :-
-  1 : get By the Primary Key (partition or Sort) :-
-        Just provide the partition-key 
-        var params = { TableName: "MufUser",  Key:{ "userID": "10" } };	
-        This will gives you all the attributes stored against the key '34'. This is most efficient and fastest way.
-	out :-
-			"Item": {
-			    "company": "Amdocs",
-			    "name": "Mufazzal",
-			    "salary": "200",
-			    "userID": "10"
-			  }	
-        This only work with PK not with other attribute
-        So below params will give error in 'get' function
-     var params = { TableName: "MufUser",  Key:{ "name": "mufa" } };	  
-     Basically 'key' in params accept only and only promary key.
+  1: Get By the Primary Key (partition or Sort) :-
+			- Just provide the partition-key. This will gives you all the attributes stored against the key '10'. This is most efficient and fastest way.
+					var params = { TableName: "MufUser",  Key:{ "userID": "10" } };	
+					output: "Item": { "company": "Amdocs", "name": "Mufazzal", "salary": "200", "userID": "10"}	
+			- This only work with PK not with other attribute So below params will give error in 'get' function
+     			var params = { TableName: "MufUser",  Key:{ "name": "mufa" } };	  
      
-     This is most widely used way to get the data because it give whole data for that PK. 
-		 Data is always sorted by sort key if it is there.
-     But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key
-     then its useless.
+     - This is most widely used way to get the data because it give whole data for that PK. 
+		 - Data is always sorted by sort key if it is there.
+     - But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key then its useless.
      
   2 : Query:-
       Query is very useful when you are using the sort key with the partition key. Here once you get the data via your partion key, then 
       you can apply some filter comparison over the sort key.
+			A Query operation can retrieve a maximum of 1 MB of data. This limit applies before the filter expression is evaluated.
+
       For now lets say you hace the Partition-key as 'userID'
+			
       Then thwe query will go-
            var paramsQuery = {
               TableName: "MufUser",
