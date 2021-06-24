@@ -115,11 +115,11 @@ Getting data:-
 	- A single scan on large data table can eat all the proviosion throuput and throttle other requests.
 	- For retriving multiple partition key u can use BatchGetItem as single operation. 
 
+--------------
 
-
-
-
-
+Limits:-
+	Max GSI: 20 [Above it you will need to raise the support ticket]
+	Max Provison capacity: ???? [Above it you will need to raise the support ticket]
 
 
 
