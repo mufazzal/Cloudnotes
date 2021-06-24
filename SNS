@@ -143,6 +143,8 @@ SNS Encryption:-
  SNS (Email sub) VS SES:-
   Use SES for sending email to typical user for thing like new item, blog, even etc. It a bulk Email Service.End user do not need to subscribe. It can be used for spamming.
   Use SNS for mostly developer and infra related messages. The end user must also have susbscription to the topic 
+  - Via SES you can also recive message in S3
+  - In SNS the reciver must first subscribe the Topic. In SES no susbscription meeded. Sender just need an emain id of receiver. 
  
   
   
