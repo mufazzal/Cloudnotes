@@ -85,7 +85,9 @@ Its so strongle integrated with other system that with just few setting you can 
 
   In many of the services like S3, EBS etc. the KMS is so strongly integrated that you hardly need any coding there.
   It integration with diffrent services should be analyze in their own tutorials.
-    
+  KMS Key region and AWS Services:-
+    KMS key is region bounded so you can use the key with AWS resource lying in same region as key only. 
+  
 ---
 
   Envolop key / Data key :-
