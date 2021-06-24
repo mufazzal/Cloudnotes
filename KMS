@@ -14,7 +14,7 @@ Its so strongle integrated with other system that with just few setting you can 
     In simple word the key you see or create in console in any tab ('Customer managed keys' or 'AWS managed keys') is a CMK.  
   There is two type of key in AWS-KMS CMK
     1. AWS managed CMK : This is a default key that is generated for you. though you cannot delete/change it at all.
-        there is one such key for each aws service for an account. 
+        there is one such key for each aws service for an account. And only that service can use this key. no one else. not even the Account owner via SDK or API.
         Its key policy written as such that the root user and all the IAM user can do use tis key for 'kms:encrypr' and 'kms:decrypr'
         But root user can do some more operation like 'kms:Get*', 'kms:List'
         But no one (not even root) has permicssion for action 'kms:Delete'.
