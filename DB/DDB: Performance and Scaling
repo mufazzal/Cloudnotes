@@ -36,11 +36,18 @@ PRovision Throughput CApicity:-
           then add  one more unit and keep it going till the allotment reach to       <MXMXMX> unit
           After that let the thing crash or performance dipped.
 
+			Calculation legend:-
+				- Always round up the data size to nearest factor of 4
+				- 1 RCU = 2 * 4KB  for Eventual consistent
+					1 RCU = 1 * 4KB  for Strong consistent
+					1 WCU = 1 * 1KB  
+
+
    2. On demand
       This is new and the best one. just enbale it and you do not need to set anything . AWS will take care of all things.
 
 
-  PRovision	VS On demand:
+  PRovisio VS On-demand:
     PRovision is best if you know the traffic pattern and load on the DB because you can  proviosn capacity and pay less.
     On demand if you do not know the traffic pattern and load on the DB and also your app is new in market so you belive low traffic.
        		
