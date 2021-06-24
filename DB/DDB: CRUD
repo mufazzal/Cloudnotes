@@ -227,7 +227,7 @@ Querying the DDB :-
 	TTL Attribute:-
 		One of the issue with very large database is too keep deleting useless data. For this DDB provide a excellent feature.
 		You ca set any particular attribute in the Table as 'TTL Attriute' 
-		The data cell will automatically deleted when the time set in that attribute reach
+		The data cell will automatically deleted after the time set in that attribute reached [It may take 48 hour to delete it]
 		For this :-
 			AWS > DDB > Table > 'your table' > Action > Manage TTL
 			Set the attribute that you prefer should consist the value of TTL timestamp.
