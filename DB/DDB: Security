@@ -11,3 +11,24 @@ Encryption at Rest:-
     1. AWS owned CMK. [Default]
     2. AWS managed CMK.
     3. Customer managed CMK.
+    
+----------
+
+Access for DynamoDB:-
+  You can restrict user access via IAM.
+  For restricting access to a specific table:-
+    Resource: 'arn:aws:dynamodb:<region>:<accId>:table/<tableName>' 
+  For restricting access to a specific Partitionkeys only:-
+    Condition: {
+      ForAllValues:StringEquals: {
+        dynamodb:LeadingKeys: [
+          ${user_ids}                   --->id list of user_id partition kyes on which access is granted. 
+        ]
+      }
+    }
+  For restricting access to a specific Attribute only:-  
+    Condition: {
+      dynamodb:Attributes: [
+        user_id, score, name             ---> list of attribute on which access is granted. 
+      ]
+    }
