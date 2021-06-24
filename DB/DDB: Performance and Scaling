@@ -101,6 +101,12 @@ Hot Parttion Key Issue:-
 	Each partition will provide 100 Reads per second. If all Read requests are for the same partition key, the throughput will be limited to 100 Reads per second. 
 	If the requests are spread over a range of different values, the throughput can be the full 1000 Reads per second.
 
+--------------------
+
+Getting data:-
+	- Try to avoid scan item as much as possible. if you still use it then use --page-size to break it in small operation.
+	- A single scan on large data table can eat all the proviosion throuput and throttle other requests.
+	- For retriving multiple partition key u can use BatchGetItem as single operation. 
 
 
 
