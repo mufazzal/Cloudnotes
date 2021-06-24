@@ -21,115 +21,45 @@ Querying the DDB :-
      - But it has only one disadvantage. You have to provide the exack key. But lets say you wants to get the info about couple of key then its useless.
      
   2 : Query:-
-      Query is very useful when you are using the sort key with the partition key. Here once you get the data via your partion key, then 
-      you can apply some filter comparison over the sort key.
-			A Query operation can retrieve a maximum of 1 MB of data. This limit applies before the filter expression is evaluated.
-
-      For now lets say you hace the Partition-key as 'userID'
-			
-      Then thwe query will go-
-           var paramsQuery = {
-              TableName: "MufUser",
-              KeyConditionExpression: "userID = :a",
-              ExpressionAttributeValues: { ":a": "34" }
-            }     
-        Out:
-          [ { name: 'eee', genger: 'male', userID: '34' } ]         
-          
-        KeyConditionExpression and Partition-key :- 
-          VVVIMP: in the query function param you can use ONLY ONLY and ONLY 'equal' operatior for Partition-key. you cannot ever use
-                  any other operator with partition-key.
-                  You can use any operator with 'sort-ket' though. How ????????????????
-		So all blow statement simply give an error
-		...
-		KeyConditionExpression: "userID > :a",
-		ExpressionAttributeValues: { ":a": "34" }
-		...
-		OR
-		...
-		KeyConditionExpression: "userID IN :a",
-		ExpressionAttributeValues: { ":a": {SS: [34, 78, 67]} }
-		...
-     Query and sort key:-
-     	This is the real germ of query. its most useful with sort key. we will see it later
-	The first thing you must remeber that in the query you can give one and only one partition-key with equal comparator
-	So the 'query' function can only play with the sort-key-combination which lies in that partition-key
-	in simple:-
-		for the database in fig '#DDB_FIG_PK_SORT' you run the 'qyuery' function and provide the 
-		partition-key = 'muffy' then you can play only with r1, r2, or r1=3 but not at all with r4, r5. 
-		partition-key = 'fattu' then you can not play with r1, r2, or r3 but only with r4, r5. 
-	EG:-
-		var paramsQueryWithSort = {
-		    TableName: "UserOrder",
-		    KeyConditionExpression: "userID = :a",
-		    ExpressionAttributeValues: { ":a": "muffy" }
-		}
-		docClient.query(paramsQueryWithSort, function(err, data) {console.log(err, data)});		
-     	The above function will return r1, r2 and r3.
-     	Now make a little change:-
-		...
-	    	KeyConditionExpression: "userID = :a and OrderID = :b",
-	    	ExpressionAttributeValues: { ":a": "muffy", ":b": "mob1" }
-		...
-	This will give only r1
-	
-		...
-		KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
-	    	ExpressionAttributeValues: { ":a": "muffy", ":t": "mob", }
-     		...
-	this will give r1 and r2 but nor r3
-	
-		...
-		KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
-		ExpressionAttributeValues: { ":a": "muffy", ":t": "mob", }
-		...
-	this will give r3 only.	
-
-	...
-	KeyConditionExpression: "userID = :a and begins_with(OrderID, :t)",
-	ExpressionAttributeValues: { ":a": "fattu", ":t": "mob", }
-	...
-	this will give r4 and r5
-	
-	The KeyConditionExpression accept only the partition-key or sort-key. no one else so below will throw error
-	...
-	KeyConditionExpression: "userID = :a and price = :b",
-	ExpressionAttributeValues: { ":a": "fattu", ":b": "100", }
-	...	
-
-	Q: can we design the query in such a way that we can get r1 and r5
-	A: Impossible! because r1 and r5 have diffrent partition-key and 'query' methode support only single value of partition-key
-	
-	Q: So partition-key support only '=', but what operation sort-key do support. Does it support all
-	A: NO! it support only following
-		sortKeyName = :sortkeyval - true if the sort key value is equal to :sortkeyval.
-		sortKeyName < :sortkeyval - true if the sort key value is less than :sortkeyval.
-		sortKeyName <= :sortkeyval - true if the sort key value is less than or equal to :sortkeyval.
-		sortKeyName > :sortkeyval - true if the sort key value is greater than :sortkeyval.
-		sortKeyName >= :sortkeyval - true if the sort key value is greater than or equal to :sortkeyval.
-		sortKeyName BETWEEN :sortkeyval1 AND :sortkeyval2 - true if the sort key value is greater than or equal to :sortkeyval1, and less than or equal to :sortkeyval2.
-		begins_with ( sortKeyName, :sortkeyval ) - true if the sort key value begins with a particular operand. (You cannot use this function with a sort key that is of type Number.) Note that the function name begins_with is case-sensitive.
-	sort-key do not support 'IN()', =%***%, contains(*) etc.
+      Query is very useful when you are using the sort key with the partition key. Here once you get the data via your partion key, then you can apply some filter comparison over the sort key.
+      For now lets say you hace the Partition-key as 'userID', Then the query will go-
+      	var paramsQuery = { TableName: "MufUser", KeyConditionExpression: "userID = :a", ExpressionAttributeValues: { ":a": "34" } }     
+        Out: [ { name: 'eee', genger: 'male', userID: '34' } ]         
+			- A Query operation can retrieve a maximum of 1 MB of data. This limit applies before the filter expression is evaluated.
+			- In the query function param you can use ONLY ONLY and ONLY 'equal' operatior for Partition-key. you cannot ever use any other operator with partition-key.
+				So statement like KeyConditionExpression: "userID > :a" OR KeyConditionExpression: "userID IN :a" simply give an error if used with Query
+			- You can use any operator with 'sort-key' though.
+			- The 'query' function can only play with the sort-key-combination which lies in that partition-key
+				EG:-
+		    	KeyConditionExpression: "userID = :a", ExpressionAttributeValues: { ":a": "muffy" }
+     				The above function will return r1, r2 and r3.
+     			Now make a little change:-
+	    		KeyConditionExpression: "userID = :a and OrderID = :b", ExpressionAttributeValues: { ":a": "muffy", ":b": "mob1" }
+						This will give only r1
+			- The KeyConditionExpression accept only the partition-key or sort-key. no one else so below will throw error
+			- Result of Query will always be subset of single partition key. never has result ranging from two diffent partition key.
+			- Supported operation for Sort Key	
+					sortKeyName = :sortkeyval - true if the sort key value is equal to :sortkeyval.
+					sortKeyName < :sortkeyval - true if the sort key value is less than :sortkeyval.
+					sortKeyName <= :sortkeyval - true if the sort key value is less than or equal to :sortkeyval.
+					sortKeyName > :sortkeyval - true if the sort key value is greater than :sortkeyval.
+					sortKeyName >= :sortkeyval - true if the sort key value is greater than or equal to :sortkeyval.
+					sortKeyName BETWEEN :sortkeyval1 AND :sortkeyval2 - true if the sort key value is greater than or equal to :sortkeyval1, and less than or equal to :sortkeyval2.
+					begins_with ( sortKeyName, :sortkeyval ) - true if the sort key value begins with a particular operand. (You cannot use this function with a sort key that is of type Number.) Note that the function name begins_with is case-sensitive.
+			- sort-key do not support 'IN()', =%***%, contains(*) etc.
 	
 		
-     Common between 'get' and 'query' both
-       - You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
-        	eg: ProjectionExpression: 'name, company, cid'
-      
-     Filter(NOT QUERY) by attribute :-
-		you can furthure filter the result based on the attribute also. for this you must use 'FilterExpression'
-		How ???????????????????????
-		VVIMP: A filter expression cannot contain partition key or sort key attributes. 
-			You need to specify those attributes in the 'KeyConditionExpression', not the 'FilterExpression'
-			In 'query' and 'get' both function 'KeyConditionExpression' in required and you have to provide proper condition
-			for the the key. but 'FilterExpression' is optional. it just do tyhe after operation of furthur filtering
-			So
-			A filter expression is applied after a Query finishes, but before the results are returned. 
-			Therefore, a Query consumes the same amount of read capacity, regardless of whether a filter expression is present.
-	
-	
-      
-          
+		Common between 'get' and 'query' both
+			ProjectionExpression: 
+		 		You can also tell in the query that only some specific attribute you wants to read via 'ProjectionExpression'
+				eg: ProjectionExpression: 'name, company, cid'
+			FilterExpression:-
+				you can furthure filter the result based on the attribute also. for this you must use 'FilterExpression'
+				- A filter expression cannot contain partition key or sort key attributes. 
+				- for the the key. but 'FilterExpression' is optional. it just do tyhe after operation of furthur filtering
+				-	A filter expression is applied after a Query finishes, but before the results are returned. 
+						Therefore, a Query consumes the same amount of read capacity, regardless of whether a filter expression is present.
+	        
   3. Scan:
   	To read data this way is exterely resource sensitive. it should be used in very rare case.
 	Unlike query it do not need any primary key to run. 
@@ -212,9 +142,6 @@ Querying the DDB :-
 		Transcation is aset of query which should be all-or-nothing-run.
 		This will run all the query or none at all.
 		This is useful for operation like credit from A and debit to B.
-
-
-
 --------------------
 
 	TTL Attribute:-
