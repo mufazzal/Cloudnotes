@@ -223,5 +223,25 @@ Updates:
 								- Terminates existing instances and replaces them with new instances running with the new configuration.
 								- Highest Downtime
 
-					
+-----------------------------
+
+Config file:-
+	You can set the configuration in rhe console but there is better way to do it.
+	You can package it in the application code too.
+	For this just place **.config files in .ebextenions folder at root of your zipped source code.
+	This file are in Json or Yaml formate.
+	It ca have
+	 - shell command
+	 - PAckages to install
+	 - enabled services setting
+	 - LB config
+	 - ASG config
+	 
+	
+	
+	
+	
+	
+
+
 
