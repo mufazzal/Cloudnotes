@@ -2,7 +2,7 @@ Elastic BeanStalk is the way to plant a seed for aws insfra and let it grow.
 With EB, you can quickly deploy and manage applications in the AWS Cloud without having to learn about the infrastructure that runs those applications
 
 EB supports applications developed in Go, Java, .NET, Node.js, PHP, Python, and Ruby
-Supported Platform: Tomcat, Nginx, IIS
+Supported Platform: Tomcat, Nginx, IIS, Passenger
 
 You can interact with EB by using the 
 	- EB console, 
