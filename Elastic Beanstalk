@@ -195,6 +195,26 @@ Updates:
 					- A canary testing deployment method.
 					- Same as 'Immutable' but keep older istance with old app version alive with few new instance with new app version
 
+	2. Changing Configuration:-
+			When you modify configuration option settings in the Configuration section.
+			This canges can impact EC2, ELB, ASG etc. There are two kind of changes possible
+			1. Changes Do not need Replacement:-
+					This are simple and you do not have to worry about downtime and replacement stratagy.
+					EG: Changing Healthchech, adding TAg, min/max in capacity etc.
+			2. Changes need Replacement
+					Here the replacement is must and so you have to decide the replacement stratagy to suit your downtime.
+					Replacement Stratagy:-
+						There are 4 possible stratagy:-
+							1. Rolling Based on Health
+								- Work with LB only
+							2. Rolling Based on Time
+								- Work with LB only
+							3. Immutable updates
+								- Work with LB and Single instance both
+							4. Disabled 
+								- Work with LB and Single instance both
+								- Terminates existing instances and replaces them with new instances running with the new configuration.
+								- Highest Downtime
 
-
+					
 
