@@ -95,16 +95,6 @@ Environment:-
 		DAtabase:-
 			Set it up in the env if needed.
 	
-	Deployment:-
-		You can deploy the latest code the EB via the EB console.
-		It support Rolling, Rolling Batch, Blue/Green deployment.
-	
-	Configuration Changes:-
-		When you modify configuration option settings in the Configuration section, EB propagates the change to all affected resources
-		Many configuration changes can be applied to a running environment without replacing existing instances
-		It type:-
-			Rolling update, Immutable Update, 
-		
 	Env Monitoring:-
 		You can monitor component in diffrent way
 		Monitoring console: The EB specif panel for monitering
@@ -117,8 +107,6 @@ Environment:-
 		View instance logs:
 			Logs are stored in S3 and also can be sent to CW.
 			In EB console you can request to get the latest 100 line of logs or full log from all the instances.   
-		
-		
 											
 --------		
 	Web Server Enviorment:-
@@ -163,3 +151,19 @@ EB and RDS DB:-
 	You can choose to have DB in the env or outside it.
 	It is advisable to use it outside so you database persist once env is taked down.
 	Use EV variable for connection string.
+
+------------
+
+Updates:
+	There is three kind of updates happen in the EB system
+	1. Deploying Application: A new source code of Application is deployed
+	2. Changing Configuration: Env config is changed
+	3. Platform Update: Undelying Platform like Apache, Nginx is updated or patched.
+	
+	1. Deploying Application:
+			
+	
+
+
+
+
