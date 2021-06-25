@@ -213,7 +213,11 @@ UserPool and Auth 2.0 Flow mechanisn:-
 		Uer API:-	'Grant: CC: Client witht Secret' in postman
 		IMP: This flow only work for client with Client_secret.
 		
-	
+--------------------
+
+User Poll and Multiple device:-
+	When you login on multiple devices(like Mobile, lappy) Cognito keep them in synch via silent SNS Notification
+
 --------------------
 
 Cognito Auth and Amplify:-
