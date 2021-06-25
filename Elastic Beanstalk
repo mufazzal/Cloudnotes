@@ -161,8 +161,39 @@ Updates:
 	3. Platform Update: Undelying Platform like Apache, Nginx is updated or patched.
 	
 	1. Deploying Application:
-			
-	
+			You can deploy the new bundle or previosly uploaded bundle.
+			There is 5 way					
+			1. All At once
+					- Work with LB and Single instance both
+					- Take least time
+					- Application installed in all the instance together at one
+					- There will be short down time
+					- Rolling back is difficult and time taking and have down time. You have to re-deploy the older version again
+					- No new instances launched
+			2. Rolling							
+					- Work with LB only
+					- Take more time
+					- New version is installed in subset of all existing instances and then on remaining ones.  
+					- No down time but some capacity redution.
+					- Rolling back is difficult and time taking. You have to re-deploy the older version again
+					- No new instances launched
+			3. Rolling with Batch
+					- Work with LB only
+					- Take even more time
+			 		- Elastic Beanstalk launches an extra batch of instances, then performs a rolling deployment.
+					- No down time and No capacity redution.
+					- Rolling back is difficult and time taking. You have to re-deploy the older version again
+					- Some New instances also launched and serve along with some older one after deployment.
+			4. Immutable						
+					- Work with LB and Single instance both
+					- Slowest
+			 		- Elastic Beanstalk launches a fresh set of instance and then install new App in them. New will comes to service once the Health checked is passed.
+					- No down time and No capacity redution.
+					- Rolling back is easiest as you just need to terminate thenew instance.
+					- New inatances are launched and older ones are terminated once deployment success.
+			5. Traffic splitting		
+					- A canary testing deployment method.
+					- Same as 'Immutable' but keep older istance with old app version alive with few new instance with new app version
 
 
 
