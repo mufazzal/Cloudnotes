@@ -204,6 +204,7 @@ Updates:
 					This are simple and you do not have to worry about downtime and replacement stratagy.
 					EG: Changing Healthchech, adding TAg, min/max in capacity etc.
 			2. Changes need Replacement
+					ANy changes which make changes at Launch Config or VPC level may need to have the replacement instance.
 					Here the replacement is must and so you have to decide the replacement stratagy to suit your downtime.
 					Replacement Stratagy:-
 						There are 4 possible stratagy:-
