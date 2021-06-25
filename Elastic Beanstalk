@@ -9,6 +9,20 @@ You can interact with EB by using the
 	- AWS CLI
 	- eb, a high-level CLI designed specifically for EB	
 	
+Bird Eye View:-
+		EB
+		|
+		|---------App1 [name, tags]
+		|						|
+		|						|------EV1[type, Domain, Platform, Code] 
+		|						|
+		|						|------EV2[type, Domain, Platform, Code] 
+		|						|
+		|						|------EV3[type, Domain, Platform, Code] 
+		|						
+		|---------App2
+		|---------App3
+
 Applicaion:-
 	This is the logical collection of resources.
 	When you create the Application AWS do not provision any resource rather its just sittimg empty logical unit.
@@ -32,6 +46,11 @@ Environment:-
 		1. Web server environment tier. 
 		2. Worker environment tier.
 	
+	Domain: 
+		You can choose the subdomain part like below. Though it must be avialable.
+		<userdefinedstring>.us-east-1.elasticbeanstalk.com
+		This will be endpoint of youe system for end user.
+			
 	Platform:-
 		A platform is a combination of an operating system, programming language runtime, web server, application server, and EB
 		This are preconfigured by AWS and you can choose one from 
@@ -47,6 +66,32 @@ Environment:-
 		AWS EB provides a wide range of options for customizing the resources in your environment, and EB behavior and platform settings
 		You can change like, config of EC2, SG, LB, ASG etc.
 		S3 bucket for code repository.
+		Below are the some item you can configure
+		Software: 
+			Server, Log to S3 and CW, Enviorment Variable, X-Ray
+		Instances:
+			Monitring interval, EBS type and IOPS, SG
+		Capacity:
+			Type [single or load balanced, AZ, min, max, Scalling Policy, Intance type, AMI, ]
+		Load Balancer:
+			Listener Config, Access Log, Listener Rule
+		Modify rolling updates and deployments:-
+			Application deployments:-
+				Coose the one from 5 option
+			Configuration updates
+				Coose the one from 4 option
+		Monitoring:-
+			Health: EB provide its owm mechanism for HEalth check. You do not have to set up the url amd other.
+				You can choose to ignore 4XX error from app or LB.
+		Security:-
+			- EC2 key pair
+			- Instance Role
+			- EB Service Role
+		Platform Update window:-
+			Set the weekly window for platform update.
+			Your application stays available during the update process
+		DAtabase:-
+			Set it up in the env if needed.
 	
 	Deployment:-
 		You can deploy the latest code the EB via the EB console.
@@ -67,7 +112,9 @@ Environment:-
 											It uses cloudtrain to get it. it has date and time, IAM user, Tool, config param.
 		Event and Notificatioon:
 		Monitor instances:
-		View instance logs:Logs are stored in S3 and also can be sent to CW.
+		View instance logs:
+			Logs are stored in S3 and also can be sent to CW.
+			In EB console you can request to get the latest 100 line of logs or full log from all the instances.   
 		
 		
 											
