@@ -81,6 +81,7 @@ Limits:-
   MAx size of message:      256KB.
   Max Visibility Timeout:   12 hour  [default 30 sec]
   Max retention priode:     14 days  [default 4 days]
+  Max Long poll time:       20 sec   [default 0 sec]
   Throuput limit of Standard SQS: unlimited.
   Throuput limit of FIFO SQS: It is finite. 
     You can have max 300 transaction per sec per api(SendMessage, ReceiveMessage, or DeleteMessage) without batch. OR
