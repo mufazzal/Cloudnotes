@@ -79,8 +79,8 @@ Type of Queue :-
 
 Limits:-
   MAx size of message:      256KB.
-  Max Visibility Timeout:   12 hour
-  Max retention priode:     14 days
+  Max Visibility Timeout:   12 hour  [default 30 sec]
+  Max retention priode:     14 days  [default 4 days]
   Throuput limit of Standard SQS: unlimited.
   Throuput limit of FIFO SQS: It is finite. 
     You can have max 300 transaction per sec per api(SendMessage, ReceiveMessage, or DeleteMessage) without batch. OR
@@ -97,6 +97,7 @@ VisibilityTimeout:
     - At queue level for the read by any consumer by setting in Queue param.
     - For specefic read operation by passing in 'VisibilityTimeout' param 'ReceiveMessage' api
     - MAx possible value = 12 hour
+    - default is 30 sec
         
 ------
   
