@@ -188,6 +188,8 @@ Updates:
 					- Work with LB and Single instance both
 					- Slowest
 			 		- Elastic Beanstalk launches a fresh set of instance and then install new App in them. New will comes to service once the Health checked is passed.
+						The new instances are launced in new temporary ASG. once its health check is passed then those are trasfered to existing ASG 
+						then temporary ASG is deleted.
 					- No down time and No capacity redution.
 					- Rolling back is easiest as you just need to terminate thenew instance.
 					- New inatances are launched and older ones are terminated once deployment success.
@@ -207,10 +209,15 @@ Updates:
 						There are 4 possible stratagy:-
 							1. Rolling Based on Health
 								- Work with LB only
+								- EB launch the new batch of some instance and roll updates on it. Now wait for their Health check to pass and once passed
+									It keep doing this for all the batches till all instnaces are replaced. 
 							2. Rolling Based on Time
 								- Work with LB only
+								- EB launch the new batch of some instance and roll updates on it. Now wait for their given time to elapse and once elapsed
+									It keep doing this for all the batches till all instnaces are replaced. 
 							3. Immutable updates
 								- Work with LB and Single instance both
+								- Floow the same stratagy as in App deployment above. 
 							4. Disabled 
 								- Work with LB and Single instance both
 								- Terminates existing instances and replaces them with new instances running with the new configuration.
