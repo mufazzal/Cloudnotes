@@ -83,10 +83,10 @@ Code to generate the pseudo IAM user for userpool user
   
   The above code will upload the S3 image with creds of pseudo user with private-access. now only this user has the permission to 
   edit/delete this image.
-  
-  
-  
+ 
    -----------
+
+In background idp uses STS:AssumeRoleWebIdentity api for generating temp access key and password.
    
    When you create a idp, you need to choose ywo thing
    1. The user pool of cognito
