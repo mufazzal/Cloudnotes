@@ -78,7 +78,9 @@ Type of Queue :-
 -------
 
 Limits:-
-  MAx size of message: 256KB.
+  MAx size of message:      256KB.
+  Max Visibility Timeout:   12 hour
+  Max retention priode:     14 days
   Throuput limit of Standard SQS: unlimited.
   Throuput limit of FIFO SQS: It is finite. 
     You can have max 300 transaction per sec per api(SendMessage, ReceiveMessage, or DeleteMessage) without batch. OR
@@ -238,12 +240,8 @@ SQS Encryption:-
     - When Amazon SQS moves a message from an encrypted source queue to an unencrypted dead-letter queue, the message remains encrypted
   Encryption at transit:-
     For this use TLS
-  
-  
+    
 ----------------------
-
-
-
 Amazon MQ:-
   MQ is used if you are using any other message API or message broker service apart from SQS.
   You can migrate that messaging service to cloud via Amazon MQ. 
