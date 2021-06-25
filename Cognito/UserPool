@@ -2,7 +2,7 @@ In short in Cognito is Red Hat SSO of AWS.
 
 This is the complete user management system which provide
   1. User sign up via pre-built registration form or via Facebook/Google or via any SAML active directory.
-  2. User sign in via pre-built login form or via Facebook/Google or via any SAML active directory.
+  2. User sign in via pre-built login form or via Facebook/Google or via any OIDC compliant directory.
   3. USer delete/enable/password change etc functions.
   4. It can be used as federation authentication via OAuth 2.0 for other Apps.
   5. User pool with identity pool provide strong binding with IAM for user access management over AWS services like S3 etc.
