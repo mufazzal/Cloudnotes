@@ -74,15 +74,17 @@ Environment:-
 		Capacity:
 			Type [single or load balanced, AZ, min, max, Scalling Policy, Intance type, AMI, ]
 		Load Balancer:
-			Listener Config, Access Log, Listener Rule
+			Configure Listeners [can be more then one]
+			Configure Process and map it to listener. also Configure Health check for each Process.
+			Configure Rule for traffic routing to the process.
 		Modify rolling updates and deployments:-
 			Application deployments:-
 				Coose the one from 5 option
 			Configuration updates
 				Coose the one from 4 option
 		Monitoring:-
-			Health: EB provide its owm mechanism for HEalth check. You do not have to set up the url amd other.
-				You can choose to ignore 4XX error from app or LB.
+			Choose if you wanst Basic or Enhanced Monitoring.	
+			You can choose to ignore 4XX error from app or LB.
 		Security:-
 			- EC2 key pair
 			- Instance Role
