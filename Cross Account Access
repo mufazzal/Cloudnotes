@@ -1,0 +1,17 @@
+This is used to give the Programatic and console access of resources 
+in your accont to other aws account.
+
+Suppose you have a prod and dev account.
+you wants to give access of one prod bucket to certain users in Dev account
+For this
+ At prod:
+   Creare a role (prdRole) such that 
+    - its policy allow user to do certain operations on bucket
+    - its trust Policy will allow it to be assumed by user of dev account.
+       The trust policy should like
+        ???????
+       Please note that we have mentioned the account id of dev aws account
+ At dev:
+    Here the user must have below permission for assuming the role (prdRole)
+    this permission could be given via group, managed policy, inline policy.
+    
