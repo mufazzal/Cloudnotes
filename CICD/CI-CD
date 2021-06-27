@@ -44,7 +44,10 @@ CodeDeploy: The task of CodeDeploy is to
   
   In CodePipleline it does not matter what set of tool you used its so beatifully designed that it mask each stage with each other.
   
-  
+  --------
+  Continous Integration: CodeCommit
+  Continous Delivery: CodeBuild and CodeDeploy
+  Continous Deployment: CodePipeline
   
   
   
