@@ -23,6 +23,8 @@ Here you have to provide
       - On premise instances.
     On LAmbde
       ???????????????
+    On On-Premise server
+    
  CodeDeploy is so smart that even if your EC2 is attached with any LB, 
  for in-place deployment it will go to that LB and instruct them to not to send any request to in-deploment EC2. and once done it again go to that LB and give him a green signal.
  If it is Blue/Green deployment then it will make sure to that the new instances are invoked and lated older one are killed.
