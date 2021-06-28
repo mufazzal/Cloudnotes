@@ -2,7 +2,6 @@ CodeBuild for Docker:-
   You Can use CodeBuild for building the Docker file and uploading it to ECR.
   For this:-
     Along with your source code create the file 'buildspec.yaml'
-
         #env: 
           #variables: 
              # key: "value" 
@@ -29,5 +28,14 @@ CodeBuild for Docker:-
   
   Below is the IMP parts:-
     pre_build: To log in to an Amazon ECR registry. The runner must has permission of ECR:GetAuthorizationToken .
-    Build: Use it for building the docker image
+    Build: Use it for building the docker image and tag it finally
     post_build: Use it for pushing the bocker build to ECR repository.
+
+  Now simply create the CodeBuildProject. and set al the proper value and source code location which has 'buildspec.yaml' at its root
+  - You can also override commands in buildspec file, when you creating the CodeBuild project
+  - You can also override the env var here.
+  - Also nothe that CodeBuild use the service role that must has permission 'ECR:GetAuthorizationToken'
+ Now simply run the build and once done you will see the new docker build is pushed in your ECR repo.. 
+  
+  
+  
