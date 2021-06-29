@@ -466,8 +466,17 @@ Deployment Bundle:-
                      
                 
         6.6: Now choose how you consider the deployment as successful
-              AllAtOnce:   It means we will consider the deployment as success if all the EC2 deployment is successful
-              HalfAtATime: It means we will consider the deployment as success if at least hallf of the EC2 deployment is successful
+              AllAtOnce:  
+                  For In-Place: 
+                    The deployment will happen on as many instance as possible at once.
+                    deployment as success if all the EC2 deployment is successful  Fail otherwise
+                  For BG: 
+                    The deployment will happen on as many replacement-instance as possible at once.
+                    Once finish with deployment traffic routing will happen to all intance together at once.
+                    Succeeds if traffic is successfully rerouted to at least one instance. 
+                    Fails if after rerouting failed to all instances fails
+              HalfAtATime: 
+                  For In-Place: 
               OneAtATime:  It means we will consider the deployment as success if at least one of the EC2 deployment is successful
           So of course the safest option is  'AllAtOnce'
  
