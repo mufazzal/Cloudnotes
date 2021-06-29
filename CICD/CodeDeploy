@@ -535,7 +535,11 @@ Deployment Bundle:-
 Deploy on ECS cluster:-
   For this you have to select the type='ECS' when creating the CodeDeploy Application.
   Now in Code Deploy Group in that Application You should select the ECS cluster and Service.
-       
+---------------------------
+
+Deploy on Lambda:-
+  Code deploy not work very nicely with Lambda, but you can use 
+  CodeBuild + SAM + CodeDeploy for better system.
        
         
         
