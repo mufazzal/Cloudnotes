@@ -248,6 +248,22 @@ Config file:-
 		1. Run a Single Docker Container on Single EC2.
 		2. Or Run a full ECS cluster with ECS service with many Container in it.  
 	
+-------------
+Saving EB Configuration:-
+	You can save the current configuration of your enviorment as like a snapshot.
+	This is saved in S3.
+	Later you can use it to restore the prvious state or to launch another same enviorment from that config.
+
+------------------
+
+Source of Configs:-
+	In EB there is 4 possible source to set or cahnge the config
+	1. Apply directly the EB env via Console, SDK, CLI etc
+	2. Saved configuration in S3
+	3. Configuration file (.ebextensions)
+	4. Defaut values set by AWS.
+	
+	The prority if higest to lowest downward.
 
 
 
