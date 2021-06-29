@@ -1,0 +1,17 @@
+When you create the deployment for any Application you choose two manadatory item
+1. Deplyment Group
+2. New revision location
+    It could be S3 or Github
+    
+    You can also provide below optional setting
+    1. ApplicationStop lifecycle event failure:-
+          If enabled then the Deployment will keep going on the instance even if '
+          pplicationStop' Hook failed.
+    2. Encoutering file of same name on new and old version of application.
+       There is 3 option
+       1. Fail the deployment
+       2. Overwrite the content
+       3. Retain the content
+   3. You can override the rollback setting of deployment group.
+
+        
