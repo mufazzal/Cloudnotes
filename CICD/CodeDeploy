@@ -469,16 +469,29 @@ Deployment Bundle:-
               AllAtOnce:  
                   For In-Place: 
                     The deployment will happen on as many instance as possible at once.
-                    deployment as success if all the EC2 deployment is successful  Fail otherwise
+                    deployment as success if all the EC2 deployment is successful at least on one instance, Fail otherwise
                   For BG: 
                     The deployment will happen on as many replacement-instance as possible at once.
                     Once finish with deployment traffic routing will happen to all intance together at once.
-                    Succeeds if traffic is successfully rerouted to at least one instance. 
-                    Fails if after rerouting failed to all instances fails
+                    Succeeds if traffic is successfully rerouted to at least one instance, Fail otherwise
               HalfAtATime: 
                   For In-Place: 
-              OneAtATime:  It means we will consider the deployment as success if at least one of the EC2 deployment is successful
-          So of course the safest option is  'AllAtOnce'
+                    The deployment will happen on half of instance at once.
+                    succeeds if the application revision is deployed to at least half of the instances, Fail otherwise.
+                  For BG:
+                    The deployment will happen on half of replacement-instance at once.
+                    Succeeds if rerouting to at least half of the instances succeeds, Fail Otherwise.
+              OneAtATime: 
+                For In-Place:-
+                  Deploys the application revision to only one instance at a time.
+                  succeeds if the application revision is deployed to all of the instances, Fail otherwise [exception if last instance fail then it still consider success]
+                For BG:-
+                  Deploys the application revision to only one replacement-instance at a time.
+                  Succeeds if traffic is successfully rerouted to all replacement instances. Fails after the very first rerouting failure.
+                      [exception if last instance fail to register for traffic then it still consider success]
+               Custom:-
+                You can set the percentage of instance to deploy at a time.
+
  
         6.7 LB:
           IF the EC2 are attached to any LB then select them, so that codedeploy can attach/dettach it while in deployment.
