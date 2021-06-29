@@ -253,6 +253,7 @@ Saving EB Configuration:-
 	You can save the current configuration of your enviorment as like a snapshot.
 	This is saved in S3.
 	Later you can use it to restore the prvious state or to launch another same enviorment from that config.
+	This is saved in YAML formate and Mutable. So you can chabge the values in it if you need some cutomization in configuration.
 
 ------------------
 
