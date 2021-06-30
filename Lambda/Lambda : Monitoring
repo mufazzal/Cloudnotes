@@ -3,7 +3,7 @@ CW Metrics:-
     'AWS/Lambda'
   Metrics:-
     Invocation metrics: Invocations, Errors[Function error not Invocation error], Throttles 
-    Performance metrics: Duration 
+    Performance metrics: Duration, IteratorAge[for event source mapping] 
     Concurrency metrics: ConcurrentExecutions, ProvisionedConcurrentExecutions, 
   Dimensions:-
     Function Name, Resource [specific function version], Across All Functions 
