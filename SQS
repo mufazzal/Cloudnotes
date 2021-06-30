@@ -214,7 +214,9 @@ SQS Error HAndling:-
   Now in case of Standard Queue, SQS will retry this message later and keep trying it till message reetention priode passed out or message succesd.
   And in case of FIFO queue, that message group remain unavaialble and keep retrying. 
   This retries of failed message can shoot the hardware usage and overhead. To resolve this comes
-
+  - Que type must be same. mns for FIFO que DLQ must be FIFO
+     and for standard it must be standard.
+  - the avcount and region must be same
   Redrive policy and Dead Letter Que:-
     DLQ is a another queue which has the message which are failed. To configure it you must set up the redrive policy.
     in redrive policy you set
