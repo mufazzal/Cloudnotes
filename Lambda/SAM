@@ -149,44 +149,11 @@ Deployment options:-
         3. Linear:-
             Linear10PercentEvery1Minute, Linear10PercentEvery21Minute, Linear10PercentEvery3Minute, Linear10PercentEvery10Minute
             X% of traffic will shifted to new vesion after each Y minute interval. 
------------------
-  To create the small Hello world App with lembda code and api that invke that lembda
-  run this command in you loca machine
-      C1. sam init --runtime nodejs10.7 --dependency-manager pip --app-template hello-world --name MufApp
-      
-          This will generate couple of file for lembda and api call and their integeration.
-          This will contain the two folder
-            1. MufApp:- the folder of that same name as project.. which contains the code
-            2. events:- this are some random test event generated for you for testing.
-          One IMP file that also generated is
-            template.yml:
-              This is the SAM-template it is very mush same like a cloudformation template.
-              it comtains the information which may later be used for deployment.
-          The api generated via this will be GET as path '/MufApp'
-          
-          You can change the value of this template if you wants like
-            - change the handler function
-            - wants diffrent event set up
-            - wants POST instaed of GET etc
-          
-    C2. sam build:-
-          This will build the app and also download the necessary dependency.
-    C3. Now time to do some local test of function
-        sam local invoke events/event.json
-    Now time for APi to bring heer
-    This 
-    
-    C4: atart localhost server for api
-        sam local start-api
-       In the output it will give the api endpoint, use postman now
-
-    Now time for Packaging and deployment:
-      For deployment you also need the s3 bucket. sam use this bucket for deployment as intermidiatory.
-      say you are using the bucket 'mufSamBkt'
-      
-          
-      C6: Finally the deployment
-      
+            
+  3. Hook:-
+      These are pre-traffic and post-traffic test functions that run sanity checks 
+        before traffic shifting starts to the new version, and after traffic shifting completes
+      In both of this lambda function it must  call back to CodeDeploy to report a success or failure.
       
     
     
