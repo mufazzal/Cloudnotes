@@ -16,4 +16,13 @@ API Caching:-
     client of your API can invalidate an existing cache entry and reload it from the integration endpoint for individual requests.
     The client must send a request that contains the Cache-Control: max-age=0 header. The client receives the response directly from the integration endpoint instead of the cache
   
+  
+Risk with Cache-Control: max-age=0
+  If you expose the API and say many of the user simply set this header in order to get the latest data.
+  This can cause the significant increase in latency and call on integration endpoint.
+  To resolve this You should simply check 'Requird Authorization' in AG > yout apis > Stag > your stage > caching > in section 'per-key cache invalidation' > true
+  Now the authorized IAM user can do the invalidation but for anuthirized you can take one of three action
+  1. Fail with 403
+  2. Ignore 'Cache-Control' header and add warnig
+  3. Ignore 'Cache-Control'
 -----------------------
