@@ -12,8 +12,144 @@ What problem it solve:-
   you can package it for deployment 
   and then
   deploy the function as lembda and api at api-getway.
-  
-  
+-------------------
+
+Application:-
+  When you deploy and create the stack via SAM, collectivly all resource created with it is called application.
+
+Authoring:-
+  Validating the template
+    sam validate <path-to-file>/template.yml
+  Using Layer:-
+    ServerlessFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+      ...
+        Layers:
+            - arn:aws:lambda:us-west-2:111111111111:layer:myLayer:1
+            - arn:aws:lambda:us-west-2:111111111111:layer:mySecondLayer:1
+
+  Nested Application:-
+    Just like Nested CFR, You can use Nested Application in SAM.
+    For this you have to use the SAM repository Alternativly you can use the local PC application.
+  Step Function:-
+    With SAM you can also create State Machine and Orchastrating App.
+  Code Signing:-
+    You can use AWS SAM to enable code signing with your serverless applications to help ensure that only trusted code is deployed
+------
+
+Build:-
+  sam build:-
+    Use this command to build the app.
+    This command will donload and install the dependeny like
+      - from package.json for node
+      - requirment.txt for python
+      - Lambda layer from mentioned layer in template.
+    Finally it will create the artifcat in form of container Image or Zip.
+    --use-container:
+      Use this if you wants to create artifact from container omage
+        sam build --use-container --build-image amazon/aws-sam-cli-build-image-nodejs12.x
+    
+    Builds as a container image:-
+        Resources:
+          HelloWorldFunction:
+            Type: AWS::Serverless::Function
+            Properties:
+              PackageType: Image
+              ImageConfig:
+                Command: ["app.lambda_handler"]
+            Metadata:
+              Dockerfile: Dockerfile
+              DockerContext: ./hello_world
+              DockerTag: v1
+
+    Building custom runtimes:-
+      You can build the custom runtime by specifint
+Resources:
+  HelloRustFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: provided
+    Metadata:
+      BuildMethod: makefile
+  and in makefile you have
+  uild-HelloRustFunction:
+    cargo build --release --target x86_64-unknown-linux-musl
+    cp ./target/x86_64-unknown-linux-musl/release/bootstrap $(ARTIFACTS_DIR)
+
+----
+
+Debuggint and Testing:-
+  Inokong locally with event and enviorment variable:-
+    $ sam local invoke "Ratings" -e event.json --env-vars envvar.json
+  Running API locally:-
+    sam local start-api --env-vars env.json
+
+----
+
+Layers in SAM:-
+Resources:
+  MyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: my_layer
+      CompatibleRuntimes:
+        - python3.6
+    Metadata:
+      BuildMethod: python3.6                
+-----
+
+Deployment:-
+  SAM internally use the 'CodeDeploy' for this.
+  To deploy you forst have to create the package
+  Packaging:
+    for this use 'sam package' command. This command will create the zip with all the resources and push it ti s3 bucket.
+    it also generate a cloudformation templalte file. 
+    Actully it imply convert the SAM-template file to CF-template file.
+    So in this command you should provide
+      - the name of the CF template file that you wants to create
+      - S3 bucket on shich yiu wants uploading of package.
+      sam package --output-template MufCFTmplat.yaml --S3-bucket mufSamBkt
+      This command will generate the CF template 'MufCFTmplat.yaml', zip all esources like code and all, and push it to bucket 'mufSamBkt'
+  Deploy:-
+    Here we will actully create the infrastructure on the aws system. This will create the api at API-Getway and a lembda function
+    you have to provide
+    - the name of the CF template file that has been generated via 'package' command
+    - the name of stack that this CF will create
+    - capabilities
+      sam deploy --template-file MufCFTmplat.yml --stack-name MufStack --capabilities CAPABILITY_IAM      
+    
+----
+Deployment options:-
+  MyLambdaFunction:
+   Type: AWS::Serverless::Function
+   Properties:
+     AutoPublishAlias: live
+     DeploymentPreference:
+       Type: Canary10Percent10Minutes 
+       Alarms:
+         # A list of alarms that you want to monitor
+       Hooks:
+         PreTraffic: !Ref PreTrafficLambdaFunction
+         PostTraffic: !Ref PostTrafficLambdaFunction
+
+  1. AutoPublishAlias:-
+      If you add this property with Alias name then
+      - Create the Alias if not exist
+      - Publish the new version of the Lambda function
+      - Map Alias to the published lambda version
+  2. DeploymentPreference:-
+      This help you to Gradually shifts customer traffic to the new version until you're satisfied that it's working as expected, or you roll back the update.
+      There is 3 options:-
+        1. All-at-once: 
+            All traffic is shifted from the original Lambda function to the updated Lambda function version at once.
+        2. Canary:-
+            Canary10Percent30Minutes, Canary10Percent5Minutes, Canary10Percent10Minutes, Canary10Percent15Minutes, 
+            X% of traffic shifted to new version at first and after Y minutes all the traffic will be routed to new.
+        3. Linear:-
+            Linear10PercentEvery1Minute, Linear10PercentEvery21Minute, Linear10PercentEvery3Minute, Linear10PercentEvery10Minute
+            X% of traffic will shifted to new vesion after each Y minute interval. 
+-----------------
   To create the small Hello world App with lembda code and api that invke that lembda
   run this command in you loca machine
       C1. sam init --runtime nodejs10.7 --dependency-manager pip --app-template hello-world --name MufApp
@@ -48,27 +184,8 @@ What problem it solve:-
       For deployment you also need the s3 bucket. sam use this bucket for deployment as intermidiatory.
       say you are using the bucket 'mufSamBkt'
       
-      Packaging:
-        for this use 'sam package' command. This command will create the zip with all the resources and push it ti s3 bucket.
-        it also generate a cloudformation templalte file. 
-        Actully it imply convert the SAM-template file to CF-template file.
-        So in this command you should provide
-          - the name of the CF template file that you wants to create
-          - S3 bucket on shich yiu wants uploading of package.
-          
-       C5:  sam package --output-template MufCFTmplat.yaml --S3-bucket mufSamBkt
-       
-          This command will generate the CF template 'MufCFTmplat.yaml', zip all esources like code and all, 
-          and push it to bucket 'mufSamBkt'
           
       C6: Finally the deployment
-          Here we will actully create the infrastructure on the aws system. This will create the api at API-Getway and a lembda function
-          you have to provide
-          - the name of the CF template file that has been generated via 'package' command
-          - the name of stack that this CF will create
-          - capabilities
-
-            sam deploy --template-file MufCFTmplat.yml --stack-name MufStack --capabilities CAPABILITY_IAM      
       
       
     
