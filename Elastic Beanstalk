@@ -182,10 +182,11 @@ Updates:
 			3. Rolling with Batch
 					- Work with LB only
 					- Take even more time
-			 		- Elastic Beanstalk launches an extra batch of instances, then performs a rolling deployment.
+			 		- Elastic Beanstalk launches an extra batch of instances, then performs a rolling deployment. and do it till all replaced.
 					- No down time and No capacity redution.
-					- Rolling back is difficult and time taking. You have to re-deploy the older version again
-					- Some New instances also launched and serve along with some older one after deployment.
+					- Rolling back is easy if first batch itself get failed.
+					- Rolling back is difficult for next batches and time taking. You have to re-deploy the older version again.
+					- New instances launched.
 			4. Immutable						
 					- Work with LB and Single instance both
 					- Slowest
