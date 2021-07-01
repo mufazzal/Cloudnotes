@@ -32,6 +32,18 @@ Authoring:-
   Nested Application:-
     Just like Nested CFR, You can use Nested Application in SAM.
     For this you have to use the SAM repository Alternativly you can use the local PC application.
+    Resources:
+      applicationaliasname:
+        Type: AWS::Serverless::Application
+        Properties:
+          Location:
+            ApplicationId: arn:aws:serverlessrepo:us-east-1:123456789012:applications/application-alias-name
+            <OR>
+            Location: ../my-other-app/template.yaml
+            SemanticVersion: 1.0.0
+          Parameters:
+            ParameterName2: YOUR_VALUE    
+    
   Step Function:-
     With SAM you can also create State Machine and Orchastrating App.
   Code Signing:-
