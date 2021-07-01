@@ -26,6 +26,10 @@ CodeBuild for Docker:-
         #artifacts: 
             # - location 
   
+  Overriding Build Command:-
+    You can override the commads in 'buildspec.yaml' at a time of creating the project in CodeBuild.
+    that also can be overriden by providing the command at a time of running build via console or CLI.
+  
   Below is the IMP parts:-
     pre_build: To log in to an Amazon ECR registry. The runner must has permission of ECR:GetAuthorizationToken .
     Build: Use it for building the docker image and tag it finally
