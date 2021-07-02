@@ -22,3 +22,7 @@ Below is the list of STS api that can be used to generate the Temporarry Securit
     Policy, PolicyArn, A param for token of that user.
   In response you have
     AccessKey, Id and session token
+
+---
+  STS:AssumeRole is note cumlative, mns that if you assume this role then you giveup your previous role. and as soon as this role is release from you
+  the previous role is re-applied to you.
