@@ -108,7 +108,10 @@ CW Alarm:-
   Datapoints to alarm:-
     X out of Y: The alarm will be trigger when out of Y data point X data point has breached the limit.
   Missinge Data:-
-    In case in any priode the data point is not avialabe then 
+    In case in any priode the data point is not avialabe then you can treat this miss as:
+      - MAintain alarm state
+      - Breach
+      - No Breach
   
   IMP: Lambda is not directrly integrated with Lambda. you have to use it woith SNS.
 
