@@ -107,7 +107,8 @@ CW Alarm:-
     When you creat CW alarm, you specify priode to. The 1 data point is collected in this priode.
   Datapoints to alarm:-
     X out of Y: The alarm will be trigger when out of Y data point X data point has breached the limit.
-
+  Missinge Data:-
+    In case in any priode the data point is not avialabe then 
   
   IMP: Lambda is not directrly integrated with Lambda. you have to use it woith SNS.
 
