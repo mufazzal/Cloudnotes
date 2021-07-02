@@ -93,25 +93,34 @@ CW Agent:-
 ---------------
 
 CW Alarm:-
-  Based on CW, You can create the specific action to be taken id Alarm is on.
-  CW is nativly integrated with 3 AWs service and so can take action on those
-  1. SNS: CW can send notification to the SNS topic
-  2. EC2: CW can directlt start, Stop, Terminate or Reboot the instance without needing any lambda.
-  3. ASG: CW can take some action on Auto scalling group too directly.
-     
-    Actions for EC2
-      stop, terminate, reboot, and recover
-    Action for ASG
-     
-  Priode:-
-    When you creat CW alarm, you specify priode to. The 1 data point is collected in this priode.
-  Datapoints to alarm:-
-    X out of Y: The alarm will be trigger when out of Y data point X data point has breached the limit.
-  Missinge Data:-
-    In case in any priode the data point is not avialabe then you can treat this miss as:
-      - MAintain alarm state
-      - Breach
-      - No Breach
+
+  Creating Alarm will need below item to set
+  Related to Metrics:-
+    - Metric
+    - Dimension
+    - Statistics [Average, Min, max, Average, Sum, count]
+    Priode: you specify priode to collect The 1 data point is collected in this priode.    
+  Related Alarm to bell:-
+    Condition:-
+      Greater the, less then etc.
+    Datapoints to alarm:-
+      X out of Y: The alarm will be trigger when out of Y data point X data point has breached the limit.
+    Missinge Data:-
+      In case in any priode the data point is not avialabe then you can treat this miss as:
+        - MAintain alarm state
+        - Breach
+        - No Breach
+
+  Related to Action That you wants to take:-
+    Based on CW, You can create the specific action to be taken id Alarm is on.
+    CW is nativly integrated with 3 AWs service and so can take action on those
+    1. SNS: CW can send notification to the SNS topic
+    2. EC2: CW can directlt start, Stop, Terminate or Reboot the instance without needing any lambda.
+    3. ASG: CW can take some action on Auto scalling group too directly.
+      Actions for EC2
+        stop, terminate, reboot, and recover
+      Action for ASG
+       
   
   IMP: Lambda is not directrly integrated with Lambda. you have to use it woith SNS.
 
