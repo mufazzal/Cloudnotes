@@ -24,14 +24,14 @@ Concept:-
   Metrics:-
     Metrics are the Monitering values that are in the form of Time Ordered Data-Point. 
     Each Data point is the state of monitering values in that moment of time.
-    For each AWS resource typethere many Metrics are available to track. Some of them are free and some are paid.
+    For each AWS resource type there many Metrics are available to track. Some of them are free and some are paid.
     
     Time Stamps:
       Each data point in the metrics contain the timestamp that reprsent the time when sate of monitering values are captured. 
     Metrics Resolution:
       The data metrics can have the two resolution
-        Standard[By Default]: data point are taken ini one minute granularity
-        High resolution:      data point are taken ini one second granularity
+        Standard[By Default]: data point are taken in one minute granularity. Multiple of 60 second.
+        High resolution:      data point are taken in one second granularity. can be as low as 10 sec.
     Metrics Retention:-
       There is no way to delete the data metrics manually. instead this metrics are stayed for specific prode of time and then deleted automatically.
       - For data with priode < 1 minute its 3 hour [High resolution]
