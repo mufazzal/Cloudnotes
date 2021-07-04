@@ -84,6 +84,16 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       - By SQL like queries.
 --------------
 
+Encryption:-
+  - In Kenesis Stream you can choose to have encryption at rest enable or disabled. IF it is enable then the data is 
+      encrypted as it enter in the stream by any producer
+      and decrypted right before delivering to any consumer.
+  - The producer and Consumer has not to worry about any crypto operation.
+  - it encrypts incoming data only after encryption is enabled. Preexisting data in an unencrypted stream is not encrypted after server-side encryption is enabled
+  - You can use Cutomer or AWS managed CMK.
+
+--------------
+
 KDS:  Ingest from source -> Put in shrads -> Process via EC2/Lambda/EMR.
 KDF:  Ingest from source -> Trasform/Filter by lamba if needed -> Store in analytics storage like S3/Reshift/ElsticSearch/MongoDB 
 KDA:  Ingest from KDF/KDS -> Run query/Apache flink -> analyze in dasborad or put reult in any destination
