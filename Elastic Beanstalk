@@ -163,6 +163,8 @@ EB and RDS DB:-
 		- DElete the older versions(not in use) total version exceed the maximum number
 		- DElete if certain version(not in use) if its older ten some set value.
 		- It cannot delete the in-use version.
+		- you will need a service role for this.
+		- You can choose to retain the source bundle in S3 if you wants.
 
 ------------
 
