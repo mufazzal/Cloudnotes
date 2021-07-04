@@ -42,7 +42,7 @@ X-Ray For On-Premise or EC2:
       - It automatically capture the API call made to AWs resources. [So you do not have to worry about it]
       - The X-Ray SDK send the data to X-Ray Deamon which send the the data to X-Ray in batches.
   3. Ec2 Role:-
-      The role of ec2 must contain proper permission to upload the data to x-ray.
+      The role of ec2 must contain proper permission to upload the data to x-ray service (not cw)
     
     
 Service Map:-
