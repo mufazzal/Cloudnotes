@@ -156,6 +156,16 @@ EB and RDS DB:-
 
 ------------
 
+	Application version lifecycle:-
+		Whenever you launch a new application version in EB, the older remain in there if you wants rollbacks.
+		But after sometime you have many unsed version in EB.
+		TO cleas it you can set the Lifwcycle policy which can
+		- DElete the older versions(not in use) total version exceed the maximum number
+		- DElete if certain version(not in use) if its older ten some set value.
+		- It cannot delete the in-use version.
+
+------------
+
 Updates:
 	There is three kind of updates happen in the EB system
 	1. Deploying Application: A new source code of Application is deployed
