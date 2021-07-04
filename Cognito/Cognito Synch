@@ -23,7 +23,8 @@ Arch:-
   
   Data Set:-
     Data for any user in the id pool is saved in form of key-value pair. collection of this pair is called Data set.
-    For a single identity you can have maximium 20 data set. and each data set can have many Key-Value pair.
+    - For a single identity you can have maximium 20 data set. and each data set can have many Key-Value pair.
+    - Each dataset can have a maximum size of 1 MB
     EG:- for use in the id pool 'mufazzal' you can have 3 data set like
     profile_data_set:  {name, address, gae}
     scores_data_set: {best, rank, rankinindia}
@@ -39,3 +40,62 @@ Arch:-
     For this you need the Identity-Pool and Client libs.
     Synch data set in android:- 
       dataset.synchronize(syncCallback);
+    Push Synch:-
+      IF you enable this then all the devices with login will be notified via a silent notification if there is any update on data set.
+      Push Synch listener in android:-
+        Use BroadCastReciver
+        
+  Cognito Stream:-
+    As COgnito Synch give you real time data synch between multiple devices for same identity. and you do not need to provision any back end for synching.
+    But you can listen the ongoing changes in the user identity via a Kenesis tream.
+    Amazon Cognito can push each dataset change to a Kinesis stream you own in real time.
+    - You can use this to analyze the changes and process and store it for further analysis.
+    - You need a sevice ro;e for Cognito that have permission to seng data to stream
+    - You can use existing or new stream for this.
+    Eveent-Data cell in stream:-
+        {
+            "identityPoolId": "Pool Id",
+            "identityId": "Identity Id",
+            "dataSetName": "Dataset Name",
+            "operation": "(replace|remove)",
+            "kinesisSyncRecords": [
+                {
+                    "key": "Key",
+                    "value": "Value",
+                    "syncCount": 1,
+                    "lastModifiedDate": 1424801824343,
+                    "deviceLastModifiedDate": 1424801824343,
+                    "op": "(replace|remove)"
+                },
+                ...
+            ],
+            "lastModifiedDate": 1424801824343,
+            "kinesisSyncRecordsURL": "S3Url",
+            "payloadType": "(S3Url|Inline)",
+            "syncCount": 1
+        }    
+
+-------------
+  Cognito Event:-
+    When any changes are made in the data set by any device and then it suched and published with other device, for this moment you can set up the 
+    lambda trigger (Sync Trigger) that will be called right befor the data synched to other device.
+    You can use this lambda to make chnages in the data set that are going to synch.
+    For this you have to set up the proper lambda function as Synch Trigger for an Identity Pool.
+    - Amazon Cognito will provide all the records present in the dataset as input to the function.
+    - Records updated by the app user will have the 'op' = “replace” and the records deleted will have 'op'= "remove".
+    - You can modify any record
+    - To modify the value of a record, simply update the value and set the 'op' to "replace".
+    - To add a record, simply add a new record to the datasetRecords array.
+
+
+
+
+
+
+    
+    
+    
+  
+    
+        
+        
