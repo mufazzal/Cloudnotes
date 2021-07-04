@@ -1,0 +1,41 @@
+This is one if the very amazing service of AWS Cognito.
+
+In Simplest term it provide the data Synchronization for 'h.mufazzal@gmail.com' to its laptop, mobile, PC and watch etc.
+
+The CSY provide synching og application related synching of data wrt to cognito user of that application.
+Once login on multiple device via cognito based authentication by same user, those all devices remain in synch via silent notifications.
+
+For this CSY create the fully managed back-end for you and you just have to write the proper front end on the compatible devices.
+
+Arch:-
+  Cognito_id_pool_user    Dataset
+  h.mufazzal@gmail.com    {a:b, c:d}     --------------> mufazzal's phone, chrome, lappy etcc
+  fatema@gmail.com        {k:l, m:n}     --------------> fatema's phone, chrome, lappy etcc
+  ...
+  ...
+  
+  CSY Client library:-
+    - This lib keep the user data in cache of your App, your app read and write the data in cache only ia the client libs.
+    - For rading and writing on cache you never need a internet connection
+    - IF connectivity available then you can Synch the data with back end 
+    - The back end is fully managed by AWS so you never have to worry about it.
+    - You can also set up 'push synch' to immediatly inform other logged in devices for the new changes in data set.  
+  
+  Data Set:-
+    Data for any user in the id pool is saved in form of key-value pair. collection of this pair is called Data set.
+    For a single identity you can have maximium 20 data set. and each data set can have many Key-Value pair.
+    EG:- for use in the id pool 'mufazzal' you can have 3 data set like
+    profile_data_set:  {name, address, gae}
+    scores_data_set: {best, rank, rankinindia}
+    awards_data_set: {totalPoint, milestone, badges}
+    
+    Creating data set in android:-
+      Dataset dataset = client.openOrCreateDataset("datasetname");
+    Reading and Writing Data in Datasets
+      String value = dataset.get("name");
+      dataset.put("age", "32);        
+  
+  Data Synch:-
+    For this you need the Identity-Pool and Client libs.
+    Synch data set in android:- 
+      dataset.synchronize(syncCallback);
