@@ -150,7 +150,11 @@ Its so strongle integrated with other system that with just few setting you can 
     You can set the key to rotate it material each year. you ca do it via AWS-console or by code.
     Though key changes ots content but it does keep entry of its older material so if anything is encrypted before the rotation 
     will be decrypted with older vesrion of key.
-    
+ 
+ ---------------
+ Throttle:-
+  Beware that if you are requesting lot may crypto operation like Encrypt, DEcrypt, GenerateDataKey etc then you may encounte the limits and statt grtting throttle error.
+ 
  ---------------------------------
  
  CloudHSM:-
