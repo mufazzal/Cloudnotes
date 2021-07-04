@@ -161,4 +161,4 @@ Private Integration [VPC Private Link]:-
 AWS service integration:
   You can use aws service integration for simply calling any aws service api via api gateway.
   like you can configure to call the Api PutItem of dynamo db as integration of api.
-  for this you have to provide the service role when you set it up in methode request integration.
+  for this you have to provide the service role when you set it up in integration request .
