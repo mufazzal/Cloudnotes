@@ -7,9 +7,9 @@
     Caching Stratagy:-
       Lazy Loading:-
         The data is loaded when user requetsed it. So only useful data is loaded not useless.
-        but you can observe latency in case of cache miss.
+        but you can observe latency in case of cache miss. also you may have stale data.
       Write-through:-
         Data is updated in cache too if its updated in RDS.
-        CAche can hve lot of useless data at a time.
+        CAche can hve lot of useless data at a time. but you always have latest data.
         Latency is low as data is always in there.
        --> In both case the data will expire after TTL.
