@@ -156,3 +156,10 @@ Carnary Release:-
 	You can set it at Stage level where you can set to send certain percentage of request to carnary deployment and rest to older one.
 	Once all ok then you can promote the carnary as production.
 
+-------------
+
+Gateway Response:-
+	You can set up the Gateway response for API gateway to send the customize response in case the integration return a specific output.
+	This is very useful for sending detail error if integration semd very short error message.
+
+
