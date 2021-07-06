@@ -238,7 +238,16 @@ Updates:
 								- Work with LB and Single instance both
 								- Terminates existing instances and replaces them with new instances running with the new configuration.
 								- Highest Downtime
+---
 
+Enviorment Url Swap:-
+	As you know that a web env in EB has a Enviorment url to access it.
+	This url is mapped to the envorment by CNAME record mapping.
+	You can swap the url of env1 with env2. The EB take care of canging the CNAME mapping in Route53 for both env.
+	You can use this for Blue/Green Deployment.
+	Blue/Green Deployment with Swap:-
+		Unlike the deployment mechanichs discuss above, you can create a fully new enviorment by cloning the current enviorment.
+		then deploy the new app version on newly made clone env. now swap the url of both env. 
 -----------------------------
 
 Config file:-
