@@ -43,11 +43,6 @@ Supporting SQL DB:
     
     AWS tool for Caching: ElasticCache
     
-    AWS support two open source in-memory cache tecnique.
-    1. MeMCached: for simpler one. 
-    2. redis: for more refined and advance, its Multi AZ, can have back uo and restore, serrch and sort etc.
-    The only advantage of mecached over redis is that it support multithreading
-    
     RDB                 RDS
     NoSql               DnnamoDB
     Data Warehosing:    RedShift
