@@ -91,7 +91,13 @@ This stages are
       If a stage completes with one or more failed actions, the stage fails, and the pipeline execution does not transition to the next stage in the pipeline.
       You can retry the failed action without restarting the pipeline from begin.
 
+----
 
+Staring Pipeline Execution:-
+  There are three ways to start a pipeline execution in AWS CodePipeline
+  1. When a source changes:- S3, CodeCommit, Butbucket, SVN, GIT
+  2. Manually
+  3. On a schedule:
 
     
     
