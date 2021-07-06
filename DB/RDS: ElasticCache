@@ -1,0 +1,15 @@
+    AWS support two open source in-memory cache tecnique.
+      1. MeMCached: for simpler one. 
+      2. redis: for more refined and advance, its Multi AZ, can have back uo and restore, serrch and sort etc.
+    The only advantage of mecached over redis is that it support multithreading
+    
+    
+    Caching Stratagy:-
+      Lazy Loading:-
+        The data is loaded when user requetsed it. So only useful data is loaded not useless.
+        but you can observe latency in case of cache miss.
+      Write-through:-
+        Data is updated in cache too if its updated in RDS.
+        CAche can hve lot of useless data at a time.
+        Latency is low as data is always in there.
+       --> In both case the data will expire after TTL.
