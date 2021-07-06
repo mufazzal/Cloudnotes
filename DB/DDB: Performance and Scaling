@@ -88,8 +88,37 @@ DDB Accelerator [DAX] :-
    Limits:-
 	Not major improvement if data is changing frequently
 		If data change in origin DDB table it still may remain unupdated in cache   
-		so its only suitable for eventually consistent read. not suitable for Strongly-consistent read
-         
+		so its only suitable for eventually consistent read. not suitable for Strongly-consistent read.
+		
+---
+	DAX and eventually consistent reads:-
+		For Any eventually consistent reads by GetItem, BatchGetItem, Query and Scan the data is forst read in cache if its there then return it
+		othrwise go to DB and find it, Cache it and deliver to end client.
+	DAX and strongly consistent reads:-
+		This is not supported by DAX, the request is forwarded to DDB and response from DDB is forwarded to client whithout even csching the result.
+	DAX and write operation:-
+		DAX supporrt two kind of write operation for BatchWriteItem, UpdateItem, PutItem, DeleteItem
+		1. Write-Through:-
+				The DAX forward the request to the DDB first once DDB is updated then the DAX cache also updates. and then operation completed.
+				So Write via DAX will kepp DDB and DAX both in Synch in real time. This is default behaviour.
+		2. Write-Aroud:-
+				This is useful if you wants to write a bulk data which is not read frequently. Here data is written to DDB directly.
+				The DAX will load it only when client request for it.
+--
+	LRU and TTL:-
+		By default TTL of each item in DAX is 5 mnt but you can change it. DAX also main tain the 'least recently used' for each cached item.
+		In case the Cache becoming full, the DAX will delete the item which has not been read in longest time even if there TTL has not passed.		
+--
+	Cache:-
+		DAX maintain two cache, 
+		one for GetItem and BatchGetItem called 'Item Cache' where result are stored by their primary key values and 
+		other for Query and Scan called 'Query Cache' where result are stored by their parameter values
+--
+	DAX Infra:-
+		DAX cluster is launched in the VPC and you need to select in which AZ youz DAX nodes will lies.
+		You can also select the SG to allow specifit traffic on your nodes. THe DAX cluser can subordinate to the DDB in same region only.
+		The DAX cluster has one 'Cluster Endpont' and for each node a one 'Node Endpoint'
+
 ----------------------
 
 ElastiCache with DynamoDB:-
