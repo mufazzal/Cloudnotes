@@ -99,18 +99,27 @@ CW Alarm:-
     - Metric
     - Dimension
     - Statistics [Average, Min, max, Average, Sum, count]
-    Priode: you specify priode to collect The 1 data point is collected in this priode.    
+    - Priode: you specify priode on which the CW collect The 1 data point.    
   Related Alarm to bell:-
     Condition:-
       Greater the, less then etc.
+    Evolution Priode:-
+      The number of data point that should be conside for evaluating the alarm state.
     Datapoints to alarm:-
-      X out of Y: The alarm will be trigger when out of Y data point X data point has breached the limit.
+      Number of Data point that must be breached in the frame of 'Evolution Priode'
     Missinge Data:-
       In case in any priode the data point is not avialabe then you can treat this miss as:
         - MAintain alarm state
         - Breach
         - No Breach
-
+    EG:-
+      Priode = 1 mnt
+      Evolution Priode = 5 
+      Datapoints to alarm = 3
+      So The CW will create a Data point in each 1 mnt. After every 5 data point alarm state will be evaluated.
+        Now if number of Breached data point >= 'Datapoints to alarm' then simply put the alarm in Ring state otherwise let it remain OK.  
+      
+  
   Related to Action That you wants to take:-
     Based on CW, You can create the specific action to be taken id Alarm is on.
     CW is nativly integrated with 3 AWs service and so can take action on those
