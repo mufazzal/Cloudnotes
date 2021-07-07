@@ -1,9 +1,9 @@
-DDB stream: you can use stream to analyze what happen to
-DDB in last 24 hour. it has detail about CRUD operation 
-
-DDB is nicely integrated with lambda.
-you can set lambda trigger on stream event. once you do it
-ttgen Cloudwatch set a polling mechanism in background
-and triiger the lambda if new event or events prsent in stream.
+DDB stream: 
+  you can use stream to analyze what happen to DDB in last 24 hour. it has detail about CRUD operation.
+  This a Kenesis Stream and you can use any consumer to process the ongoing changes.
+  You need to set that what you need 
+  
+  - Number of shrad in the Stream = number of partition key in DDB table
+  - Each Shrad will have time order sequence of changes done on respectine Partition key.
 
 its very much like SQS.
