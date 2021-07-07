@@ -198,7 +198,7 @@ Updates:
 					- No down time and No capacity redution.
 					- Rolling back is easy if first batch itself get failed.
 					- Rolling back is difficult for next batches and time taking. You have to re-deploy the older version again.
-					- New instances launched.
+					- New and old instances both.
 			4. Immutable						
 					- Work with LB and Single instance both
 					- Slowest
