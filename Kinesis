@@ -133,6 +133,22 @@ Kenesis use case:-
     KDS is best for REAL-TIME-HIGH-VOLUE data streaming processing upto giga to prtabyte per sec. It deliver the message to the consumer in around 70 milisecond.
     SQS is best for DECOUPLING of an applications.
         
-        
+  ----------------
+  
+  Consumer:-
+    For creating Consumer either you can use LAmbda or use Kenesis-Consumer-lib(KCL) in any EC2 or on-premise server.
+    If you are using KCL then you should launch the number of instance in factor of number of shrad
+    EG:-
+    If you have 2 shrad then you should have 1 or 2 instance.
+    If you have 5 shrad then you should have 1 or 5 instance.
+    If you have 6 shrad then you should have 1 or 2 or 3 instance.
+    If you have 10 shrad then you should have 1 or 2 or 5 or instance.
+    
+    Reason is that a shrad is handled by a single KCL all the time. though a single KCL can take multiple shrad.
+    Also max number of Instacne you should have = number of shrad because extra instance will have nothing to serve.  
+    
+    
+    
+  
         
     
