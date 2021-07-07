@@ -1,9 +1,13 @@
 DDB stream: 
   you can use stream to analyze what happen to DDB in last 24 hour. it has detail about CRUD operation.
   This a Kenesis Stream and you can use any consumer to process the ongoing changes.
-  You need to set that what you need 
+  You need to set that what content will the stream cell will carry. It can be 1 out of 4 possible value:-
+  1. New          : The entire item, as it appears after it was modified 
+  2. Old          : The entire item, as it appears before it was modified
+  3. New and Old  : Both item
+  4. Key only     : Only the key attributes of the modified item
   
   - Number of shrad in the Stream = number of partition key in DDB table
-  - Each Shrad will have time order sequence of changes done on respectine Partition key.
+  - Each Shrad will have time order sequence of changes done on respective Partition key.
 
 its very much like SQS.
