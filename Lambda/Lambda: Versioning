@@ -24,3 +24,16 @@ Alias:-
   Weighted alias:-
     With weighted alias you can creat custom routing to delivercertain portion of traffic to certain version of Lambda.
     This is usful for beta testing. You can set like send 10% of traffic to version 10 and 90% to version 11 for alias :PROD 
+    - You can set percentage at a time of creating alias or later you can also update it.
+    - You can distribute the traffic only between TWO lambda version.
+    - Both versions must have the same execution role.
+    - Both versions must have the same DLQ configuration, or no DLQ
+    - Both versions must be published. The alias cannot point to $LATEST.
+    
+    EG: 
+     create alias with 3% traffic on version 2 and remaining oon version 1
+        aws lambda create-alias --name MufLambda --function-name muf --function-version 1  --routing-config AdditionalVersionWeights={"2"=0.03}
+     Now lets update alias with 50% traffic on version 2 and remaining oon version 1
+        aws lambda create-alias --name MufLambda --function-name muf --function-version 1  --routing-config AdditionalVersionWeights={"2"=0.5}
+     Now lets update alias with 100% traffic on version 2 and no traffic on version 1
+        aws lambda create-alias --name MufLambda --function-name muf --function-version 2
