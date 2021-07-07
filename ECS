@@ -112,8 +112,6 @@ ECS Cluster[with EC2 Hosting]:-
 			- The logging configuration to use for your tasks
 			- Whether the task should continue to run if the container finishes or fails
 
-
-
 		Deploying Container on ECS Cluster / Task :- 
 			From the the task defiation ocreated earlier you can create the actual task in instance in the cluster.
 			Task is wherein the containers ran. A single task can have a multiple container.
@@ -230,6 +228,40 @@ ECS Cluster[with EC2 Hosting]:-
 															It could be be the ARN of ASG if you are using the EC2 or 
 															it could be FARGATE or FARGATE_SPOT if you are using the Fargate.
 				
+	Task Placement Stratagies:-
+		When you change the task count in the service the ECS launch the new container or terminate the container (not EC2 instance)
+		Now ECS must determine from which instance the container should terminate. for this it use the Placement Stratagies
+		There is 3 possible stratagy:-
+		1. Binpack: 
+				The container is placed on istance with Least amount of CPU or Memory. 
+				The contaier is removed from the instance which release most avialable CPU and Memory
+				EG:-
+					"placementStrategy": [{
+									"field": "memory", or "cpu"
+									"type": "binpack"
+						}]
+				
+		2. Spread:-
+				Tasks are placed or remove as such that tasks are evenly distributed against the specified value 
+				EG:-
+					"placementStrategy": [{ "field": "attribute:ecs.availability-zone", or "InstanceId" or any other attribute
+									"type": "spread"
+					 }]
+					 So the contaier are spread evenly across the AZ or instance or other.
+		3. Random:-
+				Wild guess.
+				"placementStrategy": [{ "type": "random" }]
+		
+		You can also use more then one stratgy. like first spread evenly in AZ and then evenly in the instances in that AZ
+			"placementStrategy": [{
+							"field": "attribute:ecs.availability-zone",
+							"type": "spread" 
+						},{
+							"field": "instanceId",
+							"type": "spread"
+			 }]
+		
+		
 ------------------------------
 
 ECS with Fargate:-
