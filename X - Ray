@@ -18,16 +18,18 @@ X-Ray Service Map:-
 
 X-Ray and other AWS services:-
   X-Ray is well integrated with 
-  - EC2         : You must install the x-Ray Agent and X-Ray SDK in instance
+  - EC2         : You must install the x-Ray Agent and X-Ray SDK in instance. A role that can push data to X-Ray service.
   - ECS         : X-Ray provides a Docker container image that you must deploy alongside your application
   - ELB         : Always Enabled
   - DDB
   - S3          : Send the tracing info to downstream event subscriber like SNS, SQS, Lambda 
   - E Beanstalk : You must install the x-Ray Agent and X-Ray SDK in instance
   - API GAteway : You must enable it
-  - Lambda      : You must enable it [On runtimes with a corresponding X-Ray SDK, Lambda also runs the X-Ray daemon. ]
+  - Lambda      : You must enable it [On runtimes with a corresponding X-Ray SDK, Lambda also runs the X-Ray daemon for you. also set proper IAM Role for you]
   - SNS
   - SQS
+  - On-Premise  : run command to run the Deamon '~/xray-daemon$ ./xray -o -n us-east-2'
+  
  X-Ray and Your application:-
   You can use Xray for the application wtitten in
   Java, .Net, GO, Ruby, Python, Node
@@ -43,8 +45,7 @@ X-Ray For On-Premise or EC2:
       - The X-Ray SDK send the data to X-Ray Deamon which send the the data to X-Ray in batches.
   3. Ec2 Role:-
       The role of ec2 must contain proper permission to upload the data to x-ray service (not cw)
-    
-    
+        
 Service Map:-
   This is visualization tool to view the flow of the request in downstream systems.
 
@@ -53,9 +54,31 @@ Sagment:-
   This contain the info like
   request, Header response, time, error.
 
-annotations and metadata:-
-  You can add the annotation and metadata in the Segmant which later can be used for filtering.
-  
+Smapling:-
+  You should take care of this thing. X-Ray can generate insanly large data if you sample it too frequently.
+  By default the X-Ray SDK records the first request each second, and five percent of any additional requests
+  You should disable or set vey low sampling for request like
+   - High volume read
+   - Polling request
+   - Request to syschibg data in back ground
+  For creating the Sampling rule you need to set
+   - the name of Rule
+   - The service that you wants to sample rule applied to
+   - Reservoir: minmum number of request(of matching service) the X-Ray must sample
+   - Rate: The percentage of matching requests to instrument, after the reservoir is exhausted 
+
+Filter:-
+  On the X-Ray log in AWS X-Ray console you can also apply rich filtering for finding specific info.
+Group:-
+  Out of filter you can also create the Group which is nothinf but collection of segment matching the filter.
+
+Annotations and Metadata:-
+  You can add the annotation in the Segmant which later can be used for filtering. This carry info and also indexed
+  You can add the metadata in the Segmant but it can not be used for filtering. This carry info but not indexed   
+
+Insight:-
+  You can enable the Insight on a Group. This will enable the X-Ray to actively trace the Group data and find anamoly, issue, root cause of issue in it. 
+
 Tracing header:-
   The first X-Ray-integrated service that the request hits adds a tracing header 'X-Amzn-Trace-Id'.
   
