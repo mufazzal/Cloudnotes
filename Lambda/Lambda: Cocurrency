@@ -46,6 +46,27 @@ Provisioned Cocurency :-
       3. Event Source:              For Straem it will be retried till data expire or success. for sqs message will reapear after visibility timeout. 
       
       
-      
+-------------------
+Calculation of Cocurrent execution:-
+  Average Cocurrunt exection = Average Number of lambda exection per second * Average Time taken by a indivisual execution
+  SO 
+  Avg invocation per sec = 10
+  Avg time in each execution = 50 sec
+  then 
+  Cocurrent execution = 10 * 50 = 500.
+  You can also fugure out if you lambda can throttle or not. Here CE = 500 which is well withinne Account level CE limit of 1000.
+  But say
+  Avg invocation per sec = 100
+  Avg time in each execution = 50 sec
+  then 
+  Cocurrent execution = 100 * 50 = 5000.
+  You can see that lambda will throttle because CE = 5000 which is well beyond Account level CE limit of 1000.
+
+
+
+
+
+
+
       
       
