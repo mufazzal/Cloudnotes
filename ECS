@@ -230,7 +230,9 @@ ECS Cluster[with EC2 Hosting]:-
 				
 	Task Placement Stratagies:-
 		When you change the task count in the service the ECS launch the new container or terminate the container (not EC2 instance)
-		Now ECS must determine from which instance the container should terminate. for this it use the Placement Stratagies
+		Now ECS must determine from which instance the container should terminate. for this it use the Placement Stratagies.
+		It can be specified when either running a task or creating a new service. 
+		The task placement strategies can be updated for existing services as well
 		There is 3 possible stratagy:-
 		1. Binpack: 
 				The container is placed on istance with Least amount of CPU or Memory. 
@@ -260,8 +262,13 @@ ECS Cluster[with EC2 Hosting]:-
 							"field": "instanceId",
 							"type": "spread"
 			 }]
-		
-		
+			 
+	
+	Task Constraints:-
+		This is define at time or running task or creating service. Also can be updated in existing service.
+		It define that on which instance the task can be run. It can have two value
+		1. distinctInstance: 	Place each task on a different container instance
+		2. memberOf: Place task on one of the instance which satisfy the specified 'CQL' statement (Cluster Query Language)
 ------------------------------
 
 ECS with Fargate:-
