@@ -151,6 +151,19 @@ Its so strongle integrated with other system that with just few setting you can 
     Though key changes ots content but it does keep entry of its older material so if anything is encrypted before the rotation 
     will be decrypted with older vesrion of key.
  
+ -----------
+ 
+ GenerateDataKeyWithoutPlaintext and GenerateDataKey API:-
+  To generate the data key you can use either of one API of KMS.
+  GenerateDataKey: 
+    This is simple and generate Plaint-text and Encrypted-with-CMK data key.
+  GenerateDataKeyWithoutPlaintext:
+    But GenerateDataKeyWithoutPlaintext gives you only Encrypted-with-CMK. This is useful when you have multiple trust level with diffrent component.
+    Here you generate the Data key without plain text in some less trustable component. So you have only data key Encrypted-with-CMK
+    Now later in some more trusting component you decrypt the Encrypted-with-CMK key by call 'KMS.Decrypt' API and generate the plain-text key. 
+    Finally use plain-text-key for encryption of your data. 
+  
+ 
  ---------------
  Throttle:-
   Beware that if you are requesting lot may crypto operation like Encrypt, DEcrypt, GenerateDataKey etc then you may encounte the limits and statt grtting throttle error.
