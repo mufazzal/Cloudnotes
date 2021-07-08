@@ -400,7 +400,15 @@ Nested Stack:-
   
   TemplateURL:- This is S3 url where the template is stored.
   
-
+--------
+Input PAram type:-  
+  Number
+  String
+  List<Number>  ["12", "34". "343"]
+  CommDelilatedList ["asdasd", "asdasd", "qwewe"]
+  SSM Parameter
+  AWS-Specific Parameter:  EG 'AWS::EC2::AvailabilityZone::Name', AWS::EC2::KeyPair::KeyName ..etc
+  
 -------
 
 IMP
