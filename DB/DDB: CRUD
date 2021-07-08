@@ -161,6 +161,15 @@ For AWS-JS-SDK :-
 			If you want any read operation to be 'Strongly Consistent Reads' then pass the parameter 'ConsistentRead' in GetItem, Query, and Scan.
 --------------------------
 
+ReturnConsumedCapacity:-
+	By default GetItem, Query and Scan none of them return the amount of read capacity they have consume in the operation.
+	But in the request you can set paramter 'ReturnConsumedCapacity' get this info. It can have 3 values
+	None: 		Default, return nothig.
+	TOTAL: 		Return aggregate number of read capacity units consumed.
+	INDEXED: 	Return aggregate number of read capacity units consumed + Consumed capacity for each table and index that was accessed
+
+--------------------------
+
 	DDB API:-
 		Just like SDK where you call the function, there is also exposed API of DDB which you can call.
 		??????????????????????????/
