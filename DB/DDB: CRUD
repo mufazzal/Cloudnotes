@@ -67,7 +67,13 @@ Querying the DDB :-
 	 - Wronglty written scan will produce large data which cant be shipped in an api response. for that the DDB 
 		 automatically add the pagination feature in result. in the result if you get the 'LastEvaluatedKey' it means there is more data left
 		 to read. 
+	 - Consider using the pagesize in the scan to keep output and readcapacity in check.
+	 - Consider using Prallel scan fir doing operation fast. 
 	 
+	 Prallel scan:-
+	 	Here the table is scanned in small segment by diffrent woirker thread. You need to providee two thing for this operation
+		1. Segmants: The logical grouping of partition key to scan.
+		2. Total Segment.
 	--------------------
 	
 	Common between 'get', 'query' and 'Scan' both
