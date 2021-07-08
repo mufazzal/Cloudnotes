@@ -151,8 +151,8 @@ Integrated AWS services:-
 
 EB and RDS DB:-
 	You can choose to have DB in the env or outside it.
-	It is advisable to use it outside so you database persist once env is taked down.
-	Use EV variable for connection string.
+	It is advisable to use it outside so you database persist once env is taked down.	Use EV variable and S3 for connection string.
+	Still if you are using the RDS in the EB itself then you can set Retention = Create Snapshot to preserve the stste of DB of later restoration.
 
 ------------
 
