@@ -44,6 +44,11 @@ State machine language:-
   here you have type of step like
    
 
+
+  Task:
+
+    Activities:
+
   Transition: 
     every step do have a key Next which tell him about the next step.
 
