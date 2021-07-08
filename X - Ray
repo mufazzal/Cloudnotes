@@ -19,8 +19,8 @@ X-Ray Service Map:-
 X-Ray and other AWS services:-
   X-Ray is well integrated with 
   - EC2         : You must install the x-Ray Agent and X-Ray SDK in instance. A role that can push data to X-Ray service.
-  - ECS         : X-Ray provides a Docker container image that you must deploy alongside your application
-  - ELB         : Always Enabled
+  - ECS         : X-Ray provides a Docker container image that you must deploy alongside your application. Container instance must have role that can push data to X-Ray service
+  - ELB         : Always Enabledd
   - DDB
   - S3          : Send the tracing info to downstream event subscriber like SNS, SQS, Lambda 
   - E Beanstalk : You must install the x-Ray Agent and X-Ray SDK in instance
