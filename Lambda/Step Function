@@ -40,16 +40,71 @@
             
     
 State machine language:-
-  this is made of the json syntaxes that create the flow.
-  here you have type of step like
-   
-
+  this is made of the json syntaxes that create the flow. here you have type of step like
+   Task     : Perform some task
+   Choice   : like ig and else
+   Fail     : make the workflow fail
+   Succesd  : make the workflow fail
+   Pass     : Simply pass its input to its output or inject some fixed data
+   Wait     : Wait for specified time.
+   Parallel : used to create parallel branches of execution in your state machine
+    
+    - Each state must have a Type field
+    - Each state can have an optional Comment field to hold a human-readable comment about
+    - Each state (except a Succeed or Fail state) requires a Next field
+    - If Succeed or Fail state has 'End' field then it become the terminal state
 
   Task:
+    This is piece of work to be done in state machine. It could be of three type
+     1. Lambda:-
+          Simplly provide the LAmbda ARN in Resource field. 
+          EG:-
+            "LambdaState": { "Type": "Task", "Resource": "arn:aws:lambda:us-east-1:123456789012:function:HelloWorld", "Next": "NextState" }        
+     2. Activities:-
+          Activity is the process or worker or thread that is hosted by you on EC2, ECS, on-premise.
+          This worked implelement the proper interface with Steate machine via below function
+            CreateActivity, GetActivityTask, ListActivities, SendTaskFailure, SendTaskHeartbeat, SendTaskSuccess
+     3. AWS Service API:- 
+          Give the ARN of the API in below formate in resource field
+          arn:partition:states:region:account:servicename:APIname
 
-    Activities:
-
+      
   Transition: 
     every step do have a key Next which tell him about the next step.
-
+    
+  Machine Data:-
+    This is Json formatted data which is pushed from the start when machine is started by 'StartExecution'.
+    This data passed between states.
+  
+  Starting Execution:-
+    It can e start by
+    1. API StartExecution
+    2. By Step function console
+    3. By API Gateway
+    4. By CW alarm 
+    5. By another workflow.
+    
+  Error Handling:-
+    For error handling in the Task and Paralle you can use either 'Retry' or 'Catch'
+    Use retry for specific error and catch for unkown error.
+    EG:-
+      "HelloWorld": {
+         "Type": "Task",
+         "Resource": "arn:aws:lambda:us-east-1:123456789012:function:FailFunction",
+         "Retry": [ {
+            "ErrorEquals": ["States.Timeout"],
+            "IntervalSeconds": 1,
+            "MaxAttempts": 2,
+            "BackoffRate": 2.0
+         } ],
+        "Catch": [{ "Next": "..." }]
+        "End": true
+      }    
+    So here if erro is of type Timeout then it make a retry otherwise go to catch abd to next seop mentioned.   
+  
+-----------
+Best Practice:-
+  1. Use timeouts to avoid stuck executions
+  2. Use Amazon S3 ARNs instead of passing large payloads 
+  3. Avoid latency when polling for activity tasks
 
