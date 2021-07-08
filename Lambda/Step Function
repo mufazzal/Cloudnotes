@@ -39,3 +39,12 @@
             Here the requester do wait for response. 
             
     
+State machine language:-
+  this is made of the json syntaxes that create the flow.
+  here you have type of step like
+   
+
+  Transition: 
+    every step do have a key Next which tell him about the next step.
+
+
