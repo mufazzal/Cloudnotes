@@ -1,0 +1,41 @@
+  AWS Step Functions is an orchestration service that lets you connect Lambda functions together into serverless workflows.
+  Use Step Functions to orchestrate serverless applications workflows. This orchestrate support human intervention as well.
+  Step Functions maintains application state, tracking exactly which workflow step your application is in, and stores an event log of data that is passed between application components
+  If in the flow any component faied then flow still can pick up from the point of failure.
+  With step function you can:-
+    Chaining          – Connect functions into a series of steps, with the output of one step providing the input to the next step.
+    Catch and retry   – Handle errors using sophisticated catch-and-retry functionality.
+    Branching         – Design your workflow to choose different branches based on Lambda function output.
+    Parallelism       – Run functions in parallel, or use dynamic parallelism to invoke a function for every member of any array.
+    Human intervention: 
+    
+  
+  State Machine:-
+    State machine is workflow made of steps. The workflow is written in 'Amazon States Language'
+  
+  Task:-
+    Task is a single unit of work in machine.
+    
+  Workflow type:-
+    Tjhere is two kind of workflow
+    1. Standard:- 
+        - Can run up to an year
+        - CAn run the flow at-most-once. never executed more then once unless it is specified.
+        - Billed by number of transition made
+        - best for processing payments.
+        - Support 2000 Execution per sec, 4000 transition per sec 
+        - Data of workflow is preserved for 90 day after its completion.
+    2. Express:-  
+        - Can run up to 5 minute
+        - CAn run the flow at-least-once. So can run more then once.
+        - Billed by Number of execution, duration of execution, memory consumed.
+        - best for High volume event processing like IOT, Mobile Bakend, data transformation befire S3/DDB etc.
+        - Support 100,000 Execution per sec, unlimited transition per sec 
+        
+        It can run in two way:-
+          Asynchronous Express Workflows:-
+            Here the requester do not waut for response. 
+          Synchronous Express Workflows:-
+            Here the requester do wait for response. 
+            
+    
