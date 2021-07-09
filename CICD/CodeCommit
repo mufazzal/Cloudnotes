@@ -1,0 +1,31 @@
+Setting Up user:-
+  There is two way you can generate the CodeCommit cred
+  1. By HTTPS [connect via IAM's codecommit username and password]:-
+    For this you have to create the IAM user for each developer.
+      - Create IAM user with permission 'AWSCodeCommitPowerUser'
+      - Go to IAM page > User > Select user you created > Security Credentials
+      - in section 'Git credentials for AWS CodeCommit' click Generate.
+      - You will get the username and password for conecting to CodeCommit.
+      - Go to Code commit console > Your repo > Copy url > Select HTTP Url
+      - go to your terminal and paste it [git clone https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo my-demo-repo]
+      - For this first time it will ask for username and password and then done.
+      
+  2. By git-remote-codecommit[connect via IAM's access key ID and a secret access key]:-
+      Suppose your company uses the federated user, SAML Directory or only use the root account for developer too.
+      then you cannot create the IAM user for each developer. for this comes 'git-remote-codecommit'
+      - Install git-remote-codecommit locally.
+      - Create a IAM user with permission 'AWSCodeCommitPowerUser' and note access key ID and a secret access key
+      - on local machine do the 'aws confugure' and use access key ID and a secret access key
+      - Go to Code commit console > Your repo > Copy url > Select HTTPS (GRC) URL 
+      - go to your terminal and paste it [git clone https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo my-demo-repo]
+      
+  3. By SSH:-
+      - For this you have to create the SSH key pair via any tool.
+      - Create IAM user with permission 'AWSCodeCommitPowerUser '
+      - Go to IAM page > User > Select user you created > Security Credentials
+      - Select 'Upload SSH public key.' and paste the content of publik key here.
+      - note the SSH key ID
+      - Now set the GIt tool bu below command
+              Host git-codecommit.*.amazonaws.com
+              User Your-SSH-Key-ID, 
+              IdentityFile Your-Private-Key-File, such as ~/.ssh/codecommit_rsa or ~/.ssh/id_rsa
