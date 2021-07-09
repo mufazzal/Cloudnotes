@@ -29,3 +29,22 @@ Setting Up user:-
               Host git-codecommit.*.amazonaws.com
               User Your-SSH-Key-ID, 
               IdentityFile Your-Private-Key-File, such as ~/.ssh/codecommit_rsa or ~/.ssh/id_rsa
+              
+---------------
+
+Migrating to CodeCommit:-
+  You can migrate a Git repository to a CodeCommit repository in a number of ways
+    - By Cloning
+    - By Mirroring
+    - By cloning some or all branches
+  You can migrate to CodeCommit from other version control systems, such as Perforce, Subversion, or TFS, but you must first migrate to Git.
+
+----------
+
+CodeCommit Notifiction:-
+  You can set the SNS topic notification again the event such as
+  commit, pull request, clone, merge etc.
+
+
+
+
