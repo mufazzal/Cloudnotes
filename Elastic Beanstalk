@@ -12,16 +12,16 @@ You can interact with EB by using the
 Bird Eye View:-
 		EB
 		|
-		|---------App1 [name, tags]
+		|---------UserApp [name, tags]
 		|						|
-		|						|------EV1[type, Domain, Platform, Code] 
+		|						|------EV1[type, Domain, Platform, Code of UserApp_version_1] 
 		|						|
-		|						|------EV2[type, Domain, Platform, Code] 
+		|						|------EV2[type, Domain, Platform, Code of UserApp_version_2] 
 		|						|
-		|						|------EV3[type, Domain, Platform, Code] 
+		|						|------EV3[type, Domain, Platform, Code of UserApp_version_3] 
 		|						
-		|---------App2
-		|---------App3
+		|---------AdminApp
+		|---------ManagementApp
 
 Applicaion:-
 	This is the logical collection of resources.
