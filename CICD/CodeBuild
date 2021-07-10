@@ -41,5 +41,15 @@ CodeBuild for Docker:-
   - Also nothe that CodeBuild use the service role that must has permission 'ECR:GetAuthorizationToken'
  Now simply run the build and once done you will see the new docker build is pushed in your ECR repo.. 
   
-  
-  
+CodeBuild and VPC Access:-
+  Some time as a part of build process you may need to access the resources living in the VPC. 
+  For this you have to set up some additional configuration at CodeBuild project. that is
+  - Slect VPAc
+  - Select Subnets
+  - Select SG.
+  Once set up it create the ENI for that CodeBuild Project in the VPC. Now you can access the below resurce in build process
+  - EC2
+  - ECS
+  - RDS
+  - Elascticache etc.
+  You can use those resource in step like Test, Downloading hosted dependency, DB query etc. 
