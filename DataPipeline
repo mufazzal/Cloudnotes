@@ -1,0 +1,38 @@
+DAta Pipeline is the service used to automate and transform data among diffrent data storages.
+You can use data driven workflow and schedule to run it.
+
+EG:-
+  Say you wants to upload all the log file to S3 bucket at end of each day and upload all the log of s3 bucket to EMR at end of each week.
+  
+
+Below are imp component:-
+
+1. Pipeline defination:-
+    This contain below info:-
+    A. Data Node:-
+        Define the location and type of data for input and output. it could be
+        - DynamoDBDataNode
+        - S3DataNode
+        - SqlDataNode
+        - RedshiftDataNode
+        - RedshiftDataBase
+        - RDSDatabase
+        - JDBCDatabase
+    B. Resources:-
+        It define what kind of AWS Compute resource will perform this activity.
+        It could ne EC2 or EMR.
+    C. Schedule:-
+        A syntex that define when and at whar frequecy task will be ran.
+    D. Actuvity:-
+        Define what it need to do
+        - CopyActivity: Copies data from one location to another.
+        - RedshiftCopyActivity: Copies data to and from Amazon Redshift tables
+        - EmrActivity: Runs an Amazon EMR cluster.
+        - ShellCommandActivity: Runs a custom UNIX/Linux shell command as an activity.
+        ...etc.
+     E. Condition: 
+          A precondition is a pipeline component containing conditional statements that must be true before an activity can run
+     F. Actions:-
+          actions are steps  that a pipeline component takes when certain events occur, such as success, failure, or late activity.
+          it could be SnsAlarm or Terminate.
+          
