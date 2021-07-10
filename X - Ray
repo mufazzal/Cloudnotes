@@ -82,7 +82,31 @@ Insight:-
 Tracing header:-
   The first X-Ray-integrated service that the request hits adds a tracing header 'X-Amzn-Trace-Id'.
   
+------------------
+
+Using X-Ray in Code [Node.js]:-
+  Tracing Incoming HTTP AS Interceptor: 
+    Use this for intercenpting in INCOMING HTTP/S call in the app.
+      var app = express();
+      var AWSXRay = require('aws-xray-sdk');
+      app.use(AWSXRay.express.openSegment('MyApp'));
+      app.get('/', function (req, res) { res.render('index'); });
+      app.use(AWSXRay.express.closeSegment());    
+
+  Tracing AWS APIs AS Client handlers:-
+    Use this as wrapper ro AWS-SDK and call the AWS API with this wrapper
+      var AWS = AWSXRay.captureAWS(require('aws-sdk'));
   
+  Tracing Outgoing HTTP AS HTTP client:-
+    Use this to make the outgoing HTTP/S calls
+      var AWSXRay = require('aws-xray-sdk');
+      var http = AWSXRay.captureHTTPs(require('http'));
+
+  Tracing SQL queries for postgress and mysql:
+    var AWSXRay = require('aws-xray-sdk');
+    var pg = AWSXRay.capturePostgres(require('pg'));
+    var mysql = AWSXRay.captureMySQL(require('mysql'));
+
   
     
     
