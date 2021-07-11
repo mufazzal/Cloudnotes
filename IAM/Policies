@@ -92,6 +92,7 @@ Type of Policies:
           B. Customer Managed Policy:-
               This is same as AWS managed policy but it can be created, edited, deleted by the AWS IAM user himself.
               This is useful when you wants to creat a customized policy by yourself and then reuse it for certain type of IAM identities.
+              This also support versioning and you can have up to 5 version of same policy This help you to backtrack access to point in time.
 
               Creating Customer Managed Policy:-
                  Via AWS console:-
