@@ -147,7 +147,11 @@ Kenesis use case:-
     Reason is that a shrad is handled by a single KCL all the time. though a single KCL can take multiple shrad.
     Also max number of Instacne you should have = number of shrad because extra instance will have nothing to serve.  
     
-    
+  ---------
+  Calculating Initial Number of shrad:-
+    Incoming write Bandwith = data size * Record per sec
+    Outgoing read Bandwith = Incoming write Bandwith * No of Consumer
+    Number of shrad = Max (Incoming Bandwith, Outgoing Bandwith)
     
   
         
