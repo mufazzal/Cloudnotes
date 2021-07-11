@@ -36,3 +36,30 @@ Redshift:-
 			You can use KMS or HSM
 		Encryption in transit:-
 			To support SSL connections, Amazon Redshift creates and installs AWS Certificate Manager (ACM) issued certificates on each cluster
+			
+	SQL commands:-
+		In Redshift cluster you can use SQL commands tp Load Data, Manuplate it, load table etc.
+		EG. CREATE TABLE, DROP TABLE, INSERT, etc.
+		
+		COPY COMMAND:-
+			This is one of the most important command that is use to load data in Redshift from 
+			- S3
+			- DynamoDB
+			- EMR Cluster
+			- Remote host
+		EG:-
+				copy <table_Name> from 's3://awssampledbuswest2/tickit/category_pipe.txt' iam_role 'arn:aws:iam::<aws-account-id>:role/<role-name>' region 'us-west-2';				
+				---
+				copy <table_Name> from 'dynamodb://ProductCatalog' iam_role 'arn:aws:iam::0123456789012:role/MyRedshiftRole' readratio 50;  				
+				
+		
+		GRANT Command:-
+			USe this command to give previlage to the User and User Group for specofic table, database, schema, function, procedure, language, or column
+			Syntax:-
+				GRANT { { SELECT | INSERT | UPDATE | DELETE | DROP | REFERENCES } [,...] | ALL [ PRIVILEGES ] }
+				ON { [ TABLE ] table_name [, ...] | ALL TABLES IN SCHEMA schema_name [, ...] }
+				TO { username [ WITH GRANT OPTION ] | GROUP group_name | PUBLIC } [, ...]
+
+		REVOKE Command:-
+				USe this command to revoke previlage to the User and User Group for specofic table, database, schema, function, procedure, language, or column
+			
