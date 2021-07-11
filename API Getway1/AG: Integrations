@@ -48,6 +48,7 @@ Integration-Request:-
 			- set parameter mappings to map predefined Method-Request Path-Param 	to appropriate Integration-Request HEADER/Query-Param/Path-Param
 			- set body 			mappings to map Method-Request body of a given content type according to the specified mapping template
 			- specify the condition under which the incoming Method-Request data is passed through to the backend as-is.
+			- You can change the legacy api response coming in form of XML, SOAP to Json via mapping template.
 		
 		if Client is sending 'page. and integration is expectin '_page'
 		EG: 
