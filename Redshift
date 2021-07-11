@@ -31,7 +31,8 @@ Redshift:-
 		Reserved node pricing is less expensive than on-demand if you have long term usage.
 	
 	Encryption:-
-		Encryption at Rest:-		
+		Encryption at Rest:-
+			You can enable it at time of creation of cluster or even after its created. So you can enable it on unencrypted cluster too.
 			Amazon Redshift optionally encrypts your data as it writes it in its data centers and decrypts it for you when you access it
 			You can use KMS or HSM
 		Encryption in transit:-
