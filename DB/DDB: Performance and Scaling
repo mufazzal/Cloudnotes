@@ -139,6 +139,15 @@ Hot Parttion Key Issue:-
 
 --------------------
 
+Global Secondry index and Performance:-
+	You can add up to 20 GSI. but you should only add the GSI if needed and keep it minimum.
+	If you have lot of write activity then avoid using GSI as it will take time for data to insert in all indexes
+
+Local Secondry index and Performance:-
+	When you create the LSI, you should be aware that you are not creating so many collection for a same partition key.
+	it should not excede to partion size limit of 10 GB.
+---------------------
+
 Getting data:-
 	- For retriving multiple partition key u can use BatchGetItem as single operation. 
 	- Try to avoid scan item as much as possible. if you still use it then use --page-size to break it in small operation.
