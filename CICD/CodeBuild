@@ -53,3 +53,8 @@ CodeBuild and VPC Access:-
   - RDS
   - Elascticache etc.
   You can use those resource in step like Test, Downloading hosted dependency, DB query etc. 
+
+Permission Modrl:
+  In CodeCommit, the GitPull IAM policy permissions apply to any Git client command where data is retrieved from CodeCommit, including git fetch, git clone, and so on. 
+  Similarly, the GitPush IAM policy permissions apply to any Git client command where data is sent to CodeCommit. 
+  Take note that  GitPull and GitPush are IAM policy permissions and not API actions.
