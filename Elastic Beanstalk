@@ -297,9 +297,15 @@ Source of Configs:-
 Corn.yml for worker env:
   You can define periodic tasks in a file named cron.yaml in your source bundle to add jobs to your worker environment's queue automatically at a regular interval.
 
+-------
+Dockerrun.aws.json: 
+  this configuration file is used in multicontainer Docker environments that are hosted in Elastic Beanstalk.
+
 --------------
 
 EB CLI:
  The EB CLI is a command line interface for Elastic Beanstalk that provides interactive commands that simplify creating.
  use eb commands for this.
  this is seperate from aws cli
+
+
