@@ -237,6 +237,7 @@ ECS Cluster[with EC2 Hosting]:-
 		1. Binpack: 
 				The container is placed on istance with Least amount of CPU or Memory. 
 				The contaier is removed from the instance which release most avialable CPU and Memory
+				This strategy minimizes the number of container instances in use
 				EG:-
 					"placementStrategy": [{
 									"field": "memory", or "cpu"
