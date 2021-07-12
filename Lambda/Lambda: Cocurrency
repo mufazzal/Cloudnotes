@@ -15,6 +15,7 @@ Reserved Cocurrency:-
     The rest of the cocurrency will be left for the rest of the lambda functions.    
   - Reserved Cocurrency applies to the function as a whole, including versions and aliases
   - Value of Reserved Cocurrency also limit max the number of lambda executed cocurrently. if there is more invocation of this lambda then reserved limit then it get throttle. 
+  - At max you can have overall 900 reserved cocurrency across all ambda in the account. So at least 100 unreserve cocureny wil always is up for unreserved use.
 
 Provisioned Cocurency :-
   To handle the issue in Cold Start or Warm Up AWS provided the 'provisioned cocurency'
