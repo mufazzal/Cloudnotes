@@ -53,6 +53,13 @@ Sagment:-
   The data sent to X-Ray is sent as sagement. 
   This contain the info like
   request, Header response, time, error.
+  
+SubSegment:-
+  A Sengment further break down in Subsegment. THis contain info regarding 
+  - Downstream AWS resource calls
+  - Downstream HTTP call
+  - Downstream SQL
+  It give you more grangular view of calls.
 
 Smapling:-
   You should take care of this thing. X-Ray can generate insanly large data if you sample it too frequently.
