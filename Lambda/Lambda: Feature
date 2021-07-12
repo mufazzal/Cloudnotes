@@ -47,6 +47,9 @@ Lambda and Timeout:-
   You can set the max time for lambda that it can take. max value is 5 minutes.
   If lambda ask for more time, then it will fail with function error 
 
+Lambda and allocated cpu:
+  the cpu is allocated in ratio with allocated memory only
+  you do not have to specify it.
 ----------------------------------
 
 Lambda Execution Lifecycle:-
