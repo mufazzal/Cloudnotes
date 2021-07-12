@@ -45,7 +45,11 @@ X-Ray For On-Premise or EC2:
       - The X-Ray SDK send the data to X-Ray Deamon which send the the data to X-Ray in batches.
   3. Ec2 Role:-
       The role of ec2 must contain proper permission to upload the data to x-ray service (not cw)
-        
+  
+X-Ray daemon ;
+  The AWS X-Ray daemon is a software application that listens for traffic on UDP port 2000, gathers raw segment data, and relays it to the AWS X-Ray API        
+
+
 Service Map:-
   This is visualization tool to view the flow of the request in downstream systems.
 
