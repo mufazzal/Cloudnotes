@@ -189,6 +189,10 @@ S3 Bucket and CORS:- To get any objevt from S3 we generally use GetObject web-se
       This list of domains to be allowed.
     AlloweHeader:-
       The header that are allowed in Perflight OPTION Request.
+    ExposeHeader:-
+      The header that will be redable by called application client.
+    MaxAgeSeconds:
+      The time how long the response Perflight OPTION call will be cached.
 
    Note: The CORS config is set over the Bucket not on the Object
        
