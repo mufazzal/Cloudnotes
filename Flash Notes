@@ -126,3 +126,8 @@ RTO-RPO     0                 Hour                Minute            No commitmen
 Use Caase   Mission-critical  Buisness-Critical   Core-Services     NA
 Statrt      No need           No Need             Needed            -
 Scalling    No need           Needed              Needed            -
+
+Account Specific Sign in url:-
+https://your_aws_account_id.signin.aws.amazon.com/console/
+OR
+https://your_aws_account_alias.signin.aws.amazon.com/console/
