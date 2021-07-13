@@ -541,7 +541,13 @@ Deploy on Lambda:-
   Code deploy not work very nicely with Lambda, but you can use 
   CodeBuild + SAM + CodeDeploy for better system.
        
-        
+----------------
+
+Supported Deployment:-
+  EC2.            inplace and BG
+  On premise.     inplace
+  ECS.            BG     
+  Lambda.         BG  
         
         
         
