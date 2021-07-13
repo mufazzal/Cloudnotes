@@ -172,7 +172,7 @@ ReturnConsumedCapacity:-
 	But in the request you can set paramter 'ReturnConsumedCapacity' get this info. It can have 3 values
 	None: 		Default, return nothig.
 	TOTAL: 		Return aggregate number of read capacity units consumed.
-	INDEXED: 	Return aggregate number of read capacity units consumed + Consumed capacity for each table and index that was accessed
+	INDEXED: 	Return aggregate number of read capacity units consumed  with Consumed capacity for each table and index that was accessed
 
 --------------------------
 
