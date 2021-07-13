@@ -184,7 +184,7 @@ a numeric attribute that is incremented by certain value, unconditionally, witho
 			--table-name ProductCatalog \
 			--key '{"Id": { "N": "601" }}' \
 			--update-expression "SET Price = Price + :incr" \
-			--expression-attribute-values '{":incr":{"N":"5"}}' \
+			--expression-attribute-values '{":incr":{"N":"5"}}'
 			--return-values UPDATED_NEW	
 It will increase the Price by 5 everytime it run.
 
@@ -193,4 +193,24 @@ It will increase the Price by 5 everytime it run.
 	DDB API:-
 		Just like SDK where you call the function, there is also exposed API of DDB which you can call.
 		??????????????????????????/
+
+-----------------
+
+Conditional write:
+  DDB supports conditional writes for PutItem, UpdateItem, DeleteItem operations.
+  A conditional write succeeds only if the item attributes meet one or more expected conditions. Otherwise, it returns an error. 
+  Conditional writes are helpful in many situations. For example, 
+     you might want a PutItem operation to succeed only if there is not already an item with the same primary key. 
+     Or you could prevent an UpdateItem operation from modifying an item if one of its attributes has a certain value.
+
+   Eg.
+    aws dynamodb update-item \
+    --table-name ProductCatalog \
+    --key '{"Id":{"N":"1"}}' \
+    --update-expression "SET Price = :newval" \
+    --condition-expression "Price = :currval" \
+    --expression-attribute-values file://expression-attribute-values.json
+Th
+
+
 
