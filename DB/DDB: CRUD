@@ -209,8 +209,15 @@ Conditional write:
     --key '{"Id":{"N":"1"}}' \
     --update-expression "SET Price = :newval" \
     --condition-expression "Price = :currval" \
-    --expression-attribute-values file://expression-attribute-values.json
-Th
+    --expression-attribute-values '{":currval":{"N":"5"}}'
+
+-----------+-
+Object optimistic lock:
+  This is like you must take update before commit on git.
+  here you can set seome version param in the ddb item.
+  now if user wants to update the item he must first have the latest. version of that item.
+  otherwise ddb wont let you do it.
+  this make sure you never overwrite any changes by other.
 
 
 
