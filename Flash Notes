@@ -1,4 +1,33 @@
-AWS Flash
+API Gateway OpenAPI Import/Export
+CFR disable rollback
+M5 instance
+DynamoDB Sparse Index
+COdeDEploy rollback stratagy:-
+  https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments- 
+   rollback-and-redeploy.html#deployments-rollback-and-redeploy-manual-rollbacks
+----
+FOr On-Premise AWS SDK you should always use IAM User not IAM Role+STS
+--
+DDB CU
+1  RCU = 2 * 4KB  for Eventual consistentsqs
+1  RCU = 1 * 4KB  for Strong consistent
+1 WCU = 1 * 1KB  
+
+for eventual you need  .5 RCU for each 4KB
+for strongly you need   1 RCU for each 4KB 
+for write you need       1 WCU for each 1KB 
+
+EB App:-
+  All At Once, Rolling, Rolling Batches,  Immutable, Traffic splitting
+EB Conf:-
+  Rolling - App health, Rolling Time, Immur=table, Disable
+SAM
+  All At Once, Canary, Linear
+CodeDEploy:-
+  AllAtOnce, HAlfAtATime, OneAtATime
+
+GIT ->  CodeCommit 
+Other->GIT -> CodeCommit
 
 Window EC2 not support:-
   EFS, EFA, FSx Luster
@@ -46,7 +75,7 @@ Q:  EC2 in public Subnet without Public/Elastic IP
 
 WAF secure 3 thing only:  CDN, ELB, API Gateway. [NOT EC2]
 
-Kenesis DS: EC2, Lambd, EMR
+Kenesis DS: EC2, Lambd, EMR, Java condumer app
 Kenesis FH: S3, Redshift, ElsticSearch, Spluk, HTTP, MongoDB, 
                            RDS -> NOT supported
 
@@ -73,9 +102,6 @@ Glacier  | 3-5 | 1-5m | 5-12
 Glacier  | 12+| ------ | 48
 
 EBS Throuput  250  1000  500
-
-KDS: EC2, Lambda, EMR, JAva app
-KDF: S3, RDS, ElastiSearch, Splunk, MongoDB
 
 LAmbda Lang: Java C#/.Net, Node, Python,GO, Ruby,  NOT: PHP C R
 
@@ -116,18 +142,25 @@ ENI Attach
 Cold      Warm    Hot
 launch   stop      running
 
+SQS
+  MAx size of message:      256KB.
+  Max Visibility Timeout:   12 hour  [default 30 sec]
+  Max retention priode:     14 days  [default 4 days]
+  Max Long poll time:        20 sec   [default 0 sec]
+  Throuput limit of Standard SQS: unlimited.
+  Throuput limit of FIFO SQS: 300 and 3000
 
 NACL 
 Lowest to higest to * or to match
 
-            Multi Site        Warm Standby        Pilot Light       Back and Restore
-Cost        Highest           Moderate            Less              Cheapest
-RTO-RPO     0                 Hour                Minute            No commitment
-Use Caase   Mission-critical  Buisness-Critical   Core-Services     NA
-Statrt      No need           No Need             Needed            -
-Scalling    No need           Needed              Needed            -
+                        Multi Site       Warm Standby     Pilot Light       Back and Restore
+Cost                 Highest          Moderate            Less                 Cheapest
+RTO-RPO         0                     Hour                    Minute            No commitment
+Use Caase       Mission-critical  Buisness-Critical   Core-Services     NA
+Statrt               No need            No Need               Needed            -
+Scalling           No need            Needed                 Needed            -
 
 Account Specific Sign in url:-
 https://your_aws_account_id.signin.aws.amazon.com/console/
 OR
-https://your_aws_account_alias.signin.aws.amazon.com/console/
+https://your_aws_account_alias.signin.aws.amazon.com/console/ 
