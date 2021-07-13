@@ -30,17 +30,18 @@ En/Dc mechanism provide by AWS:-
                       Here En/Dc is done by S3 itself
                       maintainance of key is done in KMS either by KMS himself or by user.
              1.2.1: 
-                  You can use AWS generated Customer Master Key [on behalf of S3] that is asw/s3
-                        - AWS KMS generate the master key for that service(S3) once. and next time use that only master key for any en/dc operation for that service 
+								You can use AWS generated Customer Master Key [on behalf of S3] that is asw/s3
+								- AWS KMS generate the master key for that service(S3) once. and next time use that only master key for any en/dc operation for that service 
              1.2.2:
-                  You can create your own Customer Master Key in KMS and use it.
-                        - user manage key enabling and rotation
+								You can create your own Customer Master Key in KMS and use it.
+								- user manage key enabling and rotation
         1.3 SSE-C: Encryption with Customer managed key
-                        - In this mechanism the user provide the key at tome of uploading the object. S3 use this key for encryption and then delete it.
-                            Now at the time of GET user again as to provide this ket so that S3 will now decrypt the data and give it back to you.
-                            So S3 not ata all store key anywhere. Customer is responsible for key handling totally.
-                            It works only with HTTPS.
-
+							- In this mechanism the user provide the key at tome of uploading the object. S3 use this key for encryption and then delete it.
+									Now at the time of GET user again as to provide this ket so that S3 will now decrypt the data and give it back to you.
+									So S3 not ata all store key anywhere. Customer is responsible for key handling totally.
+									It works only with HTTPS.
+							- S3 do generate and store the HMAC salt value for the key and use this to match the key at time of decryption. 
+	
   2. CLient Side Encryption: In the client side encryption you do the encrytion at your end only. S3 do not do en/dc at all.
         It give defence at 'Data at rest' and 'Data at transit' both.
         Now how you mange key at your client end is your choice. but s3 juse store the encrypted data you asked him to store.  
