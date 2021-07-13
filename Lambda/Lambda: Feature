@@ -92,7 +92,7 @@ Lambda Execution Lifecycle:-
 
 Limits:-
   Timeout:    900 sec(5 minute)
-  Memory:     128MB - 10240 MB in 1 MB increment
+  Memory:     128MB - 10240(10 GB) MB in 1 MB increment
   Layers:     5
   Disk space: 512 MB
   EV:         4 KB
