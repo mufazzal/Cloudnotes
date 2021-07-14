@@ -251,8 +251,9 @@ ECS Cluster[with EC2 Hosting]:-
 									"type": "spread"
 					 }]
 					 So the contaier are spread evenly across the AZ or instance or other.
+					 It also follow the constraints that you specified both implicitly or explicitly
 		3. Random:-
-				Wild guess.
+				Here it place randomly but still try to place it in such a way the container have enough resoure to run and 
 				"placementStrategy": [{ "type": "random" }]
 		
 		You can also use more then one stratgy. like first spread evenly in AZ and then evenly in the instances in that AZ
