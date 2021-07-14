@@ -142,6 +142,7 @@ Hot Parttion Key Issue:-
 Global Secondry index and Performance:-
 	You can add up to 20 GSI. but you should only add the GSI if needed and keep it minimum.
 	If you have lot of write activity then avoid using GSI as it will take time for data to insert in all indexes
+	WCU assign to GSI must be greater or equal to the WCU of base table.
 
 Local Secondry index and Performance:-
 	When you create the LSI, you should be aware that you are not creating so many collection for a same partition key.
