@@ -64,7 +64,11 @@ SubSegment:-
   - Downstream HTTP call
   - Downstream SQL
   It give you more grangular view of calls.
-
+  In this also you can add the Annotation and Metadata
+  
+  Segment VS SubSegment:-
+    Segment use for tracing Actal request.
+    SubSegment use for tracing downstream calls in that request. 
 Smapling:-
   You should take care of this thing. X-Ray can generate insanly large data if you sample it too frequently.
   By default the X-Ray SDK records the first request each second, and five percent of any additional requests
