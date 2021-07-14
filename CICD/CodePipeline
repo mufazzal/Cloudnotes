@@ -86,11 +86,17 @@ This stages are
       Source, Build, Test, Deploy, Approval, Invoke
     Custom Action:-
       You can write the custom action for 
-        Build, Test, Deploy, Invoke
+        Build, Test, Deploy, Approval, Invoke
     Action Fail:-
       If a stage completes with one or more failed actions, the stage fails, and the pipeline execution does not transition to the next stage in the pipeline.
       You can retry the failed action without restarting the pipeline from begin.
-
+    Approval:-
+      Here you can set a required manual intervention for codepipeline to succed. YOu can set a SNS topic and susbscribe the approver to it.
+      Once pipeline reach to this point, The approver receive the email with some more detail to review the pipeline, Code, test etc.
+      Now the appriver can go to console and approve it so pipeline can move ahead. If he decline then it will fai.
+    Lambda as custom Action:-
+      You can use the lambdain te pipeline as custom action too.
+      
 ----
 
 Staring Pipeline Execution:-
