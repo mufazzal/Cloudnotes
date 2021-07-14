@@ -118,7 +118,11 @@ Using X-Ray in Code [Node.js]:-
     var pg = AWSXRay.capturePostgres(require('pg'));
     var mysql = AWSXRay.captureMySQL(require('mysql'));
 
-  
+-----------------------------
+
+Viewing the traces:-
+  You can view the X-Ray traces in AWS X-Ray console and filter it via annotation in selected timeframe.
+  You can aslo Use GetTraceSummaries API with Filter expression, Time frame and smapling stratagy (to get more dense or less dense data)
     
     
     
