@@ -89,7 +89,11 @@ Arch:-
     - in formal param event you will have 'datasetRecords' and event.eventType === 'SyncTrigger'
 
 
+---------------
 
+Cognito Synch VS AppSynch:-
+  The Appsynch provide all feature of Cognito Synch with
+  ability to Collaberate and synch the SHARED with all the user.  
 
 
 
