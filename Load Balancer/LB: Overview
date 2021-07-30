@@ -155,7 +155,14 @@ TLS offloading:-
   4. Security Policy:-
       You can define Protocol and Chipher as additional layer of sucurity between client and LB.
   
-      
+------------------
+
+Multi VAlue Header and Query String:-
+  ALB provide advance handling for this. 
+suppose the client supplies a query string like: ?name=foo&name=bar
+If you’ve enabled multi-value headers, ALB supplies these duplicate parameters in the event object as: ‘name’: [‘foo’, ‘bar’]
+
+  
   
 
 
