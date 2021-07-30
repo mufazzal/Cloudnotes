@@ -148,7 +148,7 @@ Its so strongle integrated with other system that with just few setting you can 
   
   Key Rotation:- 
     You can set the key to rotate it material each year. you ca do it via AWS-console or by code.
-    Though key changes ots content but it does keep entry of its older material so if anything is encrypted before the rotation 
+    Though key changes its content but it does keep entry of its older material so if anything is encrypted before the rotation 
     will be decrypted with older vesrion of key.
  
  -----------
@@ -176,6 +176,12 @@ Its so strongle integrated with other system that with just few setting you can 
     - It ran on dadicated Hardaware unlike KMS which ran on shared hardware
     - This has more security complience as hardware is not shared with other.
     - It run inside the VPC.
+ 
+ -------------
+ Enabling/Disabling key:-
+  You can temporarily disable and then re-enable the key for use.
+ 
+ 
  
  
  
