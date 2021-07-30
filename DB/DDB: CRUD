@@ -114,10 +114,19 @@ Querying the DDB :-
 -------------
 	
 	BatchGetItem and BatchWriteItem::-
-		You can use this apis for doing operation in batch.
+		You can use this apis for doing operation in batch on one or more item from one or more tables
 		Max batch size for read = 100 and fro write = 25
-	
+		table must lies in same account and region
 -------------
+	TransactWriteItems or TransactGetItems:-
+		Use them to do all-at-once-or-nothing operation. 
+		You can do read on 100 item across diffrent table at once
+		You can do write on 25 item across diffrent table at once
+		tables must lies in same account and region
+		
+		
+
+------------------
 	DDB transactoion:-
 		Transcation is aset of query which should be all-or-nothing-run.
 		This will run all the query or none at all.
