@@ -63,7 +63,7 @@ SubSegment:-
   - Downstream AWS resource calls
   - Downstream HTTP call
   - Downstream SQL
-  It give you more grangular view of calls.
+  It give you more grangular view of calls with timing information 
   In this also you can add the Annotation and Metadata
   
   Segment VS SubSegment:-
