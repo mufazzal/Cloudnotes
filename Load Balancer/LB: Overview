@@ -159,8 +159,9 @@ TLS offloading:-
 
 Multi VAlue Header and Query String:-
   ALB provide advance handling for this. 
-suppose the client supplies a query string like: ?name=foo&name=bar
-If you’ve enabled multi-value headers, ALB supplies these duplicate parameters in the event object as: ‘name’: [‘foo’, ‘bar’]
+  suppose the client supplies a query string like: ?name=foo&name=bar
+  If you’ve enabled multi-value headers, ALB supplies these duplicate parameters in the event object as: ‘name’: [‘foo’, ‘bar’]
+  If you do not enable multi-value header syntax and a header or query parameter has multiple values, the load balancer uses the last value that it receives
 
   
   
