@@ -45,6 +45,13 @@ CodeCommit Notifiction:-
   You can set the SNS topic notification again the event such as
   commit, pull request, clone, merge etc.
 
+---------
 
+CodeCommit and Elastic BeanStalk:-
+  CodeCommit is tightly integrated with EB. You can deploy the changes in source code directly to the EB from Codecommit via some command.
+  It will deploy only changes rather then full project. So it save lot of time and internet bandwith.
+  
+  
+  
 
 
