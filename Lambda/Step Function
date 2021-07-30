@@ -15,6 +15,7 @@
   
   Task:-
     Task is a single unit of work in machine.
+    Out of all the types of State, only the Task State and the Parallel State can be used to run processes in the state machine
     
   Workflow type:-
     Tjhere is two kind of workflow
