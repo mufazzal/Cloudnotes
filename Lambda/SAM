@@ -132,7 +132,9 @@ Deployment:-
       sam deploy --template-file MufCFTmplat.yml --stack-name MufStack --capabilities CAPABILITY_IAM      
     
 ----
+#lambda/SAM.txt 
 Deployment options:-
+  You can set the deployment option in the SAM template. Later this value are set into the Codedeploy to be used at a time of deployment.
   MyLambdaFunction:
    Type: AWS::Serverless::Function
    Properties:
