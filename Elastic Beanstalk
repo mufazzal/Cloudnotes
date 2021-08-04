@@ -57,6 +57,10 @@ Environment:-
 		Java, PHP, Node, .NEt, Docker etc.
 		- You can create env and upload docker image to begin the infra
 		
+		Custom Platform:-
+			In case you need a platform that EB do not support like C, Cobol. then you can create the custom platform from open source tool like Packer.
+			This will basically create the AMI for you with some custom software + configuration + setting.
+		
 	Application Code:-
 		You need to provide the soure code at a time of creatinf Env.
 		You can provide Git, S3 or ZIP file as source code.
@@ -156,15 +160,15 @@ EB and RDS DB:-
 
 ------------
 
-	Application version lifecycle:-
-		Whenever you launch a new application version in EB, the older remain in there if you wants rollbacks.
-		But after sometime you have many unsed version in EB.
-		TO cleas it you can set the Lifwcycle policy which can
-		- DElete the older versions(not in use) total version exceed the maximum number
-		- DElete if certain version(not in use) if its older ten some set value.
-		- It cannot delete the in-use version.
-		- you will need a service role for this.
-		- You can choose to retain the source bundle in S3 if you wants.
+Application version lifecycle:-
+	Whenever you launch a new application version in EB, the older remain in there if you wants rollbacks.
+	But after sometime you have many unsed version in EB.
+	TO cleas it you can set the Lifwcycle policy which can
+	- DElete the older versions(not in use) total version exceed the maximum number
+	- DElete if certain version(not in use) if its older ten some set value.
+	- It cannot delete the in-use version.
+	- you will need a service role for this.
+	- You can choose to retain the source bundle in S3 if you wants.
 
 ------------
 
