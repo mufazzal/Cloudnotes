@@ -99,7 +99,7 @@ This control many things about the cache and origin. all setting of cache behavo
     1. At All Files level
         For this set the three param at CachePolicy : MinTTL, MaxTTL and defaultTTL.
     2. At indivisual file level
-        For this send 'Cache-Control max-age'(Recomended) of 'Expired' Header in the Origin Response
+        For this send 'Cache-Control max-age'(Recomended) or 'Expired' Header in the Origin Response
     If 'Cache-Control max-age' is not added in the origin response then object will be cached for 'defaultTTL' time
     If 'Cache-Control max-age' in range of MinTTL and MaxTTL, it will be cached for 'Cache-Control max-age' time
     If 'Cache-Control max-age' out of range of MinTTL and MaxTTL, it will be cached for MinTTL or MaxTTL time
