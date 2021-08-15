@@ -298,6 +298,19 @@ Source of Configs:-
 
 --------
 
+Enviorment Manifest[env.yaml]:-	
+	This file lies at root of your source code and can provide the configuration defgail to the EB enviorment.
+	It can have configuration like 
+	Cname, EnvironmentName, EnvironmentLink, Env Tier[Web/Worker]
+	Also have configuration related to resources in the enviormenty
+	LT, LCG, LB, ATS etc.
+
+--------
+.config in .ebextensions:-
+	In this files lies the Yaml formatted configuration diffrent resource like LT, LCG, LB, ATS etc.
+	It override the setting in env.yaml
+-------
+
 Corn.yml for worker env:
   You can define periodic tasks in a file named cron.yaml in your source bundle to add jobs to your worker environment's queue automatically at a regular interval.
 
