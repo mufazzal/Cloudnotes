@@ -93,7 +93,7 @@ Environment:-
 			- EC2 key pair
 			- Instance Role
 			- EB Service Role
-		Platform Update window:-
+		Minor Platform Update window:-
 			Set the weekly window for platform update.
 			Your application stays available during the update process
 		DAtabase:-
@@ -244,6 +244,11 @@ Updates:
 								- Highest Downtime
 ---
 
+Platform Update:-
+	For minor update like, java 7.1 to 7.2 you can simply do it in console without event inturutting the serice.
+	For major one like java 7 to 8, use Blue/Green deployment.
+
+---
 Enviorment Url Swap:-
 	As you know that a web env in EB has a Enviorment url to access it.
 	This url is mapped to the envorment by CNAME record mapping.
