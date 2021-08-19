@@ -44,7 +44,7 @@ Lambda and Memory:-
   If lambda ask for more memory at any point of time, then it will fail with function error 
 
 Lambda and Timeout:-
-  You can set the max time for lambda that it can take. max value is 5 minutes.
+  You can set the max time for lambda that it can take. max value is 15 minutes.
   If lambda ask for more time, then it will fail with function error 
 
 Lambda and allocated cpu:
@@ -91,7 +91,7 @@ Lambda Execution Lifecycle:-
 -----------------------------------    
 
 Limits:-
-  Timeout:    900 sec(5 minute)
+  Timeout:    900 sec(15 minute)
   Memory:     128MB - 10240(10 GB) MB in 1 MB increment
   Layers:     5
   Disk space: 512 MB
