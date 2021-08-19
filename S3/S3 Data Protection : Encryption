@@ -35,12 +35,14 @@ En/Dc mechanism provide by AWS:-
              1.2.1: 
 								You can use AWS generated Customer Master Key [on behalf of S3] that is asw/s3
 								- AWS KMS generate the master key for that service(S3) once. and next time use that only master key for any en/dc operation for that service 
+							Headers:-
+								x-amz-server-side-encryption: "aws:kms"
              1.2.2:
 								You can create your own Customer Master Key in KMS and use it.
 								- user manage key enabling and rotation
-					Headers:-
-						x-amz-server-side-encryption: "aws:kms"
-						x-amz-server-side-encryption-aws-kms-key-id: "<kms key id>"
+							Headers:-
+								x-amz-server-side-encryption: "aws:kms"
+								x-amz-server-side-encryption-aws-kms-key-id: "<kms key id>"
 								
         1.3 SSE-C: Encryption with Customer managed key
 							- In this mechanism the user provide the key at tome of uploading the object. S3 use this key for encryption and then delete it.
