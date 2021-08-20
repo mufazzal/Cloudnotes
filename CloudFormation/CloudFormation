@@ -411,6 +411,20 @@ Input PAram type:-
   
 -------
 
+Export Import value:-
+  In CFR templates 'Outputs' patrams, you can use Export wheare you can export some values which later can be used in other CFL template of same region and account.
+  This is very useful for cross refrncing the templates.
+  EG:- 
+  Exporting
+    Outputs:
+      PublicSubnet:
+        Value: !Ref: PublicSubnet
+        Export: !Name: 'mufUnqName'
+  Importing
+    GroupSet:
+      - !ImportValue: 'mufUnqName'  
+
+------
 IMP
   ### For Amazon S3 buckets, you must delete all objects in the bucket for deletion to succeed
 
