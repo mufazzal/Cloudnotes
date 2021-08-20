@@ -87,4 +87,8 @@ AWS Personel Health Dashboard:-
   Displays personalized view of alerts and remediation guidance when AWS is experiencing events that may impact you. 
   
   
+AWS Service Catalog:-
+  Use this to whitelist the service that can used withine your AWS organization.
+  These IT services can include everything from virtual machine images, servers, software, and databases to complete multi-tier application architectures. 
+  AWS Service Catalog allows you to centrally manage deployed IT services and your applications, resources, and metadata.
   
