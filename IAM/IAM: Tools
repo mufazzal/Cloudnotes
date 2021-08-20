@@ -17,4 +17,21 @@ IAM Policy Variable:-
   IT provide more dynamic and principle based way to provide acces to diffrent resource 
   EG:-
     suppose you wants to give 
+    'muf' user access to 'useBuckets/muf' only and 
+    'mur' user access to 'useBuckets/mur' only then use below
+          "Condition": {"StringLike": {"s3:prefix": ["${aws:username}/*"]}}
+      OR
+          "Resource": ["arn:aws:s3:::mybucket/${aws:username}/*"]
+    
+   Some more important Policy Variables are:-
+    aws:PrincipalType :- Distinct user, federated, or assumed role.
+    aws:SourceIp :- 
+    aws:username :- IAM-user-name in case of IAM user, null otherwise. 
+    ec2:SourceInstanceARN :-
+    aws:userid :- account ID in case of Root User,  
+                  IAM unique ID in case of IAM User, 
+                  <role-id>:<ec2-instance-id> in case of EC2, 
+                  <account>:<caller-specified-name> in case of FederatedUser
+                  <role>:<caller-specified-role-name> in case of AssumeRole
+    
 
