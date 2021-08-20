@@ -82,7 +82,10 @@ How to create such user (Prerequisite#2) :
   
   
   
-  
+ ----------------
+ Default Params:-
+  For al the AWS CDL commands there are couple of default param you can supply which will override the cponfiguration from 'aws config' that is
+  --region, --output, --profile
   
   
   
