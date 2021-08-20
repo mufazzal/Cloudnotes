@@ -1,0 +1,12 @@
+Policy Simulator:-
+  USe this to figure out if a certain action on certain reource is possible or not bu certain principle.
+  It do not actully do thisoperation.it just check if principle has access to do it.
+  
+IAM Access Analyzer:-
+  Use this to detect if some policy is giving access outside of youz zone-of-trust.
+  You can set the zone-of-trust as AWS account[your own account only] or AWS organization[in which your account lies]. 
+  Now if any IAM policy give access to any principle that is not in zone-of-trust, then it generates an active finding.
+  
+Access Advisor feature:-
+  Simply tells you what is the last time certain role is used for any AWS api.
+  You can delete the roll that are not being used since long.
