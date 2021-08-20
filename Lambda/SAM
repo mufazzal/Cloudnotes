@@ -170,6 +170,15 @@ Deployment options:-
       In both of this lambda function it must  call back to CodeDeploy to report a success or failure.
       
     
-    
+---------------------
+
+Below are the resource type that SAM added in Cloudformaion:-
+    AWS::Serverless::Api            : API gate way collection
+    AWS::Serverless::Application    : Application in SAR [Serverless App repository]
+    AWS::Serverless::Function       : Lambda
+    AWS::Serverless::HttpApi        : A HTTP ap in api gateway
+    AWS::Serverless::LayerVersion   : Layer for lambda
+    AWS::Serverless::SimpleTable    : Dynamo DB table
+    AWS::Serverless::StateMachine   : Step function
   
   
