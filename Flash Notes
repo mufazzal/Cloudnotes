@@ -11,11 +11,15 @@ FOr On-Premise AWS SDK you should always use IAM User not IAM Role+STS
 DDB CU
 1  RCU = 2 * 4KB  for Eventual consistentsqs
 1  RCU = 1 * 4KB  for Strong consistent
-1 WCU = 1 * 1KB  
+1  WCU = 1 * 1KB  
 
 for eventual you need  .5 RCU for each 4KB
 for strongly you need   1 RCU for each 4KB 
-for write you need       1 WCU for each 1KB 
+for write you need      1 WCU for each 1KB 
+
+Lambda EV sizew limit: 4KB
+
+KMS en/dc by CMK data limit: 4KB 
 
 EB App:-
   All At Once, Rolling, Rolling Batches,  Immutable, Traffic splitting
