@@ -104,10 +104,8 @@ IOPS Calculation for EBS:-
 			2TB						6000			6000
 			5TB			 		 ~16000		 ~16000
 
-
 		What if you need more IOPS performance then allocated. 
-		In that case IOPS Credit comes in picture.
-		
+		In that case IOPS Credit comes in picture.		
 	
 	IOPS Credit:-
 		When your RDS instance is created you will get the 5.4 million IOPS credit.
@@ -124,6 +122,9 @@ IOPS Calculation for EBS:-
 		You can select how much IOPS you need,
 		Maximum IOPS of 64,000 is guaranteed only on Nitro-based instances that are on the m5, r5, and z1d instance types. 
 					Other instance families guarantee performance up to 32,000 IOPS
+		Constraint:-
+			Max IOPS can be allocated to tyhe volume = 50 * size in GG
+			So for 100 GiB you can have max 100 * 50 = 5000 IOPS 
 
 	Ultra high IOPS:-
 		If you need IOPS > 64000 or in milliions iops oer sec. 
