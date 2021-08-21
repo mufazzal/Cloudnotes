@@ -50,8 +50,8 @@ In CFT you have 3 option of Secrity
             Trusted Key Groups or Trusted Signer > choss any
             Select signer or key group.
             done.
-          The signer could be   
-            your aws account or other aws account too.
+         The signer could be your aws account or other aws account too.
+         The Signer Acount(self or other) will keep the private key and the CDN destribution will use the public key.
          At a time of GET CDN will check if url is signed with proper key or not which is from correct set of signer.      
          
      Signed URL vs Cookie:-
