@@ -173,6 +173,9 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 	Remember:-
 		- Older Objects: Once configured, the replication take place for new PUTs not the older existing onject. so replication will only replicate the files when replication is activated.
 		- Delete: Deletion is not replicated at all. so if some object is deleted from spource then its replica will not be deleted. this give additional data preservness. 
+		- Tag and Metadat: Both can also copied or set to be not copied.
+		- Storage class transition in Source bckket: not copied.
+	
 	
 	----
 	
@@ -180,15 +183,12 @@ Suppose you place you data in the bucket 'mufBucket' but somehow
 		As disussed above the Replication only replicatethe ongoing PUTs not the previous object.
 		If you still wants to copy all theexisting objects to the destination bucket then you can use 'Synch' comand between source and destination bucket.
 		This command actully use CopyObject API in background.
-		This will copy all the existing object to the dest bucket. Though Synch do no do the ongoing replication.
-		
+		This will copy all the existing object to the dest bucket. Though Synch do no do the ongoing replication.	
 	
 	----
 	
 	How to restore the deleted object in versioned bucket:-
 		Simply delete the delete marker
-
-
 
         Cross region replication: destination bucket could be from different region too.
           this is useful if u wants reduced latency in different geographical area.
