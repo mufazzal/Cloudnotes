@@ -12,6 +12,8 @@ Function:
       This process can take a few seconds, during which the function is in PENDING state. When the optimization process completes, the function enters the ACTIVE state.
       If function not called for weeks then lambde reclain the Optomized version and Lambda goes in INACTIVE state. It must be called at least once to put it in ACTIVS stae.
     - You must ensure that the Role/User who create this lambda (not Execution Role) must have the permission 'GetRepositoryPolicy and SetRepositoryPolicy'
+    - ECR registery and LAmbda must lie in same region.
+    - The Container must have the Runtime same as of LAmbda
   Updating function:-
     When you change andpush the new code then it may tale up to a minute to update the take place. 
     for this time request can be served by old or new version.
