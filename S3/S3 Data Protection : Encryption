@@ -429,7 +429,9 @@ Enforcing Encryption on object:-
         perform that operation (decrypt fro GetObject and encrypt for PutObject). So KP and BP must be written with harmony.
         
         
-      
+-------------------
+
+In case of 'aws:kms', Amazon S3 stores the encrypted data key as metadata with the encrypted data
       
       
       
