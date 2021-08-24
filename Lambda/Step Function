@@ -104,9 +104,19 @@ State machine language:-
       }    
     So here if erro is of type Timeout then it make a retry otherwise go to catch abd to next seop mentioned.   
   
+  
+-----------
+
+State Machine:-
+  State machine is define th Json with Stae Machine Language.
+  Its is simply a Json defination of how the flow will go on.
+  From where it will start and then how diffrent part prform task, check condition, route data and finally produce result
+
 -----------
 Best Practice:-
   1. Use timeouts to avoid stuck executions
   2. Use Amazon S3 ARNs instead of passing large payloads 
   3. Avoid latency when polling for activity tasks
+------------
+
 
