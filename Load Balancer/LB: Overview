@@ -128,6 +128,9 @@ Cross-region load balancing:-
     Actully in the background LB-node [ENI of LB in AZ2] in AZ2 send prpotional traffic to AZ1
   For ALB this enable by default. for other two you have to enable it.
   
+  The LB also analyze the Instance type across the AZs, 
+    if any any AZ have significaltly higher capacity instances then other then it route more traffice there, similarly 
+    if any any AZ have significaltly lower  capacity instances then other then it route less traffice there  
 ----------------------------------
 
 ALB-Cognito User Authentication:-
