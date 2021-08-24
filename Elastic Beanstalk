@@ -280,8 +280,8 @@ Config file:-
 	EB for Docker:-
 		You can create the env for docker and provide the docker file to run.
 		You can either
-		1. Run a Single Docker Container on Single EC2.
-		2. Or Run a full ECS cluster with ECS service with many Container in it.  
+		1. Single Container Docker: Run a Single Docker Container on Single EC2.
+		2. Multi Container Docker: Or Run a full ECS cluster with ECS service with many Container in it.  
 	
 -------------
 Saving EB Configuration:-
