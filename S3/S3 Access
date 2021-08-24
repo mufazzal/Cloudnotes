@@ -333,10 +333,8 @@ Writing BP or IAMP:-
 				 "Principal": { "AWS": "arn:aws:iam::388412347424:role/*" },
 				 "Principal": { "AWS": "arn:aws:iam::388412347424:user/muf*" },
 				Basically you cannot allow or deny all the role or user matching the pattern.
-				You have to be very specific in the ARN about the grantee. iyt must be a definative user/role
+				You have to be very specific in the ARN about the grantee. iyt must be a definative user/role		
 				
-			
-
 	Resource:-
 		In IAMP the resource could by anything drom EC2 to Lambda to S3 to CFT. but we are concentrating on S3 only.
 		In BP it is only limilted to the bucket is is attached to.
@@ -668,6 +666,11 @@ Controlling User:-
 
 S3 and Identity Pool ????????????????/
 
+---------------
+
+Object owner if Uploaded by diffrent Account:-
+	DEfault: By default the uploader account will own it
+	if uploaded set Object ACL = 'bucket-owner-full-control' then the bucket owner account will own it.
 
     
 
