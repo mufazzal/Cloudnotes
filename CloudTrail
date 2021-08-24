@@ -87,7 +87,8 @@ Trail:-
         Such trail monitoer the event in all region and can be managed in any region. This is good practice.
       
       AWS Organization Trail:-
-        If you have created an organization in AWS Organizations, you can create a trail that will log all events for all AWS accounts in that organization
+        If you have created an organization in AWS Organizations, you can create a trail that will log all events for all AWS accounts in that organization.
+        Only MAster account can create and delete the train, Member account can only view it.
         Global Service Event:- You can can choose to enable or disable event from global services such as IAM, CFT etc to avoid duplication on multiple region
         
 Encryption:-
