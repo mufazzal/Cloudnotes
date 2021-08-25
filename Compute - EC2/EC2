@@ -93,7 +93,18 @@ EC2 and Other AWS services ->
        For this Once login is successful, You can use the comands to create S3 bucket at location '  ec-user@1.1.1.1 >_ '
                     >  'aws s3 mb s3://muf12decbuck'
 
- -------------------
+----
+
+Priority of credentials on EC2 from Higest to lowest:-
+	1. aws.accessKeyId and aws.secretKey in Java env variable
+	2. system environment variables: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+	3. In the default credentials file (the location of this file varies by platform) [set by 'aws config' for EC2]
+	4. Instance pfofile by IAM role
+	5. temporary cred by STS.
+
+-------------------
+
+
 
 User Data:
 	In the user data you can provide the script that can ran at the initilization of the EC2 insyance.
