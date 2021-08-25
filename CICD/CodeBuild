@@ -54,7 +54,16 @@ CodeBuild and VPC Access:-
   - Elascticache etc.
   You can use those resource in step like Test, Downloading hosted dependency, DB query etc. 
 
-Permission Modrl:
+
+Caching Dependency:-
+  When you run a build, the system first download all the external dependeny mentioned in 'package.json' or 'requirment.txt' 
+  This takes lot of time and also cost you data transfer chrges.
+  As you know the external dependency remain same most of the time so downloading them exerytime is not a good option.
+  for thisyou can have option of 'Caching Dependency'
+  here yoou select the S3 bucket in codebuild and the CB will use this bucket to cache the dependency and reuse then across the builds.
+  you can then clear the cache or have lifecycle policy to clear it priodically.
+
+Permission Model:
   In CodeCommit, the CodeCommit:GitPull IAM policy permissions apply to any Git client command where data is retrieved from CodeCommit, including git fetch, git clone, and so on. 
   Similarly, the CodeCommit:GitPush IAM policy permissions apply to any Git client command where data is sent to CodeCommit. 
   Take note that CodeCommit:GitPull and CodeCommit:GitPush are IAM policy permissions and not API actions.
