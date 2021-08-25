@@ -153,7 +153,7 @@ EC2 CURL for meta-data and user-data:-
 		now curl here
 			curl http://169.254.169.254/latest/meta-data/<item_name>
 		item_name could ne 
-			hostname, local-ipv4, public-ip etc.
+			hostname, local-ipv4, public-ip etc, Security Group, iam role, placement, network ENI, blockDeviceMappint.
 		In output you will get the respective item.
 		
 		To get the user dat just use 
