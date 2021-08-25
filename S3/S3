@@ -51,6 +51,8 @@ S3 and Data Consistency :-
     an overwrite or 
     delete of an existing object, 
   any subsequent GET or LIST request immediately receives the latest version of the object.
+  
+  The only Eventual Consistent is 'Bucket Delete'. You might see the bucket in the 'ListBucket' for few moments after deleting the bucket.
 ----------------------------
   
 
