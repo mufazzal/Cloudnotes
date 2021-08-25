@@ -153,6 +153,12 @@ Kenesis use case:-
     Outgoing read Bandwith = Incoming write Bandwith * No of Consumer
     Number of shrad = Max (Incoming Bandwith, Outgoing Bandwith)
     
-  
+------------
+Useful Library and Tool:
+  Kenesis PRoducer lib: Use this in the aplication to send data  to the kenesis.
+  Kenesis Agent: Use this to send data the Kinesis in the background. It moniter the set of file and send the new data in the file in reliable manner.
+  Kenesis Consumer lib: use this to contnously read the kenesis shard and process it in the application 
+
+
         
     
