@@ -51,7 +51,10 @@ CodeCommit and Elastic BeanStalk:-
   CodeCommit is tightly integrated with EB. You can deploy the changes in source code directly to the EB from Codecommit via some command.
   It will deploy only changes rather then full project. So it save lot of time and internet bandwith.
   
-  
+----------
+Encryption:-
+  For CodeCommit, the data is automatically encrypted at rest and in transit by KMS key. 
+
   
 
 
