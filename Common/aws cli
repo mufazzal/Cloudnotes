@@ -68,7 +68,7 @@ How to create such user (Prerequisite#2) :
   
  ------------------
  
- AWS CLI commands with larse dta list output:-
+ AWS CLI commands with large data list output:-
   many aws command return the list od data. like listObject in S3 bucket.
   What hapen if there is large data.
   AWS CLI handle it internally. when you run the command AWS CLI internally can make more then one apis to get data in parts.
@@ -77,8 +77,11 @@ How to create such user (Prerequisite#2) :
   You can chnage the value of pagae size by passing param '--page-size' in command.
   changung this will not at all impact any final output. it just make some changes in the internal call machanism.
   When to use:- when you are getting 'timeout error' or 'too many result' in output of any command.
+  In case of --page-size, the final output remain same.
   
-  For limiting the result you can use the param '--max-item'. this will do change the final output. 
+  
+  For limiting the result in final output also you can use the param '--max-item' and '--starting-tokeb'. 
+  this will do change the final output and implement the pagination. 
   
   
   
