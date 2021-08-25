@@ -62,7 +62,8 @@ Caching Dependency:-
   for thisyou can have option of 'Caching Dependency'
   here yoou select the S3 bucket in codebuild and the CB will use this bucket to cache the dependency and reuse then across the builds.
   you can then clear the cache or have lifecycle policy to clear it priodically.
-
+  You can also use the 'InvalidateProjectCache' api to clea t for next build and keep it till currect build finish.
+  
 Permission Model:
   In CodeCommit, the CodeCommit:GitPull IAM policy permissions apply to any Git client command where data is retrieved from CodeCommit, including git fetch, git clone, and so on. 
   Similarly, the CodeCommit:GitPush IAM policy permissions apply to any Git client command where data is sent to CodeCommit. 
