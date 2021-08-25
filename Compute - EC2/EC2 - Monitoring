@@ -14,13 +14,14 @@ Monitering via cloudwatch:-
        How to view this metric
         AWS > CloudWatch > MEtrics > EC2 > Per-Instance Metrics > search with instance ID 
         You can see many metrics there and see diffent performance indicator.
-
-      By default the performance data form the EC2 is monitered in every 5 minut. but you can enable the detail monitering.
-      If you enable it then data wil be monitered in every 1 minute.
-      for this:
-        AWS > EC2 > Instances > you instace > Action > 'Per-Instance Metrics' > yes
-      IMP: this is chargable.
-      This will also moniter the default data metric only but more frequently.
+      
+      Detailed Monitoring:-
+          By default the performance data form the EC2 is monitered in every 5 minut. but you can enable the detail monitering.
+          If you enable it then data wil be monitered in every 1 minute.
+          for this:
+            AWS > EC2 > Instances > you instace > Action > 'Per-Instance Metrics' > yes
+          IMP: this is chargable.
+          This will also moniter the default data metric only but more frequently.
 
       Custom metrics:-
         TRhis is the metric of performance data that are not by default monitor by the clouwact.
@@ -58,3 +59,7 @@ Monitering via cloudwatch:-
             add this command in crone job
             How?
               its not in scope here.
+            
+            
+          High Resplution Custom Metrincs:-
+            This metrics can be have data in 10 second grangularity. Be alert to use it as it may skyroket your CW bill.
