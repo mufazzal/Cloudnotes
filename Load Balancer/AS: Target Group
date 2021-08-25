@@ -46,8 +46,7 @@ You define below things in the TG:-
       in each 'TG.HealthCheckIntervalSeconds'
       If the health checks exceed 'TG.UnhealthyThresholdCount' consecutive failures, the load balancer takes the target out of service. 
       But LB do not just deregister it instead it keep sending signal and 
-      When the health checks exceed 'TG.HealthyThresholdCount' consecutive successes, the load balancer puts the target back in service.
-    
+      When the health checks exceed 'TG.HealthyThresholdCount' consecutive successes, the load balancer puts the target back in service.    
     
 ---------------
   Target Status:-
@@ -97,9 +96,10 @@ Sticky Session:-
     - Onprmise resource connected with Direct-connet or Site-to-site VPN 
     - not use Public routable IP
     
-    Even If you have  specify targets using an instance ID, traffic is routed to instances using the primary private IP address specified in the primary network interface for the instance
+    Even If you have specify targets using an instance ID, traffic is routed to instances using the primary private IP address specified in the primary network interface for the instance
     But
-    IF you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces
+    IF you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces.
+    So you can use a single port on to listen multiple traffic source.
 
 ---------------
 
