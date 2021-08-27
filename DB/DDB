@@ -28,3 +28,5 @@ Availibility and scalabilty of DDB is handled by AWS itself and is exteremly hig
  
  Limits:-
  	Max size of data stored with Key + data = 400KB
+	Max GSI: 20 [can be requested to increatse by Service Request]
+	Max Provision Throuput: 10,000 [can be requested to increatse by Service Request]
