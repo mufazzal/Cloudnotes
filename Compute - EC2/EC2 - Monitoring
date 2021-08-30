@@ -63,3 +63,8 @@ Monitering via cloudwatch:-
             
           High Resplution Custom Metrincs:-
             This metrics can be have data in 10 second grangularity. Be alert to use it as it may skyroket your CW bill.
+
+
+Basic: 5 mnt
+Detail: 1 mnt
+High Reso: 10 sec
