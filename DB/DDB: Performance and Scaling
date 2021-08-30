@@ -161,7 +161,27 @@ Limits:-
 	Max GSI: 20 [Above it you will need to raise the support ticket]
 	Max Provison capacity: ???? [Above it you will need to raise the support ticket]
 
+--------
 
-
+Optimizing scan:-
+	The Scan is the scary operation and can leads to heavy load on DDB. so for using the Scan you must take care of some points.
+	By default, The scan operation read data the sequential. it read the max of 1 MB data and return it. Keep doint it till it read all.
+	So a sequential scan will have 2 issue 
+	- take lot of time to read the full table
+	- keep eating the 1 MB of provision througput for long time
+	
+	To solve Time issue we can use Parallel Scan, here the table is break down in sagements and you can use multiple thread in you app to scan then in parallel.
+	so you finish up the reading faster. 
+	But it will worsen the second issue because now you will be consuming    1 MB * Number-of-Threads   amount of provision read throughput.
+	To mitigate this issue you must use   Parallel Scan + Page Size.
+	Here you must set the Limit' param in each scan to set how many indexes must be read in exh induvisual scan.
+	EG: if you avg data size = 4 KB and number of thread = 10, and you set the max index to read = 5
+	then consumed capacity in each scan = 4 KB * 10 * 5 = 200 KB per sec.
+	
+	
+	
+	
+	
+	
 
    
