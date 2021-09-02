@@ -14,6 +14,7 @@ Function:
     - You must ensure that the Role/User who create this lambda (not Execution Role) must have the permission 'GetRepositoryPolicy and SetRepositoryPolicy'
     - ECR registery and LAmbda must lie in same region.
     - The Container must have the Runtime same as of LAmbda
+    - Only Linux containers are supported not windows
   Updating function:-
     When you change andpush the new code then it may tale up to a minute to update the take place. 
     for this time request can be served by old or new version.
