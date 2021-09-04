@@ -147,6 +147,13 @@ Kenesis use case:-
     Reason is that a shrad is handled by a single KCL all the time. though a single KCL can take multiple shrad.
     Also max number of Instacne you should have = number of shrad because extra instance will have nothing to serve.  
     
+    Multiple Consumer:-
+      You can have multiple consumer to consume the shrad in parallel.
+      For this you can use the Fan-Out feature of kenesis.
+      Without fan out, all  of the consumer will have 2MB/sec/shrad throuput
+      With    fan out, each of the consumer will have 2MB/sec/shrad throuput
+      
+    
   ---------
   Calculating Initial Number of shrad:-
     Incoming write Bandwith = data size * Record per sec
