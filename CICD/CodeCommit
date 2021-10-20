@@ -45,6 +45,8 @@ CodeCommit Notifiction:-
   You can set the SNS topic notification again the event such as
   commit, pull request, clone, merge etc.
 
+CodeCommit Trigger:-
+  The trigger has wider scope then 'CodeCommit Notifiction', it can  invoke the SNS topic and lambda as well.
 ---------
 
 CodeCommit and Elastic BeanStalk:-
