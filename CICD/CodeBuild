@@ -84,7 +84,22 @@ Enviorment:-
     1. Windowa + respective Docker image
     
 
-
+Timeout:-
+  A Codebuild can have 5 mnt to 8 hour timeout. default is 1 hour. Though it will keep the resource only till build ran. 
+  but release it if build failed to finish in specified timeout.
+  
+Compute:-
+  You must set the value of requred RAM and vCPU for build process.
+  
+Networking:-
+  You can select the VPC [with sunet and SG] if you wants to access the VPC private resources in the build process.
+  like accessing EC2 or RDS for testing in build test phase.
+  
+  
+  
+  
+  
+  
 
 
 
