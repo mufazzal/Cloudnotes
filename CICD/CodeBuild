@@ -68,3 +68,9 @@ Permission Model:
   In CodeCommit, the CodeCommit:GitPull IAM policy permissions apply to any Git client command where data is retrieved from CodeCommit, including git fetch, git clone, and so on. 
   Similarly, the CodeCommit:GitPush IAM policy permissions apply to any Git client command where data is sent to CodeCommit. 
   Take note that CodeCommit:GitPull and CodeCommit:GitPush are IAM policy permissions and not API actions.
+
+
+Source Location for CodeBuild:-
+  It could be Git, Githug, BitBucket, CodeCommit Or S3.
+  You an select the specific Branch (by default master) as source for build
+  
