@@ -74,3 +74,17 @@ Source Location for CodeBuild:-
   It could be Git, Githug, BitBucket, CodeCommit Or S3.
   You an select the specific Branch (by default master) as source for build
   
+
+Enviorment:-
+  The codebuild basically run in the containers and so you need to set the OS with proper Docker Image
+  You can select the AWS managed docker image and OS for the CodeBuild or can have custom.
+  AWS managed OS + Docker image
+    1. Amazon Linux + respective Docker image
+    1. Ubuntu + respective Docker image
+    1. Windowa + respective Docker image
+    
+
+
+
+
+
