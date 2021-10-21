@@ -101,9 +101,22 @@ Networking:-
   like accessing EC2 or RDS for testing in build test phase.
   
   
-  
-  
-  
+Envirment Variable:-
+  You can set the EV in the build project or in buildspec file or set it when start a build
+  for build project:-
+    set it at a time of creation of project via console or CFR
+  for buildspec:-
+      env:
+        variables:
+          App1EnvVar1: "value of App1EnvVar1"
+        parameter-store:
+          App1ParamStore1: /app1/dev/app1ParamStore1
+          App1ParamStoreSecret1: /app1/dev/app1ParamStoreSecret1
+        secrets-manager:
+          App1Secret1: "App1Secrets:App1SecretKey1"
+          App1Secret2: "App1Secrets:App1SecretKey2"    
+  You can provide this as Plaintext or from SSM parameter of secret manager.
+  You must give codebuild proper IAM riole to access the SSM or Secret manager.
   
 
 
