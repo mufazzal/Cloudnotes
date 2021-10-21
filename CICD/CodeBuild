@@ -118,6 +118,8 @@ Envirment Variable:-
   You can provide this as Plaintext or from SSM parameter of secret manager.
   You must give codebuild proper IAM riole to access the SSM or Secret manager.
   
+  In build phase you will get this variable in 'process.env.<key>'
+  
 
 
 
