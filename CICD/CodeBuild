@@ -91,7 +91,7 @@ Trigger Build Via Source Changes:-
   - Commit Message
   
   So you can set like, Trigger build if code is PUSHED by the mufazzal in file myf.ts with commit message 'runbuild'
-  
+  It is very useful to run the build befire and after the Pull Request merging so that you can know the delta if it failed.
   
 Enviorment:-
   The codebuild basically run in the containers and so you need to set the OS with proper Docker Image
