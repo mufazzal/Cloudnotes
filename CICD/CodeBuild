@@ -78,8 +78,21 @@ Permission Model:
 Source Location for CodeBuild:-
   It could be Git, Githug, BitBucket, CodeCommit Or S3.
   You an select the specific Branch (by default master) as source for build
-  
 
+Trigger Build Via Source Changes:-
+  You can set up to trigger the build automatically if below of the one operation happen on the source code repsitory
+  1. PUSH
+  2. PULL_REQUESR_CREATED
+  3. PULL_REQUEST_MERGED
+  Further you can filter those trigger events based on 
+  - Files changes in the commit
+  - Person who changes it
+  - The Branch
+  - Commit Message
+  
+  So you can set like, Trigger build if code is PUSHED by the mufazzal in file myf.ts with commit message 'runbuild'
+  
+  
 Enviorment:-
   The codebuild basically run in the containers and so you need to set the OS with proper Docker Image
   You can select the AWS managed docker image and OS for the CodeBuild or can have custom.
@@ -120,6 +133,21 @@ Envirment Variable:-
   
   In build phase you will get this variable in 'process.env.<key>'
   
+--
 
+Monitoring and Logging:-
+  - You can send the CodeBuild logs to a specific Cloudwatch Log group or S3 bucket. You should also set auto delete on tose log buckets or logs stream. 
+  - You have bwlow CW metrics for a code build for dimention Account and Project
+    > Successful Build, Fail Build, Toatal Build, Build Duration.
+    You can use those to handle scenario such as too many fail, or too long for build etc.
+  
+Scheduled Builds:-
+  With the help of Cloudwatch Event[EventBridge] you can set the Corn job. and then can have the target as the codebuilb project.
+  The EventBridge will trigger the build based on the rule of cron job.
+
+    
+  
+  
+  
 
 
