@@ -563,6 +563,9 @@ CodeDeploy and CloudWatch EventBridge:-
   CodeDeploy is heavily integrated with EventBridge, you can create Trigger lambda or anything to handle scenarion like deployment failed or etc.
 CodeDeploy Trigger:-
   This also provide the way to trigger some functionality on CodeDEploy state change but here it only support SNS.
+You get the trigger for below state change
+  Deployment start/fail/ready/rollback etc.
+  intance start/stop etc.
   
   
 
