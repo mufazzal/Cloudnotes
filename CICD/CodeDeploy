@@ -569,7 +569,23 @@ You get the trigger for below state change
   intance start/stop etc.
   
   
+---------
 
+Automatic RollBack:-
+  In deployment group configuration you can set if you wants to have automatic roll back enabled or not.
+  If its not enabled then any fail deployment will be remain as it is and app goes offline. You have to go and manually roll it back.
+  You can set diifrent event(multiple) for starting roll back
+  1. Any deployment fail:-
+      If deployment failed on any stage of any instamce then the rollback will be started on all the instances.
+  2. On certain CW alarm:-
+      Even if all the deployment succed then you can stil set an CW alalrm. anf if that alarm goes red the deployment will be rollded back.
+      This ios useful if say new version of code causing the 90% of CPU usage
+  3. Manually Stopping Deployment:-
+      If user sop the the deployment manually trhen you can set if you wants roll back or not
+  
+ Manual Rollback:-
+  Simply run a new deployment with previous working version
+  
 
 
         
