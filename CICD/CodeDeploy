@@ -474,6 +474,7 @@ Deployment Bundle:-
                     The deployment will happen on as many replacement-instance as possible at once.
                     Once finish with deployment traffic routing will happen to all intance together at once.
                     Succeeds if traffic is successfully rerouted to at least one instance, Fail otherwise
+                  The application will be totally offline for certain time.
               HalfAtATime: 
                   For In-Place: 
                     The deployment will happen on half of instance at once.
