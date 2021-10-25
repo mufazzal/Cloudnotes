@@ -539,16 +539,55 @@ Deploy on ECS cluster:-
 ---------------------------
 
 Deploy on Lambda:-
-  Code deploy not work very nicely with Lambda, but you can use 
-  CodeBuild + SAM + CodeDeploy for better system.
-  In CodeDeploy you set values via SAM template 'DeploymentPreference' in 'AWS::Serverless::Function'
-  This are:-
-    AutoPublishAlias 
-    DeploymentPreference 
-    Hooks 
-  For detail see #lambda/SAM.txt  
+  Deployment on the LAmbda is bit tricky.
+  Here you do not actully push the code of lambda via the codeploy instead you alredy have lambda version deployed and 
+  you simply mangae the traffic shifting from old lambda version to new lambda version.
+  You can do the this via Codedeploy or via SAM + CodeDeploy
   
-       
+  Deplyment of lambda codedeploy only:-
+    First you need to create the CodeDeploy Application with type = lambda.
+    then create the Deployment group with below detail
+    - Group Name
+    - Service role
+    - Trigger
+    - Alarm
+    - Rollback Cofig
+    All above are same as for EC2 instance platform.
+    Deployment configuration:-
+      This is diffrent here. you can have carany, linear or none.
+      carany: Traffic shifted from older to new in two itration.  Eg. LambdaCanary<X>percentIn<Y>Minute
+      linear: Traffic shifted from older to new in multiple with lineat time delay itration. Eg. LambdaLinear<X>percentIn<Y>Minute
+      none: traffic shifted in one iteration only. 
+
+    Appspec file:-
+    Below is how its look, You have to provide it at a time of deployment. Its not part of deployment Group.
+      Resources:
+        - myLambdaFunction:
+            Type: AWS::Lambda::Function
+            Properties:
+              Name: "myLambdaFunction"
+              Alias: "myLambdaFunctionAlias"
+              CurrentVersion: "1"
+              TargetVersion: "2"
+      Hooks:
+        - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
+        - AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"    
+    
+      This will shift the traffic from 1 to 2 in the manner defined in the sected deployment Group.
+      hook:-
+        This is the lambda that will trigger before and after traffic shifted to new versions
+      Alias:
+        New version will be mapped to this Alias. if alias not exist then it will be created first.
+  
+  Deplyment of lambda codedeploy + SAM:-
+    CodeBuild + SAM + CodeDeploy for better system.
+    In CodeDeploy you set values via SAM template 'DeploymentPreference' in 'AWS::Serverless::Function'
+    This are:-
+      AutoPublishAlias 
+      DeploymentPreference 
+      Hooks 
+    For detail see #lambda/SAM.txt  
+  
 ----------------
 
 Supported Deployment:-
