@@ -424,6 +424,20 @@ Export Import value:-
     GroupSet:
       - !ImportValue: 'mufUnqName'  
 
+
+------
+Conditions:-
+  You use conditions to decide wheather or not create the resource
+    Conditions:
+      ShouldCreateProdRes:
+        !Equals
+          - !Ref Env
+          - prod
+Resources:
+  CDPVpcEndpoint:
+    Condition: ShouldCreateProdRes     
+    Type: AWS::EC2::VPCEndpoint
+    Properties: ...
 ------
 IMP
   ### For Amazon S3 buckets, you must delete all objects in the bucket for deletion to succeed
