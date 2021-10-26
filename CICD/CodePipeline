@@ -33,69 +33,34 @@ This stages are
                       |
       CodeDeploy detect the new artifact and start deployment
       
-      Steps:-
-        ???????????????????????
-    
-    Lets say my Git and Jenkins are properly setup and both work fine and the Jenkins upload the generated artifact the proper S3 bucket
-    Now lets design the CodeDeploy and CodePipeline o automate this.
-    
-    
-    CodePipeline with source at S3:
-      1. Create CodeDeploy application
-      2. Create Deployment group in that app as that
-          How ? See the CodeDeploy.txt
-          [IMP: you have to create the only Deployment group in this step not the deploymet itself. 
-           so you have to tell that group that are you going to use S3/git/google drive for the deployment bundle
-           you do not need to specify from which S3 bucket the artifact will lie. This would be told in code pipeline]
-      3. Now Aws Console > CodePipeline > Pipelines > Craete
-          3.1 pipeline settings:
-                3.1.1 choose name 
-                3.1.2 use existing or create new service role
-          3.2: Add source stage:
-                Select the the source location from where the code will be taken. 
-                This typically be GIT or BitBucket or CodeBuild but in our case wr are using the S3 for simplicity.
-                So provide the bucket name and the object key of artifact 
-          3.3: Add build stage:
-                You can select either Jenkins or CodeBuild or skip it.
-                Generally it should be Jenkins. 
-                In this stage the jenkins take the source code from 'source stage' detect changes and if there is any then start building it
-                once build finish it upload the articat to S3. Jenkins/CodeBuild have to do it internally by theself.
-                For now leta say we get the code from S3 and without building ir just passing it for deployment
-                so skip this step
-           3.4 Add deploy stage: 
-                In this stage you set 
-                3.4.1  select 'Deploy provider' which could be CodeDeploy, CloudFormation etc.
-                        mostly we use CodeDeploy
-                3.4.2: If you select the CodeDeploy in above step then 
-                          - select the Application name you created in step 1
-                          - select the Deployment group you created in step 2
-             Done.
-             
-             When you press the Done, Deployment will be started immediatly. and lated whenever you upload a new artifact in S3 
-             the deployment will begin again with that new artifact.
-       
-       So now whenever there is new artifact uploaded to S3, it will be deployed to the designated EC2 or Lembdas.
-
-
-  -------------
+-----
   
-  Actions:-
-    Action is part of the sequence in a stage of a pipeline. 
-    It is a task performed on the artifact in that stage. Pipeline actions occur in a specified order, in sequence or in parallel, as determined in the configuration of the stage.
-    CodePipeline provides support for six types of actions:
-      Source, Build, Test, Deploy, Approval, Invoke
-    Custom Action:-
-      You can write the custom action for 
-        Build, Test, Deploy, Approval, Invoke
-    Action Fail:-
-      If a stage completes with one or more failed actions, the stage fails, and the pipeline execution does not transition to the next stage in the pipeline.
-      You can retry the failed action without restarting the pipeline from begin.
-    Approval:-
-      Here you can set a required manual intervention for codepipeline to succed. YOu can set a SNS topic and susbscribe the approver to it.
-      Once pipeline reach to this point, The approver receive the email with some more detail to review the pipeline, Code, test etc.
-      Now the appriver can go to console and approve it so pipeline can move ahead. If he decline then it will fai.
-    Lambda as custom Action:-
-      You can use the lambdain te pipeline as custom action too.
+S3 and CodePipeline:-
+  Behind the scene codepipeline used S3 to move the artifact between diffrent stages. You can have it encrypted by aws or cutomer owned CMK.
+
+CW and CodePipeline:-
+  You can create many kind of CW alarm trigger to repond on changes happen in codepipeline state. 
+  like a state change forn stage1 to stage2.
+  Also Codepipeline createa default CW alarm that work as backbone of pipeline event handling.
+-------------
+  
+Actions:-
+  Action is part of the sequence in a stage of a pipeline. 
+  It is a task performed on the artifact in that stage. Pipeline actions occur in a specified order, in sequence or in parallel, as determined in the configuration of the stage.
+  CodePipeline provides support for six types of actions:
+    Source, Build, Test, Deploy, Approval, Invoke
+  Custom Action:-
+    You can write the custom action for 
+      Build, Test, Deploy, Approval, Invoke
+  Action Fail:-
+    If a stage completes with one or more failed actions, the stage fails, and the pipeline execution does not transition to the next stage in the pipeline.
+    You can retry the failed action without restarting the pipeline from begin.
+  Approval:-
+    Here you can set a required manual intervention for codepipeline to succed. YOu can set a SNS topic and susbscribe the approver to it.
+    Once pipeline reach to this point, The approver receive the email with some more detail to review the pipeline, Code, test etc.
+    Now the appriver can go to console and approve it so pipeline can move ahead. If he decline then it will fai.
+  Lambda as custom Action:-
+    You can use the lambdain te pipeline as custom action too.
       
 ----
 
