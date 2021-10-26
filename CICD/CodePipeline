@@ -95,8 +95,16 @@ Actions:-
   Actions[i].OutputArtifacts: The artifact produced by this action if any [IMP: not all the Category produced the artifact]
   Actions[i].Configuration: The configuration detail for the selcted 'ActionTypeId' like for s3, the bucket name, for git the git url etc.
       
+  Approval Action:-
+    Here you can set a required manual intervention for codepipeline to succed. YOu can set a SNS topic and susbscribe the approver to it.
+    Once pipeline reach to this point, The approver receive the email with some more detail to review the pipeline, Code, test etc.
+    Now the appriver can go to console and approve it so pipeline can move ahead. If he decline then it will fail.
+    It does not have any input or output artifact
       
-      
+  Invoke Action with Lambda:-
+    You can also use a lambda to run as any action. This lambda can do some opearion like. run some test or start a test infra etc.
+    Once finished lambda must call either 'codePipeline.putJosSuccess(jobId)' or 'codePipeline.putJosFailure(jobId)' to tell pipeline about success or fail.
+    You will get the jobId in event param of lambda
       
       
   Custom Action:-
@@ -105,10 +113,6 @@ Actions:-
   Action Fail:-
     If a stage completes with one or more failed actions, the stage fails, and the pipeline execution does not transition to the next stage in the pipeline.
     You can retry the failed action without restarting the pipeline from begin.
-  Approval:-
-    Here you can set a required manual intervention for codepipeline to succed. YOu can set a SNS topic and susbscribe the approver to it.
-    Once pipeline reach to this point, The approver receive the email with some more detail to review the pipeline, Code, test etc.
-    Now the appriver can go to console and approve it so pipeline can move ahead. If he decline then it will fai.
   Lambda as custom Action:-
     You can use the lambdain te pipeline as custom action too.
       
