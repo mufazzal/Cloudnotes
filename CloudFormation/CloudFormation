@@ -497,22 +497,27 @@ cfn-init:-
     1. max time to wait 
     2. number of success signal to wait
     Now you can use below line to send the success signal to cloudformation 
-        /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+        /opt/aws/bin/cfn-signal -s --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
     or you can use below line to send the fail signal to cloudformation
-        /opt/aws/bin/cfn-signal -e $ --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+        /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
     Cloudformation stack will remain in CREATE_IN_PROGRESS mode till 
     - A fail signal sent from cfn-signal and then so stack went to CREATE_FAILED
     - Wait time elapsed and then so stack went to CREATE_FAILED
     - Number of success signal sent from cfn-signal = no of success signal set in wait condition of creation policy of instance and then so stack went to CREATE_SUCCESS
     Wait condition in instance:-
-      mufres:
+      MufInstance:
         Type: AWS::EC2::LaunchTemplate OR AWS::EC2::Instance      
         Properties:
           ...
-        CreationPolicy:
-          ResourceSignal:
-            Count: 1
-            Timeout: "PT15M"      
+      MufWaitHandle:
+        Type: AWS::CloudFormation::WaitConditionHandle
+      MufWaitCondition:
+        DependsOn: MufInstance
+        Type: AWS::CloudFormation::WaitCondition
+        Properties:
+          Handle: !Ref MufWaitHandle
+          Timeout: '3600'
+          Count: 1            
     
 ---------
 
