@@ -124,7 +124,11 @@ Staring Pipeline Execution:-
   2. Manually
   3. On a schedule:
 
-    
+---------
+
+CodePipeline - Multiregion:-
+  Codepipeline support multioregion. you can have codecommit in region1, build in region1+region2+region3 and test then in any region and finally deploy in any region.
+  This give immense power to have single codebase in any region and then spreed the build and deployment in diffrent region. 
     
     
     
