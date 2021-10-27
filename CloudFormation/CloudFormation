@@ -531,15 +531,21 @@ CreationPolicy:-
   
   
 --------
-
-IMP
-  ### For Amazon S3 buckets, you must delete all objects in the bucket for deletion to succeed
-
-
-TODO: 
-    Set cloudwatch alarm for stack creation
-    Creation Policy
-
+Custom Resource:-
+  You can use cutom resource to do followin
+  1. Create resource for service not supported by cloudformation
+  2. Create on premise resource
+  3. Empty content of S3 bucket before cloudformation delete it. 
+  Syntex:-  
+    Resources:
+      BucketCleaner:
+        Type: Custom:cleanupbucket
+        properties:
+          ServiceToken: <the ARN of lambda>
+          MufKeyBucketName: <name of bucket to emty>
+          key2: ...
+          ke3: ...
+    From the lambda you have to return a proper value to define if execution successful or not.
 
 -----------------
 
