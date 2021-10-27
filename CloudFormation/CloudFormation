@@ -515,6 +515,12 @@ cfn-init:-
               Count: 2
     By Wait Condition Resource:-
       You can use this instead of CreationPolicy attribute but AWs not recomment it.
+
+
+  cfn-init + cfn-hub:-
+    The cfn-hub will run a deamon in the EC2 instance and keep checking the Cloudformation:Init block in certain interal
+    and if its updated ten it will rerun the cfn-init again.
+    
     
 ---------
 
