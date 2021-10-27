@@ -284,7 +284,14 @@ Giant String with Pipe:-
 What happen if eroor occure:-
   By default entire stack will be rolled back. thoug you can change it and let all the resources retained.
   for this chnage the option at 'Rollback on failure' option while creating stack.
-          
+  For create If error occure you can 
+    - 'Do_Nothing' and so keep the resources in broken state
+    - 'Roll_Back' and so all the resources will be deleted.
+    - 'Delete' and so delete all resoure and stack too.
+  For update If error occure you can 
+    - 'Do_Nothing' and so keep the resources in broken state
+    - 'Roll_Back' and so all the previous working template will be re-deployed
+  
 --------
 
 Template designer:-
@@ -372,7 +379,7 @@ Update Stack:-
       With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted. 
       You specify a DeletionPolicy attribute for each resource that you want to control. 
       If a resource has no DeletionPolicy attribute, AWS CloudFormation deletes the resource by default.
-      [This policy comes in picture when stack is deleted not when stack is updated anddue to update the underline resource is delted]
+      [This policy comes in picture when stack is deleted not when stack is updated and due to update the underline resource is deleted]
       DeletionPolicy options:-
         Delete: This is default value
         Retain: AWS CloudFormation keeps the resource without deleting the resource or its contents when its stack is deleted
@@ -406,6 +413,7 @@ Nested Stack:-
         TimeoutInMinutes: Integer
   
   TemplateURL:- This is S3 url where the template is stored.
+  When you use Nested stack you never do the update/delete operation over child template stack, you will do it over the parent only.
   
 --------
 Input PAram type:-  
@@ -479,24 +487,39 @@ cfn-init:-
     #!/bin/bash -xe
     yum update -y aws-cfn-bootstrap
     /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource Instance --configsets setup --region ${AWS::Region}
-
   
-    cfn-signal + creation policy + wait condition + cfn-init:-
-      You can use this set up to control the status of cloudformation template deployment behaviour wrt cfn-init execution.
-      It work only with EC2 and ASG.
-      For this you need to create the creation policy for instance that will have wait condition attached to it. with two setting
-      1. max time to wait 
-      2. number of success signal to wait
-      Now you can use below line to send the success signal to cloudformation 
-          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
-      or you can use below line to send the fail signal to cloudformation
-          /opt/aws/bin/cfn-signal -e $ --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
-      Cloudformation stack will remain in CREATE_IN_PROGRESS mode till 
-      - A fail signal sent from cfn-signal and then so stack went to CREATE_FAILED
-      - Wait time elapsed and then so stack went to CREATE_FAILED
-      - Number of success signal sent from cfn-signal = no of success signal set in wait condition of creation policy of instance and then so stack went to CREATE_SUCCESS
-      
+  - For cfn-int to work you must have internet connectivity or a VPC endpoint for cloudformation.
+  
+  cfn-signal + creation policy + wait condition + cfn-init:-
+    You can use this set up to control the status of cloudformation template deployment behaviour wrt cfn-init execution.
+    It work only with EC2 and ASG.
+    For this you need to create the creation policy for instance that will have wait condition attached to it. with two setting
+    1. max time to wait 
+    2. number of success signal to wait
+    Now you can use below line to send the success signal to cloudformation 
+        /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+    or you can use below line to send the fail signal to cloudformation
+        /opt/aws/bin/cfn-signal -e $ --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+    Cloudformation stack will remain in CREATE_IN_PROGRESS mode till 
+    - A fail signal sent from cfn-signal and then so stack went to CREATE_FAILED
+    - Wait time elapsed and then so stack went to CREATE_FAILED
+    - Number of success signal sent from cfn-signal = no of success signal set in wait condition of creation policy of instance and then so stack went to CREATE_SUCCESS
+    Wait condition in instance:-
+      mufres:
+        Type: AWS::EC2::LaunchTemplate OR AWS::EC2::Instance      
+        Properties:
+          ...
+        CreationPolicy:
+          ResourceSignal:
+            Count: 1
+            Timeout: "PT15M"      
+    
+---------
 
+Termination Protection:-
+  This simply a bool setting on stack and if enabled then aws will not allowed to delete this stack untill its disasbled again. 
+
+---------
 
 IMP
   ### For Amazon S3 buckets, you must delete all objects in the bucket for deletion to succeed
@@ -505,8 +528,6 @@ IMP
 TODO: 
     Set cloudwatch alarm for stack creation
     Creation Policy
-    Deletion Policy
-    DependsOn
 
 
 -----------------
