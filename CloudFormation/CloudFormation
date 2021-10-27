@@ -508,10 +508,11 @@ cfn-init:-
       MufInstance:
         Type: AWS::EC2::Instance      
         Properties: ...
-        CreationPolicy:
-          ResourceSignal:
-            Timeout: PT10M       
-            Count: 2
+        Metadata:
+          CreationPolicy:
+            ResourceSignal:
+              Timeout: PT10M       
+              Count: 2
     By Wait Condition Resource:-
       You can use this instead of CreationPolicy attribute but AWs not recomment it.
     
