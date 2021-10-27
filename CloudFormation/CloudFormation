@@ -270,7 +270,14 @@ Structure of template file:-
     It way to use is 100% same as the 'Input Parameter'
       location : { "Ref" : "AWS::Region" },
     location will be the region in which the stack is created.      
-         
+    
+Giant String with Pipe:-
+  You can use the | for mutiline string and also can use the params also in it
+  Value: |
+    my Name is ${namme}
+    The engineer
+    in amdocs ${city}
+    the region is ${AWS::Region}
         
 --------
 
@@ -438,7 +445,40 @@ Resources:
     Condition: ShouldCreateProdRes     
     Type: AWS::EC2::VPCEndpoint
     Properties: ...
+
+-----
+
+Log files:-
+  User Data logs: /var/logs/cloud-init-output.log
+  cfn-init logs:  /var/logs/cfn-init.log
 ------
+
+cfn-init:-
+  The cfn-init is an alternative to use the User Data and it give more fine grain control on the cloudformation stack.
+  It only work with ASG(Via launch template) and EC2.
+  It has below feature 
+  1. Greater redability then simple bash script user data.
+  2. You can use cfn-signal to communicate with cloudformation
+  3. if you change something in cfn-init(via cloudformation or by sshing in the EC2) for EC2 then it do not need the replacement of instance. 
+  
+  Setting cfn-init via cloudformation:- 
+    Resources:
+      mufres:
+        Type: AWS::EC2::LaunchTemplate OR AWS::EC2::Instance
+        Metadata:
+           AWS::CloudFormation::Init: 
+             configSets:
+               InstallApp1: ["InstallApp1ConfigSet"]
+             InstallApp1ConfigSet: 
+              packages: ...
+              files: 
+              commands: 
+              services:
+    cfn-signal + wait condition + cfn-init:-
+      
+
+
+
 IMP
   ### For Amazon S3 buckets, you must delete all objects in the bucket for deletion to succeed
 
@@ -450,4 +490,5 @@ TODO:
     DependsOn
 
 
+-----------------
 
