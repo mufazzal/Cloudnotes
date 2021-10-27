@@ -462,21 +462,40 @@ cfn-init:-
   3. if you change something in cfn-init(via cloudformation or by sshing in the EC2) for EC2 then it do not need the replacement of instance. 
   
   Setting cfn-init via cloudformation:- 
+  You have to set in in metadata.
     Resources:
       mufres:
         Type: AWS::EC2::LaunchTemplate OR AWS::EC2::Instance
         Metadata:
            AWS::CloudFormation::Init: 
-             configSets:
+             configSets:in 
                InstallApp1: ["InstallApp1ConfigSet"]
              InstallApp1ConfigSet: 
               packages: ...
               files: 
               commands: 
               services:
-    cfn-signal + wait condition + cfn-init:-
-      
+  Also you must have this in user data script section:-
+    #!/bin/bash -xe
+    yum update -y aws-cfn-bootstrap
+    /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource Instance --configsets setup --region ${AWS::Region}
 
+  
+    cfn-signal + creation policy + wait condition + cfn-init:-
+      You can use this set up to control the status of cloudformation template deployment behaviour wrt cfn-init execution.
+      It work only with EC2 and ASG.
+      For this you need to create the creation policy for instance that will have wait condition attached to it. with two setting
+      1. max time to wait 
+      2. number of success signal to wait
+      Now you can use below line to send the success signal to cloudformation 
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+      or you can use below line to send the fail signal to cloudformation
+          /opt/aws/bin/cfn-signal -e $ --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+      Cloudformation stack will remain in CREATE_IN_PROGRESS mode till 
+      - A fail signal sent from cfn-signal and then so stack went to CREATE_FAILED
+      - Wait time elapsed and then so stack went to CREATE_FAILED
+      - Number of success signal sent from cfn-signal = no of success signal set in wait condition of creation policy of instance and then so stack went to CREATE_SUCCESS
+      
 
 
 IMP
