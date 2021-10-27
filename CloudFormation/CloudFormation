@@ -490,34 +490,30 @@ cfn-init:-
   
   - For cfn-int to work you must have internet connectivity or a VPC endpoint for cloudformation.
   
-  cfn-signal + creation policy + wait condition + cfn-init:-
+  cfn-signal + creation policy/wait condition + cfn-init:-
     You can use this set up to control the status of cloudformation template deployment behaviour wrt cfn-init execution.
     It work only with EC2 and ASG.
     For this you need to create the creation policy for instance that will have wait condition attached to it. with two setting
     1. max time to wait 
     2. number of success signal to wait
     Now you can use below line to send the success signal to cloudformation 
-        /opt/aws/bin/cfn-signal -s --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+        /opt/aws/bin/cfn-signal -s --stack ${AWS::StackName} --resource MufInstance --region ${AWS::Region}
     or you can use below line to send the fail signal to cloudformation
-        /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+        /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource MufInstance --region ${AWS::Region}
     Cloudformation stack will remain in CREATE_IN_PROGRESS mode till 
     - A fail signal sent from cfn-signal and then so stack went to CREATE_FAILED
     - Wait time elapsed and then so stack went to CREATE_FAILED
     - Number of success signal sent from cfn-signal = no of success signal set in wait condition of creation policy of instance and then so stack went to CREATE_SUCCESS
-    Wait condition in instance:-
+    By Creation Policy in instance:-
       MufInstance:
-        Type: AWS::EC2::LaunchTemplate OR AWS::EC2::Instance      
-        Properties:
-          ...
-      MufWaitHandle:
-        Type: AWS::CloudFormation::WaitConditionHandle
-      MufWaitCondition:
-        DependsOn: MufInstance
-        Type: AWS::CloudFormation::WaitCondition
-        Properties:
-          Handle: !Ref MufWaitHandle
-          Timeout: '3600'
-          Count: 1            
+        Type: AWS::EC2::Instance      
+        Properties: ...
+        CreationPolicy:
+          ResourceSignal:
+            Timeout: PT10M       
+            Count: 2
+    By Wait Condition Resource:-
+      
     
 ---------
 
@@ -525,6 +521,16 @@ Termination Protection:-
   This simply a bool setting on stack and if enabled then aws will not allowed to delete this stack untill its disasbled again. 
 
 ---------
+CreationPolicy:-
+  This atrribute define if certain condition must be met for resource to meet create completion
+  currently it supported in 
+      AWS::AppStream::Fleet
+      AWS::AutoScaling::AutoScalingGroup
+      AWS::EC2::Instance
+      AWS::CloudFormation::WaitCondition  
+  
+  
+--------
 
 IMP
   ### For Amazon S3 buckets, you must delete all objects in the bucket for deletion to succeed
