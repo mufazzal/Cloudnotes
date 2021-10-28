@@ -152,9 +152,10 @@ WEbsocket API
  
 ---------------
 
-Carnary Release:-
+Canary Release:-
 	You can set it at Stage level where you can set to send certain percentage of request to carnary deployment and rest to older one.
 	Once all ok then you can promote the carnary as production.
+	IF youur api is integrated with lambda then you can also use the lambda alias to distribute the traffic among diffrent lambda version
 
 -------------
 
