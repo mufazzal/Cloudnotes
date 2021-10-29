@@ -98,6 +98,15 @@ CW Agent:-
     You can set AW agent to track the applocation file for collecting log. and send it to specific group.
     CW agent will keep collecting and sending the logs to cw.
     For this you have to provide proper configuration at a time of instaling agent.
+  
+  Collecting log from any log file in instace:-
+    You can collect the log from any log file in the isntance 
+    like log file for codedeploy
+    like log file for cfn-init
+    like log file for cfn-output
+    - You just have to set the right path in CW config
+    
+    
 
   Cofiguration setup for CW:-
     - You can do it at time of installing agent
