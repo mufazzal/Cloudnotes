@@ -95,5 +95,16 @@ Encryption:-
   By default, CloudTrail event log files are encrypted using Amazon S3 server-side encryption (SSE). 
   You can also choose to encrypt your log files with an AWS Key Management Service (AWS KMS) key
   
+----------
+
+Log delivery to S3 and its integrity:-
+  Generally we deliver the trail log to s3 and then use the data analytics tool to find pattern, threats etc. in the logs.
+  Nut big issue here is that somone may delete/add/modify certain log file and this cause whole trail to be misaligned.
+  To solve this comes the Log-Intigrity. First you have to enable it and once enabled 
+  The AWS deliver not only the log files to the bucket, but at each hour it also deliver the digest file in the same bucket.
+  You can use this digest file to determine if any content is cahnged in the log-delivery-bucket in given hour.
+
+
+  
   
   
