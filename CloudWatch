@@ -95,7 +95,7 @@ CW Agent:-
     For this you have to provide proper configuration at a time of instaling agent.
   
   Collecting application log:-
-    You can set AW agent to track the applocation file for collecting log.
+    You can set AW agent to track the applocation file for collecting log. and send it to specific group.
     CW agent will keep collecting and sending the logs to cw.
     For this you have to provide proper configuration at a time of instaling agent.
 
