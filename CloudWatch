@@ -194,6 +194,11 @@ Access Logs AWS give in hand:-
   S3
   Route 53
   VPC access log
+  
+--------
+CW Event + Cloudtrail:- 
+  For all the AWS serices there exist a event type = "AWS API by Cloudtril" and you can use it to responde on 
+  any api call( except Get, List, Describe) done on that service.
  
  
  
