@@ -61,6 +61,12 @@ It can capture gigabytes of data per second from hundreds of thousands of source
       > HTTP endpoint (non aws)
       > MongiDB
     KDF do not have any of its own storage or shrads. it just deliver the data to storage service.
+    The KDF can source the data from one of
+      > KDS
+      > Cloudwarch Log and event
+      > KPL
+      > Kenesis Agent
+      
     Later you can use feature of that service to analyze the data.
     
     Transform source records with AWS Lambda:-
