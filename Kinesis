@@ -85,6 +85,7 @@ It can capture gigabytes of data per second from hundreds of thousands of source
     Amazon Kinesis Data Analytics is the easiest way to transform and analyze streaming data in real time with Apache Flink or woth SQL like queries
     KDA work in conjection with KDS or KDF. Ypu cannot ingest data in the KDA directly.
     Data ingested in the KDS/KDF first then you can integrate the KDA to analyze data directly in real time.
+    Its fully managed so no need to set up a server or auto scalling
     Thers is two way:-
       - By Apache Flink
       - By SQL like queries.
