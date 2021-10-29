@@ -163,7 +163,19 @@ CW Alarm:-
  Billing Alarm:-
   It can be created only in us-esast-1. and you can create against whole account or for a specific service.
  
+--------
  
+CW Log Export to S3:-
+  You can simply export the CW logs to S3 and do analysis over there. You can set a CW cron job to do it on regulae interval
+  Though it is not real time.
+  
+CW Log Subscription:-
+  You cause susbscription for getting near real time log data.
+  For this your subscription client be
+  - Alambda
+  - KEnesis firehose
+  - KEnesis stream
+  
  
  
  
