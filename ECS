@@ -212,7 +212,7 @@ ECS Cluster[with EC2 Hosting]:-
 			Below are the param you define for creating Service:-
 				serviceName:					Name of your service
 				launchType:  					EC2 | FARGATE
-				taskDefinition:				The ARN of tasf defnation
+				taskDefinition:				The ARN of tasf defnation [Only task compatible with selected 'launchType' can be used]
 				desiredCount:					The number of instantiations of the specified task definition to place and keep running on your cluster
 				cluster:							Cluster ARN in which service will run
 				schedulingStrategy:		REPLICA | DAEMON
@@ -288,12 +288,14 @@ ECS with Fargate:-
 					- Storage
 					- No of instances.
 					- AMI id	
+					- SG of ECS instance
+					- IAM role of instance
 
 	This is nothing but a Serverless ECS.
 			
 --------------------------------------------------
 
-ECS Security:-
+ECS Security with ECS:-
 	IAM Role:-
 		In ECS there IAM role are at 2 level
 		1. EcsInstanceRole: This is at ECS cluster level. and this is applied to all the EC2 instances in that ECS cluster
@@ -303,4 +305,11 @@ ECS Security:-
 		1. On Ec2 instance.
 		2. On Task.
 		
-				
+
+ECS Security with FArget:-
+	IAM Role:-
+		In ECS there IAM role are at 1 level
+		1. Task Role: This is applied at task level. and this role is applied to all the container inside that task (not EC2 or cluster)
+	SG:-		
+		In ECS there SG are at 1 level
+		1. On Task.				
