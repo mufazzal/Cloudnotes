@@ -186,7 +186,14 @@ CW Log Subscription:-
   - KEnesis stream
   
  
- 
+--------
+
+Access Logs AWS give in hand:-
+  LB
+  Cloudtrail
+  S3
+  Route 53
+  VPC access log
  
  
  
