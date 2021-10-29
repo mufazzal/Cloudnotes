@@ -86,9 +86,23 @@ CW Agent:-
   - System-level metrics from on-premises servers
   - Retrieve custom metrics from your applications or services using the StatsD and collectd protocols
   - Collect logs from Amazon EC2 instances and on-premises servers, running either Linux or Windows Server
+  - For CW agaent work properly proper IAM role must be attached
   You can view this log in CW console like any other.
   By default it has the metrics namespce = 'CWAgent' but yo can have your own.
   
+  Collecting special metrics:-
+    With CW agent you can set to collect the special metrics from the instances. like memory, disk left, cpu_per_code etc.
+    For this you have to provide proper configuration at a time of instaling agent.
+  
+  Collecting application log:-
+    You can set AW agent to track the applocation file for collecting log.
+    CW agent will keep collecting and sending the logs to cw.
+    For this you have to provide proper configuration at a time of instaling agent.
+
+  Cofiguration setup for CW:-
+    - You can do it at time of installing agent
+    - provide config file from SSM parameter
+    - To update the config you have to restart the CW agent again.  
   
 ---------------
 
