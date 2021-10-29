@@ -146,7 +146,8 @@ CW Alarm:-
  
  
  
- 
+ Billing Alarm:-
+  It can be created only in us-esast-1. and you can create against whole account or for a specific service.
  
  
  
