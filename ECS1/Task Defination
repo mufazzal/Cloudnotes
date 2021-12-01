@@ -1,0 +1,52 @@
+The task defination is the ready-to-run template that can be ran in any ECS cluster as a standalone task or in a service.
+The task defination contains below information:-
+  
+  Capabilty Requirments:-
+    This tells weather the task can be ran on which kind of host EC2, Fargate or Extarnal. mutiple are possible.
+  
+  Compute power:-
+    Memory size:-
+      The total size of RAM you need for this task. this will be futher dole uot to in-running containers
+    CPU:-
+      The total size of vCPU you need for this task. this will be futher dole uot to in-running containers
+
+  NetworkMode:-
+    The task can be ran in diffrent network mode. it could be awsvpc, bridge, host, none  
+  
+  Roles:-
+    There are two role you set in here
+    1. ExecutionRole:-
+        When the task is instantiated via sercice or stand alone task, then this role is assumed by the ECS agent to perform operations.
+    2. TaskRole
+        This is the role assumed by the All Containers intantiated when the task ran started running via service or standalone task.
+  
+  Family:
+    Use this to create the logial group of all the containers in this task.
+  
+  Storage related:-
+    EphemeralStorage: 
+      This is the storage accesible till task ran. Simply give how much GB you need
+    Volumes:
+      You can mout EFS, FSX, Docker Volume to all the containers in this task. This is persistent storage
+  
+  
+  Containers:-
+    You can add the list of containers images here with each image you also need to give
+    - Image Name: 
+        From public docker repo or from ECR
+    - Memory limit: 
+        Set the limit of memory this container can have. if RAM goes above then container will be killed.
+    - Port Mapping:
+        It will have information about how the host and container port will be mapped. Its values are depend on network configuration
+        Container Port:-
+          No matter what network config you use, you have to define the exposed port of container in 'Container Port' field.
+        Host Port:-
+          Its value can be left empty or filled and it will be interpret depend on the nework mode field.
+          
+      If NetworkMode=none
+          You cannot specify the port mapping
+      If NetworkMode=bridge
+          Host and Container(Exposed port) can have same or diffrent non-zero port number if you wants to use the static port maping
+          Container will have exposed port number and Host port must have '0' port number if you wants to use the dynamic port maping          
+      If NetworkMode=awsvpc or host
+          Leave the Host port blank or fill the same value as Container Port
