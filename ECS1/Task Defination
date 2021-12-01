@@ -14,7 +14,10 @@ The task defination contains below information:-
       For EC2 type Host this is optional. For FArgate it is required.
 
   NetworkMode:-
-    The task can be ran in diffrent network mode. it could be awsvpc, bridge, host, none  
+    The task can be ran in diffrent network mode. it could be awsvpc, bridge, host, none.
+    - Fargate only support awsvpc
+    - for 'none' there will be no external connectivity for Containers in this task.
+    - awsvpc and host give the higehest performance. 
   
   Roles:-
     There are two role you set in here
@@ -37,11 +40,16 @@ The task defination contains below information:-
     You can add the list of containers images here with each image you also need to give
     - Image Name: 
         From public docker repo or from ECR
+    - Cpu:-
+        Set the Cpu allocation this container can have.
+        For Fargate, It is optional.
+        For EC2 ????
     - Memory: 
         Set the memory this container can have. if RAM goes above then container will be killed.
-        For Fargate, It is required.
+        For Fargate, It is optional.
         For EC2 it is optional. You can specify here at Task-level or at Container-level
           If you specify both then Sum of All Containres-level-Memory  < Task level-Memory
+        Docker reserve munumum 4MiB of memory for each container.  
     
     - Environment:
         Use this to set the Enviorment variable in Container. Its a Key value pair.
@@ -49,8 +57,16 @@ The task defination contains below information:-
     - Essential:
         If true, the if somhow this container fails or stop then all the other container whos are part of this task will also be stopped. 
     - LogConfiguration:
-        Use this for setting logging config
-        
+        Use this for setting logging config. Set the driver and its related setting here.
+    - MountPoints:
+        Define the mountpoint where the Volume (if mentioned) in the task will be mounted. 
+    - Name: Name for this Container
+    
+    - Privileged: if contaier need root access on host machine
+    - RepositoryCredentials: used for private repositery auth.
+    - ResourceRequirements: set if you need some other resurce like GPU
+    - WorkingDirectory: The working directory to run commands inside the container in
+       
     - Port Mapping:
         It will have information about how the host and container port will be mapped. Its values are depend on network configuration
         Container Port:-
