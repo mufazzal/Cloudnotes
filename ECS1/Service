@@ -76,10 +76,14 @@ To create a service you give
       This is useful and mandatory if the task ran via this service has networkMode=awsvpc.
       In this case provide SG and subnet detail for ENI creation in here.
       For other network mode its not supported.
-      
+      Make sure that SG of Task have Inbound on 3000 and 3002 open for SG of LB(if LB is used).
+            
  10. PlacementStrategies and PlacementConstraints:-
       Define how the containers will be placed and remove in caseon scale in and out.
       
  11. ServiceName: The name the service.
+ 
+ ---
+
  
  
