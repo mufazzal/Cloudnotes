@@ -4,32 +4,36 @@ There are 4 nework mode you can use in ECS.
   
 It is set at Task-defination level. Once set in task defination level, all the inner instance will be connected in that manner.
 
+Assume you have a task T1 which has two container on it
+C1 exposed on 3000
+C2 exposed on 3002
+
 None:-
   The task has no external network connectivity. and it will not even be connected with Host. So it is completely useless.
   The container nither has its oen network stack or either use Hosts netork stack.
   So you do not deine the port mapping in TaskDefination.ContainerDefination.Portmapping
 
 Host:-
-  Here the container is directly binded to primary ENI of the host. It will use the network stack of Host.
+  Here the task is directly binded to primary ENI of the host. It will use the network stack of Host.
   The Exposed contaner port is mapped to Host port of same numeric value.
   EG. if Contaiers exposed port is 3000 then it will be mapped to Host port of 3000.
   So in TaskDefination.ContainerDefination.Portmapping, You set the Container port value and either leave the Host port empty or set to same value as Container port.
   Disadvantage:-  
-    - You can run single Container of particular type as ther will be only single 3000 port on Host.
-    - There will be securirty issue as traffic is coming via hosts ENI.
+    - You can run single task of particular type as ther will be only single 3000 and 3002 port on Host.
+    - There will be securirty issue as traffic is coming via hosts primary ENI.
     - The Hosts port value must match with the Exposed port value of container. 
         This creat bad integration limitation as well as security implication as this port need to be open now. 
       
       EG:
-      Below we two container one with expose port on 3000 and other on 3002. We can run both on EC2 but we cannot run more then one of any single type.      
-        EC2
-        |-------------------------------------|
-        |  P ENI               						 		|
-        | ------------         						 		|
-  ---->	|	|			:3000|------ [C1:3000]				|
-  ---->	|	|	  	:3002|------ [C2:3002]				|
-        | ------------                 				|
-        |-------------------------------------|
+      Below we two container fo task T1, one with expose port on 3000 and other on 3002. We can run both on EC2 but we cannot run more then one instance of taskk T1.      
+									EC2
+									|-------------------------------------|
+									|  P ENI               						 		|
+	1.2.3.4:3000		| ------------       task-inst-1	 		|
+  -------------->	|	|			:3000|------ [C1:3000]				|
+  -------------->	|	|	  	:3002|------ [C2:3002]				|
+	1.2.3.4:3002		| ------------                 				|
+									|-------------------------------------|
         
   Bridge:-
     Here a Virtual network bridge is created in between Host and Container network stack.
@@ -39,18 +43,18 @@ Host:-
         So you can map the Container exposed port 3000 to any port of Host like 80, 8080, 800 etc.
         So in TaskDefination.ContainerDefination.Portmapping, You set the diffrent non-zero numeric value for Container port and Host port.
         Advantage:-
-          Now you can have diffrent value of port on both side
+          Now you can have diffrent value of port on both side in container port mapping
         Limitation:-
-          Still you can have single intance of specific container as there will be single port on Host that mentinoned in host port.
-              EC2
-              |-----------------------------------------------|
-              |                      						 							|
-              |   P ENI           V. NEt Bridge								|
-              | ------------     ------------   							|
-        ---->	|	|				:80|-----|	MAgic		|-----[C1:3000]		|
-        ---->	|	|			:8080|-----|					|-----[C2:3002]		|
-              | ------------     ------------     						|
-              |-----------------------------------------------|        
+          Still you can have single intance of specific task as there will be single port on Host that mentinoned in host port.
+                          EC2
+                          |-----------------------------------------------|
+                          |                      						 							|
+                          |   P ENI           V. NEt Bridge								|
+          1.2.3.4:80  		| ------------     ------------   	task-inst-1	|
+          -------------->	|	|				:80|-----|	MAgic		|-----[C1:3000]		|
+          -------------->	|	|			:8080|-----|					|-----[C2:3002]		|
+          1.2.3.4:8080		| ------------     ------------     						|
+                          |-----------------------------------------------|        
         
     2. Dynamic:-
         Here you do not mentioned the specific port of Host that will be mapped to Exposed container port. Instaed specify '0' in there
@@ -61,23 +65,84 @@ Host:-
         Disadvantage:-
           You need to open wide range of host port which is not good. 
           You never know on which port the container is mapped because of randomness.
-          The Host network is still in picture.
-                EC2
-                |-----------------------------------------------|
-                |                      						 							|
-                |   P ENI           V. NEt Bridge								|
-                | ------------     ------------   							|
-          ---->	|	|			:5678|-----|	MAgic		|-----[C1:3000]		|
-          ---->	|	|			:2345|-----|					|-----[C2:3002]		|
-                | |          |     |      		|				 					|
-          ---->	|	|			:9834|-----|	MAgic		|-----[C1:3000]		|
-          ---->	|	|			:6823|-----|					|-----[C2:3002]		|
-                | ------------     ------------     						|
-                |                      						 							|
-                |                      						 							|
-                |-----------------------------------------------|          
+          The Host network(Primary EC2 ENI) is still in picture.
+                          EC2
+                            |-----------------------------------------------|
+                            |                      						 							|
+                            |   P ENI           V. NEt Bridge								|
+            1.2.3.4:5678		| ------------     ------------   	task-inst-1	|
+            -------------->	|	|			:5678|-----|	MAgic		|-----[C1:3000]		|
+            -------------->	|	|			:2345|-----|					|-----[C2:3002]		|
+            1.2.3.4:2345		| |          |     |      		|				 					|
+                            | |          |     |      		|									|
+                            | |          |     |      		|									|
+            1.2.3.4:9834		| |          |     |      		|			task-inst-2	|
+            -------------->	|	|			:9834|-----|	MAgic		|-----[C1:3000]		|
+            -------------->	|	|			:6823|-----|					|-----[C2:3002]		|
+            1.2.3.4:6823		| ------------     ------------     						|
+                            |                      						 							|
+                            |                      						 							|
+                            |-----------------------------------------------| 
           
-        
+  -->> In Host and bridge both The Primary ENI of EC2 is used. other attached ENI cannot be use with this modes.
+  -->> In Host and bridge both The IP to reach the conatiner will be same as of IP of EC2. 
+  
+  awsvpc:-
+    This is most recomended one by AWS.
+    Here Each task will have its ENI attached. and all the inner Containers will use that ENI for network connectivity
+    Each task will have its own ENI and so his own Pricvate Ip, Security Group.
+    Each task can have ENI in sunet of his own choice. so EC2 copute unit may lie in subnet-1 and the ENI of task in subnet-2
+    For each task there is an saperate ENI so you can have many instance of single task in running in same EC2.
+    IP to reach to container will be IP of Secndry ENI not of primary ENI of EC2.
+    IMP: ENI created at Task level not at Container level.. All the container in given task will share the same ENI.
+    
+
+									EC2
+									|-------------------------------|
+	1.2.3.4     		|  	P ENI           						|
+	-------------->	|  |-----|         							|
+									|  |     |          						|
+									|  |-----|         							|
+									|   			         							|
+									|   			         							|
+									|   			         							|
+									|   S ENI	1        							|
+	5.6.7.8:80			| ------------     	task-inst-1	|
+	-------------->	|	|				:80|-------[C1:3000]	|
+	-------------->	|	|			:8080|-------[C2:3002]	|
+	5.6.7.8:8080		| ------------  		 						|
+									|               		 						|
+									|               		 						|
+									|               		 						|
+									|   S ENI	2	   		 							|
+	9.5.6.5:80			| ------------  		 						|
+	-------------->	|	|			:9834|-------[C1:3000]	|
+	-------------->	|	|			:6823|-------[C2:3002]	|
+	9.5.6.5:8080		| ------------       						|
+									|                  							|
+									|                  							|
+									|-------------------------------| 
+    
+    
+    Limitation:-
+      You cannot assign bublic IP to the Secondry ENI attached to TAK. Why??? no one know
+      Instances has limitation on how many ENI can be attached to them.
+      
+    Remeber:-
+      Unlike other mode, here a saperate ENI is attached to the EC2 for the task execution.
+      So at a time of creating the Standalone task or service when thw task is of type network mode = 'awsvpc' you must provide below two detail also
+      > Subnet where the ENI will be created
+      > Security Group attach to that task.
+    IMP Assumption:-
+      If yoy are using the awsvpc and task defination has many containers defination.
+      then two container in same task defination cannot be expose to same port.
+      Say you have a Task defination as
+        T1
+          - C1:3000
+          - C2:3002
+          - C3:3006
+        Then you cannot habe C4:3000 or C4:3002
+    
         
         
     
