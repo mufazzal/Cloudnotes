@@ -81,3 +81,13 @@ The task defination contains below information:-
           Container will have exposed port number and Host port must have '0' port number if you wants to use the dynamic port maping          
       If NetworkMode=awsvpc or host
           Leave the Host port blank or fill the same value as Container Port
+-----------------
+
+Task:-
+  The Task defination is the template its not an actual runong entity.
+  To run it you must create the taskout of task defination
+  It can be created as
+  - A standalone task
+  - A service to run task
+
+
