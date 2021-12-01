@@ -32,6 +32,7 @@ AWS Config give you way to record and administartor the configuration and relati
 		An AWS Config rule represents your desired configuration settings for specific AWS resources or for an entire AWS account
 		AWS Config flags the resource and the rule as noncompliant, and AWS Config notifies you through Amazon SNS
 		AWS also provide some predifined managed Rule and you can create your own Config Rule.
+                You can set it to run priodically or on change of resouce config change.
 		- You can set up the CloudWatch event rule to take action if any AWS-Config Rule compliance fail.
 		
 	Multi-Account Multi-Region Data Aggregation:-
