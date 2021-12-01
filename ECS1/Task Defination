@@ -6,9 +6,12 @@ The task defination contains below information:-
   
   Compute power:-
     Memory size:-
-      The total size of RAM you need for this task. this will be futher dole uot to in-running containers
+      The total size of RAM you need for this task. this will be futher dole uot to in-running containers.
+      For EC2 type Host this is optional. You can specify here at Task-level or at Container-level
+      For FArgate it is required.
     CPU:-
       The total size of vCPU you need for this task. this will be futher dole uot to in-running containers
+      For EC2 type Host this is optional. For FArgate it is required.
 
   NetworkMode:-
     The task can be ran in diffrent network mode. it could be awsvpc, bridge, host, none  
@@ -34,8 +37,20 @@ The task defination contains below information:-
     You can add the list of containers images here with each image you also need to give
     - Image Name: 
         From public docker repo or from ECR
-    - Memory limit: 
-        Set the limit of memory this container can have. if RAM goes above then container will be killed.
+    - Memory: 
+        Set the memory this container can have. if RAM goes above then container will be killed.
+        For Fargate, It is required.
+        For EC2 it is optional. You can specify here at Task-level or at Container-level
+          If you specify both then Sum of All Containres-level-Memory  < Task level-Memory
+    
+    - Environment:
+        Use this to set the Enviorment variable in Container. Its a Key value pair.
+    
+    - Essential:
+        If true, the if somhow this container fails or stop then all the other container whos are part of this task will also be stopped. 
+    - LogConfiguration:
+        Use this for setting logging config
+        
     - Port Mapping:
         It will have information about how the host and container port will be mapped. Its values are depend on network configuration
         Container Port:-
