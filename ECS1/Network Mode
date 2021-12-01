@@ -60,6 +60,22 @@ Host:-
           Now you can have more then one instance of ant container type
         Disadvantage:-
           You need to open wide range of host port which is not good. 
+          You never know on which port the container is mapped because of randomness.
+          The Host network is still in picture.
+                EC2
+                |-----------------------------------------------|
+                |                      						 							|
+                |   P ENI           V. NEt Bridge								|
+                | ------------     ------------   							|
+          ---->	|	|			:5678|-----|	MAgic		|-----[C1:3000]		|
+          ---->	|	|			:2345|-----|					|-----[C2:3002]		|
+                | |          |     |      		|				 					|
+          ---->	|	|			:9834|-----|	MAgic		|-----[C1:3000]		|
+          ---->	|	|			:6823|-----|					|-----[C2:3002]		|
+                | ------------     ------------     						|
+                |                      						 							|
+                |                      						 							|
+                |-----------------------------------------------|          
           
         
         
