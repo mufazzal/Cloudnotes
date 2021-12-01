@@ -1,0 +1,85 @@
+Running a standalone task has hardly any use case as it lacks lot of thing like scalling, load balancing etc.
+When you create a task and run in ECS cluster. This is one time activity. ECS keep runing this task.
+But if a container in that task get failed or crash. there is no way to restart it.
+To solve this issue comes a ECS Service.
+
+The ECS service manage the task continuation and failover managment for any container in the task.
+
+To create a service you give
+
+1. CapacityProviderStrategy or LaunchType:-
+    This define how the capacity will be created for this service to run the additional containers if needed.
+    You can either use CapacityProviderStrategy or LaunchType not both
+    The startagy can contains the provider attached to the cluster you are running the service.
+    It is array of startagy item with base and weight value.
+    You cannot use Farget or Farget_spot with ASG capacity provider
+        EG:-
+          CapacityProviderStrategy:
+            - Base: 0
+              CapacityProvider: !Ref EC2CApacityProvider
+              Weight: 1000
+        EG:
+          CapacityProviderStrategy:
+            - Base: 0
+              CapacityProvider: FARGATE
+              Weight: 500
+          CapacityProviderStrategy:
+            - Base: 0
+              CapacityProvider: FARGATE_SPOT
+              Weight: 500
+              
+    In case LaunchType you set the single value only, it coud be EC2 | EXTERNAL | FARGATE
+ 
+ 2. Cluster: PRovide the name of cluster.
+ 
+ 3. DeploymentController: IT coulde be of type 
+      ECS for rolling deployment
+      CodeDEploy for Blue/Green
+      Eternal
+      
+ 4. DeploymentConfiguration:
+      DEfine how many max or min number of instance should be in running state while deployment is in progress.
+ 
+ 5. TaskDefinition and DesiredCount:
+      A service can run multiple instance of any task defination. But A service cannot run diffrent task defination.
+      Here you set single value of Task Defination not a string of task definations
+      By DesiredCount you can set how many task instances you wats to run in the service.
+ 
+ 6. EnableExecuteCommand: to enale exec commands in the conatainers of this service.
+ 
+ 7. LoadBalancers:-
+      If you wants load balancing then use it. All the container in the task will be automatically attached to the Target mentioned.
+      You can provide list here because a single task can have multiple container and you can have many instance of task.
+      EG:
+        T1-|
+            - C1:3000
+            - C2:3002
+        And you have two instane T-int-1 and t-int-2 if T1.
+        
+        LB
+        |
+        |---->  Lis-80  <>  TG1 ----3000:[T-int-1 C1, T-int-2 C1]
+        |---->  Lis-90  <>  TG2 ----3002:[T-int-1 C2, T-int-2 C2]
+        
+      For this you can set:-  
+      LoadBalancers:
+        - TargetGroupArn: !Ref TG1
+          ContainerPort: 3000
+          ContainerName: C1
+        - TargetGroupArn: !Ref TG2
+          ContainerPort: 3002
+          ContainerName: C2                
+        
+ 8. HealthCheckGracePeriodSeconds: This is useful only if Service also uses the loag balancing. It give some time to set up.
+ 
+ 9. NetworkConfiguration:
+      This is useful and mandatory if the task ran via this service has networkMode=awsvpc.
+      In this case provide SG and subnet detail for ENI creation in here.
+      For other network mode its not supported.
+      
+ 10. PlacementStrategies and PlacementConstraints:-
+      Define how the containers will be placed and remove in caseon scale in and out.
+      
+ 11. ServiceName: The name the service.
+ 
+ 
