@@ -26,23 +26,10 @@ Container Orchastration tool:-
 
 ------------
 
-Hosting Enviorment:-
-	On EC2:-
-		Here the container are ran on EC2s and customer is responsible for managing those EC2.
-		AWS ECS take care of running container and managong it on EC2/
-		On Each EC2 'ECS Agent' Must be installed.
-	On Fargate:-
-		Here There is no EC2 instance in picture. The Container will run on Fargate and cutomer need not to worry about 
-		managing EC2s.
+
 
 ---------------------------------------------
 
-ECS Agent:-
-	The EC2 instance on which ECS ran, must has ECS Agent install init.
-	Also that instance must have way to reach to the AWS ECS service to let ECS work properly.
-	For this the EC2 instance
-	- Either has internet acceciblitu via NATor IG.
-	- Or have a accesible Service endpoint for AWS ECS. 
 
 --------------------------------
 ECS Cluster[with EC2 Hosting]:-
@@ -228,49 +215,7 @@ ECS Cluster[with EC2 Hosting]:-
 															It could be be the ARN of ASG if you are using the EC2 or 
 															it could be FARGATE or FARGATE_SPOT if you are using the Fargate.
 				
-	Task Placement Stratagies:-
-		When you change the task count in the service the ECS launch the new container or terminate the container (not EC2 instance)
-		Now ECS must determine from which instance the container should terminate. for this it use the Placement Stratagies.
-		It can be specified when either running a task or creating a new service. 
-		The task placement strategies can be updated for existing services as well
-		There is 3 possible stratagy:-
-		1. Binpack: 
-				The container is placed on istance with Least amount of CPU or Memory. 
-				The contaier is removed from the instance which release most avialable CPU and Memory
-				This strategy minimizes the number of container instances in use
-				EG:-
-					"placementStrategy": [{
-									"field": "memory", or "cpu"
-									"type": "binpack"
-						}]
-				
-		2. Spread:-
-				Tasks are placed or remove as such that tasks are evenly distributed against the specified value 
-				EG:-
-					"placementStrategy": [{ "field": "attribute:ecs.availability-zone", or "InstanceId" or any other attribute
-									"type": "spread"
-					 }]
-					 So the contaier are spread evenly across the AZ or instance or other.
-					 It also follow the constraints that you specified both implicitly or explicitly
-		3. Random:-
-				Here it place randomly but still try to place it in such a way the container have enough resoure to run and 
-				"placementStrategy": [{ "type": "random" }]
-		
-		You can also use more then one stratgy. like first spread evenly in AZ and then evenly in the instances in that AZ
-			"placementStrategy": [{
-							"field": "attribute:ecs.availability-zone",
-							"type": "spread" 
-						},{
-							"field": "instanceId",
-							"type": "spread"
-			 }]
-			 
-	
-	Task Constraints:-
-		This is define at time or running task or creating service. Also can be updated in existing service.
-		It define that on which instance the task can be run. It can have two value
-		1. distinctInstance: 	Place each task on a different container instance
-		2. memberOf: Place task on one of the instance which satisfy the specified 'CQL' statement (Cluster Query Language)
+
 ------------------------------
 
 ECS with Fargate:-
