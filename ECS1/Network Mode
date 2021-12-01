@@ -86,6 +86,7 @@ Host:-
           
   -->> In Host and bridge both The Primary ENI of EC2 is used. other attached ENI cannot be use with this modes.
   -->> In Host and bridge both The IP to reach the conatiner will be same as of IP of EC2. 
+  -->> In Host and bridge both The SG of EC2 instance must open the proper ports.
   
   awsvpc:-
     This is most recomended one by AWS.
@@ -94,6 +95,7 @@ Host:-
     Each task can have ENI in sunet of his own choice. so EC2 copute unit may lie in subnet-1 and the ENI of task in subnet-2
     For each task there is an saperate ENI so you can have many instance of single task in running in same EC2.
     IP to reach to container will be IP of Secndry ENI not of primary ENI of EC2.
+		No need to change any SG config of EC2 SG.
     IMP: ENI created at Task level not at Container level.. All the container in given task will share the same ENI.
     
 
