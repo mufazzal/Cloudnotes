@@ -34,7 +34,9 @@ The task defination contains below information:-
       This is the storage accesible till task ran. Simply give how much GB you need
     Volumes:
       You can mout EFS, FSX, Docker Volume to all the containers in this task. This is persistent storage
-  
+ 
+ TaskDefinitionPlacementConstraint:-
+    define weather the task can be placed on EC2 or not via 'Cluster query language'
   
   Containers:-
     You can add the list of containers images here with each image you also need to give
