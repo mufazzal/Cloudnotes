@@ -1,26 +1,7 @@
 SSM is to managed service for doing Configuaration , MAnagement on large group of aws resource like EC2, lambda etc. 
 Whenever you need to perform some maintainace or patch on many EC2 instance together then think of SSM.
 
-AppConfig:-
-  Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. 
-  You can use AWS AppConfig with applications hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS Lambda, containers, mobile applications, or IoT devices.
-  
-  In appconfig you dan create the Application then creat Enviorment in the Application.
-  for each Enviorment you can have the source of configuration data[Configuration profile]. this source could be
-  - S3 object [in yaml or json form]
-  - Parameter Store
-  - YAML, JSON, or text documents in the AWS AppConfig hosted configuration store
-  - SSM document.
-  
-  Values of Appconfig can be get into EC2, ECS, Lamda for use.
-  
-  Deploment of Appconfig:-
-    For changing the any value in configuration you will have to first change in AppConfig and creat Deployment in Appconfig.
-    after that new configuration will take effect.
- 
- Reading:-
-    To read this params you can use 'GetConfiguration' api, 'aws appconfig get-configuration' in SDK,  
-
+-------------
 Parameter Store:-
   Parameter store is way to store the configuration data and password as shred resources in your AWS account.
   once stored ity can be used via CLI, SDK, Cloudformation template etc.
@@ -44,6 +25,56 @@ Parameter Store:-
   How and where to use this:-
     You can use this data in EC2, Lambda, CloudFormation, CodeDeploy et.
     fir SDF you need 'ssm' library.Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. You can use AWS AppConfig with applications hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS Lambda, containers, mobile applications, or IoT devices.
+-----------------
+
+Secret Manager:-
+  This is good choise for storing DB Cred, API key, Serrets which  can be used in application. it has auto rotate feature of seret which Param store do not has.
+  ALso it is natuvly integrated with RDS, Redshift.
+  
+------------------
+
+SSM on Om-premise:-
+  You can install the SSM agent on on premise server and then that server will also be manged by SSM.
+  For this you must need to create the activation id for server. 
+  The manges onpremise server will apear as managed instance with id formate mi-xxxxxx
+------------------
+Tools for Managing EC2 instances and managed instances:
+
+  There are multiple tool SSM provide for this. To use any of this tool, SSM Agent must be installed to use this.
+  1. Run Commannd:-
+      - Use this to run a set of command on multiple EC2.
+      - The commands are in form of JSON document. This document can be AWS provided, third party provided or made by yourself.
+      - You can store output logs in CW or S3.
+      - You can choose all the EC2 in account or select based on tag and resource group.
+  2. Inventory
+      - Use it to monitor the instance togrther and get the detail information on each instance after ceratain intervals.
+      - You can choose all the EC2 in account or select based on tag and resource group.
+      - You can see like top App, Component, Services and lot more things on instances.
+      - You just need to set it up once and then it keep collecting all the info in intervals.
+  3. Patch MAnager
+      USe this to patch the instances together.
+      
+------------------
+
+AppConfig:-
+  Use AWS AppConfig, a capability of AWS Systems Manager, to create, manage, and quickly deploy application configurations. 
+  You can use AWS AppConfig with applications hosted on Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS Lambda, containers, mobile applications, or IoT devices.
+  
+  In appconfig you dan create the Application then creat Enviorment in the Application.
+  for each Enviorment you can have the source of configuration data[Configuration profile]. this source could be
+  - S3 object [in yaml or json form]
+  - Parameter Store
+  - YAML, JSON, or text documents in the AWS AppConfig hosted configuration store
+  - SSM document.
+  
+  Values of Appconfig can be get into EC2, ECS, Lamda for use.
+  
+  Deploment of Appconfig:-
+    For changing the any value in configuration you will have to first change in AppConfig and creat Deployment in Appconfig.
+    after that new configuration will take effect.
+ 
+ Reading:-
+    To read this params you can use 'GetConfiguration' api, 'aws appconfig get-configuration' in SDK,  
 
 
 ----------
@@ -52,9 +83,7 @@ Bulk operation on EC2
   for this go to : aws > ssm > run command
 ----------
 
-Secret Manager:-
-  This is good choise for storing DB Cred, API key, Serrets which  can be used in application. it has auto rotate feature of seret which Param store do not has.
-  ALso it is natuvly integrated with RDS, Redshift.
+
   
   
   
