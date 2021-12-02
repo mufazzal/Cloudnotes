@@ -1,0 +1,17 @@
+The cloudforamation in simple word is "Infra AS Code"
+
+This is the way to w4rite complete inra in Jsom or Yaml file. You can write the file or use AWS designer for this.
+You can design  EC2, S3, RDS etc with this.
+Once the templatebjson or Yaml is created, it can be used anywhere to build whole infra out of this template. 
+Its impossible to become master in clouformation and know how cloudformation template can be designed to make EC2, S3 etc.
+But you should know the fundamentals
+
+To understand the CloudFormation always remebper there is two party 
+one is Creator, who create the template
+other is Builder who is building the stack out of template
+
+Creatore create the template as such that the tempplate
+has definations of RESOURCES like EC2, S3 etc
+has some MAPPING, which are like a function which take one input and return the set of label
+has some PARAMETER which are set by Builder at a time of stack building
+has OUTPUT, which are final logs of stack creation
