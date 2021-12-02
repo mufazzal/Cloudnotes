@@ -78,4 +78,26 @@ Error Handling:-
 Stack Policy:-
   Yu can use the stack policy to define if you do not wants to change/delete certain resource in the stack.
 
-
+--------------
+Update Stack:-
+  When we say Cloudformation is lime infrasturcture as code. 
+  We know we keep making chages in code. but how underline infrascture cope with it.
+  If you need to make changes in infrastruture then you need to first make the change in CF template.
+  Then
+  Either you can delete the existing stack and create new one with new template but this is impractical. for any small or big change if
+  we keep deleting and re-creating the stack then whole system will be unstable.
+      
+  
+  Change Set:
+    Biggest risk of updating the stack is that you may mistakenly end up lossing couple of resources or change something unexpectadly
+    To solve this comes a 'Change Set'
+    This is nothing but way to look what resource will be impacted and how if you update the stack with new CFL template
+    
+      
+   When you update the stack with new template then for each resource the CF will do one of the following
+   - Replace the existing resource with new one if change in the template is as such
+          EG: instance type of EC2 is changed from t2.micro to t2.small
+   - Modify the existing resource if change in the template is as such
+          EG: a new tag added to EC2
+   - Add a new resource if there is one in template but not in stack
+   - Delete the one if it is in stcak but not in template
