@@ -72,3 +72,8 @@ Error Handling:-
     - 'Do_Nothing' and so keep the resources in broken state
     - 'Roll_Back' and so all the previous working template will be re-deployed  
   
+-----------------
+
+
+Stack Policy:-
+  Yu can use the stack policy to define if you do not wants to change/delete certain resource in the stack.
