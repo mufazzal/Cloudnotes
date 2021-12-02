@@ -1,0 +1,119 @@
+
+  Intrinsc Function:- 
+    The tempate of cloudformation support some intrinsic function. This function can be used to perform certain operation in template items.
+    thers it around 10 such function
+          Fn::Base64
+          Fn::FindInMap
+          Fn::GetAtt
+          Fn::GetAZs
+          Fn::Join
+          Fn::Select
+          Fn::Split
+          Ref
+          Condition Functions
+              Fn::And
+              Fn::Equals
+              Fn::If
+              Fn::Not
+              Fn::Or    
+              
+        There is couple of more function which not mentioned, above are most used one
+        How to use it In JSon
+            outputParam: {<NAme Of the Function> : <parameters to pass>}
+            Here the passed parameters could be an array, string etc.
+            
+          Join-
+              ...
+              allName: {"Fn::Join" : [ "+", [ muf, hus, mur ] ]
+              ...
+            Output is the final value of allName is 'muf+hus+mur'
+          
+          Base64:-
+            data: { "Fn::Base64" : "Mufzzal Hussain" }
+            the value data finally be 'jfklajjhjkasldjioaasd=='
+        
+          For more : https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html
+          
+       Fn::FindInMap :-  
+          This one is one of the most user intrinsic function in template. This used to call the mapping function declared in 'Mapping'
+            Section of tempplate. This function take 3 input
+            - MapName:      Name of the Mapping(declared in Mapping section of template) that you wants to use    EG. Map1, Map2, Map3
+            - TopLevelKey:  This is they key that against you wants to get the mapped item                        EG. key1, key2, key3 
+            - ReturnKey:    The item mapped against the 'TopLevelKey' also has key in it. mention here that key.  EG. retKey1, retKey2, retKey3
+      
+       Fn::GetAtt:-
+          This also useful function. This function ruturn you some attribue of the Resorces in the template.
+          you have to provide the Logical Id of the resource for this and the name of the attribute you wants to get.
+          Syntex:-
+             outVar: { "Fn::GetAtt" : [ <logicalNameOfResource>, <attributeName> ] }
+             outVAr: { "Fn::GetAtt" : [ "MufEC2Instance",        "PublicDnsName" ] }
+ 
+ 
+    Ref:-
+        This is the utmost used one. This functions behavior is depend on what formal-parameter are passed in this function
+        Syntex:-
+          { "Ref" : <logicalName of Resorce or Paramenter> }
+        If logican name of Parameter(pseudo or Input) is given then it will return the value of that param
+                "KeyName" : { "Ref" : "MufKeyName" }   
+                "myRegion" : { "Re : "AWS::Region" }
+        if a logical name of resource is given then it will returns a value that you can typically use to refer to that resource like instance physical C2, BucketUrl for S3
+                "InstanceIdVar { "Ref" : "MyEC2Instance" }
+---
+
+  Pseudo Parameters:-
+    DO not confuse it with 'Input Parameter' discussed eariier
+    In simple world this are the Enviorment Variable. This parameter is set by the AWS system itself.
+    This is quite same as 'Input Parameter', in 'Input Parameter' you give user the control to set value of the parameter
+    In 'Pseudo Parameters' its value set by the AWS itself.
+    
+    Some widely used Pseudo Parameters are:-
+      AWS::Region
+      AWS::StackId
+      AWS::StackName
+  AWS set its values at runtime, at the time if creation of stack.
+  
+  How to use it:-
+    It way to use is 100% same as the 'Input Parameter'
+      location : { "Ref" : "AWS::Region" },
+    location will be the region in which the stack is created.      
+    
+Giant String with Pipe:-
+  You can use the | for mutiline string and also can use the params also in it
+  Value: |
+    my Name is ${namme}
+    The engineer
+    in amdocs ${city}
+    the region is ${AWS::Region}
+    
+------------------------
+
+
+Export Import value:-
+  In CFR templates 'Outputs' patrams, you can use Export wheare you can export some values which later can be used in other CFL template of same region and account.
+  This is very useful for cross refrncing the templates.
+  EG:- 
+  Exporting
+    Outputs:
+      PublicSubnet:
+        Value: !Ref: PublicSubnet
+        Export: !Name: 'mufUnqName'
+  Importing
+    GroupSet:
+      - !ImportValue: 'mufUnqName'  
+
+
+------
+Conditions:-
+  You use conditions to decide wheather or not create the resource
+    Conditions:
+      ShouldCreateProdRes:
+        !Equals
+          - !Ref Env
+          - prod
+Resources:
+  CDPVpcEndpoint:
+    Condition: ShouldCreateProdRes     
+    Type: AWS::EC2::VPCEndpoint
+    Properties: ...
+
+-----
