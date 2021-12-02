@@ -1,0 +1,174 @@
+
+Structure of template file:-
+  The empty Skeleton:-
+          {
+          "AWSTemplateFormatVersion" : "version date",
+          "Description" :  "JSON string",
+          "Metadata" :    { template metadata },
+          "Parameters" :  { set of parameters },
+          "Mappings" :    { set of mappings },
+          "Conditions" :  { set of conditions },
+          "Transform" :   { set of transforms },
+          "Resources" :   { set of resources },   ----> Only the trequired item, all other are optinal.
+          "Outputs" :     { set of outputs }
+        }
+
+  In the cloud formation template has below part
+  1. AWSTemplateFormatVersion: This has the constante value '2010-09-09'
+  2. Description: optional
+  3. Resource:-
+      This is most imp part of tempalte file. it has defnation of resorce like EC2, s3 and its configuration also.
+      
+      The basic struture of the Resouce remain same across all the services that is
+            "Resources" : {
+                "Logical ID" : {
+                    "Type" : <Resource type>,
+                    "Properties" : {
+                        Set of properties
+                    }
+                }
+            }      
+      Logical ID: this is used to refer the resource created by this configuration. You can use this 'Logical ID' anywhere in the
+        template for refrencing this resource.
+      Type: This tells that what kind of resource it is. like EC2 or S3 or what. This is must to provide
+        EG: for EC2 type Resource type will be 'AWS::EC2::Instance', for S3 AWS::S3::Bucket etc.
+      Properties: depending on what type you chossed in 'Type', you need to provide some set of properties to create that resource
+        EG. for EC2 you must provide imageId, tags, instance-type.      
+      
+        Diffrebt S3 services has diffrent set of properties. Its impossible to remeber them all.
+        But for refrence best is to look at-
+          https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
+               
+   4. Mapping:-
+      In the template the mapping are the function which take a string key and reyurnkey as input and value againt that key and returnkey. 
+      In the template you call this function to get some value based on certain condition. you have to pass what kay and inside that key what returnkey you wants to get.
+      The structure of Mapping is like this in template
+            MApping {
+                Map1 : {
+                      key1: {
+                          "retKey1": "in Map1->key1->retKey1"
+                          "retKey2": "in Map1->key1->retKey2"
+                          "retKey3": "in Map1->key1->retKey3"
+                      },
+                      key2: {
+                          "retKey1": "in Map1->key2->retKey1"
+                          "retKey2": "in Map1->key2->retKey2"
+                          "retKey3": "in Map1->key2->retKey3"
+                      }
+                      key3: {...}
+                      key4: {...}
+                      key5: {...}
+                },
+                Map2: {.....}
+                Map3: {.....}
+            }  
+       Syntex:-
+          outputVar: { "Fn::FindInMap" : [ <MapName>, <TopLevelKey>, <ReturnKey>] }
+          EG.
+          outputVar: { "Fn::FindInMap" : [ Map1, key1, retKey1] } 
+            set the value of outputVar as "in Map1->key1->retKey1"
+          outputVar: { "Fn::FindInMap" : [ Map1, key2, retKey1] } 
+            set the value of outputVar as "in Map1->key2->retKey1"        
+          outputVar: { "Fn::FindInMap" : [ Map1, key2 retKey3] } 
+            set the value of outputVar as "in Map1->key2->retKey3"            
+
+      EG:
+            "Mappings" : {
+              "GetPersonData" : {
+                  "Mufazzal"        : { "AGE": 32, "City" : "pune"},
+                  "Murtuza"         : { "AGE": 22, "city" : "indore"},
+               },
+               GetVillageData: {
+                  "Barna"         : { "Name": "Barnagar", "Dist" : "Dhar"},
+                  "Badna"         : { "Name": "Badnawar", "Dist" : "Ujjain"},
+               }
+             }
+
+              How to call it:-
+              use this syntex-
+                              { "Fn::FindInMap" : [ "MapName", "TopLevelKey", "key ypounts in return"] }
+              EG-
+                 "perAge" :  { "Fn::FindInMap" : [ "GetPersonData", "Mufazzal", AGE]},
+                 
+              In the calling we are calling the function 'GetPersonData' passing the param 'Mufazzal' and asking to returm label 'AGE'
+              so it wil return 32.
+              
+  5. Imnput Parameter:-      
+         This is where the Creator define the defination of some inputs. when the builder create the stack from the template.
+         Builder would be asked to provide this inputs valye via UI.
+         This parameter could be anything. So builder could be asked to
+          - Give a simple string or Number[a input box will be shown]
+          - A value from set of predefined one [dropdown will be shown]
+          - Thers is some AWS Resource oriented
+            - Key pair for SSH [the dropdown with key pair defined in that region by userm he need to selecty one]
+            - Security group [the dropdown with Security group defined in that region by userm he need to selecty one]
+            - VPC, Subnet, etc.
+              more : https://aws.amazon.com/blogs/devops/using-the-new-cloudformation-parameter-types/
+           
+           EG:- say you wants the user to choose the instance type and assign it value in 'MufInstanceTypeParameter'
+                
+                  "Parameters" : {      
+                    "MufInstanceTypeParameter" : {
+                      "Description" : "WebServer EC2 instance type",
+                      "Type" : "String",
+                      "Default" : "t2.small",
+                      "AllowedValues" : [ "t1.micro", "t2.nano", "t2.micro", "t2.small"],
+                      "ConstraintDescription" : "must be a valid EC2 instance type."
+                    },      
+                  }
+           
+
+          One more EG:-
+                      "Parameters" : {      
+                        "MufKeyName" : {
+                          "Description": "Name of SSH KeyPair"
+                          "Type" : "AWS::EC2::KeyPair::KeyName",
+                        },      
+                      }       
+           This will prompt the builder with dropdown and ask to select the SSH key pair.
+            Another Eg: to select the VPC and sunnet-
+                     "MufVPCID": { "Type": "AWS::EC2::VPC::Id" },
+                      "MufSubnetId": { "Type": "AWS::EC2::Subnet::Id" },            
+                In yaml-
+                      MufVPCID:
+                        Type: 'AWS::EC2::VPC::Id'
+                      MufSubnetId:
+                        Type: 'AWS::EC2::Subnet::Id'    
+           
+           logicalName of Input-Paramenter:-
+              MufInstanceTypeParameter, MufKeyName is the Logical Name of Input Param. This can be used to refer this parameter in elsewhere in template.
+           How would you use this values in template?
+                      ...
+                      "InstanceType" : { "Ref" : "MufInstanceTypeParameter" },
+                      "KeyName" : { "Ref" : "MufKeyName" },
+                      ...    
+                  In Yaml
+                      VpcId: !Ref MufVPCID
+                      KeyName: !Ref MufInstanceTypeParameter
+      
+        
+         There are many way to write such defination for more go to google.
+    
+    6. Outout:-
+        Here you define what output log the builder will see once the stack is created. This is where you should let the builder know 
+          some imp info about created stack like any public IP or DNA name of EC2
+        Syntex
+                    "Outputs" : {
+                      "Logical ID" : {
+                        "Description" : "Information about the value",
+                        "Value" : "Value to return",
+                      }
+                    }        
+
+          EG:-
+           "Outputs" : {
+              "PublicDNS": {
+                  "Description": "Public DNSName of the newly created EC2 instance",
+                  "Value": { "Fn::GetAtt": [ "MufEC2Instance", "PublicDnsName" ] }
+              },
+            }
+         It will show a pair in which the key is 'PublicDNS' and value is the DNS name of EC2 instance 'MufEC2Instance' 
+         in yaml:-
+              Value:
+                - !GetAtt "MufEC2Instance.PublicDnsName"
+ 
