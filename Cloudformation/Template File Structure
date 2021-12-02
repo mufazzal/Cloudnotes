@@ -172,3 +172,14 @@ Structure of template file:-
               Value:
                 - !GetAtt "MufEC2Instance.PublicDnsName"
  
+---------------------------------------
+
+Input PAram type:-  
+  Number
+  String
+  List<Number>  ["12", "34". "343"]
+  CommDelilatedList ["asdasd", "asdasd", "qwewe"]
+  SSM Parameter: Systems Manager Parameter Store 
+  AWS-Specific Parameter:  EG 'AWS::EC2::AvailabilityZone::Name', AWS::EC2::KeyPair::KeyName ..etc
+  
+  
