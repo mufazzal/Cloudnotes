@@ -1,0 +1,60 @@
+
+cfn-init:-
+  The cfn-init is an alternative to use the User Data and it give more fine grain control on the cloudformation stack.
+  It only work with ASG(Via launch template) and EC2.
+  It has below feature 
+  1. Greater redability then simple bash script user data.
+  2. You can use cfn-signal to communicate with cloudformation
+  3. if you change something in cfn-init(via cloudformation or by sshing in the EC2) for EC2 then it do not need the replacement of instance. 
+  
+  Setting cfn-init via cloudformation:- 
+  You have to set in in metadata.
+    Resources:
+      mufres:
+        Type: AWS::EC2::LaunchTemplate OR AWS::EC2::Instance
+        Metadata:
+           AWS::CloudFormation::Init: 
+             configSets:in 
+               InstallApp1: ["InstallApp1ConfigSet"]
+             InstallApp1ConfigSet: 
+              packages: ...
+              files: 
+              commands: 
+              services:
+  Also you must have this in user data script section:-
+    #!/bin/bash -xe
+    yum update -y aws-cfn-bootstrap
+    /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource Instance --configsets setup --region ${AWS::Region}
+  
+  - For cfn-int to work you must have internet connectivity or a VPC endpoint for cloudformation.
+  
+  cfn-signal + creation policy/wait condition + cfn-init:-
+    You can use this set up to control the status of cloudformation template deployment behaviour wrt cfn-init execution.
+    It work only with EC2 and ASG.
+    For this you need to create the creation policy for instance that will have wait condition attached to it. with two setting
+    1. max time to wait 
+    2. number of success signal to wait
+    Now you can use below line to send the success signal to cloudformation 
+        /opt/aws/bin/cfn-signal -s --stack ${AWS::StackName} --resource MufInstance --region ${AWS::Region}
+    or you can use below line to send the fail signal to cloudformation
+        /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource MufInstance --region ${AWS::Region}
+    Cloudformation stack will remain in CREATE_IN_PROGRESS mode till 
+    - A fail signal sent from cfn-signal and then so stack went to CREATE_FAILED
+    - Wait time elapsed and then so stack went to CREATE_FAILED
+    - Number of success signal sent from cfn-signal = no of success signal set in wait condition of creation policy of instance and then so stack went to CREATE_SUCCESS
+    By Creation Policy in instance:-
+      MufInstance:
+        Type: AWS::EC2::Instance      
+        Properties: ...
+        Metadata:
+          CreationPolicy:
+            ResourceSignal:
+              Timeout: PT10M       
+              Count: 2
+    By Wait Condition Resource:-
+      You can use this instead of CreationPolicy attribute but AWs not recomment it.
+
+
+  cfn-init + cfn-hub:-
+    The cfn-hub will run a deamon in the EC2 instance and keep checking the Cloudformation:Init block in certain interal
+    and if its updated ten it will rerun the cfn-init again.
