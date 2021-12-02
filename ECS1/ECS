@@ -1,3 +1,29 @@
+Docker and AWS:-
+	AWS provide advance tool for managing Container and images.
+	This best suited for Batch job which are short-live and can be processed parrllal.	
+	Bsed on workload you can bring up and down the container instances quickly via altering Task.  
+	
+ECR[Elastic Container Registery]:-
+	ECR is the tool where you can upload the Images of Container and share with other.
+	This is simplty a repository for Comtainer images.
+	It compititor :-
+		DockerHub
+
+Container Orchastration tool:-
+	This is where our Containers run. here actully the Application is hosted.
+		Compititor:-
+			Docker
+	There is two tool AWS provide
+		EKS[Elastic Kubenetees service]:-
+			Use for Oprn-Source Conainer orchastration tool Kubenetis
+
+		ECS[Elastic Container Service]:-
+			This tool give you the way to manage the containers and help you to do operational stuff on it like
+				Start stop containers
+				Load Balancing
+				Scheduling
+				Replication
+----------------------------------				
 Hosting Enviorment:-
 	On EC2:-
 		Here the container are ran on EC2s and customer is responsible for managing those EC2. AWS ECS take care of running container and managong it on EC2
