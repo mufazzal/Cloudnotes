@@ -15,3 +15,60 @@ has definations of RESOURCES like EC2, S3 etc
 has some MAPPING, which are like a function which take one input and return the set of label
 has some PARAMETER which are set by Builder at a time of stack building
 has OUTPUT, which are final logs of stack creation
+
+---------
+
+Elastic Beanstalk VS CloudFormation
+CloudFormation a great grand father of Elastic Beanstalk.
+ELB is not programmable meaning you set up an preconfigured application either for hello world or with existing code (war/zip)
+CloudFormation is the soluction where you can change, create, delete, update all the diffrent parts(EC2, S3 ..) of your app. Its completely programmable.
+
+--------
+
+Template designer:-
+  The fastest and easiest way to create a template is to use template builder of AWS.
+  its so simple with drag drop and fir refrence always use sample template.
+  
+-------
+
+Nested Stack:-
+  You can use stack whithine a stack.
+      Type: AWS::CloudFormation::Stack
+      Properties: 
+        NotificationARNs: 
+          - String
+        Parameters: 
+          Key : Value
+        Tags: 
+          - Tag
+        TemplateURL: String
+        TimeoutInMinutes: Integer
+  
+  TemplateURL:- This is S3 url where the template is stored.
+  When you use Nested stack you never do the update/delete operation over child template stack, you will do it over the parent only.
+  
+-------
+
+Log files:-
+  User Data logs: /var/logs/cloud-init-output.log
+  cfn-init logs:  /var/logs/cfn-init.log  
+  
+    
+---------
+
+Termination Protection:-
+  This simply a bool setting on stack and if enabled then aws will not allowed to delete this stack untill its disasbled again.   
+  
+--------
+
+Error Handling:-
+  By default entire stack will be rolled back. thoug you can change it and let all the resources retained.
+  for this chnage the option at 'Rollback on failure' option while creating stack.
+  For create If error occure you can 
+    - 'Do_Nothing' and so keep the resources in broken state
+    - 'Roll_Back' and so all the resources will be deleted.
+    - 'Delete' and so delete all resoure and stack too.
+  For update If error occure you can 
+    - 'Do_Nothing' and so keep the resources in broken state
+    - 'Roll_Back' and so all the previous working template will be re-deployed  
+  
