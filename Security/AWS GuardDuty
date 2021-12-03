@@ -43,4 +43,5 @@ Multi Account:-
   You can use AWS organization and set one Administrator account for GuardDduty. 
   You can use this administrator account to enable and manage GuardDuty for any member account in the organization.
   
-  
+Automation:-
+  GuardDuty tied with AW Event so you can take action on any findings of guard duty.
