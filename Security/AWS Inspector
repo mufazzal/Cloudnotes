@@ -4,6 +4,7 @@ After performing an assessment, Amazon Inspector produces a detailed list of sec
 For this to work properly you must install agent on the EC2 instances that are included in the assessment target
 The target EC2 can be selected by Teg Key-Value pair attached to EC2s.
 It provide pre-defined rules packages mapped to common security best practices and vulnerability definitions
+It has two kind of assensment Network and Host
 
 You can also set to run the Inspector in certain prode. like run the rule in every 7 days.
 and so it will do the automation of insoecting the running EC2 instances in every 7 day.
