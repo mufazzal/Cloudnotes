@@ -209,7 +209,14 @@ EC2 Horizental and Vertical Scalling:-
 	VS: Change existing t2.micro to t2.large
 		
 		
-		
+--------------------
+
+
+EC2 Managment with other AWS services:-
+	For Compiance fail detection: AWS Config
+	For Vulnarability dfetectio: Use AWS Inspector
+	For Maintainace: Use SSM Automation and SSM Run Command
+	For 
 		
 
 	
