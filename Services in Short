@@ -60,7 +60,9 @@ AWS Glue:-
 AWS Trusted Advisor:-
   This tool provide you the real time guidence foe building your infra wrt to below
   Cost, Security, Fault Tolerance, Service Limit,PErformance.
-
+  This is tied with CW alarm so you can take action on any finding of it.
+  It has free tier and paid tier. PAid will have detail analysis.
+  It also has the limit that the account get at least at 30 minute interval.
 
 AWS WorkSpace:-
   As its name suggest it is nothing but a way to set up desktop for office work in AWS.
