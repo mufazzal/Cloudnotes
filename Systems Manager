@@ -29,7 +29,11 @@ Parameter Store:-
 
 Secret Manager:-
   This is good choise for storing DB Cred, API key, Serrets which  can be used in application. it has auto rotate feature of seret which Param store do not has.
-  ALso it is natuvly integrated with RDS, Redshift.
+  You can use Lambda function to rotate it.
+  ALso it is natuily integrated with RDS, Redshift.
+  IMP: It charge
+    $0.40 per secret per month
+    
   
 ------------------
 
