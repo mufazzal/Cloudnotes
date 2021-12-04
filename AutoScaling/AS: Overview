@@ -40,6 +40,8 @@ Scaling Event:-
 StandBy Instance:-
   You can temporarily place the instance in 'InService' to 'StandBy'.
   This enable you to perform some maintainance operation on EC2. but kept that EC2 in the ASG as well.
+  ASG make sure that LB do not send traffic to this instance and instead distribute to other.
+  but ASG wont launch any new instance
   Once you mainatainance dome Exit the standby.
   
   
