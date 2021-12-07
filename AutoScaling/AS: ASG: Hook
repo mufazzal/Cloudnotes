@@ -1,30 +1,33 @@
 ASG also provide the lofecycle hook for launched and terminated instances. 
-In ASG you can set the hook to trigger when any instance is launched or terminated. This trigger could be a SNS or SQS.
-Whenver the ASG launch or terminate the instance the respective hook run. it send the message to SQS or SNS.
+In ASG you can set the hook to trigger when any instance is launched or terminated. This Hook could trigger SNS or SQS.
 You can also use the Lambda as trugger but for this you have to use the Event-Bridge.
 
+This hook is bit tricky.
+This hook is juist a simple wait time for ASGs launched instances. You could set to trigger the SNS/SQS/Lambda when the instance get into this lifecycle hook.
+Or you may not have to provide any SN/SQS/Lambda for this hook, still the instance will go into this lifecycle hook.
+
+Once the instance in the lifecycle hook, It will wait. 
+Q. But wait for what?
+A. It will wait for one of the below
+  - Wait for 'HeartbeatTimeout' to elapse and then consider the hook result as set in the 'DefaultResult'
+  - Someone call 'record-lifecycle-action-heartbeat' api or command and extend the 'HeartbeatTimeout' for more time
+  - Someone call 'complete-lifecycle-action' api or command to to set result of hook
+
 CFR for hook:-
-  EC2LaunchHook: 
-    Type: AWS::AutoScaling::LifecycleHook
-    Properties: 
-      AutoScalingGroupName: 
-        Ref: ASG
-      LifecycleTransition: "autoscaling:EC2_INSTANCE_LAUNCHING"
-      NotificationTargetARN: 
-        Ref: EC2WebsServerLaunchSNSTopic
-      RoleARN: 
-        Fn::GetAtt: 
-          - ATSRoleForSNSAccess
-          - Arn  
+  ASG:
+    Type: 'AWS::AutoScaling::AutoScalingGroup'
+    Properties:
+      LifecycleHookSpecificationList:
+        - DefaultResult: ABANDON or CONTINUE
+          HeartbeatTimeout: 300
+          LifecycleHookName: <name-of-hook>
+          LifecycleTransition: autoscaling:EC2_INSTANCE_LAUNCHING    
 
   There are 4 kind of Notification ASG can trigger:-
     - autoscaling:EC2_INSTANCE_LAUNCH, 
     - autoscaling:EC2_INSTANCE_LAUNCH_ERROR
     - autoscaling:EC2_INSTANCE_TERMINATE
     - autoscaling:EC2_INSTANCE_TERMINATE_ERROR
-
- ATSRoleForSNSAccess:
-  This is the role created for ASG service(autoscaling.amazonaws.com) which give SNS:Publish permission of SNS topic. 
 
 There is two hook one for launch and one fo terminating. 
 When hook is running then at that time the instance is not in service state instaed it is in either Pending:Wait or Terminating:Wait state.
@@ -39,11 +42,18 @@ So if hook fail or hook take more then 120 second then the instance will
 heartbeat timeout + ASG hook + user data script:-
   You can use heartbeat timeout and ASG hook to keep instance to remain in Wait state 
   and in this time your user data script can install the necessary dependencies and software installation.
-  so ASG hook can not only call sns or sqs or lambda but can be used in conjunction with user data script.
-
+  ## IMP: You do not neet to trigger and SQS or SNS here, still if you wants then ok.
+  
   If you are not finised in 'heartbeat timeout' then you can extend this time via 'record-lifecycle-action-heartbeat' command
 
   If you are done earlier then you end the heartbeat timeout by 'complete-lifecycle-action' command
    you can end with success or failure by sending flag ine complete-lifecycle-action command.
    this flag is "CONTINUE" OR "ABANDON".
+   
+sudo aws autoscaling complete-lifecycle-action \
+        --lifecycle-action-result CONTINUE \
+        --instance-id $INSTANCE_ID \
+        --lifecycle-hook-name <name-of-hook> \
+        --auto-scaling-group-name <name-of-asg> \
+        --region us-east-1   
 
