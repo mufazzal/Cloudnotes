@@ -7,6 +7,12 @@ cfn-init:-
   2. You can use cfn-signal to communicate with cloudformation
   3. if you change something in cfn-init(via cloudformation or by sshing in the EC2) for EC2 then it do not need the replacement of instance. 
   
+  Pre-requisite:-
+    To use cfn-*** you must have installed cf-bootstrap.
+    For Amazaon Linuux AMI it is already installed for other use
+      sudo yum install -y aws-cfn-bootstrap
+
+  
   Setting cfn-init via cloudformation:- 
   You have to set in in metadata.
     Resources:
