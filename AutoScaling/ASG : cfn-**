@@ -1,0 +1,43 @@
+ASG is support the CreationPolicy and UpdatePolicy when created with cloudformation.
+
+For ASG with CreationPolicy/UpdatePolicy + cfn-signal, you can control the deployment of update of ASG.
+
+You can decide wheather the ASG deploy or update is successful or failed voa Cloudformation.
+
+CreationPolicy:-
+
+  ASGEC2:
+    Type: 'AWS::AutoScaling::AutoScalingGroup'
+    CreationPolicy:
+      ResourceSignal:
+        Count: 3
+        Timeout: PT15M  
+    Properties:
+      ....
+Here the cloudformation will wait from three success signal before considering it a success.
+IF any unsuccessful signal is recive instead then the stack deployment will be failed
+It will wait max 15 minutes for 3 signal. otherwise a fail will be consider.
+
+How to send the signal:-
+  You can sent it via aws-sdk, api, cli etc.
+  to send it fron instance use
+      sudo /opt/aws/bin/cfn-signal \
+          -s true \
+          --stack Def-Prefix-App1ATSGroupECS \
+          --resource ASGEC2 \
+          --region us-east-1  
+          
+ UpdatePolicy:-
+  For ASG it will definehow the new instances will be roll out wih new seting in the ASG. This will update terminate and lauchyhe new instance with new setting.
+  
+    UpdatePolicy:
+      AutoScalingScheduledAction:
+        IgnoreUnmodifiedGroupSizeProperties: 'true'
+      AutoScalingRollingUpdate:
+        MinInstancesInService: MFR:State:rollUpdateMinInstancesInService
+        MaxBatchSize: MFR:State:rollUpdateMaxBatchSize
+        PauseTime: PT1M
+        WaitOnResourceSignals: 'true' 
+        
+        
+        
