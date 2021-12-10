@@ -19,6 +19,18 @@ Target Account:-
 Trust relationship between Administrator and Master account:-
   ?????
   
+IAM roles: 
+  If admin and target both are in same AWS Organization then you can either use self managed or service managed rule.
+  If both are not same AWS Organization then you must use self managed role.
+
+  Service manged: 
+     Here the aws will create the necessary iam role for the the account (admin and targets) and yse them for operation.
+  Slef managed:
+     for admin you must have AWSCloudFormationStackSetAdministrationRole
+     for target it must have AWSCloudFormationStackSetExecutionRole with principle as admin account id
+    
+
+
 Stack Set:-
   With stack set you can create the stack in diffrect account and region with 
     - A single cloudformation template
