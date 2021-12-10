@@ -46,6 +46,8 @@ Stack Instance:-
     You can update the stack after creation.
     Update will affect all the stack instances. you can do it selectively.
     you can add delete update the resources in cloudformation template. or you can completely change the template
+    you can change input params
+    you can add more account or region.
       
   
   
