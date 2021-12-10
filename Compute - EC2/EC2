@@ -196,6 +196,15 @@ Dadicated Host/Instance:-
 			1. DI do not give much visibility an control to underline hardwate.
 			2. DI do not allow to use existing server-bound software licenses like Windows Server etc.
 
+	EC2/LaunchTemplae Cloudformation and Tenancy:-
+		You can set into CFR template of this respurces where to lauch the indtance.
+		For EC2
+			set property 'Tenancy' to dedicated | default | host
+			if you specify Tenancy = dedicated with hostId not set, then the instance will launch ins any compatible dadicated host.
+			if you specify Tenancy = dedicated with and Affinity=host hostId = <id of host> , then the instance will launch in same host all the time.
+		For LT you shoule use 
+			LaunchTemplateData.Placement for setting Tenancy, hostId and Affinity
+
 ----------------
 AWS System Manager:-
 	You can use this service to run the command on multiple EC2 together.
