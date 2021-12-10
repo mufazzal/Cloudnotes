@@ -1,0 +1,38 @@
+Suppose your organization haas many AWS account and region and your application is deployed in many Account and region.
+
+The stack set provide the way to deploy the SIMILLAR stack in many region and account. 
+
+IF you hava stack contain tresource like R1, R2 and R3. then you can create the instance of this stack in many account and region.
+In each account R1, R2 and R3 will be created.
+Its not like R1 will be create in us-east-1 and R2 in us-west-2
+
+Administrator  Account:-
+  A Administrator account is the account in which you create a stack set, This should be the organization's management account.
+  This account must have service-likned IAM role which has permission ??????
+
+Target Account:-
+  This are the account in whic the Stack id created/updated or deleted by master account.
+  This must create a trust relationship with master account
+  You can select target accout by account id Or
+  You can simple select the AWS OU id and all the meber account will be selected as target account.
+  
+Trust relationship between Administrator and Master account:-
+  ?????
+  
+Stack Set:-
+  With stack set you can create the stack in diffrect account and region with 
+    - A single cloudformation template
+    - Same input values across all
+    - Same Capability across all.
+  A single stackset can have only one clouidformation template. 
+  
+Stack Instance:-
+  A stack instance is a reference to a stack in a target account within a Region. 
+  A stack instance can exist without a stack. For example, if the stack couldn't be created for some reason, the stack instance shows the reason for stack creation failure. 
+  A stack instance is associated with only one stack set
+  
+  
+  
+  
+  
+  
