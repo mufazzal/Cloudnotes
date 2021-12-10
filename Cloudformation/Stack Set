@@ -31,7 +31,19 @@ Stack Instance:-
   A stack instance can exist without a stack. For example, if the stack couldn't be created for some reason, the stack instance shows the reason for stack creation failure. 
   A stack instance is associated with only one stack set
   
+ Stack Operation:
+  You can do below operation on stack set
+  Create :
+    For this provide the cloudformation template.
+    all the input param for stack. also the capabilities.
+    The service role of admin account for this
+    Either 
+      list of all aws target account
+      or Aws OU id
+    Provide the list of regions to be deployed in
   
+  Update:
+    You can update the stack after creation.
   
   
   
