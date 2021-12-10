@@ -49,7 +49,12 @@ Stack Instance:-
     you can change input params
     you can add more account or region.
       
+  Delete stack instances:
+    you can delete stack instances from specific region and account
+    you Delete stacks from your stack set, but save them so they continue to run independently of your stack set by choosing the Retain Stacks option
   
+  Delete StackSet:
+    tou must first dlete all the stack instances to delete entire stackset  
   
   
   
