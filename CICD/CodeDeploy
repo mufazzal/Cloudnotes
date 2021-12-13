@@ -620,7 +620,9 @@ CodeDeploy Trigger:-
   You get the trigger for below state change
     Deployment start/fail/ready/rollback etc.
     intance start/stop etc.
-  
+    
+Cloudwatch metrics/logs published by CodeDEploy:-
+  NONE, CodeDeploy nither generate logs nor metrics in the CW.  
   
 ---------
 
