@@ -1,0 +1,10 @@
+This AWS service build on top of CodeCommit + CodeBuild + CodeDeploy + CodePiplein.
+It give you full working system with all this configured, you just have to go and start coding.
+
+It is nativly integrated with Jira and IAM also.
+
+You can ceate a Team member here with prdifined rights. This is simply a IAM user and provide interactive way to attach IAM policy
+There are thre preconfigured CodeStar Role here
+1. Owner: It has all the right to do anything. 
+2. Contributor: Right a developer should carry
+3. Viewer: Only right to see thing not modify.
