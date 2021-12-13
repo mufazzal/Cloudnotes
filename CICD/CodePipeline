@@ -136,7 +136,29 @@ CodePipeline - Multiregion:-
 Cloudwatch metrics/logs published by CodePipeline:-
   NONE, CodePipeline nither generate logs nor metrics in the CW.  
   
-    
+------------
+
+MultiRegion pipeline:-
+  AWS Codepipeline support multi region support for below Action providers
+  1. AWS CodeDeploy: You can deploy the in multiple region EC2
+  2. CodeBuild
+  3. CloudFormation
+  4. Stack Set
+  5. ECS, ECs  BG
+  6. S3 [in deploy stage not in source]
+  7. Lambda
+  8 Step function
+
+  AWS Codepipeline NOT support multi region support for below Action providers
+  1. Manual Approval action
+  2. Jenkins 
+  3. ECR
+  4. CodeCommit
+  5. S3 [in source stage]
+
+
+
+
     
     
     
