@@ -39,10 +39,18 @@ ECS Agent:-
 	For this the EC2 instance
 	- Either has internet acceciblitu via NATor IG Or have a accesible Service endpoint for AWS ECS. 
   - IAM role of EC2 must have proper permissions
-  - For Linux AMI 2 it is pre installed.
+  - For Linux AMI 2 and ECS-Optimized Linux AMI 2 it is pre installed.
+	- ECS Agent is open source
+	- It CANNOT be installed on on-premise
   
 --------------------
 
+Amazon ECS-optimized AMI:-
+	AWS provide this AMI and it has
+		- A modern Linux distribution
+		- The Amazon ECS container agent
+		- Docket installed.
+---------------------
 Task Placement Stratagies:-
   When you change the task count in the service the ECS launch the new container or terminate the container (not EC2 instance)
   Now ECS must determine from which instance the container should terminate or placed new  one. for this it use the Placement Stratagies.
