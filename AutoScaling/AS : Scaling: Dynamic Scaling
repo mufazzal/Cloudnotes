@@ -34,7 +34,7 @@ Cooldown Priode:-
   A scaling cooldown helps you prevent your Auto Scaling group from launching or terminating additional instances before the effects of previous activities are visible.
   This help you to prevent the launch of additional capacity or termination of extra capacity before effect of last Scalling activity took place.
   This can be set at ASG level or can ne override in Scalling policy.
-  
+  This time is not eccective if saclling is done via Schedule or Manual action.
 -------------------
 
 Warm up priode:-
