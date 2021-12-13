@@ -23,6 +23,12 @@ Below are imp component:-
         It could ne EC2 or EMR.
     C. Schedule:-
         A syntex that define when and at whar frequecy task will be ran.
+        You set it like
+        Run every day or once in month or in every 6 day
+        starting from <Date> : <time>
+        and keep it doing til
+        5 or 7 ot n occurence then stop the pipeline
+        or stop the pipeline at <Date> : <time>
     D. Actuvity:-
         Define what it need to do
         - CopyActivity: Copies data from one location to another.
