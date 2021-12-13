@@ -99,7 +99,8 @@ Actions:-
     Here you can set a required manual intervention for codepipeline to succed. YOu can set a SNS topic and susbscribe the approver to it.
     Once pipeline reach to this point, The approver receive the email with some more detail to review the pipeline, Code, test etc.
     Now the appriver can go to console and approve it so pipeline can move ahead. If he decline then it will fail.
-    It does not have any input or output artifact
+    It does not have any input or output artifact.
+    The approvaer must have 'AWSCodePipelineApproverAccess' IAM role permiassion
       
   Invoke Action with Lambda:-
     You can also use a lambda to run as any action. This lambda can do some opearion like. run some test or start a test infra etc.
