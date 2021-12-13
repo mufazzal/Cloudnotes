@@ -38,6 +38,20 @@ How to send the signal:-
         MaxBatchSize: MFR:State:rollUpdateMaxBatchSize
         PauseTime: PT1M
         WaitOnResourceSignals: 'true' 
-        
+    
+    UpdatePolicy.AutoScalingScheduledAction: 
+      Define weather to honour or ignore any schedule action event to lauch ot terminate the instance during the update.
+    UpdatePolicy.AutoScalingRollingUpdate:
+      If the updates required to launch the new instances and terminate the older one, This filed will define how to proceed with it.
+      Like you wants to roll then in batches or at once.
+      As name suggest MinInstancesInService and MaxBatchSize define how many instance will remain in serviceand how many will be in update at time.
+      WaitOnResourceSignals define if the ASG should wait for success signals and max time for wait is PT1M
+    UpdatePolicy.AutoScalingReplacingUpdate   
+      It define if the replacement is needed then wheather it should replace the ASG + Instances or Instances only.
+      If true then it will replace the ASG as well
+      
+      
+    UpdatePolicy.AutoScalingReplacingUpdate:
+    
         
         
