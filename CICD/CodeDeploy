@@ -535,7 +535,21 @@ Deployment Bundle:-
 
 Deploy on ECS cluster:-
   For this you have to select the type='ECS' when creating the CodeDeploy Application.
-  Now in Code Deploy Group in that Application You should select the ECS cluster and Service.
+  For deployment Group you need to select below items
+  1. ECS Cluster
+  2. EVS Service
+  3. Name and Service Role
+  4. Target group 1: THis is the main target groupo
+  5. Target Group 2: This will be the test target group where the containers will be register as target of green fleet. You can have pre live test at here.
+  5. Deployment Setting: It could be
+      > AllAtOnce 
+      > ECSLinear10PercentEvery1Minutes
+      > ECSLinear10PercentEvery5Minutes
+      > ECSCanary10Percent5Minutes
+      > ECSCanary10Percent15Minutes
+      
+  
+  - ECS only support BG not the In-Place
 ---------------------------
 
 Deploy on Lambda:-
