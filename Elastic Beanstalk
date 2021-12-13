@@ -254,12 +254,17 @@ Enviorment Url Swap:-
 	This url is mapped to the envorment by CNAME record mapping.
 	You can swap the url of env1 with env2. The EB take care of canging the CNAME mapping in Route53 for both env.
 	You can use this for Blue/Green Deployment.
+	
+	MAJOR ISSUE with Swap Url:-
+		Swap url changes the CNAME record in route53 system. However some DNS provider may have high TTL and so take lot of time to change the recird in their system
+		You must keep old and new both env up for quite a time.
 
 ----
 
 Blue/Green Deployment with Swap:-
 	Unlike the deployment mechanichs discuss above, you can create a fully new enviorment by cloning the current enviorment.
 	then deploy the new app version on newly made clone env. now swap the url of both env. 
+
 
 -----------------------------
 
