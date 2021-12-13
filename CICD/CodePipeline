@@ -131,7 +131,11 @@ CodePipeline - Multiregion:-
   This give immense power to have single codebase in any region and then spreed the build and deployment in diffrent region. 
     
     
+-------------
     
+Cloudwatch metrics/logs published by CodePipeline:-
+  NONE, CodePipeline nither generate logs nor metrics in the CW.  
+  
     
     
     
