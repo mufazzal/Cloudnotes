@@ -325,9 +325,12 @@ Corn.yml for worker env:
   You can define periodic tasks in a file named cron.yaml in your source bundle to add jobs to your worker environment's queue automatically at a regular interval.
 
 -------
+
+DockerFile:-
+	Use this for single Container Docker env
+-------
 Dockerrun.aws.json: 
   this configuration file is used in multicontainer Docker environments that are hosted in Elastic Beanstalk.
-
 --------------
 
 EB CLI:
