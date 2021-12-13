@@ -49,9 +49,9 @@ How to send the signal:-
     UpdatePolicy.AutoScalingReplacingUpdate   
       It define if the replacement is needed then wheather it should replace the ASG + Instances or Instances only.
       If true then it will replace the ASG as well
+      The older ASG will be retail till the Deploymnet finish succesfully if not finish with success then it will be retained
+        if finished with success then older one will be deleted. 
       
-      
-    UpdatePolicy.AutoScalingReplacingUpdate:
     
         
         
