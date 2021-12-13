@@ -83,6 +83,14 @@ To create a service you give
       
  11. ServiceName: The name the service.
  
+ 12. Autoscalling:-
+    In the AWS ECS service you can set the scalling mechanics. This will adjust the Desired count baed on define params.
+    IMP: This is diffrent then Auto scalling Group of EC2. 
+    It supports the following types of automatic scaling
+        1. Target tracking scaling policies based on one of three metrics
+                ECSServiceAverageCPUUtilization, ECSServiceAverageMemoryUtilization, ALBRequestCountPerTarget
+        2. Step scaling policies
+        3. Scheduled Scaling
  ---
 
  
