@@ -140,6 +140,7 @@ Monitoring and Logging:-
   - You have bwlow CW metrics for a code build for dimention Account and Project
     > Successful Build, Fail Build, Toatal Build, Build Duration.
     You can use those to handle scenario such as too many fail, or too long for build etc.
+  - You can use the EventBridge to handle the specifc state change in codebuild
   
 Scheduled Builds:-
   With the help of Cloudwatch Event[EventBridge] you can set the Corn job. and then can have the target as the codebuilb project.
