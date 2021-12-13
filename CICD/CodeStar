@@ -1,5 +1,10 @@
 This AWS service build on top of CodeCommit + CodeBuild + CodeDeploy + CodePiplein.
 It give you full working system with all this configured, you just have to go and start coding.
+AS a trepository you can use CodeCommit or Git
+
+You can use one of many preconfigured AWS template to build the enviorment for you.
+Basically this in nothing but a CFR template. you can see this files in the selected repository and if you wants to changes respurces in the env, 
+then simply modify this this template and redeploy it
 
 It is nativly integrated with Jira and IAM also.
 
