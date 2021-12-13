@@ -1,0 +1,16 @@
+You can use the Jenking in the Codepipeline.
+You can use it in either "Test" or "Build" stage not in other.
+
+To set it us you have to have at least one master Jenkin server.
+You can create this master server on EC2 and provide url of that EC2 in codepipline action where you set the jenkins.
+
+You can have one EC2 with ine master jenkins and some more slave on same
+Yon can have one EC2 as master and other ec2 as slave jenkin.
+
+There are many plugin on jenkins that can be used to simplify you task
+
+Must have plugin for Jenkin:-
+  You must have AWS Codepipeline Plugin installed on jenkin. At a time of setting it up in codepipleline you must provide the name of this installed plugin in "Provider" field of action
+Other helpful plugs:-
+ - there is plugin that can lauch the slave instacne for you (spot and other)
+ - there is plugin that can run a build on codebuild rather then on EC2
