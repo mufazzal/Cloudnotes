@@ -147,17 +147,34 @@ Resource Attribute:-
 			AWS::EC2::Instance, and 
 			AWS::CloudFormation::WaitCondition.
 
+	Update Policy:-
+		It define how and when the resource will be considered to be updated if any updates is needed.
+		Its setting is depend on type of resource. 
+		Below resources suport it:-
+			AWS::AutoScaling::AutoScalingGroup
+			AWS::Lambda::Alias
+				For detail about update polict of ASG see ASG chanpters. 
+
 	Deletion Policy:-
 		With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted. 
 		You specify a DeletionPolicy attribute for each resource that you want to control. 
 		If a resource has no DeletionPolicy attribute, AWS CloudFormation deletes the resource by default.
 		[This policy comes in picture when stack is deleted not when stack is updated and due to update the underline resource is deleted]
 		DeletionPolicy options:-
-			Delete: This is default value
-			Retain: AWS CloudFormation keeps the resource without deleting the resource or its contents when its stack is deleted
-			Snapshot: For resources that support snapshots, AWS CloudFormation creates a snapshot for the resource before deleting it.
-			Resources that support snapshots include:
+			Delete: 
+				This is default value
+			Retain: 
+				AWS CloudFormation keeps the resource without deleting the resource or its contents when its stack is deleted
+				All kind of AWS resources support it.
+			Snapshot: 
+				For resources that support snapshots, AWS CloudFormation creates a snapshot for the resource before deleting it.
+				Resources that support snapshots include:
 					AWS::EC2::Volume
 					AWS::ElastiCache::CacheCluster
 					AWS::RDS::DBCluster
-					AWS::RDS::DBInstance
+					AWS::RDS::DBInstance			
+
+	UpdateReplacePolicy Policy:-
+		This is very much like a Delete Policy, except it ran when the resources is supposed to replaces by new resource rather then straight deleting it.
+			
+		
