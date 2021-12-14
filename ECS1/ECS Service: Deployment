@@ -12,6 +12,8 @@ DeploymentController:-
         maximumPercent:
           Define how many max instance it can run at a time. Eg. if total is 4 and its value in 150% then 4+2=6 conatiner can be run max at a time.
           Higher the value will speed up the deployment cecause it will do the replacement of more instances at a time.
+        deploymentCircuitBreaker:
+           If enabled then the deployment will be rolled back If somehow the ECS service is not able to be went into Steady state while deployment.
     CodeDeploy:
       It will do the BD update with CodeDeploy. It will create new 10 Containerthen give some time to test the new container for prod traffic and finally is all ok
       then kill al the old one and change whole prod traffic to new 10 containers.
