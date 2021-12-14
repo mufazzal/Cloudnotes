@@ -154,7 +154,10 @@ Custom Resource:-
 				- PhysicalResourceId: 
 							This is the unique id for the resource. 
 							If you return the changed value then the replacement is considered. and the delete request will be executed for this resource next.
-				
+	
+	cfn-response module:
+		To make your life easy for custom resource presign url system, aws provide this lib 
+		https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-lambda-function-code-cfnresponsemodule.html
 ----------------------
   
 Resource Attribute:-
