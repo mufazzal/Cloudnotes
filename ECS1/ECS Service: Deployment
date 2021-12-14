@@ -15,13 +15,20 @@ DeploymentController:-
     CodeDeploy:
       It will do the BD update with CodeDeploy. It will create new 10 Containerthen give some time to test the new container for prod traffic and finally is all ok
       then kill al the old one and change whole prod traffic to new 10 containers.
+      DeploymentConfiguration for BG ECS Update:-
+        For EC2 as host:-
+          Here the value of minimumHealthyPercent and maximum Percent both are fixed set to 100% and 200% and cannot be changed. It is because 
+          In BG you cannot reduce the capacity so you need 100% of desire count always running at any time and
+          at some point in the BG you will need Blue fleet with 100% and green fleet witrh 100% capacity before you shift whole traffic to New instances.
+        For Fargete:-
+          Its ignored and not used.
       
     External :
       ???
 
-
-HealthChech for ECS Service:-
-  With LB:
-  
-  Without LB:
-  
+  Health check Consideration while deployment:-
+    The ECS service will consider the instance as Healthy if HEalth check of belowe items re passed
+    - If there are Essential Containers in the task then those instance must pass the Healthcheck
+    - If there is a LB attach then the health check of target instances must also pass.
+    - if there is no essential conataner or no healthcheck on any essential container then health check for conatainer instance will be ignored 
+    - if there is no load balancer then healthcheck of conatners via LB in the target group will be ignored.
