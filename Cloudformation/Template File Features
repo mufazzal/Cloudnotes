@@ -133,11 +133,28 @@ Custom Resource:-
       BucketCleaner:
         Type: Custom:cleanupbucket
         properties:
-          ServiceToken: <the ARN of lambda>
+          ServiceToken: <the ARN of lambda or SNS topic>
           MufKeyBucketName: <name of bucket to emty>
           key2: ...
           ke3: ...
     From the lambda you have to return a proper value to define if execution successful or not.
+		Custom resource provider: 
+			THis is the entity define the logic, how the resource will be created. Its ARN provided by ServiceToken.
+			Currently Lambda and SNS support it.
+			You will have to define the logic for CREATE. UPDATE, and DELETE of this resource. 
+			In the input param [event in case of lambda] you will have 
+				- Request Type [CREATE or UPDATE or DELETE]
+				- LogicalId, Stack name etc.
+				- Custom key like ke1, key etc.
+				- a presign url, You can use this url to send SUCCESS or FAILED signal for the given operation.
+			The ouput of this logic must have
+				- Status [SUCCESS or FAILED]
+				- Reason [only if status= FAILED]
+				- StackId, RequestId, LogicalResourceId
+				- PhysicalResourceId: 
+							This is the unique id for the resource. 
+							If you return the changed value then the replacement is considered. and the delete request will be executed for this resource next.
+				
 ----------------------
   
 Resource Attribute:-
