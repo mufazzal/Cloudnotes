@@ -58,6 +58,8 @@ The task defination contains below information:-
     
     - Essential:
         If true, the if somhow this container fails or stop then all the other container whos are part of this task will also be stopped. 
+        The task is considered healthy if Health Check of all the Esential Containers are passed. If health check of any of such container is failed then
+        it is considered as fail.
     - LogConfiguration:
         Use this for setting logging config. Set the driver and its related setting here.
     - MountPoints:
