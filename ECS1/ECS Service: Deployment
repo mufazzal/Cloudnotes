@@ -1,0 +1,27 @@
+The setting of Deployment and Deployment Configuration is lies in Service.
+When you update anuthing in the service it use this setting to propogate the change.
+
+DeploymentController:-
+  You can use one of below
+    ECS:
+      It will do the rolling update. EG if you have 10 container running then it will kill 2 and create 2 new in the service 
+      and keep doing it untill all old 10 will be killed and new 10 comes.
+      DeploymentConfiguration for Rolling ECS Update:-
+        minimumHealthyPercent: 
+          Minimum number of container tha should be up and running. Eg. if total is 4 and its value in 50% then 2 container will always be up.
+        maximumPercent:
+          Define how many max instance it can run at a time. Eg. if total is 4 and its value in 150% then 4+2=6 conatiner can be run max at a time.
+          Higher the value will speed up the deployment cecause it will do the replacement of more instances at a time.
+    CodeDeploy:
+      It will do the BD update with CodeDeploy. It will create new 10 Containerthen give some time to test the new container for prod traffic and finally is all ok
+      then kill al the old one and change whole prod traffic to new 10 containers.
+      
+    External :
+      ???
+
+
+HealthChech for ECS Service:-
+  With LB:
+  
+  Without LB:
+  
