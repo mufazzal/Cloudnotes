@@ -91,6 +91,10 @@ Value: |
 Export Import value:-
   In CFR templates 'Outputs' patrams, you can use Export wheare you can export some values which later can be used in other CFL template of same region and account.
   This is very useful for cross refrncing the templates.
+	- Cross refrencing work only withine the same region. You can use output ofsatck in regio-1 in region-2s stack as input.
+	- You cannot delete the stack if one of its output is refer by other stack as its input.
+	- You cannot delete/Modify the Output if one that Output key is refer by other stack as its input.
+	
   EG:- 
   Exporting
     Outputs:
