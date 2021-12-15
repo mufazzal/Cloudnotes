@@ -1,12 +1,61 @@
 Deployment group:-
   The deployment group contains settings and configurations used during the deployment.
+  - It will have common setting of depg used for all compute platform like Roolback, alarm etc.
+  
     
 
-Deployment type:-
-  EC2 Support both type of deployment BG and In-Place
-  In-Place:-
-    
-    
-  Blue/Green:-
+Deployment group > Deployment Type:-
+  There are two type for EC2 platform
+    1. In-Place:  
+        In this kind of deployment the application is installed on existing running instances. they will be brifly taken offline
+        then dettached from the LB (if any)
+        then upgraded with new version 
+        then attached to LB(if any) again
+        and then finally started ahain
+        This has couple of risk
+          1. It take the instances offline so capacity is reduced
+          2. roll back is difficult you have to re-deploy the older version once again
+          Actully it is rarle user, it use only for the first time deployment.
+    2. Blue Green  
+          This pne is most widely user Deployment. This has certain featurewhich make it very reliable and practical to use.
+          Why ?
+            Because 2 risk of In-Place deployment mentioned above
+          What is neccessary for BG?
+            The candidate EC2 must be attached to the LB. if not then you cannot do the BG.
+          How it work:
+            Unlike in In-place wherein the upgraded app is deployed over same EC2. in BG 
+            completely new EC2 instances will be Used or Created [depending on 'Environment configuration' user choose] for each candidate instance 
+            and then 
+            upgraded app is deployed over the new instances 
+            and then
+            all newly instances will be attached to LB (LB is must for BG)
+            and then
+            for sometime all the instances (old + new) will be subordinated to the LB
+            and after some time [user can configure this time for sanity]
+            the older one will be dettached from LB
+            and then
+            they older one will be terminated.
+            
+            So in nutshell you create the new instances and attach it to LB and kill older one.
+            
+          Advantages:-
+            1. Reverting deployment way too easy. just attch the old EC2 with LB
+            2. No capacity reduction 
+          
+          How New Instances are Created or Used:-
+            There is two way for the new instance
+            1. Use existing one:-
+                The developer creat a instances MANUALLY and at the time of deployment he will give info about either its tag or ASG
+                This is rarely used because it add the overhead task of creating the EC2 manually.
+            2. Let Codedeploy create for you:-
+                For this you must have the ASG. without ASG it will not work.
+                Here you will give information about the ASG in deployment group. 
+                later at the time of deployment the codedeploy agent will create a copy of that ASG with exactly same cofiguration 
+                and create new instances in that ASG for you. then use those new instances foe new version and kill the older ones.
+                This one is widely used. here you hjust have to set the proper ASG and codedeploy will do the rest.
+  
+  
+EC2 Appspec file:-
+  
     
   
