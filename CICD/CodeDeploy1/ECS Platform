@@ -1,0 +1,11 @@
+Deployment group:-
+  The deployment group contains settings and configurations used during the deployment.
+    
+
+Deployment type:-
+  ECS Support only Blue/Green
+  
+ECS Appspec file:-
+  
+    
+  
