@@ -1,0 +1,11 @@
+Deployment group:-
+  The deployment group contains settings and configurations used during the deployment.    
+
+Deployment group > Deployment Type:-
+  Lambda Support only Blue/Green. So no choice here forthis. 
+  
+Deployment Group > Environment configuration:
+  No setting in here. LAmbda do not use this setting.  
+
+Lambda Appspec file:-
+    
