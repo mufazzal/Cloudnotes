@@ -1,0 +1,84 @@
+Possible Operations on Repositories:-
+  - Create/Delete
+  - Connect to the CodeCommit repository by cloning the repository
+  - Connect a local repo to the CodeCommit repository
+  - Associate or disassociate an AWS CodeCommit repository with Amazon CodeGuru Reviewer
+  - You can configure access to CodeCommit repositories for IAM users and groups in another AWS account. simillar to S3 bucket
+  - CodeGuru Reviewer Integration:
+      it is an automated code review service that uses program analysis and machine learning to detect common issues and recommend fixes in your Java or Python code.
+      Simply enable it if you wants
+      
+--------------
+
+Notification Rule:-
+  - You can create the Notification Rule which will invoke a SNS if a event set in the rule occure.
+  - You can trigger the SNS only. lambda can not be used directly.
+  - You can look for the below events
+      > Comment related:-
+          Commented on Commit, Commented on Pull request
+      > Pull Request related:-
+          Source Created, Updated, Mergered, Status Changed
+      > Brach related:-
+          Branch Created, Branch deleted, Tag Created
+      > Approval Related:-
+          Status changed, Rule ovverride  
+  - Detail type:
+      It define how much detail will be in the Notification. It has two valid value
+      Bsic: For few information provided to Amazon EventBridge
+      Full: For more information provided by Amazon EventBridge and CodeCommit both.
+      This is useful if you do not wants to share much information.
+  - Notification are set at repositry level. It will be applied to all the branches in the repository.
+  - You can disable it for time being if you wants.
+
+---------------
+
+Trigger:-
+  Trigger is also very much like the Notification with blow exception.
+  - With this you can invoke the SNS as well as lambda fuction too.
+  - Its scope is low and it can trigger only for below 
+      > Create Brach or Tag
+      > Delete Brach or Tag
+      > Code Pushed to branch
+  - You can further filter it with branches. you can select the multiple brach name for which you wants trigger.
+      If none is supplied then all the brached will be considered.
+  - CodeCommit must have policy to call the lambda.
+
+------------
+
+Setting Up Credential for development:-
+  There is two way you can generate the CodeCommit cred
+  1. By HTTPS [connect via IAM's codecommit username and password]:-
+    For this you have to create the IAM user for each developer.
+      - Create IAM user with permission 'AWSCodeCommitPowerUser'
+      - Go to IAM page > User > Select user you created > Security Credentials
+      - in section 'Git credentials for AWS CodeCommit' click Generate.
+      - You will get the username and password for conecting to CodeCommit.
+      - Go to Code commit console > Your repo > Copy url > Select HTTP Url
+      - go to your terminal and paste it [git clone https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo my-demo-repo]
+      - For this first time it will ask for username and password and then done.
+      
+  2. By git-remote-codecommit[connect via IAM's access key ID and a secret access key]:-
+      Suppose your company uses the federated user, SAML Directory or only use the root account for developer too.
+      then you cannot create the IAM user for each developer. for this comes 'git-remote-codecommit'
+      - Install git-remote-codecommit locally.
+      - Create a IAM user with permission 'AWSCodeCommitPowerUser' and note access key ID and a secret access key
+      - on local machine do the 'aws confugure' and use access key ID and a secret access key
+      - Go to Code commit console > Your repo > Copy url > Select HTTPS (GRC) URL 
+      - go to your terminal and paste it [git clone https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo my-demo-repo]
+      
+  3. By SSH:-
+      - For this you have to create the SSH key pair via any tool.
+      - Create IAM user with permission 'AWSCodeCommitPowerUser '
+      - Go to IAM page > User > Select user you created > Security Credentials
+      - Select 'Upload SSH public key.' and paste the content of publik key here.
+      - note the SSH key ID
+      - Now set the GIt tool bu below command
+              Host git-codecommit.*.amazonaws.com
+              User Your-SSH-Key-ID, 
+              IdentityFile Your-Private-Key-File, such as ~/.ssh/codecommit_rsa or ~/.ssh/id_rsa
+              
+    AWSCodeCommitPowerUser:-
+      This is very useful permssion for developers. It give permission for CRUD operation on repositories and all therepositories related resources such as SNS, CW event etc.
+      Except the deletion of repository itself.
+-----------------
+
