@@ -61,6 +61,7 @@ Encryption:-
 AWSCodeCommitPowerUser:-
   This is very useful permssion for developers. It give permission for CRUD operation on repositories and all therepositories related resources such as SNS, CW event etc.
   Except the deletion of repository itself.
-  
-
+--------  
+Cross Account Sharing:-
+  Use cross account role just like we do for S3
 
