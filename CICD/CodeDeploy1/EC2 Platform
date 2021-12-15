@@ -1,0 +1,12 @@
+Deployment group:-
+  The deployment group contains settings and configurations used during the deployment.
+    
+
+Deployment type:-
+  EC2 Support both type of deployment BG and In-Place
+  In-Place:-
+    
+    
+  Blue/Green:-
+    
+  
