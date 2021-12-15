@@ -101,7 +101,7 @@ Enviorment:-
     1. Ubuntu + respective Docker image
     1. Windowa + respective Docker image
   You can have the custom image for build enviorment if you need diffrent softwares installed and configured in env.
-    
+  For this you have to provide the docker image url of ECR or any diffrent repository    
 
 Timeout:-
   A Codebuild can have 5 mnt to 8 hour timeout. default is 1 hour. Though it will keep the resource only till build ran. 
