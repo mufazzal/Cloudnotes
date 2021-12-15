@@ -1,15 +1,4 @@
-Why wwe need it :-
-  Say you have a EC2s running on version1 of code and nw you wants to upgrade the version to next
-  What you will do
-  1. you have to stop the App or stop the EC2 if it is Blue/Greem deployment
-  2. Now also ou have to configure the LB(if any) to not to sent traffic to in-deployment Ec2s
-  2. now you have to login to instances of EC2 with proper user
-  3. Now you have to upload the new code 
-  4. Now you have to make chages in the configuration if needed and run some script if needed.
-  5. Now you have start the App.
-  6. Now you may also run a script for health check
-  
-The code deploy help the user to automate the above process of deploying. 
+
 Here you have to provide 
   The Source: The location of 'Artifact' on S3 or github or other
     Inside the artifat lies
