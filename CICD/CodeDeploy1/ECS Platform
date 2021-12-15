@@ -2,10 +2,22 @@ Deployment group:-
   The deployment group contains settings and configurations used during the deployment.
     
 
-Deployment type:-
-  ECS Support only Blue/Green
+Deployment group > Deployment Type:-
+  ECS Support only Blue/Green. So no choice here forthis. 
   
+Deployment Group > Environment configuration:
+  Here you slect the two thing
+  1. ECS Cluster
+  2. ECS Service in selcted ECS Cluster.
+  
+
 ECS Appspec file:-
   
-    
+
+Setting ECS Service For CodeDeploy to work:-
+  ESCService.DeploymentController must be set to 'CodeDEploy'
+  
+
+
+
   
