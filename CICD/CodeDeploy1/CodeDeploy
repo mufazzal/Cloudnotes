@@ -1,0 +1,71 @@
+Why wwe need it :-
+  Say you have a EC2s running on version1 of code and nw you wants to upgrade the version to next
+  What you will do
+  1. you have to stop the App or stop the EC2 if it is Blue/Greem deployment
+  2. Now also ou have to configure the LB(if any) to not to sent traffic to in-deployment Ec2s
+  2. now you have to login to instances of EC2 with proper user
+  3. Now you have to upload the new code 
+  4. Now you have to make chages in the configuration if needed and run some script if needed.
+  5. Now you have start the App.
+  6. Now you may also run a script for health check
+  
+The code deploy help the user to automate the above process of deploying.   
+
+
+Application:-
+  A name that uniquely identifies the application you want to deploy. You have to set the compute platform for the Application.
+  The setting of Deployment configurations and Deployment group depends on the Compute platform
+  It is a wrapper aroud the
+    Revisions, 
+    Deployment configurations, 
+    Deployment group
+    
+ Copute Platform:-  
+  EC2/On-Premises:  
+    Set how the traffic will be routed to instances in cloud or on-premise while the deployment.
+  AWS Lambda:
+    Set how the traffic will be shifter to new lambda version
+  ECS:
+    You can manage the way in which traffic is shifted to the updated task set during a deployment
+
+  Deployment group:-
+    The deployment group contains settings and configurations used during the deployment.
+    An application can have multiple DPG. You can have diffrent DEPG fro diffrent env like
+    App1
+      |
+      |---depg_prod
+      |---depg_dev
+    Most deployment group settings depend on the compute platform used by your application.
+    But some are the common among all the compute platform like rollbacks, triggers, and alarms
+    
+  Deployment group > Deployment type:-
+    It could be one of
+    In-Place: 
+      Only EC2 support it. not other including On-Premise. The appliocation is installed in same EC2 instance. 
+      Old app will be ininstalled and deleted and new one will be downloaded and installed.
+    Blue/Green:-
+      Its defination vary according to Application Platform
+      EC2:  
+        New revision will be installed on new instances
+        Traffic shifted from old to new instances and finally older instances will be killed.
+      Lambda:
+        Traffic is shifted from your current serverless environment to one with your updated Lambda function versions
+      ECS:
+        Traffic is shifted from the task set with the original version of an application in an Amazon ECS service to a replacement task set in the same service
+        
+  Deployment group > Deployment configuration:-
+    this is the set of rule for the deployment and condition for faillure and success for the codedeploy to use.
+    Its setting is again Compute Platform dependednt
+    EC2:-
+      This define how many instances shuld go for deploymnet at a time and when the succees and fail will be considered.
+      It apply for BG and In-place both kind of deployment.
+    Lambda:
+      This specify how traffic is routed during a deployment.
+        It could be Linear, Caranary, AllAtOnce
+    ECS:
+      This specify how traffic is routed during a deployment.
+        It could be Linear, Caranary, AllAtOnce        
+      
+      
+      
+      
