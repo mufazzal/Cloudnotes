@@ -102,10 +102,10 @@ Deployment group > Deployment Setting/Configuration:-
     Custom:-
       You can set the percentage of instance to deploy at a time.
       
-  You can also set 
-    - If you wants to rerout the traffic to newly launched task immediatly or after some time
+  You can also set below setting in Dep Config if Deployment type = BG [not possible in in-place]
+    - If you wants to rerout the traffic to newly launched instances immediatly or after some time
     - If you wants to rerout the traffic after some time then set the time also
-    - If you wants to terminate the orignal task set or keep it running too.
+    - If you wants to terminate the orignal instances or keep it running too.
     - IF you wants to terminate the orignal task then when you wants to terminate them.
   
   
