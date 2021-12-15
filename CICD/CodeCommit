@@ -56,7 +56,11 @@ CodeCommit and Elastic BeanStalk:-
 ----------
 Encryption:-
   For CodeCommit, the data is automatically encrypted at rest and in transit by KMS key. 
+----------
 
+AWSCodeCommitPowerUser:-
+  This is very useful permssion for developers. It give permission for CRUD operation on repositories and all therepositories related resources such as SNS, CW event etc.
+  Except the deletion of repository itself.
   
 
 
