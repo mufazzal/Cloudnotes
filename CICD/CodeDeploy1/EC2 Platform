@@ -2,8 +2,6 @@ Deployment group:-
   The deployment group contains settings and configurations used during the deployment.
   - It will have common setting of depg used for all compute platform like Roolback, alarm etc.
   
-    
-
 Deployment group > Deployment Type:-
   There are two type for EC2 platform
     1. In-Place:  
@@ -54,6 +52,26 @@ Deployment group > Deployment Type:-
                 and create new instances in that ASG for you. then use those new instances foe new version and kill the older ones.
                 This one is widely used. here you hjust have to set the proper ASG and codedeploy will do the rest.
   
+Deployment Group > Environment configuration:
+    Here you need to specify that how CodeDeploy will idetify the EC2 for Deployment, this depend on what deployment type you have choosen
+    For In-Place:- 
+       If you choosed 'In Palce' there is two possible way to identify the candidate EC2
+         1. By Tags: 
+             You provide the tag (Only key is enough value not required) here so that all the EC2 (aws/on-primises) with this Tag will be deployed with app version
+         2. By AutoScalling Group: 
+             You must choose the ASG here, All the EC2 running in this ASG will be upgraded with new version.
+    For BG:-
+       In BG you kill the existing instance of EC2 and create the new ones. So you set how you choose the instances to kill and on how to choose or launch new one
+         Manual:- 
+           In deploy-group you specify the tag or ASG of existing EC2 instances 
+           and before deployment you manually create the new EC2 instances(with tag 'mufNewInc') or new ASG ('mufNewAsg') 
+           and finally at a time of deployment you provide the info (TAg(mufNewInc) or ASG(mufNewAsg)) of new instances.
+           This is not at all recomendded as it onvolve manula process.
+         Auto:-
+          In deploy-group you specify the ASG(not tag) of existing EC2 instances. 
+          Now at a time of deployment The codedeploy will create a copy of this ASG with 100% same configuration of ASG mentioned above
+          create new instances in that new ASG.
+
   
 EC2 Appspec file:-
   
