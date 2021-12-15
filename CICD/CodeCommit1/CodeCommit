@@ -65,3 +65,12 @@ AWSCodeCommitPowerUser:-
 Cross Account Sharing:-
   Use cross account role just like we do for S3
 
+---------------
+
+Possible Operations on Repositories:-
+  - Create/Delete
+  - Connect to the CodeCommit repository by cloning the repository
+  - Connect a local repo to the CodeCommit repository
+  - Associate or disassociate an AWS CodeCommit repository with Amazon CodeGuru Reviewer
+  - You can configure access to CodeCommit repositories for IAM users and groups in another AWS account. simillar to S3 bucket
+
