@@ -72,6 +72,9 @@ Deployment Group > Environment configuration:
           Now at a time of deployment The codedeploy will create a copy of this ASG with 100% same configuration of ASG mentioned above
           create new instances in that new ASG.
 
+Deployment group > Deployment Setting/Configuration:-
+  For EC2 it define on how many instances the deployment will happen at a time and when the success and failure will be considered.
+  
   
 EC2 Appspec file:-
   
