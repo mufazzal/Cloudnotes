@@ -10,6 +10,18 @@ Deployment Group > Environment configuration:
   1. ECS Cluster
   2. ECS Service in selcted ECS Cluster.
   
+Deployment group > Deployment Setting/Configuration:-
+  It define how the traffic will be shifted to new containers. Possible value:
+    > AllAtOnce 
+    > ECSLinear10PercentEvery1Minutes
+    > ECSLinear10PercentEvery5Minutes
+    > ECSCanary10Percent5Minutes
+    > ECSCanary10Percent15Minutes
+  You can also set 
+    - If you wants to rerout the traffic to newly launched task immediatly or after some time
+    - If you wants to rerout the traffic after some time then set the time also
+    - If you wants to terminate the orignal task set or keep it running too.
+    - IF you wants to terminate the orignal task then when you wants to terminate them.
 
 ECS Appspec file:-
   
