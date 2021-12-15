@@ -374,67 +374,8 @@ Deployment Bundle:-
             - If you are deploying for the firset time then you shoulg choose the in-place deployment otherwise b\g
         6.5 Set Environment configuration:   
             Here you nned to specify that how CodeDeplot will idetify the EC2 for Deployment, this depend on hwhat deployment type you have choosen
-            For 'In-Place': 
-                If you choosed 'In Palce' there is two possible way to identify the candidate EC2
-                  1. By Tags: you provide the tag here so that all the EC2 (aws/on-primises) with this Tag will be deployed with app version
-                      he tag of EC2 in Step 2 'MufCodeDEployTag' must be same as the one here.
-                      IMP:- only key of the Tag is compared the value is not required at all.
-                  2. By AutoScalling Group: 
-                      You must choose the ASG here
-                      All the EC2 running in this ASG will be upgraded with new version.
-             5.1A  Elect the ASG or EC2 tag of candidate instaces         
                   
-            For 'BG':-
-               As mentioned above that for BG you kill the existing instance of EC2 and create the new one.
-               and there is two way to do this:-
-               Manual:- 
-                 In deploy-group you specify the tag or ASG of existing EC2 instances 
-                 and before deployment you manually create the new EC2 instances(with tag 'mufNewInc') or new ASG ('mufNewAsg') 
-                 and finally at a time of deployment you provide the info (TAg(mufNewInc) or ASG(mufNewAsg)) of new instances.
-                 This is not at all recomendded as it onvolve manula process.
-               
-               Auto:-
-                In deploy-group you specify the ASG(not tag) of existing EC2 instances.
-                Now at a time of deployment
-                The codedeploy agent create a copy of this ASG (you can see it in AWS console) with 100% same configuration of ASG mentioned above
-                create new instances in that new ASG.
                 
-              5.1A Choose BG deployment type from Manual or Auto
-                  5.1A1: For Manual-
-                          ??????????????
-                  5.1A2: For Auto-
-                          Select the ASG from from which the older instances will be killed and by which a new copy of ASG will be created. 
-                     
-                
-        6.6: Now choose how you consider the deployment as successful
-              AllAtOnce:  
-                  For In-Place: 
-                    The deployment will happen on as many instance as possible at once.
-                    deployment as success if all the EC2 deployment is successful at least on one instance, Fail otherwise
-                  For BG: 
-                    The deployment will happen on as many replacement-instance as possible at once.
-                    Once finish with deployment traffic routing will happen to all intance together at once.
-                    Succeeds if traffic is successfully rerouted to at least one instance, Fail otherwise
-                  The application will be totally offline for certain time.
-              HalfAtATime: 
-                  For In-Place: 
-                    The deployment will happen on half of instance at once.
-                    succeeds if the application revision is deployed to at least half of the instances, Fail otherwise.
-                  For BG:
-                    The deployment will happen on half of replacement-instance at once.
-                    Succeeds if rerouting to at least half of the instances succeeds, Fail Otherwise.
-              OneAtATime: 
-                For In-Place:-
-                  Deploys the application revision to only one instance at a time.
-                  succeeds if the application revision is deployed to all of the instances, Fail otherwise [exception if last instance fail then it still consider success]
-                For BG:-
-                  Deploys the application revision to only one replacement-instance at a time.
-                  Succeeds if traffic is successfully rerouted to all replacement instances. Fails after the very first rerouting failure.
-                      [exception if last instance fail to register for traffic then it still consider success]
-               Custom:-
-                You can set the percentage of instance to deploy at a time.
-
- 
         6.7 LB:
           IF the EC2 are attached to any LB then select them, so that codedeploy can attach/dettach it while in deployment.
  
@@ -482,13 +423,6 @@ Deploy on ECS cluster:-
   3. Name and Service Role
   4. Target group 1: THis is the main target groupo
   5. Target Group 2: This will be the test target group where the containers will be register as target of green fleet. You can have pre live test at here.
-  5. Deployment Setting: It could be
-      > AllAtOnce 
-      > ECSLinear10PercentEvery1Minutes
-      > ECSLinear10PercentEvery5Minutes
-      > ECSCanary10Percent5Minutes
-      > ECSCanary10Percent15Minutes
-      
   
   - ECS only support BG not the In-Place
 ---------------------------
@@ -509,10 +443,6 @@ Deploy on Lambda:-
     - Rollback Cofig
     All above are same as for EC2 instance platform.
     Deployment configuration:-
-      This is diffrent here. you can have carany, linear or none.
-      carany: Traffic shifted from older to new in two itration.  Eg. LambdaCanary<X>percentIn<Y>Minute
-      linear: Traffic shifted from older to new in multiple with lineat time delay itration. Eg. LambdaLinear<X>percentIn<Y>Minute
-      none: traffic shifted in one iteration only. 
 
     Appspec file:-
     Below is how its look, You have to provide it at a time of deployment. Its not part of deployment Group.
