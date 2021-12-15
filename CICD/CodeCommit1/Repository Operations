@@ -85,3 +85,21 @@ Setting Up Credential for development:-
       Except the deletion of repository itself.
 -----------------
 
+Limiting bracnch level access:-
+  By default if you give any user the permission over any CodeCommit repo then he can do operation on any branch of that repo.
+  You may wants to limit it. like only someIAM user permission for prod repo.
+  for this you can use 'codecommit:References' in the IAM policy
+  EG: Dey user from prod branch
+    "Effect": "Deny",
+    "Action": "CodeCommit:*"
+    "Resource": "arn:aws:codecommit:us-east-2:111111111111:MyDemoRepo",
+    "Condition": {
+      "StringEqualsIfExists": {
+          "codecommit:References": [ "refs/heads/prod" ]
+      },
+      "Null": { "codecommit:References": "false" }
+    }
+
+     
+  
+
