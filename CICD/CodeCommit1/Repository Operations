@@ -1,5 +1,8 @@
 Possible Operations on Repositories:-
   - Create/Delete
+  - Create/Delete branches
+  - Setting uo the default branch
+  - Handling Pull requests
   - Connect to the CodeCommit repository by cloning the repository
   - Connect a local repo to the CodeCommit repository
   - Associate or disassociate an AWS CodeCommit repository with Amazon CodeGuru Reviewer
