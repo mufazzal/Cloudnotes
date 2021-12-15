@@ -100,6 +100,7 @@ Enviorment:-
     1. Amazon Linux + respective Docker image
     1. Ubuntu + respective Docker image
     1. Windowa + respective Docker image
+  You can have the custom image for build enviorment if you need diffrent softwares installed and configured in env.
     
 
 Timeout:-
