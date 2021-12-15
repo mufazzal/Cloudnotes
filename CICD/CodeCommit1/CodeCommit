@@ -4,7 +4,32 @@ Migrating to CodeCommit:-
     - By Mirroring
     - By cloning some or all branches
   You can migrate to CodeCommit from other version control systems, such as Perforce, Subversion, or TFS, but you must first migrate to Git.
-
+  
+  Git to CodeCommit Repo:-
+    1. Create a CodeCommit repository if not exist
+    2. Now go to any directory in local computer by
+          cd <dir_path>
+    3. Run one of below command
+        This will bring all the repo branches and filed in that in the local folder
+        if you do not use mirror then this will be a GIT directory connected to GIT repo [with .git folder]. but we wants to create the CodeComit repo so use mirror.         
+        git clone --mirror https://github.com/<name of repo in git> <folder_name>
+    4. now go into the repo folder  cd <folder_name> 
+    5 push the chages with  all the brach with --all option
+        git push https://git-codecommit.us-east-2.amazonaws.com/v1/repos/<codecommit_repo_name> --all
+      
+  Local Folder to CodeComit:-
+    1. Create a CodeCommit repository if not exist
+    2. Now go to any directory in local computer by
+          cd <dir_path>
+    3. Configure git to use the "main" as default name for brach [because codecommit use main as default name not other]
+        git config --global init.defaultBranch main
+    4. run below command
+        git init
+       Now its a git repo.
+       commit the change
+        git commit –m "Initial commit"
+    5 push the chages with --all option
+        git push https://git-codecommit.us-east-2.amazonaws.com/v1/repos/<codecommit_repo_name> --all
 ---------
 
 CodeCommit and Elastic BeanStalk:-
