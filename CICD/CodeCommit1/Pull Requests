@@ -1,0 +1,49 @@
+In SDLC the pull rests ins mehanics for seamless collaboration.
+
+Suppose main brach is 'mufProdRepo' now another developer mur wants to work on new feature 'f1'
+then the flow will be
+  1. The Mur must have access to repository 'mufProdRepo'
+  2. It will creat a new brack for repo 'mufProdRepo' with name like 'featurF1Branch'
+  3. He will develope the feature and commit the code in 'featurF1Branch'
+      - Now befor mergint it to 'mufProdRepo', he must follow the cycle of Pull request 
+  4. He will create the Pull Request
+      This will have
+        Title and Description.
+        Source branch as 'featurF1Branch'
+        Destination brach as 'mufProdRepo'
+        Done.
+  5. Now the pull request must be reviewed by other developers. They can see the comparision betwwen source and destination brach.
+      They can now approve or dey it.
+  6. Once enogh approval is there for the changes. Mur can simply merge the source in the destination and close the pull request.
+  
+  
+  - Mur and Muf can do all this operation in CodeCommit console or by AWS CLI.
+  - A pull resuest can be in Open or Close state.
+  - A reviewer can add comment on it too.
+  - You can furthre update the pull request by commiting code on the source branches if pull request is open.
+  - You can set the Approval rule for quality control.
+  - You can close the pull request even without merging the code if you wants.
+  
+----------
+
+Approval Rule for Pull request:-  
+  For a pull request you can set the Approval rule. this is useful Quality control of the code.
+  This rule define
+    > How many mimimum approval you must have before considering for merge
+    > the name of IAM user who must approve this.
+
+----------------
+
+Approval Rule template:-
+  Instaed of creaing rule each time for pull requests you can create a template and assosiate it with repository.
+  This is created at Repository level.
+  You can set 
+    > How many mimimum approval you must have before considering for merge
+    > the name of IAM user who must approve this.
+    > Repository you wants to be assosiated it on
+    > Brache name for futher filter where to apply this rule. 
+  
+  
+
+
+  
