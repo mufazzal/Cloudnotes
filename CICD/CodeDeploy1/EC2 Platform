@@ -5,11 +5,12 @@ Deployment group:-
 Deployment group > Deployment Type:-
   There are two type for EC2 platform
     1. In-Place:  
-        In this kind of deployment the application is installed on existing running instances. they will be brifly taken offline
+        In this kind of deployment the application is installed on existing running instances. 
+        they will be brifly taken offline
         then dettached from the LB (if any)
         then upgraded with new version 
         then attached to LB(if any) again
-        and then finally started ahain
+        and then finally started again
         This has couple of risk
           1. It take the instances offline so capacity is reduced
           2. roll back is difficult you have to re-deploy the older version once again
@@ -23,16 +24,11 @@ Deployment group > Deployment Type:-
           How it work:
             Unlike in In-place wherein the upgraded app is deployed over same EC2. in BG 
             completely new EC2 instances will be Used or Created [depending on 'Environment configuration' user choose] for each candidate instance 
-            and then 
-            upgraded app is deployed over the new instances 
-            and then
-            all newly instances will be attached to LB (LB is must for BG)
-            and then
-            for sometime all the instances (old + new) will be subordinated to the LB
-            and after some time [user can configure this time for sanity]
-            the older one will be dettached from LB
-            and then
-            they older one will be terminated.
+            and then   upgraded app is deployed over the new instances 
+            and then   all newly instances will be attached to LB (LB is must for BG)
+            and then   for sometime all the instances (old + new) will be subordinated to the LB
+            and then   after some time [user can configure this time for sanity] the older one will be dettached from LB
+            and then   the older one will be terminated.
             
             So in nutshell you create the new instances and attach it to LB and kill older one.
             
@@ -142,6 +138,20 @@ EC2 Appspec file:-
 
 -----------------------
 
+Auto Scalling Group, Load-Balancer-Target-Group and BG deployment:-
+  Do not confuse.
+  The CodeDeploy first go to ASG to find which are the candidate instances. All the instances in that invoked by this ASG are candidate.
+  Now codedeploy go to LB(you provided in step ??) and get the Load-Balancer-Target-Group of that LB
+  Now from Load-Balancer-Target-Group he determine which instances are subordinate of LB.
+    In general both the list of EC2 one from ASG and one of those subordinate to LB are same.
+    lets assume its same.
+  Now Codedeploy will create a copy of ASG as ASG_2 with 100% same configuration
+  Now launch instances in new ASG
+  Now add the new instances to Load-Balancer-Target-Group and so newly craeted instances also subordinated to LB
+  later suspend the ASG (the older one not the copied)
+  then remove the old instances from Load-Balancer-Target-Group and so only newly craeted instances remain subordinated to LB
+
+-----------------------
 What happeen in BG deployment if it is for the first time and so no plder instances exist?
   In that case some of the steps like blockTraffic and kill instance will not be called. 
   But new ASG will be created and new instances will be launched in that. So for first time deployment is also fine with BG                  
