@@ -22,7 +22,7 @@ Build Project:-
     But there wil be only one source whidh will be primary and has buildspec.yaml
     It could be:-
       S3: 
-        You must define the bucket and key
+        You must define the bucket and key. The bucket must be in same region as of codebuild project
       CodeCommit: 
         You must define the repo url. You can slelct specific Tag, Branch or Commit too.
       Git:
