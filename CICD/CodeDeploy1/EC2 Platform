@@ -116,6 +116,15 @@ Deployment group > Load Balancer:-
   BG:-
     It is must for BG. BG deployment not possible withoyt LB. The new instances will strat recivingtraffic only after their health check are passed.
   
+
+CodeDeploy Agent:- 
+  if you wants to deploy the code with codedeply on EC2 you have to install the 'CodeDeploAgent' on EC2 instance.
+  THis is one time activity for EC2. once it is installed you will be able to use the CodeDeploy for automation.
+  Usually you should install it when you start a EC2 instance. Provide the proper script in the start script of EC2
+  Script for installing CodeDeployAgent:-  
+      go to https://aws.amazon.com/premiumsupport/knowledge-center/codedeploy-agent-launch-configuration/
+      copy script and paste it in user data.
+  
 EC2 Appspec file:-
   
     
