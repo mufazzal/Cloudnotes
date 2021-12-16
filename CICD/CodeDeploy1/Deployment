@@ -1,0 +1,53 @@
+Now we will see how to cteate a deployment. You can do it via Console or CLI.
+
+To Create a Deployment most of the thing to do is same across all the Application-platform.
+
+Below are the common steps:-
+  1. Select the Application created in CodeDEploy on which you wants deployment
+  2. Select the deployment group with wich yoy wants deployment.
+  3. Revision:  
+        This contain the information about new version of application and how to deploy it.
+        Its configuration is Platform dependent.
+  4. Override 'DeploymentGroup > Deployment Setting/Configuration' of Deployment group.
+        This is also platform dependednt like
+        you can change 'AllAtOce' to 'OneAtATime' for EC2
+        you can change 'ECSAllAtOce' to 'ECSLinear10PercentEvery5Minute' for ECS.        
+  5. Override 'DeploymentGroup > Rollback' setting of Deployment group. 
+  
+  Revision:
+    For EC2:-
+      Here the revision is the artifact that contain AppSpec file at root with all theother dependencis. EG:-
+      This is the zip file whose strucure shouls look like this [but not neccessary]
+      MuBundle.zip
+        |--- AppSpec.yml    MUST
+        |----Config         NAme could change, this is the folder of config files
+        |----Scripts        NAme could change, this is the folder of scripts
+        |----Source         NAme could change, this is the folder of source code.
+      You must set:
+        Revison Type: Git or S3
+        If its S3 then give S3 url of file
+        if its Git then give git token and url of file.
+        
+    For ECS:-
+      For ECS you must provide
+        - Either a single Appspec file(json or yaml formatted) location 
+        - or a zip file location containing this file only
+        - or provide content for Appspec directly at a time of deployment creation.
+      You must set:
+        Revison Type: S3 or Write in Editor
+        If its S3 then give S3 url of file
+        If its  'Write in Editor' then write the conte nt there.
+        
+    For Lambda:-
+      For ECS you must provide
+        - Either a single Appspec file(json or yaml formatted) location 
+        - or a zip file location containing this file only
+        - or provide content for Appspec directly at a time of deployment creation.
+      You must set:
+        Revison Type: S3 or Write in Editor
+        If its S3 then give S3 url of file
+        If its  'Write in Editor' then write the conte nt there.    
+    
+  EC2 Deployment Special feature:-
+    
+       
