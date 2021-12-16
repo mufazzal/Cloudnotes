@@ -1,3 +1,7 @@
+Deployment on the LAmbda is bit tricky.
+Here you do not actully push the code of lambda via the codeploy instead you alredy have lambda version deployed and 
+you simply mangae the traffic shifting from old lambda version to new lambda version.
+
 Deployment group:-
   The deployment group contains settings and configurations used during the deployment.    
 
@@ -39,4 +43,13 @@ Lambda Appspec file:-
       New version will be mapped to this Alias. if alias not exist then it will be created first.
   
 
-    
+-----------------------------------------------
+
+Deplyment of lambda codedeploy + SAM:-
+  CodeBuild + SAM + CodeDeploy for better system.
+  In CodeDeploy you set values via SAM template 'DeploymentPreference' in 'AWS::Serverless::Function'
+  This are:-
+    AutoPublishAlias 
+    DeploymentPreference 
+    Hooks 
+  For detail see #lambda/SAM.txt  
