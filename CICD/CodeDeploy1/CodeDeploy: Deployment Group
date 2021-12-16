@@ -43,4 +43,4 @@ Automatic RollBack:-
       This ios useful if say new version of code causing the 90% of CPU usage
   3. Disable Rollback:-
       Do not roll back if deployment failed.  
-  
+  > In automated rollback codedeploy simply do the re-deployment of last know working app version. You do not have to do any thing.
