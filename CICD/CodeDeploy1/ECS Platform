@@ -35,7 +35,25 @@ Deployment group > Load Balancer:-
       Tis is optional. set iot if you wants to test the blue traffic before sending it fro prod.
 
 ECS Appspec file:-
-  
+  Appspec file of ECS must contain below information in give formate. and it must lies at root of source bumdle.
+    TaskDefinition:
+      The Arn of the new task that are going to be deployed over ECS service.
+    ContainerName:
+      The name of container that which is mentioned in the Taskefination as well. which is hoing to be updated.
+    ContainerPort:
+      the exposed port of the container mapped
+  Fotmate of the file is :- 
+    version: 0.0
+    Resources:
+      - TargetService:
+          Type: AWS::ECS::Service
+          Properties:
+            TaskDefinition: <TASK_DEFINITION>
+            LoadBalancerInfo:
+              ContainerName: <name of container>
+              ContainerPort: <exposed port of container> 
+
+------------------  
 
 Setting ECS Service For CodeDeploy to work:-
   ESCService.DeploymentController must be set to 'CodeDEploy'
