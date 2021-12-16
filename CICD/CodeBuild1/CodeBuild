@@ -134,6 +134,11 @@ Scheduled Builds:-
 
 -----------------
 
+Multiple Input source :-
+  If there are multiple input artifact then they will be copied in below location
+  ??????????????
+
+--------------------
 AWS CodeBuild provides several environment variables that you can use in your build commands
   AWS_REGION, CODEBUILD_BUILD_ARN, CODEBUILD_BUILD_ID, CODEBUILD_BUILD_IMAGE etc.
 
