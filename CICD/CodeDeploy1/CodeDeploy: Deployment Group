@@ -1,0 +1,46 @@
+Think of Dep Group as reusable deployment comfiguratiuion template which contain lot of config detail like, dep type, enviorment, 
+sucsses stratagy, LB detail, EC2 groups or tag, ASG etc.
+Once you created dep group with all this infor you can then for deployment you give two things
+  1. The grouo that you wants to use
+  2. The deployment bundle location 
+  
+hThe configuration set up of deployment group is Platform dependent.
+You will need diffrent field to set for diffrent platform
+EG: 
+  For paltform EC2, you need to set ASG or EC2 tags
+  For ECS, You must set ECS service and cluster etc.
+  
+For platform specific setting see the respected files for platform. 
+
+There are some common param across all the platform yoou must set. See below for detail:-
+
+Name:-
+  You must give name to depg. 
+
+Service Role:-
+  The service role must carry all neccesary permission for operations.
+  AWS provide ready to use policies for this. YOu can create role and attach them
+  For EC2     : AWSCodeDeployRole 
+  For ECS     : AWSCodeDeployRoleForECS or AWSCodeDeployRoleForECSLimited
+  For Lambda  : AWSCodeDeployRoleForLambda or AWSCodeDeployRoleForLambdaLimited 
+
+
+Triggers:-
+  This also provide the way to trigger some functionality on CodeDEploy state change but here it only support SNS.
+  You get the trigger for below state change
+    Deployment start/fail/ready/rollback etc.
+    intance start/stop etc.
+
+
+Automatic RollBack:-
+  In deployment group configuration you can set if you wants to have automatic roll back enabled or not.
+  If its not enabled then any fail deployment will be remain as it is and app goes offline. You have to go and manually roll it back.
+  You can set diifrent event(multiple) for starting roll back
+  1. Any deployment fail:-
+      If deployment failed on any stage of any instamce then the rollback will be started on all the instances.
+  2. On certain CW alarm:-
+      Even if all the deployment succed then you can stil set an CW alalrm. and if that alarm goes red the deployment will be rollded back.
+      This ios useful if say new version of code causing the 90% of CPU usage
+  3. Disable Rollback:-
+      Do not roll back if deployment failed.  
+  
