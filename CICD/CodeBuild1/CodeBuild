@@ -127,7 +127,13 @@ Monitoring and Logging:-
 Scheduled Builds:-
   With the help of Cloudwatch Event[EventBridge] you can set the Corn job. and then can have the target as the codebuilb project.
   The EventBridge will trigger the build based on the rule of cron job.
-  
+
+
+-----------------
+
+AWS CodeBuild provides several environment variables that you can use in your build commands
+  AWS_REGION, CODEBUILD_BUILD_ARN, CODEBUILD_BUILD_ID, CODEBUILD_BUILD_IMAGE etc.
+
 ======================================================================================================================================================
 
   
