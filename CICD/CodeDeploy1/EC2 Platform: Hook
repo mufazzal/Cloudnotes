@@ -149,3 +149,21 @@ Appspec file structure:-
       - location: scripts/afterAllowTraffic.sh
         timeout: 300
         runas: root
+-----------------------------
+
+Hook Script File:-
+  The script in hook file do couple of operation at time that hook run. This is how it shoul look like generall
+  laets say you want to run somthing at BeforeInstall then
+  in appspec.yml
+    BeforeInstall: 
+      - scripts/BeforeInstall.sh
+
+  in scripts/BeforeInstall.sh
+        #!/bin/bash
+        echo "I am in BeforeInstall"
+
+  This first line in this file will be the Shebang,  which tells the systen in which enviorment this file should ran.
+  for Bourne shell envirment       #!/bin/sh
+  for Bash envirment               #!/bin/bash
+  for python envirment             !/usr/bin/env python
+  for node envirment               !/usr/bin/env node
