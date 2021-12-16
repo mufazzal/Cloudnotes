@@ -18,6 +18,8 @@ Build Project:-
   Build Project > Name, description and tags.
 
   Build Project > Source Location for CodeBuild. 
+    You can have more then one source.
+    But there wil be only one source whidh will be primary and has buildspec.yaml
     It could be:-
       S3: 
         You must define the bucket and key
@@ -83,8 +85,9 @@ Build Project:-
     If you do not want to create any build output artifacts, choose No artifacts. EG.
       - you wants run test only
       - you wants to create docker iage and upload to ECR only.
-    If you do want to create any build output artifacts, choose S3.
-      Set the bucket name, key for this.
+    If you do want to create any build output artifacts, choose S3 and Set the bucket name, key for this.
+    You can set to have more then one build output artifact.
+    
     Caching:
       When you run a build, the system first download all the external dependeny mentioned in 'package.json' or 'requirment.txt' 
       This takes lot of time and also cost you data transfer chrges.
