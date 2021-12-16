@@ -24,6 +24,7 @@ Deployment group > Deployment Setting/Configuration:-
     - IF you wants to terminate the orignal task then when you wants to terminate them.
 
 Deployment group > Load Balancer:-
+  ECS Codedeploy only supported with ALB and NLB not CLB 
   For this you have to set below values
     Two Target group:-
       For ECS deployment group you have to set two Target group of a same load balancer.
