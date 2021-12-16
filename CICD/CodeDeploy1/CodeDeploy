@@ -59,6 +59,7 @@ Application:-
     EC2:-
       This define how many instances shuld go for deploymnet at a time and when the succees and fail will be considered.
       It apply for BG and In-place both kind of deployment.
+      It could be AllAtOnce, HalfAtATime, OnceAtATime or Custom.
     Lambda:
       This specify how traffic is routed during a deployment.
         It could be Linear, Caranary, AllAtOnce
