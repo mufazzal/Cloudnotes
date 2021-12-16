@@ -42,8 +42,15 @@ ECS Appspec file:-
       The name of container that which is mentioned in the Taskefination as well. which is hoing to be updated.
     ContainerPort:
       the exposed port of the container mapped
+    Hooks:
+      It is simply a lambda function you can call at specific deployment moment.
+      Below are the list of available hook you can script with lambda [jsut provide lambda arn]
+      BeforeInstall, AfterInstall, 
+      AfterAllowTestTraffic, 
+      BeforeAllowTraffic, AfterAllowTraffic
+      
   Fotmate of the file is :- 
-    version: 0.0
+    Version: 0.0
     Resources:
       - TargetService:
           Type: AWS::ECS::Service
@@ -52,6 +59,12 @@ ECS Appspec file:-
             LoadBalancerInfo:
               ContainerName: <name of container>
               ContainerPort: <exposed port of container> 
+            Hooks:
+              - BeforeInstall: "BeforeInstallHookFunctionName"
+              - AfterInstall: "AfterInstallHookFunctionName"
+              - AfterAllowTestTraffic: "AfterAllowTestTrafficHookFunctionName"
+              - BeforeAllowTraffic: "BeforeAllowTrafficHookFunctionName"
+              - AfterAllowTraffic: "AfterAllowTrafficHookFunctionName"              
 
 ------------------  
 
