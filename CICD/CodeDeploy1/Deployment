@@ -62,7 +62,22 @@ Below are the common steps:-
         2. Overwrite the content: File from the Artifact will be copied to target location and deployment keep going
         3. Retain the content: File in target location will e kept and file in artifact will be ignored and deployment keep going
     
+Stopped and Failed Deployment:-
+  Once started deployment you wants to stop it or some error stopped the deployment. This is really a messy situation
+  It may be possoble that some copies may have been copied or some hook/scripts may have alreday been ran for the deployment. 
+  Now your deployment may be in one of three position if deployment stopped manual or by error
+  1. Deployment stopped immediatly
+  2. Deployment stopped after current hook or event finish
+  3. Not able to stop it.  
+
+RollBack:-
+  You can set the Automatic Rollback or do it manually.
+  Automatic Rollback:- 
+    You must set it in Deployment Group also iyt can be override in Deployment creation.
+  Manual Roolback:-
+    You can do it manually if your deployment goes in unknown state.
     
-    
-    
-       
+
+Stop VS Rollback:-
+  Stop means the deployment is stopped nothing else.
+  Rollback means the previous working version going to install.
