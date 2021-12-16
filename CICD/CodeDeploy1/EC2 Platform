@@ -155,3 +155,7 @@ Auto Scalling Group, Load-Balancer-Target-Group and BG deployment:-
 What happeen in BG deployment if it is for the first time and so no plder instances exist?
   In that case some of the steps like blockTraffic and kill instance will not be called. 
   But new ASG will be created and new instances will be launched in that. So for first time deployment is also fine with BG                  
+--------------------------
+
+Log fie location of CodeDployAgent:-
+  var/logs/aws/code-deploy
