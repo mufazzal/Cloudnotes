@@ -14,9 +14,6 @@ Here you have to provide
       ???????????????
     3. ECS
     
- CodeDeploy is so smart that even if your EC2 is attached with any LB, 
- for in-place deployment it will go to that LB and instruct them to not to send any request to in-deploment EC2. and once done it again go to that LB and give him a green signal.
- If it is Blue/Green deployment then it will make sure to that the new instances are invoked and lated older one are killed.
       
       
  VVIMP: Code deploy automate the steps of deploment in the EC2/LEmbda But it not at all automate the deployment if a new artifact 
@@ -27,115 +24,9 @@ Here you have to provide
 Some component of CodeDeploy ->
 
   #INSTCODEAG
-  CodeDeploy Agent:- 
-    if you wants to deploy the code with codedeply on EC2 you have to install the 'CodeDeploAgent' on EC2 instance.
-    THis is one time activity for EC2. once it is installed you will be able to use the CodeDeploy for automation.
-    Usually you should install it when you start a EC2 instance. Provide the proper script in the start script of EC2
-    Script for installing CodeDeployAgent:-  
-        go to https://aws.amazon.com/premiumsupport/knowledge-center/codedeploy-agent-launch-configuration/
-        copy script and paste it in user data.
-  
-  How Codedeploy find the exact EC2's to deploy code on:-
-    There is two possibility
-    1. By Tags: In the CodeDeploy at the time of creating Deployment you can provide the specific tag. 
-        Now CodeDeploy will find all the EC2(More than one possible) that has the same tag and deploy the new version on it.
-    2. By Autoscalling Group: If you are using the autoscalling and so your instances invoked/killd based on usage. 
-    
     
   AppSpec File:- 
-    This is the file that must lie at the root of the zip file of you code.
-    This has all the configuration related information for for deployment
-    It has 4 parts:-
-      1. Version : always 0.0, will be used in future
-      2. OS: supported OS
-      3. Files: 
-        this has info of list of file that should be copid to destination. it has two piece of info
-          - The file to be copied from
-          - the should be copied to.
-           EG:
-              - source: /DepTest/
-                destination: /MufProject/DepTest
-          This will copy all the content inside the folder 'DepTest/' in the zipped bundle to the '/MufProject/DepTest' of EC2 instance
-              - source: /Resources/
-                destination: /MufProject/Resources          
-          This will copy all the content inside the folder 'Resources/' in the zipped bundle to the '/MufProject/Resources' of EC2 instance
-        So you can specify as many pair you wants here.  
           
-      4. Hooks: 
-        This has info about the scripts that should be ran on some specific time of deploument lifecycle.
-        The sequence of hook always remain same bur some of the hook may or may not be called depending upon what config the dep has.
-        The dep may happen one or more than one EC2. this lifecycle run for each of this EC2 and completely independent of each other. 
-        Below is the list of hook with time when its called.
-        
-        > before and after the traffic blocked from LB
-            BeforeBlockTraffic
-            AfterBlockTraffic
-                                  : Both on this event fire only and only if The candidate EC2 is attached to any Load Balancer
-                                  
-        > Hook for stopping the application
-            ApplicationStop
-                                  : CpdeDeploy do not know how he should stop the running application. 
-                                    In this hook you provide the script to stop it. for EG. to stop apache server use 'stop server httpd'
-                                    In this hook you should stop any process that you deemed to be necessary
-         
-          > Hook for new Installation time
-            BeforeInstall
-            AfterInstall
-                                  : This two hook provide event before and after installation. you can use this event in install any necessary
-                                    dependecy in the EC2. EG. to run a node server EC2 must need to have node installed. So put node install
-                                    script in 'BeforeInstall'
-                                    
-        > Hook for strating the application
-            ApplicationStart
-                                  : CpdeDeploy do not know how he should start the application. 
-                                    In this hook you provide the script to start it. for EG. to stop apache server use 'start server httpd'
-                                    and for node app you give 'node src/server.js'
-                                    In this hook you should start any process that you deemed to be necessary                                    
-         > Hook for validation of installation
-            ValidateService
-                                  : This hook is very good to test if installtion is proper or not for eg. you can tset here if node is installed 
-                                    or not or check if some process is running or not or check if some file is there or not.
-         
-         > before and after the traffic allowed from LB
-            BeforeAllowTraffic
-            AfterAllowTraffic
-                                  : Both on this event fire only and only if The candidate EC2 is attached to any Load Balancer
-         
-         >>> Note : There is four more hook but they are not available for override. so unusable for now
-                DownloadBundle, install, AllowTraffic, BlockTraffic
-         
-         
-         The final sequence ->
-         
-            BeforeBlockTraffic  --->    [BlockTraffic]    --->    AfterBlockTraffic   ---->>---|          IF LB is attached to candidate EC2 then this three will be called otherwise not              
-                                                                                               |
-                                            |---------------------------<<<-------------------|
-                                            |
-                                            |
-                                      ApplicationStop
-                                            |
-                                            |
-     |---------<<<--------------------------|
-     |
-     |----> BeforeInstall       --->    [install]         --->    AfterInstall        ---->>---|
-                                                                                               |
-                                            |----------------------------<<<-------------------|
-                                            |
-                                            |
-                                    ApplicationStart
-                                            |
-                                            |
-                                    ValidateService       
-                                            |                                                  
-                                            |
-     |---------<<<--------------------------|
-     |
-     |----> BeforeAllowTraffic       --->    [AllowTraffic]         --->    AfterAllowTraffic             IF LB is attached to candidate EC2 then this three will be called otherwise not  
-      
-        [****] -> is not avialable for use
-        
-        
-     Flow of the hook will remail same for always but some hook may or may not be called.
      
      Calling mechanism fo BG :-
       For BG deplloyment there is a patch. that is 
@@ -159,43 +50,10 @@ Some component of CodeDeploy ->
                 AfterAllowTraffic
       
     
-    Verified Scenarios
-       se 1: For In-place : EC2 : without any loadbalancer
-                ApplicationStop
-                BeforeInstall
-                AfetrInstall
-                ApplicationStart
-                validateService
-        se 2:  For In-place : EC2 : with loadbalancer
-                BeforeBlockTraffic
-                AfterBlockTraffic
-                ApplicationStop
-                BeforeInstall
-                AfetrInstall
-                ApplicationStart
-                validateService
-                BeforeAllowTraffic
-                AfterAllowTraffic
-                
-        se 3:  For BG : EC2 : without any loadbalancer
-              Impossible, For BG you must have LB.
-        se 4:  For BG : EC2 : with loadbalancer
-             on older instances
-                  BeforeBlockTraffic
-                  AfterBlockTraffic
-             on newer instances
-                  ApplicationStop
-                  BeforeInstall
-                  AfetrInstall
-                  ApplicationStart
-                  validateService
-                  BeforeAllowTraffic
-                  AfterAllowTraffic
 
 
-  What happeen in BG deployment if it is for the first time and so no plder instances exist?
-  In that case some of the steps like blockTraffic and kill instance will not be called. 
-  But new ASG will be created and new instances will be launched in that. So for first time deployment is also fine with BG
+
+
 ---------------------
 
 Role of EC2-Tag, ASG, LB:-
@@ -331,11 +189,7 @@ Deployment Bundle:-
             
   
   
-  How to set the proper ASG for CodeDeploy:-
-    Choose all that you want in your EC2's. 
-    then add the proper 'user data' script as mentioned in #INSTCODEAG. That it.
-    assign the LAM role as such that EC2 has full access of S3.
-    so all the created instances in this ASG will have codedeploy agent preinstalled.
+
     
   Deployment Group:-
     Think of Dep Group as reusable deployment comfiguratiuion template which contain lot of config detail like, dep type, enviorment, 
@@ -418,11 +272,7 @@ Deployment Bundle:-
 Deploy on ECS cluster:-
   For this you have to select the type='ECS' when creating the CodeDeploy Application.
   For deployment Group you need to select below items
-  1. ECS Cluster
-  2. EVS Service
   3. Name and Service Role
-  4. Target group 1: THis is the main target groupo
-  5. Target Group 2: This will be the test target group where the containers will be register as target of green fleet. You can have pre live test at here.
   
   - ECS only support BG not the In-Place
 ---------------------------
