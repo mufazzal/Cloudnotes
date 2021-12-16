@@ -1,1 +1,29 @@
+A buildspec is a collection of build commands and related settings, in YAML format, that CodeBuild uses to run a build. 
+You can 
+  > include a buildspec as part of the source code or 
+  > you can define a buildspec when you create a build project or
+  > you can define a buildspec when you run a build project 
+  
+- If you include a buildspec as part of the source code, by default, the buildspec file must be named buildspec.yml and placed in the root of your source directory
+- Use a different buildspec file for different builds in the same repository, such as buildspec_debug.yml and buildspec_release.yml.
 
+Syntex:-
+  Phases:
+    Use forinstalling and running command
+  reports:
+    Use this for report generation
+  artifacts:
+    Use this for creating output arfifact
+  artifacts > secondry artifacts  
+    Use this if you wnats to emit more then one artifact.
+    
+Setting Enviorment variable in buildspec:-
+  env:
+    variables:
+      App1EnvVar1: "value of App1EnvVar1"
+    parameter-store:
+      App1ParamStore1: /app1/dev/app1ParamStore1
+      App1ParamStoreSecret1: /app1/dev/app1ParamStoreSecret1
+    secrets-manager:
+      App1Secret1: "App1Secrets:App1SecretKey1"
+      App1Secret2: "App1Secrets:App1SecretKey2"      
