@@ -109,6 +109,13 @@ Deployment group > Deployment Setting/Configuration:-
     - IF you wants to terminate the orignal task then when you wants to terminate them.
   
   
+Deployment group > Load Balancer:-
+  You can define Tarrget GRoup of load balancer here.
+  In-Place:-
+    For In-Place deployment this is optinal. If you set it then CodeDeploy will make sure that in deployment instance will not receive any traffic from LB.
+  BG:-
+    It is must for BG. BG deployment not possible withoyt LB. The new instances will strat recivingtraffic only after their health check are passed.
+  
 EC2 Appspec file:-
   
     
