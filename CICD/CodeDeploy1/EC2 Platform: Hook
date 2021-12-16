@@ -101,3 +101,51 @@ Hook Lifecycle for diffrent scenario:-
               validateService
               BeforeAllowTraffic
               AfterAllowTraffic
+
+--------------------
+Appspec file structure:-
+
+  version: 0.0
+  os: linux
+  files:
+    - source: /DepTest/
+      destination: /MufProject/DepTest
+    - source: /Resources/
+      destination: /MufProject/Resources
+  hooks:
+    BeforeBlockTraffic:
+      - location: scripts/beforeBlockTraffic.sh
+        timeout: 300
+        runas: root
+    AfterBlockTraffic:    
+      - location: scripts/afterBlockTraffic.sh
+        timeout: 300
+        runas: root  
+    ApplicationStop:
+      - location: scripts/stop.sh
+        timeout: 300
+        runas: root      
+    BeforeInstall:
+      - location: scripts/beforeInstall.sh
+        timeout: 300
+        runas: root
+    AfterInstall:
+      - location: scripts/afterInstall.sh
+        timeout: 300
+        runas: root      
+    ApplicationStart:  
+      - location: scripts/start.sh
+        timeout: 300
+        runas: root      
+    ValidateService:
+      - location: scripts/validateService.sh
+        timeout: 300
+        runas: root      
+    BeforeAllowTraffic:
+      - location: scripts/beforeAllowTraffic.sh
+        timeout: 300
+        runas: root    
+    AfterAllowTraffic:
+      - location: scripts/afterAllowTraffic.sh
+        timeout: 300
+        runas: root
