@@ -49,5 +49,15 @@ Below are the common steps:-
         If its  'Write in Editor' then write the conte nt there.    
     
   EC2 Deployment Special feature:-
+    For the EC2 platform, we provide the artifact with appspec which contain the detail about the filed to be copied in the target instances at destination location from artifact
+    Now be itBG or In-Place, it may be possible that the target will alreday have that file there so copy operaion need some setting to handle this issue.
+    For this comes 'Content options' in deployment.
+    You can set one from possible configuration to handle this
+    1.
+    2.
+    3.
+    
+    
+    
     
        
