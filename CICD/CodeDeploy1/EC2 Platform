@@ -126,6 +126,22 @@ CodeDeploy Agent:-
       copy script and paste it in user data.
   
 EC2 Appspec file:-
-  
-    
-  
+  This is the file that must lie at the root of the zip file of you code. This has all the configuration related information for for deployment
+  It has 4 parts:-
+    Version : always 0.0, will be used in future
+    OS: supported OS
+    Files: 
+      This has info of list of file that should be copid to destination. this is array.
+         EG:
+            - source: /DepTest/
+              destination: /MufProject/DepTest
+        This will copy all the content inside the folder 'DepTest/' in the zipped bundle to the '/MufProject/DepTest' of EC2 instance
+        
+    Hooks: See related file.
+
+
+-----------------------
+
+What happeen in BG deployment if it is for the first time and so no plder instances exist?
+  In that case some of the steps like blockTraffic and kill instance will not be called. 
+  But new ASG will be created and new instances will be launched in that. So for first time deployment is also fine with BG                  
