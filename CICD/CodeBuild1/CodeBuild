@@ -1,39 +1,105 @@
+AWS CodeBuild is a fully managed build service in the cloud. CodeBuild compiles your source code, runs unit tests, and produces artifacts that are ready to deploy
+CodeBuild eliminates the need to provision, manage, and scale your own build servers
+
+It provides prepackaged build environments for popular programming languages and build tools such as Apache Maven, Gradle, and more. 
+You can also customize build environments in CodeBuild to use your own build tools. 
+
+CodeBuild scales automatically to meet peak build requests.
+
+
+Build Project:-
+  The build project basically define below things
+  1. From where to get the Source
+  2. How to create the enviorment for build
+  3. How to create the build and/or run test if any
+  4. Where to push the final build artifact if any.
+  You define below things in Build Project
+
+  Build Project > Name, description and tags.
+
+  Build Project > Source Location for CodeBuild. 
+    It could be:-
+      S3: 
+        You must define the bucket and key
+      CodeCommit: 
+        You must define the repo url. You can slelct specific Tag, Branch or Commit too.
+      Git:
+        You must give git repo url and token. It will take the latest of default branch. You cant select specific Tag, Branch or Commit like in codeCommit.
+      BitCucket ang Git Enterprise also possible.
+
+  Build Project > Enviorment:-
+      The codebuild basically run in the containers and so you need to set the OS with proper Docker Image
+      You can select the AWS managed docker image and OS for the CodeBuild or can have custom.
+      AWS managed OS + Docker image
+        1. Amazon Linux + respective Docker image
+        1. Ubuntu + respective Docker image
+        1. Windowa + respective Docker image
+      You can have the custom image for build enviorment if you need diffrent softwares installed and configured in env.
+      For this you have to provide the docker image url of ECR or any diffrent repository       
+      
+  Build Project >> Enviorment >> Timeout:-
+    A Codebuild can have 5 mnt to 8 hour timeout. default is 1 hour. Though it will keep the resource only till build ran. 
+    but release it if build failed to finish in specified timeout.
+
+  Build Project >> Enviorment >> Compute:-
+    You must set the value of requred RAM and vCPU for build process.      
+
+  Build Project >> Enviorment >> Envirment Variable:-
+    You can set the EV in the build project or in buildspec file or set it when start a build
+    - You must give codebuild proper IAM riole to access the SSM or Secret manager.
+    - In build phase you will get this variable in 'process.env.<key>'      
+    - You can override in Buildspec or at a time of starting build also.
+    - Codebuild can use Simple string, Parameter store or Secret manager parameter as the enviorment variable.
+           setting in Cloudformation CodeBuild resource:-
+            Type: AWS::CodeBuild::Project
+            Properties:
+              Environment
+                EnvironmentVariables:
+                 - Name: <name of var>
+                   Type: PARAMETER_STORE | PLAINTEXT | SECRETS_MANAGER
+                   Value: <value goes here>            
+        
+  Build Project >> Enviorment >> VPC Access
+    Some time as a part of build process you may need to access the resources living in the VPC. 
+    For this you have to set up some additional configuration at CodeBuild project. that is
+    - Slect VPAc
+    - Select Subnets
+    - Select SG.
+    Once set up it create the ENI for that CodeBuild Project in the VPC. Now you can access the below resurce in build process
+    - EC2
+    - ECS
+    - RDS
+    - Elascticache etc.
+    You can use those resource in step like Test, Downloading hosted dependency, DB query etc.     
+    
+  Build Project > buildspec:-
+    Here you can either give the path of buildspec that will be inside the Input artifact.
+    By default, CodeBuild looks for a file named buildspec.yml in the source code root directory. 
+    If your buildspec file uses a different name or location, enter its path from the source root in Buildspec name
+    or 
+    you can write the buildspec command file dirctly in here if your source code aftifact do not have it. 
+
+  Build Project > Output artifact:-
+    If you do not want to create any build output artifacts, choose No artifacts. EG.
+      - you wants run test only
+      - you wants to create docker iage and upload to ECR only.
+    If you do want to create any build output artifacts, choose S3.
+      Set the bucket name, key for this.
+    Caching:
+      When you run a build, the system first download all the external dependeny mentioned in 'package.json' or 'requirment.txt' 
+      This takes lot of time and also cost you data transfer chrges.
+      As you know the external dependency remain same most of the time so downloading them exerytime is not a good option.
+      for thisyou can have option of 'Caching Dependency'
+      here yoou select the S3 bucket in codebuild and the CB will use this bucket to cache the dependency and reuse then across the builds.
+      you can then clear the cache or have lifecycle policy to clear it priodically.
+      You can also use the 'InvalidateProjectCache' api to clea t for next build and keep it till currect build finish.      
+  
+  
+-----------------------------
 Overriding Build Command:-
   You can override the commads in 'buildspec.yaml' at a time of creating the project in CodeBuild.
   that also can be overriden by providing the command at a time of running build via console or CLI via 'BuildSpecOverride' flag.
-  
-CodeBuild and VPC Access:-
-  Some time as a part of build process you may need to access the resources living in the VPC. 
-  For this you have to set up some additional configuration at CodeBuild project. that is
-  - Slect VPAc
-  - Select Subnets
-  - Select SG.
-  Once set up it create the ENI for that CodeBuild Project in the VPC. Now you can access the below resurce in build process
-  - EC2
-  - ECS
-  - RDS
-  - Elascticache etc.
-  You can use those resource in step like Test, Downloading hosted dependency, DB query etc. 
-
-
-Caching Dependency:-
-  When you run a build, the system first download all the external dependeny mentioned in 'package.json' or 'requirment.txt' 
-  This takes lot of time and also cost you data transfer chrges.
-  As you know the external dependency remain same most of the time so downloading them exerytime is not a good option.
-  for thisyou can have option of 'Caching Dependency'
-  here yoou select the S3 bucket in codebuild and the CB will use this bucket to cache the dependency and reuse then across the builds.
-  you can then clear the cache or have lifecycle policy to clear it priodically.
-  You can also use the 'InvalidateProjectCache' api to clea t for next build and keep it till currect build finish.
-  
-Permission Model:
-  In CodeCommit, the CodeCommit:GitPull IAM policy permissions apply to any Git client command where data is retrieved from CodeCommit, including git fetch, git clone, and so on. 
-  Similarly, the CodeCommit:GitPush IAM policy permissions apply to any Git client command where data is sent to CodeCommit. 
-  Take note that CodeCommit:GitPull and CodeCommit:GitPush are IAM policy permissions and not API actions.
-
-
-Source Location for CodeBuild:-
-  It could be Git, Githug, BitBucket, CodeCommit Or S3.
-  You an select the specific Branch (by default master) as source for build
+-----------------------------
 
 Trigger Build Via Source Changes:-
   You can set up to trigger the build automatically if below of the one operation happen on the source code repsitory
@@ -49,55 +115,7 @@ Trigger Build Via Source Changes:-
   So you can set like, Trigger build if code is PUSHED by the mufazzal in file myf.ts with commit message 'runbuild'
   It is very useful to run the build befire and after the Pull Request merging so that you can know the delta if it failed.
   
-Enviorment:-
-  The codebuild basically run in the containers and so you need to set the OS with proper Docker Image
-  You can select the AWS managed docker image and OS for the CodeBuild or can have custom.
-  AWS managed OS + Docker image
-    1. Amazon Linux + respective Docker image
-    1. Ubuntu + respective Docker image
-    1. Windowa + respective Docker image
-  You can have the custom image for build enviorment if you need diffrent softwares installed and configured in env.
-  For this you have to provide the docker image url of ECR or any diffrent repository    
-
-Timeout:-
-  A Codebuild can have 5 mnt to 8 hour timeout. default is 1 hour. Though it will keep the resource only till build ran. 
-  but release it if build failed to finish in specified timeout.
-  
-Compute:-
-  You must set the value of requred RAM and vCPU for build process.
-  
-Networking:-
-  You can select the VPC [with sunet and SG] if you wants to access the VPC private resources in the build process.
-  like accessing EC2 or RDS for testing in build test phase.
-  
-  
-Envirment Variable:-
-  You can set the EV in the build project or in buildspec file or set it when start a build
-  for build project:-
-    set it at a time of creation of project via console or CFR
-  setting in buildspec:-
-      env:
-        variables:
-          App1EnvVar1: "value of App1EnvVar1"
-        parameter-store:
-          App1ParamStore1: /app1/dev/app1ParamStore1
-          App1ParamStoreSecret1: /app1/dev/app1ParamStoreSecret1
-        secrets-manager:
-          App1Secret1: "App1Secrets:App1SecretKey1"
-          App1Secret2: "App1Secrets:App1SecretKey2"    
-
-  setting in Cloudformation CodeBuild resource:-
-    Type: AWS::CodeBuild::Project
-    Properties:
-      EnvironmentVariables:
-       - Name: <name of var>
-         Type: PARAMETER_STORE | PLAINTEXT | SECRETS_MANAGER
-         Value: <value goes here>    
-
-  - You must give codebuild proper IAM riole to access the SSM or Secret manager.
-  - In build phase you will get this variable in 'process.env.<key>'
-  
---
+------------------------------
 
 Monitoring and Logging:-
   - You can send the CodeBuild logs to a specific Cloudwatch Log group or S3 bucket. You should also set auto delete on tose log buckets or logs stream. 
@@ -109,6 +127,37 @@ Monitoring and Logging:-
 Scheduled Builds:-
   With the help of Cloudwatch Event[EventBridge] you can set the Corn job. and then can have the target as the codebuilb project.
   The EventBridge will trigger the build based on the rule of cron job.
+  
+======================================================================================================================================================
+
+  
+    setting in buildspec:-
+        env:
+          variables:
+            App1EnvVar1: "value of App1EnvVar1"
+          parameter-store:
+            App1ParamStore1: /app1/dev/app1ParamStore1
+            App1ParamStoreSecret1: /app1/dev/app1ParamStoreSecret1
+          secrets-manager:
+            App1Secret1: "App1Secrets:App1SecretKey1"
+            App1Secret2: "App1Secrets:App1SecretKey2"      
+ 
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+
+  
 
     
   
