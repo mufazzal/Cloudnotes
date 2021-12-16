@@ -84,4 +84,25 @@ Application
                     |---------Deployment group21
                     |---------Deployment group31 
       
-      
+---------------------------------
+
+Supported Deployment:-
+  EC2.            inplace and BG
+  On premise.     inplace
+  ECS.            BG
+  Lambda.         BG
+  
+------------------------------------
+
+CodeDeploy and CloudWatch EventBridge:-
+  CodeDeploy is heavily integrated with EventBridge, you can create Trigger lambda or anything to handle scenarion like deployment failed or etc.
+
+    
+Cloudwatch metrics/logs published by CodeDEploy:-
+  NONE, CodeDeploy nither generate logs nor metrics in the CW.  
+  
+------------------------------
+
+
+
+
