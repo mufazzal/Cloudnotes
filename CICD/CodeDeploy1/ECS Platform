@@ -23,6 +23,17 @@ Deployment group > Deployment Setting/Configuration:-
     - If you wants to terminate the orignal task set or keep it running too.
     - IF you wants to terminate the orignal task then when you wants to terminate them.
 
+Deployment group > Load Balancer:-
+  For this you have to set below values
+    Two Target group:-
+      For ECS deployment group you have to set two Target group of a same load balancer.
+      at amy moment while deployment One will have the blue traffic and other will have the green traffic. 
+      CodeDeploy take a decesion for which one to use for Blue and which one for green traffic for any deployment.
+    Prod Listener:-
+      You must set the prod listener where ECS will map the prod listener to prod target group.
+    Test Listener:-
+      Tis is optional. set iot if you wants to test the blue traffic before sending it fro prod.
+
 ECS Appspec file:-
   
 
