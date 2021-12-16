@@ -1,0 +1,103 @@
+This has info about the scripts that should be ran on some specific time of deploument lifecycle.
+The sequence of hook always remain same bur some of the hook may or may not be called depending upon what config the dep has.
+The dep may happen one or more than one EC2. this lifecycle run for each of this EC2 and completely independent of each other. 
+Below is the list of hook with time when its called.
+> before and after the traffic blocked from LB
+    BeforeBlockTraffic, AfterBlockTraffic:
+      Both on this event fire only and only if The candidate EC2 is attached to any Load Balancer
+
+> Hook for stopping the application
+    ApplicationStop: 
+      CpdeDeploy do not know how he should stop the running application. 
+      In this hook you provide the script to stop it. for EG. to stop apache server use 'stop server httpd'
+      In this hook you should stop any process that you deemed to be necessary
+
+  > Hook for new Installation time
+    BeforeInstall, AfterInstall:
+      This two hook provide event before and after installation. you can use this event in install any necessary
+      dependecy in the EC2. EG. to run a node server EC2 must need to have node installed. So put node install
+      script in 'BeforeInstall'
+
+> Hook for strating the application
+    ApplicationStart:
+      CpdeDeploy do not know how he should start the application. 
+      In this hook you provide the script to start it. for EG. to stop apache server use 'start server httpd' and for node app you give 'node src/server.js'
+      In this hook you should start any process that you deemed to be necessary                               
+
+ > Hook for validation of installation
+    ValidateService:
+      This hook is very good to test if installtion is proper or not for eg. you can tset here if node is installed 
+      or not or check if some process is running or not or check if some file is there or not.
+
+ > before and after the traffic allowed from LB
+    BeforeAllowTraffic, AfterAllowTraffic:
+      Both on this event fire only and only if The candidate EC2 is attached to any Load Balancer
+
+ >>> Note : There is four more hook but they are not available for override. so unusable for now
+        DownloadBundle, install, AllowTraffic, BlockTraffic  
+
+---------------------------------------------------------------
+
+
+          BeforeBlockTraffic  --->    [BlockTraffic]    --->    AfterBlockTraffic   ---->>---|          IF LB is attached to candidate EC2 then this three will be called otherwise not              
+                                                                                             |
+                                          |---------------------------<<<--------------------|
+                                          |
+                                          |
+                                    ApplicationStop
+                                          |
+                                          |
+   |---------<<<--------------------------|
+   |
+   |----> BeforeInstall       --->    [install]         --->    AfterInstall        ---->>---|
+                                                                                             |
+                                          |----------------------------<<<-------------------|
+                                          |
+                                          |
+                                  ApplicationStart
+                                          |
+                                          |
+                                  ValidateService       
+                                          |                                                  
+                                          |
+   |---------<<<--------------------------|
+   |
+   |----> BeforeAllowTraffic       --->    [AllowTraffic]         --->    AfterAllowTraffic             IF LB is attached to candidate EC2 then this three will be called otherwise not  
+
+      [****] -> is not avialable for use
+
+
+---------------------------------------------------------------
+
+Hook Lifecycle for diffrent scenario:-
+   se 1: For In-place : EC2 : without any loadbalancer
+            ApplicationStop
+            BeforeInstall
+            AfetrInstall
+            ApplicationStart
+            validateService
+    se 2:  For In-place : EC2 : with loadbalancer
+            BeforeBlockTraffic
+            AfterBlockTraffic
+            ApplicationStop
+            BeforeInstall
+            AfetrInstall
+            ApplicationStart
+            validateService
+            BeforeAllowTraffic
+            AfterAllowTraffic
+
+    se 3:  For BG : EC2 : without any loadbalancer
+          Impossible, For BG you must have LB.
+    se 4:  For BG : EC2 : with loadbalancer
+         on older instances
+              BeforeBlockTraffic
+              AfterBlockTraffic
+         on newer instances
+              ApplicationStop
+              BeforeInstall
+              AfetrInstall
+              ApplicationStart
+              validateService
+              BeforeAllowTraffic
+              AfterAllowTraffic
