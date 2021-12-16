@@ -40,8 +40,11 @@ CodeCommit and Elastic BeanStalk:-
 Encryption:-
   For CodeCommit, the data is automatically encrypted at rest and in transit by KMS key. 
 ----------
-
-
+  
+Permission Model:
+  In CodeCommit, the CodeCommit:GitPull IAM policy permissions apply to any Git client command where data is retrieved from CodeCommit, including git fetch, git clone, and so on. 
+  Similarly, the CodeCommit:GitPush IAM policy permissions apply to any Git client command where data is sent to CodeCommit. 
+  Take note that CodeCommit:GitPull and CodeCommit:GitPush are IAM policy permissions and not API actions.
 
 
 
