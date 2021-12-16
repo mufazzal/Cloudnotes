@@ -140,16 +140,6 @@ AWS CodeBuild provides several environment variables that you can use in your bu
 ======================================================================================================================================================
 
   
-    setting in buildspec:-
-        env:
-          variables:
-            App1EnvVar1: "value of App1EnvVar1"
-          parameter-store:
-            App1ParamStore1: /app1/dev/app1ParamStore1
-            App1ParamStoreSecret1: /app1/dev/app1ParamStoreSecret1
-          secrets-manager:
-            App1Secret1: "App1Secrets:App1SecretKey1"
-            App1Secret2: "App1Secrets:App1SecretKey2"      
  
 
 
