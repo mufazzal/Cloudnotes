@@ -16,5 +16,27 @@ Deployment group > Deployment Setting/Configuration:-
 Deployment group > Load Balancer:-
   No setting in here. LAmbda do not use this setting.  
 
+------------------------------------
+
 Lambda Appspec file:-
+  Below is how its look, You have to provide it at a time of deployment. Its not part of deployment Group.
+    Resources:
+      - myLambdaFunction:
+          Type: AWS::Lambda::Function
+          Properties:
+            Name: "myLambdaFunction"
+            Alias: "myLambdaFunctionAlias"
+            CurrentVersion: "1"
+            TargetVersion: "2"
+    Hooks:
+      - BeforeAllowTraffic: "LambdaFunctionToValidateBeforeTrafficShift"
+      - AfterAllowTraffic: "LambdaFunctionToValidateAfterTrafficShift"    
+
+    This will shift the traffic from CurrentVersion(1) to TargetVersion(2) in the manner defined in the sected deployment Group.
+    hook:-
+      This is the lambda that will trigger before and after traffic shifted to new versions
+    Alias:
+      New version will be mapped to this Alias. if alias not exist then it will be created first.
+  
+
     
