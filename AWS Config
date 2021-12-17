@@ -40,4 +40,5 @@ AWS Config give you way to record and administartor the configuration and relati
 		from multiple accounts and regions into a single account
 		
 	
+You can have only one delivery channel per region per AWS account, and the delivery channel is required to use AWS Config	
 	
