@@ -86,6 +86,7 @@ IF your AWS Config is set up then you will have below informations in your hand 
 	4. Configuration Stream:-
 			A configuration stream is an automatically updated list of all configuration items for the resources that AWS Config is recording. 
 			Every time a resource is created, modified, or deleted, AWS Config creates a configuration item and adds to the configuration stream
+			You can set the SNS notification to take action on any event
 
 	5. Resource Relationship:-
 			AWS Config discovers AWS resources in your account and then creates a map of relationships between AWS resources
