@@ -120,13 +120,24 @@ AWS Config Rule:-
 	Rule Parameter:-
 		Some of the rule can take the input parameter for evaluation mechanics. 
 		EG. A rule may ask for parameter for 'maxAccessKeyAge' for evaluatiog if any access key is older then what user wnats it to be.
-		
+	
+Impact of turnig off recorder:
+  If you turn off the aws config recorder then 
+    - Any config rule trggered with config changes will not be evaluated for changes
+    - Any config rule with triggered preiodically will keep evaluating at set frequency. 
+        and it will take last read configuration of resource which were read by recorder
+    - On demand rule evaluation will consider the last read fetch configuration of resouce by recorder.
+         and it will take last read configuration of resource which were read by recorder
+
+On-Demand Rule Evaluation:-
+	
+
 	Adding Rule:-
 		1. Slete the type 'AWS Managed' or Custom.
 		2. For AWS Managed Rule, serach and select it. for Custom give the LAmbda ARn.
 		
 		
-	On-Demand Rule Evaluation:-
+	
 		
 			
 		
