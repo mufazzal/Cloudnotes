@@ -129,8 +129,11 @@ Impact of turnig off recorder:
     - On demand rule evaluation will consider the last read fetch configuration of resouce by recorder.
          and it will take last read configuration of resource which were read by recorder
 
-On-Demand Rule Evaluation:-
-	
+On-Demand Rule Evaluation:
+  You can run the rule evaluation at any time if you need to know comlianve immediately.
+
+Drleting result
+  You can delete the result of evaluation if you need to re evaluate them again.
 
 	Adding Rule:-
 		1. Slete the type 'AWS Managed' or Custom.
