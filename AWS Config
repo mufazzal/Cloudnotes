@@ -58,6 +58,10 @@ Information of Non-selected AWS resource type:-
 	Thoug it will not track any other detail like configuration and relation etc.
 	If you were tracking a resource but later put then off the list of trackable resource then AWS config still keep the older info of that resource.
 
+Querying:-
+	You can write the SQL like qury to fetch theresource and its config
+	You can fetch it from Single or multiple account and from single or multiple region.	
+	
 IF your AWS Config is set up then you will have below informations in your hand for monitered resources.
 
 	1. Configuration Items:
