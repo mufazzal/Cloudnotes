@@ -11,16 +11,16 @@ Seting-Up AWS Config:-
 				- All the resources in this region or 
 				- Some specific like EC2, Cloudfront, S3.
 	2. Delivery Channel:-
-			AWS Confit sends notifications and updated configuration states through the delivery channel.
-			Yo use the AWS Config you must set it. 
-			
-			You have to set a S3 bucket for a delivery channel. 
+			AWS Config sends notifications and updated configuration states through the delivery channel.
+			To use the AWS Config you must set it. You have to set a S3 bucket for a delivery channel. 
 				- This could be in your account or in other account
 				- The region of bucket must be same as of the AWS Config.
 				- Thers is only one Delivery chanel per region per account. 
 				- You can also set a SNS topic for notification. The Topic could be from your or other account in same region.
 	3. Data retention period:
 			You could set to store data up to 7 year or less.
+	4. Monitor Global rersource: 
+			You can set if you wants to track the global resource like IAM user, group also in the AWS-Config
 			
 	Once you set it up, the AWS Config will start recirding any changes happen on the resource you set to looking for.
 	It will start recording.
@@ -29,35 +29,61 @@ Updating AWS Config:-
 	You can stop the recording any tine you wants. in AWS Config > Setting
 	You can also change setting of Resource type to look for, Delivery channel and Data Retension preiod too in AWS Config > Setting
 
+Mechanics of AWS Config:-
+	When you turn on AWS Config, it first discovers the supported AWS resources that exist in your account and generates a configuration item for each resource
+	AWS Config also generates configuration items when the configuration of a resource changes, and it maintains historical records.
+	Whenever any configuration changes is done by anyone on monitered resource then AWS-Config make the Describe*** call to get the configuration detail of that resource.
+	By default it track for all the resources in the account in that region unless you selected only few resource type at a time of set up.
+	AWS Config deliver the Configuration files of resources in the delivery S3 bucket every 6 hour.
 
------------------------------------------------	
-	Configuration history of Resource:-
-		You can answre like 
-		 > when the resource was first created
-		 > What was its configuration last month
-		 > What changes were made yesterday in its config
-		 > The configuration history is available to you in multiple formats in selected S3 bucket
+Configuration Recorder:-
+	The configuration recorder stores the configurations of the supported resources in your account as configuration items. 
+	You must first create and then start the configuration recorder before you can start recording
+	By default, the configuration recorder records all supported resources
+	You are charged service usage fees when AWS Config starts recording configurations
+
+Inventory/Discovered resources:-
+	This are the AWS resources that are dicovered by the AWS Config and candidate of monitoring.
+	It may also contains the resources that are deleted. You can view then in console or by api.  
+	Not all the resource type are supported by AWS-Config.
 	
-	Configuration Items:
-		A configuration item represents a point-in-time view of the various attributes of a supported AWS resource that exists in your account.
-		It include Metadata, Attribute, relationships, current configuration, event.
-		AWS config create the Configuration Item whenever it detects a change in that resource. 
-		EG: It can create a Configuration Item whenever a bucket is created, updated or deleted.
+
+Global Resources Monitoring:-
+	The global resoures are not tied to any specific AWS region. snd so if you enable the AWS-Config to track the global resources then it may be possible that this 
+	resource may also be tracked in other regions. So there will be mutiple AWS-Config tracking will be there for same resource.
+	The same recordwill exist in each AWS0Config enabled region.
+	SO it better to plan it accordingly and enable the 'track global resource' only in one region.
 		
-	Configuration Recorder:-
-		The configuration recorder stores the configurations of the supported resources in your account as configuration items. 
-		You must first create and then start the configuration recorder before you can start recording
-		By default, the configuration recorder records all supported resources
-		
-	Configuration Snapshot:-
-		This configuration snapshot is a complete picture of the resources that are being recorded and their configurations
-		
-	Configuration Stream:-
-		A configuration stream is an automatically updated list of all configuration items for the resources that AWS Config is recording. 
-		Every time a resource is created, modified, or deleted, AWS Config creates a configuration item and adds to the configuration stream
+
+IF your AWS Config is set up then you will have below informations in your hand for monitered resources.
+
+	1. Configuration Items:
+			A configuration item represents a point-in-time view of the various attributes of a supported AWS resource that exists in your account.
+			It include 
+			> Metadata: 						version, time to captire config, is capturing successful, ordering information of config. 
+			> Attribute: 						Resource ID, ARN, Tags, time of resource creation, AZ 
+			> Relationships: 				Relation with other resources like EC2 with SG or ALB with TG. 
+			> Current Configuration:Output of List** or Describe** api for thst resource. 			
+
+	2. Configuration history of Resource:-
+			You can answre like 
+			 > when the resource was first created
+			 > What was its configuration last month
+			 > What changes were made yesterday in its config
+			 > The configuration history is available to you in multiple formats in selected S3 bucket
+			 > If any AWS config rule is applied then you can also see if this resource currently otr in past underwent a Non-Compiant. 
 	
-	Resource Relationship:-
-		AWS Config discovers AWS resources in your account and then creates a map of relationships between AWS resources
+	3. Configuration Snapshot:-
+			This configuration snapshot is a complete picture of the resources that are being recorded and their configurations
+		
+	4. Configuration Stream:-
+			A configuration stream is an automatically updated list of all configuration items for the resources that AWS Config is recording. 
+			Every time a resource is created, modified, or deleted, AWS Config creates a configuration item and adds to the configuration stream
+
+	5. Resource Relationship:-
+			AWS Config discovers AWS resources in your account and then creates a map of relationships between AWS resources
+		
+------------------------------------------------------------	
 		
 	AWS Config Rules:-
 		An AWS Config rule represents your desired configuration settings for specific AWS resources or for an entire AWS account
