@@ -45,8 +45,7 @@ Configuration Recorder:-
 Inventory/Discovered resources:-
 	This are the AWS resources that are dicovered by the AWS Config and candidate of monitoring.
 	It may also contains the resources that are deleted. You can view then in console or by api.  
-	Not all the resource type are supported by AWS-Config.
-	
+	Not all the resource type are supported by AWS-Config.	
 
 Global Resources Monitoring:-
 	The global resoures are not tied to any specific AWS region. snd so if you enable the AWS-Config to track the global resources then it may be possible that this 
@@ -54,6 +53,10 @@ Global Resources Monitoring:-
 	The same recordwill exist in each AWS0Config enabled region.
 	SO it better to plan it accordingly and enable the 'track global resource' only in one region.
 		
+Information of Non-selected AWS resource type:-
+	Surprisingly AWS Config track the Creation and Deletion of even non-selected type AWS resources. 
+	Thoug it will not track any other detail like configuration and relation etc.
+	If you were tracking a resource but later put then off the list of trackable resource then AWS config still keep the older info of that resource.
 
 IF your AWS Config is set up then you will have below informations in your hand for monitered resources.
 
