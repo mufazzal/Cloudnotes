@@ -1,5 +1,36 @@
 AWS Config give you way to record and administartor the configuration and relatioship of diffrent AWS components.
-		
+Before using the AWS Config you have to srt it up for you Account and Region.
+The set up is done per account per region basis. So You have have to do set up in each region if wants to admin on multiple region.
+
+Seting-Up AWS Config:-
+	To set up the AWS-Config in yout account and in region you should use the Console. 
+	If set has not been run, you will not see any option other then 'set up aws config'. So do it.
+	You will need to set below thing in the set up:
+	1. Resource Type to record:-
+			You can set if you wants to record 
+				- All the resources in this region or 
+				- Some specific like EC2, Cloudfront, S3.
+	2. Delivery Channel:-
+			AWS Confit sends notifications and updated configuration states through the delivery channel.
+			Yo use the AWS Config you must set it. 
+			
+			You have to set a S3 bucket for a delivery channel. 
+				- This could be in your account or in other account
+				- The region of bucket must be same as of the AWS Config.
+				- Thers is only one Delivery chanel per region per account. 
+				- You can also set a SNS topic for notification. The Topic could be from your or other account in same region.
+	3. Data retention period:
+			You could set to store data up to 7 year or less.
+			
+	Once you set it up, the AWS Config will start recirding any changes happen on the resource you set to looking for.
+	It will start recording.
+	
+Updating AWS Config:-
+	You can stop the recording any tine you wants. in AWS Config > Setting
+	You can also change setting of Resource type to look for, Delivery channel and Data Retension preiod too in AWS Config > Setting
+
+
+-----------------------------------------------	
 	Configuration history of Resource:-
 		You can answre like 
 		 > when the resource was first created
