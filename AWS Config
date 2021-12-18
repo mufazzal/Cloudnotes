@@ -92,7 +92,40 @@ IF your AWS Config is set up then you will have below informations in your hand 
 			AWS Config discovers AWS resources in your account and then creates a map of relationships between AWS resources
 		
 ------------------------------------------------------------	
+
+AWS Config Rule:-
+	The AWS-Config if set up will record the cofiguration of resources but it will not automatically detect if somone goes non-compiant
+	for this comes the config rule.
+	It can only be used it AWS-Config is et up in given account and region.
+	To use this you have to Add the Rule. The Rule is statemnt of defining if a aws resource is complient or not.	
+	This are a lambda function which ran on certain event or schedule to detemine the compiance of resource.
+	
+	There are two kind
+		1. AWS Managed:-
+				AWS provide many of such rule. you just have to add thenm and it will start looking if any resource goes in non compliant.
+		2. Custom made
+				You can write your own rule with lambda.
+			
+	Rule Trigger:-
+		You can trigger the rule evaluation 
+		- Priodically in every 1, 6, 3, 12, 24 hour [EG: evaluate every 24 hour if any access-key or password is 90 days old.]
+		- By change detection by AWS-Config for certain tyoe of resource. EG [eveluate if config change is detectd for AWS::EC2::SecurityGroup].
+	
+	Rule Parameter:-
+		Some of the rule can take the input parameter for evaluation mechanics. 
+		EG. A rule may ask for parameter for 'maxAccessKeyAge' for evaluatiog if any access key is older then what user wnats it to be.
 		
+	Adding Rule:-
+		1. Slete the type 'AWS Managed' or Custom.
+		2. For AWS Managed Rule, serach and select it. for Custom give the LAmbda ARn.
+		
+		
+	On-Demand Rule Evaluation:-
+		
+			
+		
+		
+--------------------------------------------------------------		
 	AWS Config Rules:-
 		An AWS Config rule represents your desired configuration settings for specific AWS resources or for an entire AWS account
 		AWS Config flags the resource and the rule as noncompliant, and AWS Config notifies you through Amazon SNS
