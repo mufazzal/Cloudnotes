@@ -110,6 +110,12 @@ AWS Config Rule:-
 		You can trigger the rule evaluation 
 		- Priodically in every 1, 6, 3, 12, 24 hour [EG: evaluate every 24 hour if any access-key or password is 90 days old.]
 		- By change detection by AWS-Config for certain tyoe of resource. EG [eveluate if config change is detectd for AWS::EC2::SecurityGroup].
+                    Scope: It define on which resources config changes the evaluations of rule must be ran to find compliance. it could be
+                     - One or more resource types
+                     - A combination of a resource type and a resource ID
+                     - A combination of a tag key and value
+                     AWS Config runs the evaluation when it detects a change to a resource that matches the rule's scope.
+
 	
 	Rule Parameter:-
 		Some of the rule can take the input parameter for evaluation mechanics. 
