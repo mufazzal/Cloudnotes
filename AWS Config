@@ -179,7 +179,8 @@ Multi account Muti region aggregator
     if you select individual account by account id then you must provide permission to aggregator in source account.
       you can see permission request in aws config console.
     if its by aws Organization then no permission neened
-
+    Service role for Aggregator:
+      the role muat carry permission AWSConfigRoleForOrganizations.
 
 
 	Adding Rule:-
