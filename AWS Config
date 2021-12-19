@@ -183,6 +183,15 @@ Multi account Muti region aggregator
     Service role for Aggregator:
       the role muat carry permission AWSConfigRoleForOrganizations.
 
+----------------------
+
+Conformance pack:
+  This is a buldle of aws config rule and appropiate remediation collection.
+  you can simply drploy it as package and start monitoring compilance and running temedy if needed.
+  this is YAML format doc.
+  AWS provides many such packs.
+
+----------------------
 
 	Adding Rule:-
 		1. Slete the type 'AWS Managed' or Custom.
