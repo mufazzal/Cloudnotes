@@ -149,6 +149,9 @@ Remediation action:
   Parameter:
     you can give source of parameter which is used inside the ssm script.
     
+  SSM automation: 
+    you must select the ssm automation that you wants to run as remeady.
+    aws provide many and you can also create your own
 
 Drleting result
   You can delete the result of evaluation if you need to re evaluate them again.
