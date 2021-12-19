@@ -132,6 +132,9 @@ Impact of turnig off recorder:
 On-Demand Rule Evaluation:
   You can run the rule evaluation at any time if you need to know comlianve immediately.
 
+Drleting result
+  You can delete the result of evaluation if you need to re evaluate them again
+
 
 Remediation action:
   The aws config rule can detect the non compliant resource but it can not 
@@ -153,8 +156,31 @@ Remediation action:
     you must select the ssm automation that you wants to run as remeady.
     aws provide many and you can also create your own
 
-Drleting result
-  You can delete the result of evaluation if you need to re evaluate them again.
+
+--------
+
+Multi account Muti region aggregator
+  you can set to have single account which will have 
+  AWS config data from same account same region
+  AWS config data from same account multiple region
+  AWS config data from multiple account multiple region.
+  AWS config data from aws Organization.
+
+  Agregattor account:
+    this is the aws account who will collect the dadat from multiple source account and region
+  Aggregator: 
+    this is a aws resource that you need to create in aws account who will acr as aggregator.
+  Source 
+    this are the source account whos aws config data will be sent to aggregator.
+    it could be individual account or aws Organization 
+    if aggregator is of account type then itust grant permission to aggregator account before collecting data.
+  
+  Permission modal:
+    if you select individual account by account id then you must provide permission to aggregator in source account.
+      you can see permission request in aws config console.
+    if its by aws Organization then no permission neened
+
+
 
 	Adding Rule:-
 		1. Slete the type 'AWS Managed' or Custom.
