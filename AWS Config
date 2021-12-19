@@ -138,10 +138,17 @@ Remediation action:
   do any thing by its own to resolve it.
   you can use the remediation action to automatically or manually take action to Remediate it.
   this are ssm automation document that ran as remedies.
-  Manual remediation: you have to do it manually each time for non  compliant rule.
-  automatic: the aws vonfig automatically execute the ssm automation script on non compliant detection
-
-
+  
+  Type
+    Manual remediation: you have to do it manually each time for non  compliant rule.
+    automatic: the aws vonfig automatically execute the ssm automation script on non compliant detection
+  
+  Rate limit
+    you can set the max percentage of resource on wich ths ssm is executed at a time
+  
+  Parameter:
+    you can give source of parameter which is used inside the ssm script.
+    
 
 Drleting result
   You can delete the result of evaluation if you need to re evaluate them again.
