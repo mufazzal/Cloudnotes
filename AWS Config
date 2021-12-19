@@ -132,6 +132,17 @@ Impact of turnig off recorder:
 On-Demand Rule Evaluation:
   You can run the rule evaluation at any time if you need to know comlianve immediately.
 
+
+Remediation action:
+  The aws config rule can detect the non compliant resource but it can not 
+  do any thing by its own to resolve it.
+  you can use the remediation action to automatically or manually take action to Remediate it.
+  this are ssm automation document that ran as remedies.
+  Manual remediation: you have to do it manually each time for non  compliant rule.
+  automatic: the aws vonfig automatically execute the ssm automation script on non compliant detection
+
+
+
 Drleting result
   You can delete the result of evaluation if you need to re evaluate them again.
 
