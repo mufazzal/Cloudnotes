@@ -172,6 +172,7 @@ Multi account Muti region aggregator
     this is a aws resource that you need to create in aws account who will acr as aggregator.
   Source 
     this are the source account whos aws config data will be sent to aggregator.
+    the source account must have aws config recorder enabled
     it could be individual account or aws Organization 
     if aggregator is of account type then itust grant permission to aggregator account before collecting data.
   
