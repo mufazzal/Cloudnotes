@@ -157,6 +157,14 @@ Archeiving and Replaying:-
   This is usful for testing purposs.
 
 ----------------------------
+
+Partner Event Source Bus:-
+  Many SaaS provider are supported with Event Bus. You have to fists create the Bus in the Partners portal.
+  Partner will need at least your AWS account Id for this.
+  Once created at partner portal correctly, you will see this bus in your AWs account.
+  Now you can create the rule in this bus to handle diffrernt type of event in the bus.
+
+----------------------------
 Forwarding Event to other bus:-
   The event is always attach to single bus but you can forward that event to other bus too.
   For this you have to create a Rule in the primary event bus to filer which event you wants to send 
