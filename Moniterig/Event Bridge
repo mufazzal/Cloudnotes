@@ -37,8 +37,7 @@ Event Bus > Resource Policy:-
    
    - If you wants to give more permission then just PutEvents then you can use "Action" as array. 
    - You can further add condition for region, tag, rule etc.
-   - Events sent from one account to another are charged to the sending account as custom events
-   
+   - Events sent from one account to another are charged to the sending account as custom events  
 
 
 --------
@@ -151,7 +150,12 @@ Rules:-
   
   Disabling Rule:-
     You can suspend the rule for time being and latter resume it. It will not invoke any target for that duration. 
-    
+---------------------------
+
+Archeiving and Replaying:-
+  You can arcive the events based on Event Pattern and then later re run it again. 
+  This is usful for testing purposs.
+
 ----------------------------
 Forwarding Event to other bus:-
   The event is always attach to single bus but you can forward that event to other bus too.
