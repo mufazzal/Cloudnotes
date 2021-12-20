@@ -1,0 +1,165 @@
+This is a Serverles Event Bus. This can recive the event from many sources like
+  - Any AWS service like EC2, Lambda, API gateway etc.
+  - From a foreign envent bus of diffrent AWS account.
+  - From a foreign envent bus of diffrent region
+  - From an user Application
+  - From any SaaS service partner
+  
+Event Bus:-
+  An event bus is a pipeline that receives events from permitted sources.
+  AWS provide one default event Bus but You can create your own event bus also.
+  
+  Default Event Bus:-
+    With each AWS account there is one default Event Bus which cannot be deleted.
+    By default it will receive a event for most of AWS resouce activities.
+    
+  Custom Event Bus:-
+    You can create a new event bus if you wants to have diffrent workload or event handling mechanichs.
+    For this you just need to set the name of bus and set the resource policy of that bus
+    When you create the Event Bus it will not receive any event from any source [not event the AWS events of same account]. 
+      you have to first configure ther proper resource policy and then set the logic at the source side to send the venets.
+
+Event Bus > Resource Policy:-
+  This will define the permissions of diffrent account/AWS organization to perform operation on this bus.
+  EG:-
+    Allow the event from Acount BBBB in this Event bus
+        "Effect": "Allow",
+        "Principal": { "AWS": "<ACCOUNT_ID_of_BBBB>" },
+        "Action": "events:PutEvents"  
+        
+    Allow the event from any member account of AWS Orgnization AOOOO in this Event bus    
+        "Principal": "*",
+        "Action": "events:PutEvents",
+        "Condition": {
+          "StringEquals": { "aws:PrincipalOrgID": <AWS_Orgnization_id_of_AOOOO> }
+        }
+      },
+   
+   - If you wants to give more permission then just PutEvents then you can use "Action" as array. 
+   - You can further add condition for region, tag, rule etc.
+   - Events sent from one account to another are charged to the sending account as custom events
+   
+
+
+--------
+Event:-
+  The Event reprsent a change of something in
+    - Iame AWS account
+    - In other AWS account who has permission to send event to this Event bus
+    - In SaaS provider who has permission to send event to this Event bus
+    - Or its just a sime priodic event set to trigger after a fix interval.
+  This event is a json doc which contsin below information:-
+    Version: always 0 
+    id: a UUID for event
+    
+    Source: 
+      Define who send this event. For any AWS service related event it is 'aws.<related_aws_service>' for other services it is service defined
+      EG: 
+        for AWS ASG SaaS it is 'aws.autoscalling'
+        for AWS EC2 it is 'aws.ec2'
+        for mongoDB SaaS it is 'mongo'
+        
+    detail-type:
+      It define what kind of event is it. its value is Source dependent
+      EG
+        for AWS ASG SaaS it could be "EC2 Instance Launch Successful", "EC2 Instance Terminate Successful", "EC2 Instance Launch Unsuccessful" etc.
+        for AWS EC2 it could be "EBS Volume Notification", "EC2 Instance State-change Notification" etc.
+        for mongo DB it could be "DB Table created", 'DB Table Deleted'
+        
+    detail:
+      This is json object which will contains a very deep detail of that type of event.
+      like for  
+        Source = 'aws.autoscalling' and detail-type="EC2 Instance Launch Successful" it can have asgId, instanceId, AZid, iinstanceType etc.
+        Source = 'aws.ec2' and detail-type="EC2 Instance State-change Notification" it can have instanceId, state etc.
+    
+    Account: The AWS account id if its from Same or ther Foriegn AWS account [and of cource source = 'aws'].
+    region: Region nwhere its generated.
+
+----------------------------
+
+Rules:-
+  Rules examine the incoming EVENT with EVENT-PATTERN and if it MATCH then sends to TARGETS for further processing.
+  Rules are the assosiated with single Event Bus at a time.
+  
+  Rule > Event Pattern:-
+    Tit define what kind of event will invoke this rule and so targets will be notofied for further processing.
+    Think of it like rerular expression for Event json.
+    EG:-
+      Match any event from AWS-EC2 service
+        { "source": ["aws.ec2"] }        
+      Match event from AWS-EC2 service for state change of any EC2 instancs to any state
+        { 
+          "source": ["aws.ec2"],
+          "detail-type": ["EC2 Instance State-change Notification"]
+        }         
+      Match event from AWS-EC2 service for state change of EC2 any instancs to stop
+        {
+          "source": ["aws.ec2"],
+          "detail-type": ["EC2 Instance State-change Notification"],
+          "detail": {
+            "state": ["terminated"]
+          }
+        } 
+      Match event from AWS-EC2 service for state change of EC2 instanc with id ='asdw' to stop  
+        {
+          "source": ["aws.ec2"],
+          "detail-type": ["EC2 Instance State-change Notification"],
+          "detail": {
+            "state": ["terminated"],
+            "instance-id": ["asdw"]
+          }
+        }        
+        
+  Rules > Targets:-
+    Targets are the endpoint on which the rule send the event for further processing.
+    A sigle rule can send the event to up to 5 targests. The targer endponst must allow the event to be dilivered on them
+    
+    Below are the possible Targets:-
+      API Gateway
+      ESC Task
+      CodeBuild
+      CodePipeline
+      Kinesis stream
+      Lambda function
+      SNS and SQS 
+      
+      Some notable Targets:-
+        API Destination:-
+          You can send the event ot the HTTP api who can have the apps around it or some SaaS provider do analytics on it.
+        Event Bus of Diffrent AWS account:-
+          > The Event Bus of Reciver account must have resource policy to allow PutEvent from sender account
+          > The Event Bus of Sender account must have a Rule that has target as Receiver Account
+          > The Event Bus of Reciver Account must have a Rule that has the Event-Pattern matched to event from source account.
+        Event Bus of Same AWS account:-
+          > The Reciver Event Bus must have resource policy to allow PutEvent from sender account
+          > The Sender Event Bus must have a Rule that has target as Receiver Account
+          > The Reciver Event Bus must have a Rule that has the Event-Pattern matched to event from source account.          
+        Event Bus of Diffrent AWS Region [in same or diifrent accoun]:-
+          Just provide the ARN of event bus. 
+          
+    Retry and DLQ:-    
+      It may be possible that the event is not delivered to target successfully by Event bridge. Then Event Bridge will retry it wirh Exponetial Back-off.
+      You can set the setting for how many time it should be retry and if it still fail many time then you can set a QSQ Dead Letter que for futrther handling.
+      This is set againt the target in the Rule. Not against the Rule itself
+      
+      
+  Schedule Based Rule:-
+    Rule can also be based on Schedule. so it sends the schedled tick to the targets a certain fixed interval for processing.
+    Here you do noy have to set the Event Pattern rather you should setr the Cron Expression.
+  
+  Disabling Rule:-
+    You can suspend the rule for time being and latter resume it. It will not invoke any target for that duration. 
+    
+----------------------------
+Forwarding Event to other bus:-
+  The event is always attach to single bus but you can forward that event to other bus too.
+  For this you have to create a Rule in the primary event bus to filer which event you wants to send 
+  and then set one of the target as
+    - Either a Event bus in same account
+    - Or a Event bus in diffrent account
+  > By this you can sent the AWS events to from the defaulr Event Bus to your custom event bus.
+  
+-------------------
+
+PutEvents:-
+  To send multiple events to event bust from your application you can use PutEvents rather then PutEvent.
