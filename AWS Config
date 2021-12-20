@@ -164,6 +164,7 @@ AWS Config Rule > Remediation action:
 		you must select the ssm automation that you wants to run as remeady.
 		aws provide many and you can also create your own
 
+	- Logic of AWS-Config-Rule is writted in Lambda but logic of redemption is writted in SSM Automation doc
 --------
 
 Multi account Muti region aggregator:-
