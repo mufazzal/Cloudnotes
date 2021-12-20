@@ -15,7 +15,7 @@ Possible Operations on Repositories:-
 
 Notification Rule:-
   - You can create the Notification Rule which will invoke a SNS if a event set in the rule occure.
-  - You can trigger the SNS only. lambda can not be used directly.
+  - You can trigger the SNS and AWS Chatbot (slack) only. lambda can not be used directly.
   - You can look for the below events
       > Comment related:-
           Commented on Commit, Commented on Pull request
