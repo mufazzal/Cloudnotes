@@ -17,6 +17,7 @@ Seting-Up AWS Config:-
 				- The region of bucket must be same as of the AWS Config.
 				- Thers is only one Delivery chanel per region per account. 
 				- You can also set a SNS topic for notification. The Topic could be from your or other account in same region.
+				- You can have only one delivery channel per region per AWS account, and the delivery channel is required to use AWS Config	
 	3. Data retention period:
 			You could set to store data up to 7 year or less.
 	4. Monitor Global rersource: 
@@ -110,111 +111,99 @@ AWS Config Rule:-
 		You can trigger the rule evaluation 
 		- Priodically in every 1, 6, 3, 12, 24 hour [EG: evaluate every 24 hour if any access-key or password is 90 days old.]
 		- By change detection by AWS-Config for certain tyoe of resource. EG [eveluate if config change is detectd for AWS::EC2::SecurityGroup].
-                    Scope: It define on which resources config changes the evaluations of rule must be ran to find compliance. it could be
-                     - One or more resource types
-                     - A combination of a resource type and a resource ID
-                     - A combination of a tag key and value
-                     AWS Config runs the evaluation when it detects a change to a resource that matches the rule's scope.
+		
+	Scope: 
+		It define on which resources config changes the evaluations of rule must be ran to find compliance. it could be
+			- One or more resource types
+			- A combination of a resource type and a resource ID
+			- A combination of a tag key and value
+			AWS Config runs the evaluation when it detects a change to a resource that matches the rule's scope.
 
-	
 	Rule Parameter:-
 		Some of the rule can take the input parameter for evaluation mechanics. 
 		EG. A rule may ask for parameter for 'maxAccessKeyAge' for evaluatiog if any access key is older then what user wnats it to be.
 	
-Impact of turnig off recorder:
-  If you turn off the aws config recorder then 
-    - Any config rule trggered with config changes will not be evaluated for changes
-    - Any config rule with triggered preiodically will keep evaluating at set frequency. 
-        and it will take last read configuration of resource which were read by recorder
-    - On demand rule evaluation will consider the last read fetch configuration of resouce by recorder.
-         and it will take last read configuration of resource which were read by recorder
+	Impact of turnig off recorder:
+		If you turn off the aws config recorder then 
+		- Any config rule trggered with config changes will not be evaluated for changes
+		- Any config rule with triggered preiodically will keep evaluating at set frequency. 
+				and it will take last read configuration of resource which were read by recorder
+		- On demand rule evaluation will consider the last read fetch configuration of resouce by recorder.
+				and it will take last read configuration of resource which were read by recorder
 
-On-Demand Rule Evaluation:
-  You can run the rule evaluation at any time if you need to know comlianve immediately.
+	On-Demand Rule Evaluation:
+		You can run the rule evaluation at any time if you need to know comlianve immediately.
 
-Drleting result
-  You can delete the result of evaluation if you need to re evaluate them again
+	Deleting result
+		You can delete the result of evaluation if you need to re evaluate them again
 
+	> You can set up the CloudWatch event rule to take action if any AWS-Config Rule compliance fail.
 
-Remediation action:
-  The aws config rule can detect the non compliant resource but it can not 
-  do any thing by its own to resolve it.
-  you can use the remediation action to automatically or manually take action to Remediate it.
-  this are ssm automation document that ran as remedies.
-  
-  Type
-    Manual remediation: you have to do it manually each time for non  compliant rule.
-    automatic: the aws vonfig automatically execute the ssm automation script on non compliant detection
-  
-  Rate limit
-    you can set the max percentage of resource on wich ths ssm is executed at a time
-  
-  Parameter:
-    you can give source of parameter which is used inside the ssm script.
-    
-  SSM automation: 
-    you must select the ssm automation that you wants to run as remeady.
-    aws provide many and you can also create your own
+--------------
 
+AWS Config Rule > Remediation action:
+
+	The aws config rule can detect the non compliant resource but it can not 
+	do any thing by its own to resolve it.
+	you can use the remediation action to automatically or manually take action to Remediate it.
+	this are ssm automation document that ran as remedies.
+
+	Type:
+		Manual remediation: 
+			you have to do it manually each time for non  compliant rule.
+		automatic: 
+			the aws vonfig automatically execute the ssm automation script on non compliant detection
+
+	Rate limit
+		you can set the max percentage of resource on wich ths ssm is executed at a time
+
+	Parameter:
+		you can give source of parameter which is used inside the ssm script.
+
+	SSM automation: 
+		you must select the ssm automation that you wants to run as remeady.
+		aws provide many and you can also create your own
 
 --------
 
-Multi account Muti region aggregator
-  you can set to have single account which will have 
-  AWS config data from same account same region
-  AWS config data from same account multiple region
-  AWS config data from multiple account multiple region.
-  AWS config data from aws Organization.
+Multi account Muti region aggregator:-
+	you can set to have single account which will have 
+	AWS config data from same account same region
+	AWS config data from same account multiple region
+	AWS config data from multiple account multiple region.
+	AWS config data from aws Organization.
 
-  Agregattor account:
-    this is the aws account who will collect the dadat from multiple source account and region
-  Aggregator: 
-    this is a aws resource that you need to create in aws account who will acr as aggregator.
-  Source 
-    this are the source account whos aws config data will be sent to aggregator.
-    the source account must have aws config recorder enabled
-    it could be individual account or aws Organization 
-    if aggregator is of account type then itust grant permission to aggregator account before collecting data.
-  
-  Permission modal:
-    if you select individual account by account id then you must provide permission to aggregator in source account.
-      you can see permission request in aws config console.
-    if its by aws Organization then no permission neened
-    Service role for Aggregator:
-      the role muat carry permission AWSConfigRoleForOrganizations.
+	Agregattor account:
+		this is the aws account who will collect the data from multiple source account and region
+	Aggregator: 
+		this is a aws resource that you need to create in aws account who will acr as aggregator.
+	Source 
+		this are the source account whos aws config data will be sent to aggregator.
+		the source account must have aws config recorder enabled
+		it could be individual account or aws Organization 
+		if aggregator is of account type then it must grant permission to aggregator account before collecting data.
+
+	Permission modal:
+		if you select individual account by account id then you must provide permission to aggregator in source account.
+		you can see permission request in aws config console.
+		if its by aws Organization then no permission neened
+	
+	Service role for Aggregator:
+		the role muat carry permission AWSConfigRoleForOrganizations.
 
 ----------------------
 
 Conformance pack:
-  This is a buldle of aws config rule and appropiate remediation collection.
-  you can simply drploy it as package and start monitoring compilance and running temedy if needed.
-  this is YAML format doc.
-  AWS provides many such packs.
-
-----------------------
-
-	Adding Rule:-
-		1. Slete the type 'AWS Managed' or Custom.
-		2. For AWS Managed Rule, serach and select it. for Custom give the LAmbda ARn.
-		
-		
+	This is a buldle of aws config rule and appropiate remediation collection.
+	you can simply drploy it as package and start monitoring compilance and running temedy if needed.
+	this is YAML format doc.
+	AWS provides many such packs.
+	You can deploy it across
+	- An Account
+	- And account in multiple region
+	- in the AWS Organization
 	
-		
-			
-		
-		
 --------------------------------------------------------------		
-	AWS Config Rules:-
-		An AWS Config rule represents your desired configuration settings for specific AWS resources or for an entire AWS account
-		AWS Config flags the resource and the rule as noncompliant, and AWS Config notifies you through Amazon SNS
-		AWS also provide some predifined managed Rule and you can create your own Config Rule.
-                You can set it to run priodically or on change of resouce config change.
-		- You can set up the CloudWatch event rule to take action if any AWS-Config Rule compliance fail.
-		
-	Multi-Account Multi-Region Data Aggregation:-
-		Multi-account multi-region data aggregation in AWS Config allows you to aggregate AWS Config configuration and compliance data 
-		from multiple accounts and regions into a single account
-		
 	
-You can have only one delivery channel per region per AWS account, and the delivery channel is required to use AWS Config	
+
 	
