@@ -141,7 +141,9 @@ Rules:-
       It may be possible that the event is not delivered to target successfully by Event bridge. Then Event Bridge will retry it wirh Exponetial Back-off.
       You can set the setting for how many time it should be retry and if it still fail many time then you can set a QSQ Dead Letter que for futrther handling.
       This is set againt the target in the Rule. Not against the Rule itself
-      
+     
+    Transforming target input:-
+      You can alter the input sent to the targets to hide the sensitive info from specific traget.
       
   Schedule Based Rule:-
     Rule can also be based on Schedule. so it sends the schedled tick to the targets a certain fixed interval for processing.
