@@ -1,0 +1,95 @@
+Metrics are the Monitering values that are in the form of Time Ordered Data-Point. 
+Each Data point is the state of monitering values in that moment of time.
+For each AWS resource type there many Metrics are available to track. Some of them are free and some are paid.
+
+Time Stamps:
+  Each data point in the metrics contain the timestamp that reprsent the time when sate of monitering values are captured. 
+Metrics Resolution:
+  The data metrics can have the two resolution
+    Standard[By Default]: data point are taken in one minute granularity. Multiple of 60 second.
+    High resolution:      data point are taken in one second granularity. can be as low as 10 sec.
+Metrics Retention:-
+  There is no way to delete the data metrics manually. instead this metrics are stayed for specific prode of time and then deleted automatically.
+  - For data with priode < 1 minute its 3 hour [High resolution]
+  - For data with priode = 1 minute its 15 days
+  - For data with priode < 5 minute its 63 days
+  - For data with priode < 60 minute its 455 days
+
+Dimension:-
+  A dimension is a name/value pair that is part of the identity of a metric. You can assign up to 10 dimensions to a metric.
+  Every metric has specific characteristics that describe it, and you can think of dimensions as categories for those characteristics. 
+  For each AWS resource there are certain charachtristic which are reprsented in CW by the dimention
+  
+AWS Service - NameSpace <> Metrics <> Dimensions. 
+ Below is the example of some IMP data metrics in CW-
+  
+  EC2:-
+    Namespace: AWS/Ec2
+    Metrics:-
+      CPUUtilization, DiskReadOps, DiskWriteOps, NetworkIn, NetworkOut, CPUCreditUsage, StatusCheckFailed	 
+    Dimensions:-
+      InstanceId, AutoScalingGroupName, ImageId, InstanceType
+    
+  S3:-
+    Namespace: AWS/S3
+    Metrics:-
+      BucketSizeBytes, NumberOfObjects, AllRequests, GetRequests, OperationsPendingReplication
+    Dimensions:-
+      BucketName, StorageType
+    
+  Lambda:-
+    Namespace: AWS/Lambda
+    Metrics:-
+      Invocations, Errors, ProvisionedConcurrencyInvocations, Duration  
+    Dimensions:-
+      FunctionName, ExecutedVersion
+---------------------
+
+Custom Metrincs:-
+  You can publish your owm metrics to cloudwatch.
+  To send the data you just need to use 'put-metric-data' api.
+  In this api you pass
+    - NameSpace: the name space of metric
+    - Name: The name of metric
+    - Timestamp: Time stamp of metric data collection. 
+    - dimensions: up to 10 key-value pair for the dimension
+    - Unit, 
+    - StorageResolution: 
+        Its between 1 to 60. default is 60. if its less then 60 then it will becon a high resolution metrics.
+    EG: Sending 3 data point to custom metrics
+      aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 2 --timestamp 2016-10-20T12:00:00.000Z
+      aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 4 --timestamp 2016-10-20T12:00:01.000Z
+      aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 5 --timestamp 2016-10-20T12:00:02.000Z    
+  
+  
+  Publishing statistic sets:-
+    Publishing a single data point each time is bad idea its better if we submit a aggregated value rather then each data point.
+    Instaed of calling the api 3 time, we can just make 1 call like below
+      aws cloudwatch put-metric-data 
+        --metric-name PageViewCount 
+        --namespace MyService 
+        --timestamp 2016-10-14T12:00:00.000Z
+        --statistic-values Sum=11,Minimum=2,Maximum=5,SampleCount=3 
+    Using this approach you can save many call to CW, but data resolution will have some vagueness.         
+
+
+ 
+ 
+ 
+
+
+---------------------
+Get Aggregated Data:-
+  Tou can extract the aggregated data from the CW metrcis over specified priode of time
+  For this select the time range and aggregation type.
+  Supported aggregation are
+    SampleCount, Sum, Average, Mean, Min, Max, Percentile  etc.
+
+---------------------
+
+Metrics Insights:-
+  This is the tool AWS cloudwatch provides to run the SQL like query across the multiple metrics. 
+  EG:-
+      SELECT SUM(RequestCount) 
+      FROM SCHEMA("AWS/ApplicationELB", LoadBalancer)    
+  
