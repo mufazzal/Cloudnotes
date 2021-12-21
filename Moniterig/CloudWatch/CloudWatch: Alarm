@@ -6,7 +6,11 @@ Related to Metrics:-
   - Priode: you specify priode on which the CW collect The 1 data point.    
 Related Alarm to bell:-
   Condition:-
-    Greater the, less then etc.
+    There are two kind of condition. you can use one of them
+    1. Math based:
+        If the metric is greater, less then som thrashold.
+    2. Anamoly detection
+        If the metric is in between or belo or above certain band.
   Evolution Priode:-
     The number of data point that should be conside for evaluating the alarm state.
   Datapoints to alarm:-
@@ -23,7 +27,6 @@ Related Alarm to bell:-
     So The CW will create a Data point in each 1 mnt. After every 5 data point alarm state will be evaluated.
       Now if number of Breached data point >= 'Datapoints to alarm' then simply put the alarm in Ring state otherwise let it remain OK.  
 
-
 Related to Action That you wants to take:-
   Based on CW, You can create the specific action to be taken id Alarm is on.
   CW is nativly integrated with 3 AWs service and so can take action on those
@@ -34,6 +37,23 @@ Related to Action That you wants to take:-
       stop, terminate, reboot, and recover
     Action for ASG
   4. Rum an SSM System Manager Automation doc.
+  
+-------------------
+
+Alarm states:-
+ At a moment alarm could be one from this 3 state
+ OK
+ ALARM
+ INSUFFICIENT_DATA.
+ 
+ When alarm is just created it intially remain in 'INSUFFICIENT_DATA' state as data is not thier to evaluate.
+ Once data is avialable then metrics will be either
+ in the ALRM state if thrashold is broken
+ othermise in OK state. It can move from OK to ALARM or ALARM to OK all the time.
+ 
+ 
+ 
+ 
 
 
 IMP: Lambda is not directrly integrated with Lambda. you have to use it woith SNS.
