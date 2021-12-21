@@ -6,3 +6,120 @@ Log Event:-
   It must have at leat two propeerty: 
     - Timestamp
     - Raw message
+
+Log Stream:-
+  This is the flow of log in certail logical sequence. its logic of flow is depend of the source generating this logs.
+  
+Log groups:-
+  Log groups define groups of log streams that share the same retention, monitoring, and access control settings. 
+  Each log stream has to belong to one log group
+
+Log groups > Retention settings:-
+  This define how long the log will be retain this log group
+  
+Metrics out of Log Group:-
+  You can create a Metric filter over the Log Group. This will look for specific pattern in the log events and if match then send the respected metric data.
+  You can create many Metrics Filter on the Log Group.
+  Filter Expression:-
+    To create a filter you first need to create the Filter expression. This will like regex for log event.
+    See the filter pattern for how to create the expression.  
+  Default Value:-
+    This is the value of metric that will be taken if the log event does not match the Fillter expresion.
+    Specifying a Default Value, even if that value is 0, helps ensure that data is reported more often, helping prevent spotty metrics when matches are not found
+    It accept only float value
+  Metric Value:-
+    This is the value of metric that will be taken if the log event match the Fillter expresion.
+    Fix metric value:-
+      You can give fix numeric value like 1, 5, 7.8 etc.and so it will send this value on expression match.
+    Named Metric value:-
+      Instead of giving the fix value you can also five expression, which will take the value from the event itself.
+      EG: for event kind of {latency: 9, timestamp: 87889, ....} you can have metrics value = $.latency or $.timestamp etc.   
+  Dimensions:
+    This is the dimention attched the metric data. This is set in form of ket-value pair. key is simple string and value is Dot json query to fetch value from log json.
+    ErrorCode=$.errorcode
+    user=$.user.userid
+  Metric namespace:
+    The name space of metrics on which you are going to put this.
+  Metric name:-
+    Name of metric where data will be indested.
+  Unit:-
+    You can optionaly use the Unit like Byte, microsecond, gb etc. for this filter.
+  
+  Anamoly for log to analyze errors:-    
+    Count error for 4XX:
+      filter pattern = "$.errorCode=4*"
+      metricValue = 1
+      default value = 0
+    Count it and also attach a dimention
+      filter pattern = "$.errorCode=4*"
+      metricValue = 1
+      default value = 0
+      dimension={type=$.erroCode, instanceId=$.instanceId}  
+  
+-----------------
+
+Log groups > subscription filter:
+  You can use subscription filter for real-time analysis of the log events. 
+  It will deliver the filtered log event to the destination.
+  MAtching Fileter:-
+    Here you have to define the 'Filter Pattern' to define which kind event will be sent to the destination . Only matched will be sent.
+  Destination:- 
+    There is 4 destination suppored
+    1. Kenesis Stream from same or other AWS account
+    2. Kensis Firehose from same or other AWS account
+    3. Lambda from AWS account only
+    4. OpenSearch
+  Role:-
+    You must provide the proper service role who has permission to put data in the destination. Cloudwach will asume this role.
+    for Kenesis it is Kenesis:PutRecord
+  
+  - The event is sent in form of Base-64 encoded with GZIP compressed.
+  - A log group can have max 2 subscription.
+-------------------------
+
+Log groups > Export to S3:-
+  You can export the log data of any Log group to S3 for further analysys.
+  You must give
+    - Bucket name and prefix
+    - from and to timestamp
+    - 
+    
+----------------- 
+Log insight:-
+  This is the tooling provided by AWS to run the SQL like query to fethe the log datah from multiple log group.
+  
+-----------------
+Filter Pattern:-
+  For string log event:-
+    If you log is a simple string like 'App started at : 3030', 'user muf did the task' etc. then you can create below kind of expression
+    " "                 > match all
+    "ERROR"             > match the log which containe "Error" 
+    "ERROR" "Exception" > match the log which containe "Error" or "Exception"
+  For json log event:-
+    If you log is a json like given below 
+      {
+        "eventType": "UpdateTrail",
+        "sourceIPAddress": "111.111.111.111",
+        "arrayKey": [ "value", "another value" ],
+        "anyNumeric": 3455
+        "objectList": [{ "name": "a", "id": 1 }, { "name": "b", "id": 2 }]
+      }    
+    then you can create below kind of expression
+    $.eventType = "UpdateTrail"
+    $.sourceIPAddress != 123.123.*
+    $.arrayKey[0] = "value"
+    $.objectList[1].id = 2
+    $.anyNumeric >= 100
+    {($.objectList[1].id = 2) && ($.eventType = "UpdateTrail")}
+  For Space delimated Log event:-
+    IF your log event is kind for Access log like
+      127.0.0.1 - frank [10/Oct/2000:13:25:15 -0700] "GET /apache_pb.gif HTTP/1.0" 200 1534
+    Then you can use belo kind of expression
+      [ip, user, ...]
+      [ip, user, username, timestamp, request, status_code, bytes > 1000]
+
+-----------------------
+
+      
+  
+    
