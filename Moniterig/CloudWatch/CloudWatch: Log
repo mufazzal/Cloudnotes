@@ -116,6 +116,8 @@ Filter Pattern:-
       127.0.0.1 - frank [10/Oct/2000:13:25:15 -0700] "GET /apache_pb.gif HTTP/1.0" 200 1534
     Then you can use belo kind of expression
       [ip, user, ...]
+      [..., status_code = 4* && bytes > 1000]
+      [ip=1.1.1.*, user, ..., status_code, bytes < 8000]
       [ip, user, username, timestamp, request, status_code, bytes > 1000]
 
 -----------------------
