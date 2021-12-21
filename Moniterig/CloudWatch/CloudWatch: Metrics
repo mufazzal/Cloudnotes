@@ -59,24 +59,18 @@ Custom Metrincs:-
     EG: Sending 3 data point to custom metrics
       aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 2 --timestamp 2016-10-20T12:00:00.000Z
       aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 4 --timestamp 2016-10-20T12:00:01.000Z
-      aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 5 --timestamp 2016-10-20T12:00:02.000Z    
-  
+      aws cloudwatch put-metric-data --metric-name PageViewCount --namespace MyService --value 5 --timestamp 2016-10-20T12:00:02.000Z     
   
   Publishing statistic sets:-
     Publishing a single data point each time is bad idea its better if we submit a aggregated value rather then each data point.
-    Instaed of calling the api 3 time, we can just make 1 call like below
+    Instaed of calling the api 3 time, we can just make 1 call with '--statistic-values' rather then just '--value' like below
       aws cloudwatch put-metric-data 
         --metric-name PageViewCount 
         --namespace MyService 
         --timestamp 2016-10-14T12:00:00.000Z
         --statistic-values Sum=11,Minimum=2,Maximum=5,SampleCount=3 
-    Using this approach you can save many call to CW, but data resolution will have some vagueness.         
-
-
- 
- 
- 
-
+    Using this approach you can save many call to CW without loosing any data-point but data resolution will have some vagueness.   
+    
 
 ---------------------
 Get Aggregated Data:-
