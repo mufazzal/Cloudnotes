@@ -673,6 +673,11 @@ Object owner if Uploaded by diffrent Account:-
 	if uploaded set Object ACL = 'bucket-owner-full-control' then the bucket owner account will own it.
 
     
+----------------
+Special Case of Bucket Policy and Root User:-
+	Suppose in case you put a bucket policy to S3 bucket that will DENY all the operation on the BUCKET by all the user.
+	No one allow to do any thing on the bucket. In that case what will happen.
+	To mitigate this AWS never DENY the 'put-bucket-policy' for the root user even the Bucket-Policy explicitly deny it.
 
 
 
