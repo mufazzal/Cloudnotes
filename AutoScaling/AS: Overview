@@ -43,6 +43,13 @@ StandBy Instance:-
   ASG make sure that LB do not send traffic to this instance and instead distribute to other.
   but ASG wont launch any new instance
   Once you mainatainance dome Exit the standby.
+  At a time of putting the instance to StandBy you can allow to decrease the Desire capacity or not
+    - If you allow the decrese the capacity the new istance will not be lauch
+    - IF you do not allow then a new instacne will be launch to provide you consistent capacity.
+  At a time of moving it from Standby to InService the desire capacity wil be increamented by one. due to this
+    - If you allowed to decrese the capacity at time of putting it to Standbay then no scal-in will be happen
+    - If you do not allowed to decrese the capacity at time of putting it to Standbay then a scal-in will happen.
+    
   
   
 Limits:-
