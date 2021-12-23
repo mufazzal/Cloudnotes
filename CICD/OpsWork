@@ -1,0 +1,29 @@
+Three trhing you can de:-
+  OpsWork for Puppet
+  OpsWork for Chef
+  OpsWork for Stacks
+  
+OpsWork for Stacks:-  
+  Events:-
+    Setup: run when instance start
+    Configure: run when set up complete and run on all the instances not only on the onr who started.
+    Deploy: when app is deployed
+    Undeploy: when app is undeploy
+    Shutdown: when instance stop.
+  
+  Instance Type:-
+    24/7: Rull all the time
+    Time based: Run on specified time
+    Load Based: run on certail load goes up. like cpu or memory.
+  
+  Auto Healing:-
+    All instance has a agent installed which sent the report of health. if not receved then the instance is taken out and replaced.
+  
+  Integration to EventBridge:-
+    You recive the event for below
+      intance state change
+      Deployment change
+      Command change
+    
+    
+  
