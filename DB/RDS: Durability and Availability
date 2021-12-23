@@ -98,3 +98,6 @@ Multi AZ failover occure in below cases:-
   Storage/Network/Compute unit failure of Primary instance
   AZ failure
 
+-----------
+IF your Apps are caching the IP of DNS then make sure that you set TTL for this so that DNS IP will get invalidated after soe time.
+otherwise failover will not reflected on your app.
