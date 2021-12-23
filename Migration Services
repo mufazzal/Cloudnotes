@@ -37,7 +37,7 @@ AWS Application Discovery Service:-
           Utilization Data: RAM, CPU, Disk usage,  
           
     2. Agent-based discovery    
-        For this you have to install AWS Application Discovery Agent on each of your VMs and physical servers.
+        For this you have to install 'AWS Application Discovery Agent' on each of your VMs and physical servers.
         For this you will need IAM permission 'AWSApplicationDiscoveryAgentAccess '
         It Collect below data:-
           Static Data:  IP, HostName, MAC addresses, disk resource allocations
