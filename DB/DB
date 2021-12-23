@@ -51,7 +51,7 @@ Supporting SQL DB:
     IMP: Elasticache and DDB-DAX is in-memory db. not DDB
 -----------------------------
 
-  AWS DMS [Database Migration Service]:-
+AWS DMS [Database Migration Service]:-
     This is the fully managed AWS service to migrate between 
        > AWS-cloud to On-Premise
        > AWS-cloud to AWS-cloud
@@ -63,13 +63,30 @@ Supporting SQL DB:
     1. Create a replication server
     2. Create source and target endpoints
     3. Create one or more migration tasks to migrate data
-  Thereis 3 phase of migration:-
+  
+  Migration Type:-
+    You can set to
+    - Migrate only existing data
+    - Migrate existing data + ongoing transaction [via cache after existing replication done]
+    - only copy opgoing transaction.
+    
+  Replication instance:-
+    The DMS is nothing but a replication software running on EC2. 
+    DMS bring up the EC2 and install it. You can set the capacity at time of task creation.
+    
+  There is 3 phase of migration:-
     1. The full load of existing data: 
           Data are moved from spource to destination. and any ongoing chages in source data are cached in replication server
     2. The application of cached changes
           Once first phase finis, it apply the cached changes to target DB
     3. Ongoing replication
           Now any ongoing changes will be applied to target as transacction
+  
+  Data Validation:-
+    IF it is enabled then DMS will perform the validation on the data.
+    During data validation, AWS DMS compares each row in the source with its corresponding row at the target, 
+    verifies the rows contain the same data, and reports any mismatches
+    
   
   Below are the possible source 
     On-premise or EC2 database
