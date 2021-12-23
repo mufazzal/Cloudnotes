@@ -25,7 +25,8 @@ AWS Application Discovery Service:-
   Befor you migrate to the Cloud. you need to collect lot of data from your On-Premise server.
   Collecting this data is very difficult. To solve this come 'Application Discovery Service'
   This tools helps you to coolect data form on premise server and later you can use this data to arcgitech your app in cloud.
-  The data collected are stored in Migration Hub and you can view them in there.
+  The data collected are stored in Migration Hub and you can view them in there. 
+  You can group the discovered server in the groups.
   
   Application Discovery Service offers two ways of performing discovery
     1. Agent-less discovery:-
