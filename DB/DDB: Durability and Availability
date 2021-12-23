@@ -1,9 +1,12 @@
 
-	DDB Global Table:-
-		For this 'DDB Stream' must be enabled.
-		Any DDB table by region specific and lie only in that region. but if you wants to replicate it in other rergion then you have to use the global table
-		But for this first you have to enable the 'Stream'
-		Once enabled then to set the Global table 
-		simply go to table > Global table Add Region
-		Now selecc the region and then you can see the same table in that region.
-		This table will stay in synch with the orignal one.
+Multi AZ:-
+	DDB table is default Multi AZ replicated. Data redundantly copied to multiple AZ for Dyrability.
+
+DDB Global Table:-
+	Any DDB table by region specific and lie only in that region. but if you wants to replicate it in other rergion then you have to use the global table
+	But for this first you have to enable the 'Stream' Once enabled then you can create the Global tabke in multiple region. 
+	This are Multi Active table means you can READ and WRITE data in any of the table. This is not just read replica.
+	Table remain in synch with each other and data copied among them.
+	
+	Data Conflict:-
+		If a same data added or updated [data with same PK] tyhen the last one who updated will win.
