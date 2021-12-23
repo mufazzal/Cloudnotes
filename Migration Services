@@ -1,0 +1,51 @@
+AWS provide many Migration services and tool to simplify the migration from On-Premise to Cloud or Cloud to On-Premiser.
+
+Some of then are
+  1. VM Import/Export:
+      Useful for creating AMI for VM image(.ova) of on-premise and vice verca
+      For detail: see 'Compute - EC2/EC2 - AMI.txt'
+  2. Database Migration Services:-
+      Useful to migrate DB to and from On-Premise and Cloud
+      For Detail see: 'DB/DB.txt'
+  3. Server Migration Service:
+      This is now deprecated and you should use 'Application Migration Service'
+  4. Application Migration Service:-
+      Use this to migrate the Servers.
+  5. Migration Hub:-
+      This is common wondow to track and mange all your migration, be it by any tool from below
+        - AWS Application Migration Service
+        - AWS Server Migration Service [DEPRECATED]
+        - AWS Database Migration Service
+        - ATADATA ATAmotion partner tool
+
+Application Migration Service:-
+  This is used to migrate the Severs to the Clooud.
+  
+AWS Application Discovery Service:-
+  Befor you migrate to the Cloud. you need to collect lot of data from your On-Premise server.
+  Collecting this data is very difficult. To solve this come 'Application Discovery Service'
+  This tools helps you to coolect data form on premise server and later you can use this data to arcgitech your app in cloud.
+  The data collected are stored in Migration Hub and you can view them in there.
+  
+  Application Discovery Service offers two ways of performing discovery
+    1. Agent-less discovery:-
+        For this you need to install the 'Agentless Discovery Connector' (.ova) in the VMware vCenter.
+        For this you will need IAM permission 'AWSAgentlessDiscoveryService'
+        It collect below data
+          Static Data:  IP, HostName, MAC addresses, disk resource allocations
+          Utilization Data: RAM, CPU, Disk usage,  
+          
+    2. Agent-based discovery    
+        For this you have to install AWS Application Discovery Agent on each of your VMs and physical servers.
+        For this you will need IAM permission 'AWSApplicationDiscoveryAgentAccess '
+        It Collect below data:-
+          Static Data:  IP, HostName, MAC addresses, disk resource allocations
+          Utilization Data: RAM, CPU, Disk usage with detail time serise info
+          Running services on host
+          inbound and outbound network connections
+          
+          
+          
+          
+    
+    
