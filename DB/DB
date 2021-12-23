@@ -84,7 +84,7 @@ AWS DMS [Database Migration Service]:-
     2. The application of cached changes
           Once first phase finis, it apply the cached changes to target DB
     3. Ongoing replication
-          Now any ongoing changes will be applied to target as transacction
+          only any ongoing changes will be applied to target as transacction
   
   Data Validation:-
     IF it is enabled then DMS will perform the validation on the data.
