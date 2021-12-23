@@ -68,8 +68,12 @@ AWS DMS [Database Migration Service]:-
     You can set to
     - Migrate only existing data
     - Migrate existing data + ongoing transaction [via cache after existing replication done]
-    - only copy opgoing transaction.
+    - only copy ongoing transaction.
     
+  table preperation mode
+    - Do nothing: AWS DMS assumes that the target tables are precreated on the target.
+    - Drop tables on target: AWS DMS drops and recreates the target tables
+    - Truncate: If you created tables on the target, AWS DMS truncates them before the migration starts. If no tables exist and you select this option, AWS DMS creates any missing tables
   Replication instance:-
     The DMS is nothing but a replication software running on EC2. 
     DMS bring up the EC2 and install it. You can set the capacity at time of task creation.
