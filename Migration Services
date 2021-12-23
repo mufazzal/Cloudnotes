@@ -31,7 +31,8 @@ AWS Application Discovery Service:-
   Application Discovery Service offers two ways of performing discovery
     1. Agent-less discovery:-
         For this you need to install the 'Agentless Discovery Connector' (.ova) in the VMware vCenter.
-        For this you will need IAM permission 'AWSAgentlessDiscoveryService'
+        For this you will need IAM user with permission 'AWSAgentlessDiscoveryService'
+          You will need it acceess key and secret od for installin agent on on prrmise
         It collect below data
           Static Data:  IP, HostName, MAC addresses, disk resource allocations
           Utilization Data: RAM, CPU, Disk usage,  
