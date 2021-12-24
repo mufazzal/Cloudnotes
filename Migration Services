@@ -28,7 +28,7 @@ AWS Application Discovery Service:-
   The data collected are stored in Migration Hub and you can view them in there. 
   You can group the discovered server in the groups.
   
-  Application Discovery Service offers two ways of performing discovery
+  Application Discovery Service offers three ways of performing discovery
     1. Agent-less discovery:-
         For this you need to install the 'Agentless Discovery Connector' (.ova) in the VMware vCenter.
         For this you will need IAM user with permission 'AWSAgentlessDiscoveryService'
@@ -46,8 +46,11 @@ AWS Application Discovery Service:-
           Utilization Data: RAM, CPU, Disk usage with detail time serise info
           Running services on host
           inbound and outbound network connections
-          
-          
+     
+    3. Filling a form:-
+        In case you cannot install any if the agent and you still wants to use App Discovrry Service.
+        Then you can simply fill form in migration hub with all the detail of you pn-premise server and submit it.
+        
           
           
     
