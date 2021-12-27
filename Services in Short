@@ -94,3 +94,14 @@ AWS Service Catalog:-
   These IT services can include everything from virtual machine images, servers, software, and databases to complete multi-tier application architectures. 
   AWS Service Catalog allows you to centrally manage deployed IT services and your applications, resources, and metadata.
   
+
+AWS Compute Optimizer:-
+  AWS Compute optimizer help you to get the Recommendation that is your resources are under or over used.
+  It actully analyze metric data and utilization data and generate the findings which containe recommendation 
+  This help you to evaluate if you should oversize or undersize your resource
+  It generate recommendation for
+  - EC2
+  - ASG
+  - ES
+  - Lambda
+
