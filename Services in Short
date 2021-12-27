@@ -104,4 +104,5 @@ AWS Compute Optimizer:-
   - ASG
   - ES
   - Lambda
+  It read the back metrics of 14 days for this. You can choose to hae advance for higher cost.
 
