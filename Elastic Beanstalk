@@ -299,7 +299,7 @@ Saving EB Configuration:-
 
 Source of Configs:-
 	In EB there is 4 possible source to set or cahnge the config
-	1. Apply directly the EB env via Console, SDK, CLI etc
+	1. Apply directly with Update or Create operation on EB env via Console, SDK, CLI etc
 	2. Saved configuration in S3
 	3. Configuration file (.ebextensions)
 	4. Defaut values set by AWS.
