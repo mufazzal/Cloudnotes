@@ -15,7 +15,7 @@ Deployment group > Deployment Setting/Configuration:-
   It define how the traffic will be shifted to new Lambda version. Possible value:
     carany: Traffic shifted from older to new in two itration.  Eg. LambdaCanary<X>percentIn<Y>Minute
     linear: Traffic shifted from older to new in multiple with lineat time delay itration. Eg. LambdaLinear<X>percentIn<Y>Minute
-    none: traffic shifted in one iteration only. 
+    none: traffic shifted in one iteration only. LambdaAllAtOnce
 
 Deployment group > Load Balancer:-
   No setting in here. LAmbda do not use this setting.  
