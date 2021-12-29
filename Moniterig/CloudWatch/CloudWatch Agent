@@ -8,6 +8,7 @@ This is a software that you can install in the EC2 at the time of EC2 launch. Th
 You can view this log in CW console like any other.
 By default it has the metrics namespce = 'CWAgent' but yo can have your own.
 
+
 Collecting special metrics:-
   With CW agent you can set to collect the special metrics from the instances. like memory, disk left, cpu_per_code etc.
   For this you have to provide proper configuration at a time of instaling agent.
