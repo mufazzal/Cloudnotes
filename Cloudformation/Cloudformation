@@ -52,7 +52,6 @@ Nested Stack:-
 Log files:-
   User Data logs: /var/logs/cloud-init-output.log
   cfn-init logs:  /var/logs/cfn-init.log  
-  
     
 ---------
 
@@ -74,9 +73,20 @@ Error Handling:-
   
 -----------------
 
-
 Stack Policy:-
-  Yu can use the stack policy to define if you do not wants to change/delete certain resource in the stack.
+  You can use the stack policy to define if you do not wants to change/delete certain resource in the stack.
+  By default there is no stack policy is set in the stack. In this case none of the resource are protected.
+  If you set the satck policy the by default all the resources are protected. and you have to 'Allow' them explicitly.
+  Typical statement:-
+
+        "Effect" : "Allow | Deny",
+        "Action" : "[Update:Modify, Update:Delete, Update:Replace, Update:*]",
+        "Principal": "*",
+        "Resource" : ['LogicalResourceId/ii1', 'LogicalResourceId/ii2', ..]
+        "Conditions": []
+  
+  - Stack Policy comes into the picture for update operation only
+  - Principal only suport '*'
 
 --------------
 Update Stack:-
