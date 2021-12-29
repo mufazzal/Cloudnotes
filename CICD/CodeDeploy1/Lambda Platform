@@ -39,10 +39,13 @@ Lambda Appspec file:-
     This will shift the traffic from CurrentVersion(1) to TargetVersion(2) in the manner defined in the sected deployment Group.
     hook:-
       This is the lambda that will trigger before and after traffic shifted to new versions
+      This Hooks must call the 'putLifecycleEventHookExecutionStatus' with 'SUCCESSED' or 'FAILED' to finsh the hook call.
+      If not called for on hour then ut will consider a failure.
+      Failure of Hook will cause the RollBack.
     Alias:
       New version will be mapped to this Alias. if alias not exist then it will be created first.
   
-
+      
 -----------------------------------------------
 
 Deplyment of lambda codedeploy + SAM:-
