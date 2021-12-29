@@ -48,9 +48,7 @@ StandBy Instance:-
     - IF you do not allow then a new instacne will be launch to provide you consistent capacity.
   At a time of moving it from Standby to InService the desire capacity wil be increamented by one. due to this
     - If you allowed to decrese the capacity at time of putting it to Standbay then no scal-in will be happen
-    - If you do not allowed to decrese the capacity at time of putting it to Standbay then a scal-in will happen.
-    
-  
+    - If you do not allowed to decrese the capacity at time of putting it to Standbay then a scal-in will happen.    
   
 Limits:-
   Launch configurations per Region: 200
@@ -96,18 +94,27 @@ ASG scaling processes:-
     4. ReplaceUnhealthy
     5. ScheduledActions
     
- - Each process type can be suspended and resumed independently
- - Keep in mind that suspending individual processes might interfere with other processes
- 
  Suspendin/Resuming Process:  
   go to 
     AWS > EC2 > ASG > 'tour group' > Action > Edit
     See 'Suspended Processes' and select the proess to be suspended.
     Or remove process form the 'Suspended Processes' to resume it.
     
-  When you create the ASG it immediatly start creating the EC2's to reach for the minimum capacity.
-  So it may be not a optimal. you may wants to create ASG but not wants to run the EC2 just now for this just suspend the Launch Process.
-    
+  
+  Terminate: The ASG will not terminate the instances for scale-in by any event like Manual, Scalling Policy or Schedule scalling.
+  Launch: The ASG will not launch the instances for scale-out by any event like Manual, Scalling Policy or Schedule scalling.
+  AddToLoadBalancer: Instances will be launched but not added to LB. Resuming again will also not add the instances launched during the paused phase. but will add the new one.
+  AlarmNotification: ASG will not scale-in or scale-out for any Scalling Policy event. Resuming again will immediatly start hadling the breached alarms.
+  ScheduledActions: ASG will not scale-in or scale-out for any Schedule Policy event. Resuming again will immediatly start hadling the scheduled [if it is still in time frame].
+  HealthCheck: ASG will stop doing healthe from ELB or EC2. REsuming it will first terminate the instances that were marked unhealthy
+  ReplaceUnhealthy: ASG will do the health check but will not terminate them with new one
+
+ - Each process type can be suspended and resumed independently
+ - Keep in mind that suspending individual processes might interfere with other processes
+ - Suspending Terminate and Launch will also impact the AZRebalance, ReplaceUnhealthy, InstanceRefresh 
+ - When you create the ASG it immediatly start creating the EC2's to reach for the minimum capacity.
+    So it may be not a optimal. you may wants to create ASG but not wants to run the EC2 just now for this just suspend the Launch Process.
+
 ----------
 
 AS Instance Lifecycle - LB target status - timeouts:-
