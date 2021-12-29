@@ -50,6 +50,10 @@ ECS Appspec file:-
       AfterAllowTestTraffic, 
       BeforeAllowTraffic, AfterAllowTraffic
       
+      This Hooks must call the 'putLifecycleEventHookExecutionStatus' with 'SUCCESS' or 'FAIL' to finsh the hook call.
+      If not called for on hour then ut will consider a failure.
+      Failure of Hook will cause the RollBack.
+      
   Fotmate of the file is :- 
     Version: 0.0
     Resources:
