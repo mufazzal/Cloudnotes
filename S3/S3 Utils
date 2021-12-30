@@ -47,4 +47,26 @@ S3 Batch:-
     Copy, Call lambda on each object, Restore from Glacier, Replace/Delete Tag, Change ACL, Object Lock.
     
     
+Analytics on S3:-
+  Storage class analytics: 
+    you can analyze storage access patterns to help you decide when to transition the right data to the right storage class.
+    It observes the infrequent access patterns of a filtered set of data over a period of time, 
+    you can use the analysis results to help you improve your lifecycle policies and have better cost optimization
+    You can configure it to analyze
+      - All Object in bucket
+      - Fitered based on prefix and/or Tag
+      
+  Storage Lense:-
+    This provide single view point for storage and activity metrics of S3 at
+      - Account level
+      - Organization level
+      - Bucket level
+      - Prefix level
+   You can use default dashboard or create your own.
+   The dashboard can give you storage related metrics like count of object, average size, total size etc. 
+   The dashboard can give you activity related metrics request count, request type, error etc. 
+      
+    
+  
+  
   
