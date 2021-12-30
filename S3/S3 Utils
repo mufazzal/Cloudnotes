@@ -65,6 +65,7 @@ Analytics on S3:-
    You can use default dashboard or create your own.
    The dashboard can give you storage related metrics like count of object, average size, total size etc. 
    The dashboard can give you activity related metrics request count, request type, error etc. 
+   It also give you recommendation for better cost and security practice
       
     
   
