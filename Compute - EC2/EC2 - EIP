@@ -6,3 +6,6 @@ Charges:
     
     While your instance is running, you aren't charged for one Elastic IP address associated with the instance, 
     but you are charged for any additional Elastic IP addresses associated with the instance
+    
+BY default you can have max 5 EIP per region per account.
+If you need more then you must request the limit increase via filling form in Service Quota Console
