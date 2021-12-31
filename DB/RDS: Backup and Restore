@@ -4,8 +4,10 @@
     The time window when the back up should be taken. EG: 24 hour
   Retenstion priode:-
     How long you wants to keep the back up. EG: 35 days
-   EG: Take back up after every 24 hour and keep this back up file for next 35 days.
-   
+     EG: Take back up after every 24 hour and keep this back up file for next 35 days.
+  Cross-Region Automated backups:-
+    You can do the automated back up at diifrent AWS region for DR.
+  
    The snapshot of the back up will be shown at 
    RDS > snapshot
    you can see the type of the snapshot will be 'Automated'
@@ -20,6 +22,8 @@
   IMP: 
     - When back up is in progress then at that time DB will face some IOPS leg because backup process consume IOPS.
        This higher in case of Single-AZ. In case of Multi-AZ the automated back up is taken from Standby instabce.
+       
+       
 --------
 
 Snapshot:-
@@ -36,7 +40,14 @@ Snapshot:-
     4. chose other thing
     5. Done
 
+---------
+Copy Operation:-
+  You can copy the Automated or Manual snapshot to same or other AWS region.
 
+Sharing Operation:-
+  You can share only Manual snapshot not automated one.
+
+--------
 Snapshot vs Automated-back-up :-
   Simillarity - 
     1. Both are way to take back up and restore
@@ -44,10 +55,12 @@ Snapshot vs Automated-back-up :-
        and in both the DNS endpoint get changes. you have to choose the other identifier.
        So orignal.bala.blabal.aws.com  may changed to   snappy.bla.bla.aws.com
     3. For both of them the snapshot of back up will be visible at 'snapshot' page
+    5. Both can be copied to create another snapshot in same or other region
    Diffrence :-
     1.  in Automated-back-up the back time and retention is configured, after that taking back is totally automatic proceess
         in snapshot you take a snap whenever you need. so here backing up is not automated with time
     2. The type of snapshot will ne 'manual' for one and 'automated' for other.
+    3. Only Manual snapshot can be shared with other account not automated one.
     
 --------
 
@@ -60,4 +73,6 @@ Snapshot vs Automated-back-up :-
     transactional logs are applied to the most appropriate daily backup in order to restore your DB instance to the specific requested time  
       
     So Point-in-time recovery is possible for max number of days for which you retain your automated back up.
+    
+    
     
