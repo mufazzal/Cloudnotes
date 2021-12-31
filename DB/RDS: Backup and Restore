@@ -21,8 +21,7 @@
 
   IMP: 
     - When back up is in progress then at that time DB will face some IOPS leg because backup process consume IOPS.
-       This higher in case of Single-AZ. In case of Multi-AZ the automated back up is taken from Standby instabce.
-       
+       This higher in case of Single-AZ. In case of Multi-AZ the automated back up is taken from Standby instabce.       
        
 --------
 
