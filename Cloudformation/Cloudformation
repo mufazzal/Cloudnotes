@@ -111,3 +111,9 @@ Update Stack:-
           EG: a new tag added to EC2
    - Add a new resource if there is one in template but not in stack
    - Delete the one if it is in stcak but not in template
+----------------------
+
+Notification options:-
+  You can specify a new or existing SNS topic where notifications about stack events are sent.
+  You specify at time of deploying stack.
+  Only SNS issupported not other,
