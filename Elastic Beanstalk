@@ -294,38 +294,42 @@ Saving EB Configuration:-
 	This is saved in S3.
 	Later you can use it to restore the prvious state or to launch another same enviorment from that config.
 	This is saved in YAML formate and Mutable. So you can chabge the values in it if you need some cutomization in configuration.
+	You can export it to save locally too. for using in project folder directly.
+	
+	Using Save Configuration to create/update envirment:-
+		You can use the saved configuration for enviorment update/creation. for this you have to provide the name of saved configuration file.
+		If you are using EC CLI then you must give 'ec create/update --cfg <name of file>' parameter with.
+		The EB will first look into the source folder at '.elasticbeanstalk/saved_configs/<name of file>' if not found then look into S3 for EB saving location.
 
 ------------------
 
 Source of Configs:-
 	In EB there is 4 possible source to set or cahnge the config
 	1. Apply directly with Update or Create operation on EB env via Console, SDK, CLI etc
-	2. Saved configuration in S3
+	2. Saved configuration in S3 [is --cfg <name> is used]
 	3. Configuration file (.ebextensions)
 	4. Defaut values set by AWS.
 	
 	The prority if higest to lowest downward.
 
 --------
-
 Enviorment Manifest[env.yaml]:-	
 	This file lies at root of your source code and can provide the configuration defgail to the EB enviorment.
 	It can have configuration like 
 	Cname, EnvironmentName, EnvironmentLink, Env Tier[Web/Worker]
 	Also have configuration related to resources in the enviormenty
 	LT, LCG, LB, ATS etc.
-
+--------
+.elasticbeanstalk/saved_configs/<name of file>:-
+	This is the saved configuration file. it is used if enviorment is is created using   'eb create --cfg <name of file>'
 --------
 .config in .ebextensions:-
 	In this files lies the Yaml formatted configuration diffrent resource like LT, LCG, LB, ATS etc.
 	It override the setting in env.yaml
 -------
-
 Corn.yml for worker env:
   You can define periodic tasks in a file named cron.yaml in your source bundle to add jobs to your worker environment's queue automatically at a regular interval.
-
 -------
-
 DockerFile:-
 	Use this for single Container Docker env
 -------
