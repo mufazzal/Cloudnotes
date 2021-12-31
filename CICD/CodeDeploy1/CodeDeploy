@@ -103,6 +103,10 @@ Cloudwatch metrics/logs published by CodeDEploy:-
   
 ------------------------------
 
-
+CodeDeploy on On-Premise:-
+  To Deploy on O-Premise you must have below setting 
+  1. CodeDEploy Agent must be installed on on-premise
+  2. Must be able to connect to AWS public service at HTTP:443
+  3. IAM use for on premise must contain correct permission
 
 
