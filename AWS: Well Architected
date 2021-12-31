@@ -42,7 +42,6 @@ S3 File Gateway:-
 ---------------
 
 Disaster Recovery Mechanichs:-
-  
             Multi Site        Warm Standby        Pilot Light       Back and Restore
 Cost        Highest           Moderate            Less              Cheapest
 RTO-RPO     0                 Minute              Hour              No commitment
@@ -50,9 +49,57 @@ Use Caase   Mission-critical  Buisness-Critical   Core-Services     NA
 Statrt      No need           No Need             Needed            -
 Scalling    No need           Needed              Needed            -
 
- 3. Multi Site:-  Active-Active failover system. No Start and No scalling required.
- 1. Warm Stadby:- Scaled down, but fully functional, copy of your production environment in another Region. No Start and But scalling required. 
- 2. Pilot Light:- Simillar to Warm standby but need to take action to start it. Start and both scalling required
- 4. Backup and Restore: A typical Tape based back up on cheap storage and restore it whne needed. It can have the loss of data based on defined RPO.
+ 1. Backup and Restore: 
+    A typical Tape based back up on cheap storage and restore it whne needed. It can have the loss of data based on defined RPO.
+    You can have back up of data in same or diffrent region.
+    Tjhere is no standby infrasturcure running or in stop state.
+    At time of disaster:-
+      - You can retruve data from back up
+      - You have to deploy infrastructure first
+      - then deploy app lication and set configuration too
+      - start and scale in infra if needed
+      - then map user to new deployed app
+    
+    Useful AWS feature for back up:-
+      EBS datalifecycle and snapshot, S3 replication, S3 versioning, RDS snapshot, Aurora DB snapshot, AMI Copy
+
+ 2. Pilot Light:- 
+    you copy the database, Objects storage and required file in DR region.
+    Also a scale down version of your code infractuture is also provisioned and softwares are installed and confugured.
+    But infrastructure is in stopped state and will not be able to handle any traffic. 
+    At time of disaster:-
+      - start and scale in infra if needed
+      - then map traffic to DR region
+    
+    Useful AWS service for data copy to other region:-
+      RDS Cross region replication
+      Aurora global databases
+      DynamoDB global tables      
+      S3 Cross region replication
+      AMI Copy to other region with data lifecycle manager
+      
+  Use AWS Cloudformation with pseudo parameter to deploy the same but scale down version of infra in DR region.
+  Use EC2 Hibernate feature to keep EC2 ready to start quickly
+  To scale up you change setting of ASG, DynamoDB throput, create read replica etc.
+  Use Route53 failover routing with health check or Global Accelarator with healthcheck to redirect request to active region.  
+
+ 1. Warm Stadby:- 
+    you copy the database, Objects storage and required file in DR region.
+    Scaled down, but fully functional, copy of your production environment in another Region. 
+    At time of disaster:-
+      You just have to scale up 
+    To scale up you change setting of ASG, DynamoDB throput, create read replica etc.
+
+  Warm Standby VS Pilot light:-
+    In pilot light the DR region will not be able to handle any single request as it is swiched off.
+    In Warm Standby the DR region will not be able to handle few request as it is in on but scale down state
+
+ 2. Multi Site:- 
+    Active-Active failover system. No Start and No scalling required.
+    
+    
        
+
+  
+
 
