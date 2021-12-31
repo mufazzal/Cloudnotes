@@ -117,6 +117,7 @@ AWS QuickSight:-
     Data File: CSV, TSV, Json, xlsx
     SaaS Data: Jira, ServiceNow, Git, Twitter, Salesforce
     third party data: Twitter
+    Any internet accessible dataset or database
     excel sheet
     etc.
   This powerful tool bear no upfront charges. and you do not need to manage and create any infra. Just provide the data source set the BI and done.
