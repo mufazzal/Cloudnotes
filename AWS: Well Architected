@@ -82,7 +82,7 @@ Scalling    No need           Needed              Needed            -
   Use EC2 Hibernate feature to keep EC2 ready to start quickly
   To scale up you change setting of ASG, DynamoDB throput, create read replica etc.
   Use Route53 failover routing with health check or Global Accelarator with healthcheck to redirect request to active region.  
-  You can slo have manual intervention to change DNS at Route53 for better control
+  You can also have manual intervention to change DNS at Route53 for better control
   
  1. Warm Stadby:- 
     you copy the database, Objects storage and required file in DR region.
