@@ -106,3 +106,22 @@ AWS Compute Optimizer:-
   - Lambda
   It read the back metrics of 14 days for this. You can choose to hae advance for higher cost.
 
+
+AWS QuickSight:-
+  This is cloud-scale business intelligence (BI) service.
+  You can use it to make Visulization, decesion, analysis of data from many diffrent sources.
+  You can source datah from supported sources and then create a visuslization, dashboard from it.
+  Suported sources are very wide like
+    AWS data: RDS, Aurora, S3, Athena, OpenSearch, Redshift
+    On-premise or EC2 database: MariaDB, MySQL, Teradata etc.
+    Data File: CSV, TSV, Json, xlsx
+    SaaS Data: Jira, ServiceNow, Git, Twitter, Salesforce
+    third party data: Twitter
+    excel sheet
+    etc.
+  This powerful tool bear no upfront charges. and you do not need to manage and create any infra. Just provide the data source set the BI and done.
+    
+  
+  
+  
+
