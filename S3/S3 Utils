@@ -37,6 +37,7 @@ Athena VS S3 Slect:-
   
 Macie:-
   This is AI tool buld over athena which help to find if there is any sensitive info like CC detail, password stored in any S3 file.
+  NOTE: Macie not only can moniter S3 but also Cloudtrail log too
 
 S3 Batch:-
   You can use S3 Batch Operations to perform large-scale batch operations on Amazon S3 objects. 
