@@ -17,9 +17,10 @@ Related Alarm to bell:-
     Number of Data point that must be breached in the frame of 'Evolution Priode'
   Missinge Data:-
     In case in any priode the data point is not avialabe then you can treat this miss as:
-      - MAintain alarm state
-      - Breach
-      - No Breach
+      - Maintain alarm state: Missing data will be ignored and Alrm will remian in same state
+      - Breach: Alarm will be considered as breached "ALARM"
+      - No Breach: Alarm will be considered as not breached "OK"
+      - Missing: Alarm will consider as 'INSUFFICIENT_DATA'
   EG:-
     Priode = 1 mnt
     Evolution Priode = 5 
@@ -50,10 +51,6 @@ Alarm states:-
  Once data is avialable then metrics will be either
  in the ALRM state if thrashold is broken
  othermise in OK state. It can move from OK to ALARM or ALARM to OK all the time.
- 
- 
- 
- 
 
 
 IMP: Lambda is not directrly integrated with Lambda. you have to use it woith SNS.
