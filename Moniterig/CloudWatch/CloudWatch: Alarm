@@ -17,10 +17,10 @@ Related Alarm to bell:-
     Number of Data point that must be breached in the frame of 'Evolution Priode'
   Missinge Data:-
     In case in any priode the data point is not avialabe then you can treat this miss as:
-      - Maintain alarm state: Missing data will be ignored and Alrm will remian in same state
-      - Breach: Alarm will be considered as breached "ALARM"
-      - No Breach: Alarm will be considered as not breached "OK"
-      - Missing: Alarm will consider as 'INSUFFICIENT_DATA'
+      - Ignore:       Maintain alarm state: Missing data will be ignored and Alrm will remian in same state
+      - Breach:       Alarm will be considered as breached "ALARM"
+      - No Breach:    Alarm will be considered as not breached "OK"
+      - Missing:      Alarm will be consider as 'INSUFFICIENT_DATA'
   EG:-
     Priode = 1 mnt
     Evolution Priode = 5 
