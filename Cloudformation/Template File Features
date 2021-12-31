@@ -154,6 +154,9 @@ Custom Resource:-
 				- PhysicalResourceId: 
 							This is the unique id for the resource. 
 							If you return the changed value then the replacement is considered. and the delete request will be executed for this resource next.
+				-  Data [Optional]: 
+							This is the key-value pair that can be used to send related data back to template.	
+							You can access the values provided here by key in the template with Fn::GetAtt	
 	
 	cfn-response module:
 		To make your life easy for custom resource presign url system, aws provide this lib 
