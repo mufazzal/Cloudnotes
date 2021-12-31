@@ -87,6 +87,7 @@ Service Health Dashboard:-
   Displays the general status of AWS services, 
 AWS Personel Health Dashboard:-
   Displays personalized view of alerts and remediation guidance when AWS is experiencing events that may impact you. 
+  Health Dashboard are integrated with CW event [Event Bridge] so that you can react on any service downtime immediatly.
   
   
 AWS Service Catalog:-
