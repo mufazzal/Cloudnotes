@@ -68,7 +68,7 @@ Log groups > subscription filter:
     1. Kenesis Stream from same or other AWS account
     2. Kensis Firehose from same or other AWS account
     3. Lambda from AWS account only
-    4. OpenSearch
+    4. OpenSearch: For real time search and analytics capbility of Log, this is very useful.
   Role:-
     You must provide the proper service role who has permission to put data in the destination. Cloudwach will asume this role.
     for Kenesis it is Kenesis:PutRecord
