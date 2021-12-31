@@ -168,6 +168,10 @@ AS Instance Lifecycle - LB target status - timeouts:-
   Instance Termination
   Instance Termination failed
   
+
+Activity Notification VS Hook:-
+  Activity Notification is simply a SNS notifiaction to tell you about an event. and it must involve an SNS
+  Hook is lifcycle phase, where you must perform actions and then tell the ASG to end this phase by appropiate api/cli/sdk call. it can or cannot involve SNS/lambda
   
   
   
