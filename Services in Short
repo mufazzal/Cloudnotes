@@ -63,6 +63,14 @@ AWS Trusted Advisor:-
   This is tied with CW Event[Event Bridge] so you can take action on any finding of it. [Its available in Us-East-1 only]
   It has free tier and paid tier. PAid will have detail analysis.
   It also has the limit that the account get at least at 30 minute interval.
+  It give finding like:-
+    ANy EC2 is undeused, overused or any lambda is too time taking or any LB is idle for long time or any SG is open to all.
+  
+  Basic Plane:-
+    In basic plan you will get All service qupta limit finding and some basic Security check.
+  Business Support/Enterprise Support: 
+      you can access all checks, including cost optimization, security, fault tolerance, performance, and service quotas
+    
 
 AWS WorkSpace:-
   As its name suggest it is nothing but a way to set up desktop for office work in AWS.
