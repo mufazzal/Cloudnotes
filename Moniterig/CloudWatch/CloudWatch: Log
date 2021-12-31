@@ -78,11 +78,10 @@ Log groups > subscription filter:
 -------------------------
 
 Log groups > Export to S3:-
-  You can export the log data of any Log group to S3 for further analysys.
+  You can export the log data of any Log group to S3 for further analysys. Bucket can be in same other AWS account
   You must give
     - Bucket name and prefix
     - from and to timestamp
-    - 
     
 ----------------- 
 Log insight:-
