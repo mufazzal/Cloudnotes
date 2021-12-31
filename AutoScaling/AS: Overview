@@ -159,7 +159,14 @@ AS Instance Lifecycle - LB target status - timeouts:-
        --> LB.TG.Instance-target-status remaining 'unused'
         
       
-      
+ ---------------------
+ 
+ Activity Notification:-
+  On ASG you can set the SNS Notification to perform some task on any of below evemt. It only support SNS
+  Instance Launch
+  Instance Launch Failed
+  Instance Termination
+  Instance Termination failed
   
   
   
