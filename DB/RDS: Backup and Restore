@@ -73,5 +73,11 @@ Snapshot vs Automated-back-up :-
       
     So Point-in-time recovery is possible for max number of days for which you retain your automated back up.
     
-    
+-------------------
+
+Creating DB from Snapshot:-
+  In console just select the DB snapshot at time of creation of DB.
+  In cloudformation provide 'DBSnapshotIdentifier' in RDS resource.
+
+
     
