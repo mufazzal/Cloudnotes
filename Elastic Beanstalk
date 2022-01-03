@@ -272,14 +272,48 @@ Config file:-
 	You can set the configuration in rhe console but there is better way to do it.
 	You can package it in the application code too.
 	For this just place **.config files in .ebextenions folder at root of your zipped source code.
-	This file are in Json or Yaml formate.
-	It ca have
-	 - shell command
-	 - PAckages to install
-	 - enabled services setting
-	 - LB config
-	 - ASG config
-	 
+	The name of the file is any thing but must end with .config. This file are in Json or Yaml formate.
+	There can be multiple **.config file and they will execute in alphabetical order.
+	File structure:-
+		The file contains below sections
+		1. option_settings:-
+				THis is the most imp section define the setting of EB enviorment. It define setting of PB, EC2, SG, software setting etc.
+				its formate is NameSpace-Key-Value Ex:-
+									option_settings:
+										- namespace:  aws:elasticbeanstalk:container:tomcat:jvmoptions
+											option_name:  Xmx
+											value:  256m
+										- namespace:  aws:autoscaling:launchconfiguration
+											option_name:  IamInstanceProfile
+											value:  myIamProfile											
+										- option_name: MYPARAMETER
+											value: parametervalue					
+				Short form
+									option_settings:
+										aws:elasticbeanstalk:container:tomcat:jvmoptions:
+											Xmx: 256m
+										aws:elasticbeanstalk:application:environment:
+											MYPARAMETER: parametervalue				
+		2. Packages:-
+				It define if you need to install any package on EC2. You can use yun, rpm, rpmgen here
+				EX:-
+									packages: 
+										yum:
+											libmemcached: [] 
+											ruby-devel: []				
+		3. Groups:-
+				For Linux EC2 you can set to create user group here
+		4. Users:-
+				For Linux EC2 you can set to create user here			
+		5. Services:-
+				You can use the services key to define which services should be started or stopped when the instance is launched
+		6. Command:-
+				You can use the commands key to execute commands on the EC2 instance before the application and web server are set up.
+				It run in alphabetical
+		7. Container commands
+				You can use the commands key to execute commands on the EC2 instance after the application and web server are set up
+				It run in alphabetical
+	
 	---------------------
 	
 	EB for Docker:-
