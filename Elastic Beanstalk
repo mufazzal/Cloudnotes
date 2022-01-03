@@ -383,4 +383,9 @@ EB CLI:
  use eb commands for this.
  this is seperate from aws cli
 
+-------------------
+
+Non native AWS resource support:-
+	By default the EB create the EC2, LB, SG, SQS etc. but if you wants to have more aws services like DynamoDB or Lambda
+	then you can use the 'Resource' sction in **.config like a AWS Cloudformation Resource.
 
