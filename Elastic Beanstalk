@@ -248,6 +248,13 @@ Platform Update:-
 	For minor update like, java 7.1 to 7.2 you can simply do it in console without event inturutting the serice.
 	For major one like java 7 to 8, use Blue/Green deployment.
 
+Managed Platform Update:-
+	AWS releases the minor or patched updates regutally.
+	You can use the managed Platform Update to do the updated in some predifined weekly window or immediatly.
+	it will ot take the app offline nither reduced the capacity. 
+	it will launcj additional instance with updated, if and only if health checks are passed then new instance will be taked online and replaced the older one.
+	It only do the Immutable update
+
 ---
 Enviorment Url Swap:-
 	As you know that a web env in EB has a Enviorment url to access it.
