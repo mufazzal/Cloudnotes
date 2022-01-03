@@ -37,6 +37,7 @@ This stages are
   
 S3 and CodePipeline:-
   Behind the scene codepipeline used S3 to move the artifact between diffrent stages. You can have it encrypted by aws or cutomer owned CMK.
+  Codepipelice can create artifact store bucket for you otherwise you can also select tye bucket in same region and account  
 
 CW and CodePipeline:-
   You can create many kind of CW alarm trigger to repond on changes happen in codepipeline state. 
