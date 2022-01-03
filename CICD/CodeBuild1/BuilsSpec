@@ -9,7 +9,21 @@ You can
 
 Syntex:-
   Phases:
-    Use forinstalling and running command
+    Use forinstalling and running command.
+    There is 4 phase you can configure
+       install
+       pre_build
+       build
+       post_build
+     In each phase configuration you define
+        run-as: Linux-user-name
+        on-failure: ABORT | CONTINUE      ---> Define what happen if command fail
+        commands:                         ---> The command to be executed
+          - command
+          - command
+        finally:                          ---> You can do the error handling of final clean up here
+          - command
+          - command     
   reports:
     Use this for report generation
   artifacts:
