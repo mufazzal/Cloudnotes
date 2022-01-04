@@ -66,7 +66,9 @@ Stack Instance:-
     you Delete stacks from your stack set, but save them so they continue to run independently of your stack set by choosing the Retain Stacks option
   
   Delete StackSet:
-    tou must first dlete all the stack instances to delete entire stackset  
+    you must first dlete all the stack instances to delete entire stackset  
   
-  
+  StackSet Parameter Override:-
+    You can change the input param value of stacks in diffrebt account and region also after creation the stack set. for this first create the stacj set and then
+    provide the Account and Region id where you wants to have diffrent input value and provide input value to use.
   
