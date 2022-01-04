@@ -389,3 +389,9 @@ Non native AWS resource support:-
 	By default the EB create the EC2, LB, SG, SQS etc. but if you wants to have more aws services like DynamoDB or Lambda
 	then you can use the 'Resource' sction in **.config like a AWS Cloudformation Resource.
 
+-----------------------
+
+Source Bundle Constraint:-
+	It can be only ZIP ot WAR
+	Not exceede 512MB
+	Should not have parent directory. subdirectory is fine.
