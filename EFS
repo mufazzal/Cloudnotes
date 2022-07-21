@@ -70,13 +70,15 @@ Mount Target (MT):-
 		> VPC security groups, 
 		> MT state
 		
-	How many MTs are created are depends on Storage class.
+	How many MTs you can creat are depends on Storage class.
 	For Standard storage classes[Reginal]:
-		For this MT[A ENI basically] will be created in each AZ of the VPC. It will be created in any single subnet of those AZ.
+		For this you can MT in each AZ of the VPC. It will be created in any single subnet of those AZ.
+		so max number of MT you can create = total AZ in the VPC
 		In this case it is advisable that yous should use the MT in same AZ for communicating between any node of VPC and EFS.
 		It will give you better latency and low cost.
 	For One Zone storage classes:-
-		For this MT[A ENI basically] will be created in only one AZ of the VPC. It will be created in any single subnet of those AZ.
+		For this MT will be created in only one AZ of the VPC. It will be created in any single subnet of those AZ.
+		so max number of MT you can create = 1
 		Remeber that you need to bear the data tranfer charges and high latency if node of other AZ(without MT) need to access the EFS.
 	
 	MT and On-premises:-
