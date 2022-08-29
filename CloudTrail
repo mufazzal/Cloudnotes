@@ -21,9 +21,11 @@ ETL Event:-
   2. Data Event:-
       This event are not enabled by default.  
       This event can be capture only if you have set up the trail. you cannot view this event in 'Event History' of CTL console page.
-      Bassically there is only two kind of resource whe generate this event.
+      Below are the kind of resource whe generate this event.
         1. S3 object-level Logging (GetObject, DeleteObject, and PutObject)
         2. Lambda execution (Invoke api)
+        3. DynamoDB
+        etc.
       These are high volume activity and can have millions of data event in short span of time.
   3. Insights events:-  
       Just like data event, This event are also not enabled by default. 
