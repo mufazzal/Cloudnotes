@@ -82,7 +82,9 @@ Components of WAF:-
       - Web ACL you create in WAF
       - Number of Rule in Web ACL
       - Number of request
-  
+
+-------------------------------
+
   AWS Firewall Manager:-
     AWS Firewall Manager simplifies your administration and maintenance tasks across multiple accounts and resources for a variety of protections, including 
       AWS WAF, 
