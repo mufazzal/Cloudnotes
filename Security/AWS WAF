@@ -69,6 +69,12 @@ Components of WAF:-
     1. AWS managed
     2. AWS Marketplace Managed
     3. you own
+  
+  IP Set:
+    A set of ip you can define and reuse in diffrent WAF ACL. You can use this in Rule.Statements to filter out the request from any set of IP.
+  
+  Regex pattern sets:
+    A set of regex you can define and reuse in diffrent WAF ACL. You can use this in Rule.Statements to filter out the request whose URL match this regex.
  
   Charges:-
     There are no upfront commitments. AWS WAF charges.
