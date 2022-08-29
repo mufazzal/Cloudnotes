@@ -53,9 +53,8 @@ Listener must have one default rule that will have least priority. The rule with
      You can take the diffrent action based on the condition match with gived params.
      see  https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html
 
--------------  
-
-It strucre like belo
+-------------
+It strucre like below
   ALB
     Listener1 [HTTP:80]
       - Rule 1
