@@ -1,0 +1,9 @@
+AWS WAF  VS   AWS GuardDuty
+
+  AWS WAF provide security to HTTP point exposed by ALB, CDN or API gateway. Not the AWS APIs calls.
+  AWS GuardDuty provide security to AWS API calls [also S3 object access, lambda]. not the HTTP poing exposed by ALB, CDN or API gateway.
+  
+  AWS WAF is pro-active, So if the rule matches the the statment of WAF ACL, the request may be allowed or denied at that point only.
+  AWS GuardDuty post-active, So it has no right to allow or deny any request 
+    instead once request finish, GuardDuty will read its traces from diffrent logs and generate findings for possible incident.
+    
