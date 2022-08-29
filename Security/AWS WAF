@@ -66,9 +66,9 @@ Components of WAF:-
   Rule Group:-
     This is the reusable group of rule that can be attached to any Web ACL.
     This is of 3 kind
-    1. AWS managed
-    2. AWS Marketplace Managed
-    3. you own
+    1. AWS managed : You can change the Rule.Action to Block or Count but you cannot change Rule.Statements
+    2. AWS Marketplace Managed : You can change the Rule.Action to Block or Count but you cannot change Rule.Statements
+    3. you own : You can change the Rule.Action and Rule.Statements
   
   IP Set:
     A set of ip you can define and reuse in diffrent WAF ACL. You can use this in Rule.Statements to filter out the request from any set of IP.
