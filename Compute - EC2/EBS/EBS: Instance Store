@@ -14,7 +14,7 @@ Instance store as additional or root device:-
   that is why once terminated, Stopped, Hibernated all the data in the EC2 instance store(either root or non-root) will vanish.
     
 Instance store as root:-
-- The Ec2 with instance store as root cannot be stoped. it can either be start or terminated.
+- The Ec2 with instance store as root cannot be stoped or hibernated. it can either be start or terminated.
 - Instance store backed Instances cannot be upgraded [cannot change the instance type]
 
 Snapshot of EBS volume:-
