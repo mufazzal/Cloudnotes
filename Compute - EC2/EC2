@@ -240,6 +240,13 @@ It do not appy on shutdown via os itself.j
 You can terminate it only from os itself when shutdown behavior is terminate
 
   	
+-----------
+
+Insufficient capacity error:
+In case of very high global demand it may be possible that 
+A particular type of ec2 insatnce in particular AZ not available.
+In that case you get InsufficientCapacity error on starting instance
+
 	
 
 
