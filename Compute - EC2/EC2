@@ -229,7 +229,16 @@ EC2 Managment with other AWS services:-
 	FOr looking All detail EC2s info: Use SSN Inventory 
 		
 
-	
+--------------------
+
+Shutdown behavior:
+It define if instance should only stop or terminate when its os issue the shutdown comjjand.
+
+Termination protection: 
+once enable, you cannot terminate instance from aws console
+You can terminate it only from os itself when shutdown behavior is terminate
+
+  	
 	
 
 
