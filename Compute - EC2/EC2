@@ -235,7 +235,8 @@ Shutdown behavior:
 It define if instance should only stop or terminate when its os issue the shutdown comjjand.
 
 Termination protection: 
-once enable, you cannot terminate instance from aws console
+once enable, you cannot terminate instance from aws console, api call or sdk.
+It do not appy on shutdown via os itself.j
 You can terminate it only from os itself when shutdown behavior is terminate
 
   	
