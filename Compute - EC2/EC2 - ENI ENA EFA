@@ -144,7 +144,8 @@ EC2 - ENI and VPC:-
 -----------------------------------------
 
 EN: Enhanced network:-
-  The EN provide you better network throughput. you can enable or disable it on EC2. This provide higher bandwidth, higher packet-per-second on low CPU time.
+  The EN provide you better network throughput. you can enable or disable it on EC2. 
+        - This provide higher bandwidth, low latency, higher packet-per-second on low CPU time.
 	- It uses single root I/O virtualization (SR-IOV)
 	- This is supported on specific instance types not on all.
 	- To enable it the instance must be in stopped state.
