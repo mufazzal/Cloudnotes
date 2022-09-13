@@ -248,7 +248,11 @@ A particular type of ec2 insatnce in particular AZ not available.
 In that case you get InsufficientCapacity error on starting instance
 
 	
-
+-----------
+Ec2 ssh connect: 
+To connect ec2 quickly on ssh even without any peivate key, you can use ec2 ssh connect
+For this your SG must open a set of predefined cidr ip.
+You can connect it from aws console directly 
 
 
 
