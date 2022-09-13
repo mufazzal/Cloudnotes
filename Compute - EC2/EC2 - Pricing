@@ -111,6 +111,8 @@ Saving Plane:-
 		Compute saving plane: have all 
 		EC2 Saving plan: 
 			Have only EC2. but you need to comit to Instance Type and Region.
+                        You also need to commit minimun per hour usage of selected insatnce type in that region.
+                        Usage beyond commited hoir will charged as on demand
 			You can chnage instance size but not the family and region. 
 			This is very much like Standard RI with capability of changing OS and Tenecy and even with more discount.	
 		SagaMaker Saving plan
