@@ -12,6 +12,13 @@ Stop Instance:-
   - For non-root instance-store disk, data will be lost.
   - Instance may start again on new underlying Hardware Host
 
+Satrting a stop instance :
+  Below operatoon happen
+   ¹ os load
+   ² user data run
+   ³ other config run
+
+
 Terminate Instance:-
   EIP, IP, private IP, IPv6 all will lost. 
   By default root volume will be deleted but it can be retain if its checked.
