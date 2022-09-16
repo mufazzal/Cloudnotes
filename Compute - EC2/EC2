@@ -241,18 +241,21 @@ You can terminate it only from os itself when shutdown behavior is terminate
 
   	
 -----------
-
-Insufficient capacity error:
-In case of very high global demand it may be possible that 
-A particular type of ec2 insatnce in particular AZ not available.
-In that case you get InsufficientCapacity error on starting instance
+Common Errors:-
+	Insufficient capacity error:
+		In case of very high global demand it may be possible that.	A particular type of ec2 insatnce in particular AZ not available.
+		In that case you get InsufficientCapacity error on starting instance
+	Instace Limit exceed:
+		There is service quota limit in terms of vCPU a aws account can have at a time. If total vCPU of your account exceed then you will get this error 
+		on launch of new instance.
+		This apply of on-demand and spot instacne only. not on reserve instance.
 
 	
 -----------
 Ec2 ssh connect: 
-To connect ec2 quickly on ssh even without any peivate key, you can use ec2 ssh connect
-For this your SG must open a set of predefined cidr ip.
-You can connect it from aws console directly 
+	To connect ec2 quickly on ssh even without any peivate key, you can use ec2 ssh connect
+	For this your SG must open a set of predefined cidr ip.
+	You can connect it from aws console directly 
 
 
 -----------
@@ -270,7 +273,31 @@ Burstable Instance:-
 	2. unlimited: instace can accumelate unlimited amount of burst credit. costly
 	
 	
+----------------
+
+
+Tenancy VS Instance Launch Type:-
+	Tenance could be shared, Dadicated Host or Dadicated instacne.
+	Launch Type could be On-Demand, on-demand capacity reservation, Spot, Reserve or saving plan 
 	
+	Tenancy tells where the instacne will be located and how much it will be isplated from other word.
+	For dadicated tanacy, the AWS reserve a rack for you which has its own cabels, powe spurce and system etc. in sahred all are shared with other.
+	If you have a dadicated Hpost it does not mean that you also have actual instace (vCPU) allocated with you. you just have a empty rak.
+	To get the actual instance you have to launch an instace with a lauch type.
+	
+	Lauch types tells how the instace will be lauched and how it will be charged in term of vCPU.
+	It can be lauched on shared (default) or dadicated tenancy.
+	
+	Bothe of this feature are not mutually exclusive.
+	You can launch a X type instance in Y tenance, where
+	X = On-Demand, on-demand capacity reservation, Spot, Reserve or saving plan 
+	Y = Shared, Dadicated host, Dadicated Instace. 
+	
+	
+	
+	
+	
+
 	
 	
 
