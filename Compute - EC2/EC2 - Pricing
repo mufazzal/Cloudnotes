@@ -111,8 +111,8 @@ Saving Plane:-
 		Compute saving plane: have all 
 		EC2 Saving plan: 
 			Have only EC2. but you need to comit to Instance Type and Region.
-                        You also need to commit minimun per hour usage of selected insatnce type in that region.
-                        Usage beyond commited hoir will charged as on demand
+			You also need to commit minimun per hour usage of selected insatnce type in that region.
+			Usage beyond commited hoir will charged as on demand
 			You can chnage instance size but not the family and region. 
 			This is very much like Standard RI with capability of changing OS and Tenecy and even with more discount.	
 		SagaMaker Saving plan
@@ -122,10 +122,4 @@ Saving Plane:-
 Spot:
 	You will be charged bsed in spot price.
 
-----------
 
-Dedicated Host:
-	Generally if you need to follow soome regulatory protocols. and you need the physical server dadicated to you only.
-	This physically hosted server do lies in AWS building but unlike other EC2, this are solely assign to you.
-	Very costly
-        You can purchase it as on-demand or as reserve instance
