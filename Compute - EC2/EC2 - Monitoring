@@ -29,42 +29,9 @@ Monitering via cloudwatch:-
         How?
           1. The first thing you need is to get the EC2 special permission via a policy called ''
               So create a Role for EC2 that has the policy '' attached and attach this role to your EC2 instance.
-          2. install the cloudwatch in your EC2 instance via below commands
-                    yum update -y
-                    sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
-                    cd /home/ec2-user/
-                    curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
-                    unzip CloudWatchMonitoringScripts-1.2.2.zip
-                    rm -rf CloudWatchMonitoringScripts-1.2.2.zip
-              TIP:: you may wants to put this script in user data for auto install.
-              After running this commands in the /home/ec2-user/ directory you  will be able to see a folder name 'aws-scripts-mon'
-              in this folder there is coulple of file, we do not need to go in detail of all those.
-              But there is one file nameed 'mon-put-instance-data.pl'
-              This has necessary script (in perl) to push the data metrics at cloudwatch. we need to run this script
-            3. lets say our custom data metrics is for memory utilization, memory used and memory available.
-                So to send the data about this metric to cloud watch use below command
-                  /home/ec2-user/aws-scripts-mon/mon-put-instance-data.pl --mem-util --mem-used --mem-avail
-             4. Now the EC2 will send the data to Cloudwatch and after some time you can see this metric at cloudwatch page
-                How much time it take?
-                  if EC2 has only statdared monitering then it may take 5 mnt. but if its detail then may be only 1.
-                Where to see this metric:
-                  AWS > CloudWatch > MEtrics > in Custom Namespaces > Linux System
-                you can see this three data there.
-
-            VIMP: This is only one moment monitering means datais ent for this metric is for an specific moment when the command ran.
-                  if you wants to send the data again then you have to re-run this command. 
-
-           Custom metrics with Crone job:-
-            As you know that above command send the data only when it ran. so for continous monitering the best approach is to
-            add this command in crone job
-            How?
-              its not in scope here.
+          2. install the unified cloudwatch agent in your EC2 instance via below commands
+          3. Configure unified CW agent
             
             
           High Resplution Custom Metrincs:-
             This metrics can be have data in 10 second grangularity. Be alert to use it as it may skyroket your CW bill.
-
-
-Basic: 5 mnt
-Detail: 1 mnt
-High Reso: 10 sec
