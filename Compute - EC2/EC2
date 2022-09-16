@@ -244,11 +244,13 @@ You can terminate it only from os itself when shutdown behavior is terminate
 Common Errors:-
 	Insufficient capacity error:
 		In case of very high global demand it may be possible that.	A particular type of ec2 insatnce in particular AZ not available.
-		In that case you get InsufficientCapacity error on starting instance
+		In that case you get InsufficientCapacity error on starting instance.
+		Remedy: Try lauch in the instace in diffrent AZ.
 	Instace Limit exceed:
 		There is service quota limit in terms of vCPU a aws account can have at a time. If total vCPU of your account exceed then you will get this error 
 		on launch of new instance.
 		This apply of on-demand and spot instacne only. not on reserve instance.
+		Remedy: Raise request for service quota increase.
 
 	
 -----------
