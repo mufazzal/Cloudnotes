@@ -259,7 +259,6 @@ Ec2 ssh connect:
 	For this your SG must open a set of predefined cidr ip.
 	You can connect it from aws console directly 
 
-
 -----------
 Burstable Instance:-
 	Some of the instance (T2 and T3 faimily) provide special feature of CPU burst.
