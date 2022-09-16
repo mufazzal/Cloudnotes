@@ -232,11 +232,11 @@ EC2 Managment with other AWS services:-
 --------------------
 
 Shutdown behavior:
-It define if instance should only stop or terminate when its os issue the shutdown comjjand.
+It define if instance should only stop or terminate when its os issue the shutdown command.
 
 Termination protection: 
 once enable, you cannot terminate instance from aws console, api call or sdk.
-It do not appy on shutdown via os itself.j
+It do not apply on shutdown via os itself
 You can terminate it only from os itself when shutdown behavior is terminate
 
   	
@@ -255,4 +255,22 @@ For this your SG must open a set of predefined cidr ip.
 You can connect it from aws console directly 
 
 
+-----------
+Burstable Instance:-
+	Some of the instance (T2 and T3 faimily) provide special feature of CPU burst.
+	This feature enable them to have good baseline performance in case of high load.
+	This instance accumelate the CPU burst credit in normal circuminstances. when there is hogh load the instance eat from this cpu credit.
+	The use of this credit keep the CPU in green and instance keep functioning in same baseline performance.
+	once all credit goes way, the performance drop significantly.
+	
+	Think of burst credit a STEROID of instace. give it boost till it have it.
+	
+	there is two class of burst 
+	1. standard: instace can accumelate limited amount of burst credit. default and free
+	2. unlimited: instace can accumelate unlimited amount of burst credit. costly
+	
+	
+	
+	
+	
 
