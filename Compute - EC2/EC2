@@ -277,20 +277,20 @@ Burstable Instance:-
 ----------------
 
 
-Tenancy VS Instance Launch Type:-
-	Tenance could be shared, Dadicated Host or Dadicated instacne.
-	Launch Type could be On-Demand, on-demand capacity reservation, Spot, Reserve or saving plan 
+Tenancy VS Instance Purchase option:-
+	Tenancy could be shared, Dadicated Host or Dadicated instacne.
+	Instance Purchase could be On-Demand, on-demand capacity reservation, Spot, Reserve or saving plan 
 	
 	Tenancy tells where the instacne will be located and how much it will be isplated from other word.
 	For dadicated tanacy, the AWS reserve a rack for you which has its own cabels, powe spurce and system etc. in sahred all are shared with other.
 	If you have a dadicated Hpost it does not mean that you also have actual instace (vCPU) allocated with you. you just have a empty rak.
 	To get the actual instance you have to launch an instace with a lauch type.
 	
-	Lauch types tells how the instace will be lauched and how it will be charged in term of vCPU.
+	Instance Purchase tells how the instance will be charged in term of vCPU.
 	It can be lauched on shared (default) or dadicated tenancy.
 	
-	Bothe of this feature are not mutually exclusive.
-	You can launch a X type instance in Y tenance, where
+	Both of this feature are not mutually exclusive.
+	You can launch a instance with X type purchse in Y type tenancy, where
 	X = On-Demand, on-demand capacity reservation, Spot, Reserve or saving plan 
 	Y = Shared, Dadicated host, Dadicated Instace. 
 	
