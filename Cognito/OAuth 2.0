@@ -272,9 +272,7 @@ Client Credential Flow:-
 						Content-Type=	application/x-www-form-urlencoded&
 						Authorization=	Basic Base64(<Id of the client admPo>:<Client_secret of the client admPo>>)
 					BODY
-						grant_type:		client_credentials&
-						client_id:		<Id of the client admPo>
-						client_secret:	<Secret of the client admPo>
+						grant_type:		client_credentials
 	No login page and no redirection needed so we do not supply 'redirect_url' too
 		response:-
 			{
