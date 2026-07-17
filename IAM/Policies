@@ -173,7 +173,17 @@ Type of Policies:
       ...
     Do not confuse that it will allow the action to any AWS resource. this policy is attaced to a certain resource actully so the scpe of the resource is already narowwed down.
     but you further wants to narrow down the resource then you can use ARN. but this ARN sould only lie in the scope of attaced resource.
-    
+
+    Principle in Resource based policy:-
+      s3.amazonaws.com - S3
+      lambda.amazonaws.com - Lambda
+      ec2.amazonaws.com - EC2
+      rds.amazonaws.com - RDS
+      sns.amazonaws.com - SNS
+      ... etc
+
+-------------    
+
     Bucket Policy:-
       Jsut like inline policy which is attached to at least one IAM identity (Role, Group, User).
       The bucked policy is subordinated to qt least one bucked in S3. To create a bucket policy you have to first inside the S3 bucket.
