@@ -120,6 +120,9 @@ Principles in Trust policy:-
     },
 6. Direcly it cannnot be attached to any AWS service of other AWs account.
     but it can be attached to a Role[from other AWS account] that is attached to that external AWS service. 
+7. Web identity provider like:-
+    AWs Cognito, Facebook, Google etc.
+8. SAML 2.0 corporrte user directory
 
 
 
