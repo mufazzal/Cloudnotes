@@ -97,4 +97,29 @@ Trust Policy:
   It define what principle can assume this role.
   The principals that you can specify in the trust policy include 
    users, roles, accounts, and services.
+Principles in Trust policy:-
+  1. Any AWS service in same account
+        "Principal": {
+            "Service": ["ec2.amazonaws.com"]
+        }
+ 2. Other AWS account:-
+      "Principal": {
+          "AWS": "34567876545"
+      },
+3. Any IAM user of same or other AWS account:-
+    "Principal": {
+        "AWS": "arn:aws:iam::34567876545:user/USERNAME"
+    },  
+4. Any IAM role same or other AWS account:-
+  "Principal": {
+    "AWS": "arn:aws:iam::34567876545:role/ROLE_NAME"
+  },
+5. Specific service of same AWS account:-
+    "Principal": {
+      "Service": "lambda.amazonaws.com"
+    },
+6. Direcly it cannnot be attached to any AWS service of other AWs account.
+    but it can be attached to a Role[from other AWS account] that is attached to that external AWS service. 
+
+
 
