@@ -1,0 +1,10 @@
+Access Analyzer for role and User:-
+  As role and user have policies that provide access, you can check when is the last time the access tro certain service used. By this way you can reduce the permission of that role of user to pnly what actully needed.
+  This is role/user specific.
+
+Credential Report of IAM:-
+  This is a Excel report that have info for all the IAM user in AWS account. it contais
+  1. if password changes recently
+  2. AWS access key is rotated or not.
+  3. MFA enabkled or not
+  
