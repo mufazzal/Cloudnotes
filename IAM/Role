@@ -110,6 +110,7 @@ Principles in Trust policy:-
     "Principal": {
         "AWS": "arn:aws:iam::34567876545:user/USERNAME"
     },  
+    --> This give permission to assume this role by any role/user of aws account '34567876545'. this is i trust your whole account.
 4. Any IAM role same or other AWS account:-
   "Principal": {
     "AWS": "arn:aws:iam::34567876545:role/ROLE_NAME"
@@ -124,5 +125,19 @@ Principles in Trust policy:-
     AWs Cognito, Facebook, Google etc.
 8. SAML 2.0 corporrte user directory
 
+
+External Id:-
+  This is useful in case of role is assumed by another aws account. External id gives extra layer of protection. 
+  You set the externalId in trust policy and the clientee aws account must have to send this external Id in the STS:AssumeRole api call.
+  Ex Scenario:-
+    A new relic company can provide the service to many AWS account including one you own.
+    You add that newrelic aws account in your trust policy principle. Now new relic account can assume role of you aws account.
+    if somehow the newrelic account get compromised and now any hacker will try to assume the role by calling STS:Assumrole api.
+    but if external id is set at both side, hacker must also know that.
+    {
+        "Principal": {"AWS": "New relic AWS account ID"},
+        "Condition": {"StringEquals": {"sts:ExternalId": "Unique ID of New relic"}}
+    }
+  
 
 
