@@ -134,6 +134,7 @@ External Id:-
     You add that newrelic aws account in your trust policy principle. Now new relic account can assume role of you aws account.
     if somehow the newrelic account get compromised and now any hacker will try to assume the role by calling STS:Assumrole api.
     but if external id is set at both side, hacker must also know that.
+    Trust policy of my aws account:-
     {
         "Principal": {"AWS": "New relic AWS account ID"},
         "Condition": {"StringEquals": {"sts:ExternalId": "Unique ID of New relic"}}
