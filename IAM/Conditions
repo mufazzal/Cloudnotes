@@ -1,0 +1,27 @@
+In diffrent IAM policy Condition play diifrent role:-
+
+1. IAM policy:-
+    Condition specify if the policy applicable or not
+2. In trust policy:-
+    Condition specify if the role can be assumed by the respective principle or not.
+
+Condition in Trust policy:-
+    In trust policy if principle is matched, the role is assumed, condition add one more level of filteration there.
+    Ex:-
+    > make sure that role is assumed by specific external party 
+            {
+              "Effect": "Allow",
+              "Principal": { "AWS": "arn:aws:iam::<account_of_vendor>:role/VendorRole"},
+              "Action": "sts:AssumeRole",
+              "Condition": {"StringEquals": {"sts:ExternalId": "<unique id of vendor>"}}
+            }
+    > A user assume only if his MFA active
+        "Principal": { "AWS": "arn:aws:iam::<any_third_party_account>:user/<user_of _third party>"},
+        "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}
+    > if this role is assumed by any AWs service
+        "Principal": {"Service": "lambda.amazonaws.com"},
+        "Condition": {"ArnEquals": {"aws:SourceArn": "arn:aws:lambda:us-east-1:111122223333:function:my-function"}
+                    "StringEquals": {"aws:SourceAccount": "111122223333"}}
+    > Allow role to assumed by a specific lambda lies in another account 
+              "Principal": {"AWS": "arn:aws:iam::<vendor_account>:role/<role_in _vendor_acc_of_lambda"},
+              "Condition": {"StringEquals": {"sts:ExternalId": "your-unique-external-id"}}}

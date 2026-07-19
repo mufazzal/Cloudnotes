@@ -1,8 +1,0 @@
-In diffrent IAM policy Condition play diifrent role:-
-
-1. IAM policy:-
-    Condition specify if the policy applicable or not
-2. In trust policy:-
-    Condition specify if the role can be assumed by the respective principle or not.
-
-
