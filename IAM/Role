@@ -121,6 +121,8 @@ Principles in Trust policy:-
     },
 6. Direcly it cannnot be attached to any AWS service of other AWs account.
     but it can be attached to a Role[from other AWS account] that is attached to that external AWS service. 
+         "Principal": {"AWS": "arn:aws:iam::<vendor_account>:role/<role_in _vendor_acc_of_lambda"},
+         "Condition": {"StringEquals": {"sts:ExternalId": "your-unique-external-id"}}}
 7. Web identity provider like:-
     AWs Cognito, Facebook, Google etc.
 8. SAML 2.0 corporrte user directory
