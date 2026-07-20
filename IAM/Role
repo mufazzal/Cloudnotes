@@ -103,9 +103,9 @@ Principles in Trust policy:-
             "Service": ["ec2.amazonaws.com"]
         }
  2. Other AWS account:-
-      "Principal": {
-          "AWS": "34567876545"
-      },
+      "Principal": {"AWS": "34567876545"}  OR
+      "Principal": {"AWS": "arn:aws:iam::ACCOUNT_ID:root  "}  
+
 3. Any IAM user of same or other AWS account:-
     "Principal": {
         "AWS": "arn:aws:iam::34567876545:user/USERNAME"
