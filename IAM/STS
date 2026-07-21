@@ -1,28 +1,22 @@
-IF you wants to make any operation on the AWS resource then you must need a IAM USer or Role to do it.
-SO you will have to create one.
+STS is a security token service that provide a APIs to get a temporary security token to perform operation on cloud.
+It is used with certain role that can be assumnd by any other IAM role, IAM User, aws Service, SAML user, federated user erc.
+Magically withh this you can perform operation on AWS without any actual IAM user or direct IAM role. with just a fzcebook id and a assumable IAM role i can
+do operation on AWS.
 
-But STS provide you way to do operation on the AWS resource via User of some Active Directory (not IAM user or Role) 
-without needing to create a corrosponding AWS IAM User or Role for them.
+APIs of STS:Assume* always return  below items
+    {
+      "Credentials": {
+        "AccessKeyId": "ASIA...",
+        "SecretAccessKey": "...",
+        "SessionToken": "...",
+        "Expiration": "2026-07-21T..."
+      }
+    }
+These are short lived token that can be used for AWS operations.
 
-STS provide you the temporary AWS IAM credential with Access Key + ID + Session token to perform operation over AWS resources.
-This token are short lived and generated for specific Federated user.
-
-VIMP: To generate Faderated temprary cred you need a IAM user not role.
-
-
-Below is the list of STS api that can be used to generate the Temporarry Security Cres for diifrent kind of user
-
-  1. AssumeRole:                  IAM user or IAM role with existing temporary security credentials
-  2. AssumeRoleWithSAML:          Any User with passed SAML response. like ADFS user
-  3. AssumeRoleWithWebIdentity:   Any User with passed web base identity like Google, FB, Apple Id, AWS Cognito, OpenID connect
-  4. GetFederationToken:          IAM user or AWS account root user
-  5. GetSessionToken:             Typically, you use GetSessionToken if you want to use MFA to protect programmatic calls to specific AWS API operations like Amazon EC2 StopInstances
-  
-  In all above api you have input: 
-    Policy, PolicyArn, A param for token of that user.
-  In response you have
-    AccessKey, Id and session token
-
----
-  STS:AssumeRole is note cumlative, mns that if you assume this role then you giveup your previous role. and as soon as this role is release from you
-  the previous role is re-applied to you.
+STS:AssumeRole  :-
+  This one provide the access tokes for any other IAM user, IAM role or AWS service. with IAM user "mufazzal" you can assume role "r1" and perform anu operation that r1 allow to do.
+  DO note that IAM user "mufazzal" must have permission to call STS:AssumeRole
+CMD to assume role:-
+  aws sts assume-role --role-arn "arn:aws:iam::637460932892:role/vendor1-cross-account-role" --role-session-name "vendor-x-access" --external-id "iammufvendor1" --profile muf_personal_vendor1
+  Passing external id add a check to make sure correct user is using it. this check should also be there in Condition of trust policy of Role "r1"
