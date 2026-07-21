@@ -20,3 +20,15 @@ STS:AssumeRole  :-
 CMD to assume role:-
   aws sts assume-role --role-arn "arn:aws:iam::637460932892:role/vendor1-cross-account-role" --role-session-name "vendor-x-access" --external-id "iammufvendor1" --profile muf_personal_vendor1
   Passing external id add a check to make sure correct user is using it. this check should also be there in Condition of trust policy of Role "r1"
+
+
+How to use this keys and token:-
+    1. You can set it to env variable like
+            $env:AWS_ACCESS_KEY_ID = "ASIA..."
+            $env:AWS_SECRET_ACCESS_KEY = "..."
+            $env:AWS_SESSION_TOKEN = "..."
+    2. Set it in .aws/credentia file
+        [my_asumed_role]
+            aws_access_key_id=..
+            aws_secret_access_key=...
+            aws_session_token="........"
