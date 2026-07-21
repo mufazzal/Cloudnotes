@@ -32,3 +32,6 @@ How to use this keys and token:-
             aws_access_key_id=..
             aws_secret_access_key=...
             aws_session_token="........"
+
+The token is valif for certail amount of timer only. For this time frame you are allowed to use this keys to perform allowed ops on cloud. after that it will not be allowed
+in --role-session-name you can set the idenfifiable name for this time frame. 
