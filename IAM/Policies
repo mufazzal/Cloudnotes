@@ -330,5 +330,10 @@ Permission Boundry:-
     - register for GovCloud
   
 
+------------
+Explicit deny:-
+  A role/user can have many policy attach to it and they might have conflict among them. just remeber.
+  - By defauly no action can be taken on any resource inless it allow by some policy
+  - Deny by any single policy will override any other allow
 
     
