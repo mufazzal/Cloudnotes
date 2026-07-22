@@ -33,5 +33,21 @@ How to use this keys and token:-
             aws_secret_access_key=...
             aws_session_token="........"
 
-The token is valif for certail amount of timer only. For this time frame you are allowed to use this keys to perform allowed ops on cloud. after that it will not be allowed
+The token is valid for certail amount of timer only. For this time frame you are allowed to use this keys to perform allowed ops on cloud. after that it will not be allowed
 in --role-session-name you can set the idenfifiable name for this time frame. 
+
+--role-session-name:-
+When you assume the role and get the keys, now when you use this keys to perform any operation on cloud, the value passed in '--role-session-name' is considered as a end user name who perform the ops.
+this is how cloudtrail log look like:-
+    "userIdentity": {
+            "type": "AssumedRole",
+            "principalId": "AROAZI25B5EOFB7THQNUW:vendor-x-access",
+            "arn": "arn:aws:sts::637460932892:assumed-role/vendor1-cross-account-role/vendor-x-access",    
+            "sessionIssuer": {
+                "type": "Role",
+                "principalId": "AROAZI25B5EOFB7THQNUW",
+                "arn": "arn:aws:iam::637460932892:role/vendor1-cross-account-role",
+                "accountId": "637460932892",
+                "userName": "vendor1-cross-account-role"
+            },
+    }
