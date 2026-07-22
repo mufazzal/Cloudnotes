@@ -1,0 +1,9 @@
+Permission Boundry is attached to Role and User. As you know that policies are attached to Role/User. there might be condition when ay attached policy give too much permission you are not intent to give.
+For this comses permission boundry. 
+Here you can set the max permission the role/IAM can have. any permission given beyond this permission policy by any IAM or Inline policy will be null and void
+
+Some use cases:-
+  with  Resource = "muf-finance/*"    in permission boundry make sure that only resoure of finance department are accesible for that role/user
+  with     Action   = ["lambda:*", "s3:*", "logs:*", "ecr:*"]    you can make sure that user/role can access only certain aws serive.
+  Now even if any policy do provide the access of those resource, but permission boundry deny that.
+
