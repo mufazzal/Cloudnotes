@@ -24,6 +24,12 @@ Concept:-
       - Manage invitations
       - Apply policies to entities (roots, OUs, or accounts) within the organization
       - The management account has the responsibilities of a payer account and is responsible for paying all charges that are accrued by the member accounts
+
+
+Centrally managed root account:-
+  As the AWS organization you will have many aws account to mange and each will have a root account. you need to take care of that root account credential.
+  But you can also choose to remove all the root account except the master account and can do privileged  task of all other member account with 
+  root account of master one.
     
   Member Accounts:-
     All other account are member account.
