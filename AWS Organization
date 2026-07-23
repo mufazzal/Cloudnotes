@@ -35,7 +35,6 @@ Centrally managed root account:-
     All other account are member account.
     You can  either create a member accoun with few detail like Email, name and service role. 
     or send the invitation to join the organization to other aws accout. you need account id or email for invitation. Now the sendee account has to accept the request.
-  
   OU(Organization units):-
     This is the logical collection of account and otyher OU below the root. 
     You can attach the SCP to a OU and that policy will be applied tpo all downward nodes. 
@@ -92,6 +91,10 @@ Not all the resource are sharable. some example are
   - Aurora DB cluster
   - VPC subnet: Share a subnet and let other AWS account can launch EC2, RDS etc in it. therby one-VPC-shared-subnet for collaboratin aong teams resouces. 
 
+    OrganizationAccountAccessRole :-
+      Whenever a member account created, a new role with name 'OrganizationAccountAccessRole' is created in that member account, this role have default policy 'AdministratorAccess'
+      attached to it. This role have trust policy of   "AWS": "arn:aws:iam::<id_of_master_account>:root". 
+      this role is so, assumable by any IAM role of master account. and this role can be use to perform and admin activity on that member account
 
 
 
