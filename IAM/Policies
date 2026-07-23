@@ -335,5 +335,16 @@ Explicit deny:-
   A role/user can have many policy attach to it and they might have conflict among them. just remeber.
   - By defauly no action can be taken on any resource inless it allow by some policy
   - Deny by any single policy will override any other allow
+------------
 
-    
+Policy Varaible:-
+  You can use to policy variable to have more control over when to apply and when not, 
+  Ex:
+      "Condition": {"StringEquals": {"aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}"}}  
+  Making a policy that control over resource based on the runtime params like name of IAM user
+        "Resource": "arn:aws:s3:::company-bucket/${aws:username}/*"
+    this give access of particular folder of S3 bucket to particular IAM user.
+         "Resource": "arn:aws:s3:::client-bucket/${aws:PrincipalAccount}/*"
+    this gives access of certail bucket folder to certail client only in multi client enviorment
+
+
