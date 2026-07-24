@@ -328,7 +328,19 @@ Permission Boundry:-
     - enable MFA on S3 bucket delete, 
     - create Cloudfront key pair, 
     - register for GovCloud
-  
+
+
+---------
+NotAction:-
+  You can use this to provide access to many other action and not allowing for few one:
+  EG:-
+    Allow all action on all aws resources except creting role in IAM
+    Effect: Allow
+    NotAction: "iam:CreateRole"
+    Give access to all aws service except IAM and EC2
+    NotAction: ["iam:*", "EC2:*"]
+
+    > See poweruser policy of aws manager policy
 
 ------------
 Explicit deny:-
