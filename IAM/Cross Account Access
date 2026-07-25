@@ -49,6 +49,32 @@ resource based policy VS Identity based policy for cross accont access:-
 
    This is the big limitation of IAM based cross account access. once access given by assumed role, the principle will losse all the orignal permission 
    granted by its orignal policy. this cause limitation of what that role could have done with assuming it.
+------------------
+
+To give a cross account access of any aws account resource to any forigen account role/user can be dome by 2 way
+1. STS based 
+2. REsource policy
+
+They both give way to access resources of foreigen aws account, but due to their diffrent mechanism both difer in their way of working
+
+STS basd:-
+  In STS way you know a Role/User of forigen account assume the role lies in home account. here once the forigen account's role/user assume the role of 
+  home account, the Role/User of forigen account gain all the previllage of policy of home account's role 
+  but loose all the provillage given by is own IAM policy lthat lies in forigen account.
+
+  So in this mechanism after role assumption, Role/User of forigen account gain more accessibity on forigen account but losse accessibility of the its orignal policy
+  This is useful when you need to perform more task on forigen account then your own account.
+
+Resource policy based:-
+  Here a resource policy document give the access to the Principle. That principle can be a service of home or forigen account.
+  Resource policy aleays executed after the IAM policy from eother same or other aws account. If principle belogs to forigen aws account then IAM policy 
+  attached to role/user in that forigen account will get executed first.
+
+  Here access of resources of home account is given to forigen account service directly at resource level, so the IAM role/user of forigen account do not have 
+  to assume any role of the home aws account. If IAM policy of role/user of forigen 
+
+
+
 
 
 
