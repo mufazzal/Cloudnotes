@@ -71,7 +71,9 @@ Resource policy based:-
   attached to role/user in that forigen account will get executed first.
 
   Here access of resources of home account is given to forigen account service directly at resource level, so the IAM role/user of forigen account do not have 
-  to assume any role of the home aws account. If IAM policy of role/user of forigen 
+  to assume any role of the home aws account.
+  The role/user of forigen account can access that resource of home aws account anytime without any role assumption. So the role/user of forigen account never loose any
+  privillages given by its orignal policy. Though that forigen role/user do not get any provillage of home aws account except the access on resource by resource based policy.
 
 
 
