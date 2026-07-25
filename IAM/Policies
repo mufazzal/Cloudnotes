@@ -182,6 +182,14 @@ Type of Policies:
       sns.amazonaws.com - SNS
       ... etc
 
+  Resource based + IAM policy:-
+    To access a resource both the policy must satisfy. First IAM policy get checked and after that resource policy is evaluated.
+    But there is one intresting catch:-
+      If resource is accessed via a forigen aws account then IAM policy[attached to tahe role/user] of that forigen account is evaluated for access and then Resource policy[attached to that resource] of home aws account
+      If resource is accessed via a home aws account then IAM policy[attached to tahe role/user] of that home account is evaluated for access and then Resource policy[attached to that resource] of home aws account
+
+      
+
 -------------    
 
     Bucket Policy:-
