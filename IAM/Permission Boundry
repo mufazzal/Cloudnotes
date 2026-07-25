@@ -7,3 +7,4 @@ Some use cases:-
   with     Action   = ["lambda:*", "s3:*", "logs:*", "ecr:*"]    you can make sure that user/role can access only certain aws serive.
   Now even if any policy do provide the access of those resource, but permission boundry deny that.
 
+By default permission boundry do not exist and no restriction is applied. only if you put it there then the restrcition is there.
