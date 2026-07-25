@@ -354,9 +354,17 @@ Policy Varaible:-
   Ex:
       "Condition": {"StringEquals": {"aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}"}}  
   Making a policy that control over resource based on the runtime params like name of IAM user
-        "Resource": "arn:aws:s3:::company-bucket/${aws:username}/*"
-    this give access of particular folder of S3 bucket to particular IAM user.
-         "Resource": "arn:aws:s3:::client-bucket/${aws:PrincipalAccount}/*"
-    this gives access of certail bucket folder to certail client only in multi client enviorment
+    "Resource": "arn:aws:s3:::company-bucket/${aws:username}/*"
+      this give access of particular folder of S3 bucket to particular IAM user.
+
+    "Resource": "arn:aws:s3:::client-bucket/${aws:PrincipalAccount}/*"
+      this gives access of certail bucket folder to certail client only in multi client enviorment
+    
+    > AWS specific variable:-
+        aws:userNAme, aws:userId, aws:sourceIp, aws:secureTranport,
+    > AWS Service Specific:-
+      iam:multifactorauth, s3:prefix
+    > Tag based:-
+        aws:PrincipalTag/Environment
 
 
