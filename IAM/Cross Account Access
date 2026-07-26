@@ -60,10 +60,11 @@ They both give way to access resources of foreigen aws account, but due to their
 STS basd:-
   In STS way you know a Role/User of forigen account assume the role lies in home account. here once the forigen account's role/user assume the role of 
   home account, the Role/User of forigen account gain all the previllage of policy of home account's role 
-  but loose all the provillage given by is own IAM policy lthat lies in forigen account.
+  but it will not have privillage given by is own IAM policy lthat lies in forigen account.
+  Remeber STS generate the temprary acces key and secret for foreigen role/user. this temp credential is used to perform ops of home aws account.
 
-  So in this mechanism after role assumption, Role/User of forigen account gain more accessibity on forigen account but losse accessibility of the its orignal policy
-  This is useful when you need to perform more task on forigen account then your own account.
+  So in this mechanism after role assumption, Role/User of forigen account gain more accessibity on forigen account. 
+  this is useful when you need to perform more task on forigen account then your own account.
 
 Resource policy based:-
   Here a resource policy document give the access to the Principle. That principle can be a service of home or forigen account.
@@ -72,8 +73,9 @@ Resource policy based:-
 
   Here access of resources of home account is given to forigen account service directly at resource level, so the IAM role/user of forigen account do not have 
   to assume any role of the home aws account.
-  The role/user of forigen account can access that resource of home aws account anytime without any role assumption. So the role/user of forigen account never loose any
-  privillages given by its orignal policy. Though that forigen role/user do not get any provillage of home aws account except the access on resource by resource based policy.
+  The role/user of forigen account can access that resource of home aws account anytime without any role assumption. So the role/user of forigen account have to call sts 
+  and generate temp credential to access home aws account's resources. 
+  But unlike STS based access. that forigen role/user do not get any provillage of home aws account except the access on resource by resource based policy only.
 
 
 
