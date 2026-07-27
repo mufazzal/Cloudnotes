@@ -142,6 +142,7 @@ External Id:-
         "Condition": {"StringEquals": {"sts:ExternalId": "Unique ID of New relic"}}
     }
     Limitation of External Id:-
-      If external id chech is there in  trust policy then, "swich Role" feture for that role wil not work
+      If external id chech is there in  trust policy then, "swich Role" feture for that role wil not work. The good practine is that if cross accout sharing is  done 
+      withine the org then do not use external id bot for third party aws account do use it.
 
 
