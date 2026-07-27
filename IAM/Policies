@@ -156,56 +156,7 @@ Type of Policies:
   
   
   IMP {"Ref": "policyName"} ->   This will return the ARN for managed policy and physical name for inline policy.
-  
-  Resource Based Policy:-
-    In the resource based policy the subject is resource and so this policies are assignable to certain kind of AWS-service-resources not the AWS IAM user.
-    Here we has the Principle tag in the policy statement that is because you attach the policy to the EC2, Lambda, RDS instances but not on IAM Role, IAM User Group, IAM User.
-    But
-    We also have the 'Resource' tag in the policy statement. but its scope is automatically narrowed down to the aws-resource it is attached to.
-    To craete any such kind of policy first you have to choose the AWS resource on whome you wants this policy t be mounted.
-    This policies also do not has ARN because they are not reusable.
-    
-    *** SOME AWS Services support the resource based policy for SOME actions
-    
-    Most of the time we see that in this policy the resource tag as
-      ...
-      Resource : '*'
-      ...
-    Do not confuse that it will allow the action to any AWS resource. this policy is attaced to a certain resource actully so the scpe of the resource is already narowwed down.
-    but you further wants to narrow down the resource then you can use ARN. but this ARN sould only lie in the scope of attaced resource.
 
-    Principle in Resource based policy:-
-      s3.amazonaws.com - S3
-      lambda.amazonaws.com - Lambda
-      ec2.amazonaws.com - EC2
-      rds.amazonaws.com - RDS
-      sns.amazonaws.com - SNS
-      ... etc
-
-  Resource based + IAM policy:-
-    To access a resource both the policy must satisfy. First IAM policy get checked and after that resource policy is evaluated.
-    But there is one intresting catch:-
-      If resource is accessed via a home aws account then IAM policy[attached to tahe role/user] of that home account is evaluated for access and then Resource policy[attached to that resource] of home aws account
-      If resource is accessed via a forigen assumed role, then permission policy of that assumed role is evaluated not the orignal policy of assumer role/user.  
-  Resource based VS IAM policy:-
-    Resource based policy attached to resource so you cannot do much with "Resource" vlaue of policy.
-    IAM policy attached to identity[role/user] so you cannot do much with "Principle" vlaue of policy.
-
--------------    
-
-    Bucket Policy:-
-      Jsut like inline policy which is attached to at least one IAM identity (Role, Group, User).
-      The bucked policy is subordinated to qt least one bucked in S3. To create a bucket policy you have to first inside the S3 bucket.
-      Creating Bucket Policy:-
-             Via AWS console:-
-                AWS Console > S3 > 'you bucked' > Permission > Bucket policy
-             Via Clouformation
-                Type: AWS::S3::BucketPolicy
-                Properties: 
-                  Bucket: {"Ref" : "mufazzalBucket"},
-                  PolicyDocument: Json                
-    KMS Policy:-
-      ??????
     
     
     
