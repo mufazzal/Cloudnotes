@@ -29,6 +29,18 @@
     But there is one intresting catch:-
       If resource is accessed via a home aws account then IAM policy[attached to tahe role/user] of that home account is evaluated for access and then Resource policy[attached to that resource] of home aws account
       If resource is accessed via a forigen assumed role, then permission policy of that assumed role is evaluated not the orignal policy of assumer role/user.  
+
+    The behavior of both policy varies based on the fact that is the resource access via same or other account.
+    If access via same account:-
+        In this case Resource policy is OPTIONAL [NOT IGNORED]. means 
+          if IAM policy is denying and whatever in resource policy            -> result = Deny
+          if IAM policy is allowing and no mention of allow in bucket policy  -> result = ALLOW
+          if IAM policy is allowing and explicit DENY in in bucket policy     -> result DENY
+    If access via forigen account:-
+          both MUST have EXPLICIT ALLOW in it.
+    
+  So resource policy trust the same accounts unless soething DENY explicitly. But resource policy not al all trust any forigen account unless specified to ALLOW. 
+
   Resource based VS IAM policy:-
     Resource based policy attached to resource so you cannot do much with "Resource" vlaue of policy.
     IAM policy attached to identity[role/user] so you cannot do much with "Principle" vlaue of policy.
