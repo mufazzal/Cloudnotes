@@ -51,3 +51,14 @@ this is how cloudtrail log look like:-
                 "userName": "vendor1-cross-account-role"
             },
     }
+
+
+Assume role and Console access:-
+    Whenever a trust polciy is created that allow an IAM user of any aws account to assume it. By default a aws console access also provided to that IAM user via "Switch Role" button of aws console.
+    Ex:-
+        Suppose "home" aws account has a role "for_vendor" that can be assumed by "vendor1" aws account [or any specifi IAM role of "vendor1" aws account ]. 
+        Now whenever IAM user of "vendor1" loggin to "vendor1" aws account he can swich role and provide below detail in for:
+            1. Account id of "home" aws account
+            2. role name  provided by "home" aws account [for_vendor in this case]
+            press ok, and thw IAM user of "vendor1" aws account sniffed in "home" aws account with the role of "for_vendor"
+            of course accesibilty of that aws console is limited via policy of "for_vendor"
