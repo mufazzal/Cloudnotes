@@ -22,33 +22,42 @@ For this
 
 
 resource based policy VS Identity based policy for cross accont access:-
- They both will provide a way to acceess a aws resource from one account fby the aws role/user from other account but there mechanism has a very significant diffrence:-
- Suppose you wants to access the aws resource name "muf_resource" from aws account "mufazzal" by the service "vend_service" in account "vendor" 
- Identity based policy:-
-  Here you will create a role in "mufazzal" like "access_for_vend" which will be assumable by a role/IAM user in account "vendor".
-  suppose "access_for_vend" [of mufazzal account] have below permission:-
-   {
-      Allow, "s3:*", "dynamo:*",
-   } 
-  So this role of mufazzal account "access_for_vend" can perform any operation on S3, dynamo that lies in mufazzal aws account.
+  They both will provide a way to acceess a aws resource from one account fby the aws role/user from other account but there mechanism has a very significant diffrence:-
+  Suppose you wants to access the aws resource name "muf_resource" from aws account "mufazzal" by the service "vend_service" in account "vendor" 
+  Identity based policy:-
+   Here you will create a role in "mufazzal" like "access_for_vend" which will be assumable by a role/IAM user in account "vendor".
+   suppose "access_for_vend" [of mufazzal account] have below permission:-
+    {
+       Allow, "s3:*", "dynamo:*",
+    } 
+   So this role of mufazzal account "access_for_vend" can perform any operation on S3, dynamo that lies in mufazzal aws account.
+ 
+   And, iam user/role "i_am_vendor" [of vendor account] have below permissions: 
+    {
+       Allow, "ec2:*", "lambda:*".  "sts:assumeRole"
+    }
+   So this role/user of vendor "i_am_vendor" can perform any operation on Ec2, lambda that lies in vendor aws account.
+ 
+   but what will happen if "i_am_vendor" assume the role "access_for_vend"? 
+    1. will it have collective permission to do operation on Ec2, lambda of vendor account as well as s3, dynamo of mufazzal account
+    2. will it have collective permission to do operation on Ec2, lambda of vendor account only
+    3. will it have collective permission to do operation on s3, dynamo of mufazzal account
+    ANS:-
+     once the role is assumed, It can perform operation on s3 and dynamo of mufazzal account only. it will not have orignal permission granted 
+     to "i_am_vendor" via its permission policy and can have only permission that granted via assumed role's permission policy.
+     So right ans is 3
+     Practically when you generate the temp cred with assume role, you actlly have two cred with you at asme time, one of the actual IAM user/role and other is of assumend one
+     Ex:-
+      a user vend_user1 assume role of home_role1 like below in lambda
+      ...
+      s3.upload()                                        ->  orignal cred of vend_user1 will be used
+      lambda.invoke()                                    ->  orignal cred of vend_user1 will be used
+      const tmpCred = sts.assumeRole()     
+      s3.upload()                                       ->  orignal cred of vend_user1 will be used
+      s3.upload({"bucket_in_home"}. tmpCred)            ->  temp cred of assumer role home_role1 by vend_user1 will be used
+      lambda.invoke({"lambda_in_home"}, tmpCred)        ->  temp cred of assumer role home_role1 by vend_user1 will be used
 
-  And, iam user/role "i_am_vendor" [of vendor account] have below permissions: 
-   {
-      Allow, "ec2:*", "lambda:*".  "sts:assumeRole"
-   }
-  So this role/user of vendor "i_am_vendor" can perform any operation on Ec2, lambda that lies in vendor aws account.
-
-  but what will happen if "i_am_vendor" assume the role "access_for_vend"? 
-   1. will it have collective permission to do operation on Ec2, lambda of vendor account as well as s3, dynamo of mufazzal account
-   2. will it have collective permission to do operation on Ec2, lambda of vendor account only
-   3. will it have collective permission to do operation on s3, dynamo of mufazzal account
-   ANS:-
-    once the role is assumed, It can perform operation on s3 and dynamo of mufazzal account only. it will loose all orignal permission granted 
-    to "i_am_vendor" via its permission policy and can have only permission that granted via assumed role's permission policy.
-    So right ans is 3
-
-   This is the big limitation of IAM based cross account access. once access given by assumed role, the principle will losse all the orignal permission 
-   granted by its orignal policy. this cause limitation of what that role could have done with assuming it.
+    Here in lambda of vendor account you have a superior control of own aws resources with resources of home account.
 ------------------
 
 To give a cross account access of any aws account resource to any forigen account role/user can be dome by 2 way
@@ -64,7 +73,9 @@ STS basd:-
   Remeber STS generate the temprary acces key and secret for foreigen role/user. this temp credential is used to perform ops of home aws account.
 
   So in this mechanism after role assumption, Role/User of forigen account gain more accessibity on forigen account. 
-  this is useful when you need to perform more task on forigen account then your own account.
+  Use case:-
+     this is useful when you need to perform many task on forigen account. 
+     You need to read some s3 bucket of forigen account, then populate forigen dynamo table and then run a lambda
 
 Resource policy based:-
   Here a resource policy document give the access to the Principle. That principle can be a service of home or forigen account.
@@ -76,6 +87,10 @@ Resource policy based:-
   The role/user of forigen account can access that resource of home aws account anytime without any role assumption. So the role/user of forigen account have to call sts 
   and generate temp credential to access home aws account's resources. 
   But unlike STS based access. that forigen role/user do not get any provillage of home aws account except the access on resource by resource based policy only.
+  Use case:-
+     this is useful when you need to perform very few task on forigen account. 
+     You need to read some s3 bucket only, or just need to invoke a lambda.
+
 
 
 
