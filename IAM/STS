@@ -62,3 +62,8 @@ Assume role and Console access:-
             2. role name  provided by "home" aws account [for_vendor in this case]
             press ok, and thw IAM user of "vendor1" aws account sniffed in "home" aws account with the role of "for_vendor"
             of course accesibilty of that aws console is limited via policy of "for_vendor"
+    IMP:  if trust policy has the external id check in it then console access is not provided after the role assumption. this is exception by AWS.
+
+Tagging a session:-
+    While calling assumerole api for grnrrating token you can pass tags for that session. This help to naroow down accees by token and identification of assuming user/role too.
+    for this trust policy of assuming role should also give allow for "sts:TagSession"
