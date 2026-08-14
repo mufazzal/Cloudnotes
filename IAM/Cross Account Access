@@ -78,6 +78,7 @@ STS basd:-
   Use case:-
      this is useful when you need to perform many task on forigen account. 
      You need to read some s3 bucket of forigen account, then populate forigen dynamo table and then run a lambda
+      
    
 
 Resource policy based:-
@@ -95,6 +96,10 @@ Resource policy based:-
   Use case:-
      this is useful when you need to perform very few task on forigen account. 
      You need to read some s3 bucket only, or just need to invoke a lambda.
+
+
+ STS based policy cover way more scope like if user wants access of the list of all bucket or list of all Secrets, you have to use STS only. Whereas resource based policy has its scope over a single resource
+  like you can give an access of single bucket or secret over which policy applied. there is no way to give access to get list of bucket or secrets by resource policy
 
 
  
