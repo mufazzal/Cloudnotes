@@ -71,16 +71,21 @@ STS basd:-
   home account, the Role/User of forigen account gain all the previllage of policy of home account's role 
   but it will not have privillage given by is own IAM policy lthat lies in forigen account.
   Remeber STS generate the temprary acces key and secret for foreigen role/user. this temp credential is used to perform ops of home aws account.
+  STS based access also provide a way to login in aws console with trusted role. You can login to you own aws account first then use "Switch Role" 
+  with forigen aws account + Role.
 
   So in this mechanism after role assumption, Role/User of forigen account gain more accessibity on forigen account. 
   Use case:-
      this is useful when you need to perform many task on forigen account. 
      You need to read some s3 bucket of forigen account, then populate forigen dynamo table and then run a lambda
+   
 
 Resource policy based:-
   Here a resource policy document give the access to the Principle. That principle can be a service of home or forigen account.
   Resource policy aleays executed after the IAM policy from eother same or other aws account. If principle belogs to forigen aws account then IAM policy 
   attached to role/user in that forigen account will get executed first.
+
+  Resource policy based access no way provide any aws colsole login to forigen account.
 
   Here access of resources of home account is given to forigen account service directly at resource level, so the IAM role/user of forigen account do not have 
   to assume any role of the home aws account.
@@ -91,6 +96,8 @@ Resource policy based:-
      this is useful when you need to perform very few task on forigen account. 
      You need to read some s3 bucket only, or just need to invoke a lambda.
 
+
+ 
 
 
 
