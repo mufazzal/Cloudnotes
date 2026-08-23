@@ -102,7 +102,13 @@ Resource policy based:-
   like you can give an access of single bucket or secret over which policy applied. there is no way to give access to get list of bucket or secrets by resource policy
 
 
- 
+ IAM policy + Resource policy * home / forigen account:-
+  Same account:-
+    If there is explicit DENY in any then its denied. explicit Allow will loos then.
+    If Allow exist in none, then no allowed
+    If Allow exist in any one then allow
+  Forigen Account:-
+    Here you must have EXPLICIT ALLOW in both, IAM policy[residing in forigen account] and resource policy of home account
 
 
 
