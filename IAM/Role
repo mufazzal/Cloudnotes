@@ -6,7 +6,6 @@ Role:-
   3. Identity fedration user.   
   By attaching the role to then you grant them the access to perform operation allowed to that role.
 
-Role's Trust Policy:-
   There is two policy attached to the role one is IAM Policy and other is Trust Policy
   IAM Policy: What the bearer can do.
   Trust policy: Who can own/assume this.
