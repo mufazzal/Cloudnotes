@@ -1,14 +1,27 @@
 Role:-
-  Many AWS service can perform certain operation on other service like an 
-    EC2 can put/post an image in S3, 
-    the codedeploy can attach/dettach/terminate the instances,
-    Lambda function can write logs in cloudwatch
-    etc.
-    
-    If one service need to perform certain operation on other service then the called service must have permission to perform that operation on Calle service.
-    This permission is given by the Roles.
-    The Role is inherently design for the specific services so that it can do operation on certain other services
-    
+  Role is a template which are made of policies. you can add as many policy you wants in the Role.
+  the role are assign to following items
+  1. An user from diffrent AWS account for cross account access
+  2. The AWS products like EC2, Lembda, RDS, Codedeploy
+  3. Identity fedration user.   
+  By attaching the role to then you grant them the access to perform operation allowed to that role.
+
+Role's Trust Policy:-
+  There is two policy attached to the role one is IAM Policy and other is Trust Policy
+  IAM Policy: What the bearer can do.
+  Trust policy: Who can own/assume this.
+  
+  The formate of trust policy also quite same as IAM. EG.
+    { "Version": "2012-10-17",
+      "Statement": [{
+          "Effect": "Allow",
+          "Principal": {"Service": "ec2.amazonaws.com"},
+          "Action": "sts:AssumeRole"
+     }]}    
+    The above statment tells us that we can attach this role to any EC2 instance.
+    Most of the part of this remain same but only principle keep changing. if you want it to attachabe to codedeploy the
+    "Principal": {"Service": "codedeploy.amazonaws.com"},
+
 Now the role document tells you two main thing
   1. Who can assume that role. ie which AWS services like S3, CFT, EC2 can asume that role.
   2. What resources and action the candidate aws service can access.
