@@ -1,139 +1,56 @@
-The IAM is of course a core of any system.
-This give u a way to create and authorize the user for ceertain user
-
-IAM is region independent, it means that if you create and nay user/group in the account then ir will be available to all 
-region, not specific to the one you may have selected.
+IAM is region independent.
 
 Root Account: This is the most parent account, basucally the owner one. like h.mufazzal@gmail.com in my case.
 This account/user neither can be deleted nor modified for less permission. This user have all the permissions.
 
-In the IAM module you create the user and its group. 
-
-In the company generally we create group like Admin, HR, Developer, Manageer etc. 
-This group will have specific set of permissions to perform operation on aws console.
-
-In IAM you should know the tuening between following things to uderstand it completely 
-(For now lets go in drief)
   1.  User: An entity that will access the aws console/cli and perform operation on it.role
-  2.  Policies: A set of permissions that are clubbed together for creating a profile.
-  3.  Role: ??????????????????
-  4.  Group: A group has a number of policy assign to it. and all the user in this group will have those policy assigned to them 
-              automatucally.
-              
-              
- Lets see User-Policies-Group tuening -
- 
- You have many people in team lets box them all in proper place
- 
- You have - 
-  Mufazzal, Abhishek, 
-  Anand, Dhaval
-  Abhijit, Jigitha, 
-  Ravi, poorty, Sourabh, pavvan
-  
-  For Developer -> 
-  
-  First idetify the accessablity of those guys, whart kind of operation they can do and so enlist the policies for them
-  E.G. A developer should have policies like 
-  AWSCodeBuildDeveloperAccess, AWSCodeDeployFullAccess etc. 
-  
-  Then create the group "Developers", This group will have all the policies we enlisted above. 
-  
-  So Group-Developer will have [AWSCodeBuildDeveloperAccess, AWSCodeDeployFullAccess] policies.
-  
-      Group = f(policies) and C(User) >> Group is a function of policies and collecion of users.
-  Finally Create user and assign them in group.
-  
+  2.  Policies: A set of permissions that are clubbed together for creating a access document.
+  3.  Role: An entity that provide access to other virtual entity lambda, EC2, aws service 
+  4.  Group: A group has a number of policy assign to it. and all the user in this group will have those policy assigned to them automatucally.
    
    Policies:-
-   In whole IAM this one is a most complcated or pain in a ***. Lets en in it 
-   Can user UUUUU perform the operation OOOO on the resource RRRRR
-   This is described in the form of JSON and u must master its interpetation
-    
-    So in very very generic form it goes like this ->
-    
-    User UUUU have policy PPP
-    PPP =
-      ...
-      Statement": [
-            {
-                "Effect": Allow/Deny, L1
-                "Action": OOOO,       L2
-                "Resource" RRRR:      L3
-            }, {...}, {...}
-         ] 
-    ...
-    
-    L1: tell you should he be able to do it or not
-    L2: List of action(add, edit, delete) we are talking about. Mostly its a array.
-    L3: List of resources (EC2, S3, Codedeploy) we are talking about.
-    
-    
-    
+     Can bearer of this policy[role/user] perform the operation OOOO on the resource RRRRR
+        ...
+        Statement": [
+              {
+                  "Effect": Allow/Deny, L1
+                  "Action": OOOO,       L2
+                  "Resource" RRRR:      L3
+              }, {...}, {...}
+           ] 
+      ...   
 
-   The Policy is the most fundamental document, it define that 
-   user UUUU has permisiion DENY/ALLOW to perform operation OOO on Resource RRR
-   You can write as many policy you wants, but there many such policy are already provideed by AWS already.
-   
-   The groups are the template which are made of policies. you can add as many policy you wants in the group.
-   Now all the user who are liing in this group will have those policy attached to them.
-   
-   
-   Can i assign policy directly to user ->
-    yes.
-    
-    
-   Role:-
-    Just like group, the Role is also a template which are made of policies. you can add as many policy you wants in the Role.
-    Role is quite a diffrent kind of entity. Role is not at all useful for the normal IAM user you created in IAM.
-    the role are assign to following items
-    1. An user from diffrent AWS account
-    2. The AWS products like EC2, Lembda, RDS, Codedeploy
-    3. Identity fedration user.
-   
-  The role is attachable entity to aws services like EC2 instance, RDS, Lambda etc.
-  By attaching the role to then you grant them the access to perform operation allowed to that role.
-  
-  But can we attach any role to any AWS servoce instance
-  No! Its depend on Trust Policy of Role.
-  
-  Role's Trust Policy:-
-    There is two policy attached to the role one is IAM Policy and other is Trust Policy
-    The IAM Policy tells that what resources and actions are allowed to owners of this roles.
-    The trust policy tells that to whome (EC2 or Lambda or CodeDeploy) we can attach this role to.
-    
-    The formate of trust policy also quite same as IAM. EG.
-      { "Version": "2012-10-17",
-        "Statement": [{
-            "Effect": "Allow",
-            "Principal": {"Service": "ec2.amazonaws.com"},
-            "Action": "sts:AssumeRole"
-       }]}    
-      The above statment tells us that we can attach this role to any EC2 instance.
-      Most of the part of this remain same but only principle keep changing.
-      if you want it to attachabe to codedeploy the
+    Policiies attachment:-
+      It can be directly attach to role/user as inline policy
+      managed policy can be attach to many role/user 
+      
+      Role:-
+        Just like group, the Role is also a template which are made of policies. you can add as many policy you wants in the Role.
+        Role is quite a diffrent kind of entity. Role is not at all useful for the normal IAM user you created in IAM.
+        the role are assign to following items
+        1. An user from diffrent AWS account for cross account access
+        2. The AWS products like EC2, Lembda, RDS, Codedeploy
+        3. Identity fedration user.   
+        By attaching the role to then you grant them the access to perform operation allowed to that role.
+
+      Role's Trust Policy:-
+        There is two policy attached to the role one is IAM Policy and other is Trust Policy
+        The IAM Policy tells that what resources and actions are allowed to owners of this roles.
+        The trust policy tells that to whome (EC2 or Lambda or CodeDeploy) we can attach this role to.
+        
+        The formate of trust policy also quite same as IAM. EG.
+          { "Version": "2012-10-17",
+            "Statement": [{
+                "Effect": "Allow",
+                "Principal": {"Service": "ec2.amazonaws.com"},
+                "Action": "sts:AssumeRole"
+           }]}    
+          The above statment tells us that we can attach this role to any EC2 instance.
+          Most of the part of this remain same but only principle keep changing.
+          if you want it to attachabe to codedeploy the
       "Principal": {"Service": "codedeploy.amazonaws.com"},
 
-      
-How a AWS user can assume the role and then release it after task done ?
-???????
-                      
-     
-There are 4 player
-user: the users
-group: the group of user with predifine permissions
-role: the permissions fpr aws services
-policy: the statement of permission which is attachable 
-         to all above 3.
-
-                 
--------------------
-
-Policy Simulatir:-
-  A very cool tool to check if a user, group, or role can access any api of any ase service or not.
-  use this url:-
-    https://policysim.aws.amazon.com/home/index.jsp?#
-    
+  
   
   
   
