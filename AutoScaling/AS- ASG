@@ -1,0 +1,44 @@
+An Auto Scaling group contains a collection of Amazon EC2 instances that are treated as a logical grouping for the purposes of automatic scaling and management
+
+In ASG you set
+  Param related Instances Infrastructre:-
+    - VPC 
+    - AZ: Slect multiple of them for higher availabilitiy
+    - Subnet: You have to select subnets from each selected AZ.
+    - Enable if you wants Public IP for each instance
+  Param related to Load balancing:
+    - You can slect LB and Target Group if you wants to launched instance behind the LB.
+  Param related to Capacity:-
+    Min Capacity: This the minimum number of instances that must be up all the time. even if Scalling policy assert capacity reduction, number will not go down below to this.
+    Min Capacity: This the maximun number of instances that must be up all the time. even if Scalling policy assert capacity increase,  number will not go above to this.
+    Desired Capacity: This is the number of instances at any point of time required to meet the capacity.
+      At begining user set it to some value of his choice. later this is adjusted throug the scalling policy.
+      EG: suppose user set it to 10 when he create the ASG. he also place some Scalling policy in that ASG. 
+      The ASG will launch the 10 instances in the begining. after sometime Scalling policy may fell to reduce or increase the capacity 
+      so it will change the value of desired capacity to either 8 ot 12.  
+  Param related to Scaling:-
+    Here you can define the logic of scalling. it could be Dynamic Scalling or Scheduled Scalling.
+  Param related to Health Check:-
+    
+  
+MaxInstanceLifetime:
+  In ASG you set this time. So that instance will be replaced after this much amount of time. This will be useful for complience purposes. 
+
+Instance Refresh:-
+  This is very useful funtion of ASG. If you have make any changes in the ASG settng like change in LT or LC and you wants it to reflect in the ASG.
+  You can refresh the instance and ASG will roll-down the running instances and roll-up their in the phase manner so you do not face the capacity issue. 
+  
+Modifying ASG:-
+  Adding AZ:-
+    If you wants you can add the AZ (and one subnet in it) in the ASG later. 
+    If you are also using the LB then you should make sure that you have enable that AZ for LB.
+
+ASG health check grace periode: 
+  This is the time in seconds which asg give to newly registered instance
+  before starting its health check.
+----------
+
+Attached EBS and EIP of Terminated EC2 instance:-
+  This 2 resource do not attached to replacement automatically. you have to do it by yourself.
+-------
+De
