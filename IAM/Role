@@ -74,4 +74,15 @@ External Id:-
       If external id chech is there in  trust policy then, "swich Role" feture for that role wil not work. The good practine is that if cross accout sharing is  done 
       withine the org then do not use external id bot for third party aws account do use it.
 
+-------------------
+
+iam:Passrole :-
+  This is the methode which is internally called over the role if a role is attached to any aws service.
+  If anyone[user/role] is attachubg a role to any AWs servie, the IAM policy the of that entity must have iam:PassRole => Allowed
+  EX:- If user 'mufazzal' is attaching a role "myLambdaRole" to any lambda the IAM policy of 'mufazzal' must have below permission
+    Effect: Allow
+    Action "iam:PassRole"
+    Resource "arn:aws:...:role/myLambdaRole"
+So pass role authorize you to attach role to any aws service.
+
 
